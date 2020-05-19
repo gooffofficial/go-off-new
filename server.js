@@ -1,7 +1,68 @@
-const mongo = require('mongodb').MongoClient; //MongoDB
+const mongoose = require('mongoose'); //MongoDB
 const client = require('socket.io').listen(4000).sockets; //Socket.io
-const URI = "mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?retryWrites=true&w=majority" //my MongoDB account
+//const URI = "mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?retryWrites=true&w=majority" //my MongoDB account
+const URI = "mongodb://localhost:27017/mongo"
+const Chat = require('./models/ChatSchema')
 
+mongoose.connect(URI,{useNewUrlParser: true});
+
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log('MongoDB connected...');
+    //Connect to Socket.io
+    client.on('connection', function(socket){
+        //create function to send status 
+        sendStatus = function(s){
+            socket.emit('status', s); //pass from server to client (index.html) use .emit
+        }
+
+        //Get chats from mongo collection
+        Chat.find().limit(100).sort({_id:1}).then(chat => { //fetching the chat messages
+            //if(err){
+            //    throw err;
+            //}
+
+            //Emit the messages - display them
+            socket.emit('output', chat);
+        }).catch(callback => {return callback});
+
+        //Handle input events
+        socket.on('input', function(data){ //catches things from client 
+            let name = data.name;
+            let message = data.message;
+
+            //Check for a name and message
+            if (name == '' || message == ''){
+                //send error status
+                sendStatus('Please enter a name and message');
+            }else{
+                //Insert message to database
+                let chatMessage = new Chat({name: name, message: message});
+                chatMessage.save().then(function(){
+                    client.emit('output', [data]);
+
+                    //Send status object
+                    sendStatus({
+                        message: 'Message sent', 
+                        clear: true
+                    });
+                });
+            }
+        });
+        //Handle clear
+        socket.on('clear', function(data){
+            //Remove all chats from the collection
+            Chat.deleteMany({}, function(){
+                //Emit cleared
+                socket.emit('cleared');
+            }); 
+        });
+    });
+});
+
+/*
 //Connect to MongoDB - the :// part created a database
 mongo.connect(URI, { useUnifiedTopology: true } ,function(err, db2){ //connect to MongoDB
     if(err){
@@ -61,3 +122,4 @@ mongo.connect(URI, { useUnifiedTopology: true } ,function(err, db2){ //connect t
         });
     });
 });
+*/
