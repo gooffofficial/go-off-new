@@ -22,7 +22,7 @@
         "48": "images/get_started48.png",
         "128": "images/get_started128.png"
     },
-    "content_security_policy": "script-src 'self' https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js; object-src 'self'; script-src 'self' index.js;",
+    "content_security_policy": "script-src 'self' https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js; object-src 'self';",
 
     "manifest_version": 2
 }

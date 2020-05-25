@@ -1,13 +1,25 @@
+const express = require('express'); //express.js
+const bodyParser = require('body-parser');
+const session = require('express-session');
 const mongoose = require('mongoose'); //MongoDB
-const client = require('socket.io').listen(4000).sockets; //Socket.io
+const client = require('socket.io').listen(4050).sockets; //Socket.io
 //const URI = "mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?retryWrites=true&w=majority" //my MongoDB account
 const URI = "mongodb://localhost:27017/mongo"
 const Chat = require('./models/ChatSchema')
+const Users = require('./models/Users')
+require('./config/passport');
+//app configuration
+const app = express(); 
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(session({ secret: 'passport-tutorial', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
+app.use(require('./routes'));
 
 mongoose.connect(URI,{useNewUrlParser: true});
 
 var db = mongoose.connection;
-
+app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log('MongoDB connected...');
