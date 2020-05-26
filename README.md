@@ -17,7 +17,7 @@ Install node dependencies with 'yarn install package', then run the server with 
 # user account stuff
 
 To register a new user: send a post request to localhost:8000 with a json formatted like this within the body:
-'''
+```
 {
     "user": {
         "_id": "5ecc59162f4bb86609d8773c",
@@ -25,7 +25,7 @@ To register a new user: send a post request to localhost:8000 with a json format
         "firstName": "John",
         "lastName": "Smith",
         "email": "jsmitty@gmail.com",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMiIsImZpcnN0TmFtZSI6IkpvaG4iLCJsYXN0TmFtZSI6IlNtaXRoIiwiZW1haWwiOiJqc21pdHR5QGdtYWlsLmNvbSIsIl9pZCI6IjVlY2M1OTE2MmY0YmI4NjYwOWQ4NzczYyIsImV4cCI6MTU5NTYzNDQ1NCwiaWF0IjoxNTkwNDUwNDU0fQ.w8yMMC_83hkuoU99lTVqiX9fL7OU29xiS1IUMa3rsWU"
+        "password": "1234"
     }
 }
-'''
+```
