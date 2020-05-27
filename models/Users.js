@@ -9,6 +9,8 @@ const UsersSchema = new Schema({
     username: String,
     firstName: String,
     lastName: String,
+    age: Number,
+    location: String,
     email: String,
     hash: String,
     salt: String
@@ -32,6 +34,8 @@ UsersSchema.methods.generateJWT = function() {
         username: this.username,
         firstName: this.firstName,
         lastName: this.lastName,
+        age: this.age,
+        location: this.location,
         email: this.email,
         _id: this._id,
         exp: parseInt(expirationDate.getTime()/1000, 10),
@@ -44,6 +48,8 @@ UsersSchema.methods.toAuthJSON = function() {
         username: this.username,
         firstName: this.firstName,
         lastName: this.lastName,
+        age: this.age,
+        location: this.location,
         email: this.email,
         token: this.generateJWT(),
     };
