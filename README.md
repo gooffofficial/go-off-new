@@ -16,7 +16,7 @@ Install node dependencies with 'yarn install package', then run the server with 
 
 # user account stuff
 
-To register a new user: send a post request to localhost:8000 with a json formatted like this within the body:
+To register a new user: send a post request to localhost:8000/api/users with a json formatted like this within the body:
 ```
 {
     "user": {
