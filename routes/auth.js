@@ -1,15 +1,38 @@
 const jwt = require('express-jwt');
-
 const getTokenFromHeaders = (req) => {
+    /*
     const{ headers: { authorization} } = req;
 
     if(authorization && authorization.split(' ')[0] === 'Token') {
         return authorization.split(' ')[1];
     }
     return null;
+    */
+    //console.log(req.cookies);
+    if(!req.cookies){
+        return null;
+    }
+    const userJWT = req.cookies.authJWT;
+    if(!userJWT){
+        return null
+    }
+    else{
+        return req.cookies.authJWT;
+    }
 }
 
 const auth = {
+    
+    sessionRequired: (req, res, next) => {
+        if(req.isAuthenticated()){
+            console.log("success");
+            return next();
+        }
+        else{
+            console.log("fail");
+        }
+    },
+    
     required: jwt({
         secret: 'secret',
         userProperty: 'payload',

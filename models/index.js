@@ -7,9 +7,9 @@ const basename = path.basename(__filename);
 
 const db = {};
 
-const sequelize = new Sequelize('test_server1', 'admin', 'INSERT AWS RDS PASSWORD', {
-  host: 'INSERT AWS RDS ADDRESS',
-  port: 3306,
+const sequelize = new Sequelize('test_server1', process.env.RDS_USER, process.env.RDS_PASSWORD, {
+  host: process.env.RDS_HOSTNAME,
+  port: process.env.RDS_PORT,
   dialect: 'mysql'
 });
 

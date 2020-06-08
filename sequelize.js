@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize')
 const UserModel = require('./models/Users')
 
-const sequelize = new Sequelize('test_server1', 'admin', 'INSERT AWS RDB PASSWORD', {
-  port: 3306,
-  host: 'INSERT AWS RDB ADDRESS',
+const sequelize = new Sequelize('test_server1', process.env.RDS_USER , process.env.RDS_PASSWORD, {
+  port: process.env.RDS_PORT,
+  host: process.env.RDS_HOSTNAME,
   dialect: 'mysql',
   pool: {
     max: 10,

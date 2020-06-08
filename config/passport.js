@@ -6,9 +6,29 @@ var db = require("../models");
 
 
 module.exports = function(passport){
+
+    passport.serializeUser((user, done) => {
+        done(null, user.username);
+    });
+
+    passport.deserializeUser((username, done) => {
+        
+        console.log('hello!')
+        db.User.findOne({where:{username:username}}).then((user) => {
+            if(user){
+                done(null, user.get());
+            }
+            else{
+                done(user.errors, null);
+            }
+        })
+        
+    }); 
+    
     passport.use(new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
+        //passReqToCallback : true
     }, (username, password, done) => {
         db.User.findOne({ 
             where: {

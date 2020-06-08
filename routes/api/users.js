@@ -52,6 +52,7 @@ router.post('/', auth.optional, (req, res, next) => {
             }
         })
     }
+    /*
     if(db.User.findOne({
       where: {
         username: user.username
@@ -63,6 +64,7 @@ router.post('/', auth.optional, (req, res, next) => {
         }
       })
     }
+    */
     db.User.create({
       username: user.username,
       name: user.name,
@@ -98,14 +100,17 @@ router.post('/login', auth.optional, (req, res, next) => {
       if(err) {
         return next(err);
       }
+      //console.log(passportUser);
       if(passportUser) {
         const user = passportUser;
         user.token = passportUser.generateJWT();
-        
+        res.cookie('authJWT', user.toAuthJSON().token, {
+          httpOnly: true,
+        })
         return res.json({ user: user.toAuthJSON() });
       }
   
-      return status(400).info;
+      return res.sendStatus(400).info;
     })(req, res, next);
   });
 
@@ -122,7 +127,6 @@ router.get('/current', auth.required, (req, res, next) => {
       if(!user) {
         return res.sendStatus(400);
       }
-
       return res.json({ user: user.toAuthJSON() });
     });
 })
@@ -130,4 +134,14 @@ router.get('/current', auth.required, (req, res, next) => {
 router.get('/failure', (req, res, next) => {
   res.send('failure')
 })
+
+function isLoggedIn(req, res, next){
+  //console.log(req)
+  console.log(req.session);
+  console.log(req._passport);
+  if(req.isAuthenticated()){
+    return next();
+  }
+  return res.send("Not authenticated")
+}
 module.exports = router;
