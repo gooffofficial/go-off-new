@@ -1,4 +1,7 @@
 const express = require('express'); //express.js
+const dotenv = require('dotenv');
+dotenv.config();
+const cookies = require('cookie-parser')
 const flash=require("connect-flash");
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -15,9 +18,10 @@ require('./config/passport')(passport);
 const app = express(); 
 
 app.use(flash());
+app.use(cookies());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(session({ secret: 'passport-tutorial', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'passport-tutorial', resave: true, saveUninitialized: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
