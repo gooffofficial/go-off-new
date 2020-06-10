@@ -17,6 +17,13 @@ router.post('/', auth.optional, (req, res, next) => {
             }
         })
     }
+    if(!user.email){
+      return res.status(422).json({
+        errors: {
+          email: 'is required',
+        }
+      })
+    }
     if(!user.name){
         return res.status(422).json({
             errors: {
@@ -68,12 +75,16 @@ router.post('/', auth.optional, (req, res, next) => {
     db.User.create({
       username: user.username,
       name: user.name,
+      email: user.email,
       age: user.age,
       location: user.location,
       gender: user.gender,
       password: user.password
     })
-    .then((user) => res.json({ user: user.toAuthJSON() }));
+    .then((user) => res.json({ user: user.toAuthJSON() }))
+    .catch((err) => {
+      res.json({"error": err.errors[0].message});
+    });
 });
 
 //POST for user login
@@ -127,7 +138,7 @@ router.get('/current', auth.required, (req, res, next) => {
       if(!user) {
         return res.sendStatus(400);
       }
-      return res.json({ user: user.toAuthJSON() });
+      return res.json({ user: user.getUserInfo() });
     });
 })
 
