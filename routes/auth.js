@@ -8,16 +8,16 @@ const getTokenFromHeaders = (req) => {
     }
     return null;
     */
-    //console.log(req.cookies);
-    if(!req.cookies){
+    //console.log(req);
+    if(!req.signedCookies){
         return null;
     }
-    const userJWT = req.cookies.authJWT;
+    const userJWT = req.signedCookies.authJWT;
     if(!userJWT){
         return null
     }
     else{
-        return req.cookies.authJWT;
+        return req.signedCookies.authJWT;
     }
 }
 

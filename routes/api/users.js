@@ -3,6 +3,8 @@ const router = require('express').Router();
 const auth = require('../auth');
 //const Users = require('models/Users');
 const db = require('../../models')
+const logger = require('../../logger')
+const _ = require('lodash')
 
 
 //POST for new user registration
@@ -81,7 +83,10 @@ router.post('/', auth.optional, (req, res, next) => {
       gender: user.gender,
       password: user.password
     })
-    .then((user) => res.json({ user: user.toAuthJSON() }))
+    .then((user) => {
+      logger("User " + user.username + " created.")
+      res.json({ user: user.toAuthJSON() })
+    })
     .catch((err) => {
       res.json({"error": err.errors[0].message});
     });
@@ -117,6 +122,7 @@ router.post('/login', auth.optional, (req, res, next) => {
         user.token = passportUser.generateJWT();
         res.cookie('authJWT', user.toAuthJSON().token, {
           httpOnly: true,
+          signed: true,
         })
         return res.json({ user: user.toAuthJSON() });
       }
@@ -125,6 +131,51 @@ router.post('/login', auth.optional, (req, res, next) => {
     })(req, res, next);
   });
 
+//POST for updating user info
+router.post('/update', auth.required, (req, res, next) => {
+  const { payload: { id } } = req;
+  let request = {
+    username: req.body.username,
+    name: req.body.name,
+    email: req.body.email,
+    age: req.body.age,
+    location: req.body.location,
+    gender: req.body.gender,
+    password: req.body.password
+  }
+  
+  request = _.pickBy(request, _.identity); // <--- Will remove empty | null | undefined
+  for(var key in request){
+    if(key == "password"){
+      logger("User " + id + " updated their password");
+    }
+    else{
+      logger("User " + id + " updated their " + key + " to " + request[key]);
+    }
+  }
+  return db.User.update(request, {
+    where: {
+      id: id
+    },
+    individualHooks: true
+  }).then(() => {
+    db.User.findOne({
+      where: {
+        id: id
+      }
+    }).then((user) => {
+      if(!user){
+        return res.sendStatus(400);
+      }
+      user.token = user.generateJWT();
+      res.cookie('authJWT', user.toAuthJSON().token, {
+        httpOnly: true,
+        signed: true
+      })
+      return res.json(user.getUserInfo());
+    })
+  })
+})
 
 //GET authenticated user
 router.get('/current', auth.required, (req, res, next) => {
@@ -144,6 +195,16 @@ router.get('/current', auth.required, (req, res, next) => {
 
 router.get('/failure', (req, res, next) => {
   res.send('failure')
+})
+
+router.get('/logout', (req, res, next) => {
+  req.logOut();
+  res.cookie('authJWT', '',{
+    httpOnly: true,
+    maxAge: 0,
+    signed: true
+  })
+  return res.json({status: 'logged out'});
 })
 
 function isLoggedIn(req, res, next){
