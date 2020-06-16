@@ -83,6 +83,10 @@ module.exports = (sequelize, type) => {
     }
     User.beforeCreate(function(user) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-      });
+    });
+
+    User.beforeUpdate(function(user) {
+        user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+    });
     return User;
 }

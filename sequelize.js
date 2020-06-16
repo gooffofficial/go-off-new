@@ -21,5 +21,5 @@ sequelize.sync()
   })
 
 module.exports = {
-  Users,
+  Users, sequelize
 }
