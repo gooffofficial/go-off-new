@@ -84,7 +84,7 @@ router.post('/', auth.optional, (req, res, next) => {
       password: user.password
     })
     .then((user) => {
-      logger("User " + user.username + " created.")
+      logger("User " + user.id + " created With username " + user.username);
       res.json({ user: user.toAuthJSON() })
     })
     .catch((err) => {
@@ -143,14 +143,14 @@ router.post('/update', auth.required, (req, res, next) => {
     gender: req.body.gender,
     password: req.body.password
   }
-  
+  //console.log(req.payload)
   request = _.pickBy(request, _.identity); // <--- Will remove empty | null | undefined
   for(var key in request){
     if(key == "password"){
       logger("User " + id + " updated their password");
     }
     else{
-      logger("User " + id + " updated their " + key + " to " + request[key]);
+      logger("User " + id + " updated their " + key + " from " + req.payload[key] + " to " + request[key]);
     }
   }
   return db.User.update(request, {
