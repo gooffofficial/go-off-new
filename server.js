@@ -25,7 +25,7 @@ app.use(session({ secret: 'passport-tutorial', resave: true, saveUninitialized: 
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(require('./routes'));
+
 
 mongoose.connect(URI,{useNewUrlParser: true});
 
@@ -38,7 +38,9 @@ db.once('open', function() {
     console.log('MongoDB connected...');
     //Connect to Socket.io
     client.on('connection', function(socket){
-        //create function to send status 
+        //create function to send status
+        var address = socket.handshake.address;
+        console.log(address) 
         sendStatus = function(s){
             socket.emit('status', s); //pass from server to client (index.html) use .emit
         }
@@ -55,25 +57,32 @@ db.once('open', function() {
 
         //Handle input events
         socket.on('input', function(data){ //catches things from client 
-            let name = data.name;
-            let message = data.message;
-
-            //Check for a name and message
-            if (name == '' || message == ''){
-                //send error status
-                sendStatus('Please enter a name and message');
-            }else{
-                //Insert message to database
-                let chatMessage = new Chat({name: name, message: message});
-                chatMessage.save().then(function(){
-                    client.emit('output', [data]);
-
-                    //Send status object
-                    sendStatus({
-                        message: 'Message sent', 
-                        clear: true
+            if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
+                let name = data.name;
+                let message = data.message;
+    
+                //Check for a name and message
+                if (name == '' || message == ''){
+                    //send error status
+                    sendStatus('Please enter a name and message');
+                }else{
+                    //Insert message to database
+                    let chatMessage = new Chat({name: name, message: message});
+                    chatMessage.save().then(function(){
+                        client.emit('output', [data]);
+    
+                        //Send status object
+                        sendStatus({
+                            message: 'Message sent', 
+                            clear: true
+                        });
                     });
-                });
+                }
+            }
+            else{
+                sendStatus({
+                    message: 'Your source is not authorized to send messages'
+                })
             }
         });
         //Handle clear
@@ -85,4 +94,5 @@ db.once('open', function() {
             }); 
         });
     });
+    app.use(require('./routes'));
 });
