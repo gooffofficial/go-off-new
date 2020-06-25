@@ -2,7 +2,7 @@
     "name": "chat test",
     "version": "1.0", 
     "description": "chat test", 
-    "permissions": ["activeTab","declarativeContent","storage"], 
+    "permissions": ["activeTab","declarativeContent","storage", "http://localhost/*"], 
     "background": {
         "scripts": ["background.js"],
         "persistent": false
