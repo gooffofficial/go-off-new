@@ -11,9 +11,10 @@
     margin-top: 100px;
 }
 hr{
-    position: relative;
+    position: absolute;
     border: 1px solid #808080;
     width: 100%;
+    margin-top: 55px;
     color: #808080;
 }
 #mag_glass{
