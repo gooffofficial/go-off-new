@@ -1,6 +1,8 @@
 const express = require('express'); //express.js
 const dotenv = require('dotenv');
+const jwt = require('express-jwt');
 dotenv.config();
+const cookie = require('cookie');
 const cookies = require('cookie-parser')
 const flash=require("connect-flash");
 const bodyParser = require('body-parser');
@@ -38,7 +40,12 @@ db.once('open', function() {
     console.log('MongoDB connected...');
     //Connect to Socket.io
     client.on('connection', function(socket){
-        //create function to send status
+        //get jwt from request cookies to authenticate user
+        reqCookies = cookie.parse(socket.request.headers.cookie || '');
+        authCookie = reqCookies.authJWT;
+
+        console.log(authCookie);
+        //console.log(authCookie);
         var address = socket.handshake.address;
         console.log(address) 
         sendStatus = function(s){
@@ -55,21 +62,27 @@ db.once('open', function() {
             socket.emit('output', chat);
         }).catch(callback => {return callback});
 
+        socket.on('room', function(room) {
+            console.log('joined ' + room)
+            socket.join(room);
+        })
         //Handle input events
         socket.on('input', function(data){ //catches things from client 
             if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
                 let name = data.name;
                 let message = data.message;
-    
+                let r = data.room;
                 //Check for a name and message
                 if (name == '' || message == ''){
                     //send error status
                     sendStatus('Please enter a name and message');
                 }else{
                     //Insert message to database
+                    console.log(r);
                     let chatMessage = new Chat({name: name, message: message});
                     chatMessage.save().then(function(){
-                        client.emit('output', [data]);
+                        //after saving message, emit to all clients connected to that room
+                        client.in(r).emit('output', [data])
     
                         //Send status object
                         sendStatus({

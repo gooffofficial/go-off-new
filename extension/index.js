@@ -25,14 +25,16 @@
     }
     //Connect to socket.io
     //Make sure IP address is the IP of the server
-    var socket = io.connect('http://127.0.0.1:4050'); 
+    var socket = io.connect('http://localhost:4050');
+
+    socket.emit('room', 'test2');
 
     //Check for connection
     if(socket !== undefined){
         console.log('Connected to socket');
         //Handle Output 
         socket.on('output', function(data){
-            //console.log(data);
+            console.log(data);
             if(data.length){
                 for(var x = 0; x < data.length; x++){
                     //Build out message div
@@ -69,10 +71,10 @@
                 */
                 var xhr = new XMLHttpRequest();
                 //console.log(xhr)
-                xhr.open("POST", "http://localhost:8000/api/chat/", true);
+                xhr.open("POST", "http://localhost:8000/api/chat/test2", true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify({
-                   message: textarea.value
+                   message: textarea.value,
                 }));
                 textarea.value = '';
                 event.preventDefault();
