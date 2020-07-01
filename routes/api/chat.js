@@ -17,9 +17,22 @@ router.post('/', auth.required, (req, res, next) => {
     const message = req.body.message;
     socket.emit('input', {
         name: username,
-        message: message
+        message: message,
+        room: 'test',
     });
     console.log('Chat sent')
+    return res.status(200);
+})
+
+router.post('/:room', auth.required, (req, res, next) => {
+    const { payload: { username }} = req;
+    const message = req.body.message;
+    socket.emit('input', {
+        name: username,
+        message: message,
+        room: req.params.room
+    });
+    console.log('Chat sent');
     return res.status(200);
 })
 
