@@ -42,6 +42,10 @@ hr{
     border-radius: 50%;
     margin-right: 10px;
 }
+#search{
+    margin-top: 10px;
+    float:right;
+}
 .fprofpic img{
     border-radius: 50%;
     top: 8px;
