@@ -1,13 +1,41 @@
+var hold; 
 (function(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+            document.getElementById("username").innerHTML = myArr.user.name; 
+            hold = document.getElementById("username");
+            console.log(hold);
+        }
+    };
+    xhr.open("GET", 'http://localhost:8000/api/users/current', true);
+    xhr.send();
+    // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
+    // document.getElementById("username").innerHTML = result.user.name;
+    // console.log(result.user.name);
+    // hold = document.getElementById("username");
+    // console.log('hold', hold);
+// })
+})();
+(function(){
+    // var xhr = new XMLHttpRequest();
+   
+    // xhr.open("GET", chrome.extension.getURL('name.json'), true);
+    // myArr = JSON.parse(this.responseText);
+    // console.log(myArr.name);
+    // xhr.send();
+
     var element = function(id){
         return document.getElementById(id);
     }
-
+    
     //Get Elements
     var status = element('status');
     var messages = element('messages');
     var textarea = element('textarea');
     var username = element('username');
+    console.log(username.textContent);
     var clearBtn = element('clear');
 
     //Set default status
@@ -62,7 +90,7 @@
             if(event.which === 13 && event.shiftKey == false){
                 //Emit to server input
                 socket.emit('input', {
-                    name: username.value,
+                    name: username.textContent,
                     message: textarea.value
                 });
                 textarea.value = '';
@@ -79,5 +107,14 @@
         socket.on('cleared', function(){
             messages.textContent = '';
         });
+
+        //Logout
+        var logoff = element('logout');
+        logoff.addEventListener('click', function(){
+            window.open('http://localhost:8000/api/users/logout')
+        });
     }
 })();
+chrome.browserAction.setPopup({
+    popup:''
+  });
