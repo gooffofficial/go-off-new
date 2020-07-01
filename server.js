@@ -9,9 +9,10 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const mongoose = require('mongoose'); //MongoDB
 const client = require('socket.io').listen(4050).sockets; //Socket.io
-//const URI = "mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?retryWrites=true&w=majority" //my MongoDB account
-const URI = "mongodb://localhost:27017/mongo"
+const URI = "mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?retryWrites=true&w=majority" //my MongoDB account
+//const URI = "mongodb://localhost:27017/mongo"
 const Chat = require('./models/ChatSchema')
+const Room = require('./models/RoomSchema') //Test Rooms
 const passport = require('passport')
 //const Users = require('./models/UsersMongo')
 const { Users, sequelize } = require('./sequelize')
@@ -66,8 +67,30 @@ db.once('open', function() {
             console.log('joined ' + room)
             socket.join(room);
         })
+        const newRoom = new Room(); //create a new chat room (everytime click chrome-extn) in DB - to test schema
         //Handle input events
         socket.on('input', function(data){ //catches things from client 
+            // let name = data.name;
+            // let message = data.message;
+            
+            // //unable to fetch information about the user such as location/age
+
+            // //Check for a name and message
+            // if (name == '' || message == ''){
+            //     //send error status
+            //     sendStatus('Please enter a name and message');
+            // }else{
+            //     //Insert message to database
+            //     let chatMessage = new Chat({name: name, message: message, room: newRoom._id});
+            //     chatMessage.save().then(function(){
+            //         client.emit('output', [data]);
+            //         newRoom.messages.push(chatMessage);
+            //         newRoom.users.push(name);
+            //         newRoom.save();
+            //         //Send status object
+            //         sendStatus({
+            //             message: 'Message sent', 
+            //             clear: true
             if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
                 let name = data.name;
                 let message = data.message;
@@ -102,9 +125,11 @@ db.once('open', function() {
         socket.on('clear', function(data){
             //Remove all chats from the collection
             Chat.deleteMany({}, function(){
+                //ROOMS are not DELETED
                 //Emit cleared
                 socket.emit('cleared');
             }); 
+            
         });
     });
     app.use(require('./routes'));

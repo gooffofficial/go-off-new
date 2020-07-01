@@ -23,6 +23,7 @@
     "mongoose": "^5.9.14",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4",
     "package": "^1.0.1",
     "passport": "^0.4.1",
