@@ -88,11 +88,20 @@ var hold;
         //Handle Input
         textarea.addEventListener('keydown', function(event){
             if(event.which === 13 && event.shiftKey == false){
+                /*
                 //Emit to server input
                 socket.emit('input', {
                     name: username.textContent,
                     message: textarea.value
                 });
+                */
+                var xhr = new XMLHttpRequest();
+                //console.log(xhr)
+                xhr.open("POST", "http://localhost:8000/api/chat/", true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                   message: textarea.value
+                }));
                 textarea.value = '';
                 event.preventDefault();
             }
