@@ -79,27 +79,27 @@ button:after {
 button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 
 #top-profile{
-    position: absolute;
-    left: 660px;
-    top: 100px;
-    right: 660px;
-    height: 400px;
+    position: fixed;
+    float: center;
+    left: 20%;
+    top: 8%;
+    width: 50%;
+    height: 30%;
     border: 1px solid;
 
 }
 
 #profile-pic{
-    position: relative
-    float:left;
+    position: relative;
     border-radius: 50%;
     height: 150px;
     width: 150px;
-    left: 50px;
-    top: 50px;
+    left: 25px;
+    top: 15px;
 
 }
 #Home{
-    margin-top: 150px;
+    margin-top: 250px;
     font-size: 20px;
 }
 
