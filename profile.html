@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="profile.css">
+    <!-- <script type="text/javascript" src="profile.js"></script> -->
 <title>Test</title>
 </head>
 <body>
@@ -18,31 +19,30 @@
     <div class="fprofpic">
     
         <img src="https://clutchpoints.com/wp-content/uploads/2020/02/Celtics_-Jayson-Tatum-is-blossoming-into-a-superstar.jpg"/>
-    </div>
-
-
-    <form id="form">
-        <input type="submit" id="plus">
-    </form>
-
-    <form id="form">
-        <input type="submit" id="mag_glass">
-    </form>
-
-    <form id="form">
-    	<input type="text" id="search">
-    </form>
+    </div> 
     
+    <button type="submit" id="Plus">
+        <img src="https://weare1910.com/wp/wp-content/uploads/2016/05/snow_icon_large07-1.jpg" alt="add icon" height="40" width="40">
+    </button>
+
+    <button type="submit" id="Submit" onclick="searchBar()">
+        <img src="https://png.pngtree.com/png-clipart/20190516/original/pngtree-find-vector-icon-png-image_3725277.jpg" alt= "profile icon 1" height="40" width="40">
+    </button>
+
+    <button id="Cancel" onclick="searchBar1()">Cancel</button>
+    
+
+    <form id="bar_form">
+        <input type="text" id="search" style="display: block" placeholder="Search">
+    </form>
+
     
     <div id="line"><hr /></div>
 
-<!--     <div class="profpic">
-        <img src="https://clutchpoints.com/wp-content/uploads/2020/02/Celtics_-Jayson-Tatum-is-blossoming-into-a-superstar.jpg"/>
-    </div> -->
-
 
 <div id="top-profile">
-	<img id = "profile-pic" src="https://clutchpoints.com/wp-content/uploads/2020/02/Celtics_-Jayson-Tatum-is-blossoming-into-a-superstar.jpg"/>
+    <img id = "profile-pic" src="https://clutchpoints.com/wp-content/uploads/2020/02/Celtics_-Jayson-Tatum-is-blossoming-into-a-superstar.jpg"/>
+    
 </div>
     
 <a href="home.html">
@@ -62,5 +62,26 @@
     Notifications
 </button>
 
+
+<script>
+    document.getElementById("bar_form").style.visibility="hidden";
+    function searchBar(){
+        // alert("function called");
+        document.getElementById("Submit").style.visibility = "hidden";
+        document.getElementById("Plus").style.visibility = "hidden";
+        document.getElementById("Cancel").style.visibility = "visible";
+        document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
+        document.getElementsByClassName('pname')[0].style.visibility = "hidden";
+        document.getElementById("bar_form").style.visibility="visible";
+    }
+    function searchBar1(){
+        document.getElementById("Submit").style.visibility = "visible";
+        document.getElementById("Plus").style.visibility = "visible";
+        document.getElementById("Cancel").style.visibility = "hidden";
+        document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
+        document.getElementsByClassName('pname')[0].style.visibility = "visible";
+        document.getElementById("bar_form").style.visibility="hidden";
+    }
+</script>
 </body>
 </html>
