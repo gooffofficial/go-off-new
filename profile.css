@@ -85,7 +85,7 @@ button:after {
 button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 
 #top-profile{
-<<<<<<< HEAD
+/*<<<<<<< HEAD
     position: absolute;
     left: 22%;
     top: 11%;
@@ -97,31 +97,81 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     left: 20%;
     top: 8%;
     width: 50%;
+    height: 30%;*/
+    position: absolute;
+    left: 25%;
+    top: 8%;
+    right: 25%;
     height: 30%;
->>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c
-    border: 1px solid;
+/*>>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c*/
+/*    border: 1px solid;*/
 
 }
 
 #profile-pic{
-<<<<<<< HEAD
-    position: relative
+/*<<<<<<< HEAD
+    position: absolute;
     float: left;
     border-radius: 50%;
     height: 150px;
     width: 150px;
     left: 60px;
-    top: 50px;
-=======
-    position: relative;
+    top: 100px;
+=======*/
+    position: absolute;
     border-radius: 50%;
-    height: 150px;
-    width: 150px;
+    height: 200px;
+    width: 200px;
     left: 25px;
-    top: 15px;
->>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c
+    top: 20px;
+/*>>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c*/
 
 }
+
+#profile-name {
+    position: absolute;
+    top: 10%;
+    left: 25%;
+}
+
+#follower-count {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+}
+
+#following-count {
+    position: absolute;
+    top: 25%;
+    left: 40%;
+}
+
+#post-count {
+    position: absolute;
+    top: 25%;
+    left: 55%;
+}
+
+#location-logo{
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    top: 32%;
+    left: 65%;
+}
+
+#location{
+    position: absolute;
+    top: 25%;
+    left: 67%;
+}
+
+#bio {
+    position: absolute;
+    top: 40%;
+    left: 25%;
+}
+
 #Submit{
     float: right;
     top: -10px;
