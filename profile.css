@@ -85,26 +85,16 @@ button:after {
 button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 
 #top-profile{
-<<<<<<< HEAD
     position: absolute;
     left: 22%;
     top: 11%;
     right: 660px;
     height: 300px;
-=======
-    position: fixed;
-    float: center;
-    left: 20%;
-    top: 8%;
-    width: 50%;
-    height: 30%;
->>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c
     border: 1px solid;
 
 }
 
 #profile-pic{
-<<<<<<< HEAD
     position: relative
     float: left;
     border-radius: 50%;
@@ -112,14 +102,6 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     width: 150px;
     left: 60px;
     top: 50px;
-=======
-    position: relative;
-    border-radius: 50%;
-    height: 150px;
-    width: 150px;
-    left: 25px;
-    top: 15px;
->>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c
 
 }
 #Submit{
@@ -161,11 +143,7 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     background-color: lightskyblue;
 }
 #Home{
-<<<<<<< HEAD
     margin-top: 220px;
-=======
-    margin-top: 250px;
->>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c
     font-size: 20px;
 }
 
