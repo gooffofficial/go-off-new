@@ -122,7 +122,7 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     border-radius: 50%;
     height: 200px;
     width: 200px;
-    left: 25px;
+    left: 0px;
     top: 20px;
 /*>>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c*/
 
@@ -170,6 +170,53 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     position: absolute;
     top: 40%;
     left: 25%;
+}
+
+#articles{
+    position: absolute;
+    top: 35%;
+    left: 25%;
+}
+
+#article-1{
+    position: absolute;
+    left: 25%;
+    top: 45%;
+    width: 355.5px;
+    height: 300px;
+/*    border: 1px solid;*/
+}
+
+#article-1-image{
+    position: absolute;
+    height: 200px;
+    width: 355.5px;
+    top: 0%;
+    left: 0%;
+}
+
+#article-1-title{
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top: 70%;
+}
+
+#article-1-author{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 83%;
+}
+
+#article-1-read-time{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 90%;
+
 }
 
 #Submit{
