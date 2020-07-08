@@ -182,7 +182,7 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     position: absolute;
     left: 25%;
     top: 45%;
-    width: 355.5px;
+    width: 255.5px;
     height: 300px;
 /*    border: 1px solid;*/
 }
@@ -190,7 +190,7 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 #article-1-image{
     position: absolute;
     height: 200px;
-    width: 355.5px;
+    width: 255.5px;
     top: 0%;
     left: 0%;
 }
@@ -219,6 +219,87 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 
 }
 
+#article-2{
+    position: absolute;
+    left: 45%;
+    top: 45%;
+    width: 255.5px;
+    height: 300px;
+/*    border: 1px solid;*/
+}
+
+#article-2-image{
+    position: absolute;
+    height: 200px;
+    width: 255.5px;
+    top: 0%;
+    left: 0%;
+}
+
+#article-2-title{
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top: 70%;
+}
+
+#article-2-author{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 83%;
+}
+
+#article-2-read-time{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 90%;
+
+}
+
+#article-3{
+    position: absolute;
+    left: 65%;
+    top: 45%;
+    width: 255.5px;
+    height: 300px;
+/*    border: 1px solid;*/
+}
+
+#article-3-image{
+    position: absolute;
+    height: 200px;
+    width: 255.5px;
+    top: 0%;
+    left: 0%;
+}
+
+#article-3-title{
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top: 70%;
+}
+
+#article-3-author{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 83%;
+}
+
+#article-3-read-time{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 90%;
+
+}
 #Submit{
     float: right;
     top: -10px;

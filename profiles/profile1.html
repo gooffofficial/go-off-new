@@ -8,7 +8,7 @@
 <body onload="fillinVar()">
 	<a href="home.html">
     	<div class="logo">
-            <img src="https://www.nba.com/.element/img/1.0/teamsites/logos/teamlogos_500x500/bos.png"/>
+        	<img src="https://www.nba.com/.element/img/1.0/teamsites/logos/teamlogos_500x500/bos.png"/>
     	</div>
     </a>
 
@@ -79,6 +79,37 @@
 	</a>
 </div>
     
+<div id="article-2">
+	<!-- Need to find a way to get the first image from a post and use that as the thumbnail image automatically -->
+	<a id="article2_link">
+        <img id="article-2-image"/>
+	</a>
+	<a id="article2_link1">
+		<h3 id="article-2-title"> </h3>
+	</a>
+	<a id="article2_link2">
+		<h4 id="article-2-author"></h4>
+	</a>
+	<a id="article2_link3">
+		<h4 id="article-2-read-time"> </h4>
+	</a>
+</div>
+
+<div id="article-3">
+	<!-- Need to find a way to get the first image from a post and use that as the thumbnail image automatically -->
+	<a id="article3_link">
+        <img id="article-3-image"/>
+	</a>
+	<a id="article3_link1">
+		<h3 id="article-3-title"> </h3>
+	</a>
+	<a id="article3_link2">
+		<h4 id="article-3-author"></h4>
+	</a>
+	<a id="article3_link3">
+		<h4 id="article-3-read-time"> </h4>
+	</a>
+</div>
 <a href="home.html">
 	<button type="submit" id="Home">
     	<img src="https://image.shutterstock.com/image-vector/home-icon-260nw-400484740.jpg" alt="house icon" height="20" width="20"/>
@@ -130,14 +161,16 @@
         var article1_author = "By Basketball Reference";
         var article1_readtime = "Ten Minute read";
         var article1_title = "Jayson Tatum's Basketball Reference Page";
-        // var article2_img = 
-        // var article2_title = 
-        // var article2_author = 
-        // var article2_readtime = 
-        // var article3_img = 
-        // var article3_title = 
-        // var article3_author = 
-        // var article3_readtime = 
+        var article2_img = "https://a.espncdn.com/i/headshots/nba/players/full/3917376.png";
+        var article2_link = "https://www.basketball-reference.com/players/b/brownja02.html";
+        var article2_title = "Jaylen Brown's Basketball Reference Page";
+        var article2_author = "By Basketball Reference";
+        var article2_readtime = "10 Minute Read";
+        var article3_img = "https://d2cwpp38twqe55.cloudfront.net/req/202006251/images/players/walkeke02.jpg";
+        var article3_link = "https://www.basketball-reference.com/players/w/walkeke02.html";
+        var article3_title = "Kemba Walker's Basketball Reference Page";
+        var article3_author = "By Basketball Reference";
+        var article3_readtime = "11 Minute Read";
 
         document.getElementById("profile-name").innerHTML = name;
         document.getElementById("pname").innerHTML = name;
@@ -159,6 +192,24 @@
         document.getElementById("article-1-title").innerHTML = article1_title;
         document.getElementById("article-1-author").innerHTML = article1_author;
         document.getElementById("article-1-read-time").innerHTML = article1_readtime;
+
+        document.getElementById("article2_link").setAttribute("href", article2_link);
+        document.getElementById("article2_link1").setAttribute("href", article2_link);
+        document.getElementById("article2_link2").setAttribute("href", article2_link);
+        document.getElementById("article2_link3").setAttribute("href", article2_link);
+        document.getElementById("article-2-image").src = article2_img;
+        document.getElementById("article-2-title").innerHTML = article2_title;
+        document.getElementById("article-2-author").innerHTML = article2_author;
+        document.getElementById("article-2-read-time").innerHTML = article2_readtime;
+
+        document.getElementById("article3_link").setAttribute("href", article3_link);
+        document.getElementById("article3_link1").setAttribute("href", article3_link);
+        document.getElementById("article3_link2").setAttribute("href", article3_link);
+        document.getElementById("article3_link3").setAttribute("href", article3_link);
+        document.getElementById("article-3-image").src = article3_img;
+        document.getElementById("article-3-title").innerHTML = article3_title;
+        document.getElementById("article-3-author").innerHTML = article3_author;
+        document.getElementById("article-3-read-time").innerHTML = article3_readtime;
     }
 </script>
 </body>
