@@ -78,21 +78,6 @@
 		<h4 id="article-1-read-time"> </h4>
 	</a>
 </div>
-
-<div id="article-2">
-	<a href="https://www.nbcsports.com/boston/celtics/2020-nba-mock-draft-roundup-predictions-celtics-first-round-picks">
-		<img id="article-2-image" src="https://sportsnaut.com/wp-content/uploads/2019/02/USATSI_11824889_168386999_lowres.jpg"/>
-	</a>
-	<a href="https://www.nbcsports.com/boston/celtics/2020-nba-mock-draft-roundup-predictions-celtics-first-round-picks">
-		<h3 id="article-2-title">2020 NBA Mock Draft roundup: Predictions for Celtics' first-round picks</h3>
-	</a>
-	<a href="https://www.nbcsports.com/boston/celtics/2020-nba-mock-draft-roundup-predictions-celtics-first-round-picks">
-		<h4 id="article-2-author"> By Nick Goss</h4>
-	</a>
-	<a href="https://www.nbcsports.com/boston/celtics/2020-nba-mock-draft-roundup-predictions-celtics-first-round-picks">
-		<h4 id="article-2-read-time">1 minute read</h4>
-	</a>
-</div>
     
 <div id="article-2">
 	<!-- Need to find a way to get the first image from a post and use that as the thumbnail image automatically -->
@@ -164,8 +149,8 @@
     }
     function fillinVar(){
         //declaring variables to be inserted into the page
-        var name = result.user.name;
-        var ppic = "https://cdn.facilityexecutive.com/wp-content/uploads/2019/10/Thumbs.Up_-503x300.jpg";
+        var name = "Sam Leach";
+        var ppic = "https://cdn.facilityexecutive.com/wp-content/uploads/2019/10/Thumbs.Up_-503x300.jpg"
         var followers = "Followers: " + 0;
         var following = "Following: " + 0;
         var posts = "Posts: " + 0;
@@ -187,13 +172,8 @@
         var article3_author = "By Basketball Reference";
         var article3_readtime = "11 Minute Read";
 
-
-        
-        // document.getElementById("pname").innerHTML = result.user.name;
-
-        
-        document.getElementById("pname").innerHTML = name;
         document.getElementById("profile-name").innerHTML = name;
+        document.getElementById("pname").innerHTML = name;
 
         document.getElementById("profile-pic").src = ppic;
         document.getElementById("fprofpic").src = ppic;
@@ -231,6 +211,6 @@
         document.getElementById("article-3-author").innerHTML = article3_author;
         document.getElementById("article-3-read-time").innerHTML = article3_readtime;
     }
-    </script>
+</script>
 </body>
 </html>
