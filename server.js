@@ -9,8 +9,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const mongoose = require('mongoose'); //MongoDB
 const client = require('socket.io').listen(4050).sockets; //Socket.io
-const URI = "mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?retryWrites=true&w=majority" //my MongoDB account
-//const URI = "mongodb://localhost:27017/mongo"
+//const URI = "mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?retryWrites=true&w=majority" //my MongoDB account
+const URI = "mongodb://localhost:27017/mongo"
 const Chat = require('./models/ChatSchema')
 const Room = require('./models/RoomSchema') //Test Rooms
 const passport = require('passport')
@@ -45,7 +45,7 @@ db.once('open', function() {
         reqCookies = cookie.parse(socket.request.headers.cookie || '');
         authCookie = reqCookies.authJWT;
 
-        console.log(authCookie);
+        console.log(socket.request.authCookie);
         //console.log(authCookie);
         var address = socket.handshake.address;
         console.log(address) 
@@ -53,44 +53,33 @@ db.once('open', function() {
             socket.emit('status', s); //pass from server to client (index.html) use .emit
         }
 
-        //Get chats from mongo collection
-        Chat.find().limit(100).sort({_id:1}).then(chat => { //fetching the chat messages
-            //if(err){
-            //    throw err;
-            //}
-
-            //Emit the messages - display them
-            socket.emit('output', chat);
-        }).catch(callback => {return callback});
 
         socket.on('room', function(room) {
-            console.log('joined ' + room)
-            socket.join(room);
+            //Get chats from mongo collection
+            Room.findById(room).populate('messages').limit(100).sort({_id:1}).then(chat => { //fetching the chat messages
+                //if(err){
+                //    throw err;
+                //}
+                if (chat.users.length >= 5){
+                    newRoom = new Room();
+                    newRoom.save().then(() => {
+                        console.log('joined ' + newRoom._id)
+                        socket.join(newRoom._id);      
+                        socket.emit('output', [{'name': 'server', 'message': 'created new room'}])
+                    })
+                }
+                //Emit the messages - display them
+                else{
+                    console.log('joined ' + room)
+                    socket.join(room);
+                    socket.emit('output', chat.messages);
+                }
+            }).catch(callback => {return callback});
         })
-        const newRoom = new Room(); //create a new chat room (everytime click chrome-extn) in DB - to test schema
+        //const newRoom = new Room(); //create a new chat room (everytime click chrome-extn) in DB - to test schema
+
         //Handle input events
         socket.on('input', function(data){ //catches things from client 
-            // let name = data.name;
-            // let message = data.message;
-            
-            // //unable to fetch information about the user such as location/age
-
-            // //Check for a name and message
-            // if (name == '' || message == ''){
-            //     //send error status
-            //     sendStatus('Please enter a name and message');
-            // }else{
-            //     //Insert message to database
-            //     let chatMessage = new Chat({name: name, message: message, room: newRoom._id});
-            //     chatMessage.save().then(function(){
-            //         client.emit('output', [data]);
-            //         newRoom.messages.push(chatMessage);
-            //         newRoom.users.push(name);
-            //         newRoom.save();
-            //         //Send status object
-            //         sendStatus({
-            //             message: 'Message sent', 
-            //             clear: true
             if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
                 let name = data.name;
                 let message = data.message;
@@ -102,6 +91,14 @@ db.once('open', function() {
                 }else{
                     //Insert message to database
                     console.log(r);
+                    client.in(r).emit('output', [data])
+    
+                        //Send status object
+                        sendStatus({
+                            message: 'Message sent', 
+                            clear: true
+                        });
+                    /*
                     let chatMessage = new Chat({name: name, message: message});
                     chatMessage.save().then(function(){
                         //after saving message, emit to all clients connected to that room
@@ -113,6 +110,7 @@ db.once('open', function() {
                             clear: true
                         });
                     });
+                    */
                 }
             }
             else{

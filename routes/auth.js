@@ -8,7 +8,7 @@ const getTokenFromHeaders = (req) => {
     }
     return null;
     */
-    //console.log(req);
+    console.log(req.signedCookies);
     if(!req.signedCookies){
         return null;
     }

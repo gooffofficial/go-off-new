@@ -81,6 +81,14 @@ module.exports = (sequelize, type) => {
             email: this.email,
         }
     }
+    User.prototype.getProfile = function(){
+        return{
+            //need to add propic, bio, etc
+            username: this.username,
+            name: this.name,
+            location: this.location,
+        }
+    }
     User.beforeCreate(function(user) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     });

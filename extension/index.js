@@ -55,7 +55,7 @@ var hold;
     //Make sure IP address is the IP of the server
     var socket = io.connect('http://localhost:4050');
 
-    socket.emit('room', 'test2');
+    socket.emit('room', '5efcf65e45bd0b4cff512a38');
 
     //Check for connection
     if(socket !== undefined){
@@ -99,7 +99,7 @@ var hold;
                 */
                 var xhr = new XMLHttpRequest();
                 //console.log(xhr)
-                xhr.open("POST", "http://localhost:8000/api/chat/test2", true);
+                xhr.open("POST", "http://localhost:8000/api/chat/5efcf65e45bd0b4cff512a38", true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify({
                    message: textarea.value,
