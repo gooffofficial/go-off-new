@@ -29,6 +29,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+    console.log(req.host);
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+    res.header("Access-Control-Allow-Credentials", "true");
+    next();
+  });
+
 
 mongoose.connect(URI,{useNewUrlParser: true});
 
@@ -36,101 +43,101 @@ var db = mongoose.connection;
 
 app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log('MongoDB connected...');
-    //Connect to Socket.io
-    client.on('connection', function(socket){
-        //get jwt from request cookies to authenticate user
-        reqCookies = cookie.parse(socket.request.headers.cookie || '');
-        authCookie = reqCookies.authJWT;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//     console.log('MongoDB connected...');
+//     //Connect to Socket.io
+//     client.on('connection', function(socket){
+//         //get jwt from request cookies to authenticate user
+//         reqCookies = cookie.parse(socket.request.headers.cookie || '');
+//         authCookie = reqCookies.authJWT;
 
-        console.log(authCookie);
-        //console.log(authCookie);
-        var address = socket.handshake.address;
-        console.log(address) 
-        sendStatus = function(s){
-            socket.emit('status', s); //pass from server to client (index.html) use .emit
-        }
+//         console.log(authCookie);
+//         //console.log(authCookie);
+//         var address = socket.handshake.address;
+//         console.log(address) 
+//         sendStatus = function(s){
+//             socket.emit('status', s); //pass from server to client (index.html) use .emit
+//         }
 
-        //Get chats from mongo collection
-        Chat.find().limit(100).sort({_id:1}).then(chat => { //fetching the chat messages
-            //if(err){
-            //    throw err;
-            //}
+//         //Get chats from mongo collection
+//         Chat.find().limit(100).sort({_id:1}).then(chat => { //fetching the chat messages
+//             //if(err){
+//             //    throw err;
+//             //}
 
-            //Emit the messages - display them
-            socket.emit('output', chat);
-        }).catch(callback => {return callback});
+//             //Emit the messages - display them
+//             socket.emit('output', chat);
+//         }).catch(callback => {return callback});
 
-        socket.on('room', function(room) {
-            console.log('joined ' + room)
-            socket.join(room);
-        })
-        const newRoom = new Room(); //create a new chat room (everytime click chrome-extn) in DB - to test schema
-        //Handle input events
-        socket.on('input', function(data){ //catches things from client 
-            // let name = data.name;
-            // let message = data.message;
+//         socket.on('room', function(room) {
+//             console.log('joined ' + room)
+//             socket.join(room);
+//         })
+//         const newRoom = new Room(); //create a new chat room (everytime click chrome-extn) in DB - to test schema
+//         //Handle input events
+//         socket.on('input', function(data){ //catches things from client 
+//             // let name = data.name;
+//             // let message = data.message;
             
-            // //unable to fetch information about the user such as location/age
+//             // //unable to fetch information about the user such as location/age
 
-            // //Check for a name and message
-            // if (name == '' || message == ''){
-            //     //send error status
-            //     sendStatus('Please enter a name and message');
-            // }else{
-            //     //Insert message to database
-            //     let chatMessage = new Chat({name: name, message: message, room: newRoom._id});
-            //     chatMessage.save().then(function(){
-            //         client.emit('output', [data]);
-            //         newRoom.messages.push(chatMessage);
-            //         newRoom.users.push(name);
-            //         newRoom.save();
-            //         //Send status object
-            //         sendStatus({
-            //             message: 'Message sent', 
-            //             clear: true
-            if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
-                let name = data.name;
-                let message = data.message;
-                let r = data.room;
-                //Check for a name and message
-                if (name == '' || message == ''){
-                    //send error status
-                    sendStatus('Please enter a name and message');
-                }else{
-                    //Insert message to database
-                    console.log(r);
-                    let chatMessage = new Chat({name: name, message: message});
-                    chatMessage.save().then(function(){
-                        //after saving message, emit to all clients connected to that room
-                        client.in(r).emit('output', [data])
+//             // //Check for a name and message
+//             // if (name == '' || message == ''){
+//             //     //send error status
+//             //     sendStatus('Please enter a name and message');
+//             // }else{
+//             //     //Insert message to database
+//             //     let chatMessage = new Chat({name: name, message: message, room: newRoom._id});
+//             //     chatMessage.save().then(function(){
+//             //         client.emit('output', [data]);
+//             //         newRoom.messages.push(chatMessage);
+//             //         newRoom.users.push(name);
+//             //         newRoom.save();
+//             //         //Send status object
+//             //         sendStatus({
+//             //             message: 'Message sent', 
+//             //             clear: true
+//             if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
+//                 let name = data.name;
+//                 let message = data.message;
+//                 let r = data.room;
+//                 //Check for a name and message
+//                 if (name == '' || message == ''){
+//                     //send error status
+//                     sendStatus('Please enter a name and message');
+//                 }else{
+//                     //Insert message to database
+//                     console.log(r);
+//                     let chatMessage = new Chat({name: name, message: message});
+//                     chatMessage.save().then(function(){
+//                         //after saving message, emit to all clients connected to that room
+//                         client.in(r).emit('output', [data])
     
-                        //Send status object
-                        sendStatus({
-                            message: 'Message sent', 
-                            clear: true
-                        });
-                    });
-                }
-            }
-            else{
-                sendStatus({
-                    message: 'Your source is not authorized to send messages'
-                })
-            }
-        });
-        //Handle clear
-        socket.on('clear', function(data){
-            //Remove all chats from the collection
-            Chat.deleteMany({}, function(){
-                //ROOMS are not DELETED
-                //Emit cleared
-                socket.emit('cleared');
-            }); 
+//                         //Send status object
+//                         sendStatus({
+//                             message: 'Message sent', 
+//                             clear: true
+//                         });
+//                     });
+//                 }
+//             }
+//             else{
+//                 sendStatus({
+//                     message: 'Your source is not authorized to send messages'
+//                 })
+//             }
+//         });
+//         //Handle clear
+//         socket.on('clear', function(data){
+//             //Remove all chats from the collection
+//             Chat.deleteMany({}, function(){
+//                 //ROOMS are not DELETED
+//                 //Emit cleared
+//                 socket.emit('cleared');
+//             }); 
             
-        });
-    });
+//         });
+//     });
     app.use(require('./routes'));
-});
+// });
