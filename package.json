@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "animate.css": "^4.1.0",
     "bcrypt": "^4.0.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
@@ -16,8 +17,9 @@
     "express": "^4.17.1",
     "express-jwt": "^5.3.3",
     "express-session": "^1.17.1",
+    "http-server": "^0.12.3",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "log4js": "^6.3.0",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.14",
@@ -26,11 +28,13 @@
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4",
     "package": "^1.0.1",
+    "package.json": "^2.0.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sequelize": "^5.21.11",
     "sequelize-cli": "^5.5.1",
     "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0"
+    "socket.io-client": "^2.3.0",
+    "yarn": "^1.22.4"
   }
 }

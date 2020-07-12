@@ -15,10 +15,10 @@
     <div class="dropdown">
         <button class="dropbtn">Profiles</button>
         <div class="dropdown-content">
-            <a href="profiles/profile1.html">Profile 1</a>
-            <a href="profiles/profile2.html">Profile 2</a>
-            <a href="profiles/profile3.html">Profile 3</a>
-            <a href="profiles/profile4.html">Profile 4</a>
+            <a href="file:///Users/samleach/Downloads/git/front_end/profiles/profile1.html">Profile 1</a>
+            <a href="file:///Users/samleach/Downloads/git/front_end/profiles/profile2.html">Profile 2</a>
+            <a href="file:///Users/samleach/Downloads/git/front_end/profiles/profile3.html">Profile 3</a>
+            <a href="file:///Users/samleach/Downloads/git/front_end/profiles/profile4.html">Profile 4</a>
         </div>
     </div>
 
@@ -47,7 +47,7 @@
     </form>
 
 
-    <div id="line" style="top: 5%;"><hr></div>
+    <div id="line"><hr /></div>
 
 
     <div id="top-profile">
@@ -148,12 +148,9 @@
         document.getElementById("bar_form").style.visibility="hidden";
     }
     function fillinVar(){
-
-        
-
         //declaring variables to be inserted into the page
-        var name = "Sabeer";
-        var ppic = "https://www.al.com/resizer/fvs3VIPur0miQcPCxLeLjami_N4=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/NSDL77J3KJFZXCK3MFWAV7HMUE.JPG";
+        var name = "Sam Leach";
+        var ppic = "https://cdn.facilityexecutive.com/wp-content/uploads/2019/10/Thumbs.Up_-503x300.jpg"
         var followers = "Followers: " + 0;
         var following = "Following: " + 0;
         var posts = "Posts: " + 0;
@@ -175,34 +172,8 @@
         var article3_author = "By Basketball Reference";
         var article3_readtime = "11 Minute Read";
 
-
-        (function(){
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    var myArr = JSON.parse(this.responseText);
-                    console.log(myArr);
-                    document.getElementById("pname").innerHTML = myArr.user.name; 
-                    document.getElementById("profile-name").innerHTML = myArr.user.name;
-                    document.getElementById("location").innerHTML = myArr.user.location;
-                }
-            };
-            xhr.open("GET", 'http://localhost:8000/api/users/current', true);
-            xhr.withCredentials = true;
-            xhr.send();
-    // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
-    // document.getElementById("username").innerHTML = result.user.name;
-    // console.log(result.user.name);
-    // hold = document.getElementById("username");
-    // console.log('hold', hold);
-// })
-        })();
-
-        // document.getElementById("pname").innerHTML = result.user.name;
-
-        
-        document.getElementById("pname").innerHTML = name;
         document.getElementById("profile-name").innerHTML = name;
+        document.getElementById("pname").innerHTML = name;
 
         document.getElementById("profile-pic").src = ppic;
         document.getElementById("fprofpic").src = ppic;
@@ -210,7 +181,7 @@
         document.getElementById("follower-count").innerHTML = followers;
         document.getElementById("following-count").innerHTML = following;
         document.getElementById("post-count").innerHTML = posts;
-        // document.getElementById("location").innerHTML = location;
+        document.getElementById("location").innerHTML = location;
         document.getElementById("bio").innerHTML = bio;
 
         document.getElementById("article1_link").setAttribute("href", article1_link);
@@ -240,6 +211,6 @@
         document.getElementById("article-3-author").innerHTML = article3_author;
         document.getElementById("article-3-read-time").innerHTML = article3_readtime;
     }
-    </script>
+</script>
 </body>
 </html>

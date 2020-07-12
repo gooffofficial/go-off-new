@@ -29,6 +29,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+    console.log(req.host);
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+    res.header("Access-Control-Allow-Credentials", "true");
+    next();
+  });
+
 
 mongoose.connect(URI,{useNewUrlParser: true});
 
@@ -36,14 +43,14 @@ var db = mongoose.connection;
 
 app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log('MongoDB connected...');
-    //Connect to Socket.io
-    client.on('connection', function(socket){
-        //get jwt from request cookies to authenticate user
-        reqCookies = cookie.parse(socket.request.headers.cookie || '');
-        authCookie = reqCookies.authJWT;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//     console.log('MongoDB connected...');
+//     //Connect to Socket.io
+//     client.on('connection', function(socket){
+//         //get jwt from request cookies to authenticate user
+//         reqCookies = cookie.parse(socket.request.headers.cookie || '');
+//         authCookie = reqCookies.authJWT;
 
         console.log(socket.request.authCookie);
         //console.log(authCookie);
@@ -128,7 +135,7 @@ db.once('open', function() {
                 socket.emit('cleared');
             }); 
             
-        });
-    });
+         });
+     });
     app.use(require('./routes'));
-});
+ });
