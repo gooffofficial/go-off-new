@@ -85,7 +85,7 @@ router.post('/', auth.optional, (req, res, next) => {
     })
     .then((user) => {
       logger("User " + user.id + " created With username " + user.username);
-      res.json({ user: user.toAuthJSON() })
+      res.json({ user: user.getUserInfo() })
     })
     .catch((err) => {
       res.json({"error": err.errors[0].message});
@@ -189,8 +189,22 @@ router.get('/current', auth.required, (req, res, next) => {
       if(!user) {
         return res.sendStatus(400);
       }
-      return res.json({ user: user.getUserInfo() });
+      return res.status(200).json({ user: user.getUserInfo() });
     });
+})
+
+router.get('/profile/:user', auth.optional, (req, res, next) => {
+  return db.User.findOne({
+    where: {
+      username: req.params.user
+    }
+  })
+  .then((user) => {
+    if(!user) {
+      return res.sendStatus(400);
+    }
+    return res.status(200).json({ user: user.getProfile() })
+  })
 })
 
 router.get('/failure', (req, res, next) => {
