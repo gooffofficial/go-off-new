@@ -43,14 +43,14 @@ var db = mongoose.connection;
 
 app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
 
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//     console.log('MongoDB connected...');
-//     //Connect to Socket.io
-//     client.on('connection', function(socket){
-//         //get jwt from request cookies to authenticate user
-//         reqCookies = cookie.parse(socket.request.headers.cookie || '');
-//         authCookie = reqCookies.authJWT;
+ db.on('error', console.error.bind(console, 'connection error:'));
+ db.once('open', function() {
+     console.log('MongoDB connected...');
+     //Connect to Socket.io
+     client.on('connection', function(socket){
+         //get jwt from request cookies to authenticate user
+         reqCookies = cookie.parse(socket.request.headers.cookie || '');
+         authCookie = reqCookies.authJWT;
 
         console.log(socket.request.authCookie);
         //console.log(authCookie);
