@@ -194,7 +194,7 @@ router.get('/current', auth.required, (req, res, next) => {
 })
 
 router.get('/profile/:user', auth.optional, (req, res, next) => {
-  return db.user.findOne({
+  return db.User.findOne({
     where: {
       username: req.params.user
     }

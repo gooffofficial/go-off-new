@@ -87,6 +87,11 @@ module.exports = (sequelize, type) => {
             username: this.username,
             name: this.name,
             location: this.location,
+            propic: 'https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg',
+            bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+            followers: 0,
+            following: 0,
+            news: ['https://www.nytimes.com/2020/07/12/world/coronavirus-updates.html?action=click&module=Top%20Stories&pgtype=Homepage', 'https://www.washingtonpost.com/world/2020/07/11/bolsonaro-coronavirus-video-timeline/?arc404=true', 'https://theathletic.com/1923630/2020/07/12/the-unique-nature-of-the-nhls-return-to-play-is-a-stage-where-coaches-can-shine/']
         }
     }
     User.beforeCreate(function(user) {
