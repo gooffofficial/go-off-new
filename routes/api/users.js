@@ -85,7 +85,14 @@ router.post('/', auth.optional, (req, res, next) => {
     })
     .then((user) => {
       logger("User " + user.id + " created With username " + user.username);
-      res.json({ user: user.getUserInfo() })
+      db.Profile.create({
+        UserId: user.id
+      })
+      .then(() => {
+        {
+          res.json({ user: user.getUserInfo() })
+        }
+      })
     })
     .catch((err) => {
       res.json({"error": err.errors[0].message});
@@ -203,7 +210,17 @@ router.get('/profile/:user', auth.optional, (req, res, next) => {
     if(!user) {
       return res.sendStatus(400);
     }
-    return res.status(200).json({ user: user.getProfile() })
+    var prof = {user: user.getUserInfo()};
+    db.Profile.findOne({
+      where: { UserId: user.id }
+    })
+    .then((profile) => {
+      for(let[key, value] of Object.entries(profile.getProfileInfo())){
+        prof.user[key] = value
+      }
+      return res.status(200).json(prof);
+    })
+    //return res.status(200).json({ user: user.getProfileInfo() })
   })
 })
 
