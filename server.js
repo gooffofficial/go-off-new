@@ -67,7 +67,7 @@ app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
                 //if(err){
                 //    throw err;
                 //}
-                if (chat.users.length >= 5){
+                if (chat.users.length > 5){
                     newRoom = new Room();
                     newRoom.save().then(() => {
                         console.log('joined ' + newRoom._id)
