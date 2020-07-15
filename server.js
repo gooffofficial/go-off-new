@@ -30,7 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-    console.log(req.host);
+    console.log(req.hostname);
     res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
     res.header("Access-Control-Allow-Credentials", "true");
     next();

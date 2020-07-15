@@ -5,7 +5,7 @@
     left: 20%;
 }
 #fprofpic{
-    right: 22%;
+    right: 28%;
     top: 1%;
     position: absolute;
     height: 7%;
@@ -22,9 +22,9 @@ hr{
     position: absolute;
     top: 10%;
     margin-bottom: 5%;
-    border: 1px solid #808080;
+    border: 1px solid #b6b1b1;
     width: 100%;
-    color: #808080;
+    color: #b6b1b1;
 }
 #search{
     position: absolute;
@@ -41,14 +41,14 @@ hr{
     -o-border-radius: 4px;
     border-radius: 4px;
     
-    padding: 10px 5px;
+    padding: 5px 5px;
     text-indent: 20px;
     
     -webkit-transition: all 0.2s;
     -moz-transition: all 2s;
     transition: all 0.2s;
     
-    width: 490px;
+    width: 50%;
     /* float: right; */
     /* left: -200px; */
 }
@@ -74,9 +74,10 @@ hr{
 }
 .pname{
     top: 3%;
-    right: 17.5%;
+    right: 19.5%;
     position: absolute;
-    width: 3%;
+    width: 8%;
+    /* border: 1px solid rgba(153, 150, 150, 0.116); */
     /* top: 8px;
     float: right;
     margin-top: 10px;
@@ -89,16 +90,6 @@ button{
     cursor: pointer;
     background: none;
 }
-button:after {
-    content: " ";
-    transition: background-color .3s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 
 /* #line{
     position: absolute;
@@ -124,7 +115,7 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     right: 25%;
     height: 30%;
     margin-right: 5%;
-    border: 1px solid rgba(0, 0, 0, .2);
+    /* border: 1px solid rgba(0, 0, 0, .2); */
 /*>>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c*/
 /*    border: 1px solid;*/
 
@@ -152,47 +143,48 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 #profile-name {
     position: absolute;
     top: 10%;
-    left: 25%;
+    left: 30%;
     width: 70%;
     bottom: 2%;
+    font-size: 300%;
 }
 
 #follower-count {
     position: absolute;
-    top: 25%;
-    left: 25%;
+    top: 40%;
+    left: 30%;
 }
 
 #following-count {
     position: absolute;
-    top: 25%;
-    left: 40%;
+    top: 40%;
+    left: 50%;
 }
 
 #post-count {
     position: absolute;
-    top: 25%;
-    left: 55%;
+    top: 40%;
+    left: 68%;
 }
 
 #location-logo{
     position: absolute;
     height: 18px;
     width: 18px;
-    top: 32%;
-    left: 65%;
+    top: 48%;
+    left: 78%;
 }
 
 #location{
     position: absolute;
-    top: 25%;
-    left: 67%;
+    top: 40%;
+    left: 82%;
 }
 
 #bio {
     position: absolute;
-    top: 40%;
-    left: 25%;
+    top: 55%;
+    left: 30%;
 }
 
 #articles{
@@ -207,7 +199,9 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     top: 45%;
     width: 18%;
     height: 35%;
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid rgba(153, 150, 150, 0.116);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
 /*    border: 1px solid;*/
 }
 
@@ -221,19 +215,24 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 
 #article-1-title{
     position: absolute;
-    text-align: center;
+    text-align: left;
     margin: auto;
-    top: 60%;
-    float: bottom;
+    top: 70%;
+    font-size: medium;
+    left: 5%;
+    color: black;
+    /* float: bottom; */
 }
 
 #article-1-author{
     position: absolute;
-    left: 50%;
+    left: 28%;
+    font-size: smaller;
     margin-right: -50%;
     transform: translate(-50%, -50%); 
-    top: 83%;
-    float: bottom;
+    top: 56%;
+    color: black;
+    /* float: bottom; */
 }
 
 #article-1-read-time{
@@ -241,18 +240,22 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%); 
-    top: 90%;
-    float: bottom;
+    top: 85%;
+    color: black;
+    font-size: small;
+    /* float: bottom; */
 
 }
 
 #article-2{
-    position: absolute;
+    position: fixed;
     left: 45%;
     top: 45%;
     width: 18%;
     height: 35%;
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid rgba(153, 150, 150, 0.116);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
 }
 
 #article-2-image{
@@ -265,17 +268,22 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 
 #article-2-title{
     position: absolute;
-    text-align: center;
+    text-align: left;
     margin: auto;
-    top: 60%;
+    top: 70%;
+    font-size: medium;
+    left: 5%;
+    color: black;
 }
 
 #article-2-author{
     position: absolute;
-    left: 50%;
+    left: 28%;
+    font-size: smaller;
     margin-right: -50%;
     transform: translate(-50%, -50%); 
-    top: 83%;
+    top: 56%;
+    color: black;
 }
 
 #article-2-read-time{
@@ -283,7 +291,9 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%); 
-    top: 90%;
+    top: 85%;
+    color: black;
+    font-size: small;
 }
 
 #article-3{
@@ -292,7 +302,9 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     top: 45%;
     width: 18%;
     height: 35%;
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid rgba(153, 150, 150, 0.116);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
 /*    border: 1px solid;*/
 }
 
@@ -306,17 +318,22 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 
 #article-3-title{
     position: absolute;
-    text-align: center;
+    text-align: left;
     margin: auto;
-    top: 60%;
+    top: 70%;
+    font-size: medium;
+    left: 5%;
+    color: black;
 }
 
 #article-3-author{
     position: absolute;
-    left: 50%;
+    left: 28%;
+    font-size: smaller;
     margin-right: -50%;
     transform: translate(-50%, -50%); 
-    top: 80%;
+    top: 56%;
+    color: black;
 }
 
 #article-3-read-time{
@@ -324,11 +341,13 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%); 
-    top: 90%;
+    top: 85%;
+    color: black;
+    font-size: small;
 
 }
 #Submit{
-    right: 30%;
+    right: 36%;
     top: 0%;
     border-radius: 50%;
     position: absolute;
@@ -343,28 +362,19 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     margin-right: 10px; */
 }
 #Plus{
-    right: 25.5%;
-    top: 0%;
-    border-radius: 50%;
+    right: 31.5%;
+    top: -1.5%;
     position: absolute;
-    /* background-image: url("https://weare1910.com/wp/wp-content/uploads/2016/05/snow_icon_large07-1.jpg");
-    background-size: cover;
-    top: 8px;
-    height: 40px;
-    width: 40px;
-    border: none;
-    cursor: pointer;
-    color: transparent;
     border-radius: 50%;
-    margin-right: 10px; */
 }
 #Cancel{
     position: absolute;
     margin-top: 10px;
     float: right;
     visibility: hidden;
-    left: 61%;
+    right: 20%;
     background-color: lightskyblue;
+    padding: 5px 5px;
 }
 #Home{
     margin-top: 220px;
@@ -378,6 +388,39 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 #Notification{
     font-size: 20px;
 }
+
+#Home:after {
+    content: " ";
+    transition: background-color .3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#Home:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
+
+#Profile:after {
+    content: " ";
+    transition: background-color .3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#Profile:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
+
+#Notification:after {
+    content: " ";
+    transition: background-color .3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#Notification:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
 
 /* Dropdown Button */
 .dropbtn {
@@ -394,8 +437,9 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     position: relative;
     display: inline-block;
     float: right;
-    margin-right: 240px;
-    visibility: hidden;
+    right: 5%;
+    margin-top: .5%;
+    /* visibility: hidden; */
   }
   
   /* Dropdown Content (Hidden by Default) */
@@ -424,3 +468,30 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.droparrow{
+    position: absolute;
+    display: inline-block;
+    float: right;
+    right: 17%;
+    margin-top: 1%;
+    /* border: 1px solid rgba(153, 150, 150, 0.116); */
+}
+
+.dropdown-arrowcontent{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    right: 0%;
+    /* margin-top: 250%; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.droparrow:hover .dropdown-arrowcontent{
+    display: block;
+}
+
+.droparrow:hover .dropdown-arrowcontent {display: block;}
+
+.dropdown-arrowcontent p:hover {background-color: rgb(146, 198, 223);}

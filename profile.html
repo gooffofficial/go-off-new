@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="profile.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
     <!-- <script type="text/javascript" src="profile.js"></script> -->
 <title>Test</title>
 </head>
@@ -22,6 +23,16 @@
         </div>
     </div>
 
+    <div class="droparrow">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
+        <div class="dropdown-arrowcontent">
+            <p>Go to Profile</p>
+            <p>Settings & Privacy</p>
+            <p>Install Chrome Extension</p>
+            <p>Log Out</p>
+        </div>
+    </div>
+
     <div class="pname">
         <h><span id="pname"></span></h>
     </div>
@@ -32,18 +43,18 @@
     </div> 
     
     <button type="submit" id="Plus">
-        <img src="https://weare1910.com/wp/wp-content/uploads/2016/05/snow_icon_large07-1.jpg" alt="add icon" height="40" width="40">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAL0AAAELCAMAAAC77XfeAAAAclBMVEX///8AAAD6+vrt7e2Hh4fh4eHV1dXOzs5MTExubm6dnZ01NTXQ0NC7u7vw8PAxMTE9PT0nJydDQ0NdXV2vr6/o6OiAgIDCwsKKiopJSUlVVVVkZGRPT092dnYqKiq1tbUYGBgNDQ2YmJgeHh6kpKRpaWm9k/K5AAAE3klEQVR4nO2d21KrQBBFgyE3TNAkJka8RFD//xePxINCwmVgumeyq/Z6toZVitD09HSPRoQQQgghhBBCCCGEEEIIIYQQQgixZDc7RvtFslkHJ9L1JlmE0XG28y3WwWR12L4HzXxss9XEt2Qtsyxp8S6TZDPfshUm0dzQvGAeXcnfYBqmPdV/SMOpb/XJYZB5wcHnX+Dh1so95/bBj/pub63+w979o3S6FXLP2br9D1huBN1znpbO3KfS7id/N7//neQ9U2br4P4PldxzQmX3laJ7zkrRPe4bEPTnJdaS/1R3z/lUcY+fnMh/P31u5OUfHbnnPErLS4UFZuxF3WP7cKwft4L/vFPH7jlir94HD/JBIBQ6a75d2zhIyD97kg+CL3t5/ddrMy+28vce5YPg3k7+zqv895MTWd5K3/U7qo7BN4+rsKyd+TB5f4/KKs9D5N3GZW0M+GB08yliRu+gYebbuELPbM/Yt+8Z/QLmtW/dM+76yC98217wai5/tL3WNB5Xia0/cIwzPfY3fc2i1mua3vr2caWGvWHIkFlfSMU+iEzkd/bX0bEPTHLMEt8jOvabbnmRBIKOfXfEcCNxFS37oCvDKfOe0rLveGdNRC6iZh+0704L7aep2T+1yUvFxWr2QVt5yZvQNfTsW4JNsR0GPfuWnQmxqF7RvvGXL7e5o2jfeOfL5Sw17RviBcEdEk37hl2VL7kLqNov6uRjufV17WujHYGPkl907es+U1LB9XXt08vVRZNnuvY1qbVXyeWV7S8DZcnVte0v1pctotC2Pw92BB/2gb79+SNfdHF1+7MLCKfr1e2roZpwLYK6fbWG4UN2cXX7dXlp6a0SdftKRlm6zFLfvpzOl97d1LcvV65Jb1Pp27/9rSyTvCyhb18K8pfSSzuw/4szxffFHdj/FfyKRsc5Duz/omTxOhwH9vdqK7uw/72GfFGCC/vx/4XFHzlO7IuklPXG/gUu7ItYIRJf2YV9kdUxinJcnmc02j0r6r2MyucUjlM0YhS5FMV2RpWLV2dfFCkb7VZdnX2xiWLys9dnXzwaaE/7QfZmP0t72p/bY9/3tKf9QHvsOAc7xsSM74tTiNjfVtjftdg5Bex8DmYuLVZb2YX978rYOWTs/D323gn2vhX2niH2fi34Xjl2nQJ2jQh2fQ54bRR2XRp2TSB4PSZ2LSx2HTJ4DTh2/f0oFVxe177m7AP4uROcMz+1nRWgz1uBn3XDPmcIcsaz8YCt1NFmL+drwc82Y58rBz/TL9WeTs2+tZ8CeC8LoUBZy76r9xV2Dxfs/jnX3LvIpO8Vdt8oic1nFXujnl3g/dLAe9XZp/N99gkE79EoGOkL8datXEIywSBBz2b+8nUjNvSeAgTdkxe8HzJ4L2rwPuDgPdjB+9/717eSB5/7AD5zA3zeCfisGfA5P+AzlsDnW42wZ4uNwOe6OZypN9c5JOLmg0VtHG/8ou6uN0tyhD3HMwd5huo3Y7X5tePuiwsw1Xj6OJodnLOU9nc4tzkHeWZ2DvK88hPAs+JPTA5W7geXZy9rmYbpIPM0dH+31zL57BtCzCPvv/UKyywxNE+y1kIPb+xW2bbtFMX7Nlt5esAYs5sdo3CRbNbpj/N6kyzC6Di7dm9CCCGEEEIIIYQQQgghhBBCCCEEgH8hv3YuCyh0KwAAAABJRU5ErkJggg==" alt="add icon" height="65" width="50">
     </button>
 
     <button type="submit" id="Submit" onclick="searchBar()">
-        <img src="https://png.pngtree.com/png-clipart/20190516/original/pngtree-find-vector-icon-png-image_3725277.jpg" alt= "profile icon 1" height="40" width="40">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSOS81ky_nL1NnuVWGvJ_y9N_FyqxWvlT2moA&usqp=CAU" alt= "profile icon 1" height="40" width="40">
     </button>
 
     <button id="Cancel" onclick="searchBar1()">Cancel</button>
     
 
     <form id="bar_form">
-        <input type="text" id="search" style="display: block" placeholder="Search">
+        <input type="text" id="search" style="display: block" placeholder="Filter">
     </form>
 
 
@@ -152,27 +163,27 @@
         
 
         //declaring variables to be inserted into the page
-        var name = "Sabeer";
-        var ppic = "https://www.al.com/resizer/fvs3VIPur0miQcPCxLeLjami_N4=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/NSDL77J3KJFZXCK3MFWAV7HMUE.JPG";
-        var followers = "Followers: " + 0;
-        var following = "Following: " + 0;
-        var posts = "Posts: " + 0;
+        var name = "Sabeer Narula";
+        var ppic = "https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png";
+        var followers = 0 + " Followers";
+        var following = 0 + " Following";
+        var posts = 0 + " Posts";
         var location = "Larchmont, NY";
-        var bio = "Hi my name is Sam!";
+        var bio = "Bio " + "Hi my name is Sam!";
         var article1_img = "https://d2cwpp38twqe55.cloudfront.net/req/202006251/images/players/tatumja01.jpg";
         var article1_link = "https://www.basketball-reference.com/players/t/tatumja01.html";
-        var article1_author = "By Basketball Reference";
+        var article1_author = "Basketball Reference";
         var article1_readtime = "Ten Minute read";
         var article1_title = "Jayson Tatum's Basketball Reference Page";
         var article2_img = "https://a.espncdn.com/i/headshots/nba/players/full/3917376.png";
         var article2_link = "https://www.basketball-reference.com/players/b/brownja02.html";
         var article2_title = "Jaylen Brown's Basketball Reference Page";
-        var article2_author = "By Basketball Reference";
+        var article2_author = "Basketball Reference";
         var article2_readtime = "10 Minute Read";
         var article3_img = "https://d2cwpp38twqe55.cloudfront.net/req/202006251/images/players/walkeke02.jpg";
         var article3_link = "https://www.basketball-reference.com/players/w/walkeke02.html";
         var article3_title = "Kemba Walker's Basketball Reference Page";
-        var article3_author = "By Basketball Reference";
+        var article3_author = "Basketball Reference";
         var article3_readtime = "11 Minute Read";
 
 
@@ -210,7 +221,7 @@
         document.getElementById("follower-count").innerHTML = followers;
         document.getElementById("following-count").innerHTML = following;
         document.getElementById("post-count").innerHTML = posts;
-        // document.getElementById("location").innerHTML = location;
+        document.getElementById("location").innerHTML = location;
         document.getElementById("bio").innerHTML = bio;
 
         document.getElementById("article1_link").setAttribute("href", article1_link);
