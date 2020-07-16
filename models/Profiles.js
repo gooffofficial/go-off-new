@@ -10,6 +10,10 @@ module.exports = (sequelize, type) => {
         following: {
             type: type.INTEGER,
             defaultValue: 0,
+        },
+        Posts: {
+            type: type.INTEGER,
+            defaultValue: 0
         },    
         ppic: {
             type: type.STRING,
@@ -49,6 +53,7 @@ module.exports = (sequelize, type) => {
             following: this.following,
             propic: this.ppic,
             bio: this.bio,
+            Posts: this.Posts,
             article1img: this.article1img,
             article1link: this.article1link,
             article1author: this.article1author,
