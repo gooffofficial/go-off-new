@@ -5,7 +5,7 @@ const auth = require('./auth');
 const db = require('../models')
 
 router.get('/:user', auth.optional, (req, res, next) => {
-    return res.send(req.params.user);
+    res.render('profiles/profile1', {user: req.params.user})
 })
 
 module.exports = router;
