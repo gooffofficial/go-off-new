@@ -43,99 +43,99 @@ var db = mongoose.connection;
 
 app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
 
- db.on('error', console.error.bind(console, 'connection error:'));
- db.once('open', function() {
-     console.log('MongoDB connected...');
-     //Connect to Socket.io
-     client.on('connection', function(socket){
-         //get jwt from request cookies to authenticate user
-         reqCookies = cookie.parse(socket.request.headers.cookie || '');
-         authCookie = reqCookies.authJWT;
+//  db.on('error', console.error.bind(console, 'connection error:'));
+//  db.once('open', function() {
+//      console.log('MongoDB connected...');
+//      //Connect to Socket.io
+//      client.on('connection', function(socket){
+//          //get jwt from request cookies to authenticate user
+//          reqCookies = cookie.parse(socket.request.headers.cookie || '');
+//          authCookie = reqCookies.authJWT;
 
-        console.log(socket.request.authCookie);
-        //console.log(authCookie);
-        var address = socket.handshake.address;
-        console.log(address) 
-        sendStatus = function(s){
-            socket.emit('status', s); //pass from server to client (index.html) use .emit
-        }
+//         console.log(socket.request.authCookie);
+//         //console.log(authCookie);
+//         var address = socket.handshake.address;
+//         console.log(address) 
+//         sendStatus = function(s){
+//             socket.emit('status', s); //pass from server to client (index.html) use .emit
+//         }
 
 
-        socket.on('room', function(room) {
-            //Get chats from mongo collection
-            Room.findById(room).populate('messages').limit(100).sort({_id:1}).then(chat => { //fetching the chat messages
-                //if(err){
-                //    throw err;
-                //}
-                if (chat.users.length > 5){
-                    newRoom = new Room();
-                    newRoom.save().then(() => {
-                        console.log('joined ' + newRoom._id)
-                        socket.join(newRoom._id);      
-                        socket.emit('output', [{'name': 'server', 'message': 'created new room'}])
-                    })
-                }
-                //Emit the messages - display them
-                else{
-                    console.log('joined ' + room)
-                    socket.join(room);
-                    socket.emit('output', chat.messages);
-                }
-            }).catch(callback => {return callback});
-        })
-        //const newRoom = new Room(); //create a new chat room (everytime click chrome-extn) in DB - to test schema
+//         socket.on('room', function(room) {
+//             //Get chats from mongo collection
+//             Room.findById(room).populate('messages').limit(100).sort({_id:1}).then(chat => { //fetching the chat messages
+//                 //if(err){
+//                 //    throw err;
+//                 //}
+//                 if (chat.users.length > 5){
+//                     newRoom = new Room();
+//                     newRoom.save().then(() => {
+//                         console.log('joined ' + newRoom._id)
+//                         socket.join(newRoom._id);      
+//                         socket.emit('output', [{'name': 'server', 'message': 'created new room'}])
+//                     })
+//                 }
+//                 //Emit the messages - display them
+//                 else{
+//                     console.log('joined ' + room)
+//                     socket.join(room);
+//                     socket.emit('output', chat.messages);
+//                 }
+//             }).catch(callback => {return callback});
+//         })
+//         //const newRoom = new Room(); //create a new chat room (everytime click chrome-extn) in DB - to test schema
 
-        //Handle input events
-        socket.on('input', function(data){ //catches things from client 
-            if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
-                let name = data.name;
-                let message = data.message;
-                let r = data.room;
-                //Check for a name and message
-                if (name == '' || message == ''){
-                    //send error status
-                    sendStatus('Please enter a name and message');
-                }else{
-                    //Insert message to database
-                    console.log(r);
-                    client.in(r).emit('output', [data])
+//         //Handle input events
+//         socket.on('input', function(data){ //catches things from client 
+//             if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
+//                 let name = data.name;
+//                 let message = data.message;
+//                 let r = data.room;
+//                 //Check for a name and message
+//                 if (name == '' || message == ''){
+//                     //send error status
+//                     sendStatus('Please enter a name and message');
+//                 }else{
+//                     //Insert message to database
+//                     console.log(r);
+//                     client.in(r).emit('output', [data])
     
-                        //Send status object
-                        sendStatus({
-                            message: 'Message sent', 
-                            clear: true
-                        });
-                    /*
-                    let chatMessage = new Chat({name: name, message: message});
-                    chatMessage.save().then(function(){
-                        //after saving message, emit to all clients connected to that room
-                        client.in(r).emit('output', [data])
+//                         //Send status object
+//                         sendStatus({
+//                             message: 'Message sent', 
+//                             clear: true
+//                         });
+//                     /*
+//                     let chatMessage = new Chat({name: name, message: message});
+//                     chatMessage.save().then(function(){
+//                         //after saving message, emit to all clients connected to that room
+//                         client.in(r).emit('output', [data])
     
-                        //Send status object
-                        sendStatus({
-                            message: 'Message sent', 
-                            clear: true
-                        });
-                    });
-                    */
-                }
-            }
-            else{
-                sendStatus({
-                    message: 'Your source is not authorized to send messages'
-                })
-            }
-        });
-        //Handle clear
-        socket.on('clear', function(data){
-            //Remove all chats from the collection
-            Chat.deleteMany({}, function(){
-                //ROOMS are not DELETED
-                //Emit cleared
-                socket.emit('cleared');
-            }); 
+//                         //Send status object
+//                         sendStatus({
+//                             message: 'Message sent', 
+//                             clear: true
+//                         });
+//                     });
+//                     */
+//                 }
+//             }
+//             else{
+//                 sendStatus({
+//                     message: 'Your source is not authorized to send messages'
+//                 })
+//             }
+//         });
+//         //Handle clear
+//         socket.on('clear', function(data){
+//             //Remove all chats from the collection
+//             Chat.deleteMany({}, function(){
+//                 //ROOMS are not DELETED
+//                 //Emit cleared
+//                 socket.emit('cleared');
+//             }); 
             
-         });
-     });
+//          });
+//      });
     app.use(require('./routes'));
- });
+//  });
