@@ -58,17 +58,17 @@ module.exports = (sequelize, type) => {
             article1link: this.article1link,
             article1author: this.article1author,
             article1title: this.article1title,
-            article1readTime: this.article1readTime,
+            article1readtime: this.article1readtime,
             article2img: this.article2img,
             article2link: this.article2link,
             article2author: this.article2author,
             article2title: this.article2title,
-            article2readTime: this.article2readTime,
+            article2readtime: this.article2readtime,
             article3img: this.article3img,
             article3link: this.article3link,
             article3author: this.article3author,
             article3title: this.article3title,
-            article3readTime: this.article3readTime,
+            article3readtime: this.article3readtime,
          }
     }
     return Profile;

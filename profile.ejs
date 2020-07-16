@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="profile.css">
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
     <!-- <script type="text/javascript" src="profile.js"></script> -->
 <title>Test</title>
@@ -200,7 +200,7 @@
 
                     document.getElementById("follower-count").innerHTML = myArr.user.followers + " " + " Followers";
                     document.getElementById("following-count").innerHTML = myArr.user.following + " Following";
-                    document.getElementById("post-count").innerHTML = myArr.user.Post + " Posts";
+                    document.getElementById("post-count").innerHTML = myArr.user.Posts + " Posts";
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("bio").innerHTML = myArr.user.bio;
 
@@ -211,7 +211,7 @@
                     document.getElementById("article-1-image").src = myArr.user.article1img;
                     document.getElementById("article-1-title").innerHTML = myArr.user.article1title;
                     document.getElementById("article-1-author").innerHTML = myArr.user.article1author;
-                    document.getElementById("article-1-read-time").innerHTML = myArr.user.article1readTime;
+                    document.getElementById("article-1-read-time").innerHTML = myArr.user.article1readtime;
 
                     document.getElementById("article2_link").setAttribute("href", myArr.user.article2link);
                     document.getElementById("article2_link1").setAttribute("href", myArr.user.article2link);
@@ -220,7 +220,7 @@
                     document.getElementById("article-2-image").src = myArr.user.article2img;
                     document.getElementById("article-2-title").innerHTML = myArr.user.article2title;
                     document.getElementById("article-2-author").innerHTML = myArr.user.article2author;
-                    document.getElementById("article-2-read-time").innerHTML = myArr.user.article2readTime;
+                    document.getElementById("article-2-read-time").innerHTML = myArr.user.article2readtime;
 
                     document.getElementById("article3_link").setAttribute("href", myArr.user.article3link);
                     document.getElementById("article3_link1").setAttribute("href", myArr.user.article3link);
@@ -229,7 +229,7 @@
                     document.getElementById("article-3-image").src = myArr.user.article3img;
                     document.getElementById("article-3-title").innerHTML = myArr.user.article3title;
                     document.getElementById("article-3-author").innerHTML = myArr.user.article3author;
-                    document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readTime;
+                    document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readtime;
                 }
             };
             xhr.open("GET", 'http://localhost:8000/api/users/profile/<%=user%>', true);
