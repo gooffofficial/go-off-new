@@ -38,7 +38,6 @@
     </div>
 
     <div class="fprofpic">
-    
         <img id="fprofpic" src="https://clutchpoints.com/wp-content/uploads/2020/02/Celtics_-Jayson-Tatum-is-blossoming-into-a-superstar.jpg"/>
     </div> 
     
@@ -163,28 +162,28 @@
         
 
         //declaring variables to be inserted into the page
-        var name = "Sabeer Narula";
-        var ppic = "https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png";
-        var followers = 0 + " Followers";
-        var following = 0 + " Following";
-        var posts = 0 + " Posts";
-        var location = "Larchmont, NY";
-        var bio = "Bio " + "Hi my name is Sam!";
-        var article1_img = "https://d2cwpp38twqe55.cloudfront.net/req/202006251/images/players/tatumja01.jpg";
-        var article1_link = "https://www.basketball-reference.com/players/t/tatumja01.html";
-        var article1_author = "Basketball Reference";
-        var article1_readtime = "Ten Minute read";
-        var article1_title = "Jayson Tatum's Basketball Reference Page";
-        var article2_img = "https://a.espncdn.com/i/headshots/nba/players/full/3917376.png";
-        var article2_link = "https://www.basketball-reference.com/players/b/brownja02.html";
-        var article2_title = "Jaylen Brown's Basketball Reference Page";
-        var article2_author = "Basketball Reference";
-        var article2_readtime = "10 Minute Read";
-        var article3_img = "https://d2cwpp38twqe55.cloudfront.net/req/202006251/images/players/walkeke02.jpg";
-        var article3_link = "https://www.basketball-reference.com/players/w/walkeke02.html";
-        var article3_title = "Kemba Walker's Basketball Reference Page";
-        var article3_author = "Basketball Reference";
-        var article3_readtime = "11 Minute Read";
+        // var name = "Sabeer Narula";
+        // var ppic = "https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png";
+        // var followers = 0 + " Followers";
+        // var following = 0 + " Following";
+        // var posts = 0 + " Posts";
+        // var location = "Larchmont, NY";
+        // var bio = "Bio " + "Hi my name is Sam!";
+        // var article1_img = "https://d2cwpp38twqe55.cloudfront.net/req/202006251/images/players/tatumja01.jpg";
+        // var article1_link = "https://www.basketball-reference.com/players/t/tatumja01.html";
+        // var article1_author = "Basketball Reference";
+        // var article1_readtime = "Ten Minute read";
+        // var article1_title = "Jayson Tatum's Basketball Reference Page";
+        // var article2_img = "https://a.espncdn.com/i/headshots/nba/players/full/3917376.png";
+        // var article2_link = "https://www.basketball-reference.com/players/b/brownja02.html";
+        // var article2_title = "Jaylen Brown's Basketball Reference Page";
+        // var article2_author = "Basketball Reference";
+        // var article2_readtime = "10 Minute Read";
+        // var article3_img = "https://d2cwpp38twqe55.cloudfront.net/req/202006251/images/players/walkeke02.jpg";
+        // var article3_link = "https://www.basketball-reference.com/players/w/walkeke02.html";
+        // var article3_title = "Kemba Walker's Basketball Reference Page";
+        // var article3_author = "Basketball Reference";
+        // var article3_readtime = "11 Minute Read";
 
 
         (function(){
@@ -196,9 +195,44 @@
                     document.getElementById("pname").innerHTML = myArr.user.name; 
                     document.getElementById("profile-name").innerHTML = myArr.user.name;
                     document.getElementById("location").innerHTML = myArr.user.location;
+                    document.getElementById("profile-pic").src = myArr.user.propic;
+                    document.getElementById("fprofpic").src = myArr.user.propic;
+
+                    document.getElementById("follower-count").innerHTML = myArr.user.followers + " " + " Followers";
+                    document.getElementById("following-count").innerHTML = myArr.user.following + " Following";
+                    document.getElementById("post-count").innerHTML = myArr.user.Post + " Posts";
+                    document.getElementById("location").innerHTML = myArr.user.location;
+                    document.getElementById("bio").innerHTML = myArr.user.bio;
+
+                    document.getElementById("article1_link").setAttribute("href", myArr.user.article1link);
+                    document.getElementById("article1_link1").setAttribute("href", myArr.user.article1link);
+                    document.getElementById("article1_link2").setAttribute("href", myArr.user.article1link);
+                    document.getElementById("article1_link3").setAttribute("href", myArr.user.article1link);
+                    document.getElementById("article-1-image").src = myArr.user.article1img;
+                    document.getElementById("article-1-title").innerHTML = myArr.user.article1title;
+                    document.getElementById("article-1-author").innerHTML = myArr.user.article1author;
+                    document.getElementById("article-1-read-time").innerHTML = myArr.user.article1readTime;
+
+                    document.getElementById("article2_link").setAttribute("href", myArr.user.article2link);
+                    document.getElementById("article2_link1").setAttribute("href", myArr.user.article2link);
+                    document.getElementById("article2_link2").setAttribute("href", myArr.user.article2link);
+                    document.getElementById("article2_link3").setAttribute("href", myArr.user.article2link);
+                    document.getElementById("article-2-image").src = myArr.user.article2img;
+                    document.getElementById("article-2-title").innerHTML = myArr.user.article2title;
+                    document.getElementById("article-2-author").innerHTML = myArr.user.article2author;
+                    document.getElementById("article-2-read-time").innerHTML = myArr.user.article2readTime;
+
+                    document.getElementById("article3_link").setAttribute("href", myArr.user.article3link);
+                    document.getElementById("article3_link1").setAttribute("href", myArr.user.article3link);
+                    document.getElementById("article3_link2").setAttribute("href", myArr.user.article3link);
+                    document.getElementById("article3_link3").setAttribute("href", myArr.user.article3link);
+                    document.getElementById("article-3-image").src = myArr.user.article3img;
+                    document.getElementById("article-3-title").innerHTML = myArr.user.article3title;
+                    document.getElementById("article-3-author").innerHTML = myArr.user.article3author;
+                    document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readTime;
                 }
             };
-            xhr.open("GET", 'http://localhost:8000/api/users/current', true);
+            xhr.open("GET", 'http://localhost:8000/api/users/profile/ericchao', true);
             xhr.withCredentials = true;
             xhr.send();
     // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
@@ -224,32 +258,32 @@
         document.getElementById("location").innerHTML = location;
         document.getElementById("bio").innerHTML = bio;
 
-        document.getElementById("article1_link").setAttribute("href", article1_link);
-        document.getElementById("article1_link1").setAttribute("href", article1_link);
-        document.getElementById("article1_link2").setAttribute("href", article1_link);
-        document.getElementById("article1_link3").setAttribute("href", article1_link);
-        document.getElementById("article-1-image").src = article1_img;
-        document.getElementById("article-1-title").innerHTML = article1_title;
-        document.getElementById("article-1-author").innerHTML = article1_author;
-        document.getElementById("article-1-read-time").innerHTML = article1_readtime;
+        document.getElementById("article1_link").setAttribute("href", article1link);
+        document.getElementById("article1_link1").setAttribute("href", article1link);
+        document.getElementById("article1_link2").setAttribute("href", article1link);
+        document.getElementById("article1_link3").setAttribute("href", article1link);
+        document.getElementById("article-1-image").src = article1img;
+        document.getElementById("article-1-title").innerHTML = article1title;
+        document.getElementById("article-1-author").innerHTML = article1author;
+        document.getElementById("article-1-read-time").innerHTML = article1readtime;
 
-        document.getElementById("article2_link").setAttribute("href", article2_link);
-        document.getElementById("article2_link1").setAttribute("href", article2_link);
-        document.getElementById("article2_link2").setAttribute("href", article2_link);
-        document.getElementById("article2_link3").setAttribute("href", article2_link);
-        document.getElementById("article-2-image").src = article2_img;
-        document.getElementById("article-2-title").innerHTML = article2_title;
-        document.getElementById("article-2-author").innerHTML = article2_author;
-        document.getElementById("article-2-read-time").innerHTML = article2_readtime;
+        document.getElementById("article2_link").setAttribute("href", article2link);
+        document.getElementById("article2_link1").setAttribute("href", article2link);
+        document.getElementById("article2_link2").setAttribute("href", article2link);
+        document.getElementById("article2_link3").setAttribute("href", article2link);
+        document.getElementById("article-2-image").src = article2img;
+        document.getElementById("article-2-title").innerHTML = article2title;
+        document.getElementById("article-2-author").innerHTML = article2author;
+        document.getElementById("article-2-read-time").innerHTML = article2readtime;
 
-        document.getElementById("article3_link").setAttribute("href", article3_link);
-        document.getElementById("article3_link1").setAttribute("href", article3_link);
-        document.getElementById("article3_link2").setAttribute("href", article3_link);
-        document.getElementById("article3_link3").setAttribute("href", article3_link);
-        document.getElementById("article-3-image").src = article3_img;
-        document.getElementById("article-3-title").innerHTML = article3_title;
-        document.getElementById("article-3-author").innerHTML = article3_author;
-        document.getElementById("article-3-read-time").innerHTML = article3_readtime;
+        document.getElementById("article3_link").setAttribute("href", article3link);
+        document.getElementById("article3_link1").setAttribute("href", article3link);
+        document.getElementById("article3_link2").setAttribute("href", article3link);
+        document.getElementById("article3_link3").setAttribute("href", article3link);
+        document.getElementById("article-3-image").src = article3img;
+        document.getElementById("article-3-title").innerHTML = article3title;
+        document.getElementById("article-3-author").innerHTML = article3author;
+        document.getElementById("article-3-read-time").innerHTML = article3readtime;
     }
     </script>
 </body>
