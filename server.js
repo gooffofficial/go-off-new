@@ -14,12 +14,14 @@ const URI = "mongodb://localhost:27017/mongo"
 const Chat = require('./models/ChatSchema')
 const Room = require('./models/RoomSchema') //Test Rooms
 const passport = require('passport')
+const path = require('path')
 //const Users = require('./models/UsersMongo')
 const { Users, sequelize } = require('./sequelize')
 require('./config/passport')(passport);
 //app configuration
 const app = express(); 
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
 app.use(cookies('shhhhitsasecret'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,6 +30,9 @@ app.use(session({ secret: 'passport-tutorial', resave: true, saveUninitialized: 
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use((req, res, next) => {
     console.log(req.hostname);
