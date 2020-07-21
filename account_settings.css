@@ -1,0 +1,272 @@
+.logo img {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    left: 20%;
+}
+#fprofpic{
+    right: 28%;
+    top: 1%;
+    position: absolute;
+    height: 7%;
+    width: 3%;
+}
+
+.fprofpic img{
+    border-radius: 50%;
+    top: 2%;
+    right: 5%;
+    height: 5%;
+    width: 5%;
+}
+
+#search{
+    position: absolute;
+    margin-top: 10px;
+    right: 25%;
+    background-image: url(http://www.levenmetwater.nl/static/global/images/icon-search.png);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    border: 1px solid #ccc;
+    
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    
+    padding: 5px 5px;
+    text-indent: 20px;
+    
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 2s;
+    transition: all 0.2s;
+    
+    width: 50%;
+    /* float: right; */
+    /* left: -200px; */
+}
+
+#search:focus {
+    /* Picked a random icon from Google */
+    background-position: -20px center;
+    text-indent: 0;
+}
+
+.droparrow{
+    position: absolute;
+    display: inline-block;
+    float: right;
+    right: 17%;
+    margin-top: 1%;
+    /* border: 1px solid rgba(153, 150, 150, 0.116); */
+}
+
+.dropdown-arrowcontent{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    right: 0%;
+    /* margin-top: 250%; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.droparrow:hover .dropdown-arrowcontent{
+    display: block;
+}
+
+.droparrow:hover .dropdown-arrowcontent {display: block;}
+
+.dropdown-arrowcontent p:hover {background-color: rgb(146, 198, 223);}
+
+.pname{
+    top: 3%;
+    right: 19.5%;
+    position: absolute;
+    width: 8%;
+}
+
+#profile-pic{
+    position: absolute;
+    border-radius: 50%;
+    top: 21.5%;
+    height: 20%;
+    width: 20%;
+    margin-top: 5%; 
+}
+
+button{
+    border: 0;
+    padding: 1em;
+    position: relative;
+    cursor: pointer;
+    background: none;
+}
+
+#Plus{
+    right: 31.5%;
+    top: -1.5%;
+    position: absolute;
+    border-radius: 50%;
+}
+
+#Submit{
+    right: 36%;
+    top: 0%;
+    border-radius: 50%;
+    position: absolute;
+}
+
+#Cancel{
+    position: absolute;
+    margin-top: 10px;
+    float: right;
+    visibility: hidden;
+    right: 20%;
+    background-color: lightskyblue;
+    padding: 5px 5px;
+}
+
+hr{
+    position: absolute;
+    top: 10%;
+    margin-bottom: 5%;
+    border: 1px solid #b6b1b1;
+    width: 100%;
+    color: #b6b1b1;
+}
+
+#edit_profile{
+    position: absolute;
+    top: 30%;
+    left: 15%;
+    font-size: 20px;
+}
+
+#account_settings{
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    font-size: 20px;
+}
+
+#edit_profile:after {
+    content: " ";
+    transition: background-color .3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#edit_profile:hover:after { background-color: rgba(133, 200, 231, 0.5); border-radius: 15px;}
+
+#account_settings:after {
+    content: " ";
+    transition: background-color .3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#account_settings:hover:after { background-color: rgba(133, 200, 231, 0.5); border-radius: 15px;}
+
+#back_button{
+    position: absolute;
+    top: 15%;
+    left: 10%;
+}
+.editProf{
+    width: 40%;
+    height: 70%;
+    margin: 2rem auto;
+    padding: 2rem;
+    position: absolute;
+    top: 10%;
+    left: 32%;
+}
+
+#submitBtn{
+    position: absolute;
+    top: 12%;
+    right: 5%;
+    border-radius: 15px;
+    background-color: rgb(216, 213, 213);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
+    border-color: white;
+}
+
+#cancelBtn{
+    position: absolute;
+    top: 12%;
+    right: 15%;
+    border-radius: 15px;
+    background-color: rgb(216, 213, 213);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
+    border-color: white;
+}
+
+#desc{
+    position: absolute;
+    top: 15%;
+}
+
+label{
+    display: block;
+    font-weight: bold;
+}
+
+label[for=email_addr]{
+    position: absolute;
+    top: 25%;
+}
+input[name=email_addr]{
+    position: absolute;
+    top: 28.5%;
+}
+
+label[for=Country]{
+    position: absolute;
+    top: 35%;
+}
+input[name=Country]{
+    position: absolute;
+    top: 38.5%;
+}
+
+#Gender{
+    position: absolute;
+    top: 45%;
+    width: 60%;
+    border: none;
+}
+
+label[for=Male]{
+    position: absolute;
+    left: 5%;
+    top: 15%;
+}
+input[name=Male]{
+    position: absolute;
+    left: 0%;
+    top: 15%;
+}
+
+label[for=Female]{
+    position: absolute;
+    left: 22%;
+    top: 15%;
+}
+input[name=Female]{
+    position: absolute;
+    left: 17%;
+    top: 15%;
+}
+
+textarea{
+    position: absolute;
+    left: 37%;
+    top: 15%;
+}
