@@ -5,8 +5,39 @@ const auth = require('../auth');
 const db = require('../../models')
 const logger = require('../../logger')
 const _ = require('lodash')
+const AWS = require('aws-sdk')
+const multer = require('multer')
+const multerS3 = require('multer-s3')
 
+AWS.config.update({
+  region: "us-east-1"
+});
 
+const s3 = new AWS.S3();
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png" || file.mimetype === "image/jpg") {
+    cb(null, true);
+  } 
+  else {
+    cb(new Error("Invalid file type, only JPEG and PNG is allowed!"), false);
+  }
+};
+
+const upload = multer({
+  fileFilter,
+  storage: multerS3({
+    acl: 'public-read',
+    s3: s3,
+    bucket: 'gooff',
+    metadata: function(req, file, cb){
+      cb(null, {fieldName: "TESTING_METADATA"});
+    },
+    key: function(req, file, cb){
+      cb(null, 'images/'+Date.now()+file.originalname);
+    }
+  })
+})
 //POST for new user registration
 router.post('/', auth.optional, (req, res, next) => {
     //const { body: { user } } = req;
@@ -86,7 +117,7 @@ router.post('/', auth.optional, (req, res, next) => {
     .then((user) => {
       logger("User " + user.id + " created With username " + user.username);
       db.Profile.create({
-        UserId: user.id
+        UserId: user.id 
       })
       .then(() => {
         {
@@ -247,4 +278,26 @@ function isLoggedIn(req, res, next){
   }
   return res.send("Not authenticated")
 }
+
+router.post('/testimage', upload.single("file"), (req, res, next) => {
+  /*
+  const file = req.body.imageUpload;
+  const params = {
+    Bucket: 'gooff',
+    Key: 'images/'+file,
+    ACL: 'public-read',
+    Body: file
+  };
+  s3.upload(params, (err, data) => {
+    if(err){
+      console.log("Error: " +err);
+    }
+    else{
+      console.log(data)
+    }
+    res.send(data.Location);
+  })
+  */
+ res.redirect(req.file.location)
+})
 module.exports = router;

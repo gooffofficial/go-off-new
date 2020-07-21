@@ -66,6 +66,10 @@ router.post('/:room', auth.required, (req, res, next) => {
     })
 })
 
+router.get('/getid', auth.optional, (req, res, next) => {
+    res.send('id');
+})
+
 //route to join a chatroom
 router.post('/:room/join', auth.required, (req, res, next) => {
     Room.findById(req.params.room, (err, room) => {
