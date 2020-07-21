@@ -67,7 +67,10 @@ router.post('/:room', auth.required, (req, res, next) => {
 })
 
 router.get('/getid', auth.optional, (req, res, next) => {
-    res.send('id');
+    var url = req.query.article;
+    roomId = Room.findOne({ url: url }, (err, room) => {
+        return res.json({id: room._id})
+    })
 })
 
 //route to join a chatroom

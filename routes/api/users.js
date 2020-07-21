@@ -170,20 +170,29 @@ router.post('/login', auth.optional, (req, res, next) => {
   });
 
 //POST for updating user info
-router.post('/update', auth.required, (req, res, next) => {
+router.post('/update', upload.single("file"), auth.required, (req, res, next) => {
   const { payload: { id } } = req;
   let request = {
     username: req.body.username,
-    name: req.body.name,
     email: req.body.email,
     age: req.body.age,
     location: req.body.location,
     gender: req.body.gender,
-    password: req.body.password
+    password: req.body.password,
+    bio: req.body.bio,
   }
-  //console.log(req.payload)
-  request = _.pickBy(request, _.identity); // <--- Will remove empty | null | undefined
-  for(var key in request){
+  //check if first or last name was filled out in the form
+  if(req.body.firstname != '' || req.body.lastname != ''){
+    request.name = req.body.firstname + ' ' + req.body.lastname;
+  }
+  //Check if file was submitted
+  if(req.file){
+    request.ppic = req.file.location
+  }
+
+  requestfin = _.pickBy(request, _.identity); // <--- Will remove empty | null | undefined
+  //logging updates
+  for(var key in requestfin){
     if(key == "password"){
       logger("User " + id + " updated their password");
     }
@@ -191,12 +200,20 @@ router.post('/update', auth.required, (req, res, next) => {
       logger("User " + id + " updated their " + key + " from " + req.payload[key] + " to " + request[key]);
     }
   }
-  return db.User.update(request, {
+  return db.User.update(requestfin, {
     where: {
       id: id
     },
     individualHooks: true
-  }).then(() => {
+  })
+  .then(() => {
+    db.Profile.update(requestfin, {
+      where: {
+        userId: id
+      }
+    })
+  })
+  .then(() => {
     db.User.findOne({
       where: {
         id: id
@@ -210,7 +227,7 @@ router.post('/update', auth.required, (req, res, next) => {
         httpOnly: true,
         signed: true
       })
-      return res.json(user.getUserInfo());
+      return res.redirect("/profiles/"+user.username);
     })
   })
 })

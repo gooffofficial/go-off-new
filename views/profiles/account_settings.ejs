@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel="stylesheet" href="account_settings.css">
+        <link rel="stylesheet" href="/css/account_settings.css">
     </head>
     <body>
         <!-- Top bar -->
@@ -50,22 +50,22 @@
 
         <!-- form to collect data to change-->
 
-        <form action="http://localhost:8000/api/users/login" method="post" class="editProf">
+        <form action="http://localhost:8000/api/users/update" method="post" class="editProf">
             <h1>Account Settings</h1>
 
             <input type="submit" value="Done" id="submitBtn">
 
             <input type="reset" value="Cancel" id="cancelBtn"><br>
 
-            <p id="desc">Set your login preferences, help us personalize your experience and make big account changes here</p>
+            <p id="desc">Set your login preferences, help us personalize your experience and make big account changes here</p><br>
 
-            <label for="email_addr">Email</label>
-            <input type="email" id="email_addr" name="email_addr">
+            <label for="email">Email</label>
+            <input type="email" id="email_addr" name="email">
 
-            <label for="Country">Country/Region</label>
-            <input type="text" id="Country" name="Country">
+            <label for="location">Country/Region</label>
+            <input type="text" id="Country" name="location">
 
-            <fieldset id="Gender">
+            <fieldset id="Gender" name="gender">
                 <legend>Gender</legend>
                 <label for="Male">Male</label><br>
                 <input type="checkbox" id="Male" name="Male"><br>
@@ -75,21 +75,21 @@
             </fieldset>
         </form>
         <!-- buttons on the side-->
-        <a href="profile_edit.html">
+        <a href="profile_edit">
             <button type="submit" id="edit_profile">
                 <img src = "https://img.pngio.com/simple-pencil-black-line-jane-pen-png-image-and-clipart-for-black-and-white-pencil-png-650_542.png" alt="pencil icon" height="20" width="20"/>
                 Edit Profile
             </button>
         </a>
 
-        <a href="account_settings.html">
+        <a href="account_settings">
             <button type="submit" id="account_settings">
                 <img src= "https://c8.alamy.com/comp/T2W7K9/person-icon-in-line-style-man-symbol-isolated-on-white-background-simple-avatar-abstract-icon-in-black-user-sign-in-flat-style-vector-illustration-T2W7K9.jpg" alt="person icon" height="20" width="20"/>
                 Account Settings
             </button>
         </a>
 
-        <a href="/profiles/profile.ejs">
+        <a href="/profiles/<%=user%>">
             <button type="submit" id="back_button">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAb1BMVEX///8AAADv7+/h4eHl5eX29vYkJCSPj4+VlZX5+fkoKCiWlpaSkpLt7e3g4OAsLCzX19fExMR/f38/Pz8aGhpHR0fT09Onp6c6OjpXV1d4eHiGhoYWFhbAwMBgYGAgICALCwuenp62trYzMzMQEBAkEAi9AAADeklEQVR4nO2daXPiMBBEpRzsLhtuCHfCJvz/37g2lU0ItrFai2s0o36fU1R3PTzyEQvnCCGEEEIIIYQQQvJmMp3156PF9lk6SEcs/Sf9vXSYDhis/Dkv0nluzr2/YPQoHem2VAp63zNV8aFa0FbFGoO2KtYaPI3UX9LRbkODQTsWGw2eKhqweMXg6Yuq3mJLwWJdlE74n7QW1H52E1DQe83nqFeHzCev0jHjCTJYMJEOGkuYwYKpdNJIQg16P5OOGkewwQLprFGEG1TaECqosSFW8CAdFwcr6NfSeWGQIVOylA6MAhr0/k46MQhq0G+kE4PABr2yK0TYoLazUtzgH+nIGCxY4ad0ZAy84G/pyBj4kKHBtKDB/AwqK8hlIj+DT9KRMcwbxIcMDaYFDVZQtkzQYH4FlX1FaVC7QQ6Z/Az+kI6MYX7I8BhkwcTBC3LIpAWXCRpMHPNDhgZZMHFYUHtBDhntBWlQe0EaZMHEwQtu3F2CDJr+1RovmC7rZU1LfMikTeUAsmTwg7Fpgycmtg2WjG0bLDFusGBrveDHKyxmv6Ilb0XBO+kQnVK+aDWTDtEpq2+7clnk6Jx0hK5xE+kEXeO20gm6xvicKXAH6QRdY37QeHeUTtA1biGdoGsymKX210Pzo8b8eemuuLZ4lw7RKWvz14dP5q/xx7bvtH3t1Gi34t76/dKzPZts3lDcne8Ja9HiYWD82dPickMjYxZ3b5fPD2MqJnuDYLep368JrngcPko/s6+ledNp+Fg8att+LYeK+LGoriIt1jBo/9C0gC0eaDE98BM4VkwPVrRQkePGQkXc4oN0ZBRazNMiK6YHK1qoyHFjoSItWqiIW7yXjoySgUW8YgYWM6g4lI6Mgo8bdRVp0UJFWqxh3P6haYFbZMX0YEULFTluLFSkRQsVaZEVVcCKFiryVnGVV+nEMLBFZbufFQzRisp+ENhl8Lvc8LH4Ip03AqziXDpuDFhF6bRRQBWlw8aBjBvprJGEW3yXjhpLsMWNdNJoQpf++jeuVBBmUeVi8Y+gY7HmpUBFBFRct39K0rRWHDW/GKiElop9fRcWFa6Om556gyVXLPYMGCxptNg3YbCkwaIVgyW1Fi0MmS9qLFoyWFKpODJW0LnB6ltBjfdmWjnbQay3b/9zlUyms/58tNg+SwchhBBCCCGEEEIIUcFfTQxJ/rZcIZYAAAAASUVORK5CYII=" alt="back arrow" height="20" width="20"/>
             </button>
@@ -115,5 +115,19 @@
             document.getElementsByClassName('pname')[0].style.visibility = "visible";
             document.getElementById("bar_form").style.visibility="hidden";
         }
+        (function(){
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
+                    var myArr = JSON.parse(this.responseText);
+                    console.log(myArr);
+                    document.getElementById("pname").innerHTML = myArr.user.name; 
+                    document.getElementById("fprofpic").src = myArr.user.propic;
+                }
+            }
+            xhr.open("GET", 'http://localhost:8000/api/users/profile/<%=user%>', true);
+            xhr.withCredentials = true;
+            xhr.send();
+        })();
     </script>
 </html>
