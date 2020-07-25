@@ -6,18 +6,14 @@
 }
 #fprofpic{
     right: 28%;
-    top: 1%;
+    top: 1.5%;
     position: absolute;
     height: 7%;
-    width: 3%;
+    width: 3.5%;
 }
-/* .fprofpic img{
+.fprofpic img{
     border-radius: 50%;
-    height: 50px;
-    width: 50px;
-    margin-top: 100px;
-    
-} */
+}
 hr{
     position: absolute;
     top: 10%;
@@ -72,7 +68,7 @@ hr{
     border: none;
     margin-right: 10px; */
 }
-.pname{
+/* .pname{
     top: 3%;
     right: 19.5%;
     position: absolute;
@@ -81,7 +77,21 @@ hr{
     /* top: 8px;
     float: right;
     margin-top: 10px;
-    margin-right: 5px; */
+    margin-right: 5px; 
+} */
+
+.fpname{
+    top: 3%;
+    position: absolute;
+    right: 23.5%;
+    width: 4%;
+}
+
+.lpname{
+    top: 3%;
+    position: absolute;
+    right: 20%;
+    width: 4%;
 }
 button{
     border: 0;
@@ -140,11 +150,31 @@ button{
 
 }
 
-#profile-name {
+/* #profile-name {
     position: absolute;
     top: 10%;
     left: 30%;
     width: 70%;
+    bottom: 2%;
+    font-size: 300%;
+} */
+
+#profile-fname{
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    /* width: 35%; */
+    display: inline;
+    bottom: 2%;
+    font-size: 300%;
+}
+
+#profile-lname{
+    position: absolute;
+    top: 10%;
+    left: 46%;
+    float: right;
+    width: 35%;
     bottom: 2%;
     font-size: 300%;
 }

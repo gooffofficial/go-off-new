@@ -6,18 +6,14 @@
 }
 #fprofpic{
     right: 28%;
-    top: 1%;
+    top: 1.5%;
     position: absolute;
     height: 7%;
-    width: 3%;
+    width: 3.5%;
 }
 
 .fprofpic img{
     border-radius: 50%;
-    top: 2%;
-    right: 5%;
-    height: 5%;
-    width: 5%;
 }
 
 #search{
@@ -114,8 +110,8 @@ button{
 #Submit{
     right: 36%;
     top: 0%;
-    border-radius: 50%;
     position: absolute;
+    border-radius: 50%;
 }
 
 #Cancel{
@@ -186,7 +182,7 @@ label[for=bio]{
 textarea{
     position: absolute;
     top: 67.5%;
-    width: 64%;
+    width: 59.5%;
     height: 15%;
 }
 
@@ -223,7 +219,7 @@ input[name=zipcode]{
 #profpicBtn{
     position: absolute;
     top: 35%;
-    right: 30%;
+    right: 25%;
     border-radius: 15px;
     background-color: rgb(216, 213, 213);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
