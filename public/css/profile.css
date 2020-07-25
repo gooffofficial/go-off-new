@@ -179,21 +179,26 @@ button{
     font-size: 300%;
 }
 
+#user-name{
+    position: absolute;
+    top: 38%;
+    left: 30%;
+}
 #follower-count {
     position: absolute;
-    top: 40%;
+    top: 48%;
     left: 30%;
 }
 
 #following-count {
     position: absolute;
-    top: 40%;
+    top: 48%;
     left: 50%;
 }
 
 #post-count {
     position: absolute;
-    top: 40%;
+    top: 48%;
     left: 68%;
 }
 
@@ -201,19 +206,19 @@ button{
     position: absolute;
     height: 18px;
     width: 18px;
-    top: 48%;
+    top: 56%;
     left: 78%;
 }
 
 #location{
     position: absolute;
-    top: 40%;
+    top: 48%;
     left: 82%;
 }
 
 #bio {
     position: absolute;
-    top: 55%;
+    top: 60%;
     left: 30%;
 }
 

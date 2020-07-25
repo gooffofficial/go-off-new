@@ -59,6 +59,7 @@
         <img id = "profile-pic"/>
         <h1 id= "profile-lname"></h1>
         <h1 id= "profile-fname"></h1>
+        <h3 id="user-name"></h3>
         <h4 id= "follower-count"></h4>
         <h4 id = "following-count"></h4>
         <h4 id = "post-count"></h4>
@@ -191,6 +192,7 @@
                     document.getElementById("lpname").innerHTML = myArr.user.lastname; 
                     document.getElementById("profile-fname").innerHTML = myArr.user.firstname;
                     document.getElementById("profile-lname").innerHTML = myArr.user.lastname;
+                    document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("profile-pic").src = myArr.user.propic;
                     document.getElementById("fprofpic").src = myArr.user.propic;
