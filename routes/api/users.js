@@ -57,12 +57,19 @@ router.post('/', auth.optional, (req, res, next) => {
         }
       })
     }
-    if(!user.name){
+    if(!user.firstname){
         return res.status(422).json({
             errors: {
-                name: 'is required',
+                firstname: 'is required',
             }
         })
+    }
+    if(!user.lastname){
+      return res.status(422).json({
+        errors:{
+          lastname: "is required",
+        }
+      })
     }
     if(!user.age){
         return res.status(422).json({
@@ -107,7 +114,9 @@ router.post('/', auth.optional, (req, res, next) => {
     */
     db.User.create({
       username: user.username,
-      name: user.name,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      name: user.firstname+' '+user.lastname,
       email: user.email,
       age: user.age,
       location: user.location,
@@ -175,6 +184,8 @@ router.post('/update', upload.single("file"), auth.required, (req, res, next) =>
   let request = {
     username: req.body.username,
     email: req.body.email,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     age: req.body.age,
     location: req.body.location,
     gender: req.body.gender,

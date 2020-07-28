@@ -28,7 +28,9 @@ module.exports = (sequelize, type) => {
                 },
             }
         },
-        name: type.STRING,    
+        name: type.STRING,
+        firstname: type.STRING,
+        lastname: type.STRING,    
         age: type.INTEGER,
         location: type.STRING,
         gender: type.STRING,
@@ -83,6 +85,8 @@ module.exports = (sequelize, type) => {
         return {
             username: this.username,
             email: this.email,
+            firstname: this.firstname,
+            lastname: this.lastname,
             name: this.name,
             age: this.age,
             location: this.location,
