@@ -37,7 +37,7 @@ const upload = multer({
       cb(null, 'images/'+Date.now()+file.originalname);
     }
   }),
-  limits: {fileSize: 1024}
+  limits: {fileSize: 1024*1024}
 })
 //POST for new user registration
 router.post('/', auth.optional, (req, res, next) => {
