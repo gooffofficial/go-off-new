@@ -530,3 +530,82 @@ button{
 .droparrow:hover .dropdown-arrowcontent {display: block;}
 
 .dropdown-arrowcontent p:hover {background-color: rgb(146, 198, 223);}
+
+  
+.One_Dot{
+    position: absolute;
+    left: 75%;
+    top: 80%;
+}
+.dropdot-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdot-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdot a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+.Two_Dot{
+    position: absolute;
+    left: 75%;
+    top: 80%;
+}
+.dropdot1-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdot1-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdot1 a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+.Three_Dot{
+    position: absolute;
+    left: 75%;
+    top: 80%;
+}
+.dropdot2-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdot2-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdot2 a:hover {background-color: #ddd;}
+
+.show {display: block;}

@@ -70,6 +70,7 @@ router.get('/getid', auth.optional, (req, res, next) => {
     var url = req.query.article;
     roomId = Room.findOne({ url: url }, (err, room) => {
         return res.json({id: room._id})
+        // return res.sendStatus(200).json({id: room._id})
     })
 })
 
