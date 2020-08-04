@@ -53,13 +53,13 @@ router.post('/:room', auth.required, (req, res, next) => {
             room.users.push(id);
         }
         room.save(); //save chatroom updates
+        socket.emit('input', {
+            name: username,
+            message: message,
+            room: req.params.room
+        });
         //save chat message into database
         chatMessage.save().then(() => { 
-            socket.emit('input', {
-                name: username,
-                message: message,
-                room: req.params.room
-            });
             console.log('Chat sent');
             return res.status(200);
         })
