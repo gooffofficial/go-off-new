@@ -9,19 +9,33 @@
 <body onload="fillinVar()">
 	<a href="/home.html">
     	<div class="logo">
-        	<img src="https://www.nba.com/.element/img/1.0/teamsites/logos/teamlogos_500x500/bos.png"/>
+        	<img src="/GO.png"/>
     	</div>
     </a>
 
 
-    <div class="droparrow">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
+    <!-- <div class="droparrow">
+        <button onclick="dropclick()" class="dropBtn">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
+        </button>
         <div class="dropdown-arrowcontent">
             <p>Go to Profile</p>
             <a href="/profile_edit">Settings and Privacy</a>
             <p>Install Chrome Extension</p>
-            <p>Log Out</p>
+            <p>Log Out</p> 
         </div>
+    </div> -->
+
+    <div class="droparrow">
+        <button onclick="dropclick()" class="dropBtn">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
+            <div id="arrowdrop" class="dropdown-arrowcontent">
+                <p>Go to Profile</p>
+                <a href="/profile_edit">Settings and Privacy</a>
+                <p>Install Chrome Extension</p>
+                <p>Log Out</p> 
+            </div>
+        </button>
     </div>
 
     <div class="fpname">
@@ -33,7 +47,7 @@
     </div>
 
     <div class="fprofpic">
-        <img id="fprofpic" src="https://clutchpoints.com/wp-content/uploads/2020/02/Celtics_-Jayson-Tatum-is-blossoming-into-a-superstar.jpg"/>
+        <img id="fprofpic" src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"/>
     </div> 
     
     <button type="submit" id="Plus">
@@ -166,16 +180,24 @@
         document.getElementById("Plus").style.visibility = "hidden";
         document.getElementById("Cancel").style.visibility = "visible";
         document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
-        document.getElementsByClassName('pname')[0].style.visibility = "hidden";
+        document.getElementsByClassName('fpname')[0].style.visibility = "hidden";
+        document.getElementsByClassName('lpname')[0].style.visibility = "hidden";
         document.getElementById("bar_form").style.visibility="visible";
+        document.getElementById("droparrow").style.visibility="hidden";
     }
     function searchBar1(){
         document.getElementById("Submit").style.visibility = "visible";
         document.getElementById("Plus").style.visibility = "visible";
         document.getElementById("Cancel").style.visibility = "hidden";
         document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
-        document.getElementsByClassName('pname')[0].style.visibility = "visible";
+        document.getElementsByClassName('fpname')[0].style.visibility = "visible";
+        document.getElementsByClassName('lpname')[0].style.visibility = "visible";
         document.getElementById("bar_form").style.visibility="hidden";
+        document.getElementById("droparrow").style.visibility="visible";
+    }
+
+    function dropclick() {
+        document.getElementById("arrowdrop").classList.toggle("show");
     }
 
     function dropmenu() {
@@ -199,13 +221,13 @@
                 // socket.emit('room', idnum.id); //sets the room to that idnum returned
                 
                 console.log("hello");
-                location.href="http://localhost:8000/chat/" + idnum.id;
+                location.href="http://71.174.243.29:8000/chat/" + idnum.id;
             // }else{
             //     console.log("its not working");
             // }
         };
             console.log(document.getElementById("article1_link").href);
-            xhr1.open("GET", 'http://localhost:8000/api/chat/getid?article='+ document.getElementById("article1_link").href, true);
+            xhr1.open("GET", 'http://71.174.243.29:8000/api/chat/getid?article='+ document.getElementById("article1_link").href, true);
             xhr1.send();
     }
 
@@ -218,13 +240,13 @@
                 // socket.emit('room', idnum.id); //sets the room to that idnum returned
                 
                 console.log("hello");
-                location.href="http://localhost:8000/chat/" + idnum.id;
+                location.href="http://71.174.243.29:8000/chat/" + idnum.id;
             // }else{
             //     console.log("its not working");
             // }
         };
             console.log(document.getElementById("article1_link").href);
-            xhr2.open("GET", 'http://localhost:8000/api/chat/getid?article='+ document.getElementById("article2_link").href, true);
+            xhr2.open("GET", 'http://71.174.243.29:8000/api/chat/getid?article='+ document.getElementById("article2_link").href, true);
             xhr2.send();
     }
 
@@ -237,13 +259,13 @@
                 // socket.emit('room', idnum.id); //sets the room to that idnum returned
                 
                 console.log("hello");
-                location.href="http://localhost:8000/chat/" + idnum.id;
+                location.href="http://71.174.243.29:8000/chat/" + idnum.id;
             // }else{
             //     console.log("its not working");
             // }
         };
             console.log(document.getElementById("article3_link").href);
-            xhr3.open("GET", 'http://localhost:8000/api/chat/getid?article='+ document.getElementById("article3_link").href, true);
+            xhr3.open("GET", 'http://71.174.243.29:8000/api/chat/getid?article='+ document.getElementById("article3_link").href, true);
             xhr3.send();
     }
 
@@ -329,7 +351,7 @@
                     document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readtime;
                 }
             };
-            xhr.open("GET", 'http://localhost:8000/api/users/profile/<%=user%>', true);
+            xhr.open("GET", 'http://71.174.243.29:8000/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
     // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
