@@ -20,7 +20,6 @@ var hold;
     // console.log('hold', hold);
 // })
 })();
-
 (function(){
 
     var element = function(id){
