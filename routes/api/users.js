@@ -172,7 +172,7 @@ router.post('/login', auth.optional, (req, res, next) => {
           httpOnly: true,
           signed: true,
         })
-        return res.json({ user: user.toAuthJSON() });
+        return res.redirect('/profiles/'+passportUser.username);
       }
   
       return res.sendStatus(400).info;
