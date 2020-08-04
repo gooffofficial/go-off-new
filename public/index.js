@@ -1,25 +1,25 @@
 const roomid = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
 
 var hold; 
-// (function(){
-//     var xhr = new XMLHttpRequest();
-//     xhr.onreadystatechange = function() {
-//         if (this.readyState == 4 && this.status == 200) {
-//             var myArr = JSON.parse(this.responseText);
-//             document.getElementById("username").innerHTML = myArr.user.name; 
-//             hold = document.getElementById("username");
-//             console.log(hold);
-//         }
-//     };
-//     xhr.open("GET", 'http://localhost:8000/api/users/current', true); //finds the current user
-//     xhr.send();
-//     // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
-//     // document.getElementById("username").innerHTML = result.user.name;
-//     // console.log(result.user.name);
-//     // hold = document.getElementById("username");
-//     // console.log('hold', hold);
-// // })
-// })();
+(function(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+            document.getElementById("username").innerHTML = myArr.user.name; 
+            hold = document.getElementById("username");
+            console.log(hold);
+        }
+    };
+    xhr.open("GET", 'http://71.174.243.29:8000/api/users/current', true); //finds the current user
+    xhr.send();
+    // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
+    // document.getElementById("username").innerHTML = result.user.name;
+    // console.log(result.user.name);
+    // hold = document.getElementById("username");
+    // console.log('hold', hold);
+// })
+})();
 (function(){
 
     var element = function(id){
