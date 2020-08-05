@@ -6,7 +6,8 @@ var hold;
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var myArr = JSON.parse(this.responseText);
-            document.getElementById("username").innerHTML = myArr.user.name; 
+            console.log(myArr)
+            document.getElementById("username").innerHTML = myArr.user.firstname + ' ' + myArr.user.lastname; 
             hold = document.getElementById("username");
             console.log(hold);
         }
