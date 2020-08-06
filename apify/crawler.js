@@ -1,4 +1,5 @@
 const Apify = require('apify')
+const db = require('../models')
 
 async function testCrawl(url){
     const requestQueue = await Apify.openRequestQueue();
@@ -17,6 +18,13 @@ async function testCrawl(url){
         const readTime = len/200;
         console.log(`The title of "${request.url}" is: ${title}.\nThe image is ${img}\nWord Count is ${len}
         \nIt will take about ${readTime} minutes to read.`);
+
+        db.Article.create({
+            url: request.url,
+            title: title,
+            img: img,
+            readTime: readTime
+        })
     }
 
     const crawler = new Apify.CheerioCrawler({
