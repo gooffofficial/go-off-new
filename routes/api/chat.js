@@ -53,13 +53,13 @@ router.post('/:room', auth.required, (req, res, next) => {
             room.users.push(id);
         }
         room.save(); //save chatroom updates
+        socket.emit('input', {
+            name: username,
+            message: message,
+            room: req.params.room
+        });
         //save chat message into database
         chatMessage.save().then(() => { 
-            socket.emit('input', {
-                name: username,
-                message: message,
-                room: req.params.room
-            });
             console.log('Chat sent');
             return res.status(200);
         })
@@ -70,6 +70,7 @@ router.get('/getid', auth.optional, (req, res, next) => {
     var url = req.query.article;
     roomId = Room.findOne({ url: url }, (err, room) => {
         return res.json({id: room._id})
+        // return res.sendStatus(200).json({id: room._id})
     })
 })
 

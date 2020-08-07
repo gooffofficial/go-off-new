@@ -9,7 +9,7 @@ var hold;
             console.log(hold);
         }
     };
-    xhr.open("GET", 'http://localhost:8000/api/users/current', true);
+    xhr.open("GET", 'http://localhost:8000/api/users/current', true); //finds the current user
     xhr.send();
     // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
     // document.getElementById("username").innerHTML = result.user.name;
@@ -19,12 +19,6 @@ var hold;
 // })
 })();
 (function(){
-    // var xhr = new XMLHttpRequest();
-   
-    // xhr.open("GET", chrome.extension.getURL('name.json'), true);
-    // myArr = JSON.parse(this.responseText);
-    // console.log(myArr.name);
-    // xhr.send();
 
     var element = function(id){
         return document.getElementById(id);
@@ -55,8 +49,34 @@ var hold;
     //Make sure IP address is the IP of the server
     var socket = io.connect('http://localhost:4050');
 
-    socket.emit('room', '5efcf65e45bd0b4cff512a38');
+    //uses the function to find the room
+    var currenturl = 'http://localhost:8000/api/chat/getid?article='
+    setid(currenturl, function(roomnum){
+        socket.emit('room', roomnum)
+        console.log('socketis emitted');
+    });
 
+    //function to find the chatroom id 
+    function setid(currenturl, callback){
+        chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+            let url = tabs[0].url; //checks the current tab url
+            console.log(url);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var idnum = JSON.parse(this.responseText);
+                // console.log('the idnum set to', idnum.id);
+                // socket.emit('room', idnum.id); //sets the room to that idnum returned
+                
+                if(callback) callback(idnum.id);
+            }
+        };
+            xhr.open("GET", currenturl+ url, true);
+            xhr.send();
+        
+        });
+        }
+ 
     //Check for connection
     if(socket !== undefined){
         console.log('Connected to socket');
@@ -72,6 +92,7 @@ var hold;
 
                     messages.appendChild(message);
                     messages.insertBefore(message, messages.firstChild); //makes the most recent message to be on top
+                    console.log(messages);
                 }
             }
         });  
@@ -97,18 +118,21 @@ var hold;
                     message: textarea.value
                 });
                 */
-                var xhr = new XMLHttpRequest();
-                //console.log(xhr)
-                xhr.open("POST", "http://localhost:8000/api/chat/5efcf65e45bd0b4cff512a38", true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.send(JSON.stringify({
-                   message: textarea.value,
-                }));
-                textarea.value = '';
-                event.preventDefault();
+                var currenturl = 'http://localhost:8000/api/chat/getid?article='
+                setid(currenturl, function(roomnum){ //uses the function to look for the id
+                    var xhr = new XMLHttpRequest();
+                    //find id first then do the post request
+                    xhr.open("POST", "http://localhost:8000/api/chat/" + roomnum, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify({
+                    message: textarea.value,
+                    }));
+                    textarea.value = '';
+                    event.preventDefault();
+                });
+                
             }
         });
-
         //Handle Chat Clear
         clearBtn.addEventListener('click', function(){
             socket.emit('clear');

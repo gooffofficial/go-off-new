@@ -36,7 +36,8 @@ const upload = multer({
     key: function(req, file, cb){
       cb(null, 'images/'+Date.now()+file.originalname);
     }
-  })
+  }),
+  limits: {fileSize: 1024*1024}
 })
 //POST for new user registration
 router.post('/', auth.optional, (req, res, next) => {
@@ -171,7 +172,7 @@ router.post('/login', auth.optional, (req, res, next) => {
           httpOnly: true,
           signed: true,
         })
-        return res.json({ user: user.toAuthJSON() });
+        return res.redirect('/profiles/'+passportUser.username);
       }
   
       return res.sendStatus(400).info;

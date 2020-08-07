@@ -9,27 +9,45 @@
 <body onload="fillinVar()">
 	<a href="/home.html">
     	<div class="logo">
-        	<img src="https://www.nba.com/.element/img/1.0/teamsites/logos/teamlogos_500x500/bos.png"/>
+        	<img src="/GO.png"/>
     	</div>
     </a>
 
 
-    <div class="droparrow">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
+    <!-- <div class="droparrow">
+        <button onclick="dropclick()" class="dropBtn">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
+        </button>
         <div class="dropdown-arrowcontent">
             <p>Go to Profile</p>
-            <p>Settings & Privacy</p>
+            <a href="/profile_edit">Settings and Privacy</a>
             <p>Install Chrome Extension</p>
-            <p>Log Out</p>
+            <p>Log Out</p> 
         </div>
+    </div> -->
+
+    <div class="droparrow">
+        <button onclick="dropclick()" class="dropBtn">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
+            <div id="arrowdrop" class="dropdown-arrowcontent">
+                <p>Go to Profile</p>
+                <a href="/profile_edit">Settings and Privacy</a>
+                <p>Install Chrome Extension</p>
+                <p>Log Out</p> 
+            </div>
+        </button>
     </div>
 
-    <div class="pname">
-        <h><span id="pname"></span></h>
+    <div class="fpname">
+        <h><span id="fpname"></span></h>
+    </div>
+
+    <div class="lpname">
+        <h><span id="lpname"></span></h>
     </div>
 
     <div class="fprofpic">
-        <img id="fprofpic" src="https://clutchpoints.com/wp-content/uploads/2020/02/Celtics_-Jayson-Tatum-is-blossoming-into-a-superstar.jpg"/>
+        <img id="fprofpic" src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"/>
     </div> 
     
     <button type="submit" id="Plus">
@@ -53,7 +71,9 @@
 
     <div id="top-profile">
         <img id = "profile-pic"/>
-        <h1 id= "profile-name"></h1>
+        <h1 id= "profile-lname"></h1>
+        <h1 id= "profile-fname"></h1>
+        <h3 id="user-name"></h3>
         <h4 id= "follower-count"></h4>
         <h4 id = "following-count"></h4>
         <h4 id = "post-count"></h4>
@@ -77,7 +97,15 @@
 	</a>
 	<a id="article1_link3">
 		<h4 id="article-1-read-time"> </h4>
-	</a>
+    </a>
+    <div class="One_Dot">
+        <button onclick="dropmenu()" id="Dot">
+            <img src="https://static.thenounproject.com/png/658625-200.png" alt= "first 3 dots" height="40" width="40">
+            <div id="myDropdown" class="dropdot-content">
+                <a onclick="passurl1()">Do you want to Chat about it?</a>
+            </div>
+        </button>
+    </div>
 </div>
     
 <div id="article-2">
@@ -93,7 +121,15 @@
 	</a>
 	<a id="article2_link3">
 		<h4 id="article-2-read-time"> </h4>
-	</a>
+    </a>
+    <div class="Two_Dot">
+        <button onclick="dropmenu1()" id="Dot1">
+            <img src="https://static.thenounproject.com/png/658625-200.png" alt= "first 3 dots" height="40" width="40">
+            <div id="myDropdown1" class="dropdot1-content">
+                <a onclick="passurl2()">Do you want to Chat about it?</a>
+            </div>
+        </button>
+    </div>
 </div>
 
 <div id="article-3">
@@ -109,7 +145,15 @@
 	</a>
 	<a id="article3_link3">
 		<h4 id="article-3-read-time"> </h4>
-	</a>
+    </a>
+    <div class="Three_Dot">
+        <button onclick="dropmenu2()" id="Dot2">
+            <img src="https://static.thenounproject.com/png/658625-200.png" alt= "first 3 dots" height="40" width="40">
+            <div id="myDropdown2" class="dropdot2-content">
+                <a onclick="passurl3()">Do you want to Chat about it?</a>
+            </div>
+        </button>
+    </div>
 </div>
 <a href="/home.html">
 	<button type="submit" id="Home">
@@ -136,54 +180,139 @@
         document.getElementById("Plus").style.visibility = "hidden";
         document.getElementById("Cancel").style.visibility = "visible";
         document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
-        document.getElementsByClassName('pname')[0].style.visibility = "hidden";
+        document.getElementsByClassName('fpname')[0].style.visibility = "hidden";
+        document.getElementsByClassName('lpname')[0].style.visibility = "hidden";
         document.getElementById("bar_form").style.visibility="visible";
+        document.getElementById("droparrow").style.visibility="hidden";
     }
     function searchBar1(){
         document.getElementById("Submit").style.visibility = "visible";
         document.getElementById("Plus").style.visibility = "visible";
         document.getElementById("Cancel").style.visibility = "hidden";
         document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
-        document.getElementsByClassName('pname')[0].style.visibility = "visible";
+        document.getElementsByClassName('fpname')[0].style.visibility = "visible";
+        document.getElementsByClassName('lpname')[0].style.visibility = "visible";
         document.getElementById("bar_form").style.visibility="hidden";
+        document.getElementById("droparrow").style.visibility="visible";
     }
+
+    function dropclick() {
+        document.getElementById("arrowdrop").classList.toggle("show");
+    }
+
+    function dropmenu() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    function dropmenu1() {
+        document.getElementById("myDropdown1").classList.toggle("show");
+    }
+
+    function dropmenu2() {
+        document.getElementById("myDropdown2").classList.toggle("show");
+    }
+
+    function passurl1(){
+        var xhr1 = new XMLHttpRequest();
+        xhr1.onreadystatechange = function() {
+            // if (this.readyState == 4 && this.status == 200) {
+                var idnum = JSON.parse(this.responseText);
+                // console.log('the idnum set to', idnum.id);
+                // socket.emit('room', idnum.id); //sets the room to that idnum returned
+                
+                console.log("hello");
+                location.href="http://71.174.243.29:8000/chat/" + idnum.id;
+            // }else{
+            //     console.log("its not working");
+            // }
+        };
+            console.log(document.getElementById("article1_link").href);
+            xhr1.open("GET", 'http://71.174.243.29:8000/api/chat/getid?article='+ document.getElementById("article1_link").href, true);
+            xhr1.send();
+    }
+
+    function passurl2(){
+        var xhr2 = new XMLHttpRequest();
+        xhr2.onreadystatechange = function() {
+            // if (this.readyState == 4 && this.status == 200) {
+                var idnum = JSON.parse(this.responseText);
+                // console.log('the idnum set to', idnum.id);
+                // socket.emit('room', idnum.id); //sets the room to that idnum returned
+                
+                console.log("hello");
+                location.href="http://71.174.243.29:8000/chat/" + idnum.id;
+            // }else{
+            //     console.log("its not working");
+            // }
+        };
+            console.log(document.getElementById("article1_link").href);
+            xhr2.open("GET", 'http://71.174.243.29:8000/api/chat/getid?article='+ document.getElementById("article2_link").href, true);
+            xhr2.send();
+    }
+
+    function passurl3(){
+        var xhr3 = new XMLHttpRequest();
+        xhr3.onreadystatechange = function() {
+            // if (this.readyState == 4 && this.status == 200) {
+                var idnum = JSON.parse(this.responseText);
+                // console.log('the idnum set to', idnum.id);
+                // socket.emit('room', idnum.id); //sets the room to that idnum returned
+                
+                console.log("hello");
+                location.href="http://71.174.243.29:8000/chat/" + idnum.id;
+            // }else{
+            //     console.log("its not working");
+            // }
+        };
+            console.log(document.getElementById("article3_link").href);
+            xhr3.open("GET", 'http://71.174.243.29:8000/api/chat/getid?article='+ document.getElementById("article3_link").href, true);
+            xhr3.send();
+    }
+
+    // window.onclick = function(event) {
+    //     if (!event.target.matches('.One_Dot')) {
+    //         var dropdowns = document.getElementsByClassName("dropdot-content");
+    //         var i;
+    //         for (i = 0; i < dropdowns.length; i++) {
+    //             var openDropdown = dropdowns[i];
+    //             if (openDropdown.classList.contains('show')) {
+    //             openDropdown.classList.remove('show');
+    //             }
+    //         }
+    //     }
+    //     else if (!event.target.matches('.Two_Dot')) {
+    //         var dropdowns = document.getElementsByClassName("dropdot1-content");
+    //         var i;
+    //         for (i = 0; i < dropdowns.length; i++) {
+    //             var openDropdown = dropdowns[i];
+    //             if (openDropdown.classList.contains('show')) {
+    //             openDropdown.classList.remove('show');
+    //             }
+    //         }
+    //     }
+    //     else if (!event.target.matches('.Three_Dot')) {
+    //         var dropdowns = document.getElementsByClassName("dropdot2-content");
+    //         var i;
+    //         for (i = 0; i < dropdowns.length; i++) {
+    //             var openDropdown = dropdowns[i];
+    //             if (openDropdown.classList.contains('show')) {
+    //             openDropdown.classList.remove('show');
+    //             }
+    //         }
+    //     }
+    // }
     function fillinVar(){
-
-        
-
-        //declaring variables to be inserted into the page
-        // var name = "Sabeer Narula";
-        // var ppic = "https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png";
-        // var followers = 0 + " Followers";
-        // var following = 0 + " Following";
-        // var posts = 0 + " Posts";
-        // var location = "Larchmont, NY";
-        // var bio = "Bio " + "Hi my name is Sam!";
-        // var article1_img = "https://d2cwpp38twqe55.cloudfront.net/req/202006251/images/players/tatumja01.jpg";
-        // var article1_link = "https://www.basketball-reference.com/players/t/tatumja01.html";
-        // var article1_author = "Basketball Reference";
-        // var article1_readtime = "Ten Minute read";
-        // var article1_title = "Jayson Tatum's Basketball Reference Page";
-        // var article2_img = "https://a.espncdn.com/i/headshots/nba/players/full/3917376.png";
-        // var article2_link = "https://www.basketball-reference.com/players/b/brownja02.html";
-        // var article2_title = "Jaylen Brown's Basketball Reference Page";
-        // var article2_author = "Basketball Reference";
-        // var article2_readtime = "10 Minute Read";
-        // var article3_img = "https://d2cwpp38twqe55.cloudfront.net/req/202006251/images/players/walkeke02.jpg";
-        // var article3_link = "https://www.basketball-reference.com/players/w/walkeke02.html";
-        // var article3_title = "Kemba Walker's Basketball Reference Page";
-        // var article3_author = "Basketball Reference";
-        // var article3_readtime = "11 Minute Read";
-
-
         (function(){
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     var myArr = JSON.parse(this.responseText);
                     console.log(myArr);
-                    document.getElementById("pname").innerHTML = myArr.user.name; 
-                    document.getElementById("profile-name").innerHTML = myArr.user.name;
+                    document.getElementById("fpname").innerHTML = myArr.user.firstname; 
+                    document.getElementById("lpname").innerHTML = myArr.user.lastname; 
+                    document.getElementById("profile-fname").innerHTML = myArr.user.firstname;
+                    document.getElementById("profile-lname").innerHTML = myArr.user.lastname;
+                    document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("profile-pic").src = myArr.user.propic;
                     document.getElementById("fprofpic").src = myArr.user.propic;
@@ -222,7 +351,7 @@
                     document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readtime;
                 }
             };
-            xhr.open("GET", 'http://localhost:8000/api/users/profile/<%=user%>', true);
+            xhr.open("GET", 'http://71.174.243.29:8000/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
     // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
@@ -235,45 +364,10 @@
 
         // document.getElementById("pname").innerHTML = result.user.name;
 
+
+
+
         
-        document.getElementById("pname").innerHTML = name;
-        document.getElementById("profile-name").innerHTML = name;
-
-        document.getElementById("profile-pic").src = ppic;
-        document.getElementById("fprofpic").src = ppic;
-
-        document.getElementById("follower-count").innerHTML = followers;
-        document.getElementById("following-count").innerHTML = following;
-        document.getElementById("post-count").innerHTML = posts;
-        document.getElementById("location").innerHTML = location;
-        document.getElementById("bio").innerHTML = bio;
-
-        document.getElementById("article1_link").setAttribute("href", article1link);
-        document.getElementById("article1_link1").setAttribute("href", article1link);
-        document.getElementById("article1_link2").setAttribute("href", article1link);
-        document.getElementById("article1_link3").setAttribute("href", article1link);
-        document.getElementById("article-1-image").src = article1img;
-        document.getElementById("article-1-title").innerHTML = article1title;
-        document.getElementById("article-1-author").innerHTML = article1author;
-        document.getElementById("article-1-read-time").innerHTML = article1readtime;
-
-        document.getElementById("article2_link").setAttribute("href", article2link);
-        document.getElementById("article2_link1").setAttribute("href", article2link);
-        document.getElementById("article2_link2").setAttribute("href", article2link);
-        document.getElementById("article2_link3").setAttribute("href", article2link);
-        document.getElementById("article-2-image").src = article2img;
-        document.getElementById("article-2-title").innerHTML = article2title;
-        document.getElementById("article-2-author").innerHTML = article2author;
-        document.getElementById("article-2-read-time").innerHTML = article2readtime;
-
-        document.getElementById("article3_link").setAttribute("href", article3link);
-        document.getElementById("article3_link1").setAttribute("href", article3link);
-        document.getElementById("article3_link2").setAttribute("href", article3link);
-        document.getElementById("article3_link3").setAttribute("href", article3link);
-        document.getElementById("article-3-image").src = article3img;
-        document.getElementById("article-3-title").innerHTML = article3title;
-        document.getElementById("article-3-author").innerHTML = article3author;
-        document.getElementById("article-3-read-time").innerHTML = article3readtime;
     }
     </script>
 </body>

@@ -5,8 +5,13 @@ const  roomSchema  =  new Schema({
         users: {
             type: [{
               type: String
-            }],
-            validate: [arrayLimit, '{PATH} exceeds the limit of 5'] //Throws an error - needs to handle
+            }]
+            //validate: [arrayLimit, '{PATH} exceeds the limit of 5'] //Throws an error - needs to handle
+          },
+          url:{
+            type:[{
+              type: String
+            }]
           },
     messages: [{type: Schema.Types.ObjectId, ref: 'Chat'}], //holds user&message - relationship to chat
     

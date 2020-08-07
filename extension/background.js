@@ -9,7 +9,7 @@ chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
   });
 
 chrome.browserAction.onClicked.addListener(function(tab){
-  console.log('clicked');
+  //checking for the current user and setting the popup accordingly
   fetch("http://localhost:8000/api/users/current").then(function(response){
     if(response.status==200){
       chrome.browserAction.setPopup({

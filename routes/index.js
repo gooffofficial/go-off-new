@@ -15,4 +15,7 @@ router.get('/account_settings', auth.required, (req, res, next) => {
     res.render('profiles/account_settings', {user: username})
 })
 
+router.get('/chat/:roomid', auth.required, (req, res, next) => {
+    res.render('index')
+})
 module.exports = router;
