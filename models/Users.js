@@ -118,7 +118,9 @@ module.exports = (sequelize, type) => {
     });
 
     User.beforeUpdate(function(user) {
-        user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+        if (user.changed('password')){
+            user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+        }
     });
     //User.associate = function(models) {
     //    User.hasOne(models.Profiles);
