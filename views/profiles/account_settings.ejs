@@ -141,7 +141,7 @@
                     document.getElementById("fprofpic").src = myArr.user.propic;
                 }
             }
-            xhr.open("GET", 'http://localhost:8000/api/users/profile/<%=user%>', true);
+            xhr.open("GET", 'http://71.174.243.29:8000/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
         })();
