@@ -297,10 +297,10 @@ apify-shared@^0.4.0:
     underscore "^1.9.1"
     url "^0.11.0"
 
-apify@^0.21.1:
-  version "0.21.1"
-  resolved "https://registry.yarnpkg.com/apify/-/apify-0.21.1.tgz#b99fb8efbdef0833d6ec48bc2782b4715f9c17f1"
-  integrity sha512-d2Zzkkb86O6mzb7rw+z7exQZOc7I7fDbzd1geLPiT9nT4JsVash7SzM/sXYmS3FEo7+9cPOYVKGBIGk27XUHkg==
+apify@^0.21.3:
+  version "0.21.3"
+  resolved "https://registry.yarnpkg.com/apify/-/apify-0.21.3.tgz#fd938120c9c52e5d332938cbff34aa7c7db45bd3"
+  integrity sha512-gyx/pgzFwqhuQiyB/tSqcUplvUamDUDdyqBxLoyRJmcr9v5+VshfOe7h/AmX5mCNM6n01GPMFxcb5UHZvK3vwQ==
   dependencies:
     "@apify/http-request" "^2.0.1"
     "@apify/ps-tree" "^1.1.3"
