@@ -80,11 +80,18 @@
     display: block;
 }
 
-.pname{
+.fpname{
     top: 3%;
-    right: 19.5%;
     position: absolute;
-    width: 8%;
+    right: 23.5%;
+    width: 4%;
+}
+
+.lpname{
+    top: 3%;
+    position: absolute;
+    right: 20%;
+    width: 4%;
 }
 
 #profile-pic{
