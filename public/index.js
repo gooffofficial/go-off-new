@@ -7,7 +7,7 @@ var hold;
         if (this.readyState == 4 && this.status == 200) {
             var myArr = JSON.parse(this.responseText);
             console.log(myArr)
-            document.getElementById("username").innerHTML = myArr.user.firstname + ' ' + myArr.user.lastname; 
+            document.getElementById("username").innerHTML = myArr.user.username; 
             hold = document.getElementById("username");
             console.log(hold);
         }
@@ -34,6 +34,8 @@ var hold;
     var username = element('username');
     console.log(username.textContent);
     var clearBtn = element('clear');
+    var sendBtn = element('send');
+
 
     //Set default status
     var statusDefault = status.textContent;
@@ -79,7 +81,18 @@ var hold;
         
         });
         }
- 
+    
+    //insert new messages at the bottom
+    function insertAfter(newNode, referenceNode) {
+        referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    }
+
+    //keep the chat box at the bottom when new messages are sent
+    function updateScroll(){
+        var element = document.getElementById("card");
+            element.scrollTop = element.scrollHeight;
+    }
+   
     //Check for connection
     if(socket !== undefined){
         console.log('Connected to socket');
@@ -91,13 +104,19 @@ var hold;
                     //Build out message div
                     var message = document.createElement('div');
                     message.setAttribute('class', 'chat-message');
-                    message.textContent = data[x].name+": "+data[x].message;
-
+                    names = data[x].name
+                    mess = data[x].message
+                    //message.textContent = data[x].name+": "+data[x].message;
+                    message.textContent = names+": "+mess
                     messages.appendChild(message);
-                    messages.insertBefore(message, messages.firstChild); //makes the most recent message to be on top
+                    insertAfter(message.firstChild,message);
+                   
+
+                    //messages.insertBefore(message, messages.firstChild); //makes the most recent message to be on top
                     console.log(messages);
                 }
             }
+            updateScroll(); 
         });  
         
         //Get Status From Server
@@ -137,9 +156,18 @@ var hold;
                 
             }
         });
-        //Handle Chat Clear
-        clearBtn.addEventListener('click', function(){
-            socket.emit('clear');
+        //Handle Send Button
+        sendBtn.addEventListener('click', function(){
+            var xhr = new XMLHttpRequest();
+            //find id first then do the post request
+                    
+            xhr.open("POST", "http://localhost:8000/api/chat/" + roomid, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+            message: textarea.value,
+            }));
+            textarea.value = '';
+            event.preventDefault();
         });
 
         //Clear message
@@ -154,6 +182,6 @@ var hold;
         });
     }
 })();
-chrome.browserAction.setPopup({
-    popup:''
-  });
+// chrome.browserAction.setPopup({
+//     popup:''
+//   });
