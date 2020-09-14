@@ -10,9 +10,16 @@
             #messages{
                 height: 300px;
             }
+            #logout{
+                height: 50px;
+                float: right;
+            }
             .container{
-                width: 300px;
+                width: 50%;
                 height: 550px;
+            }
+            .card{
+                overflow-y: auto;
             }
         </style>
     </head>
@@ -22,23 +29,23 @@
                 <div class = "col-md-6 offset-md-3 col-sm-12">
                     <h1 class = "text-center"> 
                         Chat
-                        <button id ="clear" class = "btn btn-danger"> Clear </button>
                     </h1>
                     <div id = "status"></div>
                     <div id="chat">
                         <!--<input type="text" id = "username" class="form-control" placeholder="Enter Name">-->
                         <p id = "username"></p>
                         <br>
-                        <div class = "card">
+                        <div class = "card" id = "card">
                             <div id="messages" class="card-block">
 
                             </div>
                         </div>
                         <br>
                         <textarea id = "textarea" class = "form-control" placeholder="Enter Message"> </textarea>
+                        <button id = "send"> send </button>
                     </div>
+                    <button id="logout">logout</button>
                 </div>
-                <button id="logout">logout</button>
             </div>
         </div>
 
