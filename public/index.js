@@ -12,7 +12,8 @@ var hold;
             console.log(hold);
         }
     };
-    xhr.open("GET", 'http://localhost:8000/api/users/current', true); //finds the current user
+    xhr.open("GET", '/api/users/current', true); //finds the current user
+    //xhr.open("GET", 'http://localhost:8000/api/users/current', true);
     xhr.send();
     // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
     // document.getElementById("username").innerHTML = result.user.name;
@@ -52,7 +53,8 @@ var hold;
     }
     //Connect to socket.io
     //Make sure IP address is the IP of the server
-    var socket = io.connect('http://localhost:4050');
+    var socket = io.connect('http://go-off.co:4050');
+    //var socket = io.connect('http://localhost:4050');
 
     //uses the function to find the room
     //var currenturl = 'http://localhost:8000/api/chat/getid?article='
@@ -145,7 +147,8 @@ var hold;
                     var xhr = new XMLHttpRequest();
                     //find id first then do the post request
                     
-                    xhr.open("POST", "http://localhost:8000/api/chat/" + roomid, true);
+                    xhr.open("POST", "/api/chat/" + roomid, true);
+                    //xhr.open("POST", "http://localhost:8000/api/chat/" + roomid, true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.send(JSON.stringify({
                     message: textarea.value,
@@ -161,7 +164,8 @@ var hold;
             var xhr = new XMLHttpRequest();
             //find id first then do the post request
                     
-            xhr.open("POST", "http://localhost:8000/api/chat/" + roomid, true);
+            xhr.open("POST", "/api/chat/" + roomid, true);
+            //xhr.open("POST", "http://localhost:8000/api/chat/" + roomid, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify({
             message: textarea.value,
@@ -178,7 +182,7 @@ var hold;
         //Logout
         var logoff = element('logout');
         logoff.addEventListener('click', function(){
-            window.open('http://localhost:8000/api/users/logout')
+            window.open('/api/users/logout')
         });
     }
 })();
