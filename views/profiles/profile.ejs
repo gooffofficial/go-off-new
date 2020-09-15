@@ -7,7 +7,7 @@
 <title>Test</title>
 </head>
 <body onload="fillinVar()">
-	<a href="/home.html">
+	<a href="https://www.gooffco.com/">
     	<div class="logo">
         	<img src="/GO_Off.png"/>
     	</div>
@@ -20,7 +20,7 @@
             <div id="arrowdrop" class="dropdown-arrowcontent">
                 <a href="/profile">Go to Profile</a>
                 <a href="/profile_edit">Settings and Privacy</a>
-                <p>Install Chrome Extension</p>
+                <!-- <p>Install Chrome Extension</p> -->
                 <p>Log Out</p> 
             </div>
         </button>
@@ -38,9 +38,9 @@
         <img id="fprofpic" src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"/>
     </div> 
     
-    <button type="submit" id="Plus">
+    <!-- <button type="submit" id="Plus">
         <img src="/Plus.jpg" alt="add icon" height="65" width="50">
-    </button>
+    </button> -->
 
     <button type="submit" id="Submit" onclick="searchBar()">
         <img src="/Search.png" alt= "profile icon 1" height="40" width="40">
@@ -171,7 +171,7 @@
         document.getElementsByClassName('fpname')[0].style.visibility = "hidden";
         document.getElementsByClassName('lpname')[0].style.visibility = "hidden";
         document.getElementById("bar_form").style.visibility="visible";
-        document.getElementById("droparrow").style.visibility="hidden";
+        document.getElementById("droparrow").style.display="none";
     }
     function searchBar1(){
         document.getElementById("Submit").style.visibility = "visible";
@@ -181,7 +181,7 @@
         document.getElementsByClassName('fpname')[0].style.visibility = "visible";
         document.getElementsByClassName('lpname')[0].style.visibility = "visible";
         document.getElementById("bar_form").style.visibility="hidden";
-        document.getElementById("droparrow").style.visibility="visible";
+        document.getElementById("droparrow").style.display="block";
     }
 
     function dropclick() {
