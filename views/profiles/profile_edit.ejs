@@ -54,7 +54,7 @@
         <div id="line" style="top: 5%;"><hr></div>
 
         <!-- form to collect data to change -->
-        <form action="http://localhost:8000/api/users/update" method="post" class="editProf" enctype="multipart/form-data">
+        <form action="/api/users/update" method="post" class="editProf" enctype="multipart/form-data">
 
             <h1>Edit Profile</h1>
 
@@ -144,7 +144,7 @@
                     document.getElementById("fprofpic").src = myArr.user.propic;
                 }
             }
-            xhr.open("GET", 'http://71.174.243.29:8000/api/users/profile/<%=user%>', true);
+            xhr.open("GET", '/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
         })();

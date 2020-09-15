@@ -28,10 +28,13 @@ router.post('/', auth.required, (req, res, next) => {
 //testing to create a room
 router.get('/create', auth.required, (req, res, next) => {
     const{ payload: { id }} = req;
+    if(id != 15 && id != 33){
+        return res.status(401).json({"authorization": "failed"})
+    }
     let newRoom = new Room({users: [id]});
     newRoom.save().then(() => {
         console.log("saved");
-        return res.status(200);
+        return res.status(200).json({"created": "success"});
     });
 })
 

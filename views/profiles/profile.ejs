@@ -209,13 +209,13 @@
                 // socket.emit('room', idnum.id); //sets the room to that idnum returned
                 
                 console.log("hello");
-                location.href="http://localhost:8000/chat/" + idnum.id;
+                location.href="/chat/" + idnum.id;
             // }else{
             //     console.log("its not working");
             // }
         };
             console.log(document.getElementById("article1_link").href);
-            xhr1.open("GET", 'http://localhost:8000/api/chat/getid?article='+ document.getElementById("article1_link").href, true);
+            xhr1.open("GET", '/api/chat/getid?article='+ document.getElementById("article1_link").href, true);
             xhr1.send();
     }
 
@@ -228,13 +228,13 @@
                 // socket.emit('room', idnum.id); //sets the room to that idnum returned
                 
                 console.log("hello");
-                location.href="http://localhost:8000/chat/" + idnum.id;
+                location.href="/chat/" + idnum.id;
             // }else{
             //     console.log("its not working");
             // }
         };
             console.log(document.getElementById("article1_link").href);
-            xhr2.open("GET", 'http://localhost:8000/api/chat/getid?article='+ document.getElementById("article2_link").href, true);
+            xhr2.open("GET", '/api/chat/getid?article='+ document.getElementById("article2_link").href, true);
             xhr2.send();
     }
 
@@ -247,13 +247,13 @@
                 // socket.emit('room', idnum.id); //sets the room to that idnum returned
                 
                 console.log("hello");
-                location.href="http://localhost:8000/chat/" + idnum.id;
+                location.href="/chat/" + idnum.id;
             // }else{
             //     console.log("its not working");
             // }
         };
             console.log(document.getElementById("article3_link").href);
-            xhr3.open("GET", 'http://localhost:8000/api/chat/getid?article='+ document.getElementById("article3_link").href, true);
+            xhr3.open("GET", '/api/chat/getid?article='+ document.getElementById("article3_link").href, true);
             xhr3.send();
     }
 
@@ -339,7 +339,7 @@
                     document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readtime;
                 }
             };
-            xhr.open("GET", 'http://localhost:8000/api/users/profile/<%=user%>', true);
+            xhr.open("GET", '/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
     // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
