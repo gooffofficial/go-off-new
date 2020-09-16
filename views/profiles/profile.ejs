@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/css/profile.css">
+    <link href="//db.onlinewebfonts.com/c/eeb2719d248b27841be5f4899986eedc?family=Sentinel+Book" rel="stylesheet" type="text/css"/>
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
     <!-- <script type="text/javascript" src="profile.js"></script> -->
 <title>Test</title>
@@ -18,7 +19,7 @@
         <button onclick="dropclick()" class="dropBtn">
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
             <div id="arrowdrop" class="dropdown-arrowcontent">
-                <a href="/profile">Go to Profile</a>
+                <!-- <a href="/profile">Go to Profile</a> -->
                 <a href="/profile_edit">Settings and Privacy</a>
                 <!-- <p>Install Chrome Extension</p> -->
                 <p>Log Out</p> 
@@ -26,13 +27,16 @@
         </button>
     </div>
 
-    <div class="fpname">
-        <h><span id="fpname"></span></h>
-    </div>
+    <div class="name">
+        <div class="fpname" style= "display: inline-block">
+            <h><span id="fpname"></span></h>
+        </div>
 
-    <div class="lpname">
-        <h><span id="lpname"></span></h>
+        <div class="lpname" style= "display: inline-block">
+            <h><span id="lpname"></span></h>
+        </div>
     </div>
+    
 
     <div class="fprofpic">
         <img id="fprofpic" src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"/>
@@ -59,8 +63,10 @@
 
     <div id="top-profile">
         <img id = "profile-pic"/>
-        <h1 id= "profile-lname"></h1>
-        <h1 id= "profile-fname"></h1>
+        <div id="profile-name">
+            <h1 id= "profile-fname" style= "display: inline-block"></h1>
+            <h1 id= "profile-lname" style= "display: inline-block"></h1>
+        </div>
         <h3 id="user-name"></h3>
         <h4 id= "follower-count"></h4>
         <h4 id = "following-count"></h4>
@@ -144,21 +150,28 @@
     </div>
 </div>
 <a href="https://www.gooffco.com/">
-	<button type="submit" id="Home">
+	<button type="submit" id="Home" >
     	<img src="/Home.png" alt="house icon" height="20" width="20"/>
     	Home
 	</button>
 </a>
 </br>
-<button type="submit" id="Profile">
-    <img src="https://i7.pngguru.com/preview/906/222/368/computer-icons-user-profile-avatar-french-people.jpg" alt="profile icon" height="20" width="20"/>
-    Profile
-</button>
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScRZFA4owbzMnqmcS2D02LMqHks2RhoQfvfwZpTpcGtOkWwLA/viewform">
+    <button type="submit" id="Profile">
+        <img src="https://i7.pngguru.com/preview/906/222/368/computer-icons-user-profile-avatar-french-people.jpg" alt="profile icon" height="20" width="20"/>
+        Beta Sign Up
+    </button>
+</a>
 </br>
-<button type="submit" id="Notification">
+<a href="Mailto:sn23@bu.edu" >
+    <button type="submit" id="Contact">
+        Contact us
+    </button>
+</a>
+<!-- <button type="submit" id="Notification">
     <img src="https://freeiconshop.com/wp-content/uploads/edd/notification-outline.png" alt="notification icon" height="20" width="20"/>
     Notifications
-</button>
+</button> -->
 
 
 <script>
