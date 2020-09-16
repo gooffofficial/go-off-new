@@ -174,16 +174,16 @@ var hold;
         });
 
         //Logout
-        // var logoff = element('logout');
-        // logoff.addEventListener('click', function(){
+         var logoff = element('logout');
+         logoff.addEventListener('click', function(){
         //     var xhr = new XMLHttpRequest();
         //     xhr.open("GET", "http://localhost:8000/api/users/logout", true);
         //     xhr.send();
             
-        //     window.open('http://go-off.co', '_self')
+             window.open('http://go-off.co', '_self')
 
         //     //window.open('http://localhost:8000/api/users/logout')
-        // });
+        });
 
         //Go back to home
         var home = element('home');
