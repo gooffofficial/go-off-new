@@ -1,3 +1,23 @@
+@import url(//db.onlinewebfonts.com/c/eeb2719d248b27841be5f4899986eedc?family=Sentinel+Book);
+
+@font-face {
+    font-family: Sentinel_Book; 
+    src: url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.eot"); 
+    src: url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.eot?#iefix") format("embedded-opentype"), 
+    url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.woff") format("woff"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.svg#Sentinel Book") format("svg"); 
+}
+@font-face{
+    font-family: Poppins_Bold;
+    src: url(/Poppins-Bold.ttf);
+}
+@font-face{
+    font-family: Poppins_Medium_Regular;
+    src: url(/Poppins-Medium.ttf);
+}
+@font-face{
+    font-family: Poppins_SemiBold_Regular;
+    src: url(/Poppins-SemiBold.ttf);
+}
 .logo img {
     position: absolute;
     height: 50px;
@@ -5,7 +25,7 @@
     left: 20%;
 }
 #fprofpic{
-    right: 28%;
+    right: 28.5%;
     top: 1.5%;
     position: absolute;
     height: 7%;
@@ -25,7 +45,7 @@ hr{
 #search{
     position: absolute;
     margin-top: 10px;
-    right: 25%;
+    right: 30%;
     background-image: url(http://www.levenmetwater.nl/static/global/images/icon-search.png);
     background-position: 10px center;
     background-repeat: no-repeat;
@@ -80,7 +100,15 @@ hr{
     margin-right: 5px; 
 } */
 
-.fpname{
+.name{
+    top: 3%;
+    position: absolute;
+    right: 12.5%;
+    width: 15%;
+    font-family: Poppins_Bold;
+    display: inline;
+}
+/* .fpname{
     top: 3%;
     position: absolute;
     right: 23.5%;
@@ -92,7 +120,7 @@ hr{
     position: absolute;
     right: 20%;
     width: 4%;
-}
+} */
 
 button{
     border: 0;
@@ -160,11 +188,22 @@ button{
     font-size: 300%;
 } */
 
-#profile-fname{
+#profile-name{
     position: absolute;
     top: 10%;
     left: 30%;
-    /* width: 35%; */
+    display: inline;
+    bottom: 2%;
+    width: 50%;
+    font-size: 150%;
+    font-family: Poppins_Bold;
+}
+
+/* #profile-fname{
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    /* width: 35%; 
     display: inline;
     bottom: 2%;
     font-size: 300%;
@@ -178,29 +217,34 @@ button{
     width: 35%;
     bottom: 2%;
     font-size: 300%;
-}
+} */
 
 #user-name{
     position: absolute;
     top: 38%;
     left: 30%;
+    font-family: Poppins_Bold;
 }
 #follower-count {
     position: absolute;
     top: 48%;
     left: 30%;
+    font-family: Poppins_Medium_Regular;
 }
 
 #following-count {
     position: absolute;
     top: 48%;
     left: 50%;
+    font-size: medium;
+    font-family: Poppins_Medium_Regular;
 }
 
 #post-count {
     position: absolute;
     top: 48%;
     left: 68%;
+    font-family: Poppins_Medium_Regular;
 }
 
 #location-logo{
@@ -215,12 +259,14 @@ button{
     position: absolute;
     top: 48%;
     left: 82%;
+    font-family: Poppins_Medium_Regular;
 }
 
 #bio {
     position: absolute;
     top: 60%;
     left: 30%;
+    font-family: Poppins_Medium_Regular;
 }
 
 #articles{
@@ -254,9 +300,10 @@ button{
     text-align: left;
     margin: auto;
     top: 70%;
-    font-size: medium;
+    font-size: small;
     left: 5%;
     color: black;
+    font-family: Poppins_Medium_Regular;
     /* float: bottom; */
 }
 
@@ -268,6 +315,7 @@ button{
     transform: translate(-50%, -50%); 
     top: 56%;
     color: black;
+    font-family: Poppins_Medium_Regular;
     /* float: bottom; */
 }
 
@@ -279,6 +327,7 @@ button{
     top: 85%;
     color: black;
     font-size: small;
+    font-family: Poppins_Medium_Regular;
     /* float: bottom; */
 
 }
@@ -310,6 +359,7 @@ button{
     font-size: medium;
     left: 5%;
     color: black;
+    font-family: Poppins_Medium_Regular;
 }
 
 #article-2-author{
@@ -320,6 +370,7 @@ button{
     transform: translate(-50%, -50%); 
     top: 56%;
     color: black;
+    font-family: Poppins_Medium_Regular;
 }
 
 #article-2-read-time{
@@ -330,6 +381,7 @@ button{
     top: 85%;
     color: black;
     font-size: small;
+    font-family: Poppins_Medium_Regular;
 }
 
 #article-3{
@@ -360,6 +412,7 @@ button{
     font-size: medium;
     left: 5%;
     color: black;
+    font-family: Poppins_Medium_Regular;
 }
 
 #article-3-author{
@@ -370,6 +423,7 @@ button{
     transform: translate(-50%, -50%); 
     top: 56%;
     color: black;
+    font-family: Poppins_Medium_Regular;
 }
 
 #article-3-read-time{
@@ -380,11 +434,12 @@ button{
     top: 85%;
     color: black;
     font-size: small;
+    font-family: Poppins_Medium_Regular;
 
 }
 #Submit{
     right: 31.5%;
-    top: -1.5%;
+    top: 1.0%;
     border-radius: 50%;
     position: absolute;
     /* background-size: cover;
@@ -415,14 +470,24 @@ button{
 #Home{
     margin-top: 220px;
     font-size: 20px;
+    font-family: Poppins_Medium_Regular;
 }
 
 #Profile{
     font-size: 20px;
+    font-family: Poppins_Medium_Regular;
 }
 
+#Contact{
+    font-size: 20px;
+    font-family: Poppins_Medium_Regular;
+    bottom: 5%;
+    left: 48%;
+    position: absolute;
+}
 #Notification{
     font-size: 20px;
+    font-family: Poppins_Medium_Regular;
 }
 
 #Home:after {
@@ -486,6 +551,7 @@ button{
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    font-family: Poppins_Medium_Regular;
   }
   
   /* Links inside the dropdown */
@@ -494,6 +560,7 @@ button{
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    font-family: Poppins_Medium_Regular;
   }
   
   /* Change color of dropdown links on hover */
@@ -531,6 +598,7 @@ button{
     /* margin-top: 250%; */
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    font-family: Poppins_Medium_Regular;
 }
 .droparrow:hover {
     display: block;
@@ -557,6 +625,7 @@ button{
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    font-family: Poppins_Medium_Regular;
 }
 
 .dropdot a:hover {background-color: #ddd;}
@@ -583,6 +652,7 @@ button{
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    font-family: Poppins_Medium_Regular;
 }
 
 .dropdot1 a:hover {background-color: #ddd;}
@@ -609,6 +679,7 @@ button{
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    font-family: Poppins_Medium_Regular;
 }
 
 .dropdot2 a:hover {background-color: #ddd;}
