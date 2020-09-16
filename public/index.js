@@ -92,7 +92,6 @@ var hold;
         var element = document.getElementById("card");
             element.scrollTop = element.scrollHeight;
     }
-   
     //Check for connection
     if(socket !== undefined){
         console.log('Connected to socket');
@@ -110,8 +109,7 @@ var hold;
                     message.textContent = names+": "+mess
                     messages.appendChild(message);
                     insertAfter(message.firstChild,message);
-                   
-
+                    
                     //messages.insertBefore(message, messages.firstChild); //makes the most recent message to be on top
                     console.log(messages);
                 }
@@ -176,9 +174,22 @@ var hold;
         });
 
         //Logout
-        var logoff = element('logout');
-        logoff.addEventListener('click', function(){
-            window.open('http://localhost:8000/api/users/logout')
+        // var logoff = element('logout');
+        // logoff.addEventListener('click', function(){
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.open("GET", "http://localhost:8000/api/users/logout", true);
+        //     xhr.send();
+            
+        //     window.open('http://go-off.co', '_self')
+
+        //     //window.open('http://localhost:8000/api/users/logout')
+        // });
+
+        //Go back to home
+        var home = element('home');
+        home.addEventListener('click', function(){
+            var url = 'http://go-off.co/profiles/' + username.textContent
+            window.open(url, '_self');
         });
     }
 })();
