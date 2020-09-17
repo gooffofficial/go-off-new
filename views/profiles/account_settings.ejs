@@ -139,7 +139,7 @@
                 if (this.readyState == 4 && this.status == 200){
                     var myArr = JSON.parse(this.responseText);
                     console.log(myArr);
-                    document.getElementById("pname").innerHTML = myArr.user.name; 
+                    document.getElementById("fpname").innerHTML = myArr.user.firstname; 
                     document.getElementById("fprofpic").src = myArr.user.propic;
                 }
             }

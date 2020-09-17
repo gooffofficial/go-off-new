@@ -200,7 +200,7 @@
         document.getElementById("Cancel").style.visibility = "visible";
         document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
         document.getElementsByClassName('fpname')[0].style.visibility = "hidden";
-        document.getElementsByClassName('lpname')[0].style.visibility = "hidden";
+        //document.getElementsByClassName('lpname')[0].style.visibility = "hidden";
         document.getElementById("bar_form").style.visibility="visible";
         document.getElementById("droparrow").style.display="none";
     }
@@ -210,7 +210,7 @@
         document.getElementById("Cancel").style.visibility = "hidden";
         document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
         document.getElementsByClassName('fpname')[0].style.visibility = "visible";
-        document.getElementsByClassName('lpname')[0].style.visibility = "visible";
+        //document.getElementsByClassName('lpname')[0].style.visibility = "visible";
         document.getElementById("bar_form").style.visibility="hidden";
         document.getElementById("droparrow").style.display="block";
     }
@@ -336,9 +336,9 @@
                     var myArr = JSON.parse(this.responseText);
                     console.log(myArr);
                     document.getElementById("fpname").innerHTML = myArr.user.firstname; 
-                    document.getElementById("lpname").innerHTML = myArr.user.lastname; 
+                    //document.getElementById("lpname").innerHTML = myArr.user.lastname; 
                     document.getElementById("profile-fname").innerHTML = myArr.user.firstname;
-                    document.getElementById("profile-lname").innerHTML = myArr.user.lastname;
+                    //document.getElementById("profile-lname").innerHTML = myArr.user.lastname;
                     document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("profile-pic").src = myArr.user.propic;
