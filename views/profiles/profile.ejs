@@ -200,7 +200,7 @@
         document.getElementById("Cancel").style.visibility = "visible";
         document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
         document.getElementsByClassName('fpname')[0].style.visibility = "hidden";
-        document.getElementsByClassName('lpname')[0].style.visibility = "hidden";
+        //document.getElementsByClassName('lpname')[0].style.visibility = "hidden";
         document.getElementById("bar_form").style.visibility="visible";
         document.getElementById("droparrow").style.display="none";
     }
@@ -210,7 +210,7 @@
         document.getElementById("Cancel").style.visibility = "hidden";
         document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
         document.getElementsByClassName('fpname')[0].style.visibility = "visible";
-        document.getElementsByClassName('lpname')[0].style.visibility = "visible";
+        //document.getElementsByClassName('lpname')[0].style.visibility = "visible";
         document.getElementById("bar_form").style.visibility="hidden";
         document.getElementById("droparrow").style.display="block";
     }
@@ -248,13 +248,13 @@
                 // socket.emit('room', idnum.id); //sets the room to that idnum returned
                 
                 console.log("hello");
-                location.href="http://localhost:8000/chat/" + idnum.id;
+                location.href="/chat/" + idnum.id;
             // }else{
             //     console.log("its not working");
             // }
         };
             console.log(document.getElementById("article1_link").href);
-            xhr1.open("GET", 'http://localhost:8000/api/chat/getid?article='+ document.getElementById("article1_link").href, true);
+            xhr1.open("GET", '/api/chat/getid?article='+ document.getElementById("article1_link").href, true);
             xhr1.send();
     }
 
@@ -267,13 +267,13 @@
                 // socket.emit('room', idnum.id); //sets the room to that idnum returned
                 
                 console.log("hello");
-                location.href="http://localhost:8000/chat/" + idnum.id;
+                location.href="/chat/" + idnum.id;
             // }else{
             //     console.log("its not working");
             // }
         };
             console.log(document.getElementById("article1_link").href);
-            xhr2.open("GET", 'http://localhost:8000/api/chat/getid?article='+ document.getElementById("article2_link").href, true);
+            xhr2.open("GET", '/api/chat/getid?article='+ document.getElementById("article2_link").href, true);
             xhr2.send();
     }
 
@@ -286,13 +286,13 @@
                 // socket.emit('room', idnum.id); //sets the room to that idnum returned
                 
                 console.log("hello");
-                location.href="http://localhost:8000/chat/" + idnum.id;
+                location.href="/chat/" + idnum.id;
             // }else{
             //     console.log("its not working");
             // }
         };
             console.log(document.getElementById("article3_link").href);
-            xhr3.open("GET", 'http://localhost:8000/api/chat/getid?article='+ document.getElementById("article3_link").href, true);
+            xhr3.open("GET", '/api/chat/getid?article='+ document.getElementById("article3_link").href, true);
             xhr3.send();
     }
 
@@ -336,9 +336,9 @@
                     var myArr = JSON.parse(this.responseText);
                     console.log(myArr);
                     document.getElementById("fpname").innerHTML = myArr.user.firstname; 
-                    document.getElementById("lpname").innerHTML = myArr.user.lastname; 
+                    //document.getElementById("lpname").innerHTML = myArr.user.lastname; 
                     document.getElementById("profile-fname").innerHTML = myArr.user.firstname;
-                    document.getElementById("profile-lname").innerHTML = myArr.user.lastname;
+                    //document.getElementById("profile-lname").innerHTML = myArr.user.lastname;
                     document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("profile-pic").src = myArr.user.propic;
@@ -378,7 +378,7 @@
                     document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readtime;
                 }
             };
-            xhr.open("GET", 'http://localhost:8000/api/users/profile/<%=user%>', true);
+            xhr.open("GET", '/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
     // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {

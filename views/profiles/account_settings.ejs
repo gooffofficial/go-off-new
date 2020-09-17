@@ -58,7 +58,7 @@
 
         <!-- form to collect data to change-->
 
-        <form action="http://localhost:8000/api/users/update" method="post" class="editProf">
+        <form action="/api/users/update" method="post" class="editProf">
             <h1>Account Settings</h1>
 
             <input type="submit" value="Done" id="submitBtn">
@@ -139,11 +139,11 @@
                 if (this.readyState == 4 && this.status == 200){
                     var myArr = JSON.parse(this.responseText);
                     console.log(myArr);
-                    document.getElementById("pname").innerHTML = myArr.user.name; 
+                    document.getElementById("fpname").innerHTML = myArr.user.firstname; 
                     document.getElementById("fprofpic").src = myArr.user.propic;
                 }
             }
-            xhr.open("GET", 'http://71.174.243.29:8000/api/users/profile/<%=user%>', true);
+            xhr.open("GET", '/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
         })();

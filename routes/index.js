@@ -18,4 +18,8 @@ router.get('/account_settings', auth.required, (req, res, next) => {
 router.get('/chat/:roomid', auth.required, (req, res, next) => {
     res.render('index')
 })
+
+router.get('/', auth.optional, (req, res, next) => {
+    res.render('test_login')
+})
 module.exports = router;
