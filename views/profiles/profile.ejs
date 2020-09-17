@@ -215,9 +215,17 @@
         document.getElementById("droparrow").style.display="block";
     }
 
-    function dropclick() {
-        document.getElementById("arrowdrop").classList.toggle("show");
-    }
+    // function dropclick1() {
+    //     document.getElementById("arrowdrop").classList.toggle("show");
+    // }
+    function dropclick1() {
+            var x = document.getElementById("arrowdrop");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
 
     function dropmenu() {
         document.getElementById("myDropdown").classList.toggle("show");
