@@ -60,7 +60,7 @@ app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
         console.log(socket.request.authCookie);
         //console.log(authCookie);
         var address = socket.handshake.address;
-        console.log(address) 
+        console.log('handshake: ' + address) 
         sendStatus = function(s){
             socket.emit('status', s); //pass from server to client (index.html) use .emit
         }
@@ -94,6 +94,7 @@ app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
 
         //Handle input events
         socket.on('input', function(data){ //catches things from client 
+            console.log("message coming fron address: " + socket.handshake.address);
             if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
                 let name = data.name;
                 let message = data.message;

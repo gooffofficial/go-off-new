@@ -18,7 +18,7 @@
                     <!-- <a href="/profile">Go to Profile</a> -->
                     <a href="/profile_edit">Settings and Privacy</a>
                     <!-- <p>Install Chrome Extension</p> -->
-                    <p>Log Out</p> 
+                    <a href="http://www.go-off.co">Log Out</a>
                 </div>
             </button>
         </div>
@@ -56,7 +56,7 @@
         <div id="line" style="top: 5%;"><hr></div>
 
         <!-- form to collect data to change -->
-        <form action="http://localhost:8000/api/users/update" method="post" class="editProf" enctype="multipart/form-data">
+        <form action="/api/users/update" method="post" class="editProf" enctype="multipart/form-data">
 
             <h1>Edit Profile</h1>
 
@@ -141,12 +141,12 @@
                     var myArr = JSON.parse(this.responseText);
                     console.log(myArr);
                     document.getElementById("fpname").innerHTML = myArr.user.firstname; 
-                    document.getElementById("lpname").innerHTML = myArr.user.lastname;
+                    //document.getElementById("lpname").innerHTML = myArr.user.lastname;
                     document.getElementById("profile-pic").src = myArr.user.propic;
                     document.getElementById("fprofpic").src = myArr.user.propic;
                 }
             }
-            xhr.open("GET", 'http://71.174.243.29:8000/api/users/profile/<%=user%>', true);
+            xhr.open("GET", '/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
         })();
