@@ -92,12 +92,9 @@
 	<a id="article1_link3">
 		<h4 id="article-1-read-time"> </h4>
     </a>
-    <div class="One_Dot">
-        <button onclick="dropmenu()" id="Dot">
-            <img src="https://static.thenounproject.com/png/658625-200.png" alt= "first 3 dots" height="40" width="40">
-            <div id="myDropdown" class="dropdot-content">
-                <a onclick="passurl1()">Do you want to Chat about it?</a>
-            </div>
+    <div class="Chat1">
+        <button onclick="passurl1()" id="Dot">
+            Chat
         </button>
     </div>
 </div>
@@ -116,12 +113,9 @@
 	<a id="article2_link3">
 		<h4 id="article-2-read-time"> </h4>
     </a>
-    <div class="Two_Dot">
-        <button onclick="dropmenu1()" id="Dot1">
-            <img src="https://static.thenounproject.com/png/658625-200.png" alt= "first 3 dots" height="40" width="40">
-            <div id="myDropdown1" class="dropdot1-content">
-                <a onclick="passurl2()">Do you want to Chat about it?</a>
-            </div>
+    <div class="Chat2">
+        <button onclick="passurl2()" id="Dot1">
+            Chat
         </button>
     </div>
 </div>
@@ -140,12 +134,9 @@
 	<a id="article3_link3">
 		<h4 id="article-3-read-time"> </h4>
     </a>
-    <div class="Three_Dot">
-        <button onclick="dropmenu2()" id="Dot2">
-            <img src="https://static.thenounproject.com/png/658625-200.png" alt= "first 3 dots" height="40" width="40">
-            <div id="myDropdown2" class="dropdot2-content">
-                <a onclick="passurl3()">Do you want to Chat about it?</a>
-            </div>
+    <div class="Chat3">
+        <button onclick="passurl3()" id="Dot2">
+            Chat
         </button>
     </div>
 </div>
@@ -199,18 +190,6 @@
 
     function dropclick() {
         document.getElementById("arrowdrop").classList.toggle("show");
-    }
-
-    function dropmenu() {
-        document.getElementById("myDropdown").classList.toggle("show");
-    }
-
-    function dropmenu1() {
-        document.getElementById("myDropdown1").classList.toggle("show");
-    }
-
-    function dropmenu2() {
-        document.getElementById("myDropdown2").classList.toggle("show");
     }
 
     function passurl1(){

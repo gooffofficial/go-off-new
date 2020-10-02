@@ -605,7 +605,7 @@ button{
 }
 
   
-.One_Dot{
+.Chat1{
     position: absolute;
     left: 75%;
     top: 80%;
@@ -632,7 +632,7 @@ button{
 
 .show {display: block;}
 
-.Two_Dot{
+.Chat2{
     position: absolute;
     left: 75%;
     top: 80%;
@@ -659,7 +659,7 @@ button{
 
 .show {display: block;}
 
-.Three_Dot{
+.Chat3{
     position: absolute;
     left: 75%;
     top: 80%;
