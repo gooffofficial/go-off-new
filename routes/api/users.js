@@ -295,7 +295,7 @@ router.get('/logout', (req, res, next) => {
     maxAge: 0,
     signed: true
   })
-  return res.json({status: 'logged out'});
+  return res.redirect('/');
 })
 
 function isLoggedIn(req, res, next){
