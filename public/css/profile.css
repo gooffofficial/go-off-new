@@ -284,7 +284,6 @@ button{
     border: 1px solid rgba(153, 150, 150, 0.116);
     border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
-/*    border: 1px solid;*/
 }
 
 #article-1-image{
@@ -296,18 +295,35 @@ button{
 }
 
 #article-1-title{
-    position: absolute;
+    /* position: absolute;
     text-align: left;
     margin: auto;
     top: 70%;
     font-size: small;
-    left: 5%;
+    left: 5%; /
     color: black;
     font-family: Poppins_Medium_Regular;
+    font-weight: 600;
+    margin: 16px 16px 12px;
+    font-size: 24px;
+    overflow: hidden;
+    /* word-wrap: break-word;
+    height: 20%; */
     /* float: bottom; */
+    position: absolute;
+    text-align: left;
+    margin: auto;
+    top: 70%;
+    font-size: medium;
+    left: 5%;
+    color: black;
+    word-wrap: break-word;
+    height: 70px;
+    font-family: Poppins_Medium_Regular;
 }
 
 #article-1-author{
+    /*
     position: absolute;
     left: 28%;
     font-size: smaller;
@@ -317,9 +333,18 @@ button{
     color: black;
     font-family: Poppins_Medium_Regular;
     /* float: bottom; */
+    position: absolute;
+    left: 28%;
+    font-size: smaller;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 56%;
+    color: black;
+    font-family: Poppins_Medium_Regular;
 }
 
 #article-1-read-time{
+    /*
     position: absolute;
     left: 50%;
     margin-right: -50%;
@@ -329,6 +354,14 @@ button{
     font-size: small;
     font-family: Poppins_Medium_Regular;
     /* float: bottom; */
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 85%;
+    color: black;
+    font-size: small;
+    font-family: Poppins_Medium_Regular;
 
 }
 
@@ -359,7 +392,13 @@ button{
     font-size: medium;
     left: 5%;
     color: black;
+    word-wrap: break-word;
+    height: 70px;
     font-family: Poppins_Medium_Regular;
+}
+
+#article2_link1{
+    height: 70px;
 }
 
 #article-2-author{
@@ -412,6 +451,8 @@ button{
     font-size: medium;
     left: 5%;
     color: black;
+    word-wrap: break-word;
+    height: 20%;
     font-family: Poppins_Medium_Regular;
 }
 

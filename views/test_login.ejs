@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="/css/test_login.css">
+    </head>
     <body>
+        <div class="logo">
+            <img src="/GO_Off.png" style="width:18%; height:auto;">
+        </div>
         <form action="api/users/login" method="post">
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username"><br><br>
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password"><br><br>
-            <input type="submit">
+            <!-- <label for="username">Username:</label><br> -->
+            <br>
+            <input type="text" id="username" name="username" placeholder="Username"><br><br>
+            <!-- <label for="password">Password:</label><br> -->
+            <br>
+            <input type="password" id="password" name="password" placeholder="Password"><br><br>
+            <br>
+            <input type="submit" placeholder="Log In">
         </form>
     </body>
 </html>
