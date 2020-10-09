@@ -264,6 +264,15 @@ input[name=email_addr]{
     top: 28.5%;
 }
 
+/* label[for=passwrd]{
+    position: absolute;
+    top: 25%;
+}
+input[name=passwrd]{
+    position: absolute;
+    top: 28.5%;
+} */
+
 label[for=Country]{
     position: absolute;
     top: 35%;
