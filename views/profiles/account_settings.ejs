@@ -18,17 +18,19 @@
                     <!-- <a href="/profile">Go to Profile</a> -->
                     <a href="/profile_edit">Settings and Privacy</a>
                     <!-- <p>Install Chrome Extension</p> -->
-                    <p>Log Out</p> 
+                    <a href="https://">Log Out</a>
                 </div>
             </button>
         </div>
     
-        <div class="fpname">
-            <h><span id="fpname"></span></h>
-        </div>
+        <div class="name">
+            <div class="fpname" style= "display: inline-block">
+                <h><span id="fpname"></span></h>
+            </div>
     
-        <div class="lpname">
-            <h><span id="lpname"></span></h>
+            <!-- <div class="lpname" style= "display: inline-block">
+                <h><span id="lpname"></span></h>
+            </div> -->
         </div>
     
         <div class="fprofpic">
@@ -56,17 +58,22 @@
 
         <!-- form to collect data to change-->
 
-        <form action="http://localhost:8000/api/users/update" method="post" class="editProf">
+        <form action="/api/users/update" method="post" class="editProf">
             <h1>Account Settings</h1>
 
             <input type="submit" value="Done" id="submitBtn">
 
             <input type="reset" value="Cancel" id="cancelBtn"><br>
 
+            
+
             <p id="desc">Set your login preferences, help us personalize your experience and make big account changes here</p><br>
 
             <label for="email">Email</label>
             <input type="email" id="email_addr" name="email">
+
+            <!-- <label for="password">Password</label>
+            <input type="text" id="passwrd" name="password"> -->
 
             <label for="location">Country/Region</label>
             <input type="text" id="Country" name="location">
@@ -137,11 +144,11 @@
                 if (this.readyState == 4 && this.status == 200){
                     var myArr = JSON.parse(this.responseText);
                     console.log(myArr);
-                    document.getElementById("pname").innerHTML = myArr.user.name; 
+                    document.getElementById("fpname").innerHTML = myArr.user.firstname; 
                     document.getElementById("fprofpic").src = myArr.user.propic;
                 }
             }
-            xhr.open("GET", 'http://71.174.243.29:8000/api/users/profile/<%=user%>', true);
+            xhr.open("GET", '/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
         })();

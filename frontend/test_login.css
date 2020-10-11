@@ -1,0 +1,40 @@
+body {
+    text-align: center;
+}
+form {
+    display: inline-block;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+.logo{
+    display: inline-block;
+    margin: auto;
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    /* height: 50%;
+    width: 50%; */
+    transform: translate(-50%, -50%);
+}
+input[type=text], input[type=password], select {
+    border: 1px solid #ccc;
+    width: 115%;
+    height: 40px;
+    text-align: left;
+    border-radius: 15px;
+    
+}
+
+input[type=submit]{
+    width: 120%;
+    height: 40px;
+    top: 30%;
+    /* height: 50%; */
+    background-color: turquoise;
+    border: none;
+    border-radius: 15px;
+}
