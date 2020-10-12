@@ -191,9 +191,12 @@ var hold;
 
         //Go back to home
         var home = element('home');
-        home.addEventListener('click', function(){
-            var url = 'http://go-off.co/profiles/' + username.textContent
-            window.open(url, '_self');
+        home.addEventListener('click', function(){  
+            // var url = 'http://go-off.co/profiles/' + username.textContent
+            // window.open(url, '_self');
+            if(!alert('Please fill out this survey before leaving the conversation! Copy and paste the following link in a new window: https://bostonu.qualtrics.com/jfe/form/SV_1SxxCfIbHjfRDKd/')){var url = 'http://go-off.co/profiles/' + username.textContent
+            window.open(url, '_self');}
+
         });
     }
 })();
