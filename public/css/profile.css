@@ -295,43 +295,41 @@ button{
 }
 
 #article-1-title{
-    /* position: absolute;
-    text-align: left;
-    margin: auto;
-    top: 70%;
-    font-size: small;
-    left: 5%; /
-    color: black;
-    font-family: Poppins_Medium_Regular;
-    font-weight: 600;
-    margin: 16px 16px 12px;
-    font-size: 24px;
-    overflow: hidden;
-    /* word-wrap: break-word;
-    height: 20%; */
-    /* float: bottom; */
     position: absolute;
     text-align: left;
     margin: auto;
-    top: 70%;
+    top: 70%; 
     font-size: medium;
     left: 5%;
     color: black;
     word-wrap: break-word;
     height: 70px;
     font-family: Poppins_Medium_Regular;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
 }
 
 #article-1-author{
-    /*
-    position: absolute;
+    /* position: absolute;
     left: 28%;
     font-size: smaller;
     margin-right: -50%;
-    transform: translate(-50%, -50%); 
-    top: 56%;
+    transform: translate(-50%, -50%);  */
+
+    position: absolute;
+    text-align: left;
+    margin: auto;
+    font-size: small;
+    top: 60%;
+    left: 5%;
     color: black;
     font-family: Poppins_Medium_Regular;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
     /* float: bottom; */
     position: absolute;
     left: 28%;
@@ -365,6 +363,14 @@ button{
 
 }
 
+.Chat1{
+    position: absolute;
+    left: 75%;
+    top: 60%;
+    display: inline-block;
+    border-color: black;
+}
+
 #article-2{
     position: fixed;
     left: 45%;
@@ -395,6 +401,10 @@ button{
     word-wrap: break-word;
     height: 70px;
     font-family: Poppins_Medium_Regular;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
 }
 
 #article2_link1{
@@ -403,13 +413,16 @@ button{
 
 #article-2-author{
     position: absolute;
-    left: 28%;
-    font-size: smaller;
-    margin-right: -50%;
-    transform: translate(-50%, -50%); 
-    top: 56%;
+    text-align: left;
+    margin: auto;
+    font-size: small;
+    top: 60%;
+    left: 5%;
     color: black;
     font-family: Poppins_Medium_Regular;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 
 #article-2-read-time{
@@ -423,6 +436,12 @@ button{
     font-family: Poppins_Medium_Regular;
 }
 
+.Chat2{
+    position: absolute;
+    left: 75%;
+    top: 60%;
+}
+
 #article-3{
     position: absolute;
     left: 65%;
@@ -432,7 +451,7 @@ button{
     border: 1px solid rgba(153, 150, 150, 0.116);
     border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
-/*    border: 1px solid;*/
+    
 }
 
 #article-3-image{
@@ -452,19 +471,26 @@ button{
     left: 5%;
     color: black;
     word-wrap: break-word;
-    height: 20%;
+    height: 70px;
     font-family: Poppins_Medium_Regular;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
 }
 
 #article-3-author{
     position: absolute;
-    left: 28%;
-    font-size: smaller;
-    margin-right: -50%;
-    transform: translate(-50%, -50%); 
-    top: 56%;
+    text-align: left;
+    margin: auto;
+    font-size: small;
+    top: 60%;
+    left: 5%;
     color: black;
     font-family: Poppins_Medium_Regular;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 
 #article-3-read-time{
@@ -478,6 +504,13 @@ button{
     font-family: Poppins_Medium_Regular;
 
 }
+
+.Chat3{
+    position: absolute;
+    left: 75%;
+    top: 60%;
+}
+
 #Submit{
     right: 31.5%;
     top: 1.0%;
@@ -646,11 +679,7 @@ button{
 }
 
   
-.Chat1{
-    position: absolute;
-    left: 75%;
-    top: 80%;
-}
+
 .dropdot-content {
     display: none;
     position: absolute;
@@ -673,11 +702,7 @@ button{
 
 .show {display: block;}
 
-.Chat2{
-    position: absolute;
-    left: 75%;
-    top: 80%;
-}
+
 .dropdot1-content {
     display: none;
     position: absolute;
@@ -700,11 +725,6 @@ button{
 
 .show {display: block;}
 
-.Chat3{
-    position: absolute;
-    left: 75%;
-    top: 80%;
-}
 .dropdot2-content {
     display: none;
     position: absolute;
