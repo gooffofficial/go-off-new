@@ -331,9 +331,18 @@ button{
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     /* float: bottom; */
+    position: absolute;
+    left: 28%;
+    font-size: smaller;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 56%;
+    color: black;
+    font-family: Poppins_Medium_Regular;
 }
 
 #article-1-read-time{
+    /*
     position: absolute;
     left: 50%;
     margin-right: -50%;
@@ -343,6 +352,14 @@ button{
     font-size: small;
     font-family: Poppins_Medium_Regular;
     /* float: bottom; */
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 85%;
+    color: black;
+    font-size: small;
+    font-family: Poppins_Medium_Regular;
 
 }
 

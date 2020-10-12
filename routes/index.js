@@ -19,7 +19,15 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
     res.render('index')
 })
 
-router.get('/', auth.optional, (req, res, next) => {
+router.get('/login', auth.optional, (req, res, next) => {
     res.render('test_login')
+})
+
+router.get('/signup', auth.optional, (req, res, next) => {
+    res.render('test_signup')
+})
+
+router.get('/', auth.optional, (req, res, next) => {
+    res.render('splash')
 })
 module.exports = router;

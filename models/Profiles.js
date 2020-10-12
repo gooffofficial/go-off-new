@@ -1,6 +1,11 @@
 const jwt = require('jsonwebtoken');
 const User = require('./Users')
-
+/*
+article1title: "2020 Presidential Debate",
+        article1img: 'https://static01.nyt.com/images/2020/09/30/multimedia/30elections-briefing-debates3/merlin_177807387_607b7b41-4fa3-438d-8a63-2daf4b7a899c-superJumbo.jpg?quality=90&auto=webp',
+        article1author: '',
+        article1link: 'https://www.nytimes.com/live/2020/09/30/us/presidential-debate'
+*/
 module.exports = (sequelize, type) => {
     var Profile =  sequelize.define('Profile', {
         followers: {
@@ -22,36 +27,54 @@ module.exports = (sequelize, type) => {
         bio: type.STRING,
         article1img: {
             type: type.STRING,
-            defaultValue: "https://www.incimages.com/uploaded_files/image/1920x1080/getty_1052797860_20001333200092800_441645.jpg"
+            defaultValue: 'https://static01.nyt.com/images/2020/09/30/multimedia/30elections-briefing-debates3/merlin_177807387_607b7b41-4fa3-438d-8a63-2daf4b7a899c-superJumbo.jpg?quality=90&auto=webp'
         },
         article1link: {
             type: type.STRING,
-            defaultValue: "https://www.inc.com/justin-bariso/intelligent-minds-like-tim-cook-jeff-bezos-embrace-rule-of-awkward-silence-you-should-too.html"
+            defaultValue: 'https://www.nytimes.com/live/2020/09/30/us/presidential-debate'
         },
-        article1author: type.STRING,
-        article1title: type.STRING,
+        article1author: {
+            type: type.STRING,
+            defaultValue: ""
+        },
+        article1title: {
+            type: type.STRING,
+            defaultValue: "2020 Presidential Debate"
+        },
         article1readtime: type.STRING,
         article2img: {
             type: type.STRING,
-            defaultValue: "https://static01.nyt.com/vi-assets/images/share/1200x675_nameplate.png"
+            defaultValue: "https://www.incimages.com/uploaded_files/image/1920x1080/getty_1052797860_20001333200092800_441645.jpg"
         },
         article2link: {
             type: type.STRING,
-            defaultValue: "https://www.nytimes.com/interactive/2017/climate/what-is-climate-change.html"
+            defaultValue: "https://www.inc.com/justin-bariso/intelligent-minds-like-tim-cook-jeff-bezos-embrace-rule-of-awkward-silence-you-should-too.html"
         },
-        article2author: type.STRING,
-        article2title: type.STRING,
+        article2author: {
+            type: type.STRING,
+            defaultValue: "Justin Bariso"
+        },
+        article2title: {
+            type: type.STRING,
+            defaultValue: "Intelligent Minds Like Tim Cook and Jeff Bezos Embrace the Rule of Awkward Silence. You Should Too"
+        },
         article2readtime: type.STRING,
         article3img: {
             type: type.STRING,
-            defaultValue: "https://cdn.cnn.com/cnn/.e1mo/img/4.0/logos/CNN_logo_400x400.png"
+            defaultValue: "https://static01.nyt.com/vi-assets/images/share/1200x675_nameplate.png"
         },
         article3link: {
             type: type.STRING,
-            defaultValue: "https://www.cnn.com/videos/media/2020/09/13/mulan-disney-china-credits-tapper-sotu-vpx.cnn"
+            defaultValue: "https://www.nytimes.com/interactive/2017/climate/what-is-climate-change.html"
         },
-        article3author: type.STRING,
-        article3title: type.STRING,
+        article3author: {
+            type: type.STRING,
+            defaultValue: "Justin Gillis"
+        },
+        article3title: {
+            type: type.STRING,
+            defaultValue: "Climate Change is Complex. We've Got Answers to Your Questions."
+        },
         article3readtime: type.STRING,
         UserId: type.INTEGER
     }/*,

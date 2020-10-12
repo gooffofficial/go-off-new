@@ -187,7 +187,6 @@
         document.getElementById("bar_form").style.visibility="hidden";
         document.getElementById("droparrow").style.display="block";
     }
-
     // function dropclick1() {
     //     document.getElementById("arrowdrop").classList.toggle("show");
     // }
@@ -199,7 +198,6 @@
                 x.style.display = "none";
             }
         }
-
     function passurl1(){
         var xhr1 = new XMLHttpRequest();
         xhr1.onreadystatechange = function() {
@@ -218,7 +216,6 @@
             xhr1.open("GET", '/api/chat/getid?article='+ document.getElementById("article1_link").href, true);
             xhr1.send();
     }
-
     function passurl2(){
         var xhr2 = new XMLHttpRequest();
         xhr2.onreadystatechange = function() {
@@ -237,7 +234,6 @@
             xhr2.open("GET", '/api/chat/getid?article='+ document.getElementById("article2_link").href, true);
             xhr2.send();
     }
-
     function passurl3(){
         var xhr3 = new XMLHttpRequest();
         xhr3.onreadystatechange = function() {
@@ -256,7 +252,6 @@
             xhr3.open("GET", '/api/chat/getid?article='+ document.getElementById("article3_link").href, true);
             xhr3.send();
     }
-
     // window.onclick = function(event) {
     //     if (!event.target.matches('.One_Dot')) {
     //         var dropdowns = document.getElementsByClassName("dropdot-content");
@@ -304,13 +299,11 @@
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("profile-pic").src = myArr.user.propic;
                     document.getElementById("fprofpic").src = myArr.user.propic;
-
                     document.getElementById("follower-count").innerHTML = myArr.user.followers + " " + " Followers";
                     document.getElementById("following-count").innerHTML = myArr.user.following + " Following";
                     document.getElementById("post-count").innerHTML = myArr.user.Posts + " Posts";
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("bio").innerHTML = myArr.user.bio;
-
                     document.getElementById("article1_link").setAttribute("href", myArr.user.article1link);
                     document.getElementById("article1_link1").setAttribute("href", myArr.user.article1link);
                     document.getElementById("article1_link2").setAttribute("href", myArr.user.article1link);
@@ -319,7 +312,6 @@
                     document.getElementById("article-1-title").innerHTML = myArr.user.article1title;
                     document.getElementById("article-1-author").innerHTML = myArr.user.article1author;
                     document.getElementById("article-1-read-time").innerHTML = myArr.user.article1readtime;
-
                     document.getElementById("article2_link").setAttribute("href", myArr.user.article2link);
                     document.getElementById("article2_link1").setAttribute("href", myArr.user.article2link);
                     document.getElementById("article2_link2").setAttribute("href", myArr.user.article2link);
@@ -328,7 +320,6 @@
                     document.getElementById("article-2-title").innerHTML = myArr.user.article2title;
                     document.getElementById("article-2-author").innerHTML = myArr.user.article2author;
                     document.getElementById("article-2-read-time").innerHTML = myArr.user.article2readtime;
-
                     document.getElementById("article3_link").setAttribute("href", myArr.user.article3link);
                     document.getElementById("article3_link1").setAttribute("href", myArr.user.article3link);
                     document.getElementById("article3_link2").setAttribute("href", myArr.user.article3link);
@@ -349,12 +340,7 @@
     // console.log('hold', hold);
 // })
         })();
-
         // document.getElementById("pname").innerHTML = result.user.name;
-
-
-
-
         
     }
     </script>
