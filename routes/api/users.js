@@ -131,7 +131,7 @@ router.post('/', auth.optional, (req, res, next) => {
       })
       .then(() => {
         {
-          res.json({ user: user.getUserInfo() })
+          res.redirect('/login');
         }
       })
     })
