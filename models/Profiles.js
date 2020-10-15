@@ -27,19 +27,19 @@ module.exports = (sequelize, type) => {
         bio: type.STRING,
         article1img: {
             type: type.STRING,
-            defaultValue: 'https://static01.nyt.com/images/2020/09/30/multimedia/30elections-briefing-debates3/merlin_177807387_607b7b41-4fa3-438d-8a63-2daf4b7a899c-superJumbo.jpg?quality=90&auto=webp'
+            defaultValue: 'https://dailyfreepress.com/wp-content/uploads/image8-6-431x299.jpg'
         },
         article1link: {
             type: type.STRING,
-            defaultValue: 'https://www.nytimes.com/live/2020/09/30/us/presidential-debate'
+            defaultValue: 'https://dailyfreepress.com/2020/10/04/bu-college-republicans-receive-backlash-over-statement-against-kendi-tweets/'
         },
         article1author: {
             type: type.STRING,
-            defaultValue: ""
+            defaultValue: "Nathan Lederman"
         },
         article1title: {
             type: type.STRING,
-            defaultValue: "2020 Presidential Debate"
+            defaultValue: "BU College Republicans receive backlash over statement against Kendi tweets"
         },
         article1readtime: type.STRING,
         article2img: {
