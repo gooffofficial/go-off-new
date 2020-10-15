@@ -1,5 +1,16 @@
 const roomid = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
 
+window.onload=function(){setTimeout(openModal,600000)};
+
+// Open the Modal
+function openModal() {
+    document.getElementById("UXlightbox").style.display = "block";
+  }
+  
+  // Close the Modal
+  function closeModal() {
+    document.getElementById("UXlightbox").style.display = "none";
+  }
 var hold; 
 (function(){
     var xhr = new XMLHttpRequest();
@@ -53,7 +64,7 @@ var hold;
     }
     //Connect to socket.io
     //Make sure IP address is the IP of the server
-    var socket = io.connect('http://go-off.co:4050');
+    var socket = io.connect('https://go-off.co:2053');
     //var socket = io.connect('http://localhost:4050');
 
     //uses the function to find the room
@@ -96,7 +107,7 @@ var hold;
     }
     //Check for connection
     if(socket !== undefined){
-        console.log('Connected to socket');
+        console.log('Connected to socket' + socket.connected);
         //Handle Output 
         socket.on('output', function(data){
             console.log(data);
@@ -120,15 +131,19 @@ var hold;
         });  
         
         //Get Status From Server
+        
         socket.on('status', function(data){
             //get message status
             setStatus((typeof data === 'object')? data.message: data);
 
             //If status is clear, clear text 
+            /*
             if(data.clear){
                 textarea.value = '';
             }
+            */
         });
+        
 
         //Handle Input
         textarea.addEventListener('keydown', function(event){
@@ -184,16 +199,19 @@ var hold;
         //     xhr.open("GET", "http://localhost:8000/api/users/logout", true);
         //     xhr.send();
             
-             window.open('http://go-off.co', '_self')
+             window.open('https://go-off.co', '_self')
 
         //     //window.open('http://localhost:8000/api/users/logout')
         });
 
         //Go back to home
         var home = element('home');
-        home.addEventListener('click', function(){
-            var url = 'http://go-off.co/profiles/' + username.textContent
-            window.open(url, '_self');
+        home.addEventListener('click', function(){  
+            // var url = 'http://go-off.co/profiles/' + username.textContent
+            // window.open(url, '_self');
+            if(!alert('Please fill out this survey before leaving the conversation! Copy and paste the following link in a new window: https://bostonu.qualtrics.com/jfe/form/SV_1SxxCfIbHjfRDKd/')){var url = 'http://go-off.co/profiles/' + username.textContent
+            window.open(url, '_self');}
+
         });
     }
 })();

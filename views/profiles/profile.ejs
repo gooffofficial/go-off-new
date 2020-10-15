@@ -16,15 +16,18 @@
 
 
     <div class="droparrow">
-        <button onclick="dropclick1()" class="dropBtn">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
-            <div id="arrowdrop" class="dropdown-arrowcontent">
+        <button>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="40" height="40" id="arrows" />
+        <!--<button onclick="dropclick1()" class="dropbtn" >-->
+            <!--<img onclick="dropclick1()" class="dropBtn" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
+            --><div id="arrowdrop" class="dropdown-arrowcontent">
                 <!-- <a href="/profile">Go to Profile</a> -->
                 <a href="/profile_edit">Settings and Privacy</a>
                 <!-- <p>Install Chrome Extension</p> -->
                 <a href="https://www.go-off.co/">Log Out</a>
             </div>
         </button>
+        <!--</button>--> 
     </div>
 
     <div class="name">
@@ -187,10 +190,19 @@
         document.getElementById("bar_form").style.visibility="hidden";
         document.getElementById("droparrow").style.display="block";
     }
-
     // function dropclick1() {
     //     document.getElementById("arrowdrop").classList.toggle("show");
     // }
+    var arrow = document.getElementById("arrows");
+    arrow.addEventListener('click', function(){
+        var x = document.getElementById("arrowdrop");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+    });
+    
     function dropclick1() {
             var x = document.getElementById("arrowdrop");
             if (x.style.display === "none") {
@@ -199,7 +211,6 @@
                 x.style.display = "none";
             }
         }
-
     function passurl1(){
         var xhr1 = new XMLHttpRequest();
         xhr1.onreadystatechange = function() {
@@ -218,7 +229,6 @@
             xhr1.open("GET", '/api/chat/getid?article='+ document.getElementById("article1_link").href, true);
             xhr1.send();
     }
-
     function passurl2(){
         var xhr2 = new XMLHttpRequest();
         xhr2.onreadystatechange = function() {
@@ -237,7 +247,6 @@
             xhr2.open("GET", '/api/chat/getid?article='+ document.getElementById("article2_link").href, true);
             xhr2.send();
     }
-
     function passurl3(){
         var xhr3 = new XMLHttpRequest();
         xhr3.onreadystatechange = function() {
@@ -256,7 +265,6 @@
             xhr3.open("GET", '/api/chat/getid?article='+ document.getElementById("article3_link").href, true);
             xhr3.send();
     }
-
     // window.onclick = function(event) {
     //     if (!event.target.matches('.One_Dot')) {
     //         var dropdowns = document.getElementsByClassName("dropdot-content");
@@ -304,13 +312,11 @@
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("profile-pic").src = myArr.user.propic;
                     document.getElementById("fprofpic").src = myArr.user.propic;
-
                     document.getElementById("follower-count").innerHTML = myArr.user.followers + " " + " Followers";
                     document.getElementById("following-count").innerHTML = myArr.user.following + " Following";
                     document.getElementById("post-count").innerHTML = myArr.user.Posts + " Posts";
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("bio").innerHTML = myArr.user.bio;
-
                     document.getElementById("article1_link").setAttribute("href", myArr.user.article1link);
                     document.getElementById("article1_link1").setAttribute("href", myArr.user.article1link);
                     document.getElementById("article1_link2").setAttribute("href", myArr.user.article1link);
@@ -319,7 +325,6 @@
                     document.getElementById("article-1-title").innerHTML = myArr.user.article1title;
                     document.getElementById("article-1-author").innerHTML = myArr.user.article1author;
                     document.getElementById("article-1-read-time").innerHTML = myArr.user.article1readtime;
-
                     document.getElementById("article2_link").setAttribute("href", myArr.user.article2link);
                     document.getElementById("article2_link1").setAttribute("href", myArr.user.article2link);
                     document.getElementById("article2_link2").setAttribute("href", myArr.user.article2link);
@@ -328,7 +333,6 @@
                     document.getElementById("article-2-title").innerHTML = myArr.user.article2title;
                     document.getElementById("article-2-author").innerHTML = myArr.user.article2author;
                     document.getElementById("article-2-read-time").innerHTML = myArr.user.article2readtime;
-
                     document.getElementById("article3_link").setAttribute("href", myArr.user.article3link);
                     document.getElementById("article3_link1").setAttribute("href", myArr.user.article3link);
                     document.getElementById("article3_link2").setAttribute("href", myArr.user.article3link);
@@ -349,12 +353,7 @@
     // console.log('hold', hold);
 // })
         })();
-
         // document.getElementById("pname").innerHTML = result.user.name;
-
-
-
-
         
     }
     </script>

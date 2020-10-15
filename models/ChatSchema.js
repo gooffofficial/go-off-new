@@ -6,6 +6,9 @@ const  chatSchema  =  new Schema({
     name: {type: String},
     message: {type: String},
     room: {type: Schema.Types.ObjectId, ref: 'Room'} //relationship to room
+},
+{
+    timestamps: true
 });
 
 let  Chat  =  mongoose.model("Chat", chatSchema);
