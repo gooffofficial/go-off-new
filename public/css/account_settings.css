@@ -258,10 +258,12 @@ label{
 label[for=email_addr]{
     position: absolute;
     top: 25%;
+
 }
 input[name=email_addr]{
     position: absolute;
     top: 28.5%;
+
 }
 
 /* label[for=passwrd]{
@@ -276,10 +278,12 @@ input[name=passwrd]{
 label[for=Country]{
     position: absolute;
     top: 35%;
+    
 }
 input[name=Country]{
     position: absolute;
     top: 38.5%;
+    
 }
 
 #Gender{

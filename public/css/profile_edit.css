@@ -219,7 +219,7 @@ input[name=firstname]{
 label[for=lastname]{
     position: absolute;
     top: 51%;
-    left: 21%;
+    left: 41%;
     font-family: Poppins_Medium_Regular;
 }
 input[name=lastname]{
