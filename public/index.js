@@ -118,8 +118,32 @@ var hold;
                     message.setAttribute('class', 'chat-message');
                     names = data[x].name
                     mess = data[x].message
+                    temp_time = data[x].createdAt;
+                    temp_time = temp_time.split('T')[1]
+                    temp_time = temp_time.slice(0,5);
+                    //find the EST time from UTC
+                    temp_time = temp_time.split(':');
+                    hour = parseInt(temp_time[0])
+                    if (hour < 4) {
+                        hour = 24 - (4 - hour); 
+                    }else{
+                        hour = hour -4;
+                    }
+                    //adding am/pm
+                    if (hour == 0){
+                        time = "12:" + temp_time[1] + "am";
+                    }else if (hour == 12){
+                        time = hour.toString() + ":" + temp_time[1] + "pm"; 
+                    }else if (hour < 12) {
+                        time = hour.toString() + ":" + temp_time[1] + "am"
+                    }else if(hour > 12) {
+                        hour = hour - 12
+                        time = hour.toString() + ":" + temp_time[1] + "pm"
+                    }
+                    
+                    
                     //message.textContent = data[x].name+": "+data[x].message;
-                    message.textContent = names+": "+mess
+                    message.textContent = "(" + time+") "+ names+": "+mess
                     messages.appendChild(message);
                     insertAfter(message.firstChild,message);
                     
