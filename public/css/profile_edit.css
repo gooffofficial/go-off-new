@@ -107,11 +107,10 @@
     display: block;
 }
 
-.name{
+.fpname{
     top: 3%;
     position: absolute;
     right: 12.5%;
-    width: 15%;
     font-family: Poppins_Bold;
     display: inline;
 }
