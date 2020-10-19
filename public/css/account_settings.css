@@ -266,14 +266,14 @@ input[name=email_addr]{
 
 }
 
-/* label[for=passwrd]{
+label[for=passwrd]{
     position: absolute;
     top: 25%;
 }
 input[name=passwrd]{
     position: absolute;
     top: 28.5%;
-} */
+}
 
 label[for=Country]{
     position: absolute;

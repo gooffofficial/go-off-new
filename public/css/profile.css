@@ -100,11 +100,10 @@ hr{
     margin-right: 5px; 
 } */
 
-.name{
+#fpname{
     top: 3%;
     position: absolute;
-    right: 12.5%;
-    width: 15%;
+    right: 22.5%;
     font-family: Poppins_Bold;
     display: inline;
 }
