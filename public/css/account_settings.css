@@ -287,7 +287,7 @@ input[name=Country]{
 
 #Gender{
     position: absolute;
-    top: 45%;
+    top: 50%;
     width: 60%;
     border: none;
 }
@@ -295,29 +295,29 @@ input[name=Country]{
 label[for=Male]{
     position: absolute;
     left: 5%;
-    top: 15%;
+    top: 20%;
 }
 input[name=Male]{
     position: absolute;
     left: 0%;
-    top: 15%;
+    top: 20%;
 }
 
 label[for=Female]{
     position: absolute;
     left: 22%;
-    top: 15%;
+    top: 20%;
 }
 input[name=Female]{
     position: absolute;
     left: 17%;
-    top: 15%;
+    top: 20%;
 }
 
 textarea{
     position: absolute;
     left: 37%;
-    top: 15%;
+    top: 20%;
 }
 
 legend{
