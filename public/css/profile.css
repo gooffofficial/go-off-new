@@ -46,7 +46,7 @@ hr{
     position: absolute;
     margin-top: 10px;
     right: 30%;
-    background-image: url(http://www.levenmetwater.nl/static/global/images/icon-search.png);
+    /*background-image: url(http://www.levenmetwater.nl/static/global/images/icon-search.png);*/
     background-position: 10px center;
     background-repeat: no-repeat;
     border: 1px solid #ccc;

@@ -1,6 +1,6 @@
 const roomid = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
 
-window.onload=function(){setTimeout(openModal,600000)};
+//window.onload=function(){setTimeout(openModal,600000)};
 
 // Open the Modal
 function openModal() {
@@ -118,6 +118,7 @@ var hold;
                     message.setAttribute('class', 'chat-message');
                     names = data[x].name
                     mess = data[x].message
+                    /*
                     temp_time = data[x].createdAt;
                     temp_time = temp_time.split('T')[1]
                     temp_time = temp_time.slice(0,5);
@@ -141,9 +142,9 @@ var hold;
                         time = hour.toString() + ":" + temp_time[1] + "pm"
                     }
                     
-                    
+                    */
                     //message.textContent = data[x].name+": "+data[x].message;
-                    message.textContent = "(" + time+") "+ names+": "+mess
+                    message.textContent = /*"(" + time+") "+ */names+": "+mess
                     messages.appendChild(message);
                     insertAfter(message.firstChild,message);
                     
