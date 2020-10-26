@@ -11,6 +11,9 @@ function openModal() {
   function closeModal() {
     document.getElementById("UXlightbox").style.display = "none";
   }
+
+//keep track of current users
+var users = [];
 var hold; 
 (function(){
     var xhr = new XMLHttpRequest();
@@ -18,7 +21,7 @@ var hold;
         if (this.readyState == 4 && this.status == 200) {
             var myArr = JSON.parse(this.responseText);
             console.log(myArr)
-            document.getElementById("username").innerHTML = myArr.user.username; 
+            document.getElementById("username").innerHTML = myArr.user.username + " (you)"; 
             hold = document.getElementById("username");
             console.log(hold);
         }
@@ -117,6 +120,12 @@ var hold;
                     var message = document.createElement('div');
                     message.setAttribute('class', 'chat-message');
                     names = data[x].name
+                    if(!users.includes(names)){
+                        users.push(names);
+                        p = document.createElement('p');
+                        p.textContent = names;
+                        document.getElementById("participants").appendChild(p);
+                    }
                     mess = data[x].message
                     /*
                     temp_time = data[x].createdAt;

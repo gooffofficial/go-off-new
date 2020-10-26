@@ -27,36 +27,36 @@ module.exports = (sequelize, type) => {
         bio: type.STRING,
         article1img: {
             type: type.STRING,
-            defaultValue: 'https://gooff.s3.us-east-2.amazonaws.com/image_from_ios.jpg'
+            defaultValue: 'https://gooff.s3.us-east-2.amazonaws.com/download.jpg'
         },
         article1link: {
             type: type.STRING,
-            defaultValue: 'https://www.youtube.com/watch?v=Wc51SmOcaXI&feature=youtu.be'
+            defaultValue: 'https://thesweatypenguin.com/wp-content/uploads/2020/10/FINAL-LIGHT-POLLUTION.mp3'
         },
         article1author: {
             type: type.STRING,
-            defaultValue: ""
+            defaultValue: "The Sweaty Penguin"
         },
         article1title: {
             type: type.STRING,
-            defaultValue: "Live Presidential Debate"
+            defaultValue: "The Sweaty Penguin Podcast - Light Pollution"
         },
         article1readtime: type.STRING,
         article2img: {
             type: type.STRING,
-            defaultValue: "https://cms.qz.com/wp-content/uploads/2020/10/disney-the-mandalorian-disney-e1602605068688.jpg?quality=75&strip=all&w=1400"
+            defaultValue: "https://storage.googleapis.com/afs-prod/media/2dc3dd691b834d28a6a6ede51a39d6c6/800.jpeg"
         },
         article2link: {
             type: type.STRING,
-            defaultValue: "https://qz.com/1916923/recent-changes-at-disney-prioritize-hulu-disney-and-espn/"
+            defaultValue: "https://apnews.com/article/business-virus-outbreak-brussels-belgium-europe-7203f0b4e05e9d31e6ae63b88d424423"
         },
         article2author: {
             type: type.STRING,
-            defaultValue: "Adam Epstein"
+            defaultValue: "Raf Casert"
         },
         article2title: {
             type: type.STRING,
-            defaultValue: "Disney is now a streaming company"
+            defaultValue: "Winter COVID Outlook"
         },
         article2readtime: type.STRING,
         article3img: {
