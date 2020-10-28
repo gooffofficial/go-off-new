@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="/css/profile.css">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180244749-2"></script>
     <script>
@@ -10,7 +11,7 @@
 
     gtag('config', 'UA-180244749-2');
     </script>
-    <link id="pro-style" rel="stylesheet" href="/css/mprofile.css">
+    
     <link href="//db.onlinewebfonts.com/c/eeb2719d248b27841be5f4899986eedc?family=Sentinel+Book" rel="stylesheet" type="text/css"/>
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
     <!-- <script type="text/javascript" src="profile.js"></script> -->
@@ -19,7 +20,7 @@
 <body onload="fillinVar()">
 	<a href="https://www.gooffco.com/">
     	<div class="logo">
-        	<img src="/GO_Off150.png"/>
+        	<img src="/GO_Off.png"/>
     	</div>
     </a>
 
@@ -39,12 +40,15 @@
         <!--</button>--> 
     </div>
 
+    <!-- <div class="name"> -->
+        <div class="fpname" style= "display: inline-block">
+            <h><span id="fpname"></span></h>
+        </div>
 
-    <div class="pname" style= "display: inline-block">
-        <h><span id="pname"></span></h>
-    </div>
-
-
+         <!-- <div class="lpname" style= "display: inline-block">
+            <h><span id="lpname"></span></h>
+        </div>  -->
+    <!-- </div> -->
     
 
     <div class="fprofpic">
@@ -72,16 +76,16 @@
 
     <div id="top-profile">
         <img id = "profile-pic"/>
-        <h1 id="profile-name" >
-        </h1>
-        <h3 id="user-name"></h3>
-        <div id="user-data">
-            <h4 id= "follower-count" style="display: inline-block;"></h4>
-            <h4 id = "following-count" style="display: inline-block;"></h4>
-            <h4 id = "post-count" style="display: inline-block;"></h4>
-            <img id = "location-logo" style = "display: inline" src = "https://cdn.iconscout.com/icon/free/png-256/location-1387-448334.png"/>
-            <h4 id = "location" style="display: inline-block;"></h4>
+        <div id="profile-name">
+            <h1 id= "profile-fname" style= "display: inline-block"></h1>
+            <!-- <h1 id= "profile-lname" style= "display: inline-block"></h1> -->
         </div>
+        <h3 id="user-name"></h3>
+        <h4 id= "follower-count"></h4>
+        <h4 id = "following-count"></h4>
+        <h4 id = "post-count"></h4>
+        <img id = "location-logo" src = "https://cdn.iconscout.com/icon/free/png-256/location-1387-448334.png"/>
+        <h4 id = "location"></h4>
         <h4 id = "bio"></h4>
     </div>
 
@@ -101,11 +105,11 @@
 	<a id="article1_link3">
 		<h4 id="article-1-read-time"> </h4>
     </a>
-</div>
-<div class="Chat1">
-    <button onclick="passurl1()" id="Dot">
-        Chat about this Article
-    </button>
+    <div class="Chat1">
+        <button onclick="passurl1()" id="Dot">
+            Chat
+        </button>
+    </div>
 </div>
     
 <div id="article-2">
@@ -122,11 +126,11 @@
 	<a id="article2_link3">
 		<h4 id="article-2-read-time"> </h4>
     </a>
-</div>
-<div class="Chat2">
-    <button onclick="passurl2()" id="Dot2">
-        Chat about this Article
-    </button>
+    <div class="Chat2">
+        <button type="button" onclick="passurl2()">
+            Chat
+        </button>
+    </div>
 </div>
 
 <div id="article-3">
@@ -143,11 +147,11 @@
 	<a id="article3_link3">
 		<h4 id="article-3-read-time"> </h4>
     </a>
-</div>
-<div class="Chat3">
-    <button onclick="passurl3()" id="Dot3">
-        Chat about this Article
-    </button>
+    <div class="Chat3">
+        <button onclick="passurl3()" id="Dot2">
+            Chat
+        </button>
+    </div>
 </div>
 <a href="https://www.gooffco.com/">
 	<button type="submit" id="Home" >
@@ -175,38 +179,6 @@
 
 
 <script>
-    var hasTouchScreen = false;
-    /*
-        if ("maxTouchPoints" in navigator) { 
-            hasTouchScreen = navigator.maxTouchPoints > 0;
-        } else if ("msMaxTouchPoints" in navigator) {
-            hasTouchScreen = navigator.msMaxTouchPoints > 0; 
-        } else {
-            var mQ = window.matchMedia && matchMedia("(pointer:coarse)");
-            if (mQ && mQ.media === "(pointer:coarse)") {
-                hasTouchScreen = !!mQ.matches;
-            } else if ('orientation' in window) {
-                hasTouchScreen = true; // deprecated, but good fallback
-            } else {
-                // Only as a last resort, fall back to user agent sniffing
-                var UA = navigator.userAgent;
-                hasTouchScreen = (
-                    /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
-                    /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
-                );
-            }
-        }
-    */
-    
-    //NOTE: This is not the recommended way to detect mobile anymore, in the future
-    // it will be better to just make the site responsive by default
-    hasTouchScreen = (
-                    /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
-                    /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
-                );
-    if (hasTouchScreen == true){
-        document.getElementById("pro-style").setAttribute('href', '/css/profile.css')
-    }
     document.getElementById("bar_form").style.visibility="hidden";
     function searchBar(){
         document.getElementById("Submit").style.visibility = "hidden";
@@ -231,23 +203,6 @@
     // function dropclick1() {
     //     document.getElementById("arrowdrop").classList.toggle("show");
     // }
-
-    // $(window).resize(function() {
-    //     console.log('window was resized');
-    // });
-
-    
-    
-    // window.onload = function() {
-    //     var d = document.getElementsByTagName("profile-name")
-    //     if (d.offsetHeight < d.scrollHeight ||
-    //         d.offsetWidth < d.scrollWidth) {
-    //     console.log("overflow");
-    //     } else {
-    //     console.log("no overflow");
-    //     }
-    // }
-
     var arrow = document.getElementById("arrows");
     arrow.addEventListener('click', function(){
         var x = document.getElementById("arrowdrop");
@@ -320,6 +275,38 @@
             xhr3.open("GET", '/api/chat/getid?article='+ document.getElementById("article3_link").href, true);
             xhr3.send();
     }
+    // window.onclick = function(event) {
+    //     if (!event.target.matches('.One_Dot')) {
+    //         var dropdowns = document.getElementsByClassName("dropdot-content");
+    //         var i;
+    //         for (i = 0; i < dropdowns.length; i++) {
+    //             var openDropdown = dropdowns[i];
+    //             if (openDropdown.classList.contains('show')) {
+    //             openDropdown.classList.remove('show');
+    //             }
+    //         }
+    //     }
+    //     else if (!event.target.matches('.Two_Dot')) {
+    //         var dropdowns = document.getElementsByClassName("dropdot1-content");
+    //         var i;
+    //         for (i = 0; i < dropdowns.length; i++) {
+    //             var openDropdown = dropdowns[i];
+    //             if (openDropdown.classList.contains('show')) {
+    //             openDropdown.classList.remove('show');
+    //             }
+    //         }
+    //     }
+    //     else if (!event.target.matches('.Three_Dot')) {
+    //         var dropdowns = document.getElementsByClassName("dropdot2-content");
+    //         var i;
+    //         for (i = 0; i < dropdowns.length; i++) {
+    //             var openDropdown = dropdowns[i];
+    //             if (openDropdown.classList.contains('show')) {
+    //             openDropdown.classList.remove('show');
+    //             }
+    //         }
+    //     }
+    // }
     function fillinVar(){
         (function(){
             var xhr = new XMLHttpRequest();
@@ -327,8 +314,10 @@
                 if (this.readyState == 4 && this.status == 200) {
                     var myArr = JSON.parse(this.responseText);
                     console.log(myArr);
-                    document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname; 
-                    document.getElementById("profile-name").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
+                    document.getElementById("fpname").innerHTML = myArr.user.firstname; 
+                    //document.getElementById("lpname").innerHTML = myArr.user.lastname; 
+                    document.getElementById("profile-fname").innerHTML = myArr.user.firstname + myArr.user.lastname; 
+                    //document.getElementById("profile-lname").innerHTML = myArr.user.lastname;
                     document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("profile-pic").src = myArr.user.propic;
@@ -362,7 +351,6 @@
                     document.getElementById("article-3-title").innerHTML = myArr.user.article3title;
                     document.getElementById("article-3-author").innerHTML = myArr.user.article3author;
                     document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readtime;
-                    test();
                 }
             };
             xhr.open("GET", '/api/users/profile/<%=user%>', true);
@@ -373,32 +361,11 @@
     // console.log(result.user.name);
     // hold = document.getElementById("username");
     // console.log('hold', hold);
-// })       
-                
+// })
         })();
         // document.getElementById("pname").innerHTML = result.user.name;
         
-        function test(){
-            len = document.getElementById("profile-name").textContent.length;
-            len = len-1;
-            if(len <= 10){
-                console.log("test 45 10%");
-                document.getElementById("profile-name").style.top = "10%";
-                document.getElementById("profile-name").style.fontSize = "45px";
-            }else if(len <=20 && len > 10){
-                console.log("test1 35 20%");
-                document.getElementById("profile-name").style.top = "20%";
-                document.getElementById("profile-name").style.fontSize = "35px";
-            }else{
-                console.log("test2 20 30%");
-                document.getElementById("profile-name").style.top = "30%";
-                document.getElementById("profile-name").style.fontSize = "20px";
-            }
-        }
     }
-
-    
     </script>
-
 </body>
 </html>
