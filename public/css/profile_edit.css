@@ -110,9 +110,12 @@
 .fpname{
     top: 3%;
     position: absolute;
-    right: 12.5%;
+    left: 72%;
     font-family: Poppins_Bold;
-    display: inline;
+    width: 7%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* .fpname{
