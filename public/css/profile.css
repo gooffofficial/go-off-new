@@ -529,7 +529,8 @@ button{
 
 .droparrow{
     position: absolute;
-    display: inline-block;
+    /*display: inline-block;*/
+    top: 1.5%;
     float: right;
     right: 17%;
     margin-top: 0%;

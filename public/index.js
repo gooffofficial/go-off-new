@@ -1,6 +1,6 @@
 const roomid = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
 
-window.onload=function(){setTimeout(openModal,600000)};
+//window.onload=function(){setTimeout(openModal,600000)};
 
 // Open the Modal
 function openModal() {
@@ -11,6 +11,9 @@ function openModal() {
   function closeModal() {
     document.getElementById("UXlightbox").style.display = "none";
   }
+
+//keep track of current users
+var users = [];
 var hold; 
 (function(){
     var xhr = new XMLHttpRequest();
@@ -18,7 +21,7 @@ var hold;
         if (this.readyState == 4 && this.status == 200) {
             var myArr = JSON.parse(this.responseText);
             console.log(myArr)
-            document.getElementById("username").innerHTML = myArr.user.username; 
+            document.getElementById("username").innerHTML = myArr.user.username + " (you)"; 
             hold = document.getElementById("username");
             console.log(hold);
         }
@@ -118,6 +121,31 @@ var hold;
                     message.setAttribute('class', 'chat-message');
                     names = data[x].name
                     mess = data[x].message
+
+                    //participants
+                    if(!users.includes(names)){
+                        users.push(names);
+                        p = document.createElement('p');
+                        p.textContent = names;
+                        document.getElementById("participants").appendChild(p);
+                    }
+
+                    var para = document.createElement('p');
+                    //for name 
+                    var spans = document.createElement('span');
+                    spans.style.fontWeight = "bold";
+                    var nam = document.createTextNode(names);
+                    spans.appendChild(nam);
+                    //append name to paragraph
+                    var col = document.createTextNode(": ");
+                    var messa = document.createTextNode(mess);
+                    para.appendChild(spans);
+                    para.appendChild(col);
+                    para.appendChild(messa);
+
+                    message.appendChild(para);
+
+                    /*
                     temp_time = data[x].createdAt;
                     temp_time = temp_time.split('T')[1]
                     temp_time = temp_time.slice(0,5);
@@ -141,9 +169,9 @@ var hold;
                         time = hour.toString() + ":" + temp_time[1] + "pm"
                     }
                     
-                    
+                    */
                     //message.textContent = data[x].name+": "+data[x].message;
-                    message.textContent = "(" + time+") "+ names+": "+mess
+                    //message.textContent = /*"(" + time+") "+ */names+": "+mess
                     messages.appendChild(message);
                     insertAfter(message.firstChild,message);
                     

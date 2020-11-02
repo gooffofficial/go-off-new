@@ -25,6 +25,7 @@ router.post('/', auth.required, (req, res, next) => {
     return res.status(200);
 })
 
+
 //testing to create a room
 router.get('/create', auth.required, (req, res, next) => {
     const{ payload: { id }} = req;
@@ -37,6 +38,7 @@ router.get('/create', auth.required, (req, res, next) => {
         return res.status(200).json({"created": "success"});
     });
 })
+
 
 //Route to post messages to specific chatroom
 router.post('/:room', auth.required, (req, res, next) => {
@@ -71,12 +73,14 @@ router.post('/:room', auth.required, (req, res, next) => {
 
 router.get('/getid', auth.optional, (req, res, next) => {
     var url = req.query.article;
+    console.log(url)
     roomId = Room.findOne({ url: url }, (err, room) => {
         return res.json({id: room._id})
         // return res.sendStatus(200).json({id: room._id})
     })
 })
 
+/*
 //route to join a chatroom
 router.post('/:room/join', auth.required, (req, res, next) => {
     Room.findById(req.params.room, (err, room) => {
@@ -92,5 +96,5 @@ router.post('/:room/join', auth.required, (req, res, next) => {
         room.save();
     })
 })
-
+*/
 module.exports = router;

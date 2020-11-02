@@ -27,53 +27,53 @@ module.exports = (sequelize, type) => {
         bio: type.STRING,
         article1img: {
             type: type.STRING,
-            defaultValue: 'https://dailyfreepress.com/wp-content/uploads/image8-6-431x299.jpg'
+            defaultValue: 'https://gooff.s3.us-east-2.amazonaws.com/download.jpg'
         },
         article1link: {
             type: type.STRING,
-            defaultValue: 'https://dailyfreepress.com/2020/10/04/bu-college-republicans-receive-backlash-over-statement-against-kendi-tweets/'
+            defaultValue: 'https://thesweatypenguin.com/wp-content/uploads/2020/10/FINAL-LIGHT-POLLUTION.mp3'
         },
         article1author: {
             type: type.STRING,
-            defaultValue: "Nathan Lederman"
+            defaultValue: "The Sweaty Penguin"
         },
         article1title: {
             type: type.STRING,
-            defaultValue: "BU College Republicans receive backlash over statement against Kendi tweets"
+            defaultValue: "The Sweaty Penguin Podcast - Light Pollution"
         },
         article1readtime: type.STRING,
         article2img: {
             type: type.STRING,
-            defaultValue: "https://www.incimages.com/uploaded_files/image/1920x1080/getty_1052797860_20001333200092800_441645.jpg"
+            defaultValue: "https://storage.googleapis.com/afs-prod/media/2dc3dd691b834d28a6a6ede51a39d6c6/800.jpeg"
         },
         article2link: {
             type: type.STRING,
-            defaultValue: "https://www.inc.com/justin-bariso/intelligent-minds-like-tim-cook-jeff-bezos-embrace-rule-of-awkward-silence-you-should-too.html"
+            defaultValue: "https://apnews.com/article/business-virus-outbreak-brussels-belgium-europe-7203f0b4e05e9d31e6ae63b88d424423"
         },
         article2author: {
             type: type.STRING,
-            defaultValue: "Justin Bariso"
+            defaultValue: "Raf Casert"
         },
         article2title: {
             type: type.STRING,
-            defaultValue: "Intelligent Minds Like Tim Cook and Jeff Bezos Embrace the Rule of Awkward Silence. You Should Too"
+            defaultValue: "Winter COVID Outlook"
         },
         article2readtime: type.STRING,
         article3img: {
             type: type.STRING,
-            defaultValue: "https://static01.nyt.com/vi-assets/images/share/1200x675_nameplate.png"
+            defaultValue: "https://www.greentechmedia.com/assets/content/cache/made/assets/content/cache/remote/https_assets.greentechmedia.com/content/images/articles/Charging_EVs_Infrastructure_XL_500_281_80.jpg"
         },
         article3link: {
             type: type.STRING,
-            defaultValue: "https://www.nytimes.com/interactive/2017/climate/what-is-climate-change.html"
+            defaultValue: "https://www.greentechmedia.com/articles/read/how-european-evs-are-balancing-out-the-renewables-that-power-them"
         },
         article3author: {
             type: type.STRING,
-            defaultValue: "Justin Gillis"
+            defaultValue: "John Parnell"
         },
         article3title: {
             type: type.STRING,
-            defaultValue: "Climate Change is Complex. We've Got Answers to Your Questions."
+            defaultValue: "The Startup Helping EVs Balance Out the Renewables That Power Them"
         },
         article3readtime: type.STRING,
         UserId: type.INTEGER

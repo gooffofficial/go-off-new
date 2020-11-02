@@ -10,7 +10,7 @@
 
     gtag('config', 'UA-180244749-2');
     </script>
-    <link rel="stylesheet" href="/css/profile.css">
+    <link id="pro-style" rel="stylesheet" href="/css/profile.css">
     <link href="//db.onlinewebfonts.com/c/eeb2719d248b27841be5f4899986eedc?family=Sentinel+Book" rel="stylesheet" type="text/css"/>
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
     <!-- <script type="text/javascript" src="profile.js"></script> -->
@@ -19,7 +19,7 @@
 <body onload="fillinVar()">
 	<a href="https://www.gooffco.com/">
     	<div class="logo">
-        	<img src="/GO_Off.png" class="img-circle" style=" width: auto; height:6%;"/>
+        	<img src="/GO_Off150.png" />
     	</div>
     </a>
 
@@ -62,9 +62,9 @@
     <button id="Cancel" onclick="searchBar1()">Cancel</button>
     
 
-    <form id="bar_form">
+    <!-- <form id="bar_form">
         <input type="text" id="search" style="display: block" placeholder="Filter">
-    </form>
+    </form> -->
 
 
     <div id="line" style="top: 5%;"><hr></div>
@@ -175,6 +175,38 @@
 
 
 <script>
+    var hasTouchScreen = false;
+    /*
+        if ("maxTouchPoints" in navigator) { 
+            hasTouchScreen = navigator.maxTouchPoints > 0;
+        } else if ("msMaxTouchPoints" in navigator) {
+            hasTouchScreen = navigator.msMaxTouchPoints > 0; 
+        } else {
+            var mQ = window.matchMedia && matchMedia("(pointer:coarse)");
+            if (mQ && mQ.media === "(pointer:coarse)") {
+                hasTouchScreen = !!mQ.matches;
+            } else if ('orientation' in window) {
+                hasTouchScreen = true; // deprecated, but good fallback
+            } else {
+                // Only as a last resort, fall back to user agent sniffing
+                var UA = navigator.userAgent;
+                hasTouchScreen = (
+                    /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+                    /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
+                );
+            }
+        }
+    */
+    
+    //NOTE: This is not the recommended way to detect mobile anymore, in the future
+    // it will be better to just make the site responsive by default
+    hasTouchScreen = (
+                    /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+                    /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
+                );
+    if (hasTouchScreen == true){
+        document.getElementById("pro-style").setAttribute('href', '/css/profile.css')
+    }
     document.getElementById("bar_form").style.visibility="hidden";
     function searchBar(){
         document.getElementById("Submit").style.visibility = "hidden";
