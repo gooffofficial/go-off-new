@@ -200,6 +200,7 @@
     
     //NOTE: This is not the recommended way to detect mobile anymore, in the future
     // it will be better to just make the site responsive by default
+    var UA = navigator.userAgent;
     hasTouchScreen = (
                     /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
                     /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)

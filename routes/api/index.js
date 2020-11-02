@@ -35,10 +35,10 @@ router.get('/update_article', auth.optional, (req,res, next) => {
         article1img: "https://gooff.s3.us-east-2.amazonaws.com/download.jpg",
         article1author: 'The Sweaty Penguin',
         article1link: "https://thesweatypenguin.com/wp-content/uploads/2020/10/FINAL-LIGHT-POLLUTION.mp3",
-        article2title: "Winter COVID Outlook",
-        article2img: 'https://storage.googleapis.com/afs-prod/media/2dc3dd691b834d28a6a6ede51a39d6c6/800.jpeg',
-        article2author: 'Raf Casert',
-        article2link: 'https://apnews.com/article/business-virus-outbreak-brussels-belgium-europe-7203f0b4e05e9d31e6ae63b88d424423',
+        article2title: "DFP | Restaurants brace for winter",
+        article2img: 'https://dailyfreepress.com/wp-content/uploads/image1-27-431x288.jpg',
+        article2author: 'Daniel Kool',
+        article2link: 'https://dailyfreepress.com/2020/10/22/restaurants-brace-for-cold-weather-after-summer-of-outdoor-dining/',
         artice3title: 'The Startup Helping EVs Balance Out the Renewables That Power Them',
         article3img: "https://www.greentechmedia.com/assets/content/cache/made/assets/content/cache/remote/https_assets.greentechmedia.com/content/images/articles/Charging_EVs_Infrastructure_XL_500_281_80.jpg",
         article3author: 'John Parnell',
@@ -46,7 +46,7 @@ router.get('/update_article', auth.optional, (req,res, next) => {
     },
     {
         where: {
-            article2link: 'https://qz.com/1916923/recent-changes-at-disney-prioritize-hulu-disney-and-espn/'
+            article1link: 'https://thesweatypenguin.com/wp-content/uploads/2020/10/FINAL-LIGHT-POLLUTION.mp3'
         }
     }).then(() => {
         return res.sendStatus(200);

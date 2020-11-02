@@ -44,19 +44,19 @@ module.exports = (sequelize, type) => {
         article1readtime: type.STRING,
         article2img: {
             type: type.STRING,
-            defaultValue: "https://storage.googleapis.com/afs-prod/media/2dc3dd691b834d28a6a6ede51a39d6c6/800.jpeg"
+            defaultValue: "https://dailyfreepress.com/wp-content/uploads/image1-27-431x288.jpg"
         },
         article2link: {
             type: type.STRING,
-            defaultValue: "https://apnews.com/article/business-virus-outbreak-brussels-belgium-europe-7203f0b4e05e9d31e6ae63b88d424423"
+            defaultValue: "https://dailyfreepress.com/2020/10/22/restaurants-brace-for-cold-weather-after-summer-of-outdoor-dining/"
         },
         article2author: {
             type: type.STRING,
-            defaultValue: "Raf Casert"
+            defaultValue: "Daniel Kool"
         },
         article2title: {
             type: type.STRING,
-            defaultValue: "Winter COVID Outlook"
+            defaultValue: "DFP | Restaurants brace for winter"
         },
         article2readtime: type.STRING,
         article3img: {
