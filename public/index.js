@@ -120,13 +120,31 @@ var hold;
                     var message = document.createElement('div');
                     message.setAttribute('class', 'chat-message');
                     names = data[x].name
+                    mess = data[x].message
+
+                    //participants
                     if(!users.includes(names)){
                         users.push(names);
                         p = document.createElement('p');
                         p.textContent = names;
                         document.getElementById("participants").appendChild(p);
                     }
-                    mess = data[x].message
+
+                    var para = document.createElement('p');
+                    //for name 
+                    var spans = document.createElement('span');
+                    spans.style.fontWeight = "bold";
+                    var nam = document.createTextNode(names);
+                    spans.appendChild(nam);
+                    //append name to paragraph
+                    var col = document.createTextNode(": ");
+                    var messa = document.createTextNode(mess);
+                    para.appendChild(spans);
+                    para.appendChild(col);
+                    para.appendChild(messa);
+
+                    message.appendChild(para);
+
                     /*
                     temp_time = data[x].createdAt;
                     temp_time = temp_time.split('T')[1]
@@ -153,7 +171,7 @@ var hold;
                     
                     */
                     //message.textContent = data[x].name+": "+data[x].message;
-                    message.textContent = /*"(" + time+") "+ */names+": "+mess
+                    //message.textContent = /*"(" + time+") "+ */names+": "+mess
                     messages.appendChild(message);
                     insertAfter(message.firstChild,message);
                     
