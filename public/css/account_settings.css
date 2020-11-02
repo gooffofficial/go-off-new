@@ -98,7 +98,7 @@
     display: block;
 }
 
-.fpname{
+.pname{
     top: 3%;
     position: absolute;
     left: 72%;
@@ -247,7 +247,7 @@ hr{
 
 #desc{
     position: absolute;
-    top: 14%;
+    top: 13%;
     font-family: Poppins_Medium_Regular;
 }
 
@@ -259,22 +259,22 @@ label{
 
 label[for=email_addr]{
     position: absolute;
-    top: 25%;
+    top: 26%;
 
 }
 input[name=email_addr]{
     position: absolute;
-    top: 28.5%;
+    top: 29.5%;
 
 }
 
 label[for=passwrd]{
     position: absolute;
-    top: 25%;
+    top: 26%;
 }
 input[name=passwrd]{
     position: absolute;
-    top: 28.5%;
+    top: 29.5%;
 }
 
 label[for=Country]{

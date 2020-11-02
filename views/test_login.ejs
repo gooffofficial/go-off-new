@@ -11,13 +11,14 @@
         gtag('config', 'UA-180244749-2');
         </script>
         <link rel="stylesheet" href="/css/test_login.css">
-        
+        <title> Login </title>
+    
     </head>
     <body>
         <div class="logo">
             <img src="/GO_Off300.png" style="width:40%; height:auto;">
         </div>
-        <form  action="api/users/login" class="form_login" method="post">
+        <form onSubmit= "JavaScript:changeView()" action="api/users/login" class="form_login" method="post">
             <!-- <label for="username">Username:</label><br> -->
             <br>
             <input type="text" id="username" name="username" placeholder="Username"><br><br>
@@ -27,7 +28,7 @@
             <br>
             <input type="submit" placeholder="Log In">
         </form>
-        <!-- <script>
+        <script>
             function isMobile() {
                 var check = false;
                 (function(a){
@@ -40,13 +41,13 @@
             function changeView(){
                 form=document.getElementById('form_login')
                 if(isMobile() == false){
-                    form.action = 'api/users/login';
+                    form.action = '';
                     form.submit();
                 }else if (isMobile() == true){
                     form.action = 'mprofile.ejs';
                     form.submit();
                 }
             }
-        </script> -->
+        </script>
     </body>
 </html>
