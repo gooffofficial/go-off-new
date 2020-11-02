@@ -20,16 +20,16 @@
 }
 .logo img {
     position: absolute;
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 100px;
     left: 20%;
+    top: 2%;
 }
 #fprofpic{
     right: 28.5%;
-    top: 1.5%;
     position: absolute;
-    height: 7%;
-    width: 3.5%;
+    width: 100px;
+    height: 100px;
 }
 .fprofpic img{
     border-radius: 50%;
@@ -45,7 +45,7 @@ hr{
 #search{
     position: absolute;
     margin-top: 10px;
-    right: 30%;
+    right: 40%;
     background-image: url(http://www.levenmetwater.nl/static/global/images/icon-search.png);
     background-position: 10px center;
     background-repeat: no-repeat;
@@ -64,7 +64,7 @@ hr{
     -moz-transition: all 2s;
     transition: all 0.2s;
     
-    width: 50%;
+    width: 30%;
     /* float: right; */
     /* left: -200px; */
 }
@@ -88,41 +88,17 @@ hr{
     border: none;
     margin-right: 10px; */
 }
-/* .pname{
-    top: 3%;
-    right: 19.5%;
-    position: absolute;
-    width: 8%;
-    /* border: 1px solid rgba(153, 150, 150, 0.116); */
-    /* top: 8px;
-    float: right;
-    margin-top: 10px;
-    margin-right: 5px; 
-} */
+
 
 #pname{
     top: 3%;
     position: absolute;
-    left: 72%;
+    right: 22.5%;
     font-family: Poppins_Bold;
-    width: 7%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-/* .fpname{
-    top: 3%;
-    position: absolute;
-    right: 23.5%;
-    width: 4%;
+    display: inline;
+    visibility: hidden;
 }
 
-.lpname{
-    top: 3%;
-    position: absolute;
-    right: 20%;
-    width: 4%;
-} */
 
 button{
     border: 0;
@@ -137,84 +113,49 @@ button{
     top: 5%;
 } */
 #top-profile{
-/*<<<<<<< HEAD
-    position: absolute;
-    left: 22%;
-    top: 11%;
-    right: 660px;
-    height: 300px;
-=======
-    position: fixed;
-    float: center;
-    left: 20%;
-    top: 8%;
-    width: 50%;
-    height: 30%;*/
     position: absolute;
     left: 25%;
     top: 8%;
-    right: 25%;
+    right: 10%;
     height: 30%;
     /* margin-right: 5%; */
-    /* border: 1px solid rgba(0, 0, 0, .2); */
-/*>>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c*/
-/*    border: 1px solid;*/
 
 }
 
 #profile-pic{ 
-/*<<<<<<< HEAD
-    position: absolute;
-    float: left;
-    border-radius: 50%;
-    height: 150px;
-    width: 150px;
-    left: 60px;
-    top: 100px;
-=======*/
     position: absolute;
     border-radius: 50%;
-    height: 70%;
-    width: 25%;
-    margin-top: 5%;
-/*>>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c*/
-
+    height: 45%;
+    width: 35%;
+    margin-top: 10%;
 }
 
-/* #profile-name {
-    position: absolute;
-    top: 10%;
-    left: 30%;
-    width: 70%;
-    bottom: 2%;
-    font-size: 300%;
-} */
+
 
 #profile-name{
     position: absolute; 
     top: 10%;
-    left: 30%;
+    left: 35%;
     /* display: inline; */
     bottom: 2%;
     width: 70%;
-    font-size: 35px;
-    height: 45%;
+    font-size: 200%;
     font-family: Poppins_Bold;
-    /* white-space: nowrap; */
-    /* overflow: hidden; */
 }
 
 #user-name{
     position: absolute;
-    top: 38%;
-    left: 30%;
+    top: 27%;
+    left: 35%;
+    font-size: 200%;
     font-family: Poppins_Bold;
 }
 
 #user-data{
     position: absolute;
-    top: 48%;
-    left: 30%;
+    top: 40%;
+    left: 35%;
+    font-size: 150%;
     /* width: 60%; */
     font-family: Poppins_Medium_Regular;
 }
@@ -241,42 +182,43 @@ button{
 }
 */
 #location-logo{
-    position: relative;
+    position: absolute;
     height: 18px;
     width: 18px;
-    /* top: 50%; */
-    /* left: 78%;  */
+    top: 75%; 
+    left: 0%;  
 }
-/*
+
 #location{
     position: absolute;
-    top: 48%;
-    left: 82%;
+    top: 35%;
+    left: 4%;
     font-family: Poppins_Medium_Regular;
-} */ 
+} 
 
 #bio {
     position: absolute;
-    top: 60%;
-    left: 30%;
+    top: 50%;
+    left: 35%;
     font-family: Poppins_Medium_Regular;
 }
 
 #articles{
     position: absolute;
-    top: 35%;
+    top: 25%;
     left: 25%;
 }
 
 #article-1{
     position: absolute;
-    left: 25%;
-    top: 45%;
-    width: 18%;
-    height: 35%;
+    left: 35%;
+    top: 28%;
+    width: 35%;
+    height: 20%;
     border: 1px solid rgba(153, 150, 150, 0.116);
     border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
+    display: block;
 }
 
 #article-1-image{
@@ -292,7 +234,7 @@ button{
     text-align: left;
     margin: auto;
     top: 70%; 
-    font-size: medium;
+    font-size: larger;
     left: 5%;
     color: black;
     word-wrap: break-word;
@@ -303,6 +245,7 @@ button{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    height: 30%;
 }
 
 #article-1-author{
@@ -315,7 +258,7 @@ button{
     position: absolute;
     text-align: left;
     margin: auto;
-    font-size: small;
+    font-size: large;
     top: 60%;
     left: 5%;
     color: black;
@@ -358,20 +301,28 @@ button{
 
 .Chat1{
     position: absolute;
-    left: 30%;
-    top: 80%;
-    border-color: black;
+    left: 35%;
+    top: 44.5%;
+    height: 10%;
+    width: 32.5%;
+}
+#Dot{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    font-size: 25px;
 }
 
 #article-2{
     position: absolute;
-    left: 45%;
-    top: 45%;
-    width: 18%;
-    height: 35%;
+    left: 35%;
+    top: 50.5%;
+    width: 35%;
+    height: 20%;
     border: 1px solid rgba(153, 150, 150, 0.116);
     border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
+    display: block;
 }
 
 #article-2-image{
@@ -387,7 +338,7 @@ button{
     text-align: left;
     margin: auto;
     top: 70%;
-    font-size: medium;
+    font-size: larger;
     left: 5%;
     color: black;
     word-wrap: break-word;
@@ -397,6 +348,7 @@ button{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    height: 30%;
 }
 
 #article2_link1{
@@ -407,7 +359,7 @@ button{
     position: absolute;
     text-align: left;
     margin: auto;
-    font-size: small;
+    font-size: large;
     top: 60%;
     left: 5%;
     color: black;
@@ -430,19 +382,28 @@ button{
 
 .Chat2{
     position: absolute;
-    left: 50%;
-    top: 80%;
+    left: 35%;
+    top: 66.5%;
+    height: 10%;
+    width: 32.5%;
+}
+#Dot2{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    font-size: 25px;
 }
 
 #article-3{
     position: absolute;
-    left: 65%;
-    top: 45%;
-    width: 18%;
-    height: 35%;
+    left: 35%;
+    top: 73%;
+    width: 35%;
+    height: 20%;
     border: 1px solid rgba(153, 150, 150, 0.116);
     border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
+    display: block;
     
 }
 
@@ -459,7 +420,7 @@ button{
     text-align: left;
     margin: auto;
     top: 70%;
-    font-size: medium;
+    font-size: larger;
     left: 5%;
     color: black;
     word-wrap: break-word;
@@ -469,13 +430,14 @@ button{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    height: 30%;
 }
 
 #article-3-author{
     position: absolute;
     text-align: left;
     margin: auto;
-    font-size: small;
+    font-size: large;
     top: 60%;
     left: 5%;
     color: black;
@@ -499,13 +461,22 @@ button{
 
 .Chat3{
     position: absolute;
-    left: 70%;
-    top: 80%;
+    left: 35%;
+    top: 90%;
+    height: 10%;
+    width: 32.5%;
+}
+
+#Dot3{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    font-size: 25px;
 }
 
 #Submit{
-    right: 31.5%;
-    top: 1.0%;
+    right: 40%;
+    top: 3%;
     border-radius: 50%;
     position: absolute;
     /* background-size: cover;
@@ -534,21 +505,23 @@ button{
     padding: 5px 5px;
 }
 #Home{
-    margin-top: 220px;
-    font-size: 20px;
+    margin-top: 70%;
+    font-size: 30px;
     font-family: Poppins_Medium_Regular;
+    border-color: black;
 }
 
 #Profile{
-    font-size: 20px;
+    font-size: 30px;
     font-family: Poppins_Medium_Regular;
+    border-color: black;
 }
 
 #Contact{
-    font-size: 20px;
+    font-size: 40px;
     font-family: Poppins_Medium_Regular;
-    bottom: 5%;
-    left: 48%;
+    bottom: 0%;
+    left: 38%;
     position: absolute;
 }
 #Notification{
@@ -653,7 +626,7 @@ button{
     display: inline-block;
     float: right;
     right: 17%;
-    margin-top: 0%;
+    top: 4%;
     /* border: 1px solid rgba(153, 150, 150, 0.116); */
 }
 
