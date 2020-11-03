@@ -2,6 +2,7 @@ const Sequelize = require('sequelize')
 const UserModel = require('./models/Users')
 const ProfileModel = require('./models/Profiles')
 const ArticleModel = require('./models/Articles')
+const UserArticleModel = require('./models/UserArticles')
 
 const sequelize = new Sequelize('test_server1', process.env.RDS_USER , process.env.RDS_PASSWORD, {
   port: process.env.RDS_PORT,
@@ -18,6 +19,7 @@ const sequelize = new Sequelize('test_server1', process.env.RDS_USER , process.e
 const Users = UserModel(sequelize, Sequelize)
 const Profiles = ProfileModel(sequelize, Sequelize)
 const Articles = ArticleModel(sequelize, Sequelize)
+const UserArticles = UserArticleModel(sequelize, Sequelize);
 
 sequelize.sync()
   .then(() => {

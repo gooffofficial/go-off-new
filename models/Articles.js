@@ -1,5 +1,7 @@
+const Users = require("./Users");
+
 module.exports = (sequelize, type) => {
-    var Profile =  sequelize.define('Article', {
+    var Article =  sequelize.define('Article', {
         url: {
             type: type.STRING,
             primaryKey: true,
@@ -10,7 +12,7 @@ module.exports = (sequelize, type) => {
         img: type.STRING,
     });
     
-    Profile.prototype.getArticleInfo = function(){
+    Article.prototype.getArticleInfo = function(){
         return {
             url: this.url,
             title: this.title,
@@ -18,5 +20,5 @@ module.exports = (sequelize, type) => {
             img: this.img
          }
     }
-    return Profile;
+    return Article;
 }

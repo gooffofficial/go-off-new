@@ -7,7 +7,8 @@ const db = require('../../models')
 router.use('/users', require('./users'));
 router.use('/chat', require('./chat'))
 
-router.post('/add_article', auth.required, (req, res, next) => {
+router.post('/add_article1', auth.required, (req, res, next) => {
+    const { payload: { id } } = req;
     db.Article.findOne({
         where: {
             url: req.body.article
@@ -20,10 +21,33 @@ router.post('/add_article', auth.required, (req, res, next) => {
             catch(err){
                 return res.send(err);
             }
-            return res.json({
-                "created": true
-            })
+            //return res.json({
+            //    "created": true
+            //})
         }
+        db.UserArticle.findOne({
+            where: {
+                UserId: id
+            }
+        }).then((userArticle) => {
+            if(!userArticle){
+                db.UserArticle.create({
+                    UserId: id,
+                    article1: req.body.article
+                })
+            }
+            else{
+                db.UserArticle.update({
+                    article1: req.body.article
+                },
+                {
+                    where:
+                    {
+                        userId: id
+                    }
+                })
+            }
+        })
         return res.sendStatus(200);
     })
 })

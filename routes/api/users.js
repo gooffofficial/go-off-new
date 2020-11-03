@@ -130,9 +130,13 @@ router.post('/', auth.optional, (req, res, next) => {
         UserId: user.id 
       })
       .then(() => {
+        db.UserArticle.create({
+          UserId: user.id
+        })
+        .then(() => 
         {
           res.redirect('/login');
-        }
+        })
       })
     })
     .catch((err) => {
