@@ -7,6 +7,7 @@ const db = require('../../models')
 router.use('/users', require('./users'));
 router.use('/chat', require('./chat'))
 
+//move to users.js file
 router.post('/add_article1', auth.required, (req, res, next) => {
     const { payload: { id } } = req;
     db.Article.findOne({
