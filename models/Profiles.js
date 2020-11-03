@@ -27,19 +27,19 @@ module.exports = (sequelize, type) => {
         bio: type.STRING,
         article1img: {
             type: type.STRING,
-            defaultValue: 'https://gooff.s3.us-east-2.amazonaws.com/download.jpg'
+            defaultValue: 'https://cdn.cnn.com/cnnnext/dam/assets/201030082605-04-trump-biden-election-night-split-super-tease.jpg'
         },
         article1link: {
             type: type.STRING,
-            defaultValue: 'https://thesweatypenguin.com/wp-content/uploads/2020/10/FINAL-LIGHT-POLLUTION.mp3'
+            defaultValue: 'https://www.cnn.com/politics/live-news/us-election-news-11-02-2020/index.html'
         },
         article1author: {
             type: type.STRING,
-            defaultValue: "The Sweaty Penguin"
+            defaultValue: "CNN"
         },
         article1title: {
             type: type.STRING,
-            defaultValue: "The Sweaty Penguin Podcast - Light Pollution"
+            defaultValue: "It's the day before Election Day"
         },
         article1readtime: type.STRING,
         article2img: {
