@@ -8,6 +8,7 @@ const _ = require('lodash')
 const AWS = require('aws-sdk')
 const multer = require('multer')
 const multerS3 = require('multer-s3')
+const crawler = require('../../apify/crawler')
 
 AWS.config.update({
   region: "us-east-1"
@@ -288,6 +289,101 @@ router.get('/profile/:user', auth.optional, (req, res, next) => {
   })
 })
 
+router.get('/articles/:user', auth.optional, (req, res, next) => {
+  return db.User.findOne({
+    where: {
+      username: req.params.user
+    }
+  }).then((user) => {
+    if(!user){
+      return res.sendStatus(400);
+    }
+    db.UserArticle.findOne({
+      where: {
+        UserId: user.id
+      }
+    })
+    .then((userArts) => {
+      if (!userArts){
+        return res.status(200).json({
+          article1Url: "",
+          article1Title: "No article added",
+          article1Readtime: "",
+          article1img: "/Plus.png",
+          article2Url: "",
+          article2Title: "No article added",
+          article2Readtime: "",
+          article2img: "/Plus.png",
+          article3Url: "",
+          article3Title: "No article added",
+          article3Readtime: "",
+          article3img: "/Plus.png"   
+        })
+      }
+      var articleLinks = userArts.getArticles();
+      var articles = {};
+      db.Article.findOne({
+        where: {
+          url: articleLinks["article1"]
+        }
+      }).then((article1) => {
+        if(!article1){
+          articles["article1Url"] = "";
+          articles["article1Title"] = "No article added";
+          articles["article1Readtime"] = "";
+          articles["article1img"] = "/Plus.png";
+        }
+        else{
+          var article1Info = article1.getArticleInfo();
+          articles["article1Url"] = article1Info["url"];
+          articles["article1Title"] = article1Info["title"];
+          articles["article1Readtime"] = article1Info["readTime"]
+          articles["article1img"] = article1Info["img"];
+        }
+        db.Article.findOne({
+          where: {
+            url: articleLinks["article2"]
+          }
+        }).then((article2) => {
+        if (!article2){
+          articles["article2Url"] = "";
+          articles["article2Title"] = "No article added";
+          articles["article2Readtime"] = "";
+          articles["article2img"] = "/Plus.png";
+        }
+        else{
+          var article2Info = article2.getArticleInfo();
+          articles["article2Url"] = article2Info["url"];
+          articles["article2Title"] = article2Info["title"];
+          articles["article2Readtime"] = article2Info["readTime"]
+          articles["article2img"] = article2Info["img"];
+        }
+        db.Article.findOne({
+          where: {
+            url: articleLinks["article3"]
+          }
+        }).then((article3) => {
+        if(!article3){
+          articles["article3Url"] = "";
+          articles["article3Title"] = "No article added";
+          articles["article3Readtime"] = "";
+          articles["article3img"] = "/Plus.png";
+        }
+        else{
+          var article3Info = article3.getArticleInfo();
+          articles["article3Url"] = article3Info["url"];
+          articles["article3Title"] = article3Info["title"];
+          articles["article3Readtime"] = article3Info["readTime"]
+          articles["article3img"] = article3Info["img"];
+        }
+        return res.status(200).json(articles);
+        })
+        })
+      })
+    })
+  })
+})
+
 router.get('/failure', (req, res, next) => {
   res.send('failure')
 })
@@ -300,6 +396,145 @@ router.get('/logout', (req, res, next) => {
     signed: true
   })
   return res.redirect('/');
+})
+
+//move to users.js file
+router.post('/add_article1', auth.required, (req, res, next) => {
+  const { payload: { id, username } } = req;
+  db.Article.findOne({
+      where: {
+          url: req.body
+      }
+  }).then((art) => {
+      if(!art){
+          try{
+              crawler(req.body.article)
+          }
+          catch(err){
+              return res.send(err);
+          }
+          //return res.json({
+          //    "created": true
+          //})
+      }
+      db.UserArticle.findOne({
+          where: {
+              UserId: id
+          }
+      }).then((userArticle) => {
+          if(!userArticle){
+              db.UserArticle.create({
+                  UserId: id,
+                  article1: req.body.article
+              })
+          }
+          else{
+              db.UserArticle.update({
+                  article1: req.body.article
+              },
+              {
+                  where:
+                  {
+                      userId: id
+                  }
+              })
+          }
+      })
+      return res.redirect('/profiles/'+username);
+  })
+})
+
+//move to users.js file
+router.post('/add_article2', auth.required, (req, res, next) => {
+  const { payload: { id, username } } = req;
+  db.Article.findOne({
+      where: {
+          url: req.body.article
+      }
+  }).then((art) => {
+    console.log(art)
+      if(!art){
+          try{
+              crawler(req.body.article)
+          }
+          catch(err){
+              return res.send(err);
+          }
+          //return res.json({
+          //    "created": true
+          //})
+      }
+      db.UserArticle.findOne({
+          where: {
+              UserId: id
+          }
+      }).then((userArticle) => {
+          if(!userArticle){
+              db.UserArticle.create({
+                  UserId: id,
+                  article2: req.body.article
+              })
+          }
+          else{
+              db.UserArticle.update({
+                  article2: req.body.article
+              },
+              {
+                  where:
+                  {
+                      userId: id
+                  }
+              })
+          }
+      })
+      return res.redirect('/profiles/'+username);
+  })
+})
+
+//move to users.js file
+router.post('/add_article3', auth.required, (req, res, next) => {
+  const { payload: { id, username } } = req;
+  db.Article.findOne({
+      where: {
+          url: req.body.article
+      }
+  }).then((art) => {
+      if(!art){
+          try{
+              crawler(req.body.article)
+          }
+          catch(err){
+              return res.send(err);
+          }
+          //return res.json({
+          //    "created": true
+          //})
+      }
+      db.UserArticle.findOne({
+          where: {
+              UserId: id
+          }
+      }).then((userArticle) => {
+          if(!userArticle){
+              db.UserArticle.create({
+                  UserId: id,
+                  article3: req.body.article
+              })
+          }
+          else{
+              db.UserArticle.update({
+                  article3: req.body.article
+              },
+              {
+                  where:
+                  {
+                      userId: id
+                  }
+              })
+          }
+      })
+      return res.redirect('/profiles/'+username);
+  })
 })
 
 function isLoggedIn(req, res, next){

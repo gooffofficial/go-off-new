@@ -7,51 +7,6 @@ const db = require('../../models')
 router.use('/users', require('./users'));
 router.use('/chat', require('./chat'))
 
-//move to users.js file
-router.post('/add_article1', auth.required, (req, res, next) => {
-    const { payload: { id } } = req;
-    db.Article.findOne({
-        where: {
-            url: req.body.article
-        }
-    }).then((art) => {
-        if(!art){
-            try{
-                crawler(req.body.article)
-            }
-            catch(err){
-                return res.send(err);
-            }
-            //return res.json({
-            //    "created": true
-            //})
-        }
-        db.UserArticle.findOne({
-            where: {
-                UserId: id
-            }
-        }).then((userArticle) => {
-            if(!userArticle){
-                db.UserArticle.create({
-                    UserId: id,
-                    article1: req.body.article
-                })
-            }
-            else{
-                db.UserArticle.update({
-                    article1: req.body.article
-                },
-                {
-                    where:
-                    {
-                        userId: id
-                    }
-                })
-            }
-        })
-        return res.sendStatus(200);
-    })
-})
 
 /*
 router.get('/update_article', auth.optional, (req,res, next) => {
