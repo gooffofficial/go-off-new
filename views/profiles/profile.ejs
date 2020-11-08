@@ -436,11 +436,6 @@
                     document.getElementById("article-3-title").innerHTML = myArr.user.article3title;
                     document.getElementById("article-3-author").innerHTML = myArr.user.article3author;
                     document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readtime;
-                    if("<%=user%>" == myArr.user.username){
-                        document.getElementById("update1").style.display='';
-                        document.getElementById("update2").style.display='';
-                        document.getElementById("update3").style.display='';
-                    }
                     test();
                 }
             };
@@ -478,6 +473,21 @@
             xhr2.open("GET", '/api/users/articles/<%=user%>', true);
             xhr2.withCredentials = true;
             xhr2.send();
+
+            var xhr3 = new XMLHttpRequest();
+            xhr3.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
+                    var userArr = JSON.parse(this.responseText);
+                    if("<%=user%>" == userArr.user.username){
+                        document.getElementById("update1").style.display='';
+                        document.getElementById("update2").style.display='';
+                        document.getElementById("update3").style.display='';
+                    }
+                }
+            }
+            xhr3.open("GET", '/api/users/current', true);
+            xhr3.withCredentials = true;
+            xhr3.send();
     // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
     // document.getElementById("username").innerHTML = result.user.name;
     // console.log(result.user.name);
