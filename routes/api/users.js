@@ -403,7 +403,7 @@ router.post('/add_article1', auth.required, (req, res, next) => {
   const { payload: { id, username } } = req;
   db.Article.findOne({
       where: {
-          url: req.body
+          url: req.body.article
       }
   }).then((art) => {
       if(!art){
