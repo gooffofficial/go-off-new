@@ -27,36 +27,36 @@ module.exports = (sequelize, type) => {
         bio: type.STRING,
         article1img: {
             type: type.STRING,
-            defaultValue: 'https://gooff.s3.us-east-2.amazonaws.com/download.jpg'
+            defaultValue: 'https://cdn.cnn.com/cnnnext/dam/assets/201030082605-04-trump-biden-election-night-split-super-tease.jpg'
         },
         article1link: {
             type: type.STRING,
-            defaultValue: 'https://thesweatypenguin.com/wp-content/uploads/2020/10/FINAL-LIGHT-POLLUTION.mp3'
+            defaultValue: 'https://www.cnn.com/politics/live-news/us-election-news-11-02-2020/index.html'
         },
         article1author: {
             type: type.STRING,
-            defaultValue: "The Sweaty Penguin"
+            defaultValue: "CNN"
         },
         article1title: {
             type: type.STRING,
-            defaultValue: "The Sweaty Penguin Podcast - Light Pollution"
+            defaultValue: "It's the day before Election Day"
         },
         article1readtime: type.STRING,
         article2img: {
             type: type.STRING,
-            defaultValue: "https://storage.googleapis.com/afs-prod/media/2dc3dd691b834d28a6a6ede51a39d6c6/800.jpeg"
+            defaultValue: "https://dailyfreepress.com/wp-content/uploads/image1-27-431x288.jpg"
         },
         article2link: {
             type: type.STRING,
-            defaultValue: "https://apnews.com/article/business-virus-outbreak-brussels-belgium-europe-7203f0b4e05e9d31e6ae63b88d424423"
+            defaultValue: "https://dailyfreepress.com/2020/10/22/restaurants-brace-for-cold-weather-after-summer-of-outdoor-dining/"
         },
         article2author: {
             type: type.STRING,
-            defaultValue: "Raf Casert"
+            defaultValue: "Daniel Kool"
         },
         article2title: {
             type: type.STRING,
-            defaultValue: "Winter COVID Outlook"
+            defaultValue: "DFP | Restaurants brace for winter"
         },
         article2readtime: type.STRING,
         article3img: {
