@@ -122,7 +122,8 @@ router.post('/', auth.optional, (req, res, next) => {
       age: user.age,
       location: user.location,
       gender: user.gender,
-      password: user.password
+      password: user.password,
+      admin: user.admin
     })
     .then((user) => {
       logger("User " + user.id + " created With username " + user.username);
@@ -164,7 +165,7 @@ router.post('/login', auth.optional, (req, res, next) => {
       if(err) {
         return next(err);
       }
-      //console.log(passportUser);
+      // console.log(passportUser);
       if(passportUser) {
         const user = passportUser;
         user.token = passportUser.generateJWT();

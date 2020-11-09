@@ -34,6 +34,7 @@ module.exports = (sequelize, type) => {
         age: type.INTEGER,
         location: type.STRING,
         gender: type.STRING,
+        admin: type.STRING,
         password: {
             type: type.STRING,
             allowNull: false,
@@ -91,6 +92,7 @@ module.exports = (sequelize, type) => {
             age: this.age,
             location: this.location,
             email: this.email,
+            admin: this.admin,
         }
     }
     /*

@@ -325,10 +325,11 @@
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText)
                     var myArr = JSON.parse(this.responseText);
                     console.log(myArr);
                     document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname; 
-                    document.getElementById("profile-name").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
+                    document.getElementById("profile-name").innerHTML = myArr.user.firstname + " " + myArr.user.lastname + " " + myArr.user.admin;
                     document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("profile-pic").src = myArr.user.propic;
@@ -374,7 +375,7 @@
     // hold = document.getElementById("username");
     // console.log('hold', hold);
 // })       
-                
+             console.log(myArr.user.admin);
         })();
         // document.getElementById("pname").innerHTML = result.user.name;
         
@@ -382,15 +383,15 @@
             len = document.getElementById("profile-name").textContent.length;
             len = len-1;
             if(len <= 10){
-                console.log("test 45 10%");
+                // console.log("test 45 10%");
                 document.getElementById("profile-name").style.top = "10%";
                 document.getElementById("profile-name").style.fontSize = "45px";
             }else if(len <=20 && len > 10){
-                console.log("test1 35 20%");
+                // console.log("test1 35 20%");
                 document.getElementById("profile-name").style.top = "20%";
                 document.getElementById("profile-name").style.fontSize = "35px";
             }else{
-                console.log("test2 20 30%");
+                // console.log("test2 20 30%");
                 document.getElementById("profile-name").style.top = "30%";
                 document.getElementById("profile-name").style.fontSize = "20px";
             }
