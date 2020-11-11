@@ -96,14 +96,14 @@ hr{
 }
 
 
+
 button{
-    border: 0;
+    /* border: 0; */
     padding: 0.5em;
     position: relative;
     cursor: pointer;
     background: none;
 }
-
 
 #top-profile{
 
@@ -179,7 +179,7 @@ button{
 
 #user-articles{
     position: absolute;
-    top: 80%;
+    top: 82%;
     left: 25%
 }
 
@@ -611,6 +611,7 @@ button{
 }
 
 #Submit{
+    border: 0;
     right: 31.5%;
     top: 1.0%;
     border-radius: 50%;
@@ -633,17 +634,20 @@ button{
     padding: 5px 5px;
 }
 #Home{
+    border: 0;
     margin-top: 220px;
     font-size: 20px;
     font-family: Poppins_Medium_Regular;
 }
 
 #Profile{
+    border: 0;
     font-size: 20px;
     font-family: Poppins_Medium_Regular;
 }
 
 #Contact{
+    border: 0;
     font-size: 20px;
     font-family: Poppins_Medium_Regular;
     bottom: -40%;
@@ -745,6 +749,7 @@ button{
     font-size: 16px;
     border: none;
     cursor: pointer;
+    border: 0;
 }
 
 .droparrow{
