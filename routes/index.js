@@ -4,6 +4,7 @@ const auth = require('./auth');
 
 router.use('/api', require('./api'));
 router.use('/profiles', require('./profiles'))
+router.use('/analytics', require('./analytics'))
 
 router.get('/profile_edit', auth.required, (req, res, next) => {
     const { payload: { username } } = req;
