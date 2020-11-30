@@ -7,6 +7,7 @@ module.exports = (sequelize, type) => {
         },
         totalMessages: type.INTEGER,
         totalWords: type.INTEGER,
+        totalLetters: type.INTEGER,
         averageWordsMessage: type.FLOAT,
         averageLettersMessage: type.FLOAT,
         topWord1: type.STRING,
@@ -15,12 +16,16 @@ module.exports = (sequelize, type) => {
         topWord4: type.STRING,
         topWord5: type.STRING,
         numUsers: type.INTEGER,
+        convoLength: type.FLOAT,
+        convoTime: type.STRING,
+        convoDate: type.STRING,
         duration: type.FLOAT,
     })
     Analytics.prototype.getData = function(){
         return{
             id: this.id,
             totalMessages: this.totalMessages,
+            totalLetters: this.totalLetters,
             totalWords: this.totalWords,
             topWord1: this.topWord1,
             topWord2: this.topWord2,
@@ -30,7 +35,10 @@ module.exports = (sequelize, type) => {
             numUsers: this.numUsers,
             duration: this.duration,
             averageLettersMessage: this.averageLettersMessage,
-            averageWordsMessage: this.averageWordsMessage
+            averageWordsMessage: this.averageWordsMessage,
+            convoLength: this.convoLength,
+            convoTime: this.convoTime,
+            convoDate: this.convoDate
         }
     }
     return Analytics;

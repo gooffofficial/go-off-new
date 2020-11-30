@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" class="pf-m-redhat-font">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <!-- Include latest PatternFly CSS via CDN -->
+  <link 
+    rel="stylesheet" 
+    href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
+    crossorigin="anonymous"
+  >
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>PatternFly Primary-detail card view expanded CodeSandbox Example</title>
+</head>
+<body>
+  <div class="pf-c-page" id="primary-detail-card-view-expanded-example">
+  <a class="pf-c-skip-to-content pf-c-button pf-m-primary" href="#main-content-primary-detail-card-view-expanded-example">Skip to content</a>
+  <header class="pf-c-page__header">
+    <div class="pf-c-page__header-brand">
+      <div class="pf-c-page__header-brand-toggle">
+        <button class="pf-c-button pf-m-plain" type="button" id="primary-detail-card-view-expanded-example-nav-toggle" aria-label="Global navigation" aria-expanded="true" aria-controls="primary-detail-card-view-expanded-example-primary-nav">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+      </div>
+      <a href="#" class="pf-c-page__header-brand-link">
+        <img class="pf-c-brand" src="/logo.png" alt="Go Off logo" /> <!--GO OFF LOGO-->
+      </a>
+    </div>
+    <!-- SEARCH BAR-->
+    <div class="pf-c-search-input">
+      <span class="pf-c-search-input__text">
+        <span class="pf-c-search-input__icon">
+          <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+        </span>
+        <input class="pf-c-search-input__text-input" type="text" placeholder="Search" aria-label="Search" />
+      </span>
+    </div>
+    <div class="pf-c-page__header-tools">
+      <div class="pf-c-page__header-tools-group">
+        <div class="pf-c-page__header-tools-item pf-m-hidden pf-m-visible-on-lg">
+          <button class="pf-c-button pf-m-plain" type="button" aria-label="Add">
+            <i class="pf-icon pf-icon-add-circle-o" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="pf-c-page__header-tools-item pf-m-hidden pf-m-visible-on-lg ">
+          <button class="pf-c-button pf-m-plain" type="button" aria-label="Home">
+            <i class="fas fa-home" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="pf-c-page__header-tools-item pf-m-hidden pf-m-visible-on-lg ">
+          <button class="pf-c-button pf-m-plain" type="button" aria-label="Messages">
+            <i class="fas fa-comments" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="pf-c-page__header-tools-item pf-m-hidden pf-m-visible-on-lg">
+          <button class="pf-c-button pf-m-plain" type="button" aria-label="Notification">
+            <i class="fas fa-bell" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="pf-c-page__header-tools-group">
+        <!--INSERT PROFILE PIC OF COMPANY BELOW-->
+        <img class="pf-c-avatar" id="profile-pic" src="/assets/images/img_avatar.svg" alt="Avatar image" />
+        
+        <div class="pf-c-page__header-tools-item pf-m-hidden pf-m-visible-on-md">
+          <div class="pf-c-dropdown">
+            <button class="pf-c-dropdown__toggle pf-m-plain" type="button" id="primary-detail-card-view-expanded-example-dropdown-button" aria-expanded="false">
+              <!--INSERT NAME OF COMPANY BELOW-->
+              <span class="pf-c-dropdown__toggle-text" id="user-name">John Smith</span>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!--Fix sidebar to have subheadings >????????-->
+  <div class="pf-c-page__sidebar pf-m-light" style="width: 200px;">
+    <div class="pf-c-page__sidebar-body">
+      <nav class="pf-c-nav" id="primary-detail-card-view-expanded-example-primary-nav" aria-label="Global">
+        <ul class="pf-c-nav__list">
+          <li class="pf-c-nav__item">
+            <a href="#" class="pf-c-nav__link ">Dashboard</a>
+          </li>
+          <li class="pf-c-nav__item">
+            <a href="#" class="pf-c-nav__link pf-m-current" aria-current="page">Convos</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <main class="pf-c-page__main" tabindex="-1">
+    <section class="pf-c-page__main-breadcrumb pf-m-limit-width">
+      <div class="pf-c-page__main-body">
+         
+      </div>
+    </section>
+    <section class="pf-c-page__main-section pf-m-light">
+      <div class="pf-c-content">
+        
+        <nav class="pf-c-jump-links pf-m-center" aria-label="Local">
+          <!--CONVO TITLE HERE-->
+          <h1><%=article.title%></h1>
+          <ul class="pf-c-jump-links__list" style = "list-style-type: none;">
+            <li class="pf-c-jump-links__item">
+              <a class="pf-c-jump-links__link" href="#">
+                <span class="pf-c-jump-links__link-text">Convo Breakdown</span>
+              </a>
+            </li>
+            <li class="pf-c-jump-links__item">
+              <a class="pf-c-jump-links__link" href="#">
+                <span class="pf-c-jump-links__link-text">User Data</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!--CONVO DESC HERE
+            Temporarily just replaced with url-->
+        <p><a href="<%=article.url%>"><%=article.url%></a></p>
+      </div>
+      
+    </section>
+    <section class="pf-c-page__main-section pf-m-no-padding">
+      <!-- Drawer -->
+      <div class="pf-c-drawer pf-m-expanded pf-m-inline-on-2xl">
+        <div class="pf-c-drawer__section">
+          <div class="pf-c-divider" role="separator"></div>
+        </div>
+        <div class="pf-c-drawer__main">
+          <!-- INSERT ANALYSIS DATA BELOW (Content cards)-->
+          <div class="pf-c-drawer__content pf-m-no-background">
+            <div class="pf-c-drawer__body pf-m-padding">
+              <div class="pf-l-gallery pf-m-gutter">
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example1">
+                  <div class="pf-c-card__title">Active Users</div>
+                  <div class="pf-c-card__body"><h1><%=data.numUsers%></h1></div>
+                </div>
+
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
+                  <div class="pf-c-card__title">Session Time</div>
+                  <div class="pf-c-card__body"><%=data.convoLength%> minutes</div>
+                </div>
+
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
+                  <div class="pf-c-card__title">Date</div>
+                  <div class="pf-c-card__body"><%=data.convoDate%></div>
+                </div>
+
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
+                  <div class="pf-c-card__title">Time</div>
+                  <div class="pf-c-card__body"><%=data.convoTime%></div>
+                </div>
+
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example4">
+                  <div class="pf-c-card__title">Sentiment Analysis</div>
+                  <div class="pf-c-card__body">
+                    <img src="https://gooff.s3.us-east-2.amazonaws.com/images/graphs/<%=room%>_sentimentDonut.svg">
+                  </div>
+                </div>
+
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example5">
+                  <div class="pf-c-card__title">Key Words</div>
+                  <div class="pf-c-card__body">
+                    <img src="https://gooff.s3.us-east-2.amazonaws.com/images/graphs/<%=room%>_top5Bar.svg">
+                  </div>
+                </div>
+
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example6">
+                  <div class="pf-c-card__title">Message Stats</div>
+                  <div class="pf-c-card__body">Totals (for convo)
+                    <table aria-label="Compact Table with borderless rows" role="grid" class="pf-c-table pf-m-grid-md pf-m-compact pf-m-no-border-rows" data-ouia-component-type="PF4/Table" data-ouia-safe="true" data-ouia-component-id="OUIA-Generated-Table-28">
+                      <thead class="">
+                        <tr>
+                          <th scope="col" data-label="Header cell" data-key="0" class="">Messages</th>
+                          <th scope="col" data-label="Branches" data-key="1" class="">Words</th>
+                          <th scope="col" data-label="Pull requests" data-key="2" class="pf-u-text-align-center">Letters</th>
+                        </tr>
+                      </thead>
+                      <tbody class=""><tr class="" data-ouia-component-type="PF4/TableRow" data-ouia-safe="true" data-ouia-component-id="OUIA-Generated-TableRow-89">
+                        <td data-label="Header cell" data-key="0" class=""><%=data.totalMessages%></td>
+                        <td data-label="Branches" data-key="1" class=""><%=data.totalWords%></td>
+                        <td data-label="Pull requests" data-key="2" class="pf-u-text-align-center"><%=data.totalLetters%></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="pf-c-card__body">Averages (per message)
+                    <table aria-label="Compact Table with borderless rows" role="grid" class="pf-c-table pf-m-grid-md pf-m-compact pf-m-no-border-rows" data-ouia-component-type="PF4/Table" data-ouia-safe="true" data-ouia-component-id="OUIA-Generated-Table-28">
+                      <thead class="">
+                        <tr>
+                          <th scope="col" data-label="Branches" data-key="1" class="">Words</th>
+                          <th scope="col" data-label="Pull requests" data-key="2" class="pf-u-text-align-center">Letters</th>
+                        </tr>
+                      </thead>
+                      <tbody class=""><tr class="" data-ouia-component-type="PF4/TableRow" data-ouia-safe="true" data-ouia-component-id="OUIA-Generated-TableRow-89">
+                        <td data-label="Branches" data-key="1" class=""><%=data.averageWordsMessage%></td>
+                        <td data-label="Pull requests" data-key="2" class="pf-u-text-align-center"><%=data.averageLettersMessage%></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
+
+<script>
+  var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText)
+                    var myArr = JSON.parse(this.responseText);
+                    document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
+                    document.getElementById("profile-pic").src = myArr.user.propic;
+                }
+            };
+            xhr.open("GET", '/api/users/profile/<%=user%>', true);
+            xhr.withCredentials = true;
+            xhr.send();
+</script>

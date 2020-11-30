@@ -3,7 +3,24 @@ const router = require('express').Router();
 const auth = require('./auth');
 //const Users = require('models/Users');
 const db = require('../models')
+const Room = require('../models/RoomSchema')
+const crawler = require('../apify/crawler')
 const {spawn} = require('child_process');
+
+router.get('/', auth.required, (req, res, next) => {
+    const { payload: { id } } = req;
+    return db.User.findOne({
+        where: {
+            id: id
+        }
+    }).then((user) => {
+        var userInfo = user.getUserInfo();
+        if (user.admin != "(Admin)"){
+            return res.sendStatus(401).json({"Err": "Unauthorized"})
+        }
+        return res.render('analysis/dashboard', {user:user.username})
+    })
+})
 
 router.get('/:chat', auth.required, (req, res, next) => {
     const { payload: { id } } = req;
@@ -41,7 +58,28 @@ router.get('/:chat', auth.required, (req, res, next) => {
                 });
             }
             else{
-                res.render('metrics', {data: analysis.getData(), room:req.params.chat})
+                Room.findById(req.params.chat, (err, room) => {
+                    if(err){
+                        console.log(err);
+                        return res.send(err);
+                    }
+                    db.Article.findOne({
+                        where: {
+                            url: room.url[0]
+                        }
+                    }).then((article) => {
+                        if(!article){
+                            try{
+                                crawler(room.url[0])
+                            }
+                            catch(err){
+                                return res.send(err)
+                            }
+                            return res.redirect('/analytics/'+req.params.chat)                          
+                        }
+                        return res.render('analysis/convo', {user: user.getUserInfo().username, article: article.getArticleInfo(), data: analysis.getData(), room:req.params.chat})
+                    })
+                })
             }
         })
     })

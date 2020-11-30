@@ -6,6 +6,7 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import twitter_samples, stopwords
 from nltk.tag import pos_tag
 from nltk.tokenize import word_tokenize
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk import FreqDist, classify, NaiveBayesClassifier
 
 import re, string, random
@@ -19,6 +20,7 @@ import sys
 s3 = boto3.resource('s3')
 
 bucket = s3.Bucket('gooff')
+sid = SentimentIntensityAnalyzer()
 
 def remove_noise(tweet_tokens, stop_words = ()):
 
@@ -138,9 +140,9 @@ if __name__ == "__main__":
     
     #Upload figure to S3
     img_data = io.BytesIO()
-    plt.savefig(img_data, format="png")
+    plt.savefig(img_data, format="svg")
     img_data.seek(0)
-    bucket.put_object(Body=img_data, ContentType='image/png', Key='images/graphs/'+roomid+'_top5Bar.png')
+    bucket.put_object(Body=img_data, ContentType='image/svg+xml', Key='images/graphs/'+roomid+'_top5Bar.svg')
     #plt.show()
     plt.clf()
 
@@ -148,28 +150,65 @@ if __name__ == "__main__":
     #    print(tok, classifier.classify(dict([token, True] for token in tok)))
 
     #ANALYSIS STATS FOR THE DONUT CHART
-    posneglist = [classifier.classify(dict([token, True] for token in tok)) for tok in custom_tokens_list]
+    #posneglist = [classifier.classify(dict([token, True] for token in tok)) for tok in custom_tokens_list]
     #print(posneglist)
+    new_mess = []
+    for message in a1:
+        message = str(message)
+        new = re.sub('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|["+.!*\(\),]|'\
+                       '(?:%[0-9a-fA-F][0-9a-fA-F]))+','', message)
+        new = re.sub("(@[A-Za-z0-9_]+)","", message)
+        new_mess.append(new)
+    
+    #Gather information from analysis 
+    numPos = 0
+    numSlightP = 0
+    numNeg = 0
+    numSlightN = 0
+    numNeu = 0 
+    total = len(new_mess)
+    comp = [] 
+    for sentence in new_mess:
+            #print(sentence)
+            scores = sid.polarity_scores(sentence)
+            #for key in sorted(scores):
+            #       print('{0}: {1}, '.format(key, scores[key]), end='')
+            comp.append(scores['compound'])
+            if (scores['compound'] >= 0.5): 
+                numPos += 1
+            elif (scores['compound'] <= -0.5): 
+                numNeg += 1
+            elif (scores['compound'] > -0.25 and scores['compound'] < 0.25): 
+                numNeu += 1
+            elif (scores['compound'] >= 0.25 and scores['compound'] < 0.5):
+                numSlightP += 1
+            elif (scores['compound'] <= -0.25 and scores['compound'] > -0.5):
+                numSlightN += 1
 
-    posNum = 0
-    negNum = 0
-    for val in posneglist: 
-        if val == 'Positive':
-            posNum += 1
-        elif val == 'Negative': 
-            negNum += 1
+    #for val in posneglist: 
+    #   if val == 'Positive':
+    #        posNum += 1
+    #    elif val == 'Negative': 
+    #        negNum += 1
     #print(posNum)
     #print(negNum)
     #print(len(posneglist))
 
     #CALCULATIONS FOR CHART
-    positives = posNum/(len(posneglist)) * 100
-    negatives = negNum/(len(posneglist)) * 100 
+    #positives = posNum/(len(posneglist)) * 100
+    #negatives = negNum/(len(posneglist)) * 100 
+    #DONUT CHART
+    percentPos = (numPos/total) * 100
+    percentNeg = (numNeg/total) * 100
+    percentNeu = (numNeu/total) * 100
+    percentSPos = (numSlightP/total) * 100
+    percentSNeg = (numSlightN/total) * 100
 
     #LABELS AND DATA
-    labels = ["Positive", "Negative"]
-    sizes = [positives, negatives]
-
+    #labels = ["Positive", "Negative"]
+    #sizes = [positives, negatives]
+    labels = ["Positive", "Negative", "Slightly Positive", "Slightly Negative", "Neutral"]
+    sizes = [percentPos, percentNeg, percentSPos, percentSNeg, percentNeg]
     #CREATE PIE CHART
     plt.pie(sizes, labels=labels, autopct = '%1.1f%%')
     plt.axis('equal')
@@ -178,9 +217,9 @@ if __name__ == "__main__":
     circle = plt.Circle(xy=(0,0), radius=0.75, facecolor='white')
     plt.gca().add_artist(circle)
     img_data = io.BytesIO()
-    plt.savefig(img_data, format="png")
+    plt.savefig(img_data, format="svg")
     img_data.seek(0)
-    bucket.put_object(Body=img_data, ContentType='image/png', Key='images/graphs/'+roomid+'_sentimentDonut.png')
+    bucket.put_object(Body=img_data, ContentType='image/svg+xml', Key='images/graphs/'+roomid+'_sentimentDonut.svg')
     #plt.show()
 
     print('analysis complete')

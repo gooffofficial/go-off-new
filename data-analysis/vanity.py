@@ -9,6 +9,7 @@ import seaborn as sns
 import os.path
 from transcripts import create_transcript
 from bson.objectid import ObjectId
+from datetime import datetime
 import io
 import boto3
 import sys
@@ -46,7 +47,16 @@ def vanity(room_id: str):
         #print("AHHHHHHH")
         create_transcript(room_id)
     df = pd.read_csv('transcripts/'+room_id+'_chat.csv')
+    
+    #Time and date analysis
+    timestamps = df.timestamp[1:]
 
+    tlast = datetime.strptime(timestamps[len(timestamps)], '%Y-%m-%d %H:%M:%S.%f')
+    tfirst = datetime.strptime(timestamps[1], '%Y-%m-%d %H:%M:%S.%f')
+
+    t_delta = (tlast-tfirst).total_seconds()/60
+    convo_date = tfirst.date()
+    convo_time = tfirst.time()
     #get average number of words per message
     messages = df.message[1:]
     #print("Total number of messages: " + str(len(messages)))
@@ -77,8 +87,8 @@ def vanity(room_id: str):
     plt.savefig(img_data, format="png")
     img_data.seek(0)
     bucket.put_object(Body=img_data, ContentType='image/png', Key='images/graphs/'+room_id+'_wordcloud.png')
-    mycursor.execute("INSERT INTO test_server1.Analytics (id, totalMessages, totalWords, averageWordsMessage, averageLettersMessage, numUsers)\
-        VALUES ('"+room_id+"'," + str(len(messages)) + ","+str(total_words)+","+str(avg_words)+","+str(avg_chars)+","+str(len(usernames))+")")
+    mycursor.execute("INSERT INTO test_server1.Analytics (id, totalMessages, totalWords, totalLetters, averageWordsMessage, averageLettersMessage, numUsers, convoLength, convoTime, convoDate)\
+        VALUES ('"+room_id+"'," + str(len(messages)) + ","+str(total_words)+","+str(total_chars)+","+str(avg_words)+","+str(avg_chars)+","+str(len(usernames))+","+str(t_delta)+",'"+str(convo_time)+"','"+str(convo_date)+"')")
     mydb.commit()
     #plt.show()
     print(str({'total_chars':total_chars,'avg_chars':avg_chars,'total_words':total_words,'avg_words':avg_words, 'num_users':len(usernames)}))
