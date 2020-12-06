@@ -11,7 +11,7 @@
     crossorigin="anonymous"
   >
   <link rel="stylesheet" href="/css/style.css" />
-  <title>Analytics Dashboard</title>
+  <title>Analytics User Dashboard</title>
 </head>
 <body>
   <div class="pf-c-page" id="primary-detail-card-view-expanded-example">
@@ -127,14 +127,14 @@
         <nav class="pf-c-jump-links pf-m-center" aria-label="Local">
           <h1>All Convos</h1>
           <ul class="pf-c-jump-links__list" style = "list-style-type: none;">
-            <li class="pf-c-jump-links__item pf-m-current">
+            <li class="pf-c-jump-links__item">
               <a class="pf-c-jump-links__link" href="#">
                 <span class="pf-c-jump-links__link-text">Convo Breakdown</span>
               </a>
             </li>
-            <li class="pf-c-jump-links__item">
+            <li class="pf-c-jump-links__item pf-m-current">
               <a class="pf-c-jump-links__link" href="#">
-                <span class="pf-c-jump-links__link-text">User Data</span>
+                <span class="pf-c-jump-links__link-text ">User Data</span>
               </a>
             </li>
           </ul>
@@ -155,49 +155,31 @@
             <div class="pf-c-drawer__body pf-m-padding">
               <div class="pf-l-gallery pf-m-gutter">
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example1">
-                  <div class="pf-c-card__title">Active Users</div>
+                  <div class="pf-c-card__title">Location</div>
                   <div class="pf-c-card__body">42</div>
                 </div>
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
-                  <div class="pf-c-card__title">Average Session</div>
+                  <div class="pf-c-card__title">User Activity</div>
                   <div class="pf-c-card__body">66.3 minutes</div>
                 </div>
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example3">
-                  <div class="pf-c-card__title">Total Convos</div>
+                  <div class="pf-c-card__title">Age</div>
                   <div class="pf-c-card__body">20</div>
                 </div>
 
-                <div class="pf-c-card pf-m-compact" id="card-no-footer-example4">
-                  <div class="pf-c-card__title">Sentiment Analysis</div>
-                  <div class="pf-c-card__body">
-                    <img src="/sentiment.svg">
-                    <p> A graph that shows the percentage of positive, neutral, and negative comments in all convos </p>
-                    <div class="pf-c-expandable-section">
-                      <!--ADD IN FUNCTIONALITY TO BUTTON-->
-                      <button type="button" class="pf-c-expandable-section__toggle" aria-expanded="false">
-                        <span class="pf-c-expandable-section__toggle-icon">
-                          <i class="fas fa-angle-right" aria-hidden="true"></i>
-                        </span>
-                        <span class="pf-c-expandable-section__toggle-text">Show more</span>
-                      </button>
-                      <div class="pf-c-expandable-section__content" hidden>(Message sentiment scored on a scale of -1 to 1, where -1 to -0.5 is negative, -0.5 to -0.25 is slightly negative,
-                        -0.25 to 0.25 is neutral, 0.25 to 0.5 is slightly positive, and 0.5 to 1 is positive)</div>
-                    </div>
-                    
-                  </div>
-                </div>
+               
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example5">
-                  <div class="pf-c-card__title">Key Words</div>
+                  <div class="pf-c-card__title">Gender</div>
                   <div class="pf-c-card__body">
                     <p>Most said words from all convos</p>
                   </div>
                 </div>
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example6">
-                  <div class="pf-c-card__title">Message Stats</div>
+                  <div class="pf-c-card__title">User Participation</div>
                   <div class="pf-c-card__body">This card has no footer</div>
                 </div>
         </div>
