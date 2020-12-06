@@ -11,7 +11,7 @@
     crossorigin="anonymous"
   >
   <link rel="stylesheet" href="/css/style.css" />
-  <title>PatternFly Primary-detail card view expanded CodeSandbox Example</title>
+  <title>Conversation Analytics</title>
 </head>
 <body>
   <div class="pf-c-page" id="primary-detail-card-view-expanded-example">
@@ -77,7 +77,34 @@
   <!--Fix sidebar to have subheadings >????????-->
   <div class="pf-c-page__sidebar pf-m-light" style="width: 200px;">
     <div class="pf-c-page__sidebar-body">
-      <nav class="pf-c-nav" id="primary-detail-card-view-expanded-example-primary-nav" aria-label="Global">
+      <nav class="pf-c-nav" aria-label="Global">
+        <ul class="pf-c-nav__list">
+          <li class="pf-c-nav__item">
+            <a href="#" class="pf-c-nav__link">Dashboard</a>
+          </li>
+          <li class="pf-c-nav__item pf-m-expandable pf-m-expanded">
+            <button class="pf-c-nav__link" id="nav-mixed-link2" aria-expanded="true">Conversations
+              <span class="pf-c-nav__toggle">
+                <span class="pf-c-nav__toggle-icon">
+                  <i class="fas fa-angle-right" aria-hidden="true"></i>
+                </span>
+              </span>
+            </button>
+            <!--INSERT MOST RECENT CONVERSATIONS HERE-->
+            <section class="pf-c-nav__subnav" aria-labelledby="nav-mixed-link2">
+              <ul class="pf-c-nav__list">
+                <li class="pf-c-nav__item">
+                  <a href="#" class="pf-c-nav__link">Subnav link 1</a>
+                </li>
+                <li class="pf-c-nav__item">
+                  <a href="#" class="pf-c-nav__link">Subnav link 2</a>
+                </li>
+              </ul>
+            </section>
+          </li>
+        </ul>
+      </nav>
+      <!--<nav class="pf-c-nav" id="primary-detail-card-view-expanded-example-primary-nav" aria-label="Global">
         <ul class="pf-c-nav__list">
           <li class="pf-c-nav__item">
             <a href="#" class="pf-c-nav__link ">Dashboard</a>
@@ -86,7 +113,7 @@
             <a href="#" class="pf-c-nav__link pf-m-current" aria-current="page">Convos</a>
           </li>
         </ul>
-      </nav>
+      </nav>-->
     </div>
   </div>
   <main class="pf-c-page__main" tabindex="-1">
@@ -120,7 +147,7 @@
       </div>
       
     </section>
-    <section class="pf-c-page__main-section pf-m-no-padding">
+    <section class="pf-c-page__main-section pf-m-no-padding" style="background-color: white;">
       <!-- Drawer -->
       <div class="pf-c-drawer pf-m-expanded pf-m-inline-on-2xl">
         <div class="pf-c-drawer__section">
