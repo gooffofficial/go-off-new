@@ -8,14 +8,6 @@ article1title: "2020 Presidential Debate",
 */
 module.exports = (sequelize, type) => {
     var Profile =  sequelize.define('Profile', {
-        followers: {
-            type: type.INTEGER,
-            defaultValue: 0,
-        },
-        following: {
-            type: type.INTEGER,
-            defaultValue: 0,
-        },
         Posts: {
             type: type.INTEGER,
             defaultValue: 0
@@ -90,8 +82,6 @@ module.exports = (sequelize, type) => {
     //}
     Profile.prototype.getProfileInfo = function(){
         return {
-            followers: this.followers,
-            following: this.following,
             propic: this.ppic,
             bio: this.bio,
             Posts: this.Posts,

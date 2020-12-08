@@ -124,7 +124,9 @@ router.post('/', auth.optional, (req, res, next) => {
       location: user.location,
       gender: user.gender,
       password: user.password,
-      admin: user.admin
+      admin: user.admin,
+      followercount: user.followercount,
+      followingcount: user.followingcount,
     })
     .then((user) => {
       logger("User " + user.id + " created With username " + user.username);
@@ -150,6 +152,7 @@ router.post('/', auth.optional, (req, res, next) => {
 router.post('/login', auth.optional, (req, res, next) => {
     //const { body: { user } } = req.body;
     const user = req.body;
+    
     if(!user.username) {
       return res.status(422).json({
         errors: {
@@ -165,7 +168,6 @@ router.post('/login', auth.optional, (req, res, next) => {
         },
       });
     }
-  
     return passport.authenticate('local', (err, passportUser, info) => {
       if(err) {
         return next(err);
@@ -198,6 +200,8 @@ router.post('/update', upload.single("file"), auth.required, (req, res, next) =>
     gender: req.body.gender,
     password: req.body.password,
     bio: req.body.bio,
+    followercount: req.body.followercount,
+    followingcount: req.body.followingcount,
   }
   //check if first or last name was filled out in the form
   if(req.body.firstname != '' || req.body.lastname != ''){
@@ -250,6 +254,90 @@ router.post('/update', upload.single("file"), auth.required, (req, res, next) =>
   })
 })
 
+router.post('/follower_update', auth.required, (req, res, next) => {
+  //id of logged in user
+  const { payload: { id } } = req;
+
+  var username = req.body.username;
+
+  //find username in db
+  return db.User.findOne({
+    where: {
+      username: username
+    }
+  })
+  .then((user) => {
+    if(!user) {
+      return res.sendStatus(400);
+    }
+    var prof = {user: user.getUserInfo()};
+    
+    db.Follower.findOne({
+      where: { follower: id, followed: user.id} 
+    })
+    .then((follower) => {
+      if (!follower ){
+        prof.user["is_following"] = false
+
+        db.Follower.create({
+          follower: id,
+          followed: user.id
+        })
+        db.User.increment({
+          followingcount: +1
+        },
+        {
+            where:
+            {
+                id: id
+            }
+        })
+        db.User.increment({
+          followercount: +1
+        },
+        {
+            where:
+            {
+                username: username
+            }
+        })
+        return res.redirect('/profiles/'+username);
+      }else{
+
+        db.Follower.destroy({
+          where:{
+            follower: id,
+          followed: user.id
+          }
+        })
+        db.User.increment({
+          followingcount: -1
+        },
+        {
+            where:
+            {
+                id: id
+            }
+        })
+        db.User.increment({
+          followercount: -1
+        },
+        {
+            where:
+            {
+                username: username
+            }
+        })
+        return res.redirect('/profiles/'+username);
+        
+        return res.status(200).json(prof);
+      }
+    })  
+      
+    
+  })
+})
+
 //GET authenticated user
 router.get('/current', auth.required, (req, res, next) => {
     const { payload: { username } } = req;
@@ -267,6 +355,8 @@ router.get('/current', auth.required, (req, res, next) => {
 })
 
 router.get('/profile/:user', auth.optional, (req, res, next) => {
+  const {payload: {id}} = req;
+  const {payload: {username}} = req;
   return db.User.findOne({
     where: {
       username: req.params.user
@@ -277,6 +367,11 @@ router.get('/profile/:user', auth.optional, (req, res, next) => {
       return res.sendStatus(400);
     }
     var prof = {user: user.getUserInfo()};
+    if(username == req.params.user){
+      prof.user["is_user"] = true
+    }else{
+      prof.user["is_user"] = false
+    }
     db.Profile.findOne({
       where: { UserId: user.id }
     })
@@ -284,7 +379,20 @@ router.get('/profile/:user', auth.optional, (req, res, next) => {
       for(let[key, value] of Object.entries(profile.getProfileInfo())){
         prof.user[key] = value
       }
-      return res.status(200).json(prof);
+      db.Follower.findOne({
+        where: { follower: id, followed: user.id} 
+      })
+      .then((follower) => {
+        if (!follower ){
+          prof.user["is_following"] = false
+          console.log(prof)
+          return res.status(200).json(prof);
+        }else{
+          prof.user["is_following"] = true
+          console.log(prof)
+          return res.status(200).json(prof);
+        }
+      })
     })
     //return res.status(200).json({ user: user.getProfileInfo() })
   })

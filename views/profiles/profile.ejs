@@ -68,7 +68,10 @@
 
 
     <div id="line" style="top: 5%;"><hr></div>
+ 
+    <input type="button" value="Follow" id="followbtn" onclick="testclick()"></input>
 
+    
 
     <div id="top-profile">
         <img id = "profile-pic" class="img-circle" style="width: auto; height:75%; top: 20%; left: 2%;"/>
@@ -76,8 +79,8 @@
         </h1>
         <h3 id="user-name"></h3>
         <div id="user-data">
-            <h4 id= "follower-count" style="display: inline-block;"></h4>
-            <h4 id = "following-count" style="display: inline-block;"></h4>
+            <a href="/followers" target="_blank" id= "follower-count" style="display: inline-block;"></a>
+            <a href="/following" target="_blank" id = "following-count" style="display: inline-block;"></a>
             <h4 id = "post-count" style="display: inline-block;"></h4>
             <img id = "location-logo" style = "display: inline" src = "https://cdn.iconscout.com/icon/free/png-256/location-1387-448334.png"/>
             <h4 id = "location" style="display: inline-block;"></h4>
@@ -103,7 +106,7 @@
     </a>
 </div>
 <div class="Chat1">
-    <button onclick="passurl1()" id="Dot">
+    <button onclick="passurl1()">
         Chat about this Article
     </button>
 </div>
@@ -145,7 +148,7 @@
     </a>
 </div>
 <div class="Chat3">
-    <button onclick="passurl3()" id="Dot3">
+    <button onclick="passurl3()">
         Chat about this Article
     </button>
 </div>
@@ -248,6 +251,8 @@
 
 <script>
     var hasTouchScreen = false;
+
+    
     /*
         if ("maxTouchPoints" in navigator) { 
             hasTouchScreen = navigator.maxTouchPoints > 0;
@@ -281,6 +286,26 @@
         document.getElementById("pro-style").setAttribute('href', '/css/profile.css')
     }
 
+    function testclick(){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/api/users/follower_update', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            username: document.getElementById("user-name").innerHTML.substring(1)
+        }));
+
+        //change colors based off click
+        if( document.getElementById("followbtn").value == "Follow"){
+            console.log("test");
+            document.getElementById("followbtn").value="Following";
+            document.getElementById("followbtn").style.backgroundColor="rgb(94, 104, 238)";
+        }else{
+            document.getElementById("followbtn").value="Follow";
+            document.getElementById("followbtn").style.backgroundColor="chartreuse";
+        }
+
+    }
+
     document.getElementById("bar_form").style.visibility="hidden";
     function searchBar(){
         document.getElementById("Submit").style.visibility = "hidden";
@@ -302,6 +327,7 @@
         document.getElementById("bar_form").style.visibility="hidden";
         document.getElementById("droparrow").style.display="block";
     }
+    
     // function dropclick1() {
     //     document.getElementById("arrowdrop").classList.toggle("show");
     // }
@@ -408,14 +434,25 @@
                 if (this.readyState == 4 && this.status == 200) {
                     console.log(this.responseText)
                     var myArr = JSON.parse(this.responseText);
+                    console.log(myArr);
+                    console.log(myArr.user.is_user)
+                    if (myArr.user.is_following == true){
+                        document.getElementById("followbtn").value="Following";
+                        document.getElementById("followbtn").style.backgroundColor="rgb(94, 104, 238)";
+                        console.log("works");
+                    }
+                    if (myArr.user.is_user == true){
+                        document.getElementById("followbtn").style.visibility = "hidden";
+                        console.log("works1");
+                    }
                     document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname; 
                     document.getElementById("profile-name").innerHTML = myArr.user.firstname + " " + myArr.user.lastname + " " + myArr.user.admin;
                     document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("profile-pic").src = myArr.user.propic;
                     document.getElementById("fprofpic").src = myArr.user.propic;
-                    document.getElementById("follower-count").innerHTML = myArr.user.followers + " " + " Followers";
-                    document.getElementById("following-count").innerHTML = myArr.user.following + " Following";
+                    document.getElementById("follower-count").innerHTML = myArr.user.followercount + " " + " Followers";
+                    document.getElementById("following-count").innerHTML = myArr.user.followingcount + " Following";
                     document.getElementById("post-count").innerHTML = myArr.user.Posts + " Posts";
                     document.getElementById("location").innerHTML = myArr.user.location;
                     document.getElementById("bio").innerHTML = myArr.user.bio;
@@ -443,7 +480,16 @@
                     document.getElementById("article-3-title").innerHTML = myArr.user.article3title;
                     document.getElementById("article-3-author").innerHTML = myArr.user.article3author;
                     document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readtime;
-                    test();
+                    console.log(myArr);
+
+                    var pageURL = window.location.href;
+                    var lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
+                    var user = document.getElementById("user-name");
+                    console.log(lastURLSegment);
+                    console.log(myArr.user.username);
+                    // if (lastURLSegment == myArr.user.username){
+                    //     document.getElementById("followbtn").style.visibility = "hidden";
+                    // }
                 }
             };
             xhr.open("GET", '/api/users/profile/<%=user%>', true);

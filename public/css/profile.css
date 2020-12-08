@@ -177,6 +177,20 @@ button{
     left: 25%;
 }
 
+#followbtn{
+  position: absolute;
+  left: 60%;
+  top: 40%;
+  width: 10%;
+  height: 4%;
+  cursor: pointer;
+  border: none;
+  background-color: chartreuse;
+  /* visibility: hidden; */
+}
+
+
+
 #user-articles{
     position: absolute;
     top: 82%;
