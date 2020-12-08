@@ -12,6 +12,15 @@ const _ = require('lodash')
 
 var socket = io.connect('http://127.0.0.1:4050');
 
+db.User.findAll({
+    where: {
+        admin: "(Admin)"
+    }
+}).then((admins) => {
+    adminNames = [];
+    admins.forEach(element => {
+        adminNames.push(element.username)
+    });
 console.log(socket)
 router.post('/', auth.required, (req, res, next) => {
     const { payload: { username }} = req;
@@ -58,11 +67,21 @@ router.post('/:room', auth.required, (req, res, next) => {
             room.users.push(id);
         }
         room.save(); //save chatroom updates
-        socket.emit('input', {
-            name: username,
-            message: message,
-            room: req.params.room
-        });
+        if(adminNames.includes(username)){
+            socket.emit('input', {
+                name: username+"(Admin)",
+                message: message,
+                room: req.params.room
+            });
+        }
+        else{
+            console.log(username);
+            socket.emit('input', {
+                name: username,
+                message: message,
+                room: req.params.room
+            });
+        }
         //save chat message into database
         chatMessage.save().then(() => { 
             console.log('Chat sent');
@@ -97,4 +116,6 @@ router.post('/:room/join', auth.required, (req, res, next) => {
     })
 })
 */
+
+})
 module.exports = router;
