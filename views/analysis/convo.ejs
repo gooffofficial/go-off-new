@@ -19,6 +19,14 @@
   body {
       font-family: 'Poppins', sans-serif;
       }
+
+  .zoom {
+  transition: transform .2s; /* Animation */
+  }
+
+  .zoom:hover {
+    transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
 </style>
 <body>
   <div class="pf-c-page" id="primary-detail-card-view-expanded-example">
@@ -182,18 +190,28 @@
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example4">
                   <div class="pf-c-card__title">Sentiment Analysis</div>
                   <div class="pf-c-card__body">
-                    <img src="https://gooff.s3.us-east-2.amazonaws.com/images/graphs/<%=room%>_sentimentDonut.svg">
                     <p> A graph that shows the percentage of positive, neutral, and negative comments in all convos </p>
+                    <img class = "zoom" src="https://gooff.s3.us-east-2.amazonaws.com/images/graphs/<%=room%>_sentimentDonut.svg">
                     <div class="pf-c-expandable-section">
                       <!--ADD IN FUNCTIONALITY TO BUTTON-->
                       <button type="button" class="pf-c-expandable-section__toggle" id = "sent" aria-expanded="false">
                         <span class="pf-c-expandable-section__toggle-icon">
                           <i class="fas fa-angle-right" aria-hidden="true"></i>
                         </span>
-                        <span class="pf-c-expandable-section__toggle-text"><p id="show"> Show more </p></span>
+                        <span class="pf-c-expandable-section__toggle-text"><p id="show"> Learn more </p></span>
                       </button>
-                      <div class="pf-c-expandable-section__content" id = "toshow" style = "display: none;">(Message sentiment scored on a scale of -1 to 1, where -1 to -0.5 is negative, -0.5 to -0.25 is slightly negative,
-                        -0.25 to 0.25 is neutral, 0.25 to 0.5 is slightly positive, and 0.5 to 1 is positive)</div>
+                      <div class="pf-c-expandable-section__content" id = "toshow" style = "display: none;">
+                        <p> Message sentiment scored on a scale of -1 to 1 
+                          <br>
+                          Negative: -1 to -0.5
+                          <br> 
+                          Slightly Negative: -0.5 to -0.25 
+                          <br>
+                          Neutral: -0.25 to 0.25 
+                          <br>  
+                          Slightly Positive: 0.25 to 0.5
+                          <br> 
+                          Positive: 0.5 to 1</p></div>
                     </div>
                   </div>
                 </div>
@@ -201,7 +219,7 @@
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example5">
                   <div class="pf-c-card__title">Key Words</div>
                   <div class="pf-c-card__body">
-                    <img src="https://gooff.s3.us-east-2.amazonaws.com/images/graphs/<%=room%>_top5Bar.svg">
+                    <img class = "zoom" src="https://gooff.s3.us-east-2.amazonaws.com/images/graphs/<%=room%>_top5Bar.svg">
                   </div>
                 </div>
 
@@ -309,7 +327,7 @@ showMore.addEventListener('click', () => {
   showMore.ariaExpanded = !JSON.parse(showMore.ariaExpanded);
   if (showMore.ariaExpanded=='false'){
     toShow.style.display = "none";  
-    toclick.innerHTML = "Show More"
+    toclick.innerHTML = "Learn More"
   }else{
     toShow.style.display = "";
     toclick.innerHTML = "Show Less"
