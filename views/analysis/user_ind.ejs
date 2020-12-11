@@ -119,7 +119,7 @@
       <div class="pf-c-content">
         
         <nav class="pf-c-jump-links pf-m-center" aria-label="Local">
-          <h1>All Convos</h1>
+          <h1><%=article.title%></h1>
           <ul class="pf-c-jump-links__list" style = "list-style-type: none;">
             <li class="pf-c-jump-links__item">
               <a class="pf-c-jump-links__link" href="/" id="backToConvo">
@@ -133,7 +133,7 @@
             </li>
           </ul>
         </nav>
-        <p>Data aggregated from all convos on your account.</p>
+        <p><a href="<%=article.url%>"><%=article.url%></a></p>
       </div>
       
     </section>
@@ -149,8 +149,12 @@
             <div class="pf-c-drawer__body pf-m-padding">
               <div class="pf-l-gallery pf-m-gutter">
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example1">
-                  <div class="pf-c-card__title">Location</div>
-                  <div class="pf-c-card__body">42</div>
+                  <div class="pf-c-card__body">
+                    <div class="pf-c-card__title">Location</div>
+                    <ul class="pf-c-list" id="locations">
+
+                    </ul>
+                  </div>
                 </div>
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
@@ -188,6 +192,8 @@
 
 <script>
   var recData = <%-JSON.stringify(datas)%>
+  var userData = <%-JSON.stringify(data)%>
+  var locations = userData.locations
   var recArticles = <%-JSON.stringify(articles)%>
   document.getElementById("backToConvo").setAttribute("href", "/analytics/<%=id%>")
   for(var i=0; i<recData.length; i++){
@@ -201,7 +207,12 @@
     article.appendChild(title);
     document.getElementById("subnav").appendChild(article)
   }
-  console.log("<%=data%>")
+  for(var i=0; i<locations.length; i++){
+    var loc = document.createElement('li')
+    var locText = document.createTextNode(locations[i])
+    loc.appendChild(locText)
+    document.getElementById("locations").appendChild(loc)
+  }
   var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {

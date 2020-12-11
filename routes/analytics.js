@@ -134,6 +134,53 @@ router.get('/convos', auth.required, (req, res, next) => {
     })
 })
 
+router.get('/users', auth.required, (req,res,next) => {
+    const { payload: { id } } = req;
+    return db.User.findOne({
+        where: {
+            id: id
+        }
+    }).then(async (user) => {
+        var userInfo = user.getUserInfo();
+        if (user.admin != "(Admin)"){
+            return res.sendStatus(401).json({"Err": "Unauthorized"})
+        }
+        var userInfo = user.getUserInfo();
+        if (user.admin != "(Admin)"){
+            return res.sendStatus(401).json({"Err": "Unauthorized"})
+        }
+        db.Analytics.findAll({
+            limit: 5,
+            order: [ ['createdAt', 'DESC']]
+        }).then(async (analyses) => {
+            let data = []
+            let articles = []
+            console.log("ANALYSES LENGth "+analyses.length+"\n"+analyses)
+            for (const analysis of analyses) {
+                let anal = await Room.findById(analysis.id);
+                console.log("AHHHHHHHH" + anal);
+                let art = await db.Article.findOne({
+                    where: {
+                        url: anal.url[0]
+                    }
+                })
+                console.log(art);
+                if(!art){
+                    try{
+                        crawler(anal.url[0])
+                    }
+                    catch(err){
+                        return res.send(err)
+                    }   
+                    return res.redirect('/analytics')                     
+                }
+                data.push(analysis.getData());
+                articles.push(art.getArticleInfo());
+            }
+            return res.render('analysis/user_aggregate', {user:user.username, data: data, article: articles});
+        })
+    })
+})
 
 router.get('/:chat', auth.required, (req, res, next) => {
     const { payload: { id } } = req;
