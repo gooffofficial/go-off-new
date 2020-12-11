@@ -166,7 +166,7 @@
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
                   <div class="pf-c-card__title">Session Time</div>
-                  <div class="pf-c-card__body"><%=data.convoLength%> minutes</div>
+                  <div class="pf-c-card__body"><%=parseFloat(data.convoLength).toFixed(0)%> minutes</div>
                 </div>
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
@@ -233,8 +233,8 @@
                         </tr>
                       </thead>
                       <tbody class=""><tr class="" data-ouia-component-type="PF4/TableRow" data-ouia-safe="true" data-ouia-component-id="OUIA-Generated-TableRow-89">
-                        <td data-label="Branches" data-key="1" class=""><%=data.averageWordsMessage%></td>
-                        <td data-label="Pull requests" data-key="2" class="pf-u-text-align-center"><%=data.averageLettersMessage%></td>
+                        <td data-label="Branches" data-key="1" class=""><%=parseFloat(data.averageWordsMessage).toFixed(1)%></td>
+                        <td data-label="Pull requests" data-key="2" class="pf-u-text-align-center"><%=parseFloat(data.averageLettersMessage).toFixed(1)%></td>
                         </tr>
                       </tbody>
                     </table>
