@@ -86,24 +86,24 @@
       <nav class="pf-c-nav" aria-label="Global">
         <ul class="pf-c-nav__list">
           <li class="pf-c-nav__item">
-            <a href="#" class="pf-c-nav__link">Dashboard</a>
+            <a href="/analytics" class="pf-c-nav__link">Dashboard</a>
           </li>
           <li class="pf-c-nav__item pf-m-expandable pf-m-expanded">
-            <button class="pf-c-nav__link" id="nav-mixed-link2" aria-expanded="true" onclick="location.href='/analytics/convos'">Conversations
-              <span class="pf-c-nav__toggle">
+            <button class="pf-c-nav__link" id="nav-mixed-link2" aria-expanded="false" onclick="location.href='/analytics/convos'">All Convos
+              <button class="pf-c-nav__toggle" id = "arrowdown" style="border: none; padding: none; outline: none;">
                 <span class="pf-c-nav__toggle-icon">
                   <i class="fas fa-angle-right" aria-hidden="true"></i>
                 </span>
-              </span>
+              </button>
             </button>
             <!--INSERT MOST RECENT CONVERSATIONS HERE-->
-            <section class="pf-c-nav__subnav" aria-labelledby="nav-mixed-link2">
+            <section class="pf-c-nav__subnav" id = "convs" aria-labelledby="nav-mixed-link2">
               <ul class="pf-c-nav__list" id="subnav">
               </ul>
             </section>
           </li>
         </ul>
-      </nav>
+      </nav>  
      <!-- <nav class="pf-c-nav" id="primary-detail-card-view-expanded-example-primary-nav" aria-label="Global">
         <ul class="pf-c-nav__list">
           <li class="pf-c-nav__item">
@@ -238,4 +238,19 @@
             xhr.open("GET", '/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
+
+//NAV BAR
+const sideNavArrow = document.getElementById('arrowdown');
+const arts = document.getElementById('nav-mixed-link2');
+const con = document.getElementById("convs");
+con.style.display = "none";
+sideNavArrow.addEventListener('click', () => {
+  arts.ariaExpanded = !JSON.parse(arts.ariaExpanded);
+  console.log(arts.ariaExpanded);
+  if (arts.ariaExpanded=='false'){
+    con.style.display = "none";  
+  }else{
+    con.style.display = "";
+  }
+})
 </script>
