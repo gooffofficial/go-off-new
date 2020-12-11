@@ -16,6 +16,16 @@ router.get('/account_settings', auth.required, (req, res, next) => {
     res.render('profiles/account_settings', {user: username})
 })
 
+router.get('/followers', auth.required, (req, res, next) => {
+    const { payload: { username } } = req;
+    res.render('profiles/followers', {user: username})
+})
+
+router.get('/following', auth.required, (req, res, next) => {
+    const { payload: { username } } = req;
+    res.render('profiles/following', {user: username})
+})
+
 router.get('/chat/:roomid', auth.required, (req, res, next) => {
     res.render('index')
 })
