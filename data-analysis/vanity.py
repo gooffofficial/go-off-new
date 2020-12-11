@@ -40,12 +40,14 @@ def vanity(room_id: str):
     usernames = []
     user_ages = []
     user_genders = []
+    user_part = {}
     user_loc = []
     mycursor = mydb.cursor()
     for user in users:
         mycursor.execute("SELECT username FROM test_server1.Users U WHERE U.id="+user)
         myresult = mycursor.fetchone()
         usernames.append(myresult[0])
+        user_part[str(myresult[0])] = 0
         mycursor.execute("SELECT age FROM test_server1.Users as U WHERE U.id=" + user)
         a = mycursor.fetchone()
         if a != None:
@@ -157,7 +159,21 @@ def vanity(room_id: str):
         #print("AHHHHHHH")
         create_transcript(room_id)
     df = pd.read_csv('transcripts/'+room_id+'_chat.csv')
+    for usern in df.username:
+        user_part[str(usern)] += 1
     
+    labels = ["User " + str(i+1) for i in range(len(user_part))]
+    data = [float(v) for v in user_part.values()]
+    plt.pie(data, labels=labels, autopct = '%1.1f%%')
+    plt.axis('equal')
+    circle = plt.Circle(xy=(0,0), radius=0.75, facecolor='white')
+    plt.gca().add_artist(circle)
+    img_data = io.BytesIO()
+    plt.savefig(img_data, format="svg")
+    img_data.seek(0)
+    bucket.put_object(Body=img_data, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_partDonut.svg")
+    plt.clf()
+
     #Time and date analysis
     timestamps = df.timestamp[1:]
 
@@ -182,21 +198,39 @@ def vanity(room_id: str):
     for message in messages:
         total_chars += len(str(message))
     avg_chars = total_chars/len(messages)
+
+    #create message over time graph
+    times = []
+    for time in df.timestamp:
+        times.append(datetime.strptime(time, '%Y-%m-%d %H:%M:%S.%f'))
+    df.insert(0, "count", 1)
+    df.insert(0, "time", pd.to_datetime(times))
+    df['min'] = df.time.dt.minute
+    df1 = df[['message','min']]
+    message_counts = df1.groupby(by=['min']).count()
+    message_counts.plot()
+    plt.ylabel("Number of messages")
+    img_data = io.BytesIO()
+    plt.savefig(img_data, format="svg")
+    img_data.seek(0)
+    bucket.put_object(Body=img_data, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_activityChart.svg")
+    plt.clf()
     #print("Total number of characters: " + str(total_chars))
     #print("Average number of characters: "+str(avg_chars))
 
     # Create stopword list:
     #print(df.columns)
-    stop_words = set(stopwords.words('english'))
-    textt = " ".join(str(review) for review in df.message[1:])
+    #stop_words = set(stopwords.words('english'))
+    #textt = " ".join(str(review) for review in df.message[1:])
 
-    wordcloud = WordCloud(stopwords=stop_words).generate(textt)
-    plt.imshow(wordcloud, interpolation='bilinear')
-    plt.axis("off")
-    img_data = io.BytesIO()
-    plt.savefig(img_data, format="png")
-    img_data.seek(0)
-    bucket.put_object(Body=img_data, ContentType='image/png', Key='images/graphs/'+room_id+'_wordCloud.svg')
+
+    #wordcloud = WordCloud(stopwords=stop_words).generate(textt)
+    #plt.imshow(wordcloud, interpolation='bilinear')
+    #plt.axis("off")
+    #img_data = io.BytesIO()
+    #plt.savefig(img_data, format="png")
+    #img_data.seek(0)
+    #bucket.put_object(Body=img_data, ContentType='image/png', Key='images/graphs/'+room_id+'_wordCloud.svg')
     mycursor.execute("INSERT INTO test_server1.Analytics (id, totalMessages, totalWords, totalLetters, averageWordsMessage, averageLettersMessage, numUsers, convoLength, convoTime, convoDate, locations)\
         VALUES ('"+room_id+"'," + str(len(messages)) + ","+str(total_words)+","+str(total_chars)+","+str(avg_words)+","+str(avg_chars)+","+str(len(usernames))+","+str(t_delta)+",'"+str(convo_time)+"','"+str(convo_date)+"','"+str(location_list).replace("'",'"')+"')")
     mydb.commit()

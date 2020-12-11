@@ -210,8 +210,17 @@
     title.appendChild(titleText)
     var card_body = document.createElement('div');
     card_body.setAttribute('class', "pf-c-card__body")
-    var bodyText = document.createTextNode(recData[i].convoDate+",  "+recData[i].convoTime.substring(0,5)+",  "+ recData[i].convoLength+" minutes");
+    //var bodyText = document.createTextNode(recData[i].convoDate+",  "+recData[i].convoTime.substring(0,5)+",  "+ recData[i].convoLength+" minutes");
+    
+    var bodyText = document.createTextNode("Date: " + recData[i].convoDate);
     card_body.appendChild(bodyText);
+    card_body.appendChild(document.createElement('br'));
+    card_body.appendChild(document.createTextNode("Time of Conversation: " + recData[i].convoTime.substring(0,5)));
+    card_body.appendChild(document.createElement('br'));
+
+    card_body.appendChild(document.createTextNode("Length of Convo: " + Math.trunc(recData[i].convoLength) + " minutes"));
+
+   // card_body.appendChild(bodyText);
     article.appendChild(title);
     article.appendChild(card_body);
     recent.appendChild(article);
@@ -242,7 +251,7 @@
     title.appendChild(titleText)
     var len = document.createElement('td')
     len.setAttribute('role', "cell")
-    var lenText = document.createTextNode(allConvoData[i].convoLength + ' minutes')
+    var lenText = document.createTextNode(Math.trunc(allConvoData[i].convoLength) + ' minutes')
     len.appendChild(lenText)
     var time = document.createElement('td')
     time.setAttribute('role', "cell")
