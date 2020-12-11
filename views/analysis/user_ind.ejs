@@ -79,10 +79,10 @@
       <nav class="pf-c-nav" aria-label="Global">
         <ul class="pf-c-nav__list">
           <li class="pf-c-nav__item">
-            <a href="#" class="pf-c-nav__link">Dashboard</a>
+            <a href="/analytics" class="pf-c-nav__link">Dashboard</a>
           </li>
           <li class="pf-c-nav__item pf-m-expandable pf-m-expanded">
-            <button class="pf-c-nav__link" id="nav-mixed-link2" aria-expanded="true">Conversations
+            <button class="pf-c-nav__link" id="nav-mixed-link2" aria-expanded="true" onclick="location.href='/analytics/convos'">Conversations
               <span class="pf-c-nav__toggle">
                 <span class="pf-c-nav__toggle-icon">
                   <i class="fas fa-angle-right" aria-hidden="true"></i>
@@ -91,13 +91,7 @@
             </button>
             <!--INSERT MOST RECENT CONVERSATIONS HERE-->
             <section class="pf-c-nav__subnav" aria-labelledby="nav-mixed-link2">
-              <ul class="pf-c-nav__list">
-                <li class="pf-c-nav__item">
-                  <a href="#" class="pf-c-nav__link">Conversation List</a>
-                </li>
-                <li class="pf-c-nav__item">
-                  <a href="#" class="pf-c-nav__link">Subnav link 2</a>
-                </li>
+              <ul class="pf-c-nav__list" id="subnav">
               </ul>
             </section>
           </li>
@@ -128,7 +122,7 @@
           <h1>All Convos</h1>
           <ul class="pf-c-jump-links__list" style = "list-style-type: none;">
             <li class="pf-c-jump-links__item">
-              <a class="pf-c-jump-links__link" href="#">
+              <a class="pf-c-jump-links__link" href="/" id="backToConvo">
                 <span class="pf-c-jump-links__link-text">Convo Breakdown</span>
               </a>
             </li>
@@ -166,7 +160,9 @@
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example3">
                   <div class="pf-c-card__title">Age</div>
-                  <div class="pf-c-card__body">20</div>
+                  <div class="pf-c-card__body">
+                    <img src="https://gooff.s3.us-east-2.amazonaws.com/images/graphs/<%=room%>_ageDonut.svg">
+                  </div>
                 </div>
 
                
@@ -174,7 +170,7 @@
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example5">
                   <div class="pf-c-card__title">Gender</div>
                   <div class="pf-c-card__body">
-                    <p>Most said words from all convos</p>
+                    <img src="https://gooff.s3.us-east-2.amazonaws.com/images/graphs/<%=room%>_genderDonut.svg">
                   </div>
                 </div>
 
@@ -191,6 +187,21 @@
 </html>
 
 <script>
+  var recData = <%-JSON.stringify(datas)%>
+  var recArticles = <%-JSON.stringify(articles)%>
+  document.getElementById("backToConvo").setAttribute("href", "/analytics/<%=id%>")
+  for(var i=0; i<recData.length; i++){
+    var article = document.createElement('li');
+    article.setAttribute('class', 'pf-c-nav__item')
+    var title = document.createElement('a')
+    title.setAttribute('class', 'pf-c-nav__link')
+    title.setAttribute('href', "/analytics/"+recData[i].id)
+    var titleText = document.createTextNode(recArticles[i].title)
+    title.appendChild(titleText)
+    article.appendChild(title);
+    document.getElementById("subnav").appendChild(article)
+  }
+  console.log("<%=data%>")
   var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {

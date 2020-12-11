@@ -80,7 +80,7 @@
       <nav class="pf-c-nav" aria-label="Global">
         <ul class="pf-c-nav__list">
           <li class="pf-c-nav__item">
-            <a href="#" class="pf-c-nav__link">Dashboard</a>
+            <a href="/analytics" class="pf-c-nav__link">Dashboard</a>
           </li>
           <li class="pf-c-nav__item pf-m-expandable pf-m-expanded">
             <button class="pf-c-nav__link" id="nav-mixed-link2" aria-expanded="true">Conversations
@@ -92,13 +92,7 @@
             </button>
             <!--INSERT MOST RECENT CONVERSATIONS HERE-->
             <section class="pf-c-nav__subnav" aria-labelledby="nav-mixed-link2">
-              <ul class="pf-c-nav__list">
-                <li class="pf-c-nav__item">
-                  <a href="#" class="pf-c-nav__link">Subnav link 1</a>
-                </li>
-                <li class="pf-c-nav__item">
-                  <a href="#" class="pf-c-nav__link">Subnav link 2</a>
-                </li>
+              <ul class="pf-c-nav__list" id="subnav">
               </ul>
             </section>
           </li>
@@ -141,33 +135,15 @@
           <!-- GENERATED FROM THE MOST RECENT X CONVOS-->
           <div class="pf-c-drawer__content pf-m-no-background">
             <div class="pf-c-drawer__body pf-m-padding">
-              <div class="pf-l-gallery pf-m-gutter">
-                <div class="pf-c-card pf-m-compact" id="card-no-footer-example1">
-                  <div class="pf-c-card__title">Title</div>
-                  <div class="pf-c-card__body"><h1>DATE, TIME, CONVO LENGTH</h1></div>
-                </div>
-
-                <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
-                  <div class="pf-c-card__title">Session Time</div>
-                  <div class="pf-c-card__body"><%=data.convoLength%> minutes</div>
-                </div>
-
-                <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
-                  <div class="pf-c-card__title">Date</div>
-                  <div class="pf-c-card__body"><%=data.convoDate%></div>
-                </div>
-
-                <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
-                  <div class="pf-c-card__title">Time</div>
-                  <div class="pf-c-card__body"><%=data.convoTime%></div>
-                </div>
+              <div class="pf-l-gallery pf-m-gutter" id="recent">
+              
 
          
                 
         </div>
       </div>
       <table class="pf-c-table pf-m-grid-md" role="grid" aria-label="This is a simple table example" id="table-basic">
-        <caption>This is the table caption</caption>
+        <caption>All Analyzed Convos</caption>
         <thead>
           <tr role="row">
             <th role="columnheader" scope="col">Convo Title</th>
@@ -176,7 +152,8 @@
             <th class="pf-m-width-10 " scope="col">Date</th>
           </tr>
         </thead>
-        <tbody role="rowgroup">
+        <tbody role="rowgroup" id="allConvos">
+          <!--
           <tr role="row">
             <td role="cell" data-label="Repository name">Repository 1</td>
             <td role="cell" data-label="Branches">10</td>
@@ -201,6 +178,7 @@
             <td role="cell" data-label="Pull requests">25</td>
             <td role="cell" data-label="Workspaces">5</td>
           </tr>
+        -->
         </tbody>
       </table>
     </section>
@@ -210,6 +188,70 @@
 </html>
 
 <script>
+  console.log(<%-JSON.stringify(data)%>)
+  console.log(<%-JSON.stringify(article)%>)
+  var recData = <%-JSON.stringify(data)%>
+  var recArticles = <%-JSON.stringify(article)%>
+  var recent = document.getElementById("recent")
+  for(var i=0; i<recData.length; i++){
+    var article = document.createElement('div');
+    article.setAttribute('class', 'pf-c-card pf-m-compact pf-m-hoverable')
+    article.setAttribute('onclick', "location.href='/analytics/"+recData[i].id+"';")
+    var title = document.createElement('div')
+    title.setAttribute('class', 'pf-c-card__title')
+    var titleText = document.createTextNode(recArticles[i].title)
+    title.appendChild(titleText)
+    var card_body = document.createElement('div');
+    card_body.setAttribute('class', "pf-c-card__body")
+    var bodyText = document.createTextNode(recData[i].convoDate+",  "+recData[i].convoTime.substring(0,5)+",  "+ recData[i].convoLength+" minutes");
+    card_body.appendChild(bodyText);
+    article.appendChild(title);
+    article.appendChild(card_body);
+    recent.appendChild(article);
+  }
+
+  for(var i=0; i<recData.length; i++){
+    var article = document.createElement('li');
+    article.setAttribute('class', 'pf-c-nav__item')
+    var title = document.createElement('a')
+    title.setAttribute('class', 'pf-c-nav__link')
+    title.setAttribute('href', "/analytics/"+recData[i].id)
+    var titleText = document.createTextNode(recArticles[i].title)
+    title.appendChild(titleText)
+    article.appendChild(title);
+    document.getElementById("subnav").appendChild(article)
+  }
+
+  var allConvoData = <%-JSON.stringify(allConvoData)%>
+  var allConvoArt = <%-JSON.stringify(allConvoArt)%>
+
+  for (var i=0; i<allConvoData.length; i++){
+    var article = document.createElement('tr')
+    var title = document.createElement('td')
+    title.setAttribute('role', "cell")
+    title.setAttribute("class", "pf-c-card pf-m-compact pf-m-hoverable")
+    title.setAttribute("onclick", "location.href='/analytics/"+allConvoData[i].id+"';")
+    var titleText = document.createTextNode(allConvoArt[i].title)
+    title.appendChild(titleText)
+    var len = document.createElement('td')
+    len.setAttribute('role', "cell")
+    var lenText = document.createTextNode(allConvoData[i].convoLength + ' minutes')
+    len.appendChild(lenText)
+    var time = document.createElement('td')
+    time.setAttribute('role', "cell")
+    var timeText = document.createTextNode(allConvoData[i].convoTime.substring(0,5))
+    time.appendChild(timeText)
+    var date = document.createElement('td')
+    date.setAttribute('role', "cell")
+    var dateText = document.createTextNode(allConvoData[i].convoDate)
+    date.appendChild(dateText)
+    article.appendChild(title)
+    article.appendChild(len)
+    article.appendChild(time)
+    article.appendChild(date)
+    document.getElementById('allConvos').appendChild(article)
+  }
+
   var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
