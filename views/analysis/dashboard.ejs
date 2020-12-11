@@ -81,7 +81,7 @@
       </div>
     </div>
   </header>
-  <div class="pf-c-page__sidebar pf-m-light" style="width: 200px;">
+  <div class="pf-c-page__sidebar pf-m-light" id = "side" style="width: 200px;">
     <div class="pf-c-page__sidebar-body">
       <nav class="pf-c-nav" aria-label="Global">
         <ul class="pf-c-nav__list">
@@ -253,4 +253,15 @@ sideNavArrow.addEventListener('click', () => {
     con.style.display = "";
   }
 })
+
+const hamburger = document.getElementById("primary-detail-card-view-expanded-example-nav-toggle");
+const sideNav = document.getElementById("side");
+hamburger.addEventListener('click', () => {
+  hamburger.ariaExpanded = !JSON.parse(hamburger.ariaExpanded);
+  if (hamburger.ariaExpanded=='false'){
+    sideNav.style.display = "none";  
+  }else{
+    sideNav.style.display = "";
+  }
+});
 </script>
