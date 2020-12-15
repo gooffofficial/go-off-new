@@ -81,41 +81,59 @@
 		</div>
 
 		<div id="inputContainer">
-			<label for="firstname">First Name</label>
-			<input type="text" id="firstname" name="firstname">
+			<div class="row">
+				<div class="col-6">
+					<label for="firstname">First Name</label>
+					<input type="text" id="firstname" name="firstname" autocomplete="off">
+				</div>
 
-			<label for="lastname">Last Name</label>
-			<input type="text" id="lastname" name="lastname"><br>
+				<div class="col-6">
+					<label for="lastname">Last Name</label>
+					<input type="text" id="lastname" name="lastname" autocomplete="off"><br>
+				</div>
+			</div>
 
-			<label for="bio">About your Profile</label>
-			<textarea id="bio" name="bio"></textarea>
+			<div id="bio-container">
+				<label for="bio">BIO</label>
+				<textarea id="bio" name="bio" autocomplete="off"></textarea>
+			</div>
 
-			<label for="zipcode">Zip Code</label> 
-			<input type="text" id="zipdcode" name="zipcode">
+			<!-- <label for="zipcode">Zip Code</label>  Removing ZIP code for now, should we use location instead?
+			<input type="text" id="zipdcode" name="zipcode"> -->
+		</div>
+
+		<div class="leftButtons">
+			<a href="/profiles/<%=user%>">
+				<button type="submit" id="back_button" class="side-button">
+					<img src="/short_left.svg" class="edit-profile-icon">
+					BACK
+				</button>
+			</a>
+	
+			<br><br><br><br>
+			
+			<a href="profile_edit">
+				<button type="submit" id="edit_profile" class="side-button">
+					<img src="/pencil.svg" class="edit-profile-icon">
+					EDIT PROFILE
+				</button>
+			</a>
+	
+			<a href="account_settings">
+				<button type="submit" id="account_settings" class="side-button">
+					<img src="/user_circle.svg" class="edit-profile-icon">
+					ACCOUNT SETTINGS
+				</button>
+			</a>
 		</div>
 	</form>
 
 	<!-- buttons on the side-->
-	<a href="profile_edit">
-		<button type="submit" id="edit_profile">
-			<img src="/pencil.svg" class="edit-profile-icon">
-			<p>EDIT PROFILE</p>
+	<!-- <a href="/profiles/<%=user%>">
+		<button type="submit" id="back_button" class="d-flex">
+			<img src="/short_left.svg" id="back-icon align-self-center">
 		</button>
-	</a>
-
-	<a href="account_settings">
-		<button type="submit" id="account_settings">
-			<img src="/user_circle.svg" class="edit-profile-icon">
-			<p>ACCOUNT SETTINGS</p>
-		</button>
-	</a>
-
-	<a href="/profiles/<%=user%>">
-		<button type="submit" id="back_button">
-			<img src="/short_left.svg" id="back-icon">
-		</button>
-	</a>
-
+	</a> -->
 
 	<script>
 		// document.getElementById("bar_form").style.visibility = "hidden";

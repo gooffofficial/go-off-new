@@ -52,17 +52,18 @@
 } */
 
 .profile-pic-container {
-	border: 1px dotted blue;
 	margin-top: 60px;
+	padding-bottom: 20px;
+	border-bottom: 0px solid rgba(0, 0, 0, 0.1);
 }
 
 #profile-image-text {
 	display: block;
+	margin-bottom: 20px;
 }
 
 #profile-pic {
 	position: relative;
-	border-radius: 50%;
 	height: 180px;
 	width: 180px;
 }
@@ -109,15 +110,15 @@ hr {
 }
 
 .editProf {
-	width: 60%;
+	width: calc(var(--pageWidth) - 300px);
 	height: 80vh;
 	margin: 0 auto;
 	
 	/* border: 2px solid #131111; */
 	padding: 2rem;
 	position: relative;
+	right: -130px;
 	top: 100px;
-	border: 1px solid red;
 }
 
 #edit-profile-text {
@@ -134,9 +135,9 @@ label {
 }
 
 #inputContainer {
-	margin-top: 300px;
-	position: absolute;
-	bottom: 0;
+	height: 200px;
+	margin-top: 50px;
+	position: relative;
 }
 
 label[for=profile-pic] {
@@ -150,14 +151,16 @@ label[for=firstname] {
 	position: relative;
 	font-family: Poppins_Medium_Regular;
 	text-transform: uppercase;
-	display: inline-block;
+	display: block;
+	color: rgba(0, 0, 0, 0.6);
 }
 
 label[for=lastname] {
 	position: relative;
 	font-family: Poppins_Medium_Regular;
 	text-transform: uppercase;
-	display: inline-block;
+	display: block;
+	color: rgba(0, 0, 0, 0.6);
 }
 
 label[for=bio] {
@@ -165,25 +168,48 @@ label[for=bio] {
 	font-family: Poppins_Medium_Regular;
 	text-transform: uppercase;
 	display: inline-block;
+	color: rgba(0, 0, 0, 0.6);
 }
 
-input[name=firstname] {
+input:hover {
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+input[name=firstname], input[name=lastname] {
 	position: relative;
 	font-family: Poppins_Medium_Regular;
 	display: inline-block;
+	width: 100%;
+	padding: 8px 1px;
+	border: 0;
+	outline: 0;
+	border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+	margin-top: -14px;
 }
 
-input[name=lastname] {
-	position: relative;
-	font-family: Poppins_Medium_Regular;
-	display: inline-block;
+input[name=firstname]:active label[for=firstname] {
+	color: rgba(0, 0, 0, 1);
+}
+
+input:focus {
+	border-bottom: 2px solid rgba(0, 0, 0, 1);
+}
+
+#bio-container {
+	margin-top: 60px;
 }
 
 textarea {
-	position: absolute;
-	top: 67.5%;
-	width: 59.5%;
-	height: 15%;
+	width: 100%;
+	height: 40px;
+	border-left: 0;
+	border-top: 0;
+	border-right: 0;
+	border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+textarea:focus {
+	border-bottom: 2px solid rgba(0, 0, 0, 1);
 }
 
 label[for=zipcode] {
@@ -202,7 +228,7 @@ input[name=zipcode] {
 #doneCancel-container {
 	float: right;
 	position: absolute;
-	top: 0;
+	top: 20px;
 	right: 0;
 }
 
@@ -217,18 +243,38 @@ input[name=zipcode] {
 	outline: 0;
 }
 
+#submitBtn:hover, #cancelBtn:hover {
+	background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
 #profpicBtn {
 	font-family: Poppins_Medium_Regular;
 	font-size: 14px;
 	margin-left: 30px;
-	border-radius: 15px;
+	border-radius: 50px;
 	background-color:#fff;
 	border: 0;
+	outline: none;
+}
+
+#profpicBtn:active {
+	outline: 0;
+	border: none;
+}
+
+#profpicBtn:hover {
+	cursor: pointer !important;
+	background-color: #fff;
+}
+
+#profpicBtn input:hover {
+	cursor: pointer;
 }
 
 #profpicBtn::-webkit-file-upload-button {
 	border: 0;
-	padding: 15px 25px;
+	padding: 10px 25px;
+	border-radius: 50px;
 }
 
 #desc {
@@ -238,49 +284,41 @@ input[name=zipcode] {
 	color: rgba(0, 0, 0, 0.5);
 }
 
-#edit_profile {
-	width: 300px;
+.leftButtons {
 	position: absolute;
-	top: 30%;
-	left: 0;
-	font-size: 20px;
-	font-family: Poppins_Medium_Regular;
-	display: inline-block;
+	top: 0px;
+	left: -295px;
+	display: block;
+	width: 100px;
 }
 
-#account_settings {
+.side-button {
 	width: 300px;
-	position: absolute;
-	top: 40%;
+	position: relative;
+	top: 0px;
+	margin-top: 5px;
 	left: 0;
 	font-size: 20px;
-	font-family: Poppins_Medium_Regular;
-}
-
-#edit_profile, #account_settings p {
 	font-family: Poppins_Bold;
-	display: inline-block;
+	text-align: left;
+	letter-spacing: -0.5px;
+	padding: 11px 18px 11px 25px;
+	border-radius: 50px;
+	opacity: 0.65;
+}
+
+.side-button:hover {
+	background-color: rgba(0, 0, 0, 0.07);
+	opacity: 1;
 }
 
 .edit-profile-icon {
-	height: 28px;
-	margin-top: -2px;
-	display: inline-block;
+	height: 26px;
+	position: relative;
+	top: -1px;
+	left: -8px;
 }
 
-#back_button {
-	position: absolute;
-	top: 15%;
-	left: 10%;
-	border-radius: 50%;
-	padding: 0;
-}
-
-#back-icon {
-	height: 46px;
-	opacity: 0.5;
-}
-
-#back_button:hover #back-icon {
-	opacity: 1;
+.edit-profile-text {
+	margin-top: 15px;
 }
