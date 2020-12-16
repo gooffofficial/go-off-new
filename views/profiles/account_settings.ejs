@@ -1,166 +1,167 @@
 <html>
-    <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180244749-2"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', 'UA-180244749-2');
-        </script>
-        <link rel="stylesheet" href="/css/account_settings.css">
-    </head>
-    <body>
-        <!-- Top bar -->
-        <a href="https://www.gooffco.com/">
-            <div class="logo">
-                <img src="/GO_Off.png" class="img-circle" style=" width: auto; height:6%;"/>
-            </div>
-        </a>
-    
-    
-        <div class="droparrow">
-            <button>
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="40" height="40" id="arrows" />
-            <!--<button onclick="dropclick1()" class="dropbtn" >-->
-                <!--<img onclick="dropclick1()" class="dropBtn" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAAB8fHzT09N+fn56enra2trW1tZxcXF0dHR3d3evr6/S0tJubm6CgoKtra1JiZe/AAADV0lEQVR4nO3c227bMAyA4TrnpNv6/m+7aZrqKGZs2daB1P7vdi4ggqRIocU+PgAAAAAAAAAAAAAAAAAAAAAAAID/we3a+gQbXG/p396H4VjuJIUch+Ge+u2fAIfBWhav7tCPtG9/Dn9dyp4os4s/dFKh3od/LGXxGg6dUKiP4ZudXjyOh14s1PvwxEoWr8+HXsjibYjY6MVLfOjZXnwMLywU6vH10DOF+vn6rYVCvU4P/fn+60kO9RfqZXrk89z3B2tZFDJ4mP8JIUTNvTjpwcUAjWVRyOBp+afOdnpR6MHFDDpCiDqzKGRw9pIZnWz0otCDCSXqCb2or1C3lqhnIMR9ARoYGlvGREx5L+7pwUD10Fi7qskUj/71q5pMbaHmKFFPaRZzZdBROTT2jomYcN20LlShRDdcMiN1vZivBwNlQyPPmIip6sW8PRgoWuD2r2oyoRfbDI1tL/oUSnqxTIl6Kl79OQf9lIKhkX9MxJovcGUz6DQeGiV7MGi6wOVe1WQNe7F0DwbNhkaJVU3W6Lopf8mMmixwpVY1WYMFrtyqJqs+NGqMiVjlBW77L1+2qzo0ao2JWMVCrV+iXrUQWwVYbWjUHROxKr3YpgeDCgtcvVVNVnyBq7mqyQoXatsS9YoucLVXNVnBodFuTMSKvfrrvOhTFOpFDT0YFBkaWkrUK9CLQoDNMuhkX+BarmqyzENDx5iIZe1FXT0YZFzg2q9qsmxDQ9OYiGXqRY09GAghru9FbWMilmGB07OqyXb3ot4eDHYOjdYv+hS7rhvNl8xoR6HqL1FvcxZtZNDZ+NLQuarJNi1wWlc12YZetNKDweos2sqgs3KB072qyVa9+vW96FOs6EVrPRgkL3AWVjVZ4nVj75IZJRWq1RL1EhY42wEmLHCWS9Rb+LubH9N/NnLJjGZ7UQjQVIl6M4Vqv0S9twucnffgkjcLnFCiJjPoiL3YRw8Gwo0q/C8/5m7RZ0Kh9lOinlCo/ZSotxSi+QCXQuwgQPG6+Wb6khm9z2IXGXTeZdH4LfpMzmI3GXSkELsKUAqxswCn201HPRgceg8wLtTuStQbQ/zV+iilnHoPMPRipyXqnfrOoHPuO4POV+sDAAAAAAAAAAAAAAAAAAAAAAAAoHe/AQQRFMg6Uc/3AAAAAElFTkSuQmCC" width="20" height="20">
-                --><div id="arrowdrop" class="dropdown-arrowcontent">
-                    <!-- <a href="/profile">Go to Profile</a> -->
-                    <a href="/profile_edit">Settings and Privacy</a>
-                    <!-- <p>Install Chrome Extension</p> -->
-                    <a href="https://www.go-off.co/">Log Out</a>
-                </div>
-            </button>
-            <!--</button>--> 
-        </div>
-    
-    
-        <div class="pname" style= "display: inline-block">
-            <h><span id="pname"></span></h>
-        </div>
-    
-    
-        
-    
-        <div class="fprofpic">
-            <img id="fprofpic" src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="img-circle" style=" width: auto; height:6%;"/>
-        </div> 
-        
-        <!-- <button type="submit" id="Plus">
-            <img src="/Plus.jpg" alt="add icon" height="65" width="50">
-        </button> -->
-    
-        <button type="submit" id="Submit" onclick="searchBar()">
-            <img src="/Search.png" alt= "profile icon 1" class="img-circle" style="width: 5%; height: auto; margin-left: 85%;">
-        </button>
-    
-        <button id="Cancel" onclick="searchBar1()">Cancel</button>
-        
-    
-        <form id="bar_form">
-            <input type="text" id="search" style="display: block" placeholder="Filter">
-        </form>
-    
-    
-        <div id="line" style="top: 5%;"><hr></div>
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-180244749-2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
 
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
 
-        <!-- form to collect data to change-->
+		gtag('config', 'UA-180244749-2');
+	</script>
+	<link rel="stylesheet" href="/css/account_settings.css">
+	<link rel="stylesheet" href="/css/navigationBar.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+		integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+</head>
 
-        <form action="/api/users/update" method="post" class="editProf">
-            <h1>Account Settings</h1>
+<body>
+	<nav class="navigationBar d-flex">
+		<div class="navigationContainer d-flex">
+			<img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center">
 
-            <input type="submit" value="Done" id="submitBtn">
+			<div class="navigationIcons align-self-center">
+				<a href=""><img src="/plus.svg" class="navIcon"></a>
+				<a href=""><img src="/home.svg" class="navIcon"></a>
+				<a href=""><img src="/mail.svg" class="navIcon"></a>
+				<a href=""><img src="/notification.svg" class="navIcon"></a>
+				<a href=""><img src="/chart.svg" class="navIcon"></a>
+			</div>
 
-            <input type="reset" value="Cancel" id="cancelBtn"><br>
+			<div class="searchContainer align-self-center d-flex">
+				<!-- <form id="bar_form"> SEARCH BAR NEEDS TO BE CONNECTED -->
+				<img src="/search_icon.svg" class="search-icon align-self-center">
+				<input type="text" id="search" placeholder="Search">
+				<!-- </form> -->
+			</div>
 
-            
+			<div class="navigationProfile d-flex">
+				<div class="align-self-center">
+					<a href="">
+						<img id="fprofpic" src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"
+							class="navigationProfilePic">
+						<p class="navigationProfileName"></p>
 
-            <p id="desc">Set your login preferences, help us personalize your experience and make big account changes here</p><br>
+						<span id="pname"></span>
+					</a>
+				</div>
 
-            <label for="email">Email</label>
-            <input type="email" id="email_addr" name="email">
+				<div class="droparrow align-self-center">
+					<img onclick="dropclick1()" src="/chevron_down.svg" id="arrows" />
+					<div id="arrowdrop" class="dropdown-arrowcontent">
+						<a href="/profile">Profile</a>
+						<a href="/profile_edit">Settings</a>
+						<a href="https://www.go-off.co/">Log Out</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
 
-            <label for="password">Password</label>
-            <input type="text" id="passwrd" name="password">
+	<form action="/api/users/update" method="post" class="editProf">
 
-            <label for="location">Country/Region</label>
-            <input type="text" id="Country" name="location">
+		<h1 id="edit-profile-text">Account Settings</h1>
 
-            <fieldset id="Gender" name="gender">
-                <legend>Gender</legend>
-                <label for="Male">Male</label><br>
-                <input type="checkbox" id="Male" name="Male"><br>
-                <label for="Female">Female</label><br>
-                <input type="checkbox" id="Female" name="Female"><br>
-                <textarea name="Other" placeholder="Other"></textarea> 
-            </fieldset>
-        </form>
-        <!-- buttons on the side-->
-        <a href="profile_edit">
-            <button type="submit" id="edit_profile">
-                <img src = "/Pen.png" alt="pencil icon" height="20" width="20"/>
-                Edit Profile
-            </button>
-        </a>
+		<div id="doneCancel-container">
+			<input type="submit" value="Done" id="submitBtn">
+			<input type="reset" value="Cancel" id="cancelBtn">
+		</div>
 
-        <a href="account_settings">
-            <button type="submit" id="account_settings">
-                <img src= "https://c8.alamy.com/comp/T2W7K9/person-icon-in-line-style-man-symbol-isolated-on-white-background-simple-avatar-abstract-icon-in-black-user-sign-in-flat-style-vector-illustration-T2W7K9.jpg" alt="person icon" height="20" width="20"/>
-                Account Settings
-            </button>
-        </a>
+		<p id="desc">Set your login preferences and personalize your account.</p>
 
-        <a href="/profiles/<%=user%>">
-            <button type="submit" id="back_button">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAb1BMVEX///8AAADv7+/h4eHl5eX29vYkJCSPj4+VlZX5+fkoKCiWlpaSkpLt7e3g4OAsLCzX19fExMR/f38/Pz8aGhpHR0fT09Onp6c6OjpXV1d4eHiGhoYWFhbAwMBgYGAgICALCwuenp62trYzMzMQEBAkEAi9AAADeklEQVR4nO2daXPiMBBEpRzsLhtuCHfCJvz/37g2lU0ItrFai2s0o36fU1R3PTzyEQvnCCGEEEIIIYQQQvJmMp3156PF9lk6SEcs/Sf9vXSYDhis/Dkv0nluzr2/YPQoHem2VAp63zNV8aFa0FbFGoO2KtYaPI3UX9LRbkODQTsWGw2eKhqweMXg6Yuq3mJLwWJdlE74n7QW1H52E1DQe83nqFeHzCev0jHjCTJYMJEOGkuYwYKpdNJIQg16P5OOGkewwQLprFGEG1TaECqosSFW8CAdFwcr6NfSeWGQIVOylA6MAhr0/k46MQhq0G+kE4PABr2yK0TYoLazUtzgH+nIGCxY4ad0ZAy84G/pyBj4kKHBtKDB/AwqK8hlIj+DT9KRMcwbxIcMDaYFDVZQtkzQYH4FlX1FaVC7QQ6Z/Az+kI6MYX7I8BhkwcTBC3LIpAWXCRpMHPNDhgZZMHFYUHtBDhntBWlQe0EaZMHEwQtu3F2CDJr+1RovmC7rZU1LfMikTeUAsmTwg7Fpgycmtg2WjG0bLDFusGBrveDHKyxmv6Ilb0XBO+kQnVK+aDWTDtEpq2+7clnk6Jx0hK5xE+kEXeO20gm6xvicKXAH6QRdY37QeHeUTtA1biGdoGsymKX210Pzo8b8eemuuLZ4lw7RKWvz14dP5q/xx7bvtH3t1Gi34t76/dKzPZts3lDcne8Ja9HiYWD82dPickMjYxZ3b5fPD2MqJnuDYLep368JrngcPko/s6+ledNp+Fg8att+LYeK+LGoriIt1jBo/9C0gC0eaDE98BM4VkwPVrRQkePGQkXc4oN0ZBRazNMiK6YHK1qoyHFjoSItWqiIW7yXjoySgUW8YgYWM6g4lI6Mgo8bdRVp0UJFWqxh3P6haYFbZMX0YEULFTluLFSkRQsVaZEVVcCKFiryVnGVV+nEMLBFZbufFQzRisp+ENhl8Lvc8LH4Ip03AqziXDpuDFhF6bRRQBWlw8aBjBvprJGEW3yXjhpLsMWNdNJoQpf++jeuVBBmUeVi8Y+gY7HmpUBFBFRct39K0rRWHDW/GKiElop9fRcWFa6Om556gyVXLPYMGCxptNg3YbCkwaIVgyW1Fi0MmS9qLFoyWFKpODJW0LnB6ltBjfdmWjnbQay3b/9zlUyms/58tNg+SwchhBBCCCGEEEIIUcFfTQxJ/rZcIZYAAAAASUVORK5CYII=" alt="back arrow" height="20" width="20"/>
-            </button>
-        </a>
+		<div class="accountSettingsContainer">
+			<label for="email">Email</label><br>
+			<input type="email" id="email_addr" name="email"><br>
+	
+			<label for="password">Password</label><br>
+			<input type="text" id="passwrd" name="password"><br>
+	
+			<label for="location">Country/Region</label><br>
+			<input type="text" id="Country" name="location"><br>
+		</div>
 
-    </body>
+		<fieldset id="Gender" name="gender">
+			<p id="gender-text">GENDER</p>
 
-    <script>
-        document.getElementById("bar_form").style.visibility="hidden";
-        function searchBar(){
-            document.getElementById("Submit").style.visibility = "hidden";
-            document.getElementById("Plus").style.visibility = "hidden";
-            document.getElementById("Cancel").style.visibility = "visible";
-            document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
-            document.getElementsByClassName('pname')[0].style.visibility = "hidden";
-            document.getElementById("bar_form").style.display="none";
-        }
-        function searchBar1(){
-            document.getElementById("Submit").style.visibility = "visible";
-            document.getElementById("Plus").style.visibility = "visible";
-            document.getElementById("Cancel").style.visibility = "hidden";
-            document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
-            document.getElementsByClassName('pname')[0].style.visibility = "visible";
-            document.getElementById("bar_form").style.display="block";
-        }
+			<input type="radio" id="Male" name="genderType">
+			<label for="Male">MALE</label><br>
 
-        function dropclick1() {
-            var x = document.getElementById("arrowdrop");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
+			<input type="radio" id="Female" name="genderType">
+			<label for="Female">FEMALE</label><br>
 
-        (function(){
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function(){
-                if (this.readyState == 4 && this.status == 200){
-                    var myArr = JSON.parse(this.responseText);
-                    console.log(myArr);
-                    document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname; 
-                    document.getElementById("fprofpic").src = myArr.user.propic;
-                }
-            }
-            xhr.open("GET", '/api/users/profile/<%=user%>', true);
-            xhr.withCredentials = true;
-            xhr.send();
-        })();
-    </script>
+			<input type="radio" id="Other" name="genderType">
+			<input type="text" name="Other" placeholder="OTHER" id="other-gender-textbox">
+		</fieldset>
+
+		<div class="leftButtons">
+			<a href="/profiles/<%=user%>" class="side-button">
+				<img src="/short_left.svg" class="edit-profile-icon">
+				BACK
+			</a>
+	
+			<br><br><br>
+		
+			<a href="profile_edit" class="side-button">
+				<img src="/pencil.svg" class="edit-profile-icon">
+				EDIT PROFILE
+			</a>
+	
+			<a href="account_settings" class="side-button selectedTab">
+				<img src="/user_circle.svg" class="edit-profile-icon">
+				ACCOUNT SETTINGS
+			</a>
+		</div>
+	</form>
+</body>
+
+<script>
+	document.getElementById("bar_form").style.visibility = "hidden";
+
+	function searchBar() {
+		document.getElementById("Submit").style.visibility = "hidden";
+		document.getElementById("Plus").style.visibility = "hidden";
+		document.getElementById("Cancel").style.visibility = "visible";
+		document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
+		document.getElementsByClassName('pname')[0].style.visibility = "hidden";
+		document.getElementById("bar_form").style.display = "none";
+	}
+
+	function searchBar1() {
+		document.getElementById("Submit").style.visibility = "visible";
+		document.getElementById("Plus").style.visibility = "visible";
+		document.getElementById("Cancel").style.visibility = "hidden";
+		document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
+		document.getElementsByClassName('pname')[0].style.visibility = "visible";
+		document.getElementById("bar_form").style.display = "block";
+	}
+
+	function dropclick1() {
+		var x = document.getElementById("arrowdrop");
+		if (x.style.display === "none") {
+			x.style.display = "block";
+		} else {
+			x.style.display = "none";
+		}
+	}
+
+	(function () {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				var myArr = JSON.parse(this.responseText);
+				console.log(myArr);
+				document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
+				document.getElementById("fprofpic").src = myArr.user.propic;
+			}
+		}
+		xhr.open("GET", '/api/users/profile/<%=user%>', true);
+		xhr.withCredentials = true;
+		xhr.send();
+	})();
+</script>
+
 </html>

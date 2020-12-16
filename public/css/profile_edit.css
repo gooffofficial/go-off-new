@@ -76,39 +76,6 @@ button {
 	background: none;
 }
 
-#Plus {
-	right: 31.5%;
-	top: -1.5%;
-	position: absolute;
-	border-radius: 50%;
-}
-
-#Submit {
-	right: 31.5%;
-	top: 1.0%;
-	position: absolute;
-	border-radius: 50%;
-}
-
-#Cancel {
-	position: absolute;
-	margin-top: 10px;
-	float: right;
-	visibility: hidden;
-	right: 20%;
-	background-color: lightskyblue;
-	padding: 5px 5px;
-}
-
-hr {
-	position: absolute;
-	top: 10%;
-	margin-bottom: 5%;
-	border: 1px solid #b6b1b1;
-	width: 100%;
-	color: #b6b1b1;
-}
-
 .editProf {
 	width: calc(var(--pageWidth) - 300px);
 	height: 80vh;
@@ -197,6 +164,13 @@ input:focus {
 
 #bio-container {
 	margin-top: 60px;
+}
+
+#bio {
+	font-family: Poppins_Medium_Regular;
+	outline: 0px !important;
+	-webkit-appearance: none;
+	box-shadow: none !important;
 }
 
 textarea {
@@ -289,26 +263,38 @@ input[name=zipcode] {
 	top: 0px;
 	left: -295px;
 	display: block;
-	width: 100px;
+	width: 300px;
 }
 
 .side-button {
 	width: 300px;
 	position: relative;
 	top: 0px;
-	margin-top: 5px;
+	margin-top: 4px;
 	left: 0;
 	font-size: 20px;
 	font-family: Poppins_Bold;
 	text-align: left;
-	letter-spacing: -0.5px;
+	letter-spacing: -0.5px !important;
 	padding: 11px 18px 11px 25px;
+	width: 280px;
 	border-radius: 50px;
 	opacity: 0.65;
+	display: inline-block;
+	text-decoration: none !important;
+	color: rgba(0, 0, 0, 0.9);
 }
 
 .side-button:hover {
+	letter-spacing: -0.5px !important;
 	background-color: rgba(0, 0, 0, 0.07);
+	color: rgba(0, 0, 0, 0.9);
+	opacity: 1;
+}
+
+.selectedTab {
+	background-color: rgba(0, 0, 0, 0.07);
+	color: rgba(0, 0, 0, 0.9) !important;
 	opacity: 1;
 }
 
