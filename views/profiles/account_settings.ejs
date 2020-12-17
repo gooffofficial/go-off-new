@@ -62,6 +62,8 @@
 		</div>
 	</nav>
 
+	<form id="bar_form"></form>
+
 	<form action="/api/users/update" method="post" class="editProf">
 
 		<h1 id="edit-profile-text">Account Settings</h1>
@@ -119,25 +121,26 @@
 </body>
 
 <script>
-	document.getElementById("bar_form").style.visibility = "hidden";
+	// new search function, this needs to be redone
+	// document.getElementById("bar_form").style.visibility = "hidden";
 
-	function searchBar() {
-		document.getElementById("Submit").style.visibility = "hidden";
-		document.getElementById("Plus").style.visibility = "hidden";
-		document.getElementById("Cancel").style.visibility = "visible";
-		document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
-		document.getElementsByClassName('pname')[0].style.visibility = "hidden";
-		document.getElementById("bar_form").style.display = "none";
-	}
+	// function searchBar() {
+	// 	document.getElementById("Submit").style.visibility = "hidden";
+	// 	document.getElementById("Plus").style.visibility = "hidden";
+	// 	document.getElementById("Cancel").style.visibility = "visible";
+	// 	document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
+	// 	document.getElementsByClassName('pname')[0].style.visibility = "hidden";
+	// 	document.getElementById("bar_form").style.display = "none";
+	// }
 
-	function searchBar1() {
-		document.getElementById("Submit").style.visibility = "visible";
-		document.getElementById("Plus").style.visibility = "visible";
-		document.getElementById("Cancel").style.visibility = "hidden";
-		document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
-		document.getElementsByClassName('pname')[0].style.visibility = "visible";
-		document.getElementById("bar_form").style.display = "block";
-	}
+	// function searchBar1() {
+	// 	document.getElementById("Submit").style.visibility = "visible";
+	// 	document.getElementById("Plus").style.visibility = "visible";
+	// 	document.getElementById("Cancel").style.visibility = "hidden";
+	// 	document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
+	// 	document.getElementsByClassName('pname')[0].style.visibility = "visible";
+	// 	document.getElementById("bar_form").style.display = "block";
+	// }
 
 	function dropclick1() {
 		var x = document.getElementById("arrowdrop");
