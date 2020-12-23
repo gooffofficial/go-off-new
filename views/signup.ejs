@@ -1,33 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" class="pf-m-redhat-font">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--<link rel="stylesheet" href="/css/fonts.css" />-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <!-- Include latest PatternFly CSS via CDN -->
-    <link 
-      rel="stylesheet" 
-      href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
-      crossorigin="anonymous"
-    >
-    <link rel="stylesheet" href="/css/style.css" />
-    <title>Signup</title>
-  </head>
-  <style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        }
-  </style>
-<body style = "background-color: white;">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--<link rel="stylesheet" href="/css/fonts.css" />-->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+	<!-- Include latest PatternFly CSS via CDN -->
+	<link rel="stylesheet" href="/css/style.css" />
+	<title>Sign Up</title>
+</head>
+
+<body>
+	<div class="left-side">
+		<div class="left-container">
+			<img src="/GO_OFF_LOGO_WHITE.svg" id="left-logo">
+
+			<p id="main-text">Join the conversation, literally.</p>
+			<p id="sub-text">Create an account to join GoOFF!</p>
+		</div>
+	</div>
+
+	<div class="right-side">
+		<div class="right-container">
+			<!-- <img src="/GO_OFF_LOGO.svg" id="logo"> -->
+
+			<p id="head-text">SIGN UP</p>
+			<p id="desc-text">Create a new account</p>
+
+			<form novalidate action="" class="field-container">
+				<label>FIRST NAME <span class="required">*</span></label><br>
+				<input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="login-demo-form-username"><br>
+	
+				<label>LAST NAME <span class="required">*</span></label><br>
+				<input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="login-demo-form-username"><br>
+	
+				<label>USERNAME <span class="required">*</span></label><br>
+				<input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="login-demo-form-username"><br>
+	
+				<label>PASSWORD <span class="required">*</span></label><br>
+				<input type="password" class="field-input" autocomplete="off" id="login-demo-form-password" name="login-demo-form-password"><br>
+				
+				<br>
+				
+				<label for="">DATE OF BIRTH <span class="required">*</span></label><br>
+				<input type="date" id="birthday" id="basic-input" name="basic-input"><br>
+				
+				<div class="checkbox-container">
+					<input type="checkbox" id="checkbox" id="login-demo-checkbox" name="login-demo-checkbox"><img src="/check.svg" id="check">
+					<label for="checkbox" id="terms">Agree to <b>Terms of Service & Privacy Policy</b></label>
+				</div>
+
+				<br>
+
+				<button type="submit" id="submit-button">SIGN UP</button>
+				<p id="ques-text">Already have an account? <a href="/login">Log in here</a></p>
+			</form>
+		</div>
+
+		<div class="wave-container">
+			<img src="/wave_thin.svg" id="wave">
+		</div>
+	</div>
+</body>
+
+<!-- OLD DISCARDED CODE -->
+<!-- <body style = "background-color: white;">
   <div class="pf-c-page" id="primary-detail-card-view-expanded-example" style="background-color: white;">
     <a class="pf-c-skip-to-content pf-c-button pf-m-primary" href="#main-content-primary-detail-card-view-expanded-example">Skip to content</a>
   <header class="pf-c-page__header" style = "background-color: white;">
     <div class="pf-c-page__header-brand">
       
       <a href="#" class="pf-c-page__header-brand-link">
-        <img class="pf-c-brand" src="/logo.png" alt="Go Off logo"/> <!--GO OFF LOGO-->
+        <img class="pf-c-brand" src="/logo.png" alt="Go Off logo"/>
       </a>
     </div>
 
@@ -104,5 +152,6 @@
   </div>
 
 
-</body>
+</body> -->
+
 </html>

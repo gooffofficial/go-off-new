@@ -6,9 +6,9 @@ const AnalyticsModel = require('./models/Analytics')
 const UserArticleModel = require('./models/UserArticles')
 const FollowerModel = require('./models/Follower')
 
-const sequelize = new Sequelize('test_server1', process.env.RDS_USER , process.env.RDS_PASSWORD, {
-  port: process.env.RDS_PORT,
-  host: process.env.RDS_HOSTNAME,
+const sequelize = new Sequelize('test_server1', 'admin' , 'password1', {
+  port: '3306',
+  host: 'new-db.cga2dg8jzozg.us-west-1.rds.amazonaws.com',
   dialect: 'mysql',
   pool: {
     max: 10,
