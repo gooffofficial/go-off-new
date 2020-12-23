@@ -8,6 +8,7 @@ const _ = require('lodash')
 const AWS = require('aws-sdk')
 const multer = require('multer')
 const multerS3 = require('multer-s3')
+const { body } = require('express-validator');
 const crawler = require('../../apify/crawler')
 
 AWS.config.update({
@@ -41,7 +42,16 @@ const upload = multer({
   limits: {fileSize: 1024*1024}
 })
 //POST for new user registration
-router.post('/', auth.optional, (req, res, next) => {
+router.post('/', auth.optional, [
+  body('username').escape(),
+  body('email').escape(),
+  body('firstname').escape(),
+  body('lastname').escape(),
+  body('age').escape(),
+  body('location').escape(),
+  body('gender').escape(),
+  body('password').escape()
+],(req, res, next) => {
     //const { body: { user } } = req;
     //console.log(req);
     const user = req.body;
@@ -188,7 +198,17 @@ router.post('/login', auth.optional, (req, res, next) => {
   });
 
 //POST for updating user info
-router.post('/update', upload.single("file"), auth.required, (req, res, next) => {
+router.post('/update', upload.single("file"), auth.required, [
+  body('username').escape(),
+  body('email').escape(),
+  body('firsname').escape(),
+  body('lastname').escape(),
+  body('age').escape(),
+  body('location').escape(),
+  body('gender').escape(),
+  body('password').escape(),
+  body('bio').escape()
+],(req, res, next) => {
   const { payload: { id } } = req;
   let request = {
     username: req.body.username,
@@ -508,7 +528,9 @@ router.get('/logout', (req, res, next) => {
 })
 
 //move to users.js file
-router.post('/add_article1', auth.required, (req, res, next) => {
+router.post('/add_article1', auth.required,[
+  body('article').escape()
+], (req, res, next) => {
   const { payload: { id, username } } = req;
   db.Article.findOne({
       where: {
@@ -554,7 +576,9 @@ router.post('/add_article1', auth.required, (req, res, next) => {
 })
 
 //move to users.js file
-router.post('/add_article2', auth.required, (req, res, next) => {
+router.post('/add_article2', auth.required, [
+  body('article').escape()
+],(req, res, next) => {
   const { payload: { id, username } } = req;
   db.Article.findOne({
       where: {
@@ -601,7 +625,9 @@ router.post('/add_article2', auth.required, (req, res, next) => {
 })
 
 //move to users.js file
-router.post('/add_article3', auth.required, (req, res, next) => {
+router.post('/add_article3', auth.required, [
+  body('article').escape()
+],(req, res, next) => {
   const { payload: { id, username } } = req;
   db.Article.findOne({
       where: {
@@ -655,26 +681,4 @@ function isLoggedIn(req, res, next){
   }
   return res.send("Not authenticated")
 }
-
-router.post('/testimage', upload.single("file"), (req, res, next) => {
-  /*
-  const file = req.body.imageUpload;
-  const params = {
-    Bucket: 'gooff',
-    Key: 'images/'+file,
-    ACL: 'public-read',
-    Body: file
-  };
-  s3.upload(params, (err, data) => {
-    if(err){
-      console.log("Error: " +err);
-    }
-    else{
-      console.log(data)
-    }
-    res.send(data.Location);
-  })
-  */
- res.redirect(req.file.location)
-})
 module.exports = router;
