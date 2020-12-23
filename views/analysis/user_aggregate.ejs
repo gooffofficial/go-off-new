@@ -19,6 +19,12 @@
   body {
       font-family: 'Poppins', sans-serif;
       }
+  .zoom {
+    transition: transform .2s; /* Animation */
+  }
+  .zoom:hover {
+    transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
 </style>
 <body>
   <div class="pf-c-page" id="primary-detail-card-view-expanded-example">
@@ -172,14 +178,14 @@
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
                   <div class="pf-c-card__title">User Activity</div>
                   <div class="pf-c-card__body">
-                    <img src="/agg_activity.svg">
+                    <img class="zoom" src="/agg_activity.svg">
                   </div>
                 </div>
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example3">
                   <div class="pf-c-card__title">Age</div>
                   <div class="pf-c-card__body">
-                    <img src="/age_chart.svg">
+                    <img class="zoom" src="/age_chart.svg">
                   </div>
                 </div>
 
@@ -188,14 +194,14 @@
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example5">
                   <div class="pf-c-card__title">Gender</div>
                   <div class="pf-c-card__body">
-                    <img src="/gender_plot.svg">
+                    <img class="zoom" src="/gender_plot.svg">
                   </div>
                 </div>
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example6">
                   <div class="pf-c-card__title">User Participation</div>
                   <div class="pf-c-card__body">
-                    <img src="/participationDonut.svg">
+                    <img class="zoom" src="/participationDonut.svg">
                   </div>
                 </div>
         </div>
