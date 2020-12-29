@@ -358,6 +358,15 @@ router.post('/follower_update', auth.required, (req, res, next) => {
   })
 })
 
+router.get('/all', auth.required, (req, res, next) => {
+  return db.User.findAll({
+    attributes: ['username','name']
+  })
+  .then((users) => {
+    return res.json(JSON.stringify(users));
+  })
+})
+
 //GET authenticated user
 router.get('/current', auth.required, (req, res, next) => {
     const { payload: { username } } = req;
