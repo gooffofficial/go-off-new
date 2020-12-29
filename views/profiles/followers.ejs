@@ -3,7 +3,30 @@
     <head>
         
     </head>
-    <body>
+    <body onload="fillinVar()">
         <p>followers</p>
     </body>
+
+
+    <script>
+        function fillinVar(){
+            console.log("test");
+            (function(){
+                console.log("test1");
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    console.log("test2");
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log("test3");
+                        console.log(this.responseText)
+                        var myArr = JSON.parse(this.responseText);
+                        console.log(myArr);
+                    }
+                };
+                xhr.open("GET", '/api/users/followers', true);
+                xhr.withCredentials = true;
+                xhr.send();
+            })();
+        }
+    </script>
 </html>

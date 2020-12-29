@@ -354,6 +354,33 @@ router.get('/current', auth.required, (req, res, next) => {
     });
 })
 
+router.get('/followers', auth.optional, (req, res, next) => {
+  const {payload: {id}} = req;
+  const {payload: {username}} = req;
+
+  //finds username in database
+  return db.User.findOne({
+    where: {
+      username: username
+    }
+  })
+
+  .then((user) => {
+    //checks if the person accessing the file is the user
+    if(!user) {
+      return res.sendStatus(400);
+    }
+    //find all users that we follow
+    db.Follower.findAll({
+      where: { follower: id} 
+    })
+    .then((follower) => {
+      return res.status(200).json({ follower: follower.getFollowerInfo() });
+    })
+    
+  })
+}) 
+
 router.get('/profile/:user', auth.optional, (req, res, next) => {
   const {payload: {id}} = req;
   const {payload: {username}} = req;
