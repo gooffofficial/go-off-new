@@ -20,6 +20,7 @@ module.exports = (sequelize, type) => {
         convoTime: type.STRING,
         convoDate: type.STRING,
         duration: type.FLOAT,
+        locations: type.JSON
     })
     Analytics.prototype.getData = function(){
         return{
@@ -38,7 +39,8 @@ module.exports = (sequelize, type) => {
             averageWordsMessage: this.averageWordsMessage,
             convoLength: this.convoLength,
             convoTime: this.convoTime,
-            convoDate: this.convoDate
+            convoDate: this.convoDate,
+            locations: this.locations
         }
     }
     return Analytics;

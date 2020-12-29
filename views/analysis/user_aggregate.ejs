@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/css/fonts.css" />
+  <!--<link rel="stylesheet" href="/css/fonts.css" />-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <!-- Include latest PatternFly CSS via CDN -->
   <link 
     rel="stylesheet" 
@@ -13,6 +15,17 @@
   <link rel="stylesheet" href="/css/style.css" />
   <title>Analytics User Dashboard</title>
 </head>
+<style>
+  body {
+      font-family: 'Poppins', sans-serif;
+      }
+  .zoom {
+    transition: transform .2s; /* Animation */
+  }
+  .zoom:hover {
+    transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+</style>
 <body>
   <div class="pf-c-page" id="primary-detail-card-view-expanded-example">
   <a class="pf-c-skip-to-content pf-c-button pf-m-primary" href="#main-content-primary-detail-card-view-expanded-example">Skip to content</a>
@@ -74,30 +87,24 @@
       </div>
     </div>
   </header>
-  <div class="pf-c-page__sidebar pf-m-light" style="width: 200px;">
+  <div class="pf-c-page__sidebar pf-m-light"  id = "side" style="width: 200px; ">
     <div class="pf-c-page__sidebar-body">
       <nav class="pf-c-nav" aria-label="Global">
         <ul class="pf-c-nav__list">
           <li class="pf-c-nav__item">
-            <a href="#" class="pf-c-nav__link">Dashboard</a>
+            <a href="/analytics" class="pf-c-nav__link">Dashboard</a>
           </li>
           <li class="pf-c-nav__item pf-m-expandable pf-m-expanded">
-            <button class="pf-c-nav__link" id="nav-mixed-link2" aria-expanded="true">Conversations
-              <span class="pf-c-nav__toggle">
+            <button class="pf-c-nav__link" id="nav-mixed-link2" aria-expanded="false" onclick="location.href='/analytics/convos'">All Convos
+              <button class="pf-c-nav__toggle" id = "arrowdown" style="border: none; padding: none; outline: none;">
                 <span class="pf-c-nav__toggle-icon">
                   <i class="fas fa-angle-right" aria-hidden="true"></i>
                 </span>
-              </span>
+              </button>
             </button>
             <!--INSERT MOST RECENT CONVERSATIONS HERE-->
-            <section class="pf-c-nav__subnav" aria-labelledby="nav-mixed-link2">
-              <ul class="pf-c-nav__list">
-                <li class="pf-c-nav__item">
-                  <a href="#" class="pf-c-nav__link">Conversation List</a>
-                </li>
-                <li class="pf-c-nav__item">
-                  <a href="#" class="pf-c-nav__link">Subnav link 2</a>
-                </li>
+            <section class="pf-c-nav__subnav" id = "convs" aria-labelledby="nav-mixed-link2">
+              <ul class="pf-c-nav__list" id="subnav">
               </ul>
             </section>
           </li>
@@ -128,7 +135,7 @@
           <h1>All Convos</h1>
           <ul class="pf-c-jump-links__list" style = "list-style-type: none;">
             <li class="pf-c-jump-links__item">
-              <a class="pf-c-jump-links__link" href="#">
+              <a class="pf-c-jump-links__link" href="/analytics">
                 <span class="pf-c-jump-links__link-text">Convo Breakdown</span>
               </a>
             </li>
@@ -155,18 +162,31 @@
             <div class="pf-c-drawer__body pf-m-padding">
               <div class="pf-l-gallery pf-m-gutter">
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example1">
-                  <div class="pf-c-card__title">Location</div>
-                  <div class="pf-c-card__body">42</div>
+                  <div class="pf-c-card__title">Top Locations</div>
+                  <div class="pf-c-card__body">
+                    <ul class="pf-c-list">
+                      <li>Boston, MA</li>
+                      <li>USA</li>
+                      <li>Massachusetts</li>
+                      <li>Allston</li>
+                      <li>New York</li>
+                      <li>IL</li>
+                    </ul>
+                  </div>
                 </div>
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
                   <div class="pf-c-card__title">User Activity</div>
-                  <div class="pf-c-card__body">66.3 minutes</div>
+                  <div class="pf-c-card__body">
+                    <img class="zoom" src="/agg_activity.svg">
+                  </div>
                 </div>
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example3">
                   <div class="pf-c-card__title">Age</div>
-                  <div class="pf-c-card__body">20</div>
+                  <div class="pf-c-card__body">
+                    <img class="zoom" src="/age_chart.svg">
+                  </div>
                 </div>
 
                
@@ -174,13 +194,15 @@
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example5">
                   <div class="pf-c-card__title">Gender</div>
                   <div class="pf-c-card__body">
-                    <p>Most said words from all convos</p>
+                    <img class="zoom" src="/gender_plot.svg">
                   </div>
                 </div>
 
                 <div class="pf-c-card pf-m-compact" id="card-no-footer-example6">
                   <div class="pf-c-card__title">User Participation</div>
-                  <div class="pf-c-card__body">This card has no footer</div>
+                  <div class="pf-c-card__body">
+                    <img class="zoom" src="/participationDonut.svg">
+                  </div>
                 </div>
         </div>
       </div>
@@ -191,6 +213,20 @@
 </html>
 
 <script>
+  var recData = <%-JSON.stringify(data)%>
+  var recArticles = <%-JSON.stringify(article)%>
+
+  for(var i=0; i<recData.length; i++){
+    var article = document.createElement('li');
+    article.setAttribute('class', 'pf-c-nav__item')
+    var title = document.createElement('a')
+    title.setAttribute('class', 'pf-c-nav__link')
+    title.setAttribute('href', "/analytics/"+recData[i].id)
+    var titleText = document.createTextNode(recArticles[i].title)
+    title.appendChild(titleText)
+    article.appendChild(title);
+    document.getElementById("subnav").appendChild(article)
+  }
   var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -203,4 +239,30 @@
             xhr.open("GET", '/api/users/profile/<%=user%>', true);
             xhr.withCredentials = true;
             xhr.send();
+
+//NAV BAR
+const sideNavArrow = document.getElementById('arrowdown');
+const arts = document.getElementById('nav-mixed-link2');
+const con = document.getElementById("convs");
+con.style.display = "none";
+sideNavArrow.addEventListener('click', () => {
+  arts.ariaExpanded = !JSON.parse(arts.ariaExpanded);
+  console.log(arts.ariaExpanded);
+  if (arts.ariaExpanded=='false'){
+    con.style.display = "none";  
+  }else{
+    con.style.display = "";
+  }
+})
+
+const hamburger = document.getElementById("primary-detail-card-view-expanded-example-nav-toggle");
+const sideNav = document.getElementById("side");
+hamburger.addEventListener('click', () => {
+  hamburger.ariaExpanded = !JSON.parse(hamburger.ariaExpanded);
+  if (hamburger.ariaExpanded=='false'){
+    sideNav.style.display = "none";  
+  }else{
+    sideNav.style.display = "";
+  }
+});
 </script>

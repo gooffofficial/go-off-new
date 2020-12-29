@@ -7,6 +7,7 @@ const Chat = require('../../models/ChatSchema')
 const logger = require('../../logger')
 const Room = require('../../models/RoomSchema')
 const io = require('socket.io-client')
+const { body } = require('express-validator');
 const _ = require('lodash')
 
 
@@ -50,7 +51,9 @@ router.get('/create', auth.required, (req, res, next) => {
 
 
 //Route to post messages to specific chatroom
-router.post('/:room', auth.required, (req, res, next) => {
+router.post('/:room', auth.required, [
+    body('message').escape()
+],(req, res, next) => {
     Room.findById(req.params.room, (err, room) => {
         if(err){
             console.log(err);

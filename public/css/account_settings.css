@@ -1,113 +1,69 @@
 @import url(//db.onlinewebfonts.com/c/eeb2719d248b27841be5f4899986eedc?family=Sentinel+Book);
 
 @font-face {
-    font-family: Sentinel_Book; 
-    src: url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.eot"); 
-    src: url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.eot?#iefix") format("embedded-opentype"), 
-    url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.woff") format("woff"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.svg#Sentinel Book") format("svg"); 
-}
-@font-face{
-    font-family: Poppins_Bold;
-    src: url(/Poppins-Bold.ttf);
-}
-@font-face{
-    font-family: Poppins_Medium_Regular;
-    src: url(/Poppins-Medium.ttf);
-}
-@font-face{
-    font-family: Poppins_SemiBold_Regular;
-    src: url(/Poppins-SemiBold.ttf);
+	font-family: Sentinel_Book;
+	src: url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.eot");
+	src: url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.eot?#iefix") format("embedded-opentype"),
+		url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.woff") format("woff"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.svg#Sentinel Book") format("svg");
 }
 
-.logo img {
-    position: absolute;
-    height: 50px;
-    width: 50px;
-    left: 20%;
-}
-#fprofpic{
-    right: 28.5%;
-    top: 1.5%;
-    position: absolute;
-    height: 7%;
-    width: 3.5%;
+@font-face {
+	font-family: Poppins_Bold;
+	src: url(/Poppins-Bold.ttf);
 }
 
-.fprofpic img{
-    border-radius: 50%;
-    top: 2%;
-    right: 5%;
-    height: 5%;
-    width: 5%;
+@font-face {
+	font-family: Poppins_Medium_Regular;
+	src: url(/Poppins-Medium.ttf);
 }
 
-#search{
-    position: absolute;
-    margin-top: 10px;
-    right: 25%;
-    background-image: url(http://www.levenmetwater.nl/static/global/images/icon-search.png);
-    background-position: 10px center;
-    background-repeat: no-repeat;
-    border: 1px solid #ccc;
-    
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    border-radius: 4px;
-    
-    padding: 5px 5px;
-    text-indent: 20px;
-    
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 2s;
-    transition: all 0.2s;
-    
-    width: 50%;
-    /* float: right; */
-    /* left: -200px; */
+@font-face {
+	font-family: Poppins_SemiBold_Regular;
+	src: url(/Poppins-SemiBold.ttf);
 }
 
-#search:focus {
-    /* Picked a random icon from Google */
-    background-position: -20px center;
-    text-indent: 0;
+.droparrow {
+	position: absolute;
+	display: inline-block;
+	right: 17%;
+	margin-top: 0%;
+	/* border: 1px solid rgba(153, 150, 150, 0.116); */
 }
 
-.droparrow{
-    position: absolute;
-    display: inline-block;
-    float: right;
-    right: 17%;
-    margin-top: 0%;
-    /* border: 1px solid rgba(153, 150, 150, 0.116); */
+.dropdown-arrowcontent {
+	display: none;
+	position: absolute;
+	background-color: #77bcce;
+	min-width: 160px;
+	right: 0%;
+	/* margin-top: 250%; */
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	font-family: Poppins_Medium_Regular;
 }
 
-.dropdown-arrowcontent{
-    display: none;
-    position: absolute;
-    background-color: #77bcce;
-    min-width: 160px;
-    right: 0%;
-    /* margin-top: 250%; */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    font-family: Poppins_Medium_Regular;
-}
 .droparrow:hover {
-    display: block;
+	display: block;
 }
 
-.pname{
-    top: 3%;
-    position: absolute;
-    left: 72%;
-    font-family: Poppins_Bold;
-    width: 7%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.pname {
+	top: 3%;
+	position: absolute;
+	left: 72%;
+	font-family: Poppins_Bold;
+	width: 7%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
+
+#edit-profile-text {
+	font-family: Poppins_Bold;
+	font-size: 30px;
+	position: absolute;
+	top: 0;
+}
+
 /* .fpname{
     top: 3%;
     position: absolute;
@@ -122,239 +78,226 @@
     width: 4%;
 } */
 
-#profile-pic{
-    position: absolute;
-    border-radius: 50%;
-    top: 21.5%;
-    height: 20%;
-    width: 20%;
-    margin-top: 5%; 
+#profile-pic {
+	position: absolute;
+	border-radius: 50%;
+	top: 21.5%;
+	height: 20%;
+	width: 20%;
+	margin-top: 5%;
 }
 
-button{
-    border: 0;
-    padding: 1em;
-    position: relative;
-    cursor: pointer;
-    background: none;
+button {
+	border: 0;
+	padding: 1em;
+	position: relative;
+	cursor: pointer;
+	background: none;
 }
 
-#Plus{
-    right: 31.5%;
-    top: -1.5%;
-    position: absolute;
-    border-radius: 50%;
+#edit_profile {
+	position: absolute;
+	top: 30%;
+	left: 15%;
+	font-size: 20px;
+	font-family: Poppins_Medium_Regular;
 }
 
-#Submit{
-    right: 36%;
-    top: 0%;
-    border-radius: 50%;
-    position: absolute;
-}
-
-#Cancel{
-    position: absolute;
-    margin-top: 10px;
-    float: right;
-    visibility: hidden;
-    right: 20%;
-    background-color: lightskyblue;
-    padding: 5px 5px;
-}
-
-hr{
-    position: absolute;
-    top: 10%;
-    margin-bottom: 5%;
-    border: 1px solid #b6b1b1;
-    width: 100%;
-    color: #b6b1b1;
-}
-
-#edit_profile{
-    position: absolute;
-    top: 30%;
-    left: 15%;
-    font-size: 20px;
-    font-family: Poppins_Medium_Regular;
-}
-
-#account_settings{
-    position: absolute;
-    top: 40%;
-    left: 15%;
-    font-size: 20px;
-    font-family: Poppins_Medium_Regular;
+#account_settings {
+	position: absolute;
+	top: 40%;
+	left: 15%;
+	font-size: 20px;
+	font-family: Poppins_Medium_Regular;
 }
 
 #edit_profile:after {
-    content: " ";
-    transition: background-color .3s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+	content: " ";
+	transition: background-color .3s ease;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
-#edit_profile:hover:after { background-color: rgba(133, 200, 231, 0.5); border-radius: 15px;}
+
+#edit_profile:hover:after {
+	background-color: rgba(133, 200, 231, 0.5);
+	border-radius: 15px;
+}
 
 #account_settings:after {
-    content: " ";
-    transition: background-color .3s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-#account_settings:hover:after { background-color: rgba(133, 200, 231, 0.5); border-radius: 15px;}
-
-#back_button{
-    position: absolute;
-    top: 15%;
-    left: 10%;
-}
-.editProf{
-    width: 40%;
-    height: 70%;
-    margin: 2rem auto;
-    padding: 2rem;
-    position: absolute;
-    top: 10%;
-    left: 32%;
+	content: " ";
+	transition: background-color .3s ease;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
-#submitBtn{
-    position: absolute;
-    top: 12%;
-    right: 5%;
-    border-radius: 15px;
-    background-color: rgb(216, 213, 213);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
-    border-color: white;
+#account_settings:hover:after {
+	background-color: rgba(133, 200, 231, 0.5);
+	border-radius: 15px;
 }
 
-#cancelBtn{
-    position: absolute;
-    top: 12%;
-    right: 15%;
-    border-radius: 15px;
-    background-color: rgb(216, 213, 213);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1);
-    border-color: white;
+#back_button {
+	position: absolute;
+	top: 15%;
+	left: 10%;
 }
 
-#desc{
-    position: absolute;
-    top: 13%;
-    font-family: Poppins_Medium_Regular;
+.editProf {
+	width: calc(var(--pageWidth) - 300px);
+	height: 80vh;
+	margin: 0 auto;
+	
+	/* border: 2px solid #131111; */
+	padding: 2rem;
+	position: relative;
+	right: -130px;
+	top: 100px;
 }
 
-label{
-    display: block;
-    font-weight: bold;
-    font-family: Poppins_Medium_Regular;
+#doneCancel-container {
+	float: right;
+	position: absolute;
+	top: 20px;
+	right: 0;
 }
 
-label[for=email_addr]{
-    position: absolute;
-    top: 26%;
-
-}
-input[name=email_addr]{
-    position: absolute;
-    top: 29.5%;
-
-}
-
-label[for=passwrd]{
-    position: absolute;
-    top: 26%;
-}
-input[name=passwrd]{
-    position: absolute;
-    top: 29.5%;
+#submitBtn, #cancelBtn {
+	font-family: Poppins_Medium_Regular;
+	font-size: 14px;
+	border-radius: 200px;
+	padding: 6px 20px;
+	background-color: rgba(0, 0, 0, 0.05);
+	/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1), 0 6px 20px 0 rgba(0, 0, 0, .1); */
+	border: 0;
+	outline: 0;
 }
 
-label[for=Country]{
-    position: absolute;
-    top: 35%;
-    
-}
-input[name=Country]{
-    position: absolute;
-    top: 38.5%;
-    
+#submitBtn:hover, #cancelBtn:hover {
+	background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-#Gender{
-    position: absolute;
-    top: 50%;
-    width: 60%;
-    border: none;
+#desc {
+	position: relative;
+	top: 10px;
+	font-family: Poppins_Medium_Regular;
+	color: rgba(0, 0, 0, 0.5);
 }
 
-label[for=Male]{
-    position: absolute;
-    left: 5%;
-    top: 20%;
-}
-input[name=Male]{
-    position: absolute;
-    left: 0%;
-    top: 20%;
+label {
+	display: block;
+	font-weight: bold;
+	font-family: Poppins_Medium_Regular;
 }
 
-label[for=Female]{
-    position: absolute;
-    left: 22%;
-    top: 20%;
-}
-input[name=Female]{
-    position: absolute;
-    left: 17%;
-    top: 20%;
-}
-
-textarea{
-    position: absolute;
-    left: 37%;
-    top: 20%;
+input[name=email], input[name=password], input[name=location] {
+	position: relative;
+	font-family: Poppins_Medium_Regular;
+	display: inline-block;
+	width: 50%;
+	padding: 8px 1px;
+	border: 0;
+	outline: 0;
+	border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+	margin-top: -14px;
+	margin-bottom: 35px;
 }
 
-legend{
-    font-family: Poppins_Medium_Regular;
+label[for=email], label[for=password], label[for=location] {
+	position: relative;
+	font-family: Poppins_Medium_Regular;
+	text-transform: uppercase !important;
+	display: inline-block;
+	color: rgba(0, 0, 0, 0.6);
 }
 
-.dropBtn {
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+.accountSettingsContainer {
+	margin-top: 60px;
 }
 
-.droparrow{
-    position: absolute;
-    display: inline-block;
-    float: right;
-    right: 17%;
-    margin-top: 0%;
-    /* border: 1px solid rgba(153, 150, 150, 0.116); */
+#Gender {
+	margin-top: 30px;
+	border: none;
 }
 
-.dropdown-arrowcontent{
-    display: none;
-    position: absolute;
-    background-color: #77bcce;
-    min-width: 160px;
-    right: 0%;
-    /* margin-top: 250%; */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    font-family: Poppins_Medium_Regular;
+#gender-text {
+	display: block;
+	font-weight: bold;
+	font-family: Poppins_Medium_Regular;
 }
-.droparrow:hover {
-    display: block;
+
+#other-gender-textbox {
+	font-family: Poppins_Bold;
+	padding: 4px 0px;
+	border: 0;
+	outline: 0;
+	border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+label[for=Male], label[for=Female], input[name=Other] {
+	font-family: Poppins_Medium_Regular;
+	cursor: pointer;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	color: rgba(0, 0, 0, 0.7);
+	margin-left: 5px;
+}
+
+input[type=radio] {
+	height: 24px;
+	width: 24px;
+	position: relative;
+	top: 6px;
+}
+
+.leftButtons {
+	position: absolute;
+	top: 0px;
+	left: -295px;
+	display: block;
+	width: 300px;
+}
+
+.side-button {
+	width: 300px;
+	position: relative;
+	top: 0px;
+	margin-top: 4px;
+	left: 0;
+	font-size: 20px;
+	font-family: Poppins_Bold;
+	text-align: left;
+	letter-spacing: -0.5px !important;
+	padding: 11px 18px 11px 25px;
+	width: 280px;
+	border-radius: 50px;
+	opacity: 0.65;
+	display: inline-block;
+	text-decoration: none !important;
+	color: rgba(0, 0, 0, 0.9);
+}
+
+.side-button:hover {
+	letter-spacing: -0.5px !important;
+	background-color: rgba(0, 0, 0, 0.07);
+	color: rgba(0, 0, 0, 0.9);
+	opacity: 1;
+}
+
+.selectedTab {
+	background-color: rgba(0, 0, 0, 0.07);
+	color: rgba(0, 0, 0, 0.9) !important;
+	opacity: 1;
+}
+
+.edit-profile-icon {
+	height: 26px;
+	position: relative;
+	top: -1px;
+	left: -8px;
 }
