@@ -363,7 +363,8 @@ router.get('/all', auth.required, (req, res, next) => {
     attributes: ['username','name']
   })
   .then((users) => {
-    return res.json(JSON.stringify(users));
+    //return res.json(JSON.stringify(users));
+    return res.json(users);
   })
 })
 

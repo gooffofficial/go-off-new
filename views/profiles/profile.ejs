@@ -39,8 +39,14 @@
 			<div class="searchContainer align-self-center d-flex">
 				<!-- <form id="bar_form"> SEARCH BAR NEEDS TO BE CONNECTED -->
 				<img src="/search_icon.svg" class="search-icon align-self-center">
-				<input type="text" id="search" placeholder="Search">
+				<input type="text" id="search" placeholder="Search" onkeyup="plsWork(this.value)">
 				<!-- </form> -->
+				<a id = "search-1" ></a>
+				<a id = "search-2" ></a>
+				<a id = "search-3" ></a>
+				<a id = "search-4" ></a>
+				<a id = "search-5" ></a>
+				<!--<p>Suggestions: <span id="txtHint"></span></p>-->
 			</div>
 
 			<div class="navigationProfile d-flex">
@@ -105,6 +111,18 @@
 					<h4 id="bio"></h4>
 				</div>
 			</div>
+		</div>
+		
+		<div id = "tabs-container" style = "margin-top: 100px;"> 
+			<hr>
+			<nav>
+				<ul id="tabs-ul">
+					<li class = "tabs-li"><a href="#" class="tabs-a">Media</a></li>
+					<li class = "tabs-li"><a href="#" class="tabs-a">Folders</a></li>
+					<li class = "tabs-li"><a href="#" class="tabs-a">Convos</a></li>
+					<li class = "tabs-li"><a href="#" class="tabs-a">Following</a></li>
+				</ul>
+			</nav>	
 		</div>
 
 		<div id="articles-container">
@@ -477,6 +495,44 @@
 		}
 
 		document.getElementById("bar_form").style.visibility = "hidden";
+
+		//SEARCH BAR function
+		function plsWork(str){
+			str.toLowerCase();
+			var stringz = ""
+			var count = 1
+			if (str.length<2){
+				document.getElementById("search-1").innerText = ""; 
+				document.getElementById("search-2").innerText = ""; 
+				document.getElementById("search-3").innerText = ""; 
+				document.getElementById("search-4").innerText = ""; 
+				document.getElementById("search-5").innerText = ""; 
+
+    			return;
+			}else{
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+						var names = JSON.parse(this.responseText);
+						console.log(this.responseText);
+						for (var i = 0; i < names.length; i++){
+							var obj = names[i].username;
+							var na = names[i].name;
+							var l_obj = obj.toLowerCase();
+							var l_na = na.toLowerCase();
+							if (count < 6 && (l_obj.includes(str) || l_na.includes(str))) {
+								var search_id = "search-" + count.toString();
+								document.getElementById(search_id).setAttribute("href", "/profiles/" + obj);
+								document.getElementById(search_id).innerText = na; 
+								count = count + 1; 
+							}
+						}
+					}
+				};
+				xmlhttp.open("GET", "/api/users/all", true);
+				xmlhttp.send();
+			}
+		}
 
 		function searchBar() {
 			document.getElementById("Submit").style.visibility = "hidden";

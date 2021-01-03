@@ -456,6 +456,19 @@ button {
 	padding: 6px 18px;
 }
 
+#tabs-ul{
+	list-style-type: none;
+}
+.tabs-li {
+	float: left;
+	display: inline;
+}
+
+.tabs-li, .tabs-a{
+	display:block; 
+	text-align: center;
+	padding: 0px 10px;
+}
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 1690px) {
