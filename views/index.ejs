@@ -50,9 +50,23 @@
                         </div>
                         <br>
                         <textarea id = "textarea" class = "form-control" placeholder="Enter Message"> </textarea>
-                        <button id = "send"> send </button>
+                        <%if (status != true) {%>
+                            <button id = "send"> send </button>
+                        <% } %>
                     </div>
                     <button id="logout"> Logout </button>
+                    <%if (status != true) { %>
+                        <%if (admin == true) { %>
+                            <form method="post" action="/api/chat/end/<%=id%>">
+                                <button type="submit" id="end">End Conversation</button>
+                            </form>
+                            <% } %>
+                    <% } else { %>
+                        <p>Conversation has ended</p>
+                        <%if (admin == true) { %>
+                            <button onclick="window.location.href='/analytics/<%=id%>'">Click to see analysis of chat</button>
+                            <% } %>
+                      <% } %>
                     <h3>Don't forget to fill out our user experience survey!</h3>
             <br>
             <a href="https://bostonu.qualtrics.com/jfe/form/SV_1SxxCfIbHjfRDKd" target="_blank">Click here to fill it out!</a>

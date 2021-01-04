@@ -63,33 +63,39 @@ router.post('/:room', auth.required, [
         const message = req.body.message;
         //create message object
         let chatMessage = new Chat({user: id, name: username, message: message});
-        room.messages.push(chatMessage);
-        //adds user to room if not already in -- TODO: Fix to make it so that users can't post nor view if not in chatroom
-        if(!room.users.includes(id)){
-            console.log("new user")
-            room.users.push(id);
-        }
-        room.save(); //save chatroom updates
-        if(adminNames.includes(username)){
-            socket.emit('input', {
-                name: username+"(Admin)",
-                message: message,
-                room: req.params.room
-            });
+        //only allow messages if chat is not ended
+        if(room.status != true){
+            room.messages.push(chatMessage);
+            //adds user to room if not already in -- TODO: Fix to make it so that users can't post nor view if not in chatroom
+            if(!room.users.includes(id)){
+                console.log("new user")
+                room.users.push(id);
+            }
+            room.save(); //save chatroom updates
+            if(adminNames.includes(username)){
+                socket.emit('input', {
+                    name: username+"(Admin)",
+                    message: message,
+                    room: req.params.room
+                });
+            }
+            else{
+                console.log(username);
+                socket.emit('input', {
+                    name: username,
+                    message: message,
+                    room: req.params.room
+                });
+            }
+            //save chat message into database
+            chatMessage.save().then(() => { 
+                console.log('Chat sent');
+                return res.status(200);
+            })
         }
         else{
-            console.log(username);
-            socket.emit('input', {
-                name: username,
-                message: message,
-                room: req.params.room
-            });
+            return res.status(202)
         }
-        //save chat message into database
-        chatMessage.save().then(() => { 
-            console.log('Chat sent');
-            return res.status(200);
-        })
     })
 })
 
@@ -99,6 +105,45 @@ router.get('/getid', auth.optional, (req, res, next) => {
     roomId = Room.findOne({ url: url }, (err, room) => {
         return res.json({id: room._id})
         // return res.sendStatus(200).json({id: room._id})
+    })
+})
+
+//route to end conversation
+router.post('/end/:roomid', auth.required, (req, res, next) => {
+    const { payload: { id } } = req;
+    var roomid = req.params.roomid;
+    db.User.findOne({
+        where: {
+            id: id
+        }
+    }).then((user) => {
+        if(user.admin != "(Admin)"){
+            return res.sendStatus(403);
+        }
+        else{
+            Room.findById(roomid, (err, room) => {
+                if(err){
+                    console.log(err);
+                    return res.send(err);
+                }
+                const { payload: { id } } = req;
+                db.User.findOne({
+                    where: {
+                        id: id
+                    }
+                }).then((user) => {
+                    if (user.admin != "(Admin)"){
+                        return res.sendStatus(403);
+                    }
+                    else{
+                        room.status = true;
+                        room.save().then(() => {
+                            return res.redirect('/chat/'+roomid);
+                        })
+                    }
+                })
+            })
+        }
     })
 })
 

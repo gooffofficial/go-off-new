@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('./auth');
+const db = require('../models')
+const Room = require('../models/RoomSchema')
 
 router.use('/api', require('./api'));
 router.use('/profiles', require('./profiles'))
@@ -27,7 +29,25 @@ router.get('/following', auth.required, (req, res, next) => {
 })
 
 router.get('/chat/:roomid', auth.required, (req, res, next) => {
-    res.render('index')
+    const { payload: { id } } = req;
+    Room.findById(req.params.roomid, (err, room) => {
+        if(err){
+            console.log(err);
+            return res.send(err);
+        }
+        db.User.findOne({
+            where: {
+                id: id
+            }
+        }).then((user) => {
+            if(user.admin != "(Admin)"){
+                return res.render('index', {admin: false, status: room.status});
+            }
+            else{
+                return res.render('index', {admin: true, id: req.params.roomid, status: room.status});
+            }
+        })
+    })
 })
 
 router.get('/login', auth.optional, (req, res, next) => {
