@@ -76,7 +76,8 @@ router.post('/:room', auth.required, [
                 socket.emit('input', {
                     name: username+"(Admin)",
                     message: message,
-                    room: req.params.room
+                    room: req.params.room,
+                    user: id
                 });
             }
             else{

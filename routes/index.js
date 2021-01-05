@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const auth = require('./auth');
 const db = require('../models')
-const Room = require('../models/RoomSchema')
+const Room = require('../models/RoomSchema');
+const crawler = require('../apify/crawler')
 
 router.use('/api', require('./api'));
 router.use('/profiles', require('./profiles'))
@@ -35,17 +36,36 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
             console.log(err);
             return res.send(err);
         }
-        db.User.findOne({
+        db.Article.findOne({
             where: {
-                id: id
+                url: room.url[0]
             }
-        }).then((user) => {
-            if(user.admin != "(Admin)"){
-                return res.render('index', {admin: false, status: room.status});
+        }).then((article) => {
+            if(!article){
+                try{
+                    crawler(room.url[0]);
+                }
+                catch(err){
+                    return res.send(err);
+                }
+                return res.redirect('/chat/'+req.params.roomid)
             }
-            else{
-                return res.render('index', {admin: true, id: req.params.roomid, status: room.status});
-            }
+            db.User.findOne({
+                where: {
+                    id: id
+                }
+            }).then((user) => {
+                var title = article.title;
+                if(title.length > 30){
+                    title = title.substring(0,30);
+                }
+                if(user.admin != "(Admin)"){
+                    return res.render('index', {admin: false, status: room.status, title: title, url: article.url});
+                }
+                else{
+                    return res.render('index', {admin: true, id: req.params.roomid, status: room.status, title: title, url: article.url});
+                }
+            })
         })
     })
 })
