@@ -13,6 +13,7 @@ const URI = "mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?retryWrit
 //const URI = "mongodb://localhost:27017/mongo"
 const sqlModels = require('./models')
 const Chat = require('./models/ChatSchema')
+const DM = require('./models/DMSchema')
 const Room = require('./models/RoomSchema') //Test Rooms
 const passport = require('passport')
 const path = require('path')
@@ -77,7 +78,34 @@ app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
                 socket.emit('status', s); //pass from server to client (index.html) use .emit
             }
 
+            //joining a dm chat room
+            socket.on('dm', function(room) {
+                console.log("HELLO"+room)
+                DM.findOne({identifier: room}).populate('messages').limit(100).sort({_id:1}).then(async (chat) => {
+                    msgs = chat.messages;
+                        finmsgs = []
+                        for (const msg of msgs) {
+                            var newmsg = {};
+                            newmsg.user = msg.user;
+                            newmsg.name = msg.name;
+                            newmsg.message = msg.message;
+                            var profile = await sqlModels.Profile.findOne({where:{UserId: msg.user}});
+                            if(profile){
+                                newmsg.propic = profile.getProfileInfo().propic;
+                                //console.log(msg.propic)
+                            }
+                            if(adminNames.includes(msg.name)){
+                                newmsg.name = msg.name+"(Admin)";
+                            }
+                            finmsgs.push(newmsg)
+                        }
+                        console.log('joined ' + room)
+                        socket.join(room);
+                        socket.emit('output', finmsgs);
+                })
+            })
 
+            //joining article chat rooms
             socket.on('room', function(room) {
                 //Get chats from mongo collection
                 Room.findById(room).populate('messages').limit(100).sort({_id:1}).then(async (chat) => { //fetching the chat messages
