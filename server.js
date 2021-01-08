@@ -13,6 +13,7 @@ const URI = "mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?retryWrit
 //const URI = "mongodb://localhost:27017/mongo"
 const sqlModels = require('./models')
 const Chat = require('./models/ChatSchema')
+const DM = require('./models/DMSchema')
 const Room = require('./models/RoomSchema') //Test Rooms
 const passport = require('passport')
 const path = require('path')
@@ -77,10 +78,37 @@ app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
                 socket.emit('status', s); //pass from server to client (index.html) use .emit
             }
 
+            //joining a dm chat room
+            socket.on('dm', function(room) {
+                console.log("HELLO"+room)
+                DM.findOne({identifier: room}).populate('messages').limit(100).sort({_id:1}).then(async (chat) => {
+                    msgs = chat.messages;
+                        finmsgs = []
+                        for (const msg of msgs) {
+                            var newmsg = {};
+                            newmsg.user = msg.user;
+                            newmsg.name = msg.name;
+                            newmsg.message = msg.message;
+                            var profile = await sqlModels.Profile.findOne({where:{UserId: msg.user}});
+                            if(profile){
+                                newmsg.propic = profile.getProfileInfo().propic;
+                                //console.log(msg.propic)
+                            }
+                            if(adminNames.includes(msg.name)){
+                                newmsg.name = msg.name+"(Admin)";
+                            }
+                            finmsgs.push(newmsg)
+                        }
+                        console.log('joined ' + room)
+                        socket.join(room);
+                        socket.emit('output', finmsgs);
+                })
+            })
 
+            //joining article chat rooms
             socket.on('room', function(room) {
                 //Get chats from mongo collection
-                Room.findById(room).populate('messages').limit(100).sort({_id:1}).then(chat => { //fetching the chat messages
+                Room.findById(room).populate('messages').limit(100).sort({_id:1}).then(async (chat) => { //fetching the chat messages
                     //if(err){
                     //    throw err;
                     //}
@@ -95,15 +123,31 @@ app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
                     // }
                     //Emit the messages - display them
                     // else{
+                        /*
+                            Need to make this more efficient.
+                            Current time to load all the messages is long
+                            from the database queries
+                        */
                         msgs = chat.messages;
-                        msgs.forEach(msg => {
-                            if(adminNames.includes(msg.name)){
-                                msg.name = msg.name+"(Admin)";
+                        finmsgs = []
+                        for (const msg of msgs) {
+                            var newmsg = {};
+                            newmsg.user = msg.user;
+                            newmsg.name = msg.name;
+                            newmsg.message = msg.message;
+                            var profile = await sqlModels.Profile.findOne({where:{UserId: msg.user}});
+                            if(profile){
+                                newmsg.propic = profile.getProfileInfo().propic;
+                                //console.log(msg.propic)
                             }
-                        })
+                            if(adminNames.includes(msg.name)){
+                                newmsg.name = msg.name+"(Admin)";
+                            }
+                            finmsgs.push(newmsg)
+                        }
                         console.log('joined ' + room)
                         socket.join(room);
-                        socket.emit('output', msgs);
+                        socket.emit('output', finmsgs);
                     
                     // }
                 }).catch(callback => {return callback});
@@ -115,36 +159,45 @@ app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
                 console.log("message coming fron address: " + socket.handshake.address);
                 if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
                     let name = data.name;
-                    let message = data.message;
-                    let r = data.room;
-                    //Check for a name and message
-                    if (name == '' || message == ''){
-                        //send error status
-                        sendStatus('Please enter a name and message');
-                    }else{
-                        //Insert message to database
-                        console.log(r);
-                        client.in(r).emit('output', [data])
-        
-                            //Send status object
-                            sendStatus({
-                                message: 'Message sent', 
-                                clear: true
-                            });
-                        /*
-                        let chatMessage = new Chat({name: name, message: message});
-                        chatMessage.save().then(function(){
-                            //after saving message, emit to all clients connected to that room
+                    sqlModels.Profile.findOne({
+                        where: {
+                            UserId: data.user
+                        }
+                    }).then((profile) => {
+                        if(profile){
+                            data.propic = profile.ppic;
+                        }
+                        let message = data.message;
+                        let r = data.room;
+                        //Check for a name and message
+                        if (name == '' || message == ''){
+                            //send error status
+                            sendStatus('Please enter a name and message');
+                        }else{
+                            //Insert message to database
+                            console.log(r);
                             client.in(r).emit('output', [data])
-        
-                            //Send status object
-                            sendStatus({
-                                message: 'Message sent', 
-                                clear: true
+            
+                                //Send status object
+                                sendStatus({
+                                    message: 'Message sent', 
+                                    clear: true
+                                });
+                            /*
+                            let chatMessage = new Chat({name: name, message: message});
+                            chatMessage.save().then(function(){
+                                //after saving message, emit to all clients connected to that room
+                                client.in(r).emit('output', [data])
+            
+                                //Send status object
+                                sendStatus({
+                                    message: 'Message sent', 
+                                    clear: true
+                                });
                             });
-                        });
-                        */
-                    }
+                            */
+                        }  
+                    })
                 }
                 else{
                     sendStatus({

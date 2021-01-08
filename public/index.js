@@ -1,7 +1,7 @@
 const roomid = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
 
 //window.onload=function(){setTimeout(openModal,600000)};
-
+var loaded = false;
 // Open the Modal
 function openModal() {
     document.getElementById("UXlightbox").style.display = "block";
@@ -67,8 +67,8 @@ var hold;
     }
     //Connect to socket.io
     //Make sure IP address is the IP of the server
-    var socket = io.connect('https://go-off.co:2053');
-    //var socket = io.connect('http://localhost:4050');
+    //var socket = io.connect('https://go-off.co:2053');
+    var socket = io.connect('http://localhost:4050');
 
     //uses the function to find the room
     //var currenturl = 'http://localhost:8000/api/chat/getid?article='
@@ -113,7 +113,11 @@ var hold;
         console.log('Connected to socket' + socket.connected);
         //Handle Output 
         socket.on('output', function(data){
-            console.log(data);
+            //console.log(data);
+            if(loaded == false){
+                messages.innerHTML = ''
+                loaded = true
+            }
             if(data.length){
                 for(var x = 0; x < data.length; x++){
                     //Build out message div
@@ -142,8 +146,13 @@ var hold;
                     para.appendChild(spans);
                     para.appendChild(col);
                     para.appendChild(messa);
+                    var pic = document.createElement('img');
+                    pic.setAttribute('src', data[x].propic)
+                    pic.style.height = "3vh"
+                    pic.style.borderRadius = "50%"
 
                     message.appendChild(para);
+                    message.appendChild(pic);
 
                     /*
                     temp_time = data[x].createdAt;

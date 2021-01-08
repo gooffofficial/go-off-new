@@ -13,6 +13,10 @@ const  roomSchema  =  new Schema({
               type: String
             }]
           },
+          status: {
+            type: Boolean,
+            default: false
+          },
     messages: [{type: Schema.Types.ObjectId, ref: 'Chat'}], //holds user&message - relationship to chat
     
 });

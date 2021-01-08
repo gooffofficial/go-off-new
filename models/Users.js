@@ -88,6 +88,12 @@ module.exports = (sequelize, type) => {
             token: this.generateJWT(),
         };
     }
+
+    User.prototype.getUserId = function(){
+        return {
+            id:this.id
+        }
+    }
     User.prototype.getUserInfo = function(){
         return {
             username: this.username,
