@@ -384,7 +384,7 @@ router.get('/current', auth.required, (req, res, next) => {
     });
 })
 
-router.get('/followers', auth.optional, (req, res, next) => {
+router.get('/following', auth.optional, (req, res, next) => {
   const {payload: {id}} = req;
   const {payload: {username}} = req;
 
@@ -404,12 +404,26 @@ router.get('/followers', auth.optional, (req, res, next) => {
     db.Follower.findAll({
       where: { follower: id} 
     })
-    .then((follower) => {
-      return res.status(200).json({ follower: follower.getFollowerInfo() });
+    .then(async(follower) => {
+      
+      let data = [];
+      
+      for(i = 0; i < follower.length; i++){
+        user = ({ follower: follower[i].getFollowerInfo() });
+        
+        follower_id = user.follower.followed;
+        let fuser = await db.User.findOne({
+          where: {
+            id: follower_id
+          }
+        })
+        data[i] = fuser.name;
+      }
+      return res.status(200).json(data);
     })
-    
   })
 }) 
+
 
 router.get('/profile/:user', auth.optional, (req, res, next) => {
   const {payload: {id}} = req;

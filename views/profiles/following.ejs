@@ -1,6 +1,65 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <p>following</p>
+    <body onload="fillinVar()">
+        <div id="followerlist"></div>
     </body>
+
+    <script>
+        function fillinVar(){
+            console.log("test");
+            (function(){
+                console.log("test1");
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    console.log("test2");
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log("test3");
+                        console.log(this.responseText)
+                        var myArr = JSON.parse(this.responseText);
+                        var ul = document.createElement("ul");
+                        var li, a, text;
+                        for (var i = 0, l = myArr.length; i < l; ++i) {
+                            li = document.createElement('li');
+                            a  = document.createElement('a');
+                            text = document.createTextNode(myArr[i]);
+
+                            a.href = passurl();
+                            a.setAttribute("class", "some-class-name");
+                            a.appendChild(text);
+                            li.appendChild(a);
+                            ul.appendChild(li);
+
+                        }
+                        document.querySelector("#followerlist").appendChild(ul);
+                        
+                        console.log(myArr);
+                    }
+                };
+                xhr.open("GET", '/api/users/following', true);
+                xhr.withCredentials = true;
+                xhr.send();
+            })();
+        }
+
+        //function to get url for chat room
+        function passurl() {
+			var xhr1 = new XMLHttpRequest();
+			xhr1.onreadystatechange = function () {
+				// if (this.readyState == 4 && this.status == 200) {
+				var idnum = JSON.parse(this.responseText);
+				// console.log('the idnum set to', idnum.id);
+				// socket.emit('room', idnum.id); //sets the room to that idnum returned
+
+				console.log("hello");
+                // location.href = "/chat/" + idnum.id;
+                
+				// }else{
+				//     console.log("its not working");
+				// }
+			};
+			
+			xhr1.open("GET", '/api/chat/=' , true);
+			xhr1.send();
+		}
+    </script>
 </html>

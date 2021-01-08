@@ -5,6 +5,8 @@
     </head>
     <body onload="fillinVar()">
         <p>followers</p>
+
+        <h1 id="followers"></h1>
     </body>
 
 
@@ -23,7 +25,7 @@
                         console.log(myArr);
                     }
                 };
-                xhr.open("GET", '/api/users/followers', true);
+                xhr.open("GET", '/api/users/following', true);
                 xhr.withCredentials = true;
                 xhr.send();
             })();

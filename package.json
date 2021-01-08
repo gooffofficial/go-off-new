@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "express-jwt": "^5.3.3",
     "express-session": "^1.17.1",
-    "express-validator": "^6.8.1",
+    "express-validator": "^6.9.0",
     "http-server": "^0.12.3",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.19",
