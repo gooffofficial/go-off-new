@@ -1,4 +1,4 @@
-const roomid = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
+const toUser = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
 
 //window.onload=function(){setTimeout(openModal,600000)};
 var loaded = false;
@@ -13,10 +13,10 @@ function openModal() {
   }
 
 //keep track of current users
+var roomid = ''
 var users = [];
 var hold; 
-(function(){
-    var xhr = new XMLHttpRequest();
+    /*var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var myArr = JSON.parse(this.responseText);
@@ -24,20 +24,29 @@ var hold;
             document.getElementById("username").innerHTML = myArr.user.username + " (you)"; 
             hold = document.getElementById("username");
             console.log(hold);
+            var dmUsers = [toUser, myArr.user.username];
+            dmUsers.sort();
+            roomid = dmUsers[0]+dmUsers[1];
+            console.log(roomid)
         }
     };
     xhr.open("GET", '/api/users/current', true); //finds the current user
     //xhr.open("GET", 'http://localhost:8000/api/users/current', true);
     xhr.send();
-    // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
-    // document.getElementById("username").innerHTML = result.user.name;
-    // console.log(result.user.name);
-    // hold = document.getElementById("username");
-    // console.log('hold', hold);
-// })
-})();
-(function(){
-
+    */
+    fetch('/api/users/current').then((response) => {
+        return response.json()
+    }).then((myArr) => {
+            console.log(myArr)
+            document.getElementById("username").innerHTML = myArr.user.username + " (you)"; 
+            hold = document.getElementById("username");
+            console.log(hold);
+            var dmUsers = [toUser, myArr.user.username];
+            dmUsers.sort();
+            roomid = dmUsers[0]+dmUsers[1];
+            console.log(roomid)
+    }).then(() => {
+    console.log(roomid)
     var element = function(id){
         return document.getElementById(id);
     }
@@ -67,13 +76,13 @@ var hold;
     }
     //Connect to socket.io
     //Make sure IP address is the IP of the server
-    var socket = io.connect('https://go-off.co:2053');
-    //var socket = io.connect('http://localhost:4050');
+    //var socket = io.connect('https://go-off.co:2053');
+    var socket = io.connect('http://localhost:4050');
 
     //uses the function to find the room
     //var currenturl = 'http://localhost:8000/api/chat/getid?article='
     // setid(function(roomnum){
-        socket.emit('room', roomid)
+        socket.emit('dm', roomid)
         console.log('socketis emitted');
     // });
 
@@ -221,7 +230,8 @@ var hold;
                     var xhr = new XMLHttpRequest();
                     //find id first then do the post request
                     
-                    xhr.open("POST", "/api/chat/" + roomid, true);
+                    console.log(roomid)
+                    xhr.open("POST", "/api/chat/m/" + roomid, true);
                     //xhr.open("POST", "http://localhost:8000/api/chat/" + roomid, true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.send(JSON.stringify({
@@ -238,7 +248,7 @@ var hold;
             var xhr = new XMLHttpRequest();
             //find id first then do the post request
                     
-            xhr.open("POST", "/api/chat/" + roomid, true);
+            xhr.open("POST", "/api/chat/m/" + roomid, true);
             //xhr.open("POST", "http://localhost:8000/api/chat/" + roomid, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify({
@@ -275,7 +285,16 @@ var hold;
 
         });
     }
-})();
+    })
+    // fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
+    // document.getElementById("username").innerHTML = result.user.name;
+    // console.log(result.user.name);
+    // hold = document.getElementById("username");
+    // console.log('hold', hold);
+// })
+//(function(){
+    
+//})();
 // chrome.browserAction.setPopup({
 //     popup:''
 //   });
