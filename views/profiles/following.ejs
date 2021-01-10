@@ -6,6 +6,7 @@
 
     <script>
         function fillinVar(){
+            numusers = 0;
             console.log("test");
             (function(){
                 console.log("test1");
@@ -16,22 +17,27 @@
                         console.log("test3");
                         console.log(this.responseText)
                         var myArr = JSON.parse(this.responseText);
-                        var ul = document.createElement("ul");
-                        var li, a, text;
+                        console.log(myArr);
+                        var div, a, text, img;
                         for (var i = 0, l = myArr.length; i < l; ++i) {
-                            li = document.createElement('li');
+                            div = document.createElement('div');
                             a  = document.createElement('a');
-                            text = document.createTextNode(myArr[i]);
+                            img = document.createElement('img');
+                            text = document.createTextNode(myArr[i][0]);
 
-                            a.href = passurl();
-                            a.setAttribute("class", "some-class-name");
+                            img.setAttribute("src", myArr[i][1]);
+                            img.setAttribute("width", "5%");
+                            img.setAttribute("height", "5%");
+
+                            user = myArr[i];
+                            a.setAttribute("class", "user" + i);
+                            a.setAttribute("href", "/m/" + user);
                             a.appendChild(text);
-                            li.appendChild(a);
-                            ul.appendChild(li);
-
+                            div.appendChild(a);
+                            document.querySelector("#followerlist").appendChild(div);
+                            document.querySelector("#followerlist").appendChild(img);
                         }
-                        document.querySelector("#followerlist").appendChild(ul);
-                        
+                         
                         console.log(myArr);
                     }
                 };
@@ -40,26 +46,5 @@
                 xhr.send();
             })();
         }
-
-        //function to get url for chat room
-        function passurl() {
-			var xhr1 = new XMLHttpRequest();
-			xhr1.onreadystatechange = function () {
-				// if (this.readyState == 4 && this.status == 200) {
-				var idnum = JSON.parse(this.responseText);
-				// console.log('the idnum set to', idnum.id);
-				// socket.emit('room', idnum.id); //sets the room to that idnum returned
-
-				console.log("hello");
-                // location.href = "/chat/" + idnum.id;
-                
-				// }else{
-				//     console.log("its not working");
-				// }
-			};
-			
-			xhr1.open("GET", '/api/chat/=' , true);
-			xhr1.send();
-		}
     </script>
 </html>

@@ -417,7 +417,14 @@ router.get('/following', auth.optional, (req, res, next) => {
             id: follower_id
           }
         })
-        data[i] = fuser.name;
+        
+        profile = follower_id;
+        let puser = await db.Profile.findOne({
+          where: {
+            UserId: profile
+          }
+        })
+        data.push([fuser.username, puser.ppic]);
       }
       return res.status(200).json(data);
     })

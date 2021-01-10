@@ -599,11 +599,13 @@
 			var xhr1 = new XMLHttpRequest();
 			xhr1.onreadystatechange = function () {
 				// if (this.readyState == 4 && this.status == 200) {
+				console.log(this.responseText);
 				var idnum = JSON.parse(this.responseText);
 				// console.log('the idnum set to', idnum.id);
 				// socket.emit('room', idnum.id); //sets the room to that idnum returned
 
 				console.log("hello");
+				console.log(idnum);
 				location.href = "/chat/" + idnum.id;
 				console.log(location.href)
 				// }else{
@@ -642,6 +644,7 @@
 				// console.log('the idnum set to', idnum.id);
 				// socket.emit('room', idnum.id); //sets the room to that idnum returned
 
+				console.log(idnum);
 				console.log("hello");
 				location.href = "/chat/" + idnum.id;
 				// }else{
