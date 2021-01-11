@@ -29,7 +29,8 @@
                             img.setAttribute("width", "5%");
                             img.setAttribute("height", "5%");
 
-                            user = myArr[i];
+                            user = myArr[i][0];
+                            console.log(myArr[i][0]);
                             a.setAttribute("class", "user" + i);
                             a.setAttribute("href", "/m/" + user);
                             a.appendChild(text);
