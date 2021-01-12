@@ -205,6 +205,19 @@ app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
                     })
                 }
             });
+
+            //Handle user leaving
+            socket.on('leave', function(data) {
+                if(address == '::ffff:127.0.0.1'){ //ensure that only the express server can send messages directly
+                    let r = data.room;
+                    client.in(r).emit('userLeave', data)
+                }
+                else{
+                    sendStatus({
+                        message: 'Your source is not authorized to send messages'
+                    })
+                }
+            })
             //Handle clear
             socket.on('clear', function(data){
                 //Remove all chats from the collection
