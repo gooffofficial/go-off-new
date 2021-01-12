@@ -469,6 +469,8 @@ button {
 	text-align: center;
 	padding: 0px 10px;
 }
+
+
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 1690px) {
@@ -488,3 +490,4 @@ button {
 		--pageWidth: 800px;
 	}
 }
+
