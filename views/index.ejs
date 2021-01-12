@@ -54,6 +54,9 @@
                             <button id = "send"> send </button>
                         <% } %>
                     </div>
+                    <form method="post" action="/api/chat/leave/<%=id%>">
+                        <button type="submit" id="end">Leave Conversation</button>
+                    </form>
                     <button id="logout"> Logout </button>
                     <%if (status != true) { %>
                         <%if (admin == true) { %>

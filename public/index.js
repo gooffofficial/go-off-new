@@ -67,8 +67,8 @@ var hold;
     }
     //Connect to socket.io
     //Make sure IP address is the IP of the server
-    var socket = io.connect('https://go-off.co:2053');
-    //var socket = io.connect('http://localhost:4050');
+    //var socket = io.connect('https://go-off.co:2053');
+    var socket = io.connect('http://localhost:4050');
 
     //uses the function to find the room
     //var currenturl = 'http://localhost:8000/api/chat/getid?article='
@@ -130,6 +130,7 @@ var hold;
                     if(!users.includes(names)){
                         users.push(names);
                         p = document.createElement('p');
+                        p.setAttribute("id", names);
                         p.textContent = names;
                         document.getElementById("participants").appendChild(p);
                     }
@@ -205,6 +206,14 @@ var hold;
             */
         });
         
+        //Handle a user leaving the room
+        socket.on('userLeave', function(data) {
+            if(users.includes(data.name)){
+                users.splice(users.indexOf(data.name),1);
+                var removeName = document.getElementById(data.name);
+                removeName.remove();
+            }
+        })
 
         //Handle Input
         textarea.addEventListener('keydown', function(event){

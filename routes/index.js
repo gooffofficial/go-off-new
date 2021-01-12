@@ -25,10 +25,21 @@ router.get('/followers', auth.required, (req, res, next) => {
     res.render('profiles/followers', {user: username})
 })
 
+router.get('/followers/:user', auth.required, (req, res, next) => {
+    const { payload: { username } } = req;
+    res.render('profiles/followers', {user: req.params.user})
+})
+
 router.get('/following', auth.required, (req, res, next) => {
     const { payload: { username } } = req;
     res.render('profiles/following', {user: username})
 })
+
+router.get('/following/:user', auth.required, (req, res, next) => {
+    const { payload: { username } } = req;
+    res.render('profiles/following', {user: req.params.user})
+})
+
 
 //route to get into direct messages
 router.get('/m/:username', auth.required, (req, res, next) => {
@@ -88,7 +99,7 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
                     title = title.substring(0,30);
                 }
                 if(user.admin != "(Admin)"){
-                    return res.render('index', {admin: false, status: room.status, title: title, url: article.url, js: "index.js"});
+                    return res.render('index', {admin: false, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
                 }
                 else{
                     return res.render('index', {admin: true, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});

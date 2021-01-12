@@ -154,6 +154,27 @@ router.get('/getid', auth.optional, (req, res, next) => {
     })
 })
 
+//route for user to leave conversation
+router.post('/leave/:roomid', auth.required, (req, res, next) => {
+    const { payload: {id, username} } = req;
+    var roomId = req.params.roomid;
+    Room.findById(roomId, (err, room) => {
+        if(err){
+            console.log(err);
+            res.send(err);
+        }
+        socket.emit('leave', {
+            name: username,
+            room: roomId,
+            user: id
+        });
+        room.users.pull(id);
+        room.save().then(() => {
+            return res.redirect('/profiles/'+username)
+        })
+    })
+})
+
 //route to end conversation
 router.post('/end/:roomid', auth.required, (req, res, next) => {
     const { payload: { id } } = req;
