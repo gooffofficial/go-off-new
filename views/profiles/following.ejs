@@ -33,6 +33,7 @@
                             console.log(myArr[i][0]);
                             a.setAttribute("class", "user" + i);
                             a.setAttribute("href", "/m/" + user);
+                            a.setAttribute("target", "_blank");
                             a.appendChild(text);
                             div.appendChild(a);
                             document.querySelector("#followerlist").appendChild(div);
@@ -42,7 +43,7 @@
                         console.log(myArr);
                     }
                 };
-                xhr.open("GET", '/api/users/following', true);
+                xhr.open("GET", '/api/users/following/<%=user%>', true);
                 xhr.withCredentials = true;
                 xhr.send();
             })();

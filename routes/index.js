@@ -25,10 +25,21 @@ router.get('/followers', auth.required, (req, res, next) => {
     res.render('profiles/followers', {user: username})
 })
 
+router.get('/followers/:user', auth.required, (req, res, next) => {
+    const { payload: { username } } = req;
+    res.render('profiles/followers', {user: req.params.user})
+})
+
 router.get('/following', auth.required, (req, res, next) => {
     const { payload: { username } } = req;
     res.render('profiles/following', {user: username})
 })
+
+router.get('/following/:user', auth.required, (req, res, next) => {
+    const { payload: { username } } = req;
+    res.render('profiles/following', {user: req.params.user})
+})
+
 
 //route to get into direct messages
 router.get('/m/:username', auth.required, (req, res, next) => {

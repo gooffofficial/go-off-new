@@ -431,6 +431,52 @@ router.get('/following', auth.optional, (req, res, next) => {
   })
 }) 
 
+router.get('/following/:user', auth.optional, (req, res, next) => {
+  const {payload: {id}} = req;
+  const {payload: {username}} = req;
+
+  //finds username in database
+  return db.User.findOne({
+    where: {
+      username: req.params.user
+    }
+  })
+
+  .then((user) => {
+    //checks if the person accessing the file is the user
+    if(!user) {
+      return res.sendStatus(400);
+    }
+    //find all users that we follow
+    db.Follower.findAll({
+      where: { follower: user.id} 
+    })
+    .then(async(follower) => {
+      
+      let data = [];
+      
+      for(i = 0; i < follower.length; i++){
+        user = ({ follower: follower[i].getFollowerInfo() });
+        
+        follower_id = user.follower.followed;
+        let fuser = await db.User.findOne({
+          where: {
+            id: follower_id
+          }
+        })
+        
+        profile = follower_id;
+        let puser = await db.Profile.findOne({
+          where: {
+            UserId: profile
+          }
+        })
+        data.push([fuser.username, puser.ppic]);
+      }
+      return res.status(200).json(data);
+    })
+  })
+}) 
 
 router.get('/profile/:user', auth.optional, (req, res, next) => {
   const {payload: {id}} = req;
