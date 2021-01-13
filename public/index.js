@@ -149,7 +149,6 @@ var hold;
                     para.appendChild(messa);
                     var pic = document.createElement('img');
                     pic.setAttribute('src', data[x].propic)
-                    pic.style.height = "3vh"
                     pic.style.borderRadius = "50%"
 
                     message.appendChild(para);
