@@ -191,7 +191,7 @@ var hold;
                     //message.textContent = data[x].name+": "+data[x].message;
                     //message.textContent = /*"(" + time+") "+ */names+": "+mess
                     messages.appendChild(message);
-                    insertAfter(message.firstChild,message);
+                    //insertAfter(message.firstChild,message);
                     
                     //messages.insertBefore(message, messages.firstChild); //makes the most recent message to be on top
                     console.log(messages);

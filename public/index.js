@@ -149,10 +149,10 @@ var hold;
                     para.appendChild(messa);
                     var pic = document.createElement('img');
                     pic.setAttribute('src', data[x].propic)
+                    pic.style.height = "3vh"
                     pic.style.borderRadius = "50%"
-
-                    message.appendChild(para);
                     message.appendChild(pic);
+                    message.appendChild(para);
 
                     /*
                     temp_time = data[x].createdAt;
@@ -182,7 +182,7 @@ var hold;
                     //message.textContent = data[x].name+": "+data[x].message;
                     //message.textContent = /*"(" + time+") "+ */names+": "+mess
                     messages.appendChild(message);
-                    insertAfter(message.firstChild,message);
+                    //insertAfter(message.firstChild,message);
                     
                     //messages.insertBefore(message, messages.firstChild); //makes the most recent message to be on top
                     console.log(messages);
