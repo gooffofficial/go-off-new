@@ -99,13 +99,14 @@
 }
 
 #search-input-results {
-	border-radius: 5px;
+	border-radius: 8px;
 	position: absolute;
 	top: 50px;
 	left: 74px;
 	right: 430px;
 	z-index: 1000;
 	overflow: hidden;
+	box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.05);
 }
 
 #search-input-results a {
