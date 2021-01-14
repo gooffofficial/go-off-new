@@ -98,6 +98,32 @@
 	right: 430px;
 }
 
+#search-input-results {
+	border-radius: 5px;
+	position: absolute;
+	top: 50px;
+	left: 74px;
+	right: 430px;
+	z-index: 1000;
+	overflow: hidden;
+}
+
+#search-input-results a {
+	font-family: Poppins_Medium_Regular;
+	font-size: 14px;
+	color: #000;
+	padding: 15px 0px 15px 46px;
+	display: block;
+	text-decoration: none;
+	background-color: #fff;
+}
+
+#search-input-results a:hover {
+	text-decoration: none;
+	/* background-color: rgba(0, 0, 0, 0.1); */
+	background-color: #d8d8d8;
+}
+
 .search-icon {
 	position: absolute;
 	left: 8px;

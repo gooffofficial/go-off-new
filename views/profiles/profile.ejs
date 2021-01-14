@@ -48,14 +48,17 @@
 			<div class="searchContainer align-self-center d-flex">
 				<!-- <form id="bar_form"> SEARCH BAR NEEDS TO BE CONNECTED -->
 				<img src="/search_icon.svg" class="search-icon align-self-center">
-				<input type="text" id="search" placeholder="Search" onkeyup="plsWork(this.value)">
+				<input type="text" id="search" placeholder="Search" autocomplete="off" onkeyup="plsWork(this.value)">
 				<!-- </form> -->
+				<!--<p>Suggestions: <span id="txtHint"></span></p>-->
+			</div>
+
+			<div id="search-input-results">
 				<a id="search-1"></a>
 				<a id="search-2"></a>
 				<a id="search-3"></a>
 				<a id="search-4"></a>
 				<a id="search-5"></a>
-				<!--<p>Suggestions: <span id="txtHint"></span></p>-->
 			</div>
 
 			<div class="navigationProfile d-flex">
