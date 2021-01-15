@@ -43,7 +43,7 @@ var hold;
 	}
 
 	//Get Elements
-	var status = element('status');
+	//var status = element('status');
 	var messages = element('messages');
 	var textarea = element('textarea');
 	var username = element('username');

@@ -53,7 +53,7 @@
 				<!--<p>Suggestions: <span id="txtHint"></span></p>-->
 			</div>
 
-			<div id="search-input-results">
+			<div id="search-input-results" style="visibility: hidden">
 				<a id="search-1"></a>
 				<a id="search-2"></a>
 				<a id="search-3"></a>
@@ -566,7 +566,7 @@
 
 		}
 
-		document.getElementById("bar_form").style.visibility = "hidden";
+		//document.getElementById("bar_form").style.visibility = "hidden";
 
 		//SEARCH BAR function
 		function plsWork(str) {
@@ -574,14 +574,15 @@
 			var stringz = ""
 			var count = 1
 			if (str.length < 2) {
+				document.getElementById('search-input-results').style.visibility = 'hidden';
 				document.getElementById("search-1").innerText = "";
 				document.getElementById("search-2").innerText = "";
 				document.getElementById("search-3").innerText = "";
 				document.getElementById("search-4").innerText = "";
 				document.getElementById("search-5").innerText = "";
-
 				return;
 			} else {
+				document.getElementById('search-input-results').style.visibility = 'visible';
 				var xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
