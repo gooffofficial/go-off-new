@@ -21,6 +21,7 @@
                         var div, a, text, img;
                         for (var i = 0, l = myArr.length; i < l; ++i) {
                             div = document.createElement('div');
+                            div.setAttribute('class', 'follow-list-element')
                             a  = document.createElement('a');
                             img = document.createElement('img');
                             text = document.createTextNode(myArr[i][0]);
