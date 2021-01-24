@@ -37,8 +37,7 @@ var hold;
     fetch('/api/users/current').then((response) => {
         return response.json()
     }).then((myArr) => {
-            console.log(myArr)
-            document.getElementById("username").innerHTML = myArr.user.username + " (you)"; 
+            console.log(myArr) 
             hold = document.getElementById("username");
             console.log(hold);
             var dmUsers = [toUser, myArr.user.username];
@@ -56,13 +55,13 @@ var hold;
     var messages = element('messages');
     var textarea = element('textarea');
     var username = element('username');
-    console.log(username.textContent);
+    //console.log(username.textContent);
     var clearBtn = element('clear');
     var sendBtn = element('send');
 
 
     //Set default status
-    var statusDefault = status.textContent;
+    //var statusDefault = status.textContent;
 
     var setStatus = function(s){
         //set status
@@ -134,14 +133,6 @@ var hold;
                     message.setAttribute('class', 'chat-message');
                     names = data[x].name
                     mess = data[x].message
-
-                    //participants
-                    if(!users.includes(names)){
-                        users.push(names);
-                        p = document.createElement('p');
-                        p.textContent = names;
-                        document.getElementById("participants").appendChild(p);
-                    }
 
                     var para = document.createElement('p');
                     //for name 
