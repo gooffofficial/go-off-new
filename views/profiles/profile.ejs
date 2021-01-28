@@ -162,7 +162,7 @@
 			</div>
 		</div>
 		
-		<div id = "tabs-container" style = "margin-top: 100px;"> 
+		<!--<div id = "tabs-container" style = "margin-top: 100px;"> 
 			<hr>
 			<nav>
 				<ul id="tabs-ul">
@@ -173,288 +173,314 @@
 						href="#following-modal">Following</a></li>
 				</ul>
 			</nav>	
+		</div> -->
+
+		<!-- Tab links -->
+		<div class="tab" id = "tabs-container" style="margin-top: 100px">
+			<button class="tablinks active" onclick="openCity(event, 'Media')">Media</button>
+			<button class="tablinks" onclick="openCity(event, 'Folders')">Folders</button>
+			<button class="tablinks" onclick="openCity(event, 'Content')">Content</button>
+			<!--<button class="tablinks" onclick="openCity(event, 'Following')">Following</button>-->
+			<button class="tablinks" a data-target="#following-modal" data-toggle="modal" href="#following-modal">Following</button>
 		</div>
 
-		<div id="articles-container">
-			<h1 id="articles-text">ARTICLES</h1>
+		<div id="Media" class="tabcontent" style = "display: block;">
+			<div id="articles-container">
+				<h1 id="articles-text">ARTICLES</h1>
 
-			<div id="article-1" class="article">
-				<a id="article1_link">
-					<div class="article-image-container">
-						<img id="article-1-image" class="article-image">
+				<div id="article-1" class="article">
+					<a id="article1_link">
+						<div class="article-image-container">
+							<img id="article-1-image" class="article-image">
+						</div>
+					</a>
+
+					<div class="article-info-container">
+						<a id="article1_link2">
+							<h4 id="article-1-author" class="article-author"></h4>
+						</a>
+						<a id="article1_link3">
+							<h4 id="article-1-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="article1_link1">
+							<h3 id="article-1-title" class="article-title"></h3>
+						</a>
 					</div>
-				</a>
 
-				<div class="article-info-container">
-					<a id="article1_link2">
-						<h4 id="article-1-author" class="article-author"></h4>
-					</a>
-					<a id="article1_link3">
-						<h4 id="article-1-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="article1_link1">
-						<h3 id="article-1-title" class="article-title"></h3>
-					</a>
-				</div>
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-
-				<div class="article-chat-button">
-					<button onclick="passurl1()">
-						Chat about this article
-					</button>
-				</div>
-			</div>
-
-			<div id="article-2" class="article">
-				<a id="article2_link">
-					<div class="article-image-container">
-						<img id="article-2-image" class="article-image">
+						<img src="/more_horiz.svg" class="horiz-icon">
 					</div>
-				</a>
 
-				<div class="article-info-container">
-					<a id="article2_link2">
-						<h4 id="article-2-author" class="article-author"></h4>
-					</a>
-					<a id="article2_link3">
-						<h4 id="article-2-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="article2_link1">
-						<h3 id="article-2-title" class="article-title"></h3>
-					</a>
-				</div>
-
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-
-				<div class="article-chat-button">
-					<button onclick="passurl2()">
-						Chat about this article
-					</button>
-				</div>
-			</div>
-
-			<div id="article-3" class="article">
-				<a id="article3_link">
-					<div class="article-image-container">
-						<img id="article-3-image" class="article-image">
+					<div class="article-chat-button">
+						<button onclick="passurl1()">
+							Chat about this article
+						</button>
 					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="article3_link2">
-						<h4 id="article-3-author" class="article-author"></h4>
-					</a>
-					<a id="article3_link3">
-						<h4 id="article-3-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="article3_link1">
-						<h3 id="article-3-title" class="article-title"></h3>
-					</a>
 				</div>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
+				<div id="article-2" class="article">
+					<a id="article2_link">
+						<div class="article-image-container">
+							<img id="article-2-image" class="article-image">
+						</div>
+					</a>
 
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-
-				<div class="article-chat-button">
-					<button onclick="passurl3()">
-						Chat about this article
-					</button>
-				</div>
-			</div>
-
-			<div id="article-3" class="article">
-				<a id="article3_link">
-					<div class="article-image-container">
-						<img id="article-3-image" class="article-image">
+					<div class="article-info-container">
+						<a id="article2_link2">
+							<h4 id="article-2-author" class="article-author"></h4>
+						</a>
+						<a id="article2_link3">
+							<h4 id="article-2-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="article2_link1">
+							<h3 id="article-2-title" class="article-title"></h3>
+						</a>
 					</div>
-				</a>
 
-				<div class="article-info-container">
-					<a id="article3_link2">
-						<h4 id="article-3-author" class="article-author"></h4>
-					</a>
-					<a id="article3_link3">
-						<h4 id="article-3-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="article3_link1">
-						<h3 id="article-3-title" class="article-title"></h3>
-					</a>
-				</div>
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-
-				<div class="article-chat-button">
-					<button onclick="passurl3()">
-						Chat about this article
-					</button>
-				</div>
-			</div>
-		</div>
-
-		<div id="user-articles-container">
-			<h1 id="articles-text">USER ARTICLES</h1>
-
-			<div id="user-article-1" class="article">
-				<a id="user-article1_link">
-					<div class="article-image-container">
-						<img id="user-article-1-image" class="article-image">
+						<img src="/more_horiz.svg" class="horiz-icon">
 					</div>
-				</a>
 
-				<div class="article-info-container">
-					<a id="user-article1_link2">
-						<h4 id="user-article-1-author" class="article-author"></h4>
-					</a>
-					<a id="user-article1_link3">
-						<h4 id="user-article-1-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article1_link1">
-						<h3 id="user-article-1-title" class="article-title"></h3>
-					</a>
-				</div>
-
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-			</div>
-
-			<div class="user-Chat1" id="update1" style="display: none;">
-				<form action="/api/users/add_article1" method="post" id="Dot3">
-					<label for="url">Article Url:</label>
-					<input type="text" id="url" name="article">
-					<input type="submit" value="update">
-				</form>
-			</div>
-
-			<div id="user-article-2" class="article">
-				<a id="user-article2_link">
-					<div class="article-image-container">
-						<img id="user-article-2-image" class="article-image">
+					<div class="article-chat-button">
+						<button onclick="passurl2()">
+							Chat about this article
+						</button>
 					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="user-article2_link2">
-						<h4 id="user-article-2-author" class="article-author"></h4>
-					</a>
-					<a id="user-article2_link3">
-						<h4 id="user-article-2-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article2_link1">
-						<h3 id="user-article-2-title" class="article-title"></h3>
-					</a>
 				</div>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
+				<div id="article-3" class="article">
+					<a id="article3_link">
+						<div class="article-image-container">
+							<img id="article-3-image" class="article-image">
+						</div>
+					</a>
 
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-			</div>
-
-			<div class="user-Chat2" id="update2" style="display: none;">
-				<form action="/api/users/add_article2" method="post" id="Dot3">
-					<label for="url">Article Url:</label>
-					<input type="text" id="url" name="article">
-					<input type="submit" value="update">
-				</form>
-			</div>
-
-			<div id="user-article-3" class="article">
-				<a id="user-article3_link">
-					<div class="article-image-container">
-						<img id="user-article-3-image" class="article-image">
+					<div class="article-info-container">
+						<a id="article3_link2">
+							<h4 id="article-3-author" class="article-author"></h4>
+						</a>
+						<a id="article3_link3">
+							<h4 id="article-3-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="article3_link1">
+							<h3 id="article-3-title" class="article-title"></h3>
+						</a>
 					</div>
-				</a>
 
-				<div class="article-info-container">
-					<a id="user-article3_link2">
-						<h4 id="user-article-3-author" class="article-author"></h4>
-					</a>
-					<a id="user-article3_link3">
-						<h4 id="user-article-3-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article3_link1">
-						<h3 id="user-article-3-title" class="article-title"></h3>
-					</a>
-				</div>
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-			</div>
-
-			<div class="user-Chat3" id="update3" style="display:none">
-				<form action="/api/users/add_article3" method="post" id="Dot3">
-					<label for="url">Article Url:</label>
-					<input type="text" id="url" name="article">
-					<input type="submit" value="update">
-				</form>
-			</div>
-
-			<div id="user-article-3" class="article">
-				<a id="user-article3_link">
-					<div class="article-image-container">
-						<img id="user-article-3-image" class="article-image">
+						<img src="/more_horiz.svg" class="horiz-icon">
 					</div>
-				</a>
 
-				<div class="article-info-container">
-					<a id="user-article3_link2">
-						<h4 id="user-article-3-author" class="article-author"></h4>
-					</a>
-					<a id="user-article3_link3">
-						<h4 id="user-article-3-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article3_link1">
-						<h3 id="user-article-3-title" class="article-title"></h3>
-					</a>
+					<div class="article-chat-button">
+						<button onclick="passurl3()">
+							Chat about this article
+						</button>
+					</div>
 				</div>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
+				<div id="article-3" class="article">
+					<a id="article3_link">
+						<div class="article-image-container">
+							<img id="article-3-image" class="article-image">
+						</div>
+					</a>
 
-					<img src="/more_horiz.svg" class="horiz-icon">
+					<div class="article-info-container">
+						<a id="article3_link2">
+							<h4 id="article-3-author" class="article-author"></h4>
+						</a>
+						<a id="article3_link3">
+							<h4 id="article-3-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="article3_link1">
+							<h3 id="article-3-title" class="article-title"></h3>
+						</a>
+					</div>
+
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
+
+						<img src="/more_horiz.svg" class="horiz-icon">
+					</div>
+
+					<div class="article-chat-button">
+						<button onclick="passurl3()">
+							Chat about this article
+						</button>
+					</div>
 				</div>
 			</div>
 
-			<div class="user-Chat3" id="update3" style="display:none">
-				<form action="/api/users/add_article3" method="post" id="Dot3">
-					<label for="url">Article Url:</label>
-					<input type="text" id="url" name="article">
-					<input type="submit" value="update">
-				</form>
+			<div id="user-articles-container">
+				<h1 id="articles-text">USER ARTICLES</h1>
+
+				<div id="user-article-1" class="article">
+					<a id="user-article1_link">
+						<div class="article-image-container">
+							<img id="user-article-1-image" class="article-image">
+						</div>
+					</a>
+
+					<div class="article-info-container">
+						<a id="user-article1_link2">
+							<h4 id="user-article-1-author" class="article-author"></h4>
+						</a>
+						<a id="user-article1_link3">
+							<h4 id="user-article-1-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article1_link1">
+							<h3 id="user-article-1-title" class="article-title"></h3>
+						</a>
+					</div>
+
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
+
+						<img src="/more_horiz.svg" class="horiz-icon">
+					</div>
+				</div>
+
+				<div class="user-Chat1" id="update1" style="display: none;">
+					<form action="/api/users/add_article1" method="post" id="Dot3">
+						<label for="url">Article Url:</label>
+						<input type="text" id="url" name="article">
+						<input type="submit" value="update">
+					</form>
+				</div>
+
+				<div id="user-article-2" class="article">
+					<a id="user-article2_link">
+						<div class="article-image-container">
+							<img id="user-article-2-image" class="article-image">
+						</div>
+					</a>
+
+					<div class="article-info-container">
+						<a id="user-article2_link2">
+							<h4 id="user-article-2-author" class="article-author"></h4>
+						</a>
+						<a id="user-article2_link3">
+							<h4 id="user-article-2-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article2_link1">
+							<h3 id="user-article-2-title" class="article-title"></h3>
+						</a>
+					</div>
+
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
+
+						<img src="/more_horiz.svg" class="horiz-icon">
+					</div>
+				</div>
+
+				<div class="user-Chat2" id="update2" style="display: none;">
+					<form action="/api/users/add_article2" method="post" id="Dot3">
+						<label for="url">Article Url:</label>
+						<input type="text" id="url" name="article">
+						<input type="submit" value="update">
+					</form>
+				</div>
+
+				<div id="user-article-3" class="article">
+					<a id="user-article3_link">
+						<div class="article-image-container">
+							<img id="user-article-3-image" class="article-image">
+						</div>
+					</a>
+
+					<div class="article-info-container">
+						<a id="user-article3_link2">
+							<h4 id="user-article-3-author" class="article-author"></h4>
+						</a>
+						<a id="user-article3_link3">
+							<h4 id="user-article-3-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article3_link1">
+							<h3 id="user-article-3-title" class="article-title"></h3>
+						</a>
+					</div>
+
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
+
+						<img src="/more_horiz.svg" class="horiz-icon">
+					</div>
+				</div>
+
+				<div class="user-Chat3" id="update3" style="display:none">
+					<form action="/api/users/add_article3" method="post" id="Dot3">
+						<label for="url">Article Url:</label>
+						<input type="text" id="url" name="article">
+						<input type="submit" value="update">
+					</form>
+				</div>
+
+				<div id="user-article-3" class="article">
+					<a id="user-article3_link">
+						<div class="article-image-container">
+							<img id="user-article-3-image" class="article-image">
+						</div>
+					</a>
+
+					<div class="article-info-container">
+						<a id="user-article3_link2">
+							<h4 id="user-article-3-author" class="article-author"></h4>
+						</a>
+						<a id="user-article3_link3">
+							<h4 id="user-article-3-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article3_link1">
+							<h3 id="user-article-3-title" class="article-title"></h3>
+						</a>
+					</div>
+
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
+
+						<img src="/more_horiz.svg" class="horiz-icon">
+					</div>
+				</div>
+
+				<div class="user-Chat3" id="update3" style="display:none">
+					<form action="/api/users/add_article3" method="post" id="Dot3">
+						<label for="url">Article Url:</label>
+						<input type="text" id="url" name="article">
+						<input type="submit" value="update">
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
+  
+  <div id="Folders" class="tabcontent">
+	<h3>Folders</h3>
+	<p>Paris is the capital of France.</p>
+  </div>
+  
+  <div id="Content" class="tabcontent">
+	<h3>Content</h3>
+	<p>Tokyo is the capital of Japan.</p>
+  </div>
+
+  <div id="Following" class="tabcontent">
+	<h3>Following</h3>
+	<p>Tokyo is the capital of Japan.</p>
+  </div>
 
 	<footer>
 		<div class="footer-container">
@@ -545,6 +571,27 @@
 		}
 
 		document.getElementById("bar_form").style.visibility = "hidden";
+
+		function openCity(evt, cityName) {
+			// Declare all variables
+			var i, tabcontent, tablinks;
+
+			// Get all elements with class="tabcontent" and hide them
+			tabcontent = document.getElementsByClassName("tabcontent");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+
+			// Get all elements with class="tablinks" and remove the class "active"
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+
+			// Show the current tab, and add an "active" class to the button that opened the tab
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
 
 		//SEARCH BAR function
 		function plsWork(str){

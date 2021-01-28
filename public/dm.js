@@ -77,7 +77,7 @@ var hold;
     //Connect to socket.io
     //Make sure IP address is the IP of the server
     //var socket = io.connect('https://go-off.co:2053');
-    var socket = io.connect('http://localhost:4050');
+    var socket = io.connect('71.174.243.29:4050');
 
     //uses the function to find the room
     //var currenturl = 'http://localhost:8000/api/chat/getid?article='
