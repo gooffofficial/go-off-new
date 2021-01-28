@@ -458,6 +458,8 @@ button {
 
 #tabs-ul{
 	list-style-type: none;
+	margin-left: -25px;
+	margin-top: -2px;
 }
 .tabs-li {
 	float: left;
@@ -467,9 +469,20 @@ button {
 .tabs-li, .tabs-a{
 	display:block; 
 	text-align: center;
-	padding: 0px 10px;
+	padding: 0px 14px;
 }
 
+.tabs-a {
+	font-family: Poppins_Medium_Regular;
+	font-size: 16px;
+	cursor: pointer;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.tabs-a:hover {
+	text-decoration: none;
+	color: var(--goOffBlue);
+}
 
 /* MEDIA QUERIES */
 
