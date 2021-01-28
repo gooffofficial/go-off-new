@@ -103,79 +103,17 @@ button {
 	display: inline;
 }
 
-#following-modal {
-	margin-top: 170px;
-}
-
-.modal-content {
-	border: 0 !important;
-	border-radius: 10px !important;
-}
-
-.close-modal-button {
-	font-size: 14px;
-	background-color: rgba(0, 0, 0, 0.1);
-	border-radius: 50px;
-	outline: none;
-	border: 0;
-	padding: 9px 25px;
-}
-
-.modal-title {
-	font-family: Poppins_Bold;
-	font-size: 20px;
-}
-
-.modal-footer {
-	border-top: 0px !important;
-}
-
-.save-changes-button {
-	border-radius: 50px;
-	background-color: var(--goOffBlue);
-	font-size: 14px;
-	outline: none;
-	border: 0;
-	padding: 9px 25px;
-	color: #fff;
-}
-
-.close {
-	font-size: 30px !important;
-	color: rgba(0, 0, 0, 0.5) !important;
-}
-
-.close:hover {
-	background-color: none;
-}
-
-.save-changes-button:hover {
-	cursor: pointer;
-	opacity: 0.9;
-	background-color: var(--goOffBlue) !important;
-}
-
-.save-changes-button:focus {
-	background-color: var(--goOffBlue) !important;
-}
-
-#follower-count,
-#following-count,
-#post-count {
+#follower-count, #following-count, #post-count {
 	font-family: Poppins_Bold;
 	font-size: 16px;
 	color: #000;
 }
 
-#following-count,
-#location,
-#post-count {
+#following-count, #location, #post-count {
 	margin-left: 26px;
 }
 
-#followers-text,
-#following-text,
-#post-count-text {
+#followers-text, #following-text, #post-count-text {
 	font-family: Poppins_Medium_Regular;
 	font-size: 16px;
 	color: rgba(0, 0, 0, 0.4);
@@ -331,7 +269,7 @@ button {
 	margin-top: -2px;
 	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 50%;
-	display: inline-block;
+	display: inline-block;	
 }
 
 .horiz-icon {
@@ -510,9 +448,7 @@ button {
 	left: 70px;
 }
 
-#home,
-#profile,
-#contact {
+#home, #profile, #contact {
 	border: 0;
 	font-family: Poppins_Medium_Regular;
 	margin-right: 16px;
@@ -520,32 +456,20 @@ button {
 	padding: 6px 18px;
 }
 
-#tabs-ul {
+#tabs-ul{
 	list-style-type: none;
-	margin-left: -35px;
 }
-
 .tabs-li {
-	font-family: Poppins_Bold;
-	text-decoration: none;
 	float: left;
 	display: inline;
 }
 
-.tabs-li,
-.tabs-a {
-	color: rgba(0, 0, 0, 0.4);
-	text-transform: uppercase;
-	display: block;
+.tabs-li, .tabs-a{
+	display:block; 
 	text-align: center;
-	padding: 0px 14px;
+	padding: 0px 10px;
 }
 
-.tabs-a:hover {
-	cursor: pointer;
-	color: var(--goOffBlue);
-	text-decoration: none;
-}
 
 /* MEDIA QUERIES */
 
@@ -566,3 +490,4 @@ button {
 		--pageWidth: 800px;
 	}
 }
+
