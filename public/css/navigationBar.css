@@ -1,17 +1,4 @@
-@font-face {
-	font-family: Poppins_Bold;
-	src: url(/Poppins-Bold.ttf);
-}
-
-@font-face {
-	font-family: Poppins_Medium_Regular;
-	src: url(/Poppins-Medium.ttf);
-}
-
-@font-face {
-	font-family: Poppins_SemiBold_Regular;
-	src: url(/Poppins-SemiBold.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
 	--sideMargins: 30px;
@@ -86,7 +73,8 @@
 }
 
 .navigationProfileName {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	font-size: 14px;
 	display: inline;
 	position: relative;
@@ -110,7 +98,8 @@
 }
 
 #search-input-results a {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	color: #000;
 	padding: 15px 0px 15px 46px;
@@ -133,7 +122,8 @@
 }
 
 #search {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	padding: 9px 50px 9px 46px;
 	border-radius: 50px;
@@ -188,7 +178,8 @@
 }
 
 .dropdown-arrowcontent a {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	display: block;
 	padding: 10px 0px;

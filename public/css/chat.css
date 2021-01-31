@@ -1,26 +1,4 @@
-@import url(//db.onlinewebfonts.com/c/eeb2719d248b27841be5f4899986eedc?family=Sentinel+Book);
-
-@font-face {
-	font-family: Sentinel_Book;
-	src: url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.eot");
-	src: url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.eot?#iefix") format("embedded-opentype"),
-		url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.woff") format("woff"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.svg#Sentinel Book") format("svg");
-}
-
-@font-face {
-	font-family: Poppins_Bold;
-	src: url(/Poppins-Bold.ttf);
-}
-
-@font-face {
-	font-family: Poppins_Medium_Regular;
-	src: url(/Poppins-Medium.ttf);
-}
-
-@font-face {
-	font-family: Poppins_SemiBold_Regular;
-	src: url(/Poppins-SemiBold.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
 	--sideMargins: 30px;
@@ -70,7 +48,8 @@
 }
 
 #article-info-poster, #article-info-date {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	display: inline-block;
 	margin-bottom: 0;
@@ -82,20 +61,23 @@
 }
 
 #article-info-title {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	font-size: 30px;
 	margin-bottom: 0;
 }
 
 #article-info-user-description {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	color: rgba(0, 0, 0, 0.4);
 	margin-top: 3px;
 }
 
 #article-info-article-link, #article-info-convo-host {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	display: inline-block;
 }
@@ -140,7 +122,8 @@
 }
 
 #loading-text {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	font-size: 18px;
 	color: rgba(0, 0, 0, 0.35);
 	position: absolute;
@@ -165,11 +148,13 @@
 
 .chat-message img {
 	height: 38px;
+	width: 38px;
 	margin-left: -45px;
 }
 
 .chat-message p {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	color: rgba(0, 0, 0, 0.4);
 	display: inline;
@@ -177,13 +162,15 @@
 }
 
 .chat-message span {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	font-size: 14px;
 	margin-left: 8px;
 }
 
 #send, #end {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	font-size: 14px;
 	padding: 9px 22px;
 	color: #fff;
@@ -195,7 +182,8 @@
 }
 
 #analysis-button {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	font-size: 14px;
 	border: 0;
 	outline: 0;
@@ -215,7 +203,8 @@
 }
 
 #convo-ended {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	color: rgba(0, 0, 0, 0.4);
 	font-size: 14px;
 	display: inline-block;
@@ -238,7 +227,8 @@ form {
 }
 
 .ux-survey {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	float: right;
 	margin-top: 16px;
@@ -254,7 +244,8 @@ form {
 }
 
 #textarea {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	border: 0;
 	outline: 0;

@@ -1,26 +1,4 @@
-@import url(//db.onlinewebfonts.com/c/eeb2719d248b27841be5f4899986eedc?family=Sentinel+Book);
-
-@font-face {
-	font-family: Sentinel_Book;
-	src: url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.eot");
-	src: url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.eot?#iefix") format("embedded-opentype"),
-		url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.woff") format("woff"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/eeb2719d248b27841be5f4899986eedc.svg#Sentinel Book") format("svg");
-}
-
-@font-face {
-	font-family: Poppins_Bold;
-	src: url(/Poppins-Bold.ttf);
-}
-
-@font-face {
-	font-family: Poppins_Medium_Regular;
-	src: url(/Poppins-Medium.ttf);
-}
-
-@font-face {
-	font-family: Poppins_SemiBold_Regular;
-	src: url(/Poppins-SemiBold.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 .droparrow {
 	position: absolute;
@@ -39,7 +17,8 @@
 	/* margin-top: 250%; */
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 }
 
 .droparrow:hover {
@@ -50,7 +29,8 @@
 	top: 3%;
 	position: absolute;
 	left: 72%;
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	width: 7%;
 	white-space: nowrap;
 	overflow: hidden;
@@ -58,7 +38,8 @@
 }
 
 #edit-profile-text {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	font-size: 30px;
 	position: absolute;
 	top: 0;
@@ -100,7 +81,8 @@ button {
 	top: 30%;
 	left: 15%;
 	font-size: 20px;
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 }
 
 #account_settings {
@@ -108,7 +90,8 @@ button {
 	top: 40%;
 	left: 15%;
 	font-size: 20px;
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 }
 
 #edit_profile:after {
@@ -167,7 +150,8 @@ button {
 }
 
 #submitBtn, #cancelBtn {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	border-radius: 200px;
 	padding: 6px 20px;
@@ -184,19 +168,22 @@ button {
 #desc {
 	position: relative;
 	top: 10px;
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	color: rgba(0, 0, 0, 0.5);
 }
 
 label {
 	display: block;
 	font-weight: bold;
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 600;
 }
 
 input[name=email], input[name=password], input[name=location] {
 	position: relative;
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 600;
 	display: inline-block;
 	width: 50%;
 	padding: 8px 1px;
@@ -209,7 +196,8 @@ input[name=email], input[name=password], input[name=location] {
 
 label[for=email], label[for=password], label[for=location] {
 	position: relative;
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 600;
 	text-transform: uppercase !important;
 	display: inline-block;
 	color: rgba(0, 0, 0, 0.6);
@@ -227,11 +215,13 @@ label[for=email], label[for=password], label[for=location] {
 #gender-text {
 	display: block;
 	font-weight: bold;
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 }
 
 #other-gender-textbox {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 600;
 	padding: 4px 0px;
 	border: 0;
 	outline: 0;
@@ -239,7 +229,8 @@ label[for=email], label[for=password], label[for=location] {
 }
 
 label[for=Male], label[for=Female], input[name=Other] {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 600;
 	cursor: pointer;
 	user-select: none;
 	-moz-user-select: none;
@@ -270,7 +261,8 @@ input[type=radio] {
 	margin-top: 4px;
 	left: 0;
 	font-size: 20px;
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	text-align: left;
 	letter-spacing: -0.5px !important;
 	padding: 11px 18px 11px 25px;

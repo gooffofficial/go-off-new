@@ -1,23 +1,11 @@
-@font-face {
-	font-family: Poppins_Bold;
-	src: url(/Poppins-Bold.ttf);
-}
-
-@font-face {
-	font-family: Poppins_Medium_Regular;
-	src: url(/Poppins-Medium.ttf);
-}
-
-@font-face {
-	font-family: Poppins_SemiBold_Regular;
-	src: url(/Poppins-SemiBold.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
 	--goOffBlue: #3A86FF;
 }
 
 html {
+	font-family: 'Poppins', sans-serif;
 	overflow-x: hidden;
 }
 
@@ -54,7 +42,8 @@ html {
 }
 
 #main-text {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	font-size: 45px;
 	color: #000;
 	line-height: 1;
@@ -65,7 +54,8 @@ html {
 }
 
 #sub-text {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 18px;
 	color: rgba(0, 0, 0, 0.25);;
 }
@@ -75,7 +65,8 @@ html {
 }
 
 .form-button {
-	font-family: Poppins_Bold;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
 	color: #fff;
 	background: linear-gradient(171.72deg, #3A86FF 24.63%, #3A71FF 93.65%);
 	box-shadow: 0px 1px 15px rgba(58, 134, 255, 0.25);
@@ -106,7 +97,8 @@ html {
 }
 
 .bottom-links li {
-	font-family: Poppins_Medium_Regular;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
 	font-size: 14px;
 	color: rgba(0, 0, 0, 0.35);
 	display: inline;
