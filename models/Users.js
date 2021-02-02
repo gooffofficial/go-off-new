@@ -3,18 +3,19 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const Profile = require('./Profiles')
 var numRounds = 10
-
+// initialize attributes
+//CREATE TABLE
 module.exports = (sequelize, type) => {
     var User =  sequelize.define('User', {
         id: {
           type: type.INTEGER,
-          primaryKey: true,
+          primaryKey: true, //unique identifier for user
           autoIncrement: true,
           allowNull: false,
         },
         username: {
             type: type.STRING,
-            allowNull: false,
+            allowNull: false, //must exist
             unique: true,
             primaryKey: true
         },

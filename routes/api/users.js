@@ -144,9 +144,9 @@ router.post('/', auth.optional, [
         UserId: user.id 
       })
       .then(() => {
-        db.UserArticle.create({
+        db.UserArticle.create({//creating a row in the already created UserArticleSSSSS table 
           UserId: user.id
-        })
+        }) //create 3 rows for folder
         .then(() => 
         {
           res.redirect('/login');

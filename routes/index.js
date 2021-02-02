@@ -40,6 +40,7 @@ router.get('/following/:user', auth.required, (req, res, next) => {
     res.render('profiles/following', {user: req.params.user})
 })
 
+//OPEN EJS FILE -- RES.RENDER -- LOOKS INTO VIEWS FOLDER
 
 //route to get into direct messages
 router.get('/m/:username', auth.required, (req, res, next) => {
