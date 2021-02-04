@@ -7,9 +7,9 @@
 	<meta http-equiv="X-UA-Compatible" content='ie=edge'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" href="/css/chat.css">
+	<link rel="stylesheet" href="/css/dm.css">
 	<link rel="stylesheet" href="/css/navigationBar.css">
-	<title> Chat About It! </title>
+	<title>Chat About It!</title>
 	<style>
 		/* #messages {
 			height: 300px;
@@ -86,7 +86,73 @@
 	</nav>
 
 	<div class="pageContainer">
-		<div class="article-info-container">
+		<div class="dm-topbar">
+			<img src=<%=userPic%> id="dm-user-pfp">
+			<span id="dm-user-name"><%=id%></span>
+
+			<form method="post" action="/api/chat/leave/<%=id%>">
+				<button type="submit" id="leave">LEAVE CONVO</button>
+			</form>
+			<!-- <button id="logout"> Logout </button> -->
+			<%if (status != true) { %>
+			<%if (admin == true) { %>
+			<form method="post" action="/api/chat/end/<%=id%>">
+				<button type="submit" id="end">END CONVO</button>
+			</form>
+			<% } %>
+		</div>
+
+		<div class="dm-sidebar">
+			<div class="dm-sidebar-top">
+				<span id="messages-text">Messages <img src="/add_box.svg" id="add-box"></span>
+			</div>
+
+			<div id="chat-container">
+				<div id="chat">
+					<!--<input type="text" id = "username" class="form-control" placeholder="Enter Name">-->
+					<!--
+						List of all dms with users for the sidebar. Contains the username,
+						profile pic, and last message of each conversation.
+					-->
+					<div id="dm-list">
+						<% for(var i=0; i < lastMessages.length; i++) { %>
+							<div class="dm-list-item">
+								<img src=<%=lastMessages[i][2]%>>
+								<h3><%=lastMessages[i][0]%></h3>
+								<p><%=lastMessages[i][1]%></p>
+							</div>
+						 <% } %>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="dm-main">
+			<div class="card" id="card">
+				<div id="messages" class="card-block">
+					<h1 id="loading-text">Loading...</h1>
+
+					<%if (status != true) { %>
+					<%if (admin == true) { %>
+
+					<% } %>
+					<% } else { %>
+						<p id="convo-ended">CONVERSATION HAS ENDED</p>
+					<%if (admin == true) { %>
+						<button onclick="window.location.href='/analytics/<%=id%>'" id="analysis-button">View chat analysis</button>
+					<% } %>
+					<% } %>
+				</div>
+			</div>
+	
+			<input type="text" id="textarea" class="form-control" placeholder="Send a message">
+			<%if (status != true) {%>
+			<button id="send">SEND</button>
+			<% } %>
+		</div>
+
+
+		<!-- <div class="article-info-container">
 			<div id="article-info-image-container">
 				<img src=<%=userPic%> id="article-info-image">
 			</div>
@@ -99,64 +165,12 @@
 					<a href="/profiles/<%=id%>" id="article-info-article-link">Go to <%=id%>'s profile.</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!-- <h1 class="text-center">
 			<%=title%>
 		</h1> -->
 		<!-- <div id="status"></div> idk what this does, so i'm commenting it out for now -->
-		<div id="chat-container">
-			<div id="chat">
-				<!--<input type="text" id = "username" class="form-control" placeholder="Enter Name">-->
-				<!--
-					List of all dms with users for the sidebar. Contains the username,
-					profile pic, and last message of each conversation.
-				-->
-				<div id="dm-list">
-					<h2>Your private conversations</h2>
-					<% for(var i=0; i < lastMessages.length; i++) { %>
-						<div class="dm-list-item">
-							<img src=<%=lastMessages[i][2]%>>
-							<h3><%=lastMessages[i][0]%></h3>
-							<p><%=lastMessages[i][1]%></p>
-						</div>
-					 <% } %>
-				</div>
-
-				<div class="card" id="card">
-					<div id="messages" class="card-block">
-						<h1 id="loading-text">Loading...</h1>
-
-						<%if (status != true) { %>
-						<%if (admin == true) { %>
-
-						<% } %>
-						<% } else { %>
-							<p id="convo-ended">CONVERSATION HAS ENDED</p>
-						<%if (admin == true) { %>
-							<button onclick="window.location.href='/analytics/<%=id%>'" id="analysis-button">View chat analysis</button>
-						<% } %>
-						<% } %>
-					</div>
-				</div>
-		
-				<input type="text" id="textarea" class="form-control" placeholder="Send a message">
-				<%if (status != true) {%>
-				<button id="send">SEND</button>
-				<% } %>
-			</div>
-		</div>
-
-		<form method="post" action="/api/chat/leave/<%=id%>">
-			<button type="submit" id="end">LEAVE CONVERSATION</button>
-		</form>
-		<!-- <button id="logout"> Logout </button> -->
-		<%if (status != true) { %>
-		<%if (admin == true) { %>
-		<form method="post" action="/api/chat/end/<%=id%>">
-			<button type="submit" id="end">END CONVERSATION</button>
-		</form>
-		<% } %>
 		<% } else { %>
 		<!-- <p id="convo-ended">CONVERSATION HAS ENDED</p> -->
 		<%if (admin == true) { %>
@@ -169,10 +183,10 @@
 			it out!</a> -->
 		<!--<button id="home">Leave the Conversation</button> -->
 
-		<div class="ux-survey">
+		<!-- <div class="ux-survey">
 			<a href="https://bostonu.qualtrics.com/jfe/form/SV_1SxxCfIbHjfRDKd" target="_blank">Don't forget to fill out
 				our user experience survey!</a>
-		</div>
+		</div> -->
 	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
