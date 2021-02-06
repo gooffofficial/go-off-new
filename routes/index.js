@@ -150,6 +150,10 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
     })
 })
 
+router.get('/usertype', auth.optional, (req, res, next) => {
+    res.render('usertype')
+})
+
 router.get('/login', auth.optional, (req, res, next) => {
     res.render('login')
 })
