@@ -57,6 +57,23 @@ router.get('/conversation', auth.required, (req, res, next) => {
     console.log(article);
 })
 
+router.get('/folder/:id', auth.required, (req, res, next) => {
+    const { payload: { username} } = req;
+    
+    db.SavedArticle.findAll({
+        where: {
+            FolderId: req.params.id
+        }
+    }).then((articles) => {
+        var save = [] 
+        for(var i = 0; i < articles.length; i++){
+            save.push(articles[i].getFolderInfo());
+        }
+        console.log(articles);
+        res.render('profiles/folder', {articles: save})
+    }
+)})
+
 //route to get into direct messages
 router.get('/m/:username', auth.required, (req, res, next) => {
     const { payload: { username, id } } = req;

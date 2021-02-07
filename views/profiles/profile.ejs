@@ -450,7 +450,7 @@
 						<div class="article-image-container">
 							<img id="article-1-image" class="article-image">
 						</div>
-						<p id="folder1_title"></p>
+						<p  id="folder1_title"></p>
 					</a>
 		
 					<!--<div class="user-Chat4" id="update4" style="display:none">
@@ -460,7 +460,7 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<a href = "/views/profiles/folder.ejs">button</a>
+					<a onclick = saveArticles()>button</a>
 				</div>
 
 				<div id="folder-2" class="article">
@@ -478,7 +478,7 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<a href = "/views/profiles/folder.ejs">button</a>
+					<a href = "/folder">button</a>
 				</div>
 
 				<div id="folder-3" class="article">
@@ -497,7 +497,7 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<a href = "/views/profiles/folder.ejs">button</a>
+					<a href = "/folder">button</a>
 				</div>
 			</div>
 		</div>
@@ -579,6 +579,22 @@
 		);
 		if (hasTouchScreen == true) {
 			document.getElementById("pro-style").setAttribute('href', '/css/profile.css')
+		}
+
+		function saveArticles(){
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+					console.log("returned nothigngggggalskfjs");
+					if (this.readyState == 4 && this.status == 200) {
+						var userArr = JSON.parse(this.responseText);
+						console.log("ahhhhhhhhhhhhhhh", userArr.id);
+						var x = userArr.id;
+						window.location.href = "/folder/" + x.toString();
+					}
+				}
+			xhr.open("GET", '/api/savedarts?namez=' + document.getElementById("folder1_title").textContent, true);
+			xhr.send();
+
 		}
 
 		function testclick() {
@@ -975,10 +991,9 @@ window.onclick = function(event) {
 
 				var xhr4 = new XMLHttpRequest();
 				xhr4.onreadystatechange = function () {
-					console.log('pls');
 					if (this.readyState == 4 && this.status == 200) {
 						var userArr = JSON.parse(this.responseText);
-						console.log("FOLDERRRR", userArr);
+
 						for (var i= 0; i < userArr.length; i++){
 							console.log(userArr[i].foldername);
 							var x = i+1
