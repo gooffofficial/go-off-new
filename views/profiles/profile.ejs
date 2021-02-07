@@ -210,7 +210,7 @@
 			</div>
 		</div>
 
-		<div id="tabs-container" style="margin-top: 100px;">
+		<!--<div id="tabs-container" style="margin-top: 100px;">
 			<hr>
 			<nav>
 				<ul id="tabs-ul">
@@ -221,355 +221,289 @@
 							href="#following-modal">Following</a></li>
 				</ul>
 			</nav>
-		</div>
-
-		<!-- <div id="articles-container">
-			<h1 id="articles-text">ARTICLES</h1>
-
-			<div id="article-1" class="article">
-				<a id="article1_link">
-					<div class="article-image-container">
-						<img id="article-1-image" class="article-image">
-					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="article1_link2">
-						<h4 id="article-1-author" class="article-author"></h4>
-					</a>
-					<a id="article1_link3">
-						<h4 id="article-1-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="article1_link1">
-						<h3 id="article-1-title" class="article-title"></h3>
-					</a>
-				</div>
-
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE 
-					<p>Posted by User</p>
-
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-
-				<div class="article-chat-button">
-					<button onclick="passurl1()">
-						Chat about this article
-					</button>
-				</div>
-			</div>
-
-			<div id="article-2" class="article">
-				<a id="article2_link">
-					<div class="article-image-container">
-						<img id="article-2-image" class="article-image">
-					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="article2_link2">
-						<h4 id="article-2-author" class="article-author"></h4>
-					</a>
-					<a id="article2_link3">
-						<h4 id="article-2-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="article2_link1">
-						<h3 id="article-2-title" class="article-title"></h3>
-					</a>
-				</div>
-
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE 
-					<p>Posted by User</p>
-
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-
-				<div class="article-chat-button">
-					<button onclick="passurl2()">
-						Chat about this article
-					</button>
-				</div>
-			</div>
-
-			<div id="article-3" class="article">
-				<a id="article3_link">
-					<div class="article-image-container">
-						<img id="article-3-image" class="article-image">
-					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="article3_link2">
-						<h4 id="article-3-author" class="article-author"></h4>
-					</a>
-					<a id="article3_link3">
-						<h4 id="article-3-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="article3_link1">
-						<h3 id="article-3-title" class="article-title"></h3>
-					</a>
-				</div>
-
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE 
-					<p>Posted by User</p>
-
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-
-				<div class="article-chat-button">
-					<button onclick="passurl3()">
-						Chat about this article
-					</button>
-				</div>
-			</div>
-
-			<div id="article-3" class="article">
-				<a id="article3_link">
-					<div class="article-image-container">
-						<img id="article-3-image" class="article-image">
-					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="article3_link2">
-						<h4 id="article-3-author" class="article-author"></h4>
-					</a>
-					<a id="article3_link3">
-						<h4 id="article-3-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="article3_link1">
-						<h3 id="article-3-title" class="article-title"></h3>
-					</a>
-				</div>
-
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE 
-					<p>Posted by User</p>
-
-					<img src="/more_horiz.svg" class="horiz-icon">
-				</div>
-
-				<div class="article-chat-button">
-					<button onclick="passurl3()">
-						Chat about this article
-					</button>
-				</div>
-			</div>
 		</div> -->
 
-		<div id="user-articles-container">
-			<h1 id="articles-text">USER ARTICLES</h1>
+		<div class="tab" id = "tabs-container" style="margin-top: 100px">
+			<button class="tablinks active" onclick="openCity(event, 'Media')">Media</button>
+			<button class="tablinks" onclick="openCity(event, 'Folders')">Folders</button>
+			<button class="tablinks" onclick="openCity(event, 'Content')">Content</button>
+			<!--<button class="tablinks" onclick="openCity(event, 'Following')">Following</button>-->
+			<button class="tablinks" a data-target="#following-modal" data-toggle="modal" href="#following-modal">Following</button>
+		</div>
 
-			<div id="user-article-1" class="article">
-				<a id="user-article1_link">
-					<div class="article-image-container">
-						<img id="user-article-1-image" class="article-image">
+		<div id="Media" class="tabcontent" style = "display: block;">
+			<div id="user-articles-container">
+				<h1 id="articles-text">USER ARTICLES</h1>
+
+				<div id="user-article-1" class="article">
+					<a id="user-article1_link">
+						<div class="article-image-container">
+							<img id="user-article-1-image" class="article-image">
+						</div>
+					</a>
+
+					<div class="article-info-container">
+						<a id="user-article1_link2">
+							<h4 id="user-article-1-author" class="article-author"></h4>
+						</a>
+						<a id="user-article1_link3">
+							<h4 id="user-article-1-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article1_link1">
+							<h3 id="user-article-1-title" class="article-title"></h3>
+						</a>
 					</div>
-				</a>
 
-				<div class="article-info-container">
-					<a id="user-article1_link2">
-						<h4 id="user-article-1-author" class="article-author"></h4>
-					</a>
-					<a id="user-article1_link3">
-						<h4 id="user-article-1-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article1_link1">
-						<h3 id="user-article-1-title" class="article-title"></h3>
-					</a>
-				</div>
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
+						<!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
-						<span class="caret"></span></button>
-						<ul class="dropdown-menu">
-						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
-						  <li><a id="article1convolink" href="">Check Conversations</a></li>
-						  <li class="dropdown-submenu">
-							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
-							<ul class="dropdown-supersubmenu">
-							  <li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-							  <li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-							  <li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
+							<span class="caret"></span></button>
+							<ul class="dropdown-menu">
+							<li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+							<li><a id="article1convolink" href="">Check Conversations</a></li>
+							<li class="dropdown-submenu">
+								<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
+								<ul class="dropdown-supersubmenu">
+								<li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+								<li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+								<li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+								</ul>
+							</li>
 							</ul>
-						  </li>
-						</ul>
-					  </div>
-				</div>
-			</div>
-
-			<div class="user-Chat1" id="update1" style="display: none;">
-				<form action="/api/users/add_article1" method="post" >
-					<label for="url">Article Url:</label>
-					<input type="text" id="url" name="article">
-					<input type="submit" value="update">
-				</form>
-			</div>
-
-			<div id="user-article-2" class="article">
-				<a id="user-article2_link">
-					<div class="article-image-container">
-						<img id="user-article-2-image" class="article-image">
+						</div>
 					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="user-article2_link2">
-						<h4 id="user-article-2-author" class="article-author"></h4>
-					</a>
-					<a id="user-article2_link3">
-						<h4 id="user-article-2-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article2_link1">
-						<h3 id="user-article-2-title" class="article-title"></h3>
-					</a>
 				</div>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
-						<span class="caret"></span></button>
-						<ul class="dropdown-menu">
-						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
-						  <li class="dropdown-submenu">
-							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
-							<ul class="dropdown-supersubmenu">
-							  <li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-							  <li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-							  <li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
-							</ul>
-						  </li>
-						</ul>
-					  </div>
+				<div class="user-Chat1" id="update1" style="display: none;">
+					<form action="/api/users/add_article1" method="post" >
+						<label for="url">Article Url:</label>
+						<input type="text" id="url" name="article">
+						<input type="submit" value="update">
+					</form>
 				</div>
-			</div>
 
-			<div class="user-Chat2" id="update2" style="display: none;">
-				<form action="/api/users/add_article2" method="post" >
-					<label for="url">Article Url:</label>
-					<input type="text" id="url" name="article">
-					<input type="submit" value="update">
-				</form>
-			</div>
+				<div id="user-article-2" class="article">
+					<a id="user-article2_link">
+						<div class="article-image-container">
+							<img id="user-article-2-image" class="article-image">
+						</div>
+					</a>
 
-			<div id="user-article-3" class="article">
-				<a id="user-article3_link">
-					<div class="article-image-container">
-						<img id="user-article-3-image" class="article-image">
+					<div class="article-info-container">
+						<a id="user-article2_link2">
+							<h4 id="user-article-2-author" class="article-author"></h4>
+						</a>
+						<a id="user-article2_link3">
+							<h4 id="user-article-2-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article2_link1">
+							<h3 id="user-article-2-title" class="article-title"></h3>
+						</a>
 					</div>
-				</a>
 
-				<div class="article-info-container">
-					<a id="user-article3_link2">
-						<h4 id="user-article-3-author" class="article-author"></h4>
-					</a>
-					<a id="user-article3_link3">
-						<h4 id="user-article-3-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article3_link1">
-						<h3 id="user-article-3-title" class="article-title"></h3>
-					</a>
-				</div>
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
+						<!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
-						<span class="caret"></span></button>
-						<ul class="dropdown-menu">
-						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
-						  <li class="dropdown-submenu">
-							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
-							<ul class="dropdown-supersubmenu">
-							  <li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-							  <li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-							  <li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
+							<span class="caret"></span></button>
+							<ul class="dropdown-menu">
+							<li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+							<li class="dropdown-submenu">
+								<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
+								<ul class="dropdown-supersubmenu">
+								<li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+								<li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+								<li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+								</ul>
+							</li>
 							</ul>
-						  </li>
-						</ul>
-					  </div>
-				</div>
-			</div>
-
-			<div class="user-Chat3" id="update3" style="display:none">
-				<form action="/api/users/add_article3" method="post" >
-					<label for="url">Article Url:</label>
-					<input type="text" id="url" name="article">
-					<input type="submit" value="update">
-				</form>
-			</div>
-
-			<div id="user-article-4" class="article">
-				<a id="user-article4_link">
-					<div class="article-image-container">
-						<img id="user-article-4-image" class="article-image">
+						</div>
 					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="user-article4_link2">
-						<h4 id="user-article-4-author" class="article-author"></h4>
-					</a>
-					<a id="user-article4_link3">
-						<h4 id="user-article-4-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article4_link1">
-						<h3 id="user-article-4-title" class="article-title"></h3>
-					</a>
 				</div>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
+				<div class="user-Chat2" id="update2" style="display: none;">
+					<form action="/api/users/add_article2" method="post" >
+						<label for="url">Article Url:</label>
+						<input type="text" id="url" name="article">
+						<input type="submit" value="update">
+					</form>
+				</div>
 
-					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
-						<span class="caret"></span></button>
-						<ul class="dropdown-menu">
-						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
-						  <li class="dropdown-submenu">
-							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
-							<ul class="dropdown-supersubmenu">
-							  <li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-							  <li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-							  <li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+				<div id="user-article-3" class="article">
+					<a id="user-article3_link">
+						<div class="article-image-container">
+							<img id="user-article-3-image" class="article-image">
+						</div>
+					</a>
+
+					<div class="article-info-container">
+						<a id="user-article3_link2">
+							<h4 id="user-article-3-author" class="article-author"></h4>
+						</a>
+						<a id="user-article3_link3">
+							<h4 id="user-article-3-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article3_link1">
+							<h3 id="user-article-3-title" class="article-title"></h3>
+						</a>
+					</div>
+
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
+						<!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
+
+						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
+							<span class="caret"></span></button>
+							<ul class="dropdown-menu">
+							<li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+							<li class="dropdown-submenu">
+								<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
+								<ul class="dropdown-supersubmenu">
+								<li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+								<li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+								<li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+								</ul>
+							</li>
 							</ul>
-						  </li>
-						</ul>
-					  </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="user-Chat3" id="update3" style="display:none">
+					<form action="/api/users/add_article3" method="post" >
+						<label for="url">Article Url:</label>
+						<input type="text" id="url" name="article">
+						<input type="submit" value="update">
+					</form>
+				</div>
+
+				<div id="user-article-4" class="article">
+					<a id="user-article4_link">
+						<div class="article-image-container">
+							<img id="user-article-4-image" class="article-image">
+						</div>
+					</a>
+
+					<div class="article-info-container">
+						<a id="user-article4_link2">
+							<h4 id="user-article-4-author" class="article-author"></h4>
+						</a>
+						<a id="user-article4_link3">
+							<h4 id="user-article-4-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article4_link1">
+							<h3 id="user-article-4-title" class="article-title"></h3>
+						</a>
+					</div>
+
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
+						<!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
+
+						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
+							<span class="caret"></span></button>
+							<ul class="dropdown-menu">
+							<li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+							<li class="dropdown-submenu">
+								<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
+								<ul class="dropdown-supersubmenu">
+								<li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+								<li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+								<li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+								</ul>
+							</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="user-Chat4" id="update4" style="display:none">
+					<form action="/api/users/add_article4" method="post" id="Dot4">
+						<label for="url">Article Url:</label>
+						<input type="text" id="url" name="article">
+						<input type="submit" value="update">
+					</form>
 				</div>
 			</div>
+		</div>
 
-			<div class="user-Chat4" id="update4" style="display:none">
-				<form action="/api/users/add_article4" method="post" id="Dot4">
-					<label for="url">Article Url:</label>
-					<input type="text" id="url" name="article">
-					<input type="submit" value="update">
-				</form>
+		<div id="Folders" class="tabcontent" style = "display: none;">
+			<div id = "user-folder-container">
+				<h1 id = "folders-text">Recently Added</h1>
+				<div id="folder-1" class="article">
+					<a id="folder1_link">
+						<div class="article-image-container">
+							<img id="article-1-image" class="article-image">
+						</div>
+					</a>
+		
+					<!--<div class="user-Chat4" id="update4" style="display:none">
+						<form action="/api/users/add_article4" method="post" id="Dot4">
+							<label for="url">Article Url:</label>
+							<input type="text" id="url" name="article">
+							<input type="submit" value="update">
+						</form>
+					</div>-->
+					<a href = "/views/profiles/folder.ejs">button</a>
+				</div>
+
+				<div id="folder-2" class="article">
+					<a id="folder2_link">
+						<div class="article-image-container">
+							<img id="article-1-image" class="article-image">
+						</div>
+					</a>
+		
+					<!--<div class="user-Chat4" id="update4" style="display:none">
+						<form action="/api/users/add_article4" method="post" id="Dot4">
+							<label for="url">Article Url:</label>
+							<input type="text" id="url" name="article">
+							<input type="submit" value="update">
+						</form>
+					</div>-->
+					<a href = "/views/profiles/folder.ejs">button</a>
+				</div>
+
+				<div id="folder-3" class="article">
+					<a id="folder3_link">
+						<div class="article-image-container">
+							<img id="article-1-image" class="article-image">
+						</div>
+					</a>
+		
+					<!--<div class="user-Chat4" id="update4" style="display:none">
+						<form action="/api/users/add_article4" method="post" id="Dot4">
+							<label for="url">Article Url:</label>
+							<input type="text" id="url" name="article">
+							<input type="submit" value="update">
+						</form>
+					</div>-->
+					<a href = "/views/profiles/folder.ejs">button</a>
+				</div>
 			</div>
+		</div>
+
+		<div id="Content" class="tabcontent" style = "display: none;">
+			<h3>Content</h3>
+			<p>Tokyo is the capital of Japan.</p>
+		</div>
+
+		<div id="Following" class="tabcontent">
 		</div>
 	</div>
 
@@ -663,6 +597,27 @@
 
 		//document.getElementById("bar_form").style.visibility = "hidden";
 
+		//FOR TAB FUNCTIONALITY
+		function openCity(evt, cityName) {
+			// Declare all variables
+			var i, tabcontent, tablinks;
+
+			// Get all elements with class="tabcontent" and hide them
+			tabcontent = document.getElementsByClassName("tabcontent");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+
+			// Get all elements with class="tablinks" and remove the class "active"
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+
+			// Show the current tab, and add an "active" class to the button that opened the tab
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
 		//SEARCH BAR function
 		function plsWork(str) {
 			str.toLowerCase();
@@ -904,9 +859,9 @@ window.onclick = function(event) {
 						document.getElementById("post-count").innerHTML = myArr.user.Posts;
 						document.getElementById("location").innerHTML = myArr.user.location;
 						document.getElementById("bio").innerHTML = myArr.user.bio;
-						document.getElementById("article1_link").setAttribute("href", myArr.user.article1link);
-						document.getElementById("article1convolink").setAttribute("href", "?article="+myArr.user.article1link);
-						document.getElementById("article1_link1").setAttribute("href", myArr.user.article1link);
+						//document.getElementById("article1_link").setAttribute("href", myArr.user.article1link);
+						document.getElementById("article1convolink").setAttribute("href", "/conversation?article="+myArr.user.article1link);
+						/*document.getElementById("article1_link1").setAttribute("href", myArr.user.article1link);
 						document.getElementById("article1_link2").setAttribute("href", myArr.user.article1link);
 						document.getElementById("article1_link3").setAttribute("href", myArr.user.article1link);
 						document.getElementById("article-1-image").src = myArr.user.article1img;
@@ -936,7 +891,7 @@ window.onclick = function(event) {
 						document.getElementById("article-4-image").src = myArr.user.article4img;
 						document.getElementById("article-4-title").innerHTML = myArr.user.article4title;
 						document.getElementById("article-4-author").innerHTML = myArr.user.article4author;
-						document.getElementById("article-4-read-time").innerHTML = myArr.user.article4readtime;
+						document.getElementById("article-4-read-time").innerHTML = myArr.user.article4readtime;*/
 						console.log(myArr);
 
 						var pageURL = window.location.href;
@@ -1012,7 +967,21 @@ window.onclick = function(event) {
 				// hold = document.getElementById("username");
 				// console.log('hold', hold);
 				// })       
-				console.log(myArr.user.admin);
+				//console.log(myArr.user.admin);
+
+				var xhr4 = new XMLHttpRequest();
+				xhr4.onreadystatechange = function () {
+					console.log('pls');
+					if (this.readyState == 4 && this.status == 200) {
+						var userArr = JSON.parse(this.responseText);
+						console.log("FOLDERRRR", userArr);
+						
+					}
+				}
+				xhr4.open("GET", '/api/folders', true);
+				xhr4.withCredentials = true; 
+				xhr4.send();
+
 			})();
 			// document.getElementById("pname").innerHTML = result.user.name;
 
