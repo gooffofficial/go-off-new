@@ -561,7 +561,11 @@ router.get('/articles/:user', auth.optional, (req, res, next) => {
           article3Url: "",
           article3Title: "No article added",
           article3Readtime: "",
-          article3img: "/Plus.png"   
+          article3img: "/Plus.png" , 
+          article4Url: "",
+          article4Title: "No article added",
+          article4Readtime: "",
+          article4img: "/Plus.png"   
         })
       }
       var articleLinks = userArts.getArticles();
@@ -620,9 +624,28 @@ router.get('/articles/:user', auth.optional, (req, res, next) => {
           articles["article3Readtime"] = article3Info["readTime"]
           articles["article3img"] = article3Info["img"];
         }
+        db.Article.findOne({
+          where: {
+            url: articleLinks["article4"]
+          }
+        }).then((article4) => {
+          if(!article4){
+            articles["article4Url"] = "";
+            articles["article4Title"] = "No article added";
+            articles["article4Readtime"] = "";
+            articles["article4img"] = "/Plus.png";
+          }
+          else{
+            var article4Info = article4.getArticleInfo();
+            articles["article4Url"] = article4Info["url"];
+            articles["article4Title"] = article4Info["title"];
+            articles["article4Readtime"] = article4Info["readTime"]
+            articles["article4img"] = article4Info["img"];
+          }
         return res.status(200).json(articles);
         })
         })
+      })
       })
     })
   })
@@ -788,7 +811,7 @@ router.post('/add_article2', auth.required, [
 
 //move to users.js file
 router.post('/add_article3', auth.required, [
-  body('article').escape()
+  body('userArticle').blacklist('<>')
 ],(req, res, next) => {
   const { payload: { id, username } } = req;
   db.Article.findOne({
@@ -834,6 +857,40 @@ router.post('/add_article3', auth.required, [
   })
 })
 
+router.post('/saveto_folder', auth.required, [], (req, res, next) =>{
+  const { payload: { id, username } } = req; 
+  db.Folder.findOne({
+    where: {
+      foldername: req.body.folder,
+      UserId: id
+    }
+  }).then((folder) => {
+      if(!folder){
+        return res.status(422).json({
+          errors: {
+            folder: "does not exist"
+          }
+        });
+      }
+      db.SavedArticle.findAll({
+        where: {
+          FolderId: folder.id
+        }
+      }).then((articles) => {
+        for(i = 0; i < articles.length; i++){
+          if(articles[i].article==req.body.userArticle){
+            return res.status(200)
+          }
+        }
+        db.SavedArticle.create({
+          FolderId: folder.id,
+          article: req.body.userArticle
+        }).then(() =>{
+          return res.sendStatus(200)
+        })
+      })
+  })
+  })
 function isLoggedIn(req, res, next){
   //console.log(req)
   console.log(req.session);

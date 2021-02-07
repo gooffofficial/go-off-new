@@ -167,7 +167,7 @@ button {
 	width: 24%;
 	height: 100%;
 	/* border: 1px solid rgba(0, 0, 0, 0.116); */
-	overflow: hidden;
+	/*overflow: hidden;*/
 	box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
 	border-radius: 10px;
 	transition: top 0.08s ease;
@@ -252,7 +252,8 @@ button {
 }
 
 .article-info-bottom-container {
-	box-sizing: content-box;
+	/*box-sizing: content-box;*/
+	height: 200px;
 	padding: 20px;
 	position: absolute;
 	bottom: -20px;
@@ -321,6 +322,90 @@ button {
 .article-chat-button:hover button {
 	background-color: var(--goOffBlue) !important;
 }
+/* Dropdown Button */
+.dropbtn {
+	background-color: #3498DB;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+  }
+  
+  /* Dropdown button on hover & focus */
+  .dropbtn:hover, .dropbtn:focus {
+	background-color: #2980B9;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+	position: relative;
+	display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd}
+  
+  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+  .show {display:block;}
+/*.droparrow1 {
+	/*display: inline-block;*/
+	/*float: right;
+	/* border: 1px solid rgba(153, 150, 150, 0.116); */
+	/*z-index: 1000;
+}*/
+/*
+#arrows {
+	padding: 10px;
+	opacity: 0.8;
+}
+
+#arrows:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+.dropdown-arrowcontent {
+	display: none;
+	position: absolute;
+	margin-top: 3px;
+	right: 0;
+	background-color: #fff;
+	border-radius: 10px;
+	padding: 10px 24px;;
+	width: 200px;
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+	z-index: 1;
+}
+
+.dropdown-arrowcontent a {
+	font-family: Poppins_Medium_Regular;
+	font-size: 14px;
+	display: block;
+	padding: 10px 0px;
+}
+
+.droparrow:hover {
+	display: block;
+}*/
 
 .user-Chat1 {
 	position: absolute;
