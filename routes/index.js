@@ -53,8 +53,21 @@ router.get('/feed/:user', auth.required, (req, res, next) => {
 router.get('/conversation', auth.required, (req, res, next) => {
     const { payload: { username} } = req;
     var article = req.query["article"];
-    console.log("SDIFUHGJBSIHDFGJHISDFGNIUHGJODFSKNIRJGSFK\n\n\n\n\n");
-    console.log(article);
+    //picture, title, author, link
+    db.Article.findOne({
+        where: {
+            url: article
+        }
+    }).then((art) => {
+        if(!art){
+            return res.status(422).json({
+                errors: {
+                    article: "not found"
+                }
+            })
+        }
+        return res.render('conversation', {articlePic: art.img, artTitle: art.title, artLink: article})
+    })
 })
 
 //route to get into direct messages
