@@ -92,17 +92,17 @@ router.get('/conversation', auth.required, (req, res, next) => {
             if (convos.length == 0){
                 convos[0] = {
                     time: "No convo scheduled",
-                    id: null
+                    id: -1
                 }
                 convos[1] = {
                     time: "No convo scheduled",
-                    id: null
+                    id: -1
                 }
             }
             else if (convos.length == 1){
                 convos[1] = {
                     time: "No convo scheduled",
-                    id: null
+                    id: -1
                 }
             }
             let ts = Date.now();
