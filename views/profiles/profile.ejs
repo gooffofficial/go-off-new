@@ -175,7 +175,7 @@
 			</nav>	
 		</div>
 
-		<div id="articles-container">
+		<!-- <div id="articles-container">
 			<h1 id="articles-text">ARTICLES</h1>
 
 			<div id="article-1" class="article">
@@ -198,7 +198,7 @@
 				</div>
 
 				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE 
 					<p>Posted by User</p>
 
 					<img src="/more_horiz.svg" class="horiz-icon">
@@ -231,7 +231,7 @@
 				</div>
 
 				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE 
 					<p>Posted by User</p>
 
 					<img src="/more_horiz.svg" class="horiz-icon">
@@ -264,7 +264,7 @@
 				</div>
 
 				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE 
 					<p>Posted by User</p>
 
 					<img src="/more_horiz.svg" class="horiz-icon">
@@ -297,7 +297,7 @@
 				</div>
 
 				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
+					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE
 					<p>Posted by User</p>
 
 					<img src="/more_horiz.svg" class="horiz-icon">
@@ -309,7 +309,7 @@
 					</button>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div id="user-articles-container">
 			<h1 id="articles-text">USER ARTICLES</h1>
@@ -337,12 +337,27 @@
 					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img"> <!-- POSTED BY USER PROFILE PICTURE -->
 					<p>Posted by User</p>
 
-					<img src="/more_horiz.svg" class="horiz-icon">
+					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
+						<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+						  <li class="dropdown-submenu">
+							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
+							<ul class="dropdown-supersubmenu">
+							  <li><a tabindex="-1" href="#">Business/Tech</a></li>
+							  <li><a tabindex="-1" href="#">Art/Literature</a></li>
+							  <li><a tabindex="-1" href="#">Miscellaneous</a></li>
+							</ul>
+						  </li>
+						</ul>
+					  </div>
 				</div>
 			</div>
 
 			<div class="user-Chat1" id="update1" style="display: none;">
-				<form action="/api/users/add_article1" method="post" id="Dot3">
+				<form action="/api/users/add_article1" method="post" >
 					<label for="url">Article Url:</label>
 					<input type="text" id="url" name="article">
 					<input type="submit" value="update">
@@ -377,7 +392,7 @@
 			</div>
 
 			<div class="user-Chat2" id="update2" style="display: none;">
-				<form action="/api/users/add_article2" method="post" id="Dot3">
+				<form action="/api/users/add_article2" method="post" >
 					<label for="url">Article Url:</label>
 					<input type="text" id="url" name="article">
 					<input type="submit" value="update">
@@ -412,29 +427,29 @@
 			</div>
 
 			<div class="user-Chat3" id="update3" style="display:none">
-				<form action="/api/users/add_article3" method="post" id="Dot3">
+				<form action="/api/users/add_article3" method="post" >
 					<label for="url">Article Url:</label>
 					<input type="text" id="url" name="article">
 					<input type="submit" value="update">
 				</form>
 			</div>
 
-			<div id="user-article-3" class="article">
-				<a id="user-article3_link">
+			<div id="user-article-4" class="article">
+				<a id="user-article4_link">
 					<div class="article-image-container">
-						<img id="user-article-3-image" class="article-image">
+						<img id="user-article-4-image" class="article-image">
 					</div>
 				</a>
 
 				<div class="article-info-container">
-					<a id="user-article3_link2">
-						<h4 id="user-article-3-author" class="article-author"></h4>
+					<a id="user-article4_link2">
+						<h4 id="user-article-4-author" class="article-author"></h4>
 					</a>
-					<a id="user-article3_link3">
-						<h4 id="user-article-3-read-time" class="article-read-time"></h4>
+					<a id="user-article4_link3">
+						<h4 id="user-article-4-read-time" class="article-read-time"></h4>
 					</a>
-					<a id="user-article3_link1">
-						<h3 id="user-article-3-title" class="article-title"></h3>
+					<a id="user-article4_link1">
+						<h3 id="user-article-4-title" class="article-title"></h3>
 					</a>
 				</div>
 
@@ -443,11 +458,37 @@
 					<p>Posted by User</p>
 
 					<img src="/more_horiz.svg" class="horiz-icon">
+					<!--<div class="droparrow1 align-self-center">
+						<img onclick="dropclick5()" src="/more_horiz.svg" id="arrows" />
+						<div id="arrowdrop5" class="dropdown-arrowcontent">
+							<a href="/profile">Profile</a>
+							<a href="/profile">Profile</a>
+							<a href="/profile">Profile</a>
+						</div>-->
+						<div class="dropdown">
+							<!-- <img onclick="myFunction()" src="/more_horiz.svg" class = "dropbtn" id="arrows" /> -->
+
+							<div class="dropdown">
+								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
+								<span class="caret"></span></button>
+								<ul class="dropdown-menu">
+								  <li><a tabindex="-1" action="" id="update4" style="visibility: visible">Save to profile</a></li>
+								  <li class="dropdown-submenu">
+									<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
+									<ul class="dropdown-supersubmenu">
+									  <li><a tabindex="-1" href="#">Business/Tech</a></li>
+									  <li><a tabindex="-1" href="#">Art/Literature</a></li>
+									  <li><a tabindex="-1" href="#">Miscellaneous</a></li>
+									</ul>
+								  </li>
+								</ul>
+							  </div>
+						</div>
 				</div>
 			</div>
 
-			<div class="user-Chat3" id="update3" style="display:none">
-				<form action="/api/users/add_article3" method="post" id="Dot3">
+			<div class="user-Chat4" id="update4" style="display:none">
+				<form action="/api/users/add_article4" method="post" id="Dot4">
 					<label for="url">Article Url:</label>
 					<input type="text" id="url" name="article">
 					<input type="submit" value="update">
@@ -630,12 +671,6 @@
 		// });
 
 		function dropclick1() {
-			// var x = document.getElementById("arrowdrop");
-			// if (x.style.display === "none") {
-			//     x.style.display = "block";
-			// } else {
-			//     x.style.display = "none";
-			// }
 			var x = document.getElementById("arrowdrop");
 			if (x.style.display === "block") {
 				x.style.display = "none";
@@ -644,6 +679,51 @@
 			}
 		}
 
+		/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+		function dropclick5() {
+			var x = document.getElementById("arrowdrop5");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
+		function dropclick6(){
+			var x = document.getElementById("dropdown-supersubmenu");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
+		function sendreq(){
+			var xhr = new XMLHttpRequest();
+			var url = document.getElementById("user-article1_link1").href;
+			xhr.open("POST", /api/users/add_article, true);
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify({
+				userArticle: url
+			}));
+		}
 		function passurl1() {
 			var xhr1 = new XMLHttpRequest();
 			xhr1.onreadystatechange = function () {
@@ -760,6 +840,14 @@
 						document.getElementById("article-3-title").innerHTML = myArr.user.article3title;
 						document.getElementById("article-3-author").innerHTML = myArr.user.article3author;
 						document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readtime;
+						document.getElementById("article4_link").setAttribute("href", myArr.user.article4link);
+						document.getElementById("article4_link1").setAttribute("href", myArr.user.article4link);
+						document.getElementById("article4_link2").setAttribute("href", myArr.user.article4link);
+						document.getElementById("article4_link3").setAttribute("href", myArr.user.article4link);
+						document.getElementById("article-4-image").src = myArr.user.article4img;
+						document.getElementById("article-4-title").innerHTML = myArr.user.article4title;
+						document.getElementById("article-4-author").innerHTML = myArr.user.article4author;
+						document.getElementById("article-4-read-time").innerHTML = myArr.user.article4readtime;
 						console.log(myArr);
 
 						var pageURL = window.location.href;
@@ -786,21 +874,28 @@
 						document.getElementById("user-article1_link3").setAttribute("href", userArticles.article1Url);
 						document.getElementById("user-article-1-image").src = userArticles.article1img;
 						document.getElementById("user-article-1-title").innerHTML = userArticles.article1Title;
-						document.getElementById("user-article-1-read-time").innerHTML = userArticles.article1Readtime+" min";
+						document.getElementById("user-article-1-read-time").innerHTML = userArticles.article1Readtime;
 						document.getElementById("user-article2_link").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link1").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link2").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link3").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article-2-image").src = userArticles.article2img;
 						document.getElementById("user-article-2-title").innerHTML = userArticles.article2Title;
-						document.getElementById("user-article-2-read-time").innerHTML = userArticles.article2Readtime+" min";
+						document.getElementById("user-article-2-read-time").innerHTML = userArticles.article2Readtime;
 						document.getElementById("user-article3_link").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link1").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link2").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link3").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article-3-image").src = userArticles.article3img;
 						document.getElementById("user-article-3-title").innerHTML = userArticles.article3Title;
-						document.getElementById("user-article-3-read-time").innerHTML = userArticles.article3Readtime + "min";
+						document.getElementById("user-article-3-read-time").innerHTML = userArticles.article3Readtime;
+						document.getElementById("user-article4_link").setAttribute("href", userArticles.article4Url);
+						document.getElementById("user-article4_link1").setAttribute("href", userArticles.article4Url);
+						document.getElementById("user-article4_link2").setAttribute("href", userArticles.article4Url);
+						document.getElementById("user-article4_link3").setAttribute("href", userArticles.article4Url);
+						document.getElementById("user-article-4-image").src = userArticles.article4img;
+						document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title;
+						document.getElementById("user-article-4-read-time").innerHTML = userArticles.article4Readtime;
 					}
 				}
 				xhr2.open("GET", '/api/users/articles/<%=user%>', true);
@@ -815,6 +910,7 @@
 							document.getElementById("update1").style.display = '';
 							document.getElementById("update2").style.display = '';
 							document.getElementById("update3").style.display = '';
+							document.getElementById("update4").style.visibility = 'hidden';
 						}
 					}
 				}
