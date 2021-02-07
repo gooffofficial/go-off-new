@@ -84,13 +84,14 @@ router.post('/', auth.optional, [
         }
       })
     }
+    /*
     if(!user.age){
         return res.status(422).json({
             errors: {
                 age: 'is required',
             }
         })
-    }
+    }*/
     if(!user.location){
         return res.status(422).json({
             errors: {
