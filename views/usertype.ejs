@@ -1,56 +1,67 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>AccountType</title>
-    <link rel="stylesheet" href="/css/usertype.css">
+	<title>Choose your account type</title>
+	<link rel="stylesheet" href="/public/css/usertype.css">
 </head>
+
 <body>
-    <div class="top">
-        <div class="top-container">
-            <p id="title">What type of Go Off user are you?</p>
-            <p id="main-text1">Go Off offers two types of user accounts: a user account and a Go-host account. Both are free.</p>
-            <p id="main-text2">A user account is great for the person who wants to join discussions and participate in Go-convos. A Go-host account is great for the person who wants to take the reins and start their own Go-convo.</p>
-        </div>
-    </div>
-    <div class="left-side">
-        <div class="left-container">
-            <div class="left-box">
-                <p id="left-title">User Account</p>
-                <ul id="left-list">
-                    <li>Upload media to Go Off</li>
-                    <li>Participate in Go-convos</li>
-                </ul>
-            </div>
-            <div class="left-description">
-                <p id="left-subtitle">How do I become a user?</p>
-                <p id="left-subdescription">Click the button below and create an account in seconds!</p>
-            </div>
-            <form action="/signup">
-                <button type="submit" id="left-button" >Continue</button>
-            </form>
-            
-        </div>
-    </div>
-    <div class="right-side">
-        <div class="right-container">
-            <div class="right-box">
-                <p id="right-title">Host Account</p>
-                <ul id="right-list">
-                    <li>Upload media to Go Off</li>
-                    <li>Participate in Go-convos</li>
-                    <li>View demographics and other cool data on their Go-convos</li>
-                    <li>Start a Go-convo on any uploaded media(news article, video, etc.)</li>
-                    <li>Moderate and lead the conversation(please see Code of Conduct)</li>
-                </ul>
-            </div>
-            <div class="right-description">
-                <p id="right-subtitle">How do I become a Go-host?</p>
-                <p id="right-subdescription">We're looking for responsible tought leaders and good listeners. If you have either of those qualities, there's a good chance you'd make a great Go-host! Just fill out the form below!</p>
-            </div>
-            <form action="https://www.gooffco.com/convostarter">
-                <button type="submit" id="left-button" >Apply here</button>
-            </form>
-        </div>
-    </div>
+	<div class="pageContainer">
+		<div class="top">
+			<div class="top-container">
+				<p id="title">What type of Go Off user are you?</p>
+				<div id="blue-blob"></div>
+				<p id="main-text1">Go Off offers two types of user accounts: a user account and a Go-host account. Both
+					are free.</p>
+				<p id="main-text2">A user account is great for the person who wants to join discussions and participate
+					in Go-convos. A Go-host account is great for the person who wants to take the reins and start their
+					own Go-convo.</p>
+			</div>
+		</div>
+		<div class="left-side">
+			<div class="left-container">
+				<div class="left-box">
+					<p id="left-title">User Account</p>
+					<ul id="left-list">
+						<li>Upload media to Go Off</li>
+						<li>Participate in Go-convos</li>
+					</ul>
+				</div>
+				<div class="left-description">
+					<p id="left-subtitle">How do I become a user?</p>
+					<p id="left-subdescription">Click the button below and create an account in seconds!</p>
+				</div>
+				<form action="/signup">
+					<button type="submit" id="left-button">Continue</button>
+				</form>
+
+			</div>
+		</div>
+		<div class="right-side">
+			<div class="right-container">
+				<div class="right-box">
+					<p id="right-title">Host Account</p>
+					<ul id="right-list">
+						<li>Upload media to Go Off</li>
+						<li>Participate in Go-convos</li>
+						<li>View demographics and other cool data on their Go-convos</li>
+						<li>Start a Go-convo on any uploaded media(news article, video, etc.)</li>
+						<li>Moderate and lead the conversation(please see Code of Conduct)</li>
+					</ul>
+				</div>
+				<div class="right-description">
+					<p id="right-subtitle">How do I become a Go-host?</p>
+					<p id="right-subdescription">We're looking for responsible tought leaders and good listeners. If you
+						have either of those qualities, there's a good chance you'd make a great Go-host! Just fill out
+						the form below!</p>
+				</div>
+				<form action="https://www.gooffco.com/convostarter">
+					<button type="submit" id="right-button">Apply here</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
+
 </html>

@@ -37,8 +37,7 @@ var hold;
     fetch('/api/users/current').then((response) => {
         return response.json()
     }).then((myArr) => {
-            console.log(myArr)
-            document.getElementById("username").innerHTML = myArr.user.username + " (you)"; 
+            console.log(myArr) 
             hold = document.getElementById("username");
             console.log(hold);
             var dmUsers = [toUser, myArr.user.username];
@@ -56,13 +55,13 @@ var hold;
     var messages = element('messages');
     var textarea = element('textarea');
     var username = element('username');
-    console.log(username.textContent);
+    //console.log(username.textContent);
     var clearBtn = element('clear');
     var sendBtn = element('send');
 
 
     //Set default status
-    var statusDefault = status.textContent;
+    //var statusDefault = status.textContent;
 
     var setStatus = function(s){
         //set status
@@ -135,14 +134,6 @@ var hold;
                     names = data[x].name
                     mess = data[x].message
 
-                    //participants
-                    if(!users.includes(names)){
-                        users.push(names);
-                        p = document.createElement('p');
-                        p.textContent = names;
-                        document.getElementById("participants").appendChild(p);
-                    }
-
                     var para = document.createElement('p');
                     //for name 
                     var spans = document.createElement('span');
@@ -191,7 +182,7 @@ var hold;
                     //message.textContent = data[x].name+": "+data[x].message;
                     //message.textContent = /*"(" + time+") "+ */names+": "+mess
                     messages.appendChild(message);
-                    insertAfter(message.firstChild,message);
+                    //insertAfter(message.firstChild,message);
                     
                     //messages.insertBefore(message, messages.firstChild); //makes the most recent message to be on top
                     console.log(messages);

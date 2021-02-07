@@ -43,15 +43,21 @@ router.get('/following/:user', auth.required, (req, res, next) => {
 
 //route to get into direct messages
 router.get('/m/:username', auth.required, (req, res, next) => {
-    const { payload: { username } } = req;
+    const { payload: { username, id } } = req;
     db.User.findOne({
         where: {
             username: req.params.username
         }
-    }).then((user) => {
+    }).then(async (user) => {
         if(!user){
             return res.json({"err": "User not found"})
         }
+        var profile = await db.Profile.findOne({
+            where: {
+                userId: user.id
+            }
+        });
+        var userPic = profile.ppic;
         var users = [req.params.username, username];
         users.sort();
         var roomIdentifier = users[0]+users[1] 
@@ -60,7 +66,42 @@ router.get('/m/:username', auth.required, (req, res, next) => {
                 if(err){
                     console.log(err);
                 }
-                res.render('index', {admin: true, id: req.params.roomid, status: false, title: req.params.username, url: '/profiles/'+req.params.username, js: "dm.js"});
+                var lastMessages = [];
+                DM.find({users: id}).populate('messages').then(async (dms, err) => {
+                    if(err){
+                        console.log(err);
+                    }
+                    //Get the last messages from all dm conversations
+                    for(let i=0; i < dms.length; i++){
+                        for(let k=0; k<dms[i].users.length; k++){
+                            if (dms[i].users[k] != "163") {
+                                lastMessages.push([dms[i].users[k], dms[i].messages[dms[i].messages.length - 1].message])
+                            } 
+                        }
+                    }
+                    //Get the username for all dm conversations
+                    //TODO: Optimize query for users
+                    for(let i=0; i<lastMessages.length; i++){
+                        let user = await db.User.findOne({
+                            where: {
+                                id: lastMessages[i][0]
+                            }
+                        })
+                        let profile = await db.Profile.findOne({
+                            where: {
+                                userId: lastMessages[i][0]
+                            }
+                        })
+                        if(!user || !profile){
+                            lastMessages[i][0] = null;
+                            lastMessages[i][1] = null;
+                            lastMessages[i][2] = null;
+                        }
+                        lastMessages[i][0] = user.username;
+                        lastMessages[i].push(profile.ppic);
+                    }
+                    res.render('dm', {admin: true, id: req.params.username, status: false, title: req.params.username, url: '/profiles/'+req.params.username, js: "dm.js", lastMessages: lastMessages, userPic: userPic});
+                })
             }
         )
     })
@@ -107,6 +148,10 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
             })
         })
     })
+})
+
+router.get('/usertype', auth.optional, (req, res, next) => {
+    res.render('usertype')
 })
 
 router.get('/login', auth.optional, (req, res, next) => {

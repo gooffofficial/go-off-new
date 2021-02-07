@@ -21,17 +21,20 @@
                         var div, a, text, img;
                         for (var i = 0, l = myArr.length; i < l; ++i) {
                             div = document.createElement('div');
+                            div.setAttribute('class', 'follow-list-element')
+                            div.setAttribute('id', 'followElement')
                             a  = document.createElement('a');
                             img = document.createElement('img');
                             text = document.createTextNode(myArr[i][0]);
 
                             img.setAttribute("src", myArr[i][1]);
-                            img.setAttribute("width", "5%");
-                            img.setAttribute("height", "5%");
+                            img.setAttribute("class","userPic")
+                            img.setAttribute("id", "user"+i+"pic")
 
                             user = myArr[i][0];
                             console.log(myArr[i][0]);
                             a.setAttribute("class", "user" + i);
+                            a.setAttribute("id", "user"+i)
                             a.setAttribute("href", "/m/" + user);
                             a.setAttribute("target", "_blank");
                             a.appendChild(text);

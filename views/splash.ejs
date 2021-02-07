@@ -1,19 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="/css/test_login.css">
-        <title>Go Off! </title>
-    </head>
-    <body>
-        <div>
-            <img src="/GO_Off300.png" style="width:15%; height:auto;">
-        </div>
-        <div>
-            <h1 id="welcome">Welcome to Go Off!</h1>
-            <div class="splash_nav">
-                <button onclick="window.location.href='/usertype'">Sign Up</button>
-                <button onclick="window.location.href='/login'">Log In</button>
-            </div>
-        </div>
-    </body>
+
+<head>
+	<link rel="stylesheet" href="/css/test_login.css">
+	<title>Go Off!</title>
+</head>
+
+<body>
+	<div class="left-side">
+		<img src="/go-off-logo-big.svg" id="left-logo" draggable="false">
+	</div>
+
+	<div class="right-side">
+		<div class="center-container">
+			<img src="/GO_OFF_LOGO.svg" class="right-logo" draggable="false">
+
+			<p id="main-text">Join the conversation, literally.</p>
+			<p id="sub-text">Sign up or login to join Go Off!</p>
+
+			<div class="button-container">
+				<button onclick="window.location.href='/usertype'" class="form-button">Sign Up</button>
+				<button onclick="window.location.href='/login'" class="form-button">Log In</button>
+			</div>
+		</div>
+
+		<div class="bottom-links">
+			<ul> <!-- CREATE LINKS TO THESE PAGES -->
+				<li><a href="">Contact</a></li>
+				<li><a href="">Beta Sign Up</a></li>
+				<li><a href="">Privacy Policy</a></li>
+				<li><a href="">Terms & Conditions</a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+
 </html>
