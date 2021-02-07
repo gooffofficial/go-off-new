@@ -215,7 +215,7 @@
 			<nav>
 				<ul id="tabs-ul">
 					<li class="tabs-li"><a href="#" class="tabs-a">Media</a></li>
-					<li class="tabs-li"><a href="#" class="tabs-a">Folders</a></li>
+					<!-- <li class="tabs-li"><a href="#" class="tabs-a">Folders</a></li> -->
 					<li class="tabs-li"><a href="#" class="tabs-a">Convos</a></li>
 					<li class="tabs-li"><a data-target="#following-modal" data-toggle="modal" class="tabs-a"
 							href="#following-modal">Following</a></li>
@@ -396,6 +396,7 @@
 						<span class="caret"></span></button>
 						<ul class="dropdown-menu">
 						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+						  <li><a id="article1convolink" href="">Check Conversations</a></li>
 						  <li class="dropdown-submenu">
 							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
 							<ul class="dropdown-supersubmenu">
@@ -441,7 +442,22 @@
 					<!-- POSTED BY USER PROFILE PICTURE -->
 					<p>Posted by User</p>
 
-					<img src="/more_horiz.svg" class="horiz-icon">
+					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
+						<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+						  <li class="dropdown-submenu">
+							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
+							<ul class="dropdown-supersubmenu">
+							  <li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+							  <li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+							  <li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+							</ul>
+						  </li>
+						</ul>
+					  </div>
 				</div>
 			</div>
 
@@ -477,7 +493,22 @@
 					<!-- POSTED BY USER PROFILE PICTURE -->
 					<p>Posted by User</p>
 
-					<img src="/more_horiz.svg" class="horiz-icon">
+					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
+						<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+						  <li class="dropdown-submenu">
+							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
+							<ul class="dropdown-supersubmenu">
+							  <li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+							  <li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+							  <li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+							</ul>
+						  </li>
+						</ul>
+					  </div>
 				</div>
 			</div>
 
@@ -513,33 +544,22 @@
 					<!-- POSTED BY USER PROFILE PICTURE -->
 					<p>Posted by User</p>
 
-					<img src="/more_horiz.svg" class="horiz-icon">
-					<!--<div class="droparrow1 align-self-center">
-						<img onclick="dropclick5()" src="/more_horiz.svg" id="arrows" />
-						<div id="arrowdrop5" class="dropdown-arrowcontent">
-							<a href="/profile">Profile</a>
-							<a href="/profile">Profile</a>
-							<a href="/profile">Profile</a>
-						</div>-->
-						<div class="dropdown">
-							<!-- <img onclick="myFunction()" src="/more_horiz.svg" class = "dropbtn" id="arrows" /> -->
-
-							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
-								<span class="caret"></span></button>
-								<ul class="dropdown-menu">
-								  <li><a tabindex="-1" action="" id="update4" style="visibility: visible">Save to profile</a></li>
-								  <li class="dropdown-submenu">
-									<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
-									<ul class="dropdown-supersubmenu">
-									  <li><a tabindex="-1" href="#">Business/Tech</a></li>
-									  <li><a tabindex="-1" href="#">Art/Literature</a></li>
-									  <li><a tabindex="-1" href="#">Miscellaneous</a></li>
-									</ul>
-								  </li>
-								</ul>
-							  </div>
-						</div>
+					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
+						<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+						  <li class="dropdown-submenu">
+							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
+							<ul class="dropdown-supersubmenu">
+							  <li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+							  <li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+							  <li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+							</ul>
+						  </li>
+						</ul>
+					  </div>
 				</div>
 			</div>
 
@@ -885,6 +905,7 @@ window.onclick = function(event) {
 						document.getElementById("location").innerHTML = myArr.user.location;
 						document.getElementById("bio").innerHTML = myArr.user.bio;
 						document.getElementById("article1_link").setAttribute("href", myArr.user.article1link);
+						document.getElementById("article1convolink").setAttribute("href", "?article="+myArr.user.article1link);
 						document.getElementById("article1_link1").setAttribute("href", myArr.user.article1link);
 						document.getElementById("article1_link2").setAttribute("href", myArr.user.article1link);
 						document.getElementById("article1_link3").setAttribute("href", myArr.user.article1link);

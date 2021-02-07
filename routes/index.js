@@ -40,6 +40,12 @@ router.get('/following/:user', auth.required, (req, res, next) => {
     res.render('profiles/following', {user: req.params.user})
 })
 
+router.get('/conversation', auth.required, (req, res, next) => {
+    const { payload: { username} } = req;
+    var article = req.query["article"];
+    console.log("SDIFUHGJBSIHDFGJHISDFGNIUHGJODFSKNIRJGSFK\n\n\n\n\n");
+    console.log(article);
+})
 
 //route to get into direct messages
 router.get('/m/:username', auth.required, (req, res, next) => {
