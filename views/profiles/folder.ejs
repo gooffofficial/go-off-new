@@ -4,13 +4,27 @@
         
     </head>
     <body>
-        <p>saved content</p>
-        console.log("<%=articles[0].article%>")
-
+        <p id = "save_link">saved content</p>
+        <% Object.keys(articles).forEach(function(prop){%>
+           <p id = "link"> <%=articles[prop].article%> </p>
+       <% })%>
     </body>
     
 </html>
-
+<!-- 
 <script>
-    console.log("<%=articles%>")
-</script>
+    function art_search(){
+        <% Object.keys(articles).forEach(function(prop){%>
+            var p = document.createElement("p");
+            var n = document.createTextNode(articles[prop].articles); 
+            p.appendChild(n);
+           //<% console.log(prop, articles[prop].article);%>
+       <% })%>
+        // var arts = <%=articles%>;
+        // for (var i = 0; i < arts.length; i++){
+        //     var p = document.createElement("p");
+        //     var n = document.createTextNode(arts[i].articles); 
+        //     p.appendChild(n);
+        // }
+    }
+</script> -->
