@@ -53,9 +53,84 @@ router.get('/feed/:user', auth.required, (req, res, next) => {
 router.get('/conversation', auth.required, (req, res, next) => {
     const { payload: { username} } = req;
     var article = req.query["article"];
-    console.log("SDIFUHGJBSIHDFGJHISDFGNIUHGJODFSKNIRJGSFK\n\n\n\n\n");
-    console.log(article);
+    //picture, title, author, link
+    db.Article.findOne({
+        where: {
+            url: article
+        }
+    }).then((art) => {
+        if(!art){
+            return res.status(422).json({
+                errors: {
+                    article: "not found"
+                }
+            })
+        }
+        db.Convo.findAll({
+            limit: 2,
+            where: {
+                article: article
+            }
+        }).then(async (convos) => {
+            var hosts = []
+            // current timestamp in milliseconds
+            for (const convo of convos){
+                let host = await db.User.findOne({
+                    where: {
+                        id: convo.host
+                    }
+                })
+                hosts.push(host.username)
+            }
+            if(hosts.length == 0){
+                hosts[0] = ""
+                hosts[1] = ""
+            }
+            else if(hosts.length == 1){
+                hosts[1] = ""
+            }
+            if (convos.length == 0){
+                convos[0] = {
+                    time: "No convo scheduled",
+                    id: null
+                }
+                convos[1] = {
+                    time: "No convo scheduled",
+                    id: null
+                }
+            }
+            else if (convos.length == 1){
+                convos[1] = {
+                    time: "No convo scheduled",
+                    id: null
+                }
+            }
+            let ts = Date.now();
+            let date_ob = new Date(ts);
+            let date = date_ob.getDate();
+            let month = date_ob.getMonth() + 1;
+            let year = date_ob.getFullYear();
+            return res.render('conversation', {articlePic: art.img, artTitle: art.title, artLink: article, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts})  
+        })
+    })
 })
+
+router.get('/folder/:id', auth.required, (req, res, next) => {
+    const { payload: { username} } = req;
+    
+    db.SavedArticle.findAll({
+        where: {
+            FolderId: req.params.id
+        }
+    }).then((articles) => {
+        var save = [] 
+        for(var i = 0; i < articles.length; i++){
+            save.push(articles[i].getFolderInfo());
+        }
+        console.log(articles);
+        res.render('profiles/folder', {articles: save})
+    }
+)})
 
 //route to get into direct messages
 router.get('/m/:username', auth.required, (req, res, next) => {

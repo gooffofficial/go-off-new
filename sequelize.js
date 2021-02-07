@@ -7,6 +7,8 @@ const UserArticleModel = require('./models/UserArticles')
 const FollowerModel = require('./models/Follower')
 const FolderModel = require('./models/Folders')
 const SavedArticleModel = require('./models/SavedArticles')
+const ConvoModel = require('./models/Convo')
+const Convo_memberModel = require('./models/Convo_members')
 
 const sequelize = new Sequelize('test_server1', process.env.RDS_USER, process.env.RDS_PASSWORD, {
   port: process.env.RDS_PORT,
@@ -28,6 +30,8 @@ const UserArticles = UserArticleModel(sequelize, Sequelize);
 const Followers = FollowerModel(sequelize, Sequelize);
 const Folders = FolderModel(sequelize, Sequelize);
 const SavedArticles = SavedArticleModel(sequelize, Sequelize);
+const Convos = ConvoModel(sequelize, Sequelize);
+const Convo_member = Convo_memberModel(sequelize, Sequelize);
 
 sequelize.sync()
   .then(() => {

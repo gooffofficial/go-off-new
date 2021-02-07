@@ -509,6 +509,15 @@
 					</a>
 					<a id="user-article3_link1">
 						<h3 id="user-article-3-title" class="article-title"></h3>
+		<div id="Folders" class="tabcontent" style = "display: none;">
+			<div id = "user-folder-container">
+				<h1 id = "folders-text">Recently Added</h1>
+				<div id="folder-1" class="article">
+					<a id="folder1_link">
+						<div class="article-image-container">
+							<img id="article-1-image" class="article-image">
+						</div>
+						<p  id="folder1_title"></p>
 					</a>
 		
 					<!--<div class="user-Chat4" id="update4" style="display:none">
@@ -518,7 +527,7 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<a href = "/views/profiles/folder.ejs">button</a>
+					<a onclick = saveArticles()>button</a>
 				</div>
 
 				<div class="article-info-bottom-container">
@@ -542,6 +551,22 @@
 						  </li>
 						</ul>
 					  </div>
+				<div id="folder-2" class="article">
+					<a id="folder2_link">
+						<div class="article-image-container">
+							<img id="article-1-image" class="article-image">
+						</div>
+						<p id="folder2_title"></p>
+					</a>
+		
+					<!--<div class="user-Chat4" id="update4" style="display:none">
+						<form action="/api/users/add_article4" method="post" id="Dot4">
+							<label for="url">Article Url:</label>
+							<input type="text" id="url" name="article">
+							<input type="submit" value="update">
+						</form>
+					</div>-->
+					<a href = "/folder">button</a>
 				</div>
 			</div>
 
@@ -564,6 +589,15 @@
 					<a id="user-article4_link1">
 						<h3 id="user-article-4-title" class="article-title"></h3>
 					</a>
+		
+					<!--<div class="user-Chat4" id="update4" style="display:none">
+						<form action="/api/users/add_article4" method="post" id="Dot4">
+							<label for="url">Article Url:</label>
+							<input type="text" id="url" name="article">
+							<input type="submit" value="update">
+						</form>
+					</div>-->
+					<a href = "/folder">button</a>
 				</div>
 
 				<div class="article-info-bottom-container">
@@ -669,6 +703,22 @@
 		);
 		if (hasTouchScreen == true) {
 			document.getElementById("pro-style").setAttribute('href', '/css/profile.css')
+		}
+
+		function saveArticles(){
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+					console.log("returned nothigngggggalskfjs");
+					if (this.readyState == 4 && this.status == 200) {
+						var userArr = JSON.parse(this.responseText);
+						console.log("ahhhhhhhhhhhhhhh", userArr.id);
+						var x = userArr.id;
+						window.location.href = "/folder/" + x.toString();
+					}
+				}
+			xhr.open("GET", '/api/savedarts?namez=' + document.getElementById("folder1_title").textContent, true);
+			xhr.send();
+
 		}
 
 		function testclick() {
@@ -1069,10 +1119,9 @@ window.onclick = function(event) {
 
 				var xhr4 = new XMLHttpRequest();
 				xhr4.onreadystatechange = function () {
-					console.log('pls');
 					if (this.readyState == 4 && this.status == 200) {
 						var userArr = JSON.parse(this.responseText);
-						console.log("FOLDERRRR", userArr);
+
 						for (var i= 0; i < userArr.length; i++){
 							console.log(userArr[i].foldername);
 							var x = i+1
