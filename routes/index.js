@@ -40,6 +40,16 @@ router.get('/following/:user', auth.required, (req, res, next) => {
     res.render('profiles/following', {user: req.params.user})
 })
 
+router.get('/feed', auth.required, (req, res, next) => {
+    const { payload: { username } } = req;
+    res.render('feed', {user: username})
+})
+
+router.get('/feed/:user', auth.required, (req, res, next) => {
+    const { payload: { username } } = req;
+    res.render('feed', {user: req.params.user})
+})
+
 router.get('/conversation', auth.required, (req, res, next) => {
     const { payload: { username} } = req;
     var article = req.query["article"];
