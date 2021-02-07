@@ -7,6 +7,16 @@ const db = require('../../models')
 router.use('/users', require('./users'));
 router.use('/chat', require('./chat'))
 
+router.get('/folders', auth.required, (req, res, next) => {
+    const {payload: {id}} = req;
+    db.Folder.findAll({
+        where: {
+            UserId: id
+        }
+    }).then((folders) => {
+        return res.json(folders)
+    })
+})
 
 /*
 router.get('/update_article', auth.optional, (req,res, next) => {
