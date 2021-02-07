@@ -66,7 +66,52 @@ router.get('/conversation', auth.required, (req, res, next) => {
                 }
             })
         }
-        return res.render('conversation', {articlePic: art.img, artTitle: art.title, artLink: article})
+        db.Convo.findAll({
+            limit: 2,
+            where: {
+                article: article
+            }
+        }).then(async (convos) => {
+            var hosts = []
+            // current timestamp in milliseconds
+            for (const convo of convos){
+                let host = await db.User.findOne({
+                    where: {
+                        id: convo.host
+                    }
+                })
+                hosts.push(host.username)
+            }
+            if(hosts.length == 0){
+                hosts[0] = ""
+                hosts[1] = ""
+            }
+            else if(hosts.length == 1){
+                hosts[1] = ""
+            }
+            if (convos.length == 0){
+                convos[0] = {
+                    time: "No convo scheduled",
+                    id: null
+                }
+                convos[1] = {
+                    time: "No convo scheduled",
+                    id: null
+                }
+            }
+            else if (convos.length == 1){
+                convos[1] = {
+                    time: "No convo scheduled",
+                    id: null
+                }
+            }
+            let ts = Date.now();
+            let date_ob = new Date(ts);
+            let date = date_ob.getDate();
+            let month = date_ob.getMonth() + 1;
+            let year = date_ob.getFullYear();
+            return res.render('conversation', {articlePic: art.img, artTitle: art.title, artLink: article, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts})  
+        })
     })
 })
 

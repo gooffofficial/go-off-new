@@ -6,6 +6,7 @@ const db = require('../../models')
 
 router.use('/users', require('./users'));
 router.use('/chat', require('./chat'))
+router.use('/convos', require('./convos'))
 
 router.get('/folders', auth.required, (req, res, next) => {
     const {payload: {id}} = req;

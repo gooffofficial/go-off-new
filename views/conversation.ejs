@@ -119,23 +119,72 @@
 		</div>
     </nav>
     <div class="top-box">
-        <img id="article-pic">
+        <img id="article-pic" src="<%=articlePic%>">
         <div id="article-info-container">
-            <a href="" id="article-link">article link</a>
-            <p id="article-author"></p>
-            <h1 id="article-title"></h1>
+            <a href="<%=artLink%>" id="article-link">article link</a>
+            <!--<p id="article-author"></p>-->
+			<h1 id="article-title"><%=artTitle%></h1>
+			<button onclick="joinConvo()">RSVP</button>
         </div>
     </div>
-    <button type="button" id="create-convo">create convo</button>
+	<button type="button" id="create-convo" onclick="dropmodal()">create convo</button>
+	<div id="arrowdropmodal" class="dropdown-arrowcontent">
+		<form id="createConvo" method="post" action="/api/convos/create">
+			<label for="convoTime">Conversation Time</label>
+			<input type="datetime-local" min=<%=date%> id="convoTime" name="convoTime">
+			<!-- Sus security here -->
+			<input type="hidden" id="article" name="article" value="<%=artLink%>">
+			<input type="submit" value="submit">
+		</form>
+	</div>
     <p id="subheader">Upcoming Convos</p>
     <div class="upcoming-convo1">
-        <img id="article-pic1">
-        <h1 id="convo-title1"></h1>
-        <p id="convo-time1"></p>
-        <button type="button">RSVP</button>
+        <img id="article-pic1" src="<%=articlePic%>">
+        <h1 id="convo-host1">Hosted by: <%=hosts[0]%></h1>
+        <p id="convo-time1"><%=convos[0].time%></p>
+        <button type="button" onclick="joinConvo1()">RSVP</button>
+	</div>
+	<div class="upcoming-convo2">
+        <img id="article-pic2" src="<%=articlePic%>">
+        <h1 id="convo-host2">Hosted by: <%=hosts[1]%></h1>
+        <p id="convo-time2"><%=convos[1].time%></p>
+        <button type="button" onclick="joinConvo2()">RSVP</button>
     </div>
     <script>
-        
+        function dropclick1() {
+			var x = document.getElementById("arrowdrop");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
+		function dropmodal() {
+			var x = document.getElementById("arrowdropmodal");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
+		function joinConvo1(){
+			console.log("HEEEEYYYYY")
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", '/api/convos/join', true);
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify({
+    			convo: <%=convos[0].id%> 
+			}));
+		}
+		function joinConvo2(){
+			console.log("HEEEEYYYYY")
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", '/api/convos/join', true);
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify({
+    			convo: <%=convos[1].id%> 
+			}));
+		}
     </script>
     </body>
     </html>

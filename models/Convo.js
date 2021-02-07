@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-    var Follower =  sequelize.define('Convo', {
+    var Convo =  sequelize.define('Convo', {
         id: {
             type: type.INTEGER,
             primaryKey: true,
@@ -12,8 +12,12 @@ module.exports = (sequelize, type) => {
         },  
         time : {
             type: type.DATE,
-            defaultValue: 0
+            allowNull: false
+        },
+        host: {
+            type: type.INTEGER,
+            allowNull: false
         }
     })
-    return Follower;
+    return Convo;
 }
