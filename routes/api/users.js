@@ -50,7 +50,8 @@ router.post('/', auth.optional, [
   body('age').escape(),
   body('location').escape(),
   body('gender').escape(),
-  body('password').escape()
+  body('password').escape(),
+  body('birthdate').escape()
 ],(req, res, next) => {
     //const { body: { user } } = req;
     //console.log(req);
@@ -111,6 +112,13 @@ router.post('/', auth.optional, [
             }
         })
     }
+    if(!user.birthdate){
+      return res.status(422).json({
+        errors: {
+          birthdate: 'is required',
+        }
+      })
+    }
     /*
     if(db.User.findOne({
       where: {
@@ -135,6 +143,8 @@ router.post('/', auth.optional, [
       gender: user.gender,
       password: user.password,
       admin: user.admin,
+      birthdate: user.birthdate,
+      user_status: "P",
       followercount: user.followercount,
       followingcount: user.followingcount,
     })
@@ -629,6 +639,53 @@ router.get('/logout', (req, res, next) => {
     signed: true
   })
   return res.redirect('/');
+})
+
+
+// add articles for user
+router.post('/add_article', auth.required, [body('userArticle').blacklist('<>')], (req, res, next) => {
+  const { payload: {id, username} } = req;
+  db.Article.findOne({
+    where: {
+      url: req.body.userArticle
+    }
+  }).then((art) => {
+    if (!art){
+      try {
+        crawler(req.body.userArticle)
+      }
+      catch(err){
+        return res.send(err)
+      }
+    }
+    db.UserArticle.findOne({
+      where: {
+        userId: id
+      }
+    }).then((userArticle) => {
+      if(!userArticle){
+          db.UserArticle.create({
+            UserId: id,
+            article1: req.body.userArticle
+        })
+      }
+      else{
+        var articles = userArticle.getArticles()
+        db.UserArticle.update({
+          article4: articles.article3,
+          article3: articles.article2,
+          article2: articles.article1,
+          article1: req.body.userArticle
+        },
+        {
+          where: {
+            userId: id
+          }
+        })
+      }
+    })
+    return res.redirect('/profiles/'+username);
+  })
 })
 
 //move to users.js file
