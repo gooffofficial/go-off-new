@@ -450,6 +450,7 @@
 						<div class="article-image-container">
 							<img id="article-1-image" class="article-image">
 						</div>
+						<p id="folder1_title"></p>
 					</a>
 		
 					<!--<div class="user-Chat4" id="update4" style="display:none">
@@ -467,6 +468,7 @@
 						<div class="article-image-container">
 							<img id="article-1-image" class="article-image">
 						</div>
+						<p id="folder2_title"></p>
 					</a>
 		
 					<!--<div class="user-Chat4" id="update4" style="display:none">
@@ -484,6 +486,8 @@
 						<div class="article-image-container">
 							<img id="article-1-image" class="article-image">
 						</div>
+						<p id="folder3_title"></p>
+
 					</a>
 		
 					<!--<div class="user-Chat4" id="update4" style="display:none">
@@ -975,7 +979,11 @@ window.onclick = function(event) {
 					if (this.readyState == 4 && this.status == 200) {
 						var userArr = JSON.parse(this.responseText);
 						console.log("FOLDERRRR", userArr);
-						
+						for (var i= 0; i < userArr.length; i++){
+							console.log(userArr[i].foldername);
+							var x = i+1
+							document.getElementById("folder"+ x.toString() + "_title").textContent = userArr[i].foldername;
+						}
 					}
 				}
 				xhr4.open("GET", '/api/folders', true);
