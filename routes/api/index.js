@@ -19,6 +19,25 @@ router.get('/folders', auth.required, (req, res, next) => {
     })
 })
 
+router.get('/savedarts', auth.required, (req, res, next) => {
+    const {payload: {id}} = req; 
+    var foldname = req.query.namez;
+    console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHH", foldname);
+    db.Folder.findOne({
+        where: {
+            foldername: foldname, 
+            UserId: id
+        }
+    }).then((folder) => {return res.json({id: folder.id})})
+    // db.Folder.findAll({
+    //     where:{
+    //         UserId: id,
+    //         foldername: foldname
+    //     }
+    // }).then((articles) => {
+    //     return res.json(articles)
+    // })
+})
 /*
 router.get('/update_article', auth.optional, (req,res, next) => {
     db.Profile.update({
