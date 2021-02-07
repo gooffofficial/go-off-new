@@ -215,7 +215,7 @@
 			<nav>
 				<ul id="tabs-ul">
 					<li class="tabs-li"><a href="#" class="tabs-a">Media</a></li>
-					<li class="tabs-li"><a href="#" class="tabs-a">Folders</a></li>
+					<li class="tabs-li"><a href="#" id="update5" style= "visibility: visible;"class="tabs-a">Folders</a></li>
 					<li class="tabs-li"><a href="#" class="tabs-a">Convos</a></li>
 					<li class="tabs-li"><a data-target="#following-modal" data-toggle="modal" class="tabs-a"
 							href="#following-modal">Following</a></li>
@@ -395,7 +395,7 @@
 						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
 						<span class="caret"></span></button>
 						<ul class="dropdown-menu">
-						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+						  <li><a tabindex="-1" onclick="sendreq()" id="update4" >Save to profile</a></li>
 						  <li><a id="article1convolink" href="">Check Conversations</a></li>
 						  <li class="dropdown-submenu">
 							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
@@ -410,13 +410,13 @@
 				</div>
 			</div>
 
-			<div class="user-Chat1" id="update1" style="display: none;">
+			<!-- <div class="user-Chat1" id="update1" style="display: none;">
 				<form action="/api/users/add_article1" method="post" >
 					<label for="url">Article Url:</label>
 					<input type="text" id="url" name="article">
 					<input type="submit" value="update">
 				</form>
-			</div>
+			</div> -->
 
 			<div id="user-article-2" class="article">
 				<a id="user-article2_link">
@@ -447,7 +447,7 @@
 						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
 						<span class="caret"></span></button>
 						<ul class="dropdown-menu">
-						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+						  <li><a tabindex="-1" onclick="sendreq()" id="update6" style="visibility: visible">Save to profile</a></li>
 						  <li class="dropdown-submenu">
 							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
 							<ul class="dropdown-supersubmenu">
@@ -461,13 +461,13 @@
 				</div>
 			</div>
 
-			<div class="user-Chat2" id="update2" style="display: none;">
+			<!-- <div class="user-Chat2" id="update2" style="display: none;">
 				<form action="/api/users/add_article2" method="post" >
 					<label for="url">Article Url:</label>
 					<input type="text" id="url" name="article">
 					<input type="submit" value="update">
 				</form>
-			</div>
+			</div> -->
 
 			<div id="user-article-3" class="article">
 				<a id="user-article3_link">
@@ -498,7 +498,7 @@
 						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
 						<span class="caret"></span></button>
 						<ul class="dropdown-menu">
-						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+						  <li><a tabindex="-1" onclick="sendreq()" id="update7" style="visibility: visible">Save to profile</a></li>
 						  <li class="dropdown-submenu">
 							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
 							<ul class="dropdown-supersubmenu">
@@ -512,13 +512,13 @@
 				</div>
 			</div>
 
-			<div class="user-Chat3" id="update3" style="display:none">
+			<!-- <div class="user-Chat3" id="update3" style="display:none">
 				<form action="/api/users/add_article3" method="post" >
 					<label for="url">Article Url:</label>
 					<input type="text" id="url" name="article">
 					<input type="submit" value="update">
 				</form>
-			</div>
+			</div> -->
 
 			<div id="user-article-4" class="article">
 				<a id="user-article4_link">
@@ -549,7 +549,7 @@
 						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
 						<span class="caret"></span></button>
 						<ul class="dropdown-menu">
-						  <li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
+						  <li><a tabindex="-1" onclick="sendreq()" id="update8" style="visibility: visible">Save to profile</a></li>
 						  <li class="dropdown-submenu">
 							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
 							<ul class="dropdown-supersubmenu">
@@ -563,13 +563,13 @@
 				</div>
 			</div>
 
-			<div class="user-Chat4" id="update4" style="display:none">
+			<!-- <div class="user-Chat4" id="update4" style="display:none">
 				<form action="/api/users/add_article4" method="post" id="Dot4">
 					<label for="url">Article Url:</label>
 					<input type="text" id="url" name="article">
 					<input type="submit" value="update">
 				</form>
-			</div>
+			</div> -->
 		</div>
 	</div>
 
@@ -999,7 +999,11 @@ window.onclick = function(event) {
 							document.getElementById("update1").style.display = '';
 							document.getElementById("update2").style.display = '';
 							document.getElementById("update3").style.display = '';
-							document.getElementById("update4").style.visibility = 'hidden';
+							document.getElementById("update4").style.display = 'none';
+							document.getElementById("update5").style.display = 'none';
+							document.getElementById("update6").style.display = 'none';
+							document.getElementById("update7").style.display = 'none';
+							document.getElementById("update8").style.display = 'none';
 						}
 					}
 				}
