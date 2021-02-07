@@ -150,16 +150,7 @@
         <p id="convo-time2"><%=convos[1].time%></p>
         <button type="button" onclick="joinConvo2()">RSVP</button>
     </div>
-    <div class="upcoming-convo2">
-        <img id="article-pic2">
-        <h1 id="convo-title2"></h1>
-        <p id="convo-time2"></p>
-        <button type="button">RSVP</button>
-    </div>
     <script>
-<<<<<<< HEAD:views/profiles/conversation.ejs
-
-=======
         function dropclick1() {
 			var x = document.getElementById("arrowdrop");
 			if (x.style.display === "block") {
@@ -177,16 +168,16 @@
 			}
 		}
 		function joinConvo1(){
-			console.log("HEEEEYYYYY")
+			console.log("HEEEEYYYYY");
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", '/api/convos/join', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify({
-    			convo: <%=convos[0].id%> 
+    			convo: <%=convos[0].id%>
 			}));
 		}
 		function joinConvo2(){
-			console.log("HEEEEYYYYY")
+			console.log("HEEEEYYYYY");
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", '/api/convos/join', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
@@ -194,7 +185,6 @@
     			convo: <%=convos[1].id%> 
 			}));
 		}
->>>>>>> 717d1944d194e8c35b3998e488ce0b445f84c45f:views/conversation.ejs
     </script>
     </body>
     </html>

@@ -65,7 +65,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary">Save changes</button>
+									<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
 								</div>
 							</div>
 						</div>
@@ -279,13 +279,13 @@
 					</div>
 				</div>
 
-				<div class="user-Chat1" id="update1" style="display: none;">
+				<!-- <div class="user-Chat1" id="update1" style="display: none;">
 					<form action="/api/users/add_article1" method="post" >
 						<label for="url">Article Url:</label>
 						<input type="text" id="url" name="article">
 						<input type="submit" value="update">
 					</form>
-				</div>
+				</div> -->
 
 				<div id="user-article-2" class="article">
 					<a id="user-article2_link">
@@ -330,13 +330,13 @@
 					</div>
 				</div>
 
-				<div class="user-Chat2" id="update2" style="display: none;">
+				<!-- <div class="user-Chat2" id="update2" style="display: none;">
 					<form action="/api/users/add_article2" method="post" >
 						<label for="url">Article Url:</label>
 						<input type="text" id="url" name="article">
 						<input type="submit" value="update">
 					</form>
-				</div>
+				</div> -->
 
 				<div id="user-article-3" class="article">
 					<a id="user-article3_link">
@@ -381,13 +381,13 @@
 					</div>
 				</div>
 
-				<div class="user-Chat3" id="update3" style="display:none">
+				<!-- <div class="user-Chat3" id="update3" style="display:none">
 					<form action="/api/users/add_article3" method="post" >
 						<label for="url">Article Url:</label>
 						<input type="text" id="url" name="article">
 						<input type="submit" value="update">
 					</form>
-				</div>
+				</div> -->
 
 				<div id="user-article-4" class="article">
 					<a id="user-article4_link">
@@ -408,42 +408,42 @@
 						</a>
 					</div>
 
-				<div class="article-info-container">
-					<a id="user-article1_link2">
-						<h4 id="user-article-1-author" class="article-author"></h4>
-					</a>
-					<a id="user-article1_link3">
-						<h4 id="user-article-1-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article1_link1">
-						<h3 id="user-article-1-title" class="article-title"></h3>
-					</a>
-				</div>
+					<div class="article-info-container">
+						<a id="user-article1_link2">
+							<h4 id="user-article-1-author" class="article-author"></h4>
+						</a>
+						<a id="user-article1_link3">
+							<h4 id="user-article-1-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article1_link1">
+							<h3 id="user-article-1-title" class="article-title"></h3>
+						</a>
+					</div>
 
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
+						<!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Posted by User</p>
 
-					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
-						<span class="caret"></span></button>
-						<ul class="dropdown-menu">
-						  <li><a tabindex="-1" onclick="sendreq()" id="update4" >Save to profile</a></li>
-						  <li><a id="article1convolink" href="">Check Conversations</a></li>
-						  <li class="dropdown-submenu">
-							<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
-							<ul class="dropdown-supersubmenu">
-							  <li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-							  <li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-							  <li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
+							<span class="caret"></span></button>
+							<ul class="dropdown-menu">
+							<li><a tabindex="-1" onclick="sendreq()" id="update4" >Save to profile</a></li>
+							<li><a id="article1convolink" href="">Check Conversations</a></li>
+							<li class="dropdown-submenu">
+								<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
+								<ul class="dropdown-supersubmenu">
+								<li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+								<li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+								<li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+								</ul>
+							</li>
 							</ul>
-						  </li>
-						</ul>
-					  </div>
+						</div>
+					</div>
 				</div>
-			</div>
 
 			<!-- <div class="user-Chat1" id="update1" style="display: none;">
 				<form action="/api/users/add_article1" method="post" >
@@ -453,7 +453,7 @@
 				</form>
 			</div> -->
 
-			<div id="user-article-2" class="article">
+			<!-- <div id="user-article-2" class="article">
 				<a id="user-article2_link">
 					<div class="article-image-container">
 						<img id="user-article-2-image" class="article-image">
@@ -462,10 +462,10 @@
 
 				<div class="article-info-bottom-container">
 					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE -->
+					<!-- POSTED BY USER PROFILE PICTURE 
 					<p>Posted by User</p>
 
-					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+					<!-- <img src="/more_horiz.svg" class="horiz-icon"> 
 					<div class="dropdown">
 						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">click
 						<span class="caret"></span></button>
@@ -483,7 +483,7 @@
 					  </div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 			<!-- <div class="user-Chat2" id="update2" style="display: none;">
 				<form action="/api/users/add_article2" method="post" >
@@ -493,7 +493,7 @@
 				</form>
 			</div> -->
 
-			<div id="user-article-3" class="article">
+			<!-- <div id="user-article-3" class="article">
 				<a id="user-article3_link">
 					<div class="article-image-container">
 						<img id="user-article-3-image" class="article-image">
@@ -508,7 +508,7 @@
 						<h4 id="user-article-3-read-time" class="article-read-time"></h4>
 					</a>
 					<a id="user-article3_link1">
-						<h3 id="user-article-3-title" class="article-title"></h3>
+						<h3 id="user-article-3-title" class="article-title"></h3> -->
 		<div id="Folders" class="tabcontent" style = "display: none;">
 			<div id = "user-folder-container">
 				<h1 id = "folders-text">Recently Added</h1>
