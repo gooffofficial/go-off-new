@@ -101,15 +101,18 @@ router.get('/feed', auth.required, (req, res, next) => {
             }
             if(convs.length == 0) {
                 convs[0] = {
-                    article: ""
+                    article: "",
+                    id: -1
                 }
                 convs[1] = {
-                    article: ""
+                    article: "",
+                    id: -1
                 }
             }
             else if(convs.length == 1){
                 convs[1] = {
-                    article: ""
+                    article: "",
+                    id: -1
                 }
             }
             console.log(convs[0].article)
