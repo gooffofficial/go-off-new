@@ -202,11 +202,20 @@ router.get('/folder/:id', auth.required, (req, res, next) => {
         }
     }).then((articles) => {
         var save = [] 
+        if (articles.length == 0){
+            console.log("ENTERED ERRORORR MOODE")
+            return res.status(422).json({
+                errors: {
+                    article: "not found" 
+                }
+            })
+        }else{
         for(var i = 0; i < articles.length; i++){
             save.push(articles[i].getFolderInfo());
         }
         console.log(articles);
         res.render('profiles/folder', {articles: save})
+    }
     }
 )})
 
