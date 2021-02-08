@@ -528,30 +528,50 @@
 		</div>
 
 		<div id="Content" class="tabcontent" style="display: none;">
-			<div class="tab" id="tabs-container" style="margin-top: 100px">
+			<div class="tab" id="tabs-container">
+				<hr id="tablink-line">
 				<button class="tablinks1 active" onclick="openCity1(event, 'upcoming_convo')">Upcoming Convos</button>
 				<button class="tablinks1" onclick="openCity1(event, 'prev_convo')">Previous Convos</button>
 			</div>
 
-			<div id="upcoming_convo" class="tabcontent1" style="display:block;">
-				<h1> aldfjsdfk </h1>
-				<div id="convo_container">
-					<img id="article_img">
-					<p id="title_conv">Title of Convo</p>
-					<p id="host">Hosted by: </p>
-					<button id="rsvp">rsvp</button>
+			<div id="upcoming_convo" class="tabcontent1">
+				<div id="convo-container">
+					<div id="convo-img-container">
+						<img id="convo-img">
+					</div>
+
+					<div id="convo-right-content">
+						<p id="convo-date">Thursday, November 19, 7:30 PM EDT</p>
+						<p id="convo-title">Title of Convo</p>
+						<p id="convo-description">Description</p>
+						<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by Name</span>
+						
+						<div id="convo-btns">
+							<a><img src="/share_outline.svg" id="convo-share-btn"></a>
+							<button id="go-to-convo-button">Go to Convo</button>
+						</div>
+					</div>
 				</div>
 			</div>
 
 			<div id="prev_convo" class="tabcontent1" style="display: none;">
-				<h1>asl;fkasdfjas</h1>
-				<div id="convo_container">
-					<img id="article_img">
-					<p id="title_conv">Title of Convo</p>
-					<p id="host">Hosted by: </p>
-					<p>Convo Past</p>
+				<div id="convo-container">
+					<div id="convo-img-container">
+						<img id="convo-img">
+					</div>
+
+					<div id="convo-right-content">
+						<p id="convo-date">Thursday, November 19, 7:30 PM EDT</p>
+						<p id="convo-title">Title of Convo</p>
+						<p id="convo-description">Description</p>
+						<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by Name</span>
+						
+						<div id="convo-btns">
+							<a><img src="/share_outline.svg" id="convo-share-btn"></a>
+							<button id="go-to-convo-button">Go to Convo</button>
+						</div>
+					</div>
 				</div>
-			</div>
 		</div>
 
 		<div id="Following" class="tabcontent">

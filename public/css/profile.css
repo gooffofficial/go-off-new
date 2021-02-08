@@ -417,6 +417,142 @@ button {
 	font-weight: bold;
 }
 
+#tablink-line {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	position: relative;
+    top: 58px;
+}
+
+#upcoming_convo {
+	display: flex !important;
+	flex-direction: row !important;
+}
+
+#convo-container {
+	font-family: 'Poppins', sans-serif;
+	display: flex !important;
+	flex-direction: row !important;
+	width: 100%;
+	margin-top: 22px;
+}
+
+#convo-img-container {
+	height: 140px;
+	width: 140px;
+	border-radius: 10px;
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+#convo-img {
+	width: 100%;
+}
+
+#convo-btns {
+	display: inline-block;
+	margin-left: 164px;
+}
+
+#convo-share-btn {
+	opacity: 0.5;
+}
+
+#convo-share-btn:hover {
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+#go-to-convo-button {
+	border: 0;
+	outline: 0;
+	color: #fff;
+	padding: 7px 20px;
+	border-radius: 5px;
+	font-size: 14px;
+	font-weight: bold;
+	background-color: var(--goOffBlue);
+	margin-left: 15px;
+}
+
+#go-to-convo-button:hover {
+	background-color: var(--goOffBlue) !important;
+	opacity: 0.8;
+}
+
+#go-to-convo-button:focus {
+	background-color: var(--goOffBlue) !important;
+}
+
+#convo-right-content {
+	margin-top: 12px;
+	margin-left: 16px;
+}
+
+#convo-date {
+	font-size: 14px;
+	text-transform: uppercase;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#convo-title {
+	font-size: 24px;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#convo-description {
+	font-size: 14px;
+	color: rgba(0, 0, 0, 0.5);
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#convo-usr-pfp {
+	height: 25px;
+	width: 25px;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+#convo-host {
+	font-size: 14px;
+	vertical-align: middle;
+}
+
+#convo-usr-pfp {
+	margin-top: -3px;
+	margin-right: 3px;
+}
+
+.tablinks1 {
+	font-family: 'Poppins', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	border: 0;
+	outline: 0;
+	background-color: rgba(0, 0, 0, 0) !important;
+	padding: 5px 0px;
+	border-bottom: 2px solid rgba(0, 0, 0, 0);
+	margin: 0;
+	color: rgba(0, 0, 0, 0.5);
+	margin-right: 20px;
+}
+
+.tablinks1:hover {
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.tablinks1:focus {
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.active {
+	color: rgba(0, 0, 0, 1);
+	border-bottom: 2px solid rgba(0, 0, 0, 1);
+}
+
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
 	display: none;
