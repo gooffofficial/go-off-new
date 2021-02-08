@@ -92,18 +92,24 @@ button {
 	display: inline;
 }
 
-#follower-count, #following-count, #post-count {
+#follower-count,
+#following-count,
+#post-count {
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
 	font-size: 16px;
 	color: #000;
 }
 
-#following-count, #location, #post-count {
+#following-count,
+#location,
+#post-count {
 	margin-left: 26px;
 }
 
-#followers-text, #following-text, #post-count-text {
+#followers-text,
+#following-text,
+#post-count-text {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
 	font-size: 16px;
@@ -154,7 +160,29 @@ button {
 	justify-content: space-between;
 }
 
-#user-articles-container {
+.url-label {
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#userArticle {
+    border-bottom: 2px solid black;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#userArticle:hover {
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+#userArticle:focus {
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+#user-articles-container, #user-folder-container {
 	margin-top: 100px;
 	height: var(--rowHeight);
 	display: flex;
@@ -182,7 +210,7 @@ button {
 .article-info-container {
 	box-sizing: content-box;
 	padding: 17px 17px;
-	margin-top: -8px;
+	margin-top: -2px;
 }
 
 .article-image-container {
@@ -190,6 +218,8 @@ button {
 	width: 100%;
 	overflow: hidden;
 	background-color: rgba(0, 0, 0, 0.1);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 }
 
 .article-image {
@@ -233,7 +263,7 @@ button {
 .article-read-time {
 	position: absolute;
 	right: 18px;
-	margin-top: 7px;
+	margin-top: 2px;
 	font-size: 12px;
 	color: rgba(0, 0, 0, 0.5);
 	font-family: 'Poppins', sans-serif;
@@ -241,7 +271,7 @@ button {
 	display: inline-block;
 }
 
-#articles-text {
+#articles-text, #folders-text {
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
 	font-size: 28px;
@@ -268,7 +298,7 @@ button {
 	margin-top: -2px;
 	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 50%;
-	display: inline-block;	
+	display: inline-block;
 }
 
 .horiz-icon {
@@ -322,6 +352,7 @@ button {
 .article-chat-button:hover button {
 	background-color: var(--goOffBlue) !important;
 }
+
 /* Dropdown Button */
 .dropbtn {
 	background-color: #3498DB;
@@ -330,47 +361,107 @@ button {
 	font-size: 16px;
 	border: none;
 	cursor: pointer;
-  }
-  
-  /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus {
 	background-color: #2980B9;
-  }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-	position: relative;
-	display: inline-block;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+	position: absolute !important;
+	bottom: 32px !important;
+	right: 0 !important;
+}
+
+.more-horiz {
+	height: 30px;
+	opacity: 0.3;
+}
+
+.more-horiz:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.dropdown-menu {
+	padding: 9px 35px 9px 20px !important;
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+}
+
+.dropdown-menu li {
+	padding: 5px 0px;
+}
+
+.dropdown-menu ul {
+	list-style-type: none;
+	padding: 0 !important;
+	margin-top: 10px;
+}
+
+.dropdown-menu a {
+	color: rgba(0, 0, 0, 0.6);
+	text-decoration: none !important;
+}
+
+.dropdown-menu a:hover {
+	color: var(--goOffBlue);
+}
+
+#save-to-folder {
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
 	display: none;
 	position: absolute;
 	background-color: #f1f1f1;
 	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
+}
+
+#arrowdrop {
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+	margin-top: 36px;
+	margin-left: 20px;
+	margin-right: -23px;
+	border-radius: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	width: auto;
+}
+
+#arrowdrop a {
+	color: rgba(0, 0, 0, 0.6);
+	text-decoration: none !important;
+}
+
+#arrowdrop a:hover {
+	color: var(--goOffBlue);
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+	background-color: #ddd
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
 	display: block;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd}
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;}
+}
+
 /*.droparrow1 {
 	/*display: inline-block;*/
-	/*float: right;
+/*float: right;
 	/* border: 1px solid rgba(153, 150, 150, 0.116); */
-	/*z-index: 1000;
+/*z-index: 1000;
 }*/
 /*
 #arrows {
@@ -536,7 +627,9 @@ button {
 	left: 70px;
 }
 
-#home, #profile, #contact {
+#home,
+#profile,
+#contact {
 	border: 0;
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
@@ -545,18 +638,46 @@ button {
 	padding: 6px 18px;
 }
 
-#tabs-ul{
+#tabs-ul {
 	list-style-type: none;
 	margin-left: -25px;
 	margin-top: -2px;
 }
+
 .tabs-li {
 	float: left;
 	display: inline;
 }
 
-.tabs-li, .tabs-a{
-	display:block; 
+#line {
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tablinks {
+	border: 0;
+	outline: 0;
+	font-family: 'Poppins', sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	text-transform: uppercase;
+	margin-right: 15px;
+	margin-left: -5px;
+	margin-top: -5px;
+}
+
+.tablinks:hover {
+	cursor: pointer;
+	color: var(--goOffBlue);
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.tablinks:focus {
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.tabs-li,
+.tabs-a {
+	display: block;
 	text-align: center;
 	padding: 0px 14px;
 }
@@ -601,23 +722,31 @@ button {
 	font-size: 2rem !important;
 }
 
-.close-modal-button, .save-changes-button {
-    border-radius: 100px;
-    padding: 10px 18px;
-    outline: none;
-    border: 0;
-    background-color: var(--goOffBlue);
-    color: #fff;
-    font-size: 14px;
+.submit-btn {
+	border: 0;
+	outline: 0;
 }
 
-.close-modal-button:hover, .save-changes-button:hover {
+.close-modal-button,
+.save-changes-button {
+	border-radius: 100px;
+	padding: 8px 16px;
+	outline: none;
+	border: 0;
+	background-color: var(--goOffBlue);
+	color: #fff;
+	font-size: 14px;
+}
+
+.close-modal-button:hover,
+.save-changes-button:hover {
 	cursor: pointer;
 	background-color: var(--goOffBlue) !important;
 	opacity: 0.85;
 }
 
-.close-modal-button:focus, .save-changes-button:focus {
+.close-modal-button:focus,
+.save-changes-button:focus {
 	cursor: pointer;
 	background-color: var(--goOffBlue) !important;
 }
@@ -647,4 +776,3 @@ button {
 		--pageWidth: 800px;
 	}
 }
-
