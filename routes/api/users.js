@@ -145,7 +145,7 @@ router.post('/', auth.optional, [
       password: user.password,
       admin: user.admin,
       birthdate: user.birthdate,
-      user_status: "P",
+      user_ver: 0,
       followercount: user.followercount,
       followingcount: user.followingcount,
     })

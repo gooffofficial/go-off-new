@@ -270,8 +270,8 @@
 							<ul class="dropdown-menu">
 								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
-									<span id="save-to-folder">Save to folder</span>
-									<ul class="dropdown-supersubmenu">
+									<span id="save-to-folder" onclick="dropclickfolders()">Save to folder</span>
+									<ul class="dropdown-supersubmenu" id="folders-options">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -322,8 +322,8 @@
 							<ul class="dropdown-menu">
 								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
-									<span id="save-to-folder">Save to folder</span>
-									<ul class="dropdown-supersubmenu">
+									<span id="save-to-folder" onclick="dropclickfolders()">Save to folder</span>
+									<ul class="dropdown-supersubmenu" id="folders-options">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -374,8 +374,8 @@
 							<ul class="dropdown-menu">
 								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
-									<span id="save-to-folder">Save to folder</span>
-									<ul class="dropdown-supersubmenu">
+									<span id="save-to-folder" onclick="dropclickfolders()">Save to folder</span>
+									<ul class="dropdown-supersubmenu" id="folders-options">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -426,8 +426,8 @@
 							<ul class="dropdown-menu">
 								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
-									<span id="save-to-folder">Save to folder</span>
-									<ul class="dropdown-supersubmenu">
+									<span id="save-to-folder" onclick="dropclickfolders()">Save to folder</span>
+									<ul class="dropdown-supersubmenu" id="folders-options">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -883,6 +883,15 @@ toggle between hiding and showing the dropdown content */
 
 		function dropclick6() {
 			var x = document.getElementById("dropdown-supersubmenu");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
+
+		function dropclickfolders() {
+			var x = document.getElementById("folders-options");
 			if (x.style.display === "block") {
 				x.style.display = "none";
 			} else {

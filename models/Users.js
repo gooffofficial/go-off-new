@@ -37,7 +37,7 @@ module.exports = (sequelize, type) => {
         admin: type.STRING,
         followercount: type.INTEGER,
         followingcount: type.INTEGER,
-        user_status: type.STRING,
+        user_ver: type.TINYINT(1),
         birthdate: type.DATE,
         password: {
             type: type.STRING,
