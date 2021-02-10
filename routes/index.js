@@ -76,6 +76,23 @@ router.get('/feed', auth.required, (req, res, next) => {
             art2['link'] = a.getArticleInfo()['url']
             arts2.push(art2)
         }
+        if(arts2.length == 0){
+            let a = {
+                img: '',
+                title: '',
+                link: '' 
+            }
+            arts2.push(a);
+            arts2.push(a);
+        }
+        if (arts.length == 1){
+            let a = {
+                img: '',
+                title: '',
+                link: ''
+            }
+            arts2.push(a)
+        }
         db.Convo_members.findAll({
             where: {
                 UserId: id
