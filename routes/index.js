@@ -71,9 +71,16 @@ router.get('/feed', auth.required, (req, res, next) => {
                     url: art
                 }
             })
-            art2['img'] = a.getArticleInfo()['img']
-            art2['title'] = a.getArticleInfo()['title']
-            art2['link'] = a.getArticleInfo()['url']
+            if (!a){
+                art2['img'] = ""
+                art2['title'] = ""
+                art2['link'] = ""
+            }
+            else{
+                art2['img'] = a.getArticleInfo()['img']
+                art2['title'] = a.getArticleInfo()['title']
+                art2['link'] = a.getArticleInfo()['url']
+            }
             arts2.push(art2)
         }
         if(arts2.length == 0){

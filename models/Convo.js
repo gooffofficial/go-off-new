@@ -17,6 +17,10 @@ module.exports = (sequelize, type) => {
         host: {
             type: type.INTEGER,
             allowNull: false
+        },
+        roomId: {
+            type: type.STRING,
+            allowNull: false
         }
     })
 
@@ -25,7 +29,8 @@ module.exports = (sequelize, type) => {
             id: this.id,
             article: this.article,
             time: this.time,
-            host: this.host
+            host: this.host,
+            roomId: this.roomId
         }
     }
     return Convo;
