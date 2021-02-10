@@ -49,6 +49,7 @@
 }
 
 .navIcon:hover {
+	cursor: pointer;
 	opacity: 1;
 }
 
