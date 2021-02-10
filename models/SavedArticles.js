@@ -5,7 +5,6 @@ module.exports = (sequelize, type) => {
         FolderId: { //unique folder id it is attached to
             type: type.INTEGER,
             allowNull: false,
-            primaryKey: true
         },
         article: type.STRING        
     });

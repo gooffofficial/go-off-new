@@ -568,7 +568,7 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<a href = "/folder">button</a>
+					<a onclick = saveArticles2()>button</a>
 				</div>
 			</div>
 
@@ -599,7 +599,7 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<a href = "/folder">button</a>
+					<a onclick = saveArticles3()>button</a>
 				</div>
 
 				<div class="article-info-bottom-container">
@@ -623,6 +623,29 @@
 						  </li>
 						</ul>
 					  </div>
+		<div id="Content" class="tabcontent" style = "display: none;">
+			<div class="tab" id = "tabs-container" style="margin-top: 100px">
+				<button class="tablinks1 active" onclick="openCity1(event, 'upcoming_convo')">Upcoming Convos</button>
+				<button class="tablinks1" onclick="openCity1(event, 'prev_convo')">Previous Convos</button>
+			</div>
+
+			<div id="upcoming_convo" class="tabcontent1" style="display:block;">
+				<h1> aldfjsdfk </h1>
+				<div id = "convo_container"> 
+					<img id = "article_img"> 
+					<p id = "title_conv">Title of Convo</p>
+					<p id = "host">Hosted by: </p> 
+					<button id = "rsvp">rsvp</button>
+				</div>
+			</div>
+
+			<div id="prev_convo" class="tabcontent1" style = "display: none;">
+				<h1>asl;fkasdfjas</h1>
+				<div id = "convo_container"> 
+					<img id = "article_img"> 
+					<p id = "title_conv">Title of Convo</p>
+					<p id = "host">Hosted by: </p> 
+					<p>Convo Past</p>
 				</div>
 			</div>
 		</div>
@@ -723,6 +746,38 @@
 
 		}
 
+		function saveArticles2(){
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+					console.log("returned nothigngggggalskfjs");
+					if (this.readyState == 4 && this.status == 200) {
+						var userArr = JSON.parse(this.responseText);
+						console.log("ahhhhhhhhhhhhhhh", userArr.id);
+						var x = userArr.id;
+						window.location.href = "/folder/" + x.toString();
+					}
+				}
+			xhr.open("GET", '/api/savedarts?namez=' + document.getElementById("folder2_title").textContent, true);
+			xhr.send();
+
+		}
+
+		function saveArticles3(){
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+					console.log("returned nothigngggggalskfjs");
+					if (this.readyState == 4 && this.status == 200) {
+						var userArr = JSON.parse(this.responseText);
+						console.log("ahhhhhhhhhhhhhhh", userArr.id);
+						var x = userArr.id;
+						window.location.href = "/folder/" + x.toString();
+					}
+				}
+			xhr.open("GET", '/api/savedarts?namez=' + document.getElementById("folder3_title").textContent, true);
+			xhr.send();
+
+		}
+
 		function testclick() {
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", '/api/users/follower_update', true);
@@ -756,6 +811,29 @@
 
 			// Get all elements with class="tablinks" and remove the class "active"
 			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+
+			// Show the current tab, and add an "active" class to the button that opened the tab
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
+
+
+		//FOR TAB FUNCTIONALITY
+		function openCity1(evt, cityName) {
+			// Declare all variables
+			var i, tabcontent, tablinks;
+
+			// Get all elements with class="tabcontent" and hide them
+			tabcontent = document.getElementsByClassName("tabcontent1");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+
+			// Get all elements with class="tablinks" and remove the class "active"
+			tablinks = document.getElementsByClassName("tablinks1");
 			for (i = 0; i < tablinks.length; i++) {
 				tablinks[i].className = tablinks[i].className.replace(" active", "");
 			}

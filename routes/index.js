@@ -4,7 +4,21 @@ const auth = require('./auth');
 const db = require('../models')
 const Room = require('../models/RoomSchema');
 const DM = require('../models/DMSchema')
-const crawler = require('../apify/crawler')
+const crawler = require('../apify/crawler');
+const sequelize = require('../sequelize');
+const Sequelize = require('sequelize')
+
+const seq = new Sequelize('test_server1', process.env.RDS_USER, process.env.RDS_PASSWORD, {
+    port: process.env.RDS_PORT,
+    host: process.env.RDS_HOSTNAME,
+    dialect: 'mysql',
+    pool: {
+      max: 10,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  })
 
 router.use('/api', require('./api'));
 router.use('/profiles', require('./profiles'))
@@ -41,14 +55,81 @@ router.get('/following/:user', auth.required, (req, res, next) => {
 })
 
 router.get('/feed', auth.required, (req, res, next) => {
-    const { payload: { username } } = req;
-    res.render('feed', {user: username})
+    const { payload: { id, username } } = req;
+    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
+    .then(async (articles) => { 
+        var arts = []
+        for(var i=0; i<articles[0].length; i++){
+            arts.push(articles[0][i].article)
+        } 
+        console.log(arts)
+        var arts2 = []
+        for(const art of arts){
+            var art2 = {}
+            let a = await db.Article.findOne({
+                where: {
+                    url: art
+                }
+            })
+            art2['img'] = a.getArticleInfo()['img']
+            art2['title'] = a.getArticleInfo()['title']
+            art2['link'] = a.getArticleInfo()['url']
+            arts2.push(art2)
+        }
+        db.Convo_members.findAll({
+            where: {
+                UserId: id
+            }
+        }).then(async (convos) => {
+            var convs = []
+            var i = 0
+            for (const convo of convos){
+                let c = await db.Convo.findOne({
+                    where: {
+                        id: convo.ConvoId
+                    }
+                })
+                convs.push(c);
+                let art = await db.Article.findOne({
+                    where: {
+                        url: c.article
+                    }
+                })
+                convs[i]['img'] = art.img
+                convs[i]['title'] = art.title
+                i++
+            }
+            if(convs.length == 0) {
+                convs[0] = {
+                    article: "",
+                    id: -1
+                }
+                convs[1] = {
+                    article: "",
+                    id: -1
+                }
+            }
+            else if(convs.length == 1){
+                convs[1] = {
+                    article: "",
+                    id: -1
+                }
+            }
+            console.log(convs[0].article)
+            res.render('feed', {user: req.params.user, articles: arts2, convos: convs})
+        })
+    })
 })
 
-router.get('/feed/:user', auth.required, (req, res, next) => {
-    const { payload: { username } } = req;
-    res.render('feed', {user: req.params.user})
-})
+// router.get('/feed/:username', auth.required, (req, res, next) => {
+//     const { payload: { id, username } } = req; 
+//     console.log("I AM IN The FEED")
+//     sequelize.query("SELECT * FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
+//     .then((articles) => {
+//         console.log("THEEEESE ARE THE ARTICLES: "+ articles)   
+//         res.render('feed', {user: req.params.user})
+//     })
+// })
 
 router.get('/conversation', auth.required, (req, res, next) => {
     const { payload: { username} } = req;
@@ -124,11 +205,20 @@ router.get('/folder/:id', auth.required, (req, res, next) => {
         }
     }).then((articles) => {
         var save = [] 
+        if (articles.length == 0){
+            console.log("ENTERED ERRORORR MOODE")
+            return res.status(422).json({
+                errors: {
+                    article: "not found" 
+                }
+            })
+        }else{
         for(var i = 0; i < articles.length; i++){
             save.push(articles[i].getFolderInfo());
         }
         console.log(articles);
         res.render('profiles/folder', {articles: save})
+    }
     }
 )})
 
