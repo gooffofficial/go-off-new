@@ -19,5 +19,14 @@ module.exports = (sequelize, type) => {
             allowNull: false
         }
     })
+
+    Convo.prototype.getConvoInfo = function() {
+        return {
+            id: this.id,
+            article: this.article,
+            time: this.time,
+            host: this.host
+        }
+    }
     return Convo;
 }
