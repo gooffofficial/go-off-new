@@ -10,6 +10,11 @@ const multer = require('multer')
 const multerS3 = require('multer-s3')
 const { body } = require('express-validator');
 const crawler = require('../../apify/crawler')
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
 
 AWS.config.update({
   region: "us-east-1"
@@ -148,6 +153,7 @@ router.post('/', auth.optional, [
       user_ver: 0,
       followercount: user.followercount,
       followingcount: user.followingcount,
+      user_tok: crypto.randomBytes(16).toString('hex'), //create the token 
     })
     .then((user) => {
       logger("User " + user.id + " created With username " + user.username);
@@ -160,7 +166,26 @@ router.post('/', auth.optional, [
         })
         .then(() => 
         {
-          res.redirect('/login');
+          //would send email here 
+           // Send email (use credintials of SendGrid)
+           const msg = {
+            to: user.email, // Change to your recipient
+            from: 'go.offmedia@gmail.com', // Change to your verified sender
+            subject: 'Email Verification Link',
+            text: 'Hello '+ user.firstname +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'localhost:8000' + '\/api\/users\/verification?useremail=' + user.email + '&verification_token=' + user.user_tok  + '\n\nThank You!\n',
+          }
+
+          sgMail
+          .send(msg)
+          .then(() => {
+            console.log('Email sent')
+            console.log(msg.text);
+          })
+          .catch((error) => {
+            console.error(error)
+          });
+          return res.redirect('/verify');
+          //res.redirect('/login'); //redirect to check email verification page
         })
       })
     })
@@ -169,8 +194,10 @@ router.post('/', auth.optional, [
     });
 });
 
+
+
 //POST for user login
-router.post('/login', auth.optional, (req, res, next) => {
+router.post('/login', auth.optional, async(req, res, next) => {
     //const { body: { user } } = req.body;
     const user = req.body;
     
@@ -189,6 +216,33 @@ router.post('/login', auth.optional, (req, res, next) => {
         },
       });
     }
+
+    var ver = await db.User.findOne({
+      where: {
+        username: user.username
+      }
+    })
+    if (!ver){
+      return res.status(422).json({
+        errors:{
+          error: 'username or password incorrect',
+        }
+      }) 
+    } else{
+      if (ver.user_ver == 0){
+      return res.status(422).json({
+        errors:{
+          verification: 'is required',
+        },
+      });
+    }
+    }
+    
+    //CHECKKKK IF VERIFIED --> DUNNO ERROR MESSAGE 
+      //user IS THE FOOOOOOOOOOORM
+      //redirect them to the check email for verification page 
+      //else{authenticate}
+      
     return passport.authenticate('local', (err, passportUser, info) => {
       if(err) {
         return next(err);
@@ -378,6 +432,45 @@ router.get('/all', auth.required, (req, res, next) => {
     return res.json(users);
   })
 })
+
+//GET for email verification 
+router.get('/verification', auth.optional, (req, res, next) => {
+  var email = req.query["useremail"];
+  var token = req.query["verification_token"];
+
+  db.User.findOne({
+    where:{
+      email: email 
+    }
+  })
+  .then((user) => {
+    if (!user) {
+      return res.sendStatus(401).send({msg:'We were unable to find a user for this verification. Please SignUp!'});
+    }
+    else if (user.user_ver == 1){
+      return res.status(200).send('User has been already verified. Please Login');
+    }
+    else{
+      if (user.user_tok == token){
+      user.user_ver = 1; 
+      user.save(function (err) {
+        // error occur
+        if(err){
+            return res.status(500).send({msg: err.message});
+        }
+        // account successfully verified
+        else{
+          return res.redirect('/login');
+        }
+    });
+    
+    }else{
+      return res.status(401).send({msg:'We were unable to find a user for this verification. Please SignUp!'});
+  }}
+    
+  });
+});
+
 
 //GET authenticated user
 router.get('/current', auth.required, (req, res, next) => {
