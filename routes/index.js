@@ -95,6 +95,12 @@ router.get('/feed', auth.required, (req, res, next) => {
                         url: c.article
                     }
                 })
+                let user = await db.User.findOne({
+                    where: {
+                        id: c.host
+                    }
+                })
+                convs[i]['host'] = user.username
                 convs[i]['img'] = art.img
                 convs[i]['title'] = art.title
                 i++

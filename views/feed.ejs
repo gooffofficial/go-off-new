@@ -250,7 +250,7 @@
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[0].host%></p>
-						<p id="convo-title">Title of Convo</p>
+						<p id="convo-title"><%=convos[0].title%></p>
 						<p id="convo-desc">Description</p>
 
 						<div id="convo-bl-container">
@@ -313,7 +313,7 @@
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[1].host%></p>
-						<p id="convo-title">Title of Convo</p>
+						<p id="convo-title"><%=convos[1].title%></p>
 						<p id="convo-desc">Description</p>
 
 						<div id="convo-bl-container">
@@ -381,7 +381,7 @@
 		xhr.open("POST", '/api/convos/join', true);
 		xhr.setRequestHeader('Content-Type', 'application/json');
 		xhr.send(JSON.stringify({
-			convo: < %= convos[0].id % >
+			convo: <%=convos[0].id%>
 		}));
 	}
 
@@ -391,7 +391,7 @@
 		xhr.open("POST", '/api/convos/join', true);
 		xhr.setRequestHeader('Content-Type', 'application/json');
 		xhr.send(JSON.stringify({
-			convo: < %= convos[1].id % >
+			convo: <%=convos[1].id%>
 		}));
 	}
 </script>
