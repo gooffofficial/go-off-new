@@ -108,8 +108,8 @@
 				</div>
 
 				<div class="droparrow align-self-center">
-					<img onclick="dropclick1()" src="/chevron_down.svg" id="arrows" />
-					<div id="arrowdrop" class="dropdown-arrowcontent">
+					<img onclick="dropclick2()" src="/chevron_down.svg" id="arrows" />
+					<div id="arrowdrop2" class="dropdown-arrowcontent">
 						<a href="/profile">Profile</a>
 						<a href="/profile_edit">Settings</a>
 						<a href="https://www.go-off.co/">Log Out</a>
@@ -159,6 +159,14 @@
 				x.style.display = "block";
 			}
 		}
+		function dropclick2() {
+			var x = document.getElementById("arrowdrop2");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
 		function dropmodal() {
 			var x = document.getElementById("arrowdropmodal");
 			if (x.style.display === "block") {
@@ -168,16 +176,16 @@
 			}
 		}
 		function joinConvo1(){
-			console.log("HEEEEYYYYY")
+			console.log("HEEEEYYYYY");
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", '/api/convos/join', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify({
-    			convo: <%=convos[0].id%> 
+    			convo: <%=convos[0].id%>
 			}));
 		}
 		function joinConvo2(){
-			console.log("HEEEEYYYYY")
+			console.log("HEEEEYYYYY");
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", '/api/convos/join', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');

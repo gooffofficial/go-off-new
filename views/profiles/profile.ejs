@@ -6,12 +6,10 @@
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-180244749-2"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-
 		function gtag() {
 			dataLayer.push(arguments);
 		}
 		gtag('js', new Date());
-
 		gtag('config', 'UA-180244749-2');
 	</script>
 	<link id="pro-style" rel="stylesheet" href="/css/profile.css">
@@ -70,7 +68,7 @@
 								</div>
 							</div>
 						</div>
-						<a href="/profile_edit">Folder</a>
+						<!-- <a href="/profile_edit">Folder</a> -->
 						<a href="https://www.go-off.co/">Convo</a>
 					</div>
 				</div>
@@ -128,7 +126,6 @@
 		<img src="/Search.png" alt="profile icon 1" class="img-circle"
 			style="width: 5%; height: auto; margin-left: 85%;">
 	</button>
-
 	<button id="Cancel" onclick="searchBar1()">Cancel</button> -->
 
 	<!-- <form id="bar_form">
@@ -271,8 +268,8 @@
 								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
 									<li><a id="user-article1check_link" href="">Check Conversations</a></li>
-									<span id="save-to-folder" onclick="dropclickfolders()">Save to folder</span>
-									<ul class="dropdown-supersubmenu" id="folders-options">
+									<a id="save-to-folder" onclick="dropclickfolders1()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options1">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -324,8 +321,8 @@
 								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
 									<li><a id="user-article2check_link" href="">Check Conversations</a></li>
-									<span id="save-to-folder" onclick="dropclickfolders()">Save to folder</span>
-									<ul class="dropdown-supersubmenu" id="folders-options">
+									<a id="save-to-folder" onclick="dropclickfolders2()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options2">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -377,8 +374,8 @@
 								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
 									<li><a id="user-article3check_link" href="">Check Conversations</a></li>
-									<span id="save-to-folder" onclick="dropclickfolders()">Save to folder</span>
-									<ul class="dropdown-supersubmenu" id="folders-options">
+									<a id="save-to-folder" onclick="dropclickfolders3()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options3">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -430,8 +427,8 @@
 								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
 									<li><a id="user-article4check_link" href="">Check Conversations</a></li>
-									<span id="save-to-folder" onclick="dropclickfolders()">Save to folder</span>
-									<ul class="dropdown-supersubmenu" id="folders-options">
+									<a id="save-to-folder" onclick="dropclickfolders4()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options4">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -556,14 +553,15 @@
 									<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by <%=upConvos[i].host%>></span>
 								
 									<div id="convo-btns">
-										<!-- SHARE BUTTON NO FUNCTIONALITY YET
-										<a><img src="/share_outline.svg" id="convo-share-btn"></a>-->
+										<!-- SHARE BUTTON NO FUNCTIONALITY YET 
+										<a><img src="/share_outline.svg" id="convo-share-btn"></a> -->
 										<button id="go-to-convo-button" onclick="window.location.href='/chat/<%=upConvos[i].id%>'">Go to Convo</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					 <% } %>
+		<!-- </div> -->
 					<!--<div id="convo-right-content">
 						<p id="convo-date">Thursday, November 19, 7:30 PM EDT</p>
 						<p id="convo-title">Title of Convo</p>
@@ -582,7 +580,7 @@
 				<!--<div id="convo-container">
 					<div id="convo-img-container">
 						<img id="convo-img">
-					</div>-->
+					</div> -->
 					<% for(var i=0; i < prevConvos.length; i++) { %>
 							<div id="convo-container">
 								<div id="convo-img-container">
@@ -615,11 +613,11 @@
 						</div>
 					</div>-->
 				<!--</div>
-		</div>-->
-
+		</div>
+		</div> -->
 		<div id="Following" class="tabcontent">
 		</div>
-	</div>
+	
 
 	<footer>
 		<div class="footer-container">
@@ -677,7 +675,6 @@
 		        }
 		    }
 		*/
-
 		//NOTE: This is not the recommended way to detect mobile anymore, in the future
 		// it will be better to just make the site responsive by default
 		var UA = navigator.userAgent;
@@ -688,7 +685,6 @@
 		if (hasTouchScreen == true) {
 			document.getElementById("pro-style").setAttribute('href', '/css/profile.css')
 		}
-
 		function saveArticles() {
 			xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function () {
@@ -702,9 +698,7 @@
 			}
 			xhr.open("GET", '/api/savedarts?namez=' + document.getElementById("folder1_title").textContent, true);
 			xhr.send();
-
 		}
-
 		function saveArticles2() {
 			xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function () {
@@ -718,9 +712,7 @@
 			}
 			xhr.open("GET", '/api/savedarts?namez=' + document.getElementById("folder2_title").textContent, true);
 			xhr.send();
-
 		}
-
 		function saveArticles3() {
 			xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function () {
@@ -734,9 +726,7 @@
 			}
 			xhr.open("GET", '/api/savedarts?namez=' + document.getElementById("folder3_title").textContent, true);
 			xhr.send();
-
 		}
-
 		function testclick() {
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", '/api/users/follower_update', true);
@@ -744,7 +734,6 @@
 			xhr.send(JSON.stringify({
 				username: document.getElementById("user-name").innerHTML.substring(1)
 			}));
-
 			//change colors based off click
 			if (document.getElementById("followbtn").value == "FOLLOW") {
 				console.log("test");
@@ -752,51 +741,41 @@
 			} else {
 				document.getElementById("followbtn").value = "FOLLOW";
 			}
-
 		}
-
 		//document.getElementById("bar_form").style.visibility = "hidden";
-
 		//FOR TAB FUNCTIONALITY
 		function openCity(evt, cityName) {
 			// Declare all variables
 			var i, tabcontent, tablinks;
-
 			// Get all elements with class="tabcontent" and hide them
 			tabcontent = document.getElementsByClassName("tabcontent");
 			for (i = 0; i < tabcontent.length; i++) {
 				tabcontent[i].style.display = "none";
 			}
-
 			// Get all elements with class="tablinks" and remove the class "active"
 			tablinks = document.getElementsByClassName("tablinks");
 			for (i = 0; i < tablinks.length; i++) {
 				tablinks[i].className = tablinks[i].className.replace(" active", "");
 			}
-
 			// Show the current tab, and add an "active" class to the button that opened the tab
 			document.getElementById(cityName).style.display = "block";
 			evt.currentTarget.className += " active";
 		}
-
-
 		//FOR TAB FUNCTIONALITY
 		function openCity1(evt, cityName) {
+			console.log(cityName);
 			// Declare all variables
 			var i, tabcontent, tablinks;
-
 			// Get all elements with class="tabcontent" and hide them
 			tabcontent = document.getElementsByClassName("tabcontent1");
 			for (i = 0; i < tabcontent.length; i++) {
 				tabcontent[i].style.display = "none";
 			}
-
 			// Get all elements with class="tablinks" and remove the class "active"
 			tablinks = document.getElementsByClassName("tablinks1");
 			for (i = 0; i < tablinks.length; i++) {
 				tablinks[i].className = tablinks[i].className.replace(" active", "");
 			}
-
 			// Show the current tab, and add an "active" class to the button that opened the tab
 			document.getElementById(cityName).style.display = "block";
 			evt.currentTarget.className += " active";
@@ -839,7 +818,6 @@
 				xmlhttp.send();
 			}
 		}
-
 		function searchBar() {
 			document.getElementById("Submit").style.visibility = "hidden";
 			// document.getElementById("Plus").style.visibility = "hidden";
@@ -850,7 +828,6 @@
 			document.getElementById("bar_form").style.visibility = "visible";
 			document.getElementById("droparrow").style.display = "none";
 		}
-
 		function searchBar1() {
 			document.getElementById("Submit").style.visibility = "visible";
 			// document.getElementById("Plus").style.visibility = "visible";
@@ -861,11 +838,9 @@
 			document.getElementById("bar_form").style.visibility = "hidden";
 			document.getElementById("droparrow").style.display = "block";
 		}
-
 		// $(window).resize(function() {
 		//     console.log('window was resized');
 		// });
-
 		// window.onload = function() {
 		//     var d = document.getElementsByTagName("profile-name")
 		//     if (d.offsetHeight < d.scrollHeight ||
@@ -875,7 +850,6 @@
 		//     console.log("no overflow");
 		//     }
 		// }
-
 		// var arrow = document.getElementById("arrows");
 		// arrow.addEventListener('click', function(){
 		//     var x = document.getElementById("arrowdrop");
@@ -885,7 +859,6 @@
 		//             x.style.display = "none";
 		//         }
 		// });
-
 		function dropclick1(id) {
 			var x = document.getElementById(id);
 			if (x.style.display === "block") {
@@ -894,13 +867,11 @@
 				x.style.display = "block";
 			}
 		}
-
 		/* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 		function myFunction() {
 			document.getElementById("myDropdown").classList.toggle("show");
 		}
-
 		// Close the dropdown menu if the user clicks outside of it
 		window.onclick = function (event) {
 			if (!event.target.matches('.dropbtn')) {
@@ -914,7 +885,6 @@ toggle between hiding and showing the dropdown content */
 				}
 			}
 		}
-
 		function dropclick5() {
 			var x = document.getElementById("arrowdrop5");
 			if (x.style.display === "block") {
@@ -923,7 +893,6 @@ toggle between hiding and showing the dropdown content */
 				x.style.display = "block";
 			}
 		}
-
 		function dropclick6() {
 			var x = document.getElementById("dropdown-supersubmenu");
 			if (x.style.display === "block") {
@@ -932,16 +901,38 @@ toggle between hiding and showing the dropdown content */
 				x.style.display = "block";
 			}
 		}
-
-		function dropclickfolders() {
-			var x = document.getElementById("folders-options");
+		function dropclickfolders1() {
+			var x = document.getElementById("folders-options1");
 			if (x.style.display === "block") {
 				x.style.display = "none";
 			} else {
 				x.style.display = "block";
 			}
 		}
-
+		function dropclickfolders2() {
+			var x = document.getElementById("folders-options2");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
+		function dropclickfolders3() {
+			var x = document.getElementById("folders-options3");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
+		function dropclickfolders4() {
+			var x = document.getElementById("folders-options4");
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
 		function sendreq() {
 			var xhr = new XMLHttpRequest();
 			var url = document.getElementById("user-article1_link1").href;
@@ -951,7 +942,6 @@ toggle between hiding and showing the dropdown content */
 				userArticle: url
 			}));
 		}
-
 		function sendfolderreq(x) {
 			var xhr = new XMLHttpRequest();
 			var url = document.getElementById("user-article1_link1").href;
@@ -962,7 +952,6 @@ toggle between hiding and showing the dropdown content */
 				folder: x
 			}));
 		}
-
 		function passurl1() {
 			var xhr1 = new XMLHttpRequest();
 			xhr1.onreadystatechange = function () {
@@ -971,7 +960,6 @@ toggle between hiding and showing the dropdown content */
 				var idnum = JSON.parse(this.responseText);
 				// console.log('the idnum set to', idnum.id);
 				// socket.emit('room', idnum.id); //sets the room to that idnum returned
-
 				console.log("hello");
 				console.log(idnum);
 				location.href = "/chat/" + idnum.id;
@@ -984,7 +972,6 @@ toggle between hiding and showing the dropdown content */
 			xhr1.open("GET", '/api/chat/getid?article=' + document.getElementById("article1_link").href, true);
 			xhr1.send();
 		}
-
 		function passurl2() {
 			var xhr2 = new XMLHttpRequest();
 			xhr2.onreadystatechange = function () {
@@ -992,7 +979,6 @@ toggle between hiding and showing the dropdown content */
 				var idnum = JSON.parse(this.responseText);
 				// console.log('the idnum set to', idnum.id);
 				// socket.emit('room', idnum.id); //sets the room to that idnum returned
-
 				console.log("hello");
 				location.href = "/chat/" + idnum.id;
 				// }else{
@@ -1003,7 +989,6 @@ toggle between hiding and showing the dropdown content */
 			xhr2.open("GET", '/api/chat/getid?article=' + document.getElementById("article2_link").href, true);
 			xhr2.send();
 		}
-
 		function passurl3() {
 			var xhr3 = new XMLHttpRequest();
 			xhr3.onreadystatechange = function () {
@@ -1011,7 +996,6 @@ toggle between hiding and showing the dropdown content */
 				var idnum = JSON.parse(this.responseText);
 				// console.log('the idnum set to', idnum.id);
 				// socket.emit('room', idnum.id); //sets the room to that idnum returned
-
 				console.log(idnum);
 				console.log("hello");
 				location.href = "/chat/" + idnum.id;
@@ -1023,7 +1007,6 @@ toggle between hiding and showing the dropdown content */
 			xhr3.open("GET", '/api/chat/getid?article=' + document.getElementById("article3_link").href, true);
 			xhr3.send();
 		}
-
 		function fillinVar() {
 			(function () {
 				var xhr = new XMLHttpRequest();
@@ -1090,7 +1073,6 @@ toggle between hiding and showing the dropdown content */
 						document.getElementById("article-4-author").innerHTML = myArr.user.article4author;
 						document.getElementById("article-4-read-time").innerHTML = myArr.user.article4readtime;*/
 						console.log(myArr);
-
 						var pageURL = window.location.href;
 						var lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
 						var user = document.getElementById("user-name");
@@ -1104,7 +1086,6 @@ toggle between hiding and showing the dropdown content */
 				xhr.open("GET", '/api/users/profile/<%=user%>', true);
 				xhr.withCredentials = true;
 				xhr.send();
-
 				var xhr2 = new XMLHttpRequest();
 				xhr2.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
@@ -1146,7 +1127,6 @@ toggle between hiding and showing the dropdown content */
 				xhr2.open("GET", '/api/users/articles/<%=user%>', true);
 				xhr2.withCredentials = true;
 				xhr2.send();
-
 				var xhr3 = new XMLHttpRequest();
 				xhr3.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
@@ -1169,12 +1149,10 @@ toggle between hiding and showing the dropdown content */
 				// console.log('hold', hold);
 				// })       
 				//console.log(myArr.user.admin);
-
 				var xhr4 = new XMLHttpRequest();
 				xhr4.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
 						var userArr = JSON.parse(this.responseText);
-
 						for (var i = 0; i < userArr.length; i++) {
 							console.log(userArr[i].foldername);
 							var x = i + 1
@@ -1186,10 +1164,8 @@ toggle between hiding and showing the dropdown content */
 				xhr4.open("GET", '/api/folders', true);
 				xhr4.withCredentials = true;
 				xhr4.send();
-
 			})();
 			// document.getElementById("pname").innerHTML = result.user.name;
-
 			function test() {
 				len = document.getElementById("profile-name").textContent.length;
 				len = len - 1;
