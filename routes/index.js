@@ -76,18 +76,6 @@ router.get('/feed', auth.required, (req, res, next) => {
                     url: art
                 }
             })
-<<<<<<< HEAD
-            if (!a){
-                art2['img'] = ""
-                art2['title'] = ""
-                art2['link'] = ""
-            }
-            else{
-                art2['img'] = a.getArticleInfo()['img']
-                art2['title'] = a.getArticleInfo()['title']
-                art2['link'] = a.getArticleInfo()['url']
-            }
-=======
             if (!a) {
             art2['img'] = ""
             art2['title'] = ""
@@ -96,7 +84,6 @@ router.get('/feed', auth.required, (req, res, next) => {
             art2['img'] = a.getArticleInfo()['img']
             art2['title'] = a.getArticleInfo()['title']
             art2['link'] = a.getArticleInfo()['url']}
->>>>>>> 96b773992587afcc50ec62e53c2dc06c9e30137e
             arts2.push(art2)
         }
         if(arts2.length == 0){
