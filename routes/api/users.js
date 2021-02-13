@@ -172,7 +172,7 @@ router.post('/', auth.optional, [
             to: user.email, // Change to your recipient
             from: 'go.offmedia@gmail.com', // Change to your verified sender
             subject: 'Email Verification Link',
-            text: 'Hello '+ user.firstname +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'localhost:8000' + '\/api\/users\/verification?useremail=' + user.email + '&verification_token=' + user.user_tok  + '\n\nThank You!\n',
+            text: 'Hello '+ user.firstname +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'go-off.co' + '\/api\/users\/verification?useremail=' + user.email + '&verification_token=' + user.user_tok  + '\n\nThank You!\n',
           }
 
           sgMail
