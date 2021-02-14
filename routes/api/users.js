@@ -186,7 +186,7 @@ router.post('/', auth.optional, [
             console.error(error)
           });
           return res.redirect('/verify');
-          //res.redirect('/login'); //redirect to check email verification page
+          //return res.redirect('/login'); //redirect to check email verification page
         })
       })
     })
@@ -454,6 +454,12 @@ router.get('/verification', auth.optional, (req, res, next) => {
     else{
       if (user.user_tok == token){
       user.user_ver = 1; 
+      user.save().then((saveUser) => {
+        return res.redirect('/login')
+      }).catch((err) => {
+        return res.status(500).send({msg: err.message});
+      })
+      /*
       user.save(function (err) {
         // error occur
         if(err){
@@ -463,7 +469,7 @@ router.get('/verification', auth.optional, (req, res, next) => {
         else{
           return res.redirect('/login');
         }
-    });
+    });*/
     
     }else{
       return res.status(401).send({msg:'We were unable to find a user for this verification. Please SignUp!'});
