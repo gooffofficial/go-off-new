@@ -439,12 +439,18 @@
 		<div id="Folders" class="tabcontent" style="display: none;">
 			<div id="user-folder-container">
 				<h1 id="folders-text">RECENTLY ADDED</h1>
-				<div id="folder-1" class="article">
+				<div id="folder-1" class="article-folder">
 					<a id="folder1_link">
 						<div class="article-image-container">
 							<img id="article-1-image" src="/biztech.png" class="article-image">
 						</div>
-						<p id="folder1_title">Business/Tech</p>
+						<div id="folder-text-container">
+							<p id="folder-created-by">Created by User Name</p>
+							<p id="folder-created-date">3d</p>
+							<p id="folder1_title" class="folder-titler">Business/Tech</p>
+
+							<img src="/more_horiz.svg" id="folder-more">
+						</div>
 					</a>
 
 					<!--<div class="user-Chat4" id="update4" style="display:none">
@@ -454,15 +460,21 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<button onclick=saveArticles()>Check Contents</button>
+					<button onclick=saveArticles() class="savearticles-button">Check Contents</button>
 				</div>
 
-				<div id="folder-2" class="article">
+				<div id="folder-2" class="article-folder">
 					<a id="folder2_link">
 						<div class="article-image-container">
 							<img id="article-1-image" src="/artlit.jpeg" class="article-image">
 						</div>
-						<p id="folder2_title">Art/Literature</p>
+						<div id="folder-text-container">
+							<p id="folder-created-by">Created by User Name</p>
+							<p id="folder-created-date">3d</p>
+							<p id="folder2_title" class="folder-titler">Art/Literature</p>
+
+							<img src="/more_horiz.svg" id="folder-more">
+						</div>
 					</a>
 
 					<!--<div class="user-Chat4" id="update4" style="display:none">
@@ -472,16 +484,21 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<button onclick=saveArticles2()>Check Contents</button>
+					<button onclick=saveArticles2() class="savearticles-button">Check Contents</button>
 				</div>
 
-				<div id="folder-3" class="article">
+				<div id="folder-3" class="article-folder">
 					<a id="folder3_link">
 						<div class="article-image-container">
 							<img id="article-1-image" src="/misc.jpeg" class="article-image">
 						</div>
-						<p id="folder3_title">Miscellaneous</p>
+						<div id="folder-text-container">
+							<p id="folder-created-by">Created by User Name</p>
+							<p id="folder-created-date">3d</p>
+							<p id="folder3_title" class="folder-titler">Miscellaneous</p>
 
+							<img src="/more_horiz.svg" id="folder-more">
+						</div>
 					</a>
 
 					<!--<div class="user-Chat4" id="update4" style="display:none">
@@ -491,7 +508,7 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<button onclick=saveArticles3()>Check Contents</button>
+					<button onclick=saveArticles3() class="savearticles-button">Check Contents</button>
 				</div>
 
 				<!-- <div id="folder-4" class="article">

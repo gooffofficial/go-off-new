@@ -182,11 +182,97 @@ button {
 	background-color: rgba(0, 0, 0, 0) !important;
 }
 
-#user-articles-container, #user-folder-container {
+#user-articles-container {
 	margin-top: 100px;
 	height: var(--rowHeight);
 	display: flex;
 	justify-content: space-between;
+}
+
+#user-folder-container {
+	margin-top: 100px;
+	height: var(--rowHeight);
+	display: block;
+}
+
+#folder-more {
+	position: absolute;
+	right: 16px;
+	bottom: 16px;
+	opacity: 0;
+}
+
+.article-folder:hover #folder-more {
+	opacity: 0.35;
+}
+
+#folder-more:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+#folder-1, #folder-2, #folder-3 {
+	margin-right: 10px;
+}
+
+#folder-text-container {
+	padding: 16px;
+	margin-left: 5px;
+}
+
+.folder-titler {
+	font-family: 'Poppins', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: -15px;
+}
+
+#folder-created-by {
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.5);
+	display: inline-block;
+}
+
+#folder-created-date {
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.5);
+	display: inline-block;
+	position: absolute;
+	right: 21px;
+	margin-top: 5px;
+}
+
+.savearticles-button {
+	border: 0;
+	outline: 0;
+	background-color: var(--goOffBlue);
+	border-radius: 100px;
+	padding: 10px 20px;
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	color: #fff;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	opacity: 0;
+}
+
+.article-folder:hover .savearticles-button {
+	opacity: 1;
+}
+
+.savearticles-button:hover {
+	background-color: var(--goOffBlue) !important;
+	opacity: 0.9;
+}
+
+.savearticles-button:focus {
+	background-color: var(--goOffBlue) !important;
 }
 
 .article {
@@ -200,6 +286,24 @@ button {
 	border-radius: 10px;
 	transition: top 0.08s ease;
 	top: 0px;
+}
+
+.article-folder {
+	position: relative;
+	display: inline-block;
+	width: 24%;
+	height: calc(100% - 85px);
+	/* border: 1px solid rgba(0, 0, 0, 0.116); */
+	/*overflow: hidden;*/
+	box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+	border-radius: 10px;
+	transition: top 0.08s ease;
+	top: 0px;
+}
+
+.article-folder:hover {
+	cursor: pointer;
+	top: -5px;
 }
 
 .article:hover {
