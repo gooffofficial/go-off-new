@@ -40,7 +40,7 @@
 			<div class="navigationIcons align-self-center">
 				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
 				<div class="droparrow align-self-center">
-					<div id="arrowdrop" class="dropdown-arrowcontent">
+					<div id="plusdrop" class="dropdown-arrowcontent">
 						<a data-target="#add-media" data-toggle="modal" class="MainNavText" id="media-adder"
 							style="display: inline-block;" href="#add-media">Media</a>
 						<!--<a href="/following" target="_blank" id="following-count" style="display: inline-block;"></a>-->
@@ -57,28 +57,27 @@
 									</div>
 									<div class="modal-body">
 										<form action="/api/users/add_article" method="post">
-											<label for="userArticle">Url:</label>
+											<label class="url-label" for="userArticle">URL</label><br>
 											<input type="text" id="userArticle" name="userArticle">
-											<input type="submit" value="Submit">
+											<input type="submit" value="Submit" class="submit-btn">
 										</form>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
+										<button type="button" class="close-modal-button"
 											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save changes</button>
+										<button type="button" class="save-changes-button">Save changes</button>
 									</div>
 								</div>
 							</div>
 						</div>
-						<a href="/profile_edit">Folder</a>
+						<!-- <a href="/profile_edit">Folder</a> -->
 						<a href="https://www.go-off.co/">Convo</a>
 					</div>
 				</div>
-				<a href=""><img src="/home.svg" class="navIcon"></a>
+				<a href="/feed"><img src="/home.svg" class="navIcon"></a>
 				<a href=""><img src="/mail.svg" class="navIcon"></a>
-				<a href=""><img src="/notification.svg" class="navIcon"></a>
 				<a href=""><img src="/chart.svg" class="navIcon"></a>
-				<img onclick="dropclick1()" src="/plus.svg" class="navIcon">
+				<img onclick="dropclick1('plusdrop')" src="/plus.svg" class="navIcon">
 			</div>
 
 			<div class="searchContainer align-self-center d-flex">
@@ -109,9 +108,9 @@
 				</div>
 
 				<div class="droparrow align-self-center">
-					<img onclick="dropclick2()" src="/chevron_down.svg" id="arrows" />
-					<div id="arrowdrop2" class="dropdown-arrowcontent">
-						<a href="/profile">Profile</a>
+					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
+					<div id="arrowdrop" class="dropdown-arrowcontent">
+						<a id="profbutton" href="">Profile</a>
 						<a href="/profile_edit">Settings</a>
 						<a href="https://www.go-off.co/">Log Out</a>
 					</div>
@@ -251,6 +250,44 @@
 			xhr.send(JSON.stringify({
 				convo: < %= convos[1].id % >
 			}));
+		}
+
+		function plsWork(str) {
+			str.toLowerCase();
+			var stringz = ""
+			var count = 1
+			if (str.length < 2) {
+				document.getElementById('search-input-results').style.visibility = 'hidden';
+				document.getElementById("search-1").innerText = "";
+				document.getElementById("search-2").innerText = "";
+				document.getElementById("search-3").innerText = "";
+				document.getElementById("search-4").innerText = "";
+				document.getElementById("search-5").innerText = "";
+				return;
+			} else {
+				document.getElementById('search-input-results').style.visibility = 'visible';
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						var names = JSON.parse(this.responseText);
+						console.log(this.responseText);
+						for (var i = 0; i < names.length; i++) {
+							var obj = names[i].username;
+							var na = names[i].name;
+							var l_obj = obj.toLowerCase();
+							var l_na = na.toLowerCase();
+							if (count < 6 && (l_obj.includes(str) || l_na.includes(str))) {
+								var search_id = "search-" + count.toString();
+								document.getElementById(search_id).setAttribute("href", "/profiles/" + obj);
+								document.getElementById(search_id).innerText = na;
+								count = count + 1;
+							}
+						}
+					}
+				};
+				xmlhttp.open("GET", "/api/users/all", true);
+				xmlhttp.send();
+			}
 		}
 	</script>
 </body>
