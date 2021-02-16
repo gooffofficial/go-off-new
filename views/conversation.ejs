@@ -40,7 +40,7 @@
 			<div class="navigationIcons align-self-center">
 				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
 				<div class="droparrow align-self-center">
-					<div id="plusdrop" class="dropdown-arrowcontent">
+					<div id="plusdrop" class="dropdown-arrowcontent" style="top: 100%;">
 						<a data-target="#add-media" data-toggle="modal" class="MainNavText" id="media-adder"
 							style="display: inline-block;" href="#add-media">Media</a>
 						<!--<a href="/following" target="_blank" id="following-count" style="display: inline-block;"></a>-->
@@ -61,11 +61,6 @@
 											<input type="text" id="userArticle" name="userArticle">
 											<input type="submit" value="Submit" class="submit-btn">
 										</form>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="close-modal-button"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="save-changes-button">Save changes</button>
 									</div>
 								</div>
 							</div>
@@ -205,8 +200,8 @@
 		</div> -->
 	</div>
 	<script>
-		function dropclick1() {
-			var x = document.getElementById("arrowdrop");
+		function dropclick1(id) {
+			var x = document.getElementById(id);
 			if (x.style.display === "block") {
 				x.style.display = "none";
 			} else {
@@ -238,7 +233,7 @@
 			xhr.open("POST", '/api/convos/join', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify({
-				convo: < %= convos[0].id % >
+				convo: <%= convos[0].id %>
 			}));
 		}
 
@@ -248,7 +243,7 @@
 			xhr.open("POST", '/api/convos/join', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify({
-				convo: < %= convos[1].id % >
+				convo: <%= convos[1].id %>
 			}));
 		}
 

@@ -40,7 +40,7 @@
 			<div class="navigationIcons align-self-center">
 				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
 				<div class="droparrow align-self-center">
-					<div id="arrowdrop" class="dropdown-arrowcontent">
+					<div id="plusdrop" class="dropdown-arrowcontent" style="top: 100%;">
 						<a data-target="#add-media" data-toggle="modal" class="MainNavText" id="media-adder"
 							style="display: inline-block;" href="#add-media">Media</a>
 						<!--<a href="/following" target="_blank" id="following-count" style="display: inline-block;"></a>-->
@@ -62,15 +62,10 @@
 											<input type="submit" value="Submit" class="submit-btn">
 										</form>
 									</div>
-									<div class="modal-footer">
-										<button type="button" class="close-modal-button"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="save-changes-button">Save changes</button>
-									</div>
 								</div>
 							</div>
 						</div>
-						<a href="/profile_edit">Folder</a>
+						<!-- <a href="/profile_edit">Folder</a> -->
 						<a href="https://www.go-off.co/">Convo</a>
 					</div>
 				</div>
@@ -78,7 +73,7 @@
 				<a href=""><img src="/mail.svg" class="navIcon"></a>
 				<a href=""><img src="/notification.svg" class="navIcon"></a>
 				<a href=""><img src="/chart.svg" class="navIcon"></a>
-				<img onclick="dropclick1()" src="/plus.svg" class="navIcon">
+				<img onclick="dropclick1('plusdrop')" src="/plus.svg" class="navIcon">
 			</div>
 
 			<div class="searchContainer align-self-center d-flex">
@@ -109,9 +104,9 @@
 				</div>
 
 				<div class="droparrow align-self-center">
-					<img onclick="dropclick1()" src="/chevron_down.svg" id="arrows" />
+					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
 					<div id="arrowdrop" class="dropdown-arrowcontent">
-						<a href="/profile">Profile</a>
+						<a id="profbutton" href="">Profile</a>
 						<a href="/profile_edit">Settings</a>
 						<a href="https://www.go-off.co/">Log Out</a>
 					</div>
@@ -395,6 +390,15 @@
 			convo: <%=convos[1].id%>
 		}));
 	}
+
+	function dropclick1(id) {
+			var x = document.getElementById(id);
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
 </script>
 
 </html>
