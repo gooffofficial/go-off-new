@@ -35,12 +35,12 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
 })
 
 router.post('/join', auth.required, [body('convo').escape()], (req, res, next) => {
-    const {payload: {id}} = req;
+    const {payload: {id, username}} = req;
     db.Convo_members.create({
         UserId: id,
         ConvoId: req.body.convo
     }).then(() => {
-        res.send(200);
+        res.sendStatus(200);
     })
 })
 
