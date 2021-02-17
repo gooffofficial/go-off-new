@@ -152,25 +152,54 @@
 				<button class="tablinks1 active">Upcoming Convos</button>
 				<button class="tablinks1">Previous Convos</button>
 				<button type="button" id="create-convo-btn" onclick="dropmodal()">Create Convo</button>
+				<div id="arrowdropmodal" class="dropdown-arrowcontent">
+					<form id="createConvo" method="post" action="/api/convos/create">
+						<label for="convoTime">Conversation Time</label>
+						<input type="datetime-local" min=<%=date%> id="convoTime" name="convoTime">
+						<!-- Sus security here -->
+						<input type="hidden" id="article" name="article" value="<%=artLink%>">
+						<input type="submit" value="submit">
+					</form>
+				</div>
 			</div>
-
 			<div id="upcoming_convo" class="tabcontent1">
 				<div id="convo-container">
 					<div id="convo-img-container">
 						<img id="convo-img" src="">
 					</div>
 					<div id="convo-right-content">
-						<p id="convo-date">THURSDAY, NOVEMBER 19, 7:30 PM EDT</p>
-						<p id="convo-title">Title of Convo</p>
+						<p id="convo-date"><%=convos[0].time%></p>
+						<p id="convo-title"><%=artTitle%></p>
 						<p id="convo-description">Description</p>
-						<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by Name</span>
+						<span id="convo-host"><img src="<%=articlePic%>>"> Hosted by <%=hosts[0]%></span>
 					
 						<div id="convo-btns">
 							<!-- SHARE BUTTON NO FUNCTIONALITY YET 
 							<a><img src="/share_outline.svg" id="convo-share-btn"></a> -->
 							<img src="/lightbulb.svg" id="convo-btn-icon">
 							<img src="/share_outline.svg" id="convo-btn-icon">
-							<button id="go-to-convo-button" onclick="joinConvo()">RSVP</button>
+							<button id="go-to-convo-button" onclick="joinConvo1()">RSVP</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="upcoming_convo" class="tabcontent1">
+				<div id="convo-container">
+					<div id="convo-img-container">
+						<img id="convo-img" src="">
+					</div>
+					<div id="convo-right-content">
+						<p id="convo-date"><%=convos[1].time%></p>
+						<p id="convo-title"><%=artTitle%></p>
+						<p id="convo-description">Description</p>
+						<span id="convo-host"><img src="<%=articlePic%>>"> Hosted by <%=hosts[1]%></span>
+					
+						<div id="convo-btns">
+							<!-- SHARE BUTTON NO FUNCTIONALITY YET 
+							<a><img src="/share_outline.svg" id="convo-share-btn"></a> -->
+							<img src="/lightbulb.svg" id="convo-btn-icon">
+							<img src="/share_outline.svg" id="convo-btn-icon">
+							<button id="go-to-convo-button" onclick="joinConvo2()">RSVP</button>
 						</div>
 					</div>
 				</div>
@@ -233,8 +262,9 @@
 			xhr.open("POST", '/api/convos/join', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify({
-				convo: <%= convos[0].id %>
+				convo: <%=convos[0].id%>
 			}));
+			window.alert("Successfully joined conversation")
 		}
 
 		function joinConvo2() {
@@ -243,8 +273,9 @@
 			xhr.open("POST", '/api/convos/join', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify({
-				convo: <%= convos[1].id %>
+				convo: <%=convos[1].id%>
 			}));
+			window.alert("Successfully joined conversation")
 		}
 
 		function plsWork(str) {
