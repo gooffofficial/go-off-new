@@ -208,6 +208,7 @@
 				console.log(myArr);
 				document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
 				document.getElementById("fprofpic").src = myArr.user.propic;
+				document.getElementById("profbutton").setAttribute("src", "/profiles/<%=user%>");
 			}
 		}
 		xhr.open("GET", '/api/users/profile/<%=user%>', true);

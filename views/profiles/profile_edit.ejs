@@ -220,6 +220,7 @@
 					//document.getElementById("lpname").innerHTML = myArr.user.lastname;
 					document.getElementById("profile-pic").src = myArr.user.propic;
 					document.getElementById("fprofpic").src = myArr.user.propic;
+					document.getElementById("profbutton").setAttribute("src", "/profiles/<%=user%>");
 				}
 			}
 			xhr.open("GET", '/api/users/profile/<%=user%>', true);

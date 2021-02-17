@@ -32,7 +32,7 @@
 	<title>Profile Page</title>
 </head>
 
-<body>
+<body onload="fillinvar()">
 	<nav class="navigationBar d-flex">
 		<div class="navigationContainer d-flex">
 			<img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center">
@@ -249,10 +249,10 @@
 						<p id="convo-title"><%=convos[0].title%></p>
 						<p id="convo-desc">Description</p>
 
-						<div id="convo-bl-container">
+						<!-- <div id="convo-bl-container">
 							<img src="/lightbulb.svg" id="convo-ico">
 							<img src="/share_outline.svg" id="convo-ico">
-						</div>
+						</div> -->
 						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 						<div class="dropdown">
 							<!-- <img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown"> -->
@@ -309,13 +309,13 @@
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[1].host%></p>
-						<p id="convo-title"><%=convos[1].title%></p>
+						<p id="convo-title1"><%=convos[1].title%></p>
 						<p id="convo-desc">Description</p>
 
-						<div id="convo-bl-container">
+						<!-- <div id="convo-bl-container">
 							<img src="/lightbulb.svg" id="convo-ico">
 							<img src="/share_outline.svg" id="convo-ico">
-						</div>
+						</div> -->
 						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 						<div class="dropdown">
 							<!-- <img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown"> -->
@@ -377,7 +377,7 @@
 		xhr.open("POST", '/api/convos/join', true);
 		xhr.setRequestHeader('Content-Type', 'application/json');
 		xhr.send(JSON.stringify({
-			convo: <%=convos[0].id%>
+			convo: <%= convos[0].id %>
 		}));
 	}
 
@@ -387,7 +387,7 @@
 		xhr.open("POST", '/api/convos/join', true);
 		xhr.setRequestHeader('Content-Type', 'application/json');
 		xhr.send(JSON.stringify({
-			convo: <%=convos[1].id%>
+			convo: <%= convos[1].id %>
 		}));
 	}
 
@@ -399,6 +399,26 @@
 				x.style.display = "block";
 			}
 		}
+
+	function fillinvar(){
+		title = document.getElementById("convo-title").innerHTML;
+		title1 = document.getElementById("convo-title1").innerHTML;
+		console.log(title);
+		console.log(title1);
+		if(title.length > 50){
+			title = title.substring(0,50) + "...";
+			document.getElementById("convo-title").innerHTML = title;
+			console.log(title);
+			console.log("works!");
+		}
+		if(title1.length > 50){
+			title1 = title1.substring(0,50) + "...";
+			document.getElementById("convo-title1").innerHTML = title1;
+			console.log(title1);
+			console.log("works!");
+		}
+
+	}
 </script>
 
 </html>
