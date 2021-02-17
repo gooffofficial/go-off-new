@@ -29,7 +29,7 @@ router.get('/:user', auth.required, (req, res, next) => {
                 }
             })
             conv['date'] = c.time;
-            conv['title'] = art.title;
+            conv['title'] = art.title.substring(0,25);
             conv['img'] = art.img;
             conv['id'] = c.roomId;
             //get username of host
@@ -38,7 +38,12 @@ router.get('/:user', auth.required, (req, res, next) => {
                     id: c.host
                 }
             })
-            conv['host'] = host.username;
+            if (!host){
+                conv['host'] = ""
+            }
+            else{
+                conv['host'] = host.username;
+            }
             if(Date.now() < Date.parse(c.time)){
                 upConvos.push(conv);
             }
