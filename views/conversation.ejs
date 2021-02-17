@@ -32,7 +32,7 @@
 	<title>Profile Page</title>
 </head>
 
-<body>
+<body onload="fillinvar()">
 	<nav class="navigationBar d-flex">
 		<div class="navigationContainer d-flex">
 			<img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center">
@@ -317,6 +317,14 @@
 				xmlhttp.send();
 			}
 		}
+
+		function fillinvar(){
+		title = document.getElementById("convo-title").innerHTML;
+		button = document.getElementById("go-to-convo-button").src;
+		console.log(button);
+
+		}
+		
 	</script>
 </body>
 
