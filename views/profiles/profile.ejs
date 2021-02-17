@@ -38,7 +38,7 @@
 			<div class="navigationIcons align-self-center">
 				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
 				<div class="droparrow align-self-center">
-					<div id="plusdrop" class="dropdown-arrowcontent">
+					<div id="plusdrop" class="dropdown-arrowcontent" style="top: 100%;">
 						<a data-target="#add-media" data-toggle="modal" class="MainNavText" id="media-adder"
 							style="display: inline-block;" href="#add-media">Media</a>
 						<!--<a href="/following" target="_blank" id="following-count" style="display: inline-block;"></a>-->
@@ -59,11 +59,6 @@
 											<input type="text" id="userArticle" name="userArticle">
 											<input type="submit" value="Submit" class="submit-btn">
 										</form>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="close-modal-button"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="save-changes-button">Save changes</button>
 									</div>
 								</div>
 							</div>
@@ -109,7 +104,7 @@
 				<div class="droparrow align-self-center">
 					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
 					<div id="arrowdrop" class="dropdown-arrowcontent">
-						<a href="/profile">Profile</a>
+						<a id="profbutton" href="">Profile</a>
 						<a href="/profile_edit">Settings</a>
 						<a href="https://www.go-off.co/">Log Out</a>
 					</div>
@@ -162,10 +157,6 @@
 									<iframe width="300" height="380" frameborder="0" allowtransparency="true"
 										id="follower-iframe"></iframe>
 								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary">Save changes</button>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -188,10 +179,6 @@
 								<div class="modal-body">
 									<iframe src="/following" id="following-iframe" width="500px" height="400px"
 										frameborder="0" allowtransparency="true"></iframe>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="close-modal-button" data-dismiss="modal">Close</button>
-									<button type="button" class="save-changes-button">Save changes</button>
 								</div>
 							</div>
 						</div>
@@ -225,7 +212,7 @@
 			<hr id="line">
 			<button class="tablinks active" onclick="openCity(event, 'Media')">Media</button>
 			<button class="tablinks" onclick="openCity(event, 'Folders')">Folders</button>
-			<button class="tablinks" onclick="openCity(event, 'Content')">Content</button>
+			<button class="tablinks" onclick="openCity(event, 'Content')">Conversations</button>
 			<!--<button class="tablinks" onclick="openCity(event, 'Following')">Following</button>-->
 			<button class="tablinks" a data-target="#following-modal" data-toggle="modal"
 				href="#following-modal">Following</button>
@@ -233,7 +220,7 @@
 
 		<div id="Media" class="tabcontent" style="display: block;">
 			<div id="user-articles-container">
-				<h1 id="articles-text">USER ARTICLES</h1>
+				<h1 id="articles-text">USER CONTENT</h1>
 
 				<div id="user-article-1" class="article">
 					<a id="user-article1_link">
@@ -280,13 +267,13 @@
 					</div>
 				</div>
 
-				<div class="user-Chat1" id="update1" style="display: none;">
+				<!-- <div class="user-Chat1" id="update1" style="display: none;">
 					<form action="/api/users/add_article1" method="post">
 						<label for="url">Article Url:</label>
 						<input type="text" id="url" name="article">
 						<input type="submit" value="update">
 					</form>
-				</div>
+				</div> -->
 
 				<div id="user-article-2" class="article">
 					<a id="user-article2_link">
@@ -332,14 +319,14 @@
 						</div>
 					</div>
 				</div>
-
+<!-- 
 				<div class="user-Chat2" id="update2" style="display: none;">
 					<form action="/api/users/add_article2" method="post">
 						<label for="url">Article Url:</label>
 						<input type="text" id="url" name="article">
 						<input type="submit" value="update">
 					</form>
-				</div>
+				</div> -->
 
 				<div id="user-article-3" class="article">
 					<a id="user-article3_link">
@@ -386,13 +373,13 @@
 					</div>
 				</div>
 
-				<div class="user-Chat3" id="update3" style="display:none">
+				<!-- <div class="user-Chat3" id="update3" style="display:none">
 					<form action="/api/users/add_article3" method="post">
 						<label for="url">Article Url:</label>
 						<input type="text" id="url" name="article">
 						<input type="submit" value="update">
 					</form>
-				</div>
+				</div> -->
 
 				<div id="user-article-4" class="article">
 					<a id="user-article4_link">
@@ -439,13 +426,13 @@
 					</div>
 				</div>
 
-				<div class="user-Chat4" id="update4" style="display:none">
+				<!-- <div class="user-Chat4" id="update4" style="display:none">
 					<form action="/api/users/add_article4" method="post" id="Dot4">
 						<label for="url">Article Url:</label>
 						<input type="text" id="url" name="article">
 						<input type="submit" value="update">
 					</form>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
@@ -455,9 +442,9 @@
 				<div id="folder-1" class="article">
 					<a id="folder1_link">
 						<div class="article-image-container">
-							<img id="article-1-image" class="article-image">
+							<img id="article-1-image" src="/biztech.png" class="article-image">
 						</div>
-						<p id="folder1_title"></p>
+						<p id="folder1_title">Business/Tech</p>
 					</a>
 
 					<!--<div class="user-Chat4" id="update4" style="display:none">
@@ -467,15 +454,15 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<a onclick=saveArticles()>button</a>
+					<button onclick=saveArticles()>Check Contents</button>
 				</div>
 
 				<div id="folder-2" class="article">
 					<a id="folder2_link">
 						<div class="article-image-container">
-							<img id="article-1-image" class="article-image">
+							<img id="article-1-image" src="/artlit.jpeg" class="article-image">
 						</div>
-						<p id="folder2_title"></p>
+						<p id="folder2_title">Art/Literature</p>
 					</a>
 
 					<!--<div class="user-Chat4" id="update4" style="display:none">
@@ -485,15 +472,15 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<a onclick=saveArticles2()>button</a>
+					<button onclick=saveArticles2()>Check Contents</button>
 				</div>
 
 				<div id="folder-3" class="article">
 					<a id="folder3_link">
 						<div class="article-image-container">
-							<img id="article-1-image" class="article-image">
+							<img id="article-1-image" src="/misc.jpeg" class="article-image">
 						</div>
-						<p id="folder3_title"></p>
+						<p id="folder3_title">Miscellaneous</p>
 
 					</a>
 
@@ -504,10 +491,10 @@
 							<input type="submit" value="update">
 						</form>
 					</div>-->
-					<a onclick=saveArticles3()>button</a>
+					<button onclick=saveArticles3()>Check Contents</button>
 				</div>
 
-				<div id="folder-4" class="article">
+				<!-- <div id="folder-4" class="article">
 					<a id="folder4_link">
 						<div class="article-image-container">
 							<img id="article-1-image" class="article-image">
@@ -522,9 +509,9 @@
 							<input type="text" id="url" name="article">
 							<input type="submit" value="update">
 						</form>
-					</div>-->
+					</div>
 					<a onclick=saveArticles3()>button</a>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
@@ -573,8 +560,9 @@
 							<button id="go-to-convo-button">Go to Convo</button>
 						</div>
 					</div>-->
-				<!--</div>
-			</div>-->
+				<!--</div>-->
+				</div>
+			</div>
 
 			<div id="prev_convo" class="tabcontent1" style="display: none;">
 				<!--<div id="convo-container">
@@ -613,8 +601,10 @@
 						</div>
 					</div>-->
 				<!--</div>
-		</div>
 		</div> -->
+			</div> 
+			</div>
+
 		<div id="Following" class="tabcontent">
 		</div>
 	
@@ -1028,6 +1018,7 @@ toggle between hiding and showing the dropdown content */
 						document.getElementById("profile-name").innerHTML = myArr.user.firstname + " " + myArr.user
 							.lastname + " " + myArr.user.admin;
 						document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
+						document.getElementById("profbutton").setAttribute("src", "/profiles/<%=user%>");
 						document.getElementById("following-iframe").setAttribute("src", "/following/<%=user%>");
 						document.getElementById("follower-iframe").setAttribute("src", "/followers/<%=user%>");
 						document.getElementById("location").innerHTML = myArr.user.location;
@@ -1099,29 +1090,53 @@ toggle between hiding and showing the dropdown content */
 						document.getElementById("user-article1_link2").setAttribute("href", userArticles.article1Url);
 						document.getElementById("user-article1_link3").setAttribute("href", userArticles.article1Url);
 						document.getElementById("user-article-1-image").src = userArticles.article1img;
-						document.getElementById("user-article-1-title").innerHTML = userArticles.article1Title;
-						document.getElementById("user-article-1-read-time").innerHTML = userArticles.article1Readtime;
+						document.getElementById("user-article-1-title").innerHTML = userArticles.article1Title.substring(0,50) + "...";
+						if(userArticles.article1Title.length > 50){
+							document.getElementById("user-article-1-title").innerHTML = userArticles.article1Title.substring(0,50) + "...";
+							console.log("works!");
+						}else{
+							document.getElementById("user-article-1-title").innerHTML = userArticles.article1Title;
+						}
+						if(userArticles.article2Title.length > 50){
+							document.getElementById("user-article-2-title").innerHTML = userArticles.article2Title.substring(0,50) + "...";
+							console.log("works!");
+						}else{
+							document.getElementById("user-article-2-title").innerHTML = userArticles.article2Title;
+						}
+						if(userArticles.article3Title.length > 50){
+							document.getElementById("user-article-3-title").innerHTML = userArticles.article3Title.substring(0,50) + "...";
+							console.log("works!");
+						}else{
+							document.getElementById("user-article-3-title").innerHTML = userArticles.article3Title;
+						}
+						if(userArticles.article4Title.length > 50){
+							document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title.substring(0,50) + "...";
+							console.log("works!");
+						}else{
+							document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title;
+						}
+						// document.getElementById("user-article-1-read-time").innerHTML = userArticles.article1Readtime;
 						document.getElementById("user-article2_link").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link1").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link2").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link3").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article-2-image").src = userArticles.article2img;
-						document.getElementById("user-article-2-title").innerHTML = userArticles.article2Title;
-						document.getElementById("user-article-2-read-time").innerHTML = userArticles.article2Readtime;
+						// document.getElementById("user-article-2-title").innerHTML = userArticles.article2Title.substring(0,50) + "...";
+						// document.getElementById("user-article-2-read-time").innerHTML = userArticles.article2Readtime;
 						document.getElementById("user-article3_link").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link1").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link2").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link3").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article-3-image").src = userArticles.article3img;
-						document.getElementById("user-article-3-title").innerHTML = userArticles.article3Title;
-						document.getElementById("user-article-3-read-time").innerHTML = userArticles.article3Readtime;
+						// document.getElementById("user-article-3-title").innerHTML = userArticles.article3Title.substring(0,50) + "...";
+						// document.getElementById("user-article-3-read-time").innerHTML = userArticles.article3Readtime;
 						document.getElementById("user-article4_link").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article4_link1").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article4_link2").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article4_link3").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article-4-image").src = userArticles.article4img;
-						document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title;
-						document.getElementById("user-article-4-read-time").innerHTML = userArticles.article4Readtime;
+						// document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title.substring(0,50) + "...";
+						// document.getElementById("user-article-4-read-time").innerHTML = userArticles.article4Readtime;
 					}
 				}
 				xhr2.open("GET", '/api/users/articles/<%=user%>', true);

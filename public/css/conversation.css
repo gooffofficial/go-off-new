@@ -16,7 +16,7 @@ input:active,
 textarea:focus,
 input:focus,
 button:focus,
-button:active,
+button:active, 
 button:hover,
 label:focus,
 .btn:active,
@@ -303,6 +303,8 @@ button {
 #create-convo-btn:focus {
 	background-color: var(--goOffBlue) !important;
 }
+
+
 
 /* MEDIA QUERIES */
 

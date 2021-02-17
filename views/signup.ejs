@@ -56,7 +56,18 @@
         <input type="date" id="birthday" id="basic-input" name="birthdate"><br>
         
         <label>GENDER <span class="required">*</span></label><br>
-				<input type="password" class="field-input" autocomplete="off" id="login-demo-form-password" name="gender"><br>
+				<fieldset id="Gender" name="gender">
+          <p id="gender-text">GENDER</p>
+    
+          <input type="radio" id="Male" name="genderType">
+          <label for="Male">MALE</label>
+    
+          <input type="radio" id="Female" name="genderType">
+          <label for="Female">FEMALE</label>
+    
+          <input type="radio" id="Other" name="genderType">
+          <input type="text" name="Other" placeholder="OTHER" id="other-gender-textbox">
+        </fieldset><br>
 				
 				<div class="checkbox-container">
 					<input type="checkbox" id="checkbox" id="login-demo-checkbox" name="login-demo-checkbox"><img src="/check.svg" id="check">
