@@ -165,13 +165,13 @@
 			<div id="upcoming_convo" class="tabcontent1">
 				<div id="convo-container">
 					<div id="convo-img-container">
-						<img id="convo-img" src="">
+						<img id="convo-img" src="<%=articlePic%>">
 					</div>
 					<div id="convo-right-content">
 						<p id="convo-date"><%=convos[0].time%></p>
 						<p id="convo-title"><%=artTitle%></p>
 						<p id="convo-description">Description</p>
-						<span id="convo-host"><img src="<%=articlePic%>>"> Hosted by <%=hosts[0]%></span>
+						<span id="convo-host">Hosted by <%=hosts[0]%></span>
 					
 						<div id="convo-btns">
 							<!-- SHARE BUTTON NO FUNCTIONALITY YET 
@@ -186,13 +186,13 @@
 			<div id="upcoming_convo" class="tabcontent1">
 				<div id="convo-container">
 					<div id="convo-img-container">
-						<img id="convo-img" src="">
+						<img id="convo-img" src="<%=articlePic%>">
 					</div>
 					<div id="convo-right-content">
 						<p id="convo-date"><%=convos[1].time%></p>
 						<p id="convo-title"><%=artTitle%></p>
 						<p id="convo-description">Description</p>
-						<span id="convo-host"><img src="<%=articlePic%>>"> Hosted by <%=hosts[1]%></span>
+						<span id="convo-host">Hosted by <%=hosts[1]%></span>
 					
 						<div id="convo-btns">
 							<!-- SHARE BUTTON NO FUNCTIONALITY YET 
@@ -265,6 +265,7 @@
 				convo: <%=convos[0].id%>
 			}));
 			window.alert("Successfully joined conversation")
+			window.location.href="/profiles/<%=user%>"
 		}
 
 		function joinConvo2() {
@@ -276,6 +277,7 @@
 				convo: <%=convos[1].id%>
 			}));
 			window.alert("Successfully joined conversation")
+			window.location.href="/profiles/<%=user%>"
 		}
 
 		function plsWork(str) {

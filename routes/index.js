@@ -224,7 +224,7 @@ router.get('/conversation', auth.required, (req, res, next) => {
             let date = date_ob.getDate();
             let month = date_ob.getMonth() + 1;
             let year = date_ob.getFullYear();
-            return res.render('conversation', {articlePic: art.img, artTitle: art.title, artLink: article, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts})  
+            return res.render('conversation', {user: username, articlePic: art.img, artTitle: art.title, artLink: article, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts})  
         })
     })
 })
