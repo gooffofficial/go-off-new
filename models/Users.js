@@ -39,6 +39,7 @@ module.exports = (sequelize, type) => {
         followingcount: type.INTEGER,
         user_ver: type.TINYINT(1),
         birthdate: type.DATE,
+        user_tok: type.STRING,
         password: {
             type: type.STRING,
             allowNull: false,
@@ -90,7 +91,7 @@ module.exports = (sequelize, type) => {
             token: this.generateJWT(),
         };
     }
-
+    //CREATE A TOKEN HEREEEE?? USING GENERATEJWT??? -- later
     User.prototype.getUserId = function(){
         return {
             id:this.id

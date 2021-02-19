@@ -54,6 +54,11 @@ router.get('/following/:user', auth.required, (req, res, next) => {
     res.render('profiles/following', {user: req.params.user})
 })
 
+//Requesting Verification Code
+router.get("/verify", (req, res) => {
+    res.render("emailver", { email: req.query.email });
+  });
+
 router.get('/feed', auth.required, (req, res, next) => {
     const { payload: { id, username } } = req;
     seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
@@ -71,9 +76,14 @@ router.get('/feed', auth.required, (req, res, next) => {
                     url: art
                 }
             })
+            if (!a) {
+            art2['img'] = ""
+            art2['title'] = ""
+            art2['link'] = ""
+            }else{
             art2['img'] = a.getArticleInfo()['img']
             art2['title'] = a.getArticleInfo()['title']
-            art2['link'] = a.getArticleInfo()['url']
+            art2['link'] = a.getArticleInfo()['url']}
             arts2.push(art2)
         }
         if(arts2.length == 0){
@@ -214,7 +224,7 @@ router.get('/conversation', auth.required, (req, res, next) => {
             let date = date_ob.getDate();
             let month = date_ob.getMonth() + 1;
             let year = date_ob.getFullYear();
-            return res.render('conversation', {articlePic: art.img, artTitle: art.title, artLink: article, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts})  
+            return res.render('conversation', {user: username, articlePic: art.img, artTitle: art.title, artLink: article, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts})  
         })
     })
 })

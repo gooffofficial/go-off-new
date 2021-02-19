@@ -153,6 +153,12 @@
 	float: right;
 	/* border: 1px solid rgba(153, 150, 150, 0.116); */
 	z-index: 1000;
+	position: absolute;
+	right: 0px;
+}
+#fprofpic {
+	position: relative;
+	right: 50px;
 }
 
 #arrows {
