@@ -106,7 +106,7 @@
 				<div class="droparrow align-self-center">
 					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
 					<div id="arrowdrop" class="dropdown-arrowcontent">
-						<a id="profbutton" href="">Profile</a>
+						<a id="profbutton" href="/profiles/<%=user%>">Profile</a>
 						<a href="/profile_edit">Settings</a>
 						<a href="https://www.go-off.co/">Log Out</a>
 					</div>
@@ -150,33 +150,31 @@
 					<div class="dropdown">
 						<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
 						<ul class="dropdown-menu">
-							<li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to
-									profile</a></li>
+							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[0].link%>')" id="update4" style="visibility: visible">Save to profile</a></li>
 							<li><a id="article1convolink" href="/conversation/?article=<%=articles[0].link%>">Check Conversations</a></li>
 							<li class="dropdown-submenu">
-								<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
-								<ul class="dropdown-supersubmenu">
-									<li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-									<li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a>
-									</li>
-									<li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
-								</ul>
+								<a id="save-to-folder" onclick="dropclickfolders1()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options1">
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+									</ul>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 
-			<div class="user-Chat1" id="update1" style="display: none;">
+			<!-- <div class="user-Chat1" id="update1" style="display: none;">
 				<form action="/api/users/add_article1" method="post">
 					<label for="url">Article Url:</label>
 					<input type="text" id="url" name="article">
 					<input type="submit" value="update">
 				</form>
-			</div>
+			</div> -->
 
 			<div id="user-article-2" class="article">
-				<a id="user-article2_link" href="<%=articles[1]%>">
+				<a id="user-article2_link" href="<%=articles[1].link%>">
 					<div class="article-image-container">
 						<img id="user-article-2-image" class="article-image" src="<%=articles[1].img%>">
 					</div>
@@ -189,7 +187,7 @@
 					<a id="user-article2_link3" href="<%=articles[1].link%>">
 						<h4 id="user-article-2-read-time" class="article-read-time"></h4>
 					</a>
-					<a id="user-article2_link1" href="<%=articles[1].link%>">
+					<a id="user-article2_link1">
 						<h3 id="user-article-2-title" class="article-title"><%=articles[1].title%></h3>
 					</a>
 				</div>
@@ -203,17 +201,106 @@
 					<div class="dropdown">
 						<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
 						<ul class="dropdown-menu">
-							<li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to
+							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[1].link%>')" id="update4" style="visibility: visible">Save to
 									profile</a></li>
-							<li><a id="article1convolink" href="/conversation/?article=<%=articles[0].link%>">Check Conversations</a></li>
+							<li><a id="article2convolink" href="/conversation/?article=<%=articles[1].link%>">Check Conversations</a></li>
 							<li class="dropdown-submenu">
-								<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
-								<ul class="dropdown-supersubmenu">
-									<li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-									<li><a tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a>
-									</li>
-									<li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
-								</ul>
+								<a id="save-to-folder" onclick="dropclickfolders2()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options2">
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+									</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- third article-->
+			<div id="user-article-3" class="article">
+				<a id="user-article3_link" href="<%=articles[2].link%>">
+					<div class="article-image-container">
+						<img id="user-article-3-image" class="article-image" src="<%=articles[2].img%>">
+					</div>
+				</a>
+
+				<div class="article-info-container">
+					<a id="user-article3_link2" href="<%=articles[2].link%>">
+						<h4 id="user-article-3-author" class="article-author"></h4>
+					</a>
+					<a id="user-article3_link3" href="<%=articles[2].link%>">
+						<h4 id="user-article-3-read-time" class="article-read-time"></h4>
+					</a>
+					<a id="user-article3_link1">
+						<h3 id="user-article-3-title" class="article-title"><%=articles[2].title%></h3>
+					</a>
+				</div>
+
+				<div class="article-info-bottom-container">
+					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
+					<!-- POSTED BY USER PROFILE PICTURE -->
+					<p>Posted by User</p>
+
+					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+					<div class="dropdown">
+						<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
+						<ul class="dropdown-menu">
+							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[2].link%>')" id="update4" style="visibility: visible">Save to
+									profile</a></li>
+							<li><a id="article3convolink" href="/conversation/?article=<%=articles[2].link%>">Check Conversations</a></li>
+							<li class="dropdown-submenu">
+								<a id="save-to-folder" onclick="dropclickfolders3()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options3">
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+									</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- fourth article-->
+			<div id="user-article-4" class="article">
+				<a id="user-article4_link" href="<%=articles[3].link%>">
+					<div class="article-image-container">
+						<img id="user-article-4-image" class="article-image" src="<%=articles[3].img%>">
+					</div>
+				</a>
+
+				<div class="article-info-container">
+					<a id="user-article4_link2" href="<%=articles[3].link%>">
+						<h4 id="user-article-4-author" class="article-author"></h4>
+					</a>
+					<a id="user-article4_link3" href="<%=articles[3].link%>">
+						<h4 id="user-article-4-read-time" class="article-read-time"></h4>
+					</a>
+					<a id="user-article4_link1">
+						<h3 id="user-article-4-title" class="article-title"><%=articles[3].title%></h3>
+					</a>
+				</div>
+
+				<div class="article-info-bottom-container">
+					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
+					<!-- POSTED BY USER PROFILE PICTURE -->
+					<p>Posted by User</p>
+
+					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+					<div class="dropdown">
+						<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
+						<ul class="dropdown-menu">
+							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[3].link%>')" id="update4" style="visibility: visible">Save to
+									profile</a></li>
+							<li><a id="article4convolink" href="/conversation/?article=<%=articles[3].link%>">Check Conversations</a></li>
+							<li class="dropdown-submenu">
+								<a id="save-to-folder" onclick="dropclickfolders4()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options1">
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+									</ul>
 							</li>
 						</ul>
 					</div>
@@ -222,6 +309,7 @@
 			<div id="user-articles-container">
 				<h1 id="articles-text">Convos</h1>
 
+				<!--First convo-->
 				<div id="user-article-1" class="article">
 					<a id="user-article1_link" href="<%=convos[0].article%>">
 						<div class="article-image-container">
@@ -256,23 +344,20 @@
 						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 						<div class="dropdown">
 							<!-- <img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown"> -->
-							<button onclick="joinConvo1()" id="rsvp-button">RSVP</button>
-							<ul class="dropdown-menu">
-								<li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save
+							<button onclick="joinConvo()" id="rsvp-button">RSVP</button>
+							<!-- <ul class="dropdown-menu">
+								<li><a tabindex="-1" href="#" onclick="sendreq5()" id="update4" style="visibility: visible">Save
 										to profile</a></li>
-								<li><a id="article1convolink" href="/conversation/?article=<%=articles[1].link%>">Check Conversations</a></li>
+								<li><a id="article1convolink" href="/conversation/?article=<%=articles[0].link%>">Check Conversations</a></li>
 								<li class="dropdown-submenu">
-									<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
-									<ul class="dropdown-supersubmenu">
-										<li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a>
-										</li>
-										<li><a tabindex="-1"
-												onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-										<li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a>
-										</li>
+									<a id="save-to-folder" onclick="dropclickfolders5()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options5">
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
 									</ul>
 								</li>
-							</ul>
+							</ul> -->
 						</div>
 					</div>
 				</div>
@@ -285,6 +370,7 @@
 					</form>
 				</div>
 
+				<!--Second convo-->
 				<div id="user-article-2" class="article">
 					<a id="user-article2_link" href="<%=convos[1].article%>">
 						<div class="article-image-container">
@@ -320,21 +406,122 @@
 						<div class="dropdown">
 							<!-- <img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown"> -->
 							<button onclick="joinConvo1()" id="rsvp-button">RSVP</button>
-							<ul class="dropdown-menu">
-								<li><a tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save
+							<!-- <ul class="dropdown-menu">
+								<li><a tabindex="-1" href="#" onclick="sendreq6()" id="update4" style="visibility: visible">Save
 										to profile</a></li>
 								<li class="dropdown-submenu">
-									<a class="test" tabindex="-1" href="">Save to folder <span class="caret"></span></a>
-									<ul class="dropdown-supersubmenu">
-										<li><a tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a>
-										</li>
-										<li><a tabindex="-1"
-												onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-										<li><a tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a>
-										</li>
+									<a id="save-to-folder" onclick="dropclickfolders6()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options6">
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
 									</ul>
 								</li>
-							</ul>
+							</ul> -->
+						</div>
+					</div>
+				</div>
+
+
+				<div id="user-article-2" class="article">
+					<a id="user-article2_link" href="<%=convos[1].article%>">
+						<div class="article-image-container">
+							<img id="user-article-2-image" class="article-image">
+						</div>
+					</a>
+
+					<div class="article-info-container">
+						<a id="user-article2_link2">
+							<h4 id="user-article-2-author" class="article-author"></h4>
+						</a>
+						<a id="user-article2_link3">
+							<h4 id="user-article-2-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article2_link1">
+							<h3 id="user-article-2-title" class="article-title"></h3>
+						</a>
+					</div>
+
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"
+							class="posted-user-img">
+						<!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Hosted by <%=convos[2].host%></p>
+						<p id="convo-title2"><%=convos[2].title%></p>
+						<p id="convo-desc">Description</p>
+
+						<!-- <div id="convo-bl-container">
+							<img src="/lightbulb.svg" id="convo-ico">
+							<img src="/share_outline.svg" id="convo-ico">
+						</div> -->
+						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+						<div class="dropdown">
+							<!-- <img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown"> -->
+							<button onclick="joinConvo2()" id="rsvp-button">RSVP</button>
+							<!-- <ul class="dropdown-menu">
+								<li><a tabindex="-1" href="#" onclick="sendreq7()" id="update4" style="visibility: visible">Save
+										to profile</a></li>
+								<li class="dropdown-submenu">
+									<a id="save-to-folder" onclick="dropclickfolders7()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options7">
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+									</ul>
+								</li>
+							</ul> -->
+						</div>
+					</div>
+				</div>
+
+				<!--Fourth convo-->
+				<div id="user-article-4" class="article">
+					<a id="user-article4_link" href="<%=convos[3].article%>">
+						<div class="article-image-container">
+							<img id="user-article-4-image" class="article-image">
+						</div>
+					</a>
+
+					<div class="article-info-container">
+						<a id="user-article4_link2">
+							<h4 id="user-article-4-author" class="article-author"></h4>
+						</a>
+						<a id="user-article4_link3">
+							<h4 id="user-article-4-read-time" class="article-read-time"></h4>
+						</a>
+						<a id="user-article4_link1">
+							<h3 id="user-article-4-title" class="article-title"></h3>
+						</a>
+					</div>
+
+					<div class="article-info-bottom-container">
+						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"
+							class="posted-user-img">
+						<!-- POSTED BY USER PROFILE PICTURE -->
+						<p>Hosted by <%=convos[3].host%></p>
+						<p id="convo-title3"><%=convos[3].title%></p>
+						<p id="convo-desc">Description</p>
+
+						<!-- <div id="convo-bl-container">
+							<img src="/lightbulb.svg" id="convo-ico">
+							<img src="/share_outline.svg" id="convo-ico">
+						</div> -->
+						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+						<div class="dropdown">
+							<!-- <img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown"> -->
+							<button onclick="joinConvo3()" id="rsvp-button">RSVP</button>
+							<!-- <ul class="dropdown-menu">
+								<li><a tabindex="-1" href="#" onclick="sendreq8()" id="update4" style="visibility: visible">Save
+										to profile</a></li>
+								<li class="dropdown-submenu">
+									<a id="save-to-folder" onclick="dropclickfolders8()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options8">
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+									</ul>
+								</li>
+							</ul> -->
 						</div>
 					</div>
 				</div>
@@ -371,7 +558,55 @@
 
 </body>
 <script>
-	function joinConvo1() {
+	function plsWork(str) {
+			str.toLowerCase();
+			var stringz = ""
+			var count = 1
+			if (str.length < 2) {
+				document.getElementById('search-input-results').style.visibility = 'hidden';
+				document.getElementById("search-1").innerText = "";
+				document.getElementById("search-2").innerText = "";
+				document.getElementById("search-3").innerText = "";
+				document.getElementById("search-4").innerText = "";
+				document.getElementById("search-5").innerText = "";
+				return;
+			} else {
+				document.getElementById('search-input-results').style.visibility = 'visible';
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						var names = JSON.parse(this.responseText);
+						console.log(this.responseText);
+						for (var i = 0; i < names.length; i++) {
+							var obj = names[i].username;
+							var na = names[i].name;
+							var l_obj = obj.toLowerCase();
+							var l_na = na.toLowerCase();
+							if (count < 6 && (l_obj.includes(str) || l_na.includes(str))) {
+								var search_id = "search-" + count.toString();
+								document.getElementById(search_id).setAttribute("href", "/profiles/" + obj);
+								document.getElementById(search_id).innerText = na;
+								count = count + 1;
+							}
+						}
+					}
+				};
+				xmlhttp.open("GET", "/api/users/all", true);
+				xmlhttp.send();
+			}
+		}
+
+
+	function sendreq(x){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/users/add_article", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            userArticle: x
+        }));
+	}
+	
+	function joinConvo() {
 		console.log("HEEEEYYYYY")
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", '/api/convos/join', true);
@@ -381,7 +616,7 @@
 		}));
 	}
 
-	function joinConvo2() {
+	function joinConvo1() {
 		console.log("HEEEEYYYYY")
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", '/api/convos/join', true);
@@ -391,6 +626,25 @@
 		}));
 	}
 
+	function joinConvo2() {
+		console.log("HEEEEYYYYY")
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", '/api/convos/join', true);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.send(JSON.stringify({
+			convo: <%= convos[2].id %>
+		}));
+	}
+
+	function joinConvo3() {
+		console.log("HEEEEYYYYY")
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", '/api/convos/join', true);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.send(JSON.stringify({
+			convo: <%= convos[3].id %>
+		}));
+	}
 	function dropclick1(id) {
 			var x = document.getElementById(id);
 			if (x.style.display === "block") {
@@ -400,9 +654,43 @@
 			}
 		}
 
+	function dropclickfolders1() {
+		var x = document.getElementById("folders-options1");
+		if (x.style.display === "block") {
+			x.style.display = "none";
+		} else {
+			x.style.display = "block";
+		}
+	}
+	function dropclickfolders2() {
+		var x = document.getElementById("folders-options2");
+		if (x.style.display === "block") {
+			x.style.display = "none";
+		} else {
+			x.style.display = "block";
+		}
+	}
+	function dropclickfolders3() {
+		var x = document.getElementById("folders-options3");
+		if (x.style.display === "block") {
+			x.style.display = "none";
+		} else {
+			x.style.display = "block";
+		}
+	}
+	function dropclickfolders4() {
+		var x = document.getElementById("folders-options4");
+		if (x.style.display === "block") {
+			x.style.display = "none";
+		} else {
+			x.style.display = "block";
+		}
+	}
 	function fillinvar(){
 		title = document.getElementById("convo-title").innerHTML;
 		title1 = document.getElementById("convo-title1").innerHTML;
+		title2 = document.getElementById("convo-title2").innerHTML;
+		title3 = document.getElementById("convo-title3").innerHTML;
 		console.log(title);
 		console.log(title1);
 		if(title.length > 50){
@@ -414,6 +702,18 @@
 		if(title1.length > 50){
 			title1 = title1.substring(0,50) + "...";
 			document.getElementById("convo-title1").innerHTML = title1;
+			console.log(title1);
+			console.log("works!");
+		}
+		if(title2.length > 50){
+			title2 = title2.substring(0,50) + "...";
+			document.getElementById("convo-title2").innerHTML = title2;
+			console.log(title1);
+			console.log("works!");
+		}
+		if(title3.length > 50){
+			title3 = title3.substring(0,50) + "...";
+			document.getElementById("convo-title3").innerHTML = title3;
 			console.log(title1);
 			console.log("works!");
 		}

@@ -104,7 +104,7 @@
 				<div class="droparrow align-self-center">
 					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
 					<div id="arrowdrop" class="dropdown-arrowcontent">
-						<a id="profbutton" href="">Profile</a>
+						<a id="profbutton" href="/profiles/<%=user%>">Profile</a>
 						<a href="/profile_edit">Settings</a>
 						<a href="https://www.go-off.co/">Log Out</a>
 					</div>
@@ -185,8 +185,8 @@
 					</div>
 
 
-					<h4 id="post-count" style="display: inline-block;"></h4> <!-- hiding post count for now -->
-					<p id="post-count-text" style="display: inline-block;">posts</p>
+					<!-- <h4 id="post-count" style="display: inline-block;"></h4> hiding post count for now -->
+					<!-- <p id="post-count-text" style="display: inline-block;">posts</p> -->
 
 					<h4 id="location" style="display: inline-block;"></h4>
 
@@ -261,6 +261,7 @@
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
 									</ul>
+									<li><a tabindex="-1" href="#" onclick="sendreq()" id="update1" style="visibility: visible">Save to profile</a></li>
 								</li>
 							</ul>
 						</div>
@@ -314,6 +315,7 @@
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
 									</ul>
+									<li><a tabindex="-1" href="#" onclick="sendreq()" id="update2" style="visibility: visible">Save to profile</a></li>
 								</li>
 							</ul>
 						</div>
@@ -367,6 +369,7 @@
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
 									</ul>
+									<li><a tabindex="-1" href="#" onclick="sendreq()" id="update3" style="visibility: visible">Save to profile</a></li>
 								</li>
 							</ul>
 						</div>
@@ -420,6 +423,7 @@
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
 									</ul>
+									<li><a tabindex="-1" href="#" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
 								</li>
 							</ul>
 						</div>
@@ -789,7 +793,7 @@
 				xmlhttp.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
 						var names = JSON.parse(this.responseText);
-						console.log(this.responseText);
+						// console.log(this.responseText);
 						for (var i = 0; i < names.length; i++) {
 							var obj = names[i].username;
 							var na = names[i].name;
@@ -923,15 +927,14 @@ toggle between hiding and showing the dropdown content */
 				x.style.display = "block";
 			}
 		}
-		function sendreq() {
-			var xhr = new XMLHttpRequest();
-			var url = document.getElementById("user-article1_link1").href;
-			xhr.open("POST", "/api/users/add_article", true);
-			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.send(JSON.stringify({
-				userArticle: url
-			}));
-		}
+		function sendreq(x){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/users/add_article", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            userArticle: x
+        }));
+	}
 		function sendfolderreq(x) {
 			var xhr = new XMLHttpRequest();
 			var url = document.getElementById("user-article1_link1").href;
@@ -1147,9 +1150,9 @@ toggle between hiding and showing the dropdown content */
 					if (this.readyState == 4 && this.status == 200) {
 						var userArr = JSON.parse(this.responseText);
 						if ("<%=user%>" == userArr.user.username) {
-							document.getElementById("update1").style.display = '';
-							document.getElementById("update2").style.display = '';
-							document.getElementById("update3").style.display = '';
+							document.getElementById("update1").style.visibility = 'hidden';
+							document.getElementById("update2").style.visibility = 'hidden';
+							document.getElementById("update3").style.visibility = 'hidden';
 							document.getElementById("update4").style.visibility = 'hidden';
 						}
 					}

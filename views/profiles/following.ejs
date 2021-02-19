@@ -45,7 +45,7 @@
                         console.log(this.responseText)
                         var myArr = JSON.parse(this.responseText);
                         console.log(myArr);
-                        var div, a, text, img;
+                        var div, a, text, img, dmbutton, profbutton;
                         for (var i = 0, l = myArr.length; i < l; ++i) {
                             div = document.createElement('div');
                             div.setAttribute('class', 'follow-list-element')
@@ -53,6 +53,8 @@
                             a  = document.createElement('a');
                             img = document.createElement('img');
                             text = document.createTextNode(myArr[i][0]);
+                            dmbutton = document.createElement('button');
+                            profbutton = document.createElement('button');
 
                             img.setAttribute("src", myArr[i][1]);
                             img.setAttribute("class","userPic")
