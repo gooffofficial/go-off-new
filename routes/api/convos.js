@@ -79,7 +79,7 @@ router.post('/join', auth.required, [body('convo').escape()], (req, res, next) =
         })
         var convo = await db.Convo.findOne({
             where: {
-                id: cm.convoId
+                id: req.body.convo
             }
         })
         const msg = {
@@ -89,7 +89,7 @@ router.post('/join', auth.required, [body('convo').escape()], (req, res, next) =
             text: 'Hello ' + u.firstname + ',\n\n We are reminding you that you\
             are signed up for a convo about this article: ' + req.body.article + ' in 30 minutes (' + req.body.convo.time + ')!\n\
             Join the conversation at https://go-off.co/chat/'+convo.roomId,
-            send_at: Math.floor(convo.time.getTime() - (30*60000)/1000)
+            send_at: Math.floor((convo.time.getTime() - (30*60000))/1000)
         }
         sgMail.send(msg).then(() => {
             console.log('Email scheduled to send to ' + username)
