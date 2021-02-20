@@ -29,7 +29,7 @@
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 	</script>
 	<!-- <script type="text/javascript" src="profile.js"></script> -->
-	<title>Profile Page</title>
+	<title>Feed</title>
 </head>
 
 <body onload="fillinvar()">
@@ -306,6 +306,7 @@
 					</div>
 				</div>
 			</div>
+			<img src="/rightarrow.png" class="articlecyclebtn">
 			<div id="user-articles-container">
 				<h1 id="articles-text">Convos</h1>
 
@@ -334,7 +335,7 @@
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[0].host%></p>
-						<p id="convo-title"><%=convos[0].title%></p>
+						<h3 id="convo-title"><%=convos[0].title%></h3>
 						<p id="convo-desc">Description</p>
 
 						<!-- <div id="convo-bl-container">
@@ -395,7 +396,7 @@
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[1].host%></p>
-						<p id="convo-title1"><%=convos[1].title%></p>
+						<h3 id="convo-title1"><%=convos[1].title%></h3>
 						<p id="convo-desc">Description</p>
 
 						<!-- <div id="convo-bl-container">
@@ -422,23 +423,23 @@
 					</div>
 				</div>
 
-
-				<div id="user-article-2" class="article">
-					<a id="user-article2_link" href="<%=convos[1].article%>">
+				<!--Third Convo-->
+				<div id="user-article-3" class="article">
+					<a id="user-article3_link" href="<%=convos[2].article%>">
 						<div class="article-image-container">
-							<img id="user-article-2-image" class="article-image">
+							<img id="user-article-3-image" class="article-image">
 						</div>
 					</a>
 
 					<div class="article-info-container">
-						<a id="user-article2_link2">
-							<h4 id="user-article-2-author" class="article-author"></h4>
+						<a id="user-article3_link2">
+							<h4 id="user-article-3-author" class="article-author"></h4>
 						</a>
-						<a id="user-article2_link3">
-							<h4 id="user-article-2-read-time" class="article-read-time"></h4>
+						<a id="user-article3_link3">
+							<h4 id="user-article-3-read-time" class="article-read-time"></h4>
 						</a>
-						<a id="user-article2_link1">
-							<h3 id="user-article-2-title" class="article-title"></h3>
+						<a id="user-article3_link1">
+							<h3 id="user-article-3-title" class="article-title"></h3>
 						</a>
 					</div>
 
@@ -447,7 +448,7 @@
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[2].host%></p>
-						<p id="convo-title2"><%=convos[2].title%></p>
+						<h3 id="convo-title2"><%=convos[2].title%></h3>
 						<p id="convo-desc">Description</p>
 
 						<!-- <div id="convo-bl-container">
@@ -499,7 +500,7 @@
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[3].host%></p>
-						<p id="convo-title3"><%=convos[3].title%></p>
+						<h3 id="convo-title3"><%=convos[3].title%></h3>
 						<p id="convo-desc">Description</p>
 
 						<!-- <div id="convo-bl-container">
@@ -525,6 +526,7 @@
 						</div>
 					</div>
 				</div>
+				<img src="/rightarrow.png" class="articlecyclebtn">
 			</div>
 
 			<footer>
@@ -558,6 +560,8 @@
 
 </body>
 <script>
+	console.log("test test test <%=articles[1].link%>");
+
 	function plsWork(str) {
 			str.toLowerCase();
 			var stringz = ""
@@ -691,8 +695,18 @@
 		title1 = document.getElementById("convo-title1").innerHTML;
 		title2 = document.getElementById("convo-title2").innerHTML;
 		title3 = document.getElementById("convo-title3").innerHTML;
-		console.log(title);
-		console.log(title1);
+		title4 = document.getElementById("user-article-1-title").innerHTML;
+		title5 = document.getElementById("user-article-2-title").innerHTML;
+		title6 = document.getElementById("user-article-3-title").innerHTML;
+		title7 = document.getElementById("user-article-4-title").innerHTML;
+		console.log(title.replace(/\s+/g, " "));
+		console.log(title1.length);
+		console.log(title2.length);
+		console.log(title3.length);
+		console.log(title4.length);
+		console.log(title5.length);
+		console.log(title6.length);
+		console.log(title7.length);
 		if(title.length > 50){
 			title = title.substring(0,50) + "...";
 			document.getElementById("convo-title").innerHTML = title;
@@ -708,16 +722,39 @@
 		if(title2.length > 50){
 			title2 = title2.substring(0,50) + "...";
 			document.getElementById("convo-title2").innerHTML = title2;
-			console.log(title1);
+			console.log(title2);
 			console.log("works!");
 		}
 		if(title3.length > 50){
 			title3 = title3.substring(0,50) + "...";
 			document.getElementById("convo-title3").innerHTML = title3;
-			console.log(title1);
+			console.log(title3);
 			console.log("works!");
 		}
-
+		if(title4.length > 50){
+			title4 = title4.substring(0,50) + "...";
+			document.getElementById("user-article-1-title").innerHTML = title4;
+			console.log(title4);
+			console.log("works!");
+		}
+		if(title5.length > 50){
+			title5 = title5.substring(0,50) + "...";
+			document.getElementById("user-article-2-title").innerHTML = title5;
+			console.log(title5);
+			console.log("works!");
+		}
+		if(title6.length > 50){
+			title6 = title6.substring(0,50) + "...";
+			document.getElementById("user-article-3-title").innerHTML = title6;
+			console.log(title6);
+			console.log("works!");
+		}
+		if(title7.length > 50){
+			title7 = title7.substring(0,50) + "...";
+			document.getElementById("user-article-4-title").innerHTML = title7;
+			console.log(title7);
+			console.log("works!");
+		}
 	}
 </script>
 

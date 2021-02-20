@@ -81,11 +81,13 @@ router.get('/feed', auth.required, (req, res, next) => {
             art2['title'] = ""
             art2['link'] = ""
             }else{
-            art2['img'] = a.getArticleInfo()['img']
-            art2['title'] = a.getArticleInfo()['title']
-            art2['link'] = a.getArticleInfo()['url']}
+                art2['img'] = a.getArticleInfo()['img']
+                art2['title'] = a.getArticleInfo()['title']
+                art2['link'] = a.getArticleInfo()['url']
+            }
             arts2.push(art2)
         }
+        console.log(arts2.length)
         if(arts2.length == 0){
             let a = {
                 img: '',
@@ -94,8 +96,29 @@ router.get('/feed', auth.required, (req, res, next) => {
             }
             arts2.push(a);
             arts2.push(a);
+            arts2.push(a);
+            arts2.push(a);
         }
         if (arts.length == 1){
+            let a = {
+                img: '',
+                title: '',
+                link: ''
+            }
+            arts2.push(a);
+            arts2.push(a);
+            arts2.push(a);
+        }
+        if (arts.length == 2){
+            let a = {
+                img: '',
+                title: '',
+                link: ''
+            }
+            arts2.push(a)
+            arts2.push(a)
+        }
+        if (arts.length == 3){
             let a = {
                 img: '',
                 title: '',
@@ -141,15 +164,48 @@ router.get('/feed', auth.required, (req, res, next) => {
                     article: "",
                     id: -1
                 }
+                convs[2] = {
+                    article: "",
+                    id: -1
+                }
+                convs[3] = {
+                    article: "",
+                    id: -1
+                }
             }
             else if(convs.length == 1){
                 convs[1] = {
                     article: "",
                     id: -1
                 }
+                convs[2] = {
+                    article: "",
+                    id: -1
+                }
+                convs[3] = {
+                    article: "",
+                    id: -1
+                }
+            }
+            else if(convs.length == 2){
+                convs[2] = {
+                    article: "",
+                    id: -1
+                }
+                convs[3] = {
+                    article: "",
+                    id: -1
+                }
+            }
+            else if(convs.length == 3){
+                convs[3] = {
+                    article: "",
+                    id: -1
+                }
             }
             console.log(convs[0].article)
-            res.render('feed', {user: req.params.user, articles: arts2, convos: convs})
+            console.log(arts2[1].article + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
+            res.render('feed', {user: req.params.user, articles: arts2.reverse(), convos: convs.reverse()})
         })
     })
 })

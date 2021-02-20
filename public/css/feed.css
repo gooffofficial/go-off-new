@@ -368,11 +368,17 @@ button {
 	background-color: var(--goOffBlue) !important;
 }
 
+.articlecyclebtn{
+	height: 40px;
+	width: 40px;
+}
+
 .footer-container {
 	position: relative;
 	top: 100px;
 	width: var(--pageWidth);
 	margin: 0 auto;
+	margin-top: 200px;
 	height: 200px;
 	background-color: #fff;
 	font-size: 14px;
