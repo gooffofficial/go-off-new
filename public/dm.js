@@ -1,5 +1,41 @@
 const toUser = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
-
+function plsWork(str) {
+    str.toLowerCase();
+    var stringz = ""
+    var count = 1
+    if (str.length < 2) {
+        document.getElementById('search-input-results').style.visibility = 'hidden';
+        document.getElementById("search-1").innerText = "";
+        document.getElementById("search-2").innerText = "";
+        document.getElementById("search-3").innerText = "";
+        document.getElementById("search-4").innerText = "";
+        document.getElementById("search-5").innerText = "";
+        return;
+    } else {
+        document.getElementById('search-input-results').style.visibility = 'visible';
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var names = JSON.parse(this.responseText);
+                console.log(this.responseText);
+                for (var i = 0; i < names.length; i++) {
+                    var obj = names[i].username;
+                    var na = names[i].name;
+                    var l_obj = obj.toLowerCase();
+                    var l_na = na.toLowerCase();
+                    if (count < 6 && (l_obj.includes(str) || l_na.includes(str))) {
+                        var search_id = "search-" + count.toString();
+                        document.getElementById(search_id).setAttribute("href", "/profiles/" + obj);
+                        document.getElementById(search_id).innerText = na;
+                        count = count + 1;
+                    }
+                }
+            }
+        };
+        xmlhttp.open("GET", "/api/users/all", true);
+        xmlhttp.send();
+    }
+}
 //window.onload=function(){setTimeout(openModal,600000)};
 var loaded = false;
 // Open the Modal
