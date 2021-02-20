@@ -105,7 +105,7 @@
 				<div class="droparrow align-self-center">
 					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
 					<div id="arrowdrop" class="dropdown-arrowcontent">
-						<a id="profbutton" href="/profiles/<%=user%>">Profile</a>
+						<a id="profbutton" href="">Profile</a>
 						<a href="/profile_edit">Settings</a>
 						<a href="https://www.go-off.co/">Log Out</a>
 					</div>
@@ -150,7 +150,7 @@
 			<div class="tab" id="tabs-container">
 				<hr id="tablink-line">
 				<button class="tablinks1 active">Upcoming Convos</button>
-				<button class="tablinks1">Previous Convos</button>
+				<!-- <button class="tablinks1">Previous Convos</button> -->
 				<button type="button" id="create-convo-btn" onclick="dropmodal()">Create Convo</button>
 				<div id="arrowdropmodal" class="dropdown-arrowcontent">
 					<form id="createConvo" method="post" action="/api/convos/create">
@@ -265,7 +265,6 @@
 				convo: <%=convos[0].id%>
 			}));
 			window.alert("Successfully joined conversation")
-			window.location.href="/profiles/<%=user%>"
 		}
 
 		function joinConvo2() {
@@ -277,7 +276,6 @@
 				convo: <%=convos[1].id%>
 			}));
 			window.alert("Successfully joined conversation")
-			window.location.href="/profiles/<%=user%>"
 		}
 
 		function plsWork(str) {

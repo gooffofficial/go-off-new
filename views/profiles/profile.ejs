@@ -154,7 +154,7 @@
 									</button>
 								</div>
 								<div class="modal-body">
-									<iframe width="300" height="380" frameborder="0" allowtransparency="true"
+									<iframe src="/followers" width="300" height="380" frameborder="0" allowtransparency="true"
 										id="follower-iframe"></iframe>
 								</div>
 							</div>
@@ -1011,7 +1011,7 @@ toggle between hiding and showing the dropdown content */
 						console.log(myArr.user.is_user)
 						if (myArr.user.is_following == true) {
 							document.getElementById("followbtn").value = "FOLLOWING";
-							console.log("works");
+							console.log("worksworksworks");
 						}
 						if (myArr.user.is_user == true) {
 							document.getElementById("followbtn").style.visibility = "hidden";
@@ -1029,7 +1029,7 @@ toggle between hiding and showing the dropdown content */
 						document.getElementById("fprofpic").src = myArr.user.propic;
 						document.getElementById("follower-count").innerHTML = myArr.user.followercount;
 						document.getElementById("following-count").innerHTML = myArr.user.followingcount;
-						document.getElementById("post-count").innerHTML = myArr.user.Posts;
+						// document.getElementById("post-count").innerHTML = myArr.user.Posts;
 						document.getElementById("location").innerHTML = myArr.user.location;
 						document.getElementById("bio").innerHTML = myArr.user.bio;
 						//document.getElementById("article1_link").setAttribute("href", myArr.user.article1link);
@@ -1072,6 +1072,7 @@ toggle between hiding and showing the dropdown content */
 						var user = document.getElementById("user-name");
 						console.log(lastURLSegment);
 						console.log(myArr.user.username);
+						console.log("testtesttest");
 						// if (lastURLSegment == myArr.user.username){
 						//     document.getElementById("followbtn").style.visibility = "hidden";
 						// }
