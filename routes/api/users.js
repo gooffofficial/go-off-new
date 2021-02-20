@@ -824,7 +824,19 @@ router.post('/add_article', auth.required, [body('userArticle').blacklist('<>')]
         })
       }
     })
-    return res.redirect('/profiles/'+username);
+    db.SavedArticle.findOne({
+      where: {
+        userId: id,
+        article: req.body.userArticle
+      }
+    }).then(async (article) => {
+      if (!article){
+        savedArt = await db.SavedArticle.create({
+          article: req.body.userArticle,
+          userId: id
+        })
+        return res.redirect('/profiles/'+username);}
+    })
   })
 })
 
@@ -998,12 +1010,37 @@ router.post('/saveto_folder', auth.required, [], (req, res, next) =>{
             return res.status(200)
           }
         }
-        db.SavedArticle.create({
-          FolderId: folder.id,
-          article: req.body.userArticle
-        }).then(() =>{
+        db.savedArticle.findOne({
+          where: {
+            article: req.body.userArticle,
+            userId: id
+          }
+        }).then(async (savedArt) => {
+          if (!savedArt) {
+            await db.SavedArticle.create({
+              FolderId: folder.id,
+              article: req.body.userArticle
+            })
+          }
+          else{
+            await db.savedArticle.update({
+              folderId: folder.id
+            },
+            {
+              where: {
+                article: req.body.userArticle,
+                userId: id
+              }
+            })
+          }
           return res.sendStatus(200)
         })
+        // db.SavedArticle.create({
+        //   FolderId: folder.id,
+        //   article: req.body.userArticle
+        // }).then(() =>{
+        //   return res.sendStatus(200)
+        // })
       })
   })
   })
