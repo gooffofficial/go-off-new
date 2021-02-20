@@ -12,7 +12,7 @@ router.get('/:user', auth.required, (req, res, next) => {
         }
     }).then(async (conversations) => {
         if (!conversations || conversations.length < 1){
-            return res.render('profiles/profile', {user: req.params.user, upConvos: [], prevConvos: [], upcomingConvo: upcomingConvo, numUpcoming: numUpcoming})
+            return res.render('profiles/profile', {myUser: username, user: req.params.user, upConvos: [], prevConvos: [], upcomingConvo: upcomingConvo, numUpcoming: numUpcoming})
         }
         upConvos = []
         prevConvos = []
@@ -61,7 +61,7 @@ router.get('/:user', auth.required, (req, res, next) => {
                 }
             }
         }
-        res.render('profiles/profile', {user: req.params.user, prevConvos: prevConvos, upConvos: upConvos, upcomingConvo: upcomingConvo, numUpcoming: numUpcoming})
+        res.render('profiles/profile', {myUser: username, user: req.params.user, prevConvos: prevConvos, upConvos: upConvos, upcomingConvo: upcomingConvo, numUpcoming: numUpcoming})
     })
 })
 module.exports = router;

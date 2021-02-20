@@ -163,6 +163,21 @@ router.post('/', auth.optional, [
       .then(() => {
         db.UserArticle.create({
           UserId: user.id
+        }).then(() => {
+          db.Folder.create({
+            UserId: user.id, 
+            foldername: "Business/Tech"
+          })
+        }).then(() => {
+          db.Folder.create({
+            UserId: user.id, 
+            foldername: "Art/Literature"
+          })
+        }).then(() => {
+          db.Folder.create({
+            UserId: user.id, 
+            foldername: "Miscellaneous"
+          })
         })
         .then(() => 
         {
@@ -173,6 +188,7 @@ router.post('/', auth.optional, [
             from: 'go.offmedia@gmail.com', // Change to your verified sender
             subject: 'Email Verification Link',
             text: 'Hello '+ user.firstname +',\n\n' + 'Please verify your account by clicking the link: \nhttps:\/\/' + 'www.go-off.co' + '\/api\/users\/verification?useremail=' + user.email + '&verification_token=' + user.user_tok  + '\n\nThank You!\n',
+            html: 'Hello '+ user.firstname +',\n\n' + 'Please verify your account by clicking the link: <a href = \nhttps:\/\/' + 'www.go-off.co' + '\/api\/users\/verification?useremail=' + user.email + '&verification_token=' + user.user_tok +'> Here </a>' + '\n\nThank You!\n'
           //change into an HREF
           }
 

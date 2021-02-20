@@ -104,7 +104,7 @@
 				<div class="droparrow align-self-center">
 					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
 					<div id="arrowdrop" class="dropdown-arrowcontent">
-						<a id="profbutton" href="/profiles/<%=user%>">Profile</a>
+						<a id="profbutton" href = "">Profile</a>
 						<a href="/profile_edit">Settings</a>
 						<a href="https://www.go-off.co/">Log Out</a>
 					</div>
@@ -1007,6 +1007,8 @@ toggle between hiding and showing the dropdown content */
 					if (this.readyState == 4 && this.status == 200) {
 						console.log(this.responseText)
 						var myArr = JSON.parse(this.responseText);
+						var currUser = '<%=myUser%>';
+						console.log("CURRRRENT" + currUser);
 						console.log(myArr);
 						console.log(myArr.user.is_user)
 						if (myArr.user.is_following == true) {
@@ -1014,19 +1016,24 @@ toggle between hiding and showing the dropdown content */
 							console.log("works");
 						}
 						if (myArr.user.is_user == true) {
+							currUser = myArr.user.username;
 							document.getElementById("followbtn").style.visibility = "hidden";
+							//document.getElementById("profbutton").setAttribute("src", "/profiles/" + myArr.user.username);
+							console.log("USERNAMEEEEEEE" + myArr.user.username);
+							document.getElementById("fprofpic").src = myArr.user.propic;
+							console.log(currUser);
 							console.log("works1");
 						}
 						document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
 						document.getElementById("profile-name").innerHTML = myArr.user.firstname + " " + myArr.user
 							.lastname + " " + myArr.user.admin;
 						document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
-						document.getElementById("profbutton").setAttribute("src", "/profiles/<%=user%>");
+						document.getElementById("profbutton").setAttribute("href", "/profiles/" + currUser);
+						console.log("outside if statement" + currUser);
 						document.getElementById("following-iframe").setAttribute("src", "/following/<%=user%>");
 						document.getElementById("follower-iframe").setAttribute("src", "/followers/<%=user%>");
 						document.getElementById("location").innerHTML = myArr.user.location;
 						document.getElementById("profile-pic").src = myArr.user.propic;
-						document.getElementById("fprofpic").src = myArr.user.propic;
 						document.getElementById("follower-count").innerHTML = myArr.user.followercount;
 						document.getElementById("following-count").innerHTML = myArr.user.followingcount;
 						document.getElementById("post-count").innerHTML = myArr.user.Posts;

@@ -6,7 +6,7 @@
     <body>
         <p id = "save_link">saved content</p>
         <% Object.keys(articles).forEach(function(prop){%>
-           <p id = "link"> <%=articles[prop].article%> </p>
+           <a id = "link" href = <%=articles[prop].article%>> <%=articles[prop].article%> </a>
        <% })%>
     </body>
     
