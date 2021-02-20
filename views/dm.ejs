@@ -9,7 +9,7 @@
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="/css/dm.css">
 	<link rel="stylesheet" href="/css/navigationBar.css">
-	<title>Chat About It!</title>
+	<title>Chat It!</title>
 	<style>
 		/* #messages {
 			height: 300px;
@@ -49,17 +49,21 @@
 				<a href=""><img src="/chart.svg" class="navIcon"></a>
 			</div>
 
+
 			<div class="searchContainer align-self-center d-flex">
 				<!-- <form id="bar_form"> SEARCH BAR NEEDS TO BE CONNECTED -->
 				<img src="/search_icon.svg" class="search-icon align-self-center">
-				<input type="text" id="search" placeholder="Search" onkeyup="plsWork(this.value)">
+				<input type="text" id="search" placeholder="Search" autocomplete="off" onkeyup="plsWork(this.value)">
 				<!-- </form> -->
+				<!--<p>Suggestions: <span id="txtHint"></span></p>-->
+			</div>
+
+			<div id="search-input-results" style="visibility: hidden">
 				<a id="search-1"></a>
 				<a id="search-2"></a>
 				<a id="search-3"></a>
 				<a id="search-4"></a>
 				<a id="search-5"></a>
-				<!--<p>Suggestions: <span id="txtHint"></span></p>-->
 			</div>
 
 			<div class="navigationProfile d-flex">
@@ -74,9 +78,9 @@
 				</div>
 
 				<div class="droparrow align-self-center">
-					<img onclick="dropclick1()" src="/chevron_down.svg" id="arrows" />
+					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
 					<div id="arrowdrop" class="dropdown-arrowcontent">
-						<a href="/profile" href="/profiles/<%=user%>">Profile</a>
+						<a id="profbutton" href = "/profiles/<%=user%>">Profile</a>
 						<a href="/profile_edit">Settings</a>
 						<a href="https://www.go-off.co/">Log Out</a>
 					</div>
@@ -192,6 +196,16 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
 
 	<script src="/<%=js%>"></script>
+	<script>
+		function dropclick1(id) {
+			var x = document.getElementById(id);
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
+	</script>
 </body>
 <!-- <div id="UXlightbox" class="lightbox">
 	<span class="close cursor" onclick="closeModal()">&times;</span>

@@ -206,7 +206,7 @@ router.get('/feed', auth.required, (req, res, next) => {
             }
             console.log(convs[0].article)
             console.log(arts2[1].article + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
-            res.render('feed', {user: req.params.user, articles: arts2.reverse(), convos: convs.reverse()})
+            res.render('feed', {myuser: username, user: req.params.user, articles: arts2.reverse(), convos: convs.reverse()})
         })
     })
 })
@@ -371,7 +371,7 @@ router.get('/m/:username', auth.required, (req, res, next) => {
                         lastMessages[i][0] = user.username;
                         lastMessages[i].push(profile.ppic);
                     }
-                    res.render('dm', {admin: true, id: req.params.username, status: false, title: req.params.username, url: '/profiles/'+req.params.username, js: "dm.js", lastMessages: lastMessages, userPic: userPic});
+                    res.render('dm', {user: username, admin: true, id: req.params.username, status: false, title: req.params.username, url: '/profiles/'+req.params.username, js: "dm.js", lastMessages: lastMessages, userPic: userPic});
                 })
             }
         )
