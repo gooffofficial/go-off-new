@@ -61,7 +61,8 @@ router.get("/verify", (req, res) => {
 
 router.get('/feed', auth.required, (req, res, next) => {
     const { payload: { id, username } } = req;
-    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
+    //seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
+    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=S.userId")
     .then(async (articles) => { 
         var arts = []
         for(var i=0; i<articles[0].length; i++){
