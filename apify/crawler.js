@@ -8,7 +8,7 @@ async function testCrawl(url){
 
     const handlePageFunction = async({ request, $ }) => {
         const title = $('title').text();
-        const img = $('img').attr("src");
+        const img = $('og:image').attr("content");
         
         //getting the word count of the webpage to calculate the read time
         const len = $('body').text().split(' ').length;

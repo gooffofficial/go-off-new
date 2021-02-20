@@ -1015,13 +1015,14 @@ toggle between hiding and showing the dropdown content */
 						}
 						if (myArr.user.is_user == true) {
 							document.getElementById("followbtn").style.visibility = "hidden";
+							document.getElementById("profbutton").setAttribute("src", "/profiles/<%=user%>");
 							console.log("works1");
 						}
 						document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
 						document.getElementById("profile-name").innerHTML = myArr.user.firstname + " " + myArr.user
 							.lastname + " " + myArr.user.admin;
 						document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
-						document.getElementById("profbutton").setAttribute("src", "/profiles/<%=user%>");
+						// document.getElementById("profbutton").setAttribute("src", "/profiles/<%=user%>");
 						document.getElementById("following-iframe").setAttribute("src", "/following/<%=user%>");
 						document.getElementById("follower-iframe").setAttribute("src", "/followers/<%=user%>");
 						document.getElementById("location").innerHTML = myArr.user.location;

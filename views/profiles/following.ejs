@@ -28,7 +28,11 @@
 			font-weight: bold;
 			color: #000;
 			text-decoration: none;
-		}
+        }
+        
+        #followElement button {
+            right: 20%;
+        }
 	</style>
 
     <script>
@@ -67,7 +71,11 @@
                             a.setAttribute("href", "/m/" + user);
                             a.setAttribute("target", "_blank");
                             // a.appendChild(text);
+
+                            dmbutton.setAttribute("innerHTML", "DM");
+                            dmbutton.appendChild(a);
                             div.appendChild(text);
+                            document.querySelector("#followerlist").appendChild(dmbutton);
                             document.querySelector("#followerlist").appendChild(div);
                             document.querySelector("#followerlist").appendChild(img);
                         }
