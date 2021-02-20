@@ -4,9 +4,16 @@ module.exports = (sequelize, type) => {
     var SavedArticle =  sequelize.define('SavedArticle', {
         FolderId: { //unique folder id it is attached to
             type: type.INTEGER,
-            allowNull: false,
+            //allowNull: false,
         },
-        article: type.STRING        
+        article: {
+            type: type.STRING,
+            allowNull: false
+        },
+        userId: {
+            type: type.INTEGER,
+            allowNull: false
+        }        
     });
     
     SavedArticle.prototype.getFolderInfo = function(){

@@ -163,6 +163,21 @@ router.post('/', auth.optional, [
       .then(() => {
         db.UserArticle.create({
           UserId: user.id
+        }).then(() => {
+          db.Folder.create({
+            UserId: user.id, 
+            foldername: "Business/Tech"
+          })
+        }).then(() => {
+          db.Folder.create({
+            UserId: user.id, 
+            foldername: "Art/Literature"
+          })
+        }).then(() => {
+          db.Folder.create({
+            UserId: user.id, 
+            foldername: "Miscellaneous"
+          })
         })
         .then(() => 
         {
@@ -173,6 +188,7 @@ router.post('/', auth.optional, [
             from: 'go.offmedia@gmail.com', // Change to your verified sender
             subject: 'Email Verification Link',
             text: 'Hello '+ user.firstname +',\n\n' + 'Please verify your account by clicking the link: \nhttps:\/\/' + 'www.go-off.co' + '\/api\/users\/verification?useremail=' + user.email + '&verification_token=' + user.user_tok  + '\n\nThank You!\n',
+            html: 'Hello '+ user.firstname +',\n\n' + 'Please verify your account by clicking the link: <a href = \nhttps:\/\/' + 'www.go-off.co' + '\/api\/users\/verification?useremail=' + user.email + '&verification_token=' + user.user_tok +'> Here </a>' + '\n\nThank You!\n'
           //change into an HREF
           }
 
@@ -589,6 +605,100 @@ router.get('/following/:user', auth.optional, (req, res, next) => {
   })
 }) 
 
+router.get('/followers', auth.optional, (req, res, next) => {
+  const {payload: {id}} = req;
+  const {payload: {username}} = req;
+
+  //finds username in database
+  return db.User.findOne({
+    where: {
+      username: username
+    }
+  })
+
+  .then((user) => {
+    //checks if the person accessing the file is the user
+    if(!user) {
+      return res.sendStatus(400);
+    }
+    //find all users that we follow
+    db.Follower.findAll({
+      where: { followed: id} 
+    })
+    .then(async(followed) => {
+      
+      let data = [];
+      
+      for(i = 0; i < followed.length; i++){
+        user = ({ followed: followed[i].getFollowerInfo() });
+        
+        followed_id = user.followed.follower;
+        let fuser = await db.User.findOne({
+          where: {
+            id: followed_id
+          }
+        })
+        
+        profile = followed_id;
+        let puser = await db.Profile.findOne({
+          where: {
+            UserId: profile
+          }
+        })
+        data.push([fuser.username, puser.ppic]);
+      }
+      return res.status(200).json(data);
+    })
+  })
+}) 
+
+router.get('/followers/:user', auth.optional, (req, res, next) => {
+  const {payload: {id}} = req;
+  const {payload: {username}} = req;
+
+  //finds username in database
+  return db.User.findOne({
+    where: {
+      username: req.params.user
+    }
+  })
+
+  .then((user) => {
+    //checks if the person accessing the file is the user
+    if(!user) {
+      return res.sendStatus(400);
+    }
+    //find all users that we follow
+    db.Follower.findAll({
+      where: { followed: user.id} 
+    })
+    .then(async(followed) => {
+      
+      let data = [];
+      
+      for(i = 0; i < followed.length; i++){
+        user = ({ followed: followed[i].getFollowerInfo() });
+        
+        followed_id = user.followed.follower;
+        let fuser = await db.User.findOne({
+          where: {
+            id: followed_id
+          }
+        })
+        
+        profile = followed_id;
+        let puser = await db.Profile.findOne({
+          where: {
+            UserId: profile
+          }
+        })
+        data.push([fuser.username, puser.ppic]);
+      }
+      return res.status(200).json(data);
+    })
+  })
+})
+
 router.get('/profile/:user', auth.optional, (req, res, next) => {
   const {payload: {id}} = req;
   const {payload: {username}} = req;
@@ -808,7 +918,19 @@ router.post('/add_article', auth.required, [body('userArticle').blacklist('<>')]
         })
       }
     })
-    return res.redirect('/profiles/'+username);
+    db.SavedArticle.findOne({
+      where: {
+        userId: id,
+        article: req.body.userArticle
+      }
+    }).then(async (article) => {
+      if (!article){
+        savedArt = await db.SavedArticle.create({
+          article: req.body.userArticle,
+          userId: id
+        })
+        return res.redirect('/profiles/'+username);}
+    })
   })
 })
 
@@ -982,12 +1104,37 @@ router.post('/saveto_folder', auth.required, [], (req, res, next) =>{
             return res.status(200)
           }
         }
-        db.SavedArticle.create({
-          FolderId: folder.id,
-          article: req.body.userArticle
-        }).then(() =>{
+        db.savedArticle.findOne({
+          where: {
+            article: req.body.userArticle,
+            userId: id
+          }
+        }).then(async (savedArt) => {
+          if (!savedArt) {
+            await db.SavedArticle.create({
+              FolderId: folder.id,
+              article: req.body.userArticle
+            })
+          }
+          else{
+            await db.savedArticle.update({
+              folderId: folder.id
+            },
+            {
+              where: {
+                article: req.body.userArticle,
+                userId: id
+              }
+            })
+          }
           return res.sendStatus(200)
         })
+        // db.SavedArticle.create({
+        //   FolderId: folder.id,
+        //   article: req.body.userArticle
+        // }).then(() =>{
+        //   return res.sendStatus(200)
+        // })
       })
   })
   })

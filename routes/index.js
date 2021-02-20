@@ -61,7 +61,8 @@ router.get("/verify", (req, res) => {
 
 router.get('/feed', auth.required, (req, res, next) => {
     const { payload: { id, username } } = req;
-    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
+    //seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
+    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=S.userId")
     .then(async (articles) => { 
         var arts = []
         for(var i=0; i<articles[0].length; i++){
@@ -88,6 +89,7 @@ router.get('/feed', auth.required, (req, res, next) => {
             arts2.push(art2)
         }
         console.log(arts2.length)
+        arts2 = arts2.reverse();
         if(arts2.length == 0){
             let a = {
                 img: '',
@@ -155,6 +157,7 @@ router.get('/feed', auth.required, (req, res, next) => {
                 convs[i]['title'] = art.title
                 i++
             }
+            convs=convs.reverse();
             if(convs.length == 0) {
                 convs[0] = {
                     article: "",
@@ -205,7 +208,7 @@ router.get('/feed', auth.required, (req, res, next) => {
             }
             console.log(convs[0].article)
             console.log(arts2[1].article + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
-            res.render('feed', {user: req.params.user, articles: arts2.reverse(), convos: convs.reverse()})
+            res.render('feed', {user: req.params.user, articles: arts2, convos: convs})
         })
     })
 })
