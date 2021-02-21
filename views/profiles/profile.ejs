@@ -1109,9 +1109,8 @@ toggle between hiding and showing the dropdown content */
 						document.getElementById("user-article4check_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
 						document.getElementById("user-article1_link").setAttribute("href", "/conversation/?article="+userArticles.article1Url);
 						x = document.getElementById("user-article1_link").href
-						console.log(x)
 						if(x == "http://localhost:8000/conversation/?article="){
-							document.getElementById("user-article1_link").href = "#add-media";
+							document.getElementById("user-article1_link").href = "";
 						}
 						document.getElementById("user-article1_link2").setAttribute("href", userArticles.article1Url);
 						document.getElementById("user-article1_link3").setAttribute("href", userArticles.article1Url);
