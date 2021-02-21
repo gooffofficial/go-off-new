@@ -553,12 +553,12 @@
 			</div>
 
 			<div id="upcoming_convo" class="tabcontent1" style = "display: block;">
-				<div id="convo-container">
+				<!--<div id="convo-container">-->
 					<!-- <div id="convo-img-container">
 						<img id="convo-img">
 					</div> -->
 					<% for(var i=0; i < upConvos.length; i++) { %>
-						<div id="upcoming_convo" class="tabcontent1">
+						<!--<div id="upcoming_convo">-->
 							<div id="convo-container">
 								<div id="convo-img-container">
 									<img id="convo-img" src="<%=upConvos[i].img%>">
@@ -567,7 +567,7 @@
 									<p id="convo-date"><%=upConvos[i].date%></p>
 									<p id="convo-title"><%=upConvos[i].title%></p>
 									<p id="convo-description">Description</p>
-									<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by <%=upConvos[i].host%>></span>
+									<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by <%=upConvos[i].host%></span>
 								
 									<div id="convo-btns">
 										<!-- SHARE BUTTON NO FUNCTIONALITY YET 
@@ -576,9 +576,9 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						<!--</div>-->
 					 <% } %>
-		<!-- </div> -->
+				<!-- </div> -->
 					<!--<div id="convo-right-content">
 						<p id="convo-date">Thursday, November 19, 7:30 PM EDT</p>
 						<p id="convo-title">Title of Convo</p>
@@ -591,7 +591,7 @@
 						</div>
 					</div>-->
 				<!--</div>-->
-				</div>
+				<!--</div>-->
 			</div>
 
 			<div id="prev_convo" class="tabcontent1" style="display: none;">
@@ -599,7 +599,7 @@
 					<div id="convo-img-container">
 						<img id="convo-img">
 					</div> -->
-					<% for(var i=0; i < prevConvos.length; i++) { %>
+					<% for(var i=prevConvos.length-1; i >= 0; i--) { %>
 							<div id="convo-container">
 								<div id="convo-img-container">
 									<img id="convo-img" src="<%=prevConvos[i].img%>">
@@ -633,7 +633,7 @@
 				<!--</div>
 		</div> -->
 			</div> 
-			</div>
+		</div>
 
 		<div id="Following" class="tabcontent">
 		</div>
