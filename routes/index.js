@@ -233,11 +233,13 @@ router.get('/conversation', auth.required, (req, res, next) => {
         }
     }).then((art) => {
         if(!art){
-            return res.status(422).json({
-                errors: {
-                    article: "not found"
-                }
-            })
+            try{
+                crawler(req.query["article"]);
+            }
+            catch(err){
+                return res.send(err);
+            }
+            return res.redirect('/conversation/article/?article='+req.query["article"])
         }
         db.Convo.findAll({
             limit: 2,
