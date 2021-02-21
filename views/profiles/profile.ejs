@@ -38,7 +38,7 @@
 			<div class="navigationIcons align-self-center">
 				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
 				<div class="droparrow align-self-center">
-					<div id="plusdrop" class="dropdown-arrowcontent" style="top: 100%;">
+					<div id="plusdrop" class="dropdown-arrowcontent" style="position: absolute; top: 25px;">
 						<a data-target="#add-media" data-toggle="modal" class="MainNavText" id="media-adder"
 							style="display: inline-block;" href="#add-media">Media</a>
 						<!--<a href="/following" target="_blank" id="following-count" style="display: inline-block;"></a>-->
@@ -249,7 +249,7 @@
 				<h1 id="articles-text">USER CONTENT</h1>
 
 				<div id="user-article-1" class="article">
-					<a id="user-article1_link">
+					<a id="user-article1_link" onclick="ConvoCheck()">
 						<div class="article-image-container">
 							<img id="user-article-1-image" class="article-image">
 						</div>
@@ -705,6 +705,15 @@
 		if (hasTouchScreen == true) {
 			document.getElementById("pro-style").setAttribute('href', '/css/profile.css')
 		}
+
+		function ConvoCheck() {
+			x = document.getElementById("user-article1_link2")
+			if(x == "#"){
+				x = document.getElementById("add-media");
+				x.style.display = "none";
+			}
+			console.log(x)
+		}
 		function saveArticles() {
 			xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function () {
@@ -786,7 +795,7 @@
 			console.log(cityName);
 			// Declare all variables
 			var i, tabcontent, tablinks;
-			// Get all elements with class="tabcontent1" and hide them
+			// Get all elements with class="tabcontent" and hide them
 			tabcontent = document.getElementsByClassName("tabcontent1");
 			for (i = 0; i < tabcontent.length; i++) {
 				tabcontent[i].style.display = "none";
@@ -953,6 +962,7 @@ toggle between hiding and showing the dropdown content */
 				x.style.display = "block";
 			}
 		}
+
 		function sendreq(x){
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/api/users/add_article", true);
@@ -1118,12 +1128,16 @@ toggle between hiding and showing the dropdown content */
 				xhr2.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
 						userArticles = JSON.parse(this.responseText);
-						document.getElementById("user-article1_link").setAttribute("href", userArticles.article1Url);
-						document.getElementById("user-article1check_link").setAttribute("href", "/conversation/?article="+userArticles.article1Url)
+						// document.getElementById("user-article1_link").setAttribute("href", userArticles.article1Url);
+						document.getElementById("user-article1check_link").setAttribute("href", "/conversation/?article="+userArticles.article1Url);
 						document.getElementById("user-article2check_link").setAttribute("href", "/conversation/?article="+userArticles.article2Url);
 						document.getElementById("user-article3check_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
 						document.getElementById("user-article4check_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
-						document.getElementById("user-article1_link1").setAttribute("href", userArticles.article1Url);
+						document.getElementById("user-article1_link").setAttribute("href", "/conversation/?article="+userArticles.article1Url);
+						x = document.getElementById("user-article1_link").href
+						if(x == "http://localhost:8000/conversation/?article="){
+							document.getElementById("user-article1_link").href = "";
+						}
 						document.getElementById("user-article1_link2").setAttribute("href", userArticles.article1Url);
 						document.getElementById("user-article1_link3").setAttribute("href", userArticles.article1Url);
 						document.getElementById("user-article-1-image").src = userArticles.article1img;
@@ -1153,21 +1167,21 @@ toggle between hiding and showing the dropdown content */
 							document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title;
 						}
 						// document.getElementById("user-article-1-read-time").innerHTML = userArticles.article1Readtime;
-						document.getElementById("user-article2_link").setAttribute("href", userArticles.article2Url);
+						document.getElementById("user-article2_link").setAttribute("href", "/conversation/?article="+userArticles.article2Url);
 						document.getElementById("user-article2_link1").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link2").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link3").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article-2-image").src = userArticles.article2img;
 						// document.getElementById("user-article-2-title").innerHTML = userArticles.article2Title.substring(0,50) + "...";
 						// document.getElementById("user-article-2-read-time").innerHTML = userArticles.article2Readtime;
-						document.getElementById("user-article3_link").setAttribute("href", userArticles.article3Url);
+						document.getElementById("user-article3_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
 						document.getElementById("user-article3_link1").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link2").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link3").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article-3-image").src = userArticles.article3img;
 						// document.getElementById("user-article-3-title").innerHTML = userArticles.article3Title.substring(0,50) + "...";
 						// document.getElementById("user-article-3-read-time").innerHTML = userArticles.article3Readtime;
-						document.getElementById("user-article4_link").setAttribute("href", userArticles.article4Url);
+						document.getElementById("user-article4_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
 						document.getElementById("user-article4_link1").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article4_link2").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article4_link3").setAttribute("href", userArticles.article4Url);

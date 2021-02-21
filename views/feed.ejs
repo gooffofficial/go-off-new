@@ -40,7 +40,7 @@
 			<div class="navigationIcons align-self-center">
 				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
 				<div class="droparrow align-self-center">
-					<div id="plusdrop" class="dropdown-arrowcontent" style="top: 100%;">
+					<div id="plusdrop" class="dropdown-arrowcontent" style="position: absolute; top: 25px;">
 						<a data-target="#add-media" data-toggle="modal" class="MainNavText" id="media-adder"
 							style="display: inline-block;" href="#add-media">Media</a>
 						<!--<a href="/following" target="_blank" id="following-count" style="display: inline-block;"></a>-->
@@ -529,6 +529,15 @@
 				<img src="/rightarrow.png" class="articlecyclebtn">
 			</div>
 
+			<!-- <div id="rsvp-pop" style="visibility: hidden;">
+				<p>You have succesfully RSVP'd for this conversation! 
+					Go to the Conversations Tab on your profile to join!
+				</p>
+				<a href="/profiles/<%=myuser%>">
+					<button type="submit">Go to Profile</button>
+				</a>
+			</div> -->
+
 			<footer>
 				<div class="footer-container">
 					<img src="/GO_OFF_LOGO.svg" id="footer-logo">
@@ -618,6 +627,8 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[0].id %>
 		}));
+		var x = document.getElementById("rsvp-pop");
+		x.style.visibility = "visible";
 	}
 
 	function joinConvo1() {
@@ -628,6 +639,8 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[1].id %>
 		}));
+		var x = document.getElementById("rsvp-pop");
+		x.style.visibility = "visible";
 	}
 
 	function joinConvo2() {
@@ -638,6 +651,8 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[2].id %>
 		}));
+		var x = document.getElementById("rsvp-pop");
+		x.style.visibility = "visible";
 	}
 
 	function joinConvo3() {
@@ -648,6 +663,8 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[3].id %>
 		}));
+		var x = document.getElementById("rsvp-pop");
+		x.style.visibility = "visible";
 	}
 	function dropclick1(id) {
 			var x = document.getElementById(id);
