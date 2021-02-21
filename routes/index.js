@@ -413,10 +413,10 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
                     title = title.substring(0,30);
                 }
                 if(user.admin != "(Admin)"){
-                    return res.render('index', {admin: false, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
+                    return res.render('index', {user: user.username, admin: false, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
                 }
                 else{
-                    return res.render('index', {admin: true, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
+                    return res.render('index', {user: user.username, admin: true, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
                 }
             })
         })
