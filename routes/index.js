@@ -89,6 +89,7 @@ router.get('/feed', auth.required, (req, res, next) => {
             arts2.push(art2)
         }
         console.log(arts2.length)
+        arts2 = arts2.reverse();
         if(arts2.length == 0){
             let a = {
                 img: '',
@@ -156,6 +157,7 @@ router.get('/feed', auth.required, (req, res, next) => {
                 convs[i]['title'] = art.title
                 i++
             }
+            convs=convs.reverse();
             if(convs.length == 0) {
                 convs[0] = {
                     article: "",

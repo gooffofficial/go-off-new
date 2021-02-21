@@ -5,12 +5,41 @@
 	</head>
 
     <body onload="fillinVar()">
-        <p>followers</p>
-
-        <h1 id="followers"></h1>
+        <div id="followerlist"></div>
     </body>
 
 
+    <style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+		.userPic {
+			height: 60px;
+			width: 60px;
+			border-radius: 50%;
+			display: block;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		#followElement {
+			position: absolute;
+			left: 85px;
+			margin-top: 20px;
+		}
+
+		#followElement a {
+			font-family: 'Poppins', sans-serif;
+			font-size: 14px;
+			font-weight: bold;
+			color: #000;
+			text-decoration: none;
+        }
+        
+        #followElement button {
+            right: 20%;
+        }
+    </style>
+    
     <script>
         function fillinVar(){
             console.log("test");
@@ -24,9 +53,41 @@
                         console.log(this.responseText)
                         var myArr = JSON.parse(this.responseText);
                         console.log(myArr);
+                        var div, a, text, img, dmbutton, profbutton;
+                        for (var i = 0, l = myArr.length; i < l; ++i) {
+                            div = document.createElement('div');
+                            div.setAttribute('class', 'follow-list-element')
+                            div.setAttribute('id', 'followElement')
+                            a  = document.createElement('a');
+                            img = document.createElement('img');
+                            text = document.createTextNode(myArr[i][0]);
+                            dmbutton = document.createElement('button');
+                            profbutton = document.createElement('button');
+
+                            img.setAttribute("src", myArr[i][1]);
+                            img.setAttribute("class","userPic")
+                            img.setAttribute("id", "user"+i+"pic")
+
+                            user = myArr[i][0];
+                            console.log(myArr[i][0]);
+                            a.setAttribute("class", "user" + i);
+                            a.setAttribute("id", "user"+i)
+                            a.setAttribute("href", "/m/" + user);
+                            a.setAttribute("target", "_blank");
+                            a.appendChild(text);
+
+                            // dmbutton.setAttribute("innerHTML", "DM");
+                            // dmbutton.appendChild(a);
+                            div.appendChild(a);
+                            // document.querySelector("#followerlist").appendChild(dmbutton);
+                            document.querySelector("#followerlist").appendChild(div);
+                            document.querySelector("#followerlist").appendChild(img);
+                        }
+                         
+                        console.log(myArr);
                     }
                 };
-                xhr.open("GET", '/api/users/following/<%=user%>', true);
+                xhr.open("GET", '/api/users/followers/<%=user%>', true);
                 xhr.withCredentials = true;
                 xhr.send();
             })();

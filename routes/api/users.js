@@ -605,6 +605,100 @@ router.get('/following/:user', auth.optional, (req, res, next) => {
   })
 }) 
 
+router.get('/followers', auth.optional, (req, res, next) => {
+  const {payload: {id}} = req;
+  const {payload: {username}} = req;
+
+  //finds username in database
+  return db.User.findOne({
+    where: {
+      username: username
+    }
+  })
+
+  .then((user) => {
+    //checks if the person accessing the file is the user
+    if(!user) {
+      return res.sendStatus(400);
+    }
+    //find all users that we follow
+    db.Follower.findAll({
+      where: { followed: id} 
+    })
+    .then(async(followed) => {
+      
+      let data = [];
+      
+      for(i = 0; i < followed.length; i++){
+        user = ({ followed: followed[i].getFollowerInfo() });
+        
+        followed_id = user.followed.follower;
+        let fuser = await db.User.findOne({
+          where: {
+            id: followed_id
+          }
+        })
+        
+        profile = followed_id;
+        let puser = await db.Profile.findOne({
+          where: {
+            UserId: profile
+          }
+        })
+        data.push([fuser.username, puser.ppic]);
+      }
+      return res.status(200).json(data);
+    })
+  })
+}) 
+
+router.get('/followers/:user', auth.optional, (req, res, next) => {
+  const {payload: {id}} = req;
+  const {payload: {username}} = req;
+
+  //finds username in database
+  return db.User.findOne({
+    where: {
+      username: req.params.user
+    }
+  })
+
+  .then((user) => {
+    //checks if the person accessing the file is the user
+    if(!user) {
+      return res.sendStatus(400);
+    }
+    //find all users that we follow
+    db.Follower.findAll({
+      where: { followed: user.id} 
+    })
+    .then(async(followed) => {
+      
+      let data = [];
+      
+      for(i = 0; i < followed.length; i++){
+        user = ({ followed: followed[i].getFollowerInfo() });
+        
+        followed_id = user.followed.follower;
+        let fuser = await db.User.findOne({
+          where: {
+            id: followed_id
+          }
+        })
+        
+        profile = followed_id;
+        let puser = await db.Profile.findOne({
+          where: {
+            UserId: profile
+          }
+        })
+        data.push([fuser.username, puser.ppic]);
+      }
+      return res.status(200).json(data);
+    })
+  })
+})
+
 router.get('/profile/:user', auth.optional, (req, res, next) => {
   const {payload: {id}} = req;
   const {payload: {username}} = req;
