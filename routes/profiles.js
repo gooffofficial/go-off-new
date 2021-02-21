@@ -61,6 +61,22 @@ router.get('/:user', auth.required, (req, res, next) => {
                 }
             }
         }
+        upConvos.sort(function(a, b) {
+            var keyA = new Date(a.date),
+              keyB = new Date(b.date);
+            // Compare the 2 dates
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+          });
+          prevConvos.sort(function(a, b) {
+            var keyA = new Date(a.date),
+              keyB = new Date(b.date);
+            // Compare the 2 dates
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+          });
         res.render('profiles/profile', {myUser: username, user: req.params.user, prevConvos: prevConvos, upConvos: upConvos, upcomingConvo: upcomingConvo, numUpcoming: numUpcoming})
     })
 })
