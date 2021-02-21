@@ -423,10 +423,10 @@ button {
     top: 58px;
 }
 
-#upcoming_convo {
+/*#upcoming_convo {
 	display: flex !important;
 	flex-direction: row !important;
-}
+}*/
 
 #convo-container {
 	font-family: 'Poppins', sans-serif;
