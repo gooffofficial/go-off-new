@@ -682,8 +682,9 @@
 
 		function ConvoCheck() {
 			x = document.getElementById("user-article1_link2")
-			if(x != null){
-				
+			if(x == "#"){
+				x = document.getElementById("add-media");
+				x.style.display = "none";
 			}
 			console.log(x)
 		}
@@ -935,6 +936,7 @@ toggle between hiding and showing the dropdown content */
 				x.style.display = "block";
 			}
 		}
+
 		function sendreq(x){
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/api/users/add_article", true);
@@ -1101,11 +1103,16 @@ toggle between hiding and showing the dropdown content */
 					if (this.readyState == 4 && this.status == 200) {
 						userArticles = JSON.parse(this.responseText);
 						// document.getElementById("user-article1_link").setAttribute("href", userArticles.article1Url);
-						document.getElementById("user-article1check_link").setAttribute("href", "/conversation/?article="+userArticles.article1Url)
+						document.getElementById("user-article1check_link").setAttribute("href", "/conversation/?article="+userArticles.article1Url);
 						document.getElementById("user-article2check_link").setAttribute("href", "/conversation/?article="+userArticles.article2Url);
 						document.getElementById("user-article3check_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
 						document.getElementById("user-article4check_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
-						document.getElementById("user-article1_link1").setAttribute("href", userArticles.article1Url);
+						document.getElementById("user-article1_link").setAttribute("href", "/conversation/?article="+userArticles.article1Url);
+						x = document.getElementById("user-article1_link").href
+						console.log(x)
+						if(x == "http://localhost:8000/conversation/?article="){
+							document.getElementById("user-article1_link").href = "#add-media";
+						}
 						document.getElementById("user-article1_link2").setAttribute("href", userArticles.article1Url);
 						document.getElementById("user-article1_link3").setAttribute("href", userArticles.article1Url);
 						document.getElementById("user-article-1-image").src = userArticles.article1img;
@@ -1135,21 +1142,21 @@ toggle between hiding and showing the dropdown content */
 							document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title;
 						}
 						// document.getElementById("user-article-1-read-time").innerHTML = userArticles.article1Readtime;
-						document.getElementById("user-article2_link").setAttribute("href", userArticles.article2Url);
+						document.getElementById("user-article2_link").setAttribute("href", "/conversation/?article="+userArticles.article2Url);
 						document.getElementById("user-article2_link1").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link2").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link3").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article-2-image").src = userArticles.article2img;
 						// document.getElementById("user-article-2-title").innerHTML = userArticles.article2Title.substring(0,50) + "...";
 						// document.getElementById("user-article-2-read-time").innerHTML = userArticles.article2Readtime;
-						document.getElementById("user-article3_link").setAttribute("href", userArticles.article3Url);
+						document.getElementById("user-article3_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
 						document.getElementById("user-article3_link1").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link2").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link3").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article-3-image").src = userArticles.article3img;
 						// document.getElementById("user-article-3-title").innerHTML = userArticles.article3Title.substring(0,50) + "...";
 						// document.getElementById("user-article-3-read-time").innerHTML = userArticles.article3Readtime;
-						document.getElementById("user-article4_link").setAttribute("href", userArticles.article4Url);
+						document.getElementById("user-article4_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
 						document.getElementById("user-article4_link1").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article4_link2").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article4_link3").setAttribute("href", userArticles.article4Url);

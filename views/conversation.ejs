@@ -105,7 +105,7 @@
 				<div class="droparrow align-self-center">
 					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
 					<div id="arrowdrop" class="dropdown-arrowcontent">
-						<a id="profbutton" href="profiles/<$=user%>">Profile</a>
+						<a id="profbutton" href="profiles/<%=user%>">Profile</a>
 						<a href="/profile_edit">Settings</a>
 						<a href="https://www.go-off.co/">Log Out</a>
 					</div>
@@ -206,11 +206,11 @@
 			</div>
 		</div>
 
-		<div id="rsvp-pop" style="display: block;">
+		<div id="rsvp-pop" style="visibility: hidden;">
 			<p>You have succesfully RSVP'd for this conversation! 
 				Go to the Conversations Tab on your profile to join!
 			</p>
-			<a href="/profiles/<%=myuser%>">
+			<a href="/profiles/<%=user%>">
 				<button type="submit">Go to Profile</button>
 			</a>
 		</div>
@@ -274,7 +274,7 @@
 			}));
 
 			var x = document.getElementById("rsvp-pop");
-			x.style.display = "none";
+			x.style.visibility = "visible";
 			window.alert("Successfully joined conversation");
 		}
 
@@ -287,7 +287,7 @@
 				convo: <%=convos[1].id%>
 			}));
 			var x = document.getElementById("rsvp-pop");
-			x.style.display = "none";
+			x.style.visibility = "visible";
 			window.alert("Successfully joined conversation")
 		}
 

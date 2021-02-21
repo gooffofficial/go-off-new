@@ -529,7 +529,7 @@
 				<img src="/rightarrow.png" class="articlecyclebtn">
 			</div>
 
-			<div id="rsvp-pop" style="display: block;">
+			<div id="rsvp-pop" style="visibility: hidden;">
 				<p>You have succesfully RSVP'd for this conversation! 
 					Go to the Conversations Tab on your profile to join!
 				</p>
@@ -628,7 +628,7 @@
 			convo: <%= convos[0].id %>
 		}));
 		var x = document.getElementById("rsvp-pop");
-		x.style.display = "none";
+		x.style.visibility = "visible";
 	}
 
 	function joinConvo1() {
@@ -640,7 +640,7 @@
 			convo: <%= convos[1].id %>
 		}));
 		var x = document.getElementById("rsvp-pop");
-		x.style.display = "none";
+		x.style.visibility = "visible";
 	}
 
 	function joinConvo2() {
@@ -652,7 +652,7 @@
 			convo: <%= convos[2].id %>
 		}));
 		var x = document.getElementById("rsvp-pop");
-		x.style.display = "none";
+		x.style.visibility = "visible";
 	}
 
 	function joinConvo3() {
@@ -664,7 +664,7 @@
 			convo: <%= convos[3].id %>
 		}));
 		var x = document.getElementById("rsvp-pop");
-		x.style.display = "none";
+		x.style.visibility = "visible";
 	}
 	function dropclick1(id) {
 			var x = document.getElementById(id);
