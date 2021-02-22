@@ -43,7 +43,7 @@
 
 			<div class="navigationIcons align-self-center">
 				<a href=""><img src="/plus.svg" class="navIcon"></a>
-				<a href=""><img src="/home.svg" class="navIcon"></a>
+				<a href="/feed"><img src="/home.svg" class="navIcon"></a>
 				<a href=""><img src="/mail.svg" class="navIcon"></a>
 				<a href=""><img src="/notification.svg" class="navIcon"></a>
 				<a href=""><img src="/chart.svg" class="navIcon"></a>
@@ -74,7 +74,7 @@
 				</div>
 
 				<div class="droparrow align-self-center">
-					<img onclick="dropclick1()" src="/chevron_down.svg" id="arrows" />
+					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
 					<div id="arrowdrop" class="dropdown-arrowcontent">
 						<a href="/profile" href="/profiles/<%=user%>">Profile</a>
 						<a href="/profile_edit">Settings</a>
@@ -95,16 +95,15 @@
 				<p id="article-info-poster">New York Times</p>
 				<p id="article-info-date">2 days ago</p>
 
-				<p id="article-info-title">Article Title Goes Here</p>
+				<p id="article-info-title"><%=title%></p>
 				<p id="article-info-user-description">User description goes here</p>
 
 				<div id="article-info-bottom">
-					<a href="" id="article-info-article-link">articlelink.com</a>
+					<a href="" id="article-info-article-link"><%=url%></a>
 					<p id="article-info-convo-host">John Doe</p> <!-- hosters name goes here -->
 				</div>
 			</div>
 		</div>
-
 		<!-- <h1 class="text-center">
 			<%=title+"..."%>
 		</h1> -->
@@ -112,7 +111,7 @@
 		<div id="chat-container">
 			<div id="chat">
 				<!--<input type="text" id = "username" class="form-control" placeholder="Enter Name">-->
-				<div id="participants">
+				<div id="participants" style = "height: 300px; float: left; overflow:hidden; width: 200px;">
 					<h2>Participants</h2>
 					<p id="username"></p>
 				</div>
@@ -148,7 +147,7 @@
 		<%if (status != true) { %>
 		<%if (admin == true) { %>
 		<form method="post" action="/api/chat/end/<%=id%>">
-			<button type="submit" id="end">END CONVERSATION</button>
+			<button type="submit" id="end" onclick = "bye()">END CONVERSATION</button>
 		</form>
 		<% } %>
 		<% } else { %>
@@ -173,6 +172,15 @@
 
 	<script src="/<%=js%>"></script>
 	<script>
+		function dropclick1(id) {
+			var x = document.getElementById(id);
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
+
 		function plsWork(str) {
 			str.toLowerCase();
 			var stringz = ""

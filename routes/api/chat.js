@@ -168,6 +168,9 @@ router.post('/leave/:roomid', auth.required, (req, res, next) => {
             room: roomId,
             user: id
         });
+        // socket.in(roomId).emit('userBye', {
+        //     bye: username + ' has left.'
+        // });
         room.users.pull(id);
         room.save().then(() => {
             return res.redirect('/profiles/'+username)
