@@ -62,8 +62,33 @@
 								</div>
 							</div>
 						</div>
+						<br>
 						<!-- <a href="/profile_edit">Folder</a> -->
-						<a href="https://www.go-off.co/">Convo</a>
+						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="media-adder"
+							style="display: inline-block;" href="#add-convo">Convo</a>
+						<div class="modal fade" id="add-convo" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabelConv" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabelConv">Convo</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="/api/convos/create" method="post">
+											<label for="convoTime">Conversation Time</label>
+											<input type="datetime-local" id="convoTime" name="convoTime">
+											<!-- Sus security here -->
+											<label for="article">Article URL</label>
+											<input type="text" id="article" name="article">
+											<input type="submit" value="submit">
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<a href="/feed"><img src="/home.svg" class="navIcon"></a>
