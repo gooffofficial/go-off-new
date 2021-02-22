@@ -170,16 +170,15 @@
 				<p id="article-info-poster">New York Times</p>
 				<p id="article-info-date">2 days ago</p>
 
-				<p id="article-info-title">Article Title Goes Here</p>
+				<p id="article-info-title"><%=title%></p>
 				<p id="article-info-user-description">User description goes here</p>
 
 				<div id="article-info-bottom">
-					<a href="" id="article-info-article-link">articlelink.com</a>
+					<a href="" id="article-info-article-link"><%=url%></a>
 					<p id="article-info-convo-host">John Doe</p> <!-- hosters name goes here -->
 				</div>
 			</div>
 		</div>
-
 		<!-- <h1 class="text-center">
 			<%=title+"..."%>
 		</h1> -->
@@ -187,7 +186,7 @@
 		<div id="chat-container">
 			<div id="chat">
 				<!--<input type="text" id = "username" class="form-control" placeholder="Enter Name">-->
-				<div id="participants">
+				<div id="participants" style = "height: 300px; float: left; overflow:hidden; width: 200px;">
 					<h2>Participants</h2>
 					<p id="username"></p>
 				</div>
@@ -223,7 +222,7 @@
 		<%if (status != true) { %>
 		<%if (admin == true) { %>
 		<form method="post" action="/api/chat/end/<%=id%>">
-			<button type="submit" id="end">END CONVERSATION</button>
+			<button type="submit" id="end" onclick = "bye()">END CONVERSATION</button>
 		</form>
 		<% } %>
 		<% } else { %>
@@ -256,6 +255,10 @@
 				x.style.display = "block";
 			}
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0f28d13aec5634b367c90ff19be0df978d7eaeac
 		function plsWork(str) {
 			str.toLowerCase();
 			var stringz = ""
