@@ -22,7 +22,7 @@ router.get('/folders', auth.required, (req, res, next) => {
 router.get('/savedarts', auth.required, (req, res, next) => {
     const {payload: {id}} = req; 
     var foldname = req.query.namez;
-    console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHH", foldname);
+    console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHH", foldname, id);
     db.Folder.findOne({
         where: {
             foldername: foldname, 
