@@ -29,7 +29,9 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
             article: req.body.article,
             host: id,
             time: req.body.convoTime,
-            roomId: ''+room._id
+            roomId: ''+room._id,
+            title: req.body.convoTitle,
+            description: req.body.convoDesc
         }).then((convo) => {
             db.Convo_members.create({
                 UserId: id,
