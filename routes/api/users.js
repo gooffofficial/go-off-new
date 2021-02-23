@@ -1081,6 +1081,7 @@ router.post('/add_article3', auth.required, [
 
 router.post('/saveto_folder', auth.required, [], (req, res, next) =>{
   const { payload: { id, username } } = req; 
+  console.log("ARJSFLASJDFASFA\n\n\n\n\n\n\n\n", req.body.userArticle);
   db.Folder.findOne({
     where: {
       foldername: req.body.folder,
@@ -1104,7 +1105,7 @@ router.post('/saveto_folder', auth.required, [], (req, res, next) =>{
             return res.status(200)
           }
         }
-        db.savedArticle.findOne({
+        db.SavedArticle.findOne({
           where: {
             article: req.body.userArticle,
             userId: id
@@ -1113,12 +1114,13 @@ router.post('/saveto_folder', auth.required, [], (req, res, next) =>{
           if (!savedArt) {
             await db.SavedArticle.create({
               FolderId: folder.id,
-              article: req.body.userArticle
+              article: req.body.userArticle,
+              userId: id
             })
           }
           else{
-            await db.savedArticle.update({
-              folderId: folder.id
+            await db.SavedArticle.update({
+              FolderId: folder.id
             },
             {
               where: {

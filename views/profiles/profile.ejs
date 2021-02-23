@@ -283,9 +283,9 @@
 									<li><a id="user-article1check_link" href="">Check Conversations</a></li>
 									<a id="save-to-folder" onclick="dropclickfolders1()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options1">
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech','user-article1_link2')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature', 'user-article1_link2')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous', 'user-article1_link2')">Miscellaneous</a></li>
 									</ul>
 									<li><a tabindex="-1" href="#" onclick="sendreq()" id="update1" style="visibility: visible">Save to profile</a></li>
 								</li>
@@ -337,9 +337,9 @@
 									<li><a id="user-article2check_link" href="">Check Conversations</a></li>
 									<a id="save-to-folder" onclick="dropclickfolders2()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options2">
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech','user-article2_link2')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature','user-article2_link2')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous','user-article2_link2')">Miscellaneous</a></li>
 									</ul>
 									<li><a tabindex="-1" href="#" onclick="sendreq()" id="update2" style="visibility: visible">Save to profile</a></li>
 								</li>
@@ -391,9 +391,9 @@
 									<li><a id="user-article3check_link" href="">Check Conversations</a></li>
 									<a id="save-to-folder" onclick="dropclickfolders3()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options3">
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech','user-article3_link2')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature','user-article3_link2')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous','user-article3_link2')">Miscellaneous</a></li>
 									</ul>
 									<li><a tabindex="-1" href="#" onclick="sendreq()" id="update3" style="visibility: visible">Save to profile</a></li>
 								</li>
@@ -445,9 +445,9 @@
 									<li><a id="user-article4check_link" href="">Check Conversations</a></li>
 									<a id="save-to-folder" onclick="dropclickfolders4()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options4">
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech','user-article4_link2')">Business/Tech</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature','user-article4_link2')">Art/Literature</a></li>
+										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous','user-article4_link2')">Miscellaneous</a></li>
 									</ul>
 									<li><a tabindex="-1" href="#" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li>
 								</li>
@@ -971,9 +971,10 @@ toggle between hiding and showing the dropdown content */
             userArticle: x
         }));
 	}
-		function sendfolderreq(x) {
+		function sendfolderreq(x, y) {
 			var xhr = new XMLHttpRequest();
-			var url = document.getElementById("user-article1_link1").href;
+			var url = document.getElementById(y).href;
+			console.log(url);
 			xhr.open("POST", "/api/users/saveto_folder", true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify({
