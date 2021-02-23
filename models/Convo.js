@@ -21,6 +21,14 @@ module.exports = (sequelize, type) => {
         roomId: {
             type: type.STRING,
             allowNull: false
+        }, 
+        title: {
+            type: type.STRING, 
+            allowNull: false
+        },
+        description: {
+            type: type.STRING, 
+            allowNull: true
         }
     })
 
@@ -30,7 +38,9 @@ module.exports = (sequelize, type) => {
             article: this.article,
             time: this.time,
             host: this.host,
-            roomId: this.roomId
+            roomId: this.roomId,
+            title: this.title,
+            description: this.description
         }
     }
     return Convo;
