@@ -241,7 +241,7 @@ router.get('/conversation', auth.required, (req, res, next) => {
             catch(err){
                 return res.send(err);
             }
-            return res.redirect('/conversation/article/?article='+req.query["article"])
+            return res.redirect('/conversation/article?article='+req.query["article"])
         }
         db.Convo.findAll({
             limit: 2,
