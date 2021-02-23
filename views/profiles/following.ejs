@@ -49,7 +49,7 @@
                         console.log(this.responseText)
                         var myArr = JSON.parse(this.responseText);
                         console.log(myArr);
-                        var div, a, text, img, dmbutton, profbutton;
+                        var div, a, text, img, dmtext, dma;
                         for (var i = 0, l = myArr.length; i < l; ++i) {
                             div = document.createElement('div');
                             div.setAttribute('class', 'follow-list-element')
@@ -57,8 +57,8 @@
                             a  = document.createElement('a');
                             img = document.createElement('img');
                             text = document.createTextNode(myArr[i][0]);
-                            dmbutton = document.createElement('button');
-                            profbutton = document.createElement('button');
+                            dmtext = document.createTextNode("Chat");
+                            dma = document.createElement('a');
 
                             img.setAttribute("src", myArr[i][1]);
                             img.setAttribute("class","userPic")
@@ -66,9 +66,17 @@
 
                             user = myArr[i][0];
                             console.log(myArr[i][0]);
+                            a.setAttribute("class", "userchat" + i);
+                            a.setAttribute("id", "userchat"+i)
+                            a.setAttribute("href", "/m/" + user);
+                            a.setAttribute("target", "_blank");
+                            a.appendChild(text);
+
+                            user = myArr[i][0];
+                            console.log(myArr[i][0]);
                             a.setAttribute("class", "user" + i);
                             a.setAttribute("id", "user"+i)
-                            a.setAttribute("href", "/m/" + user);
+                            a.setAttribute("href", "/profiles/" + user);
                             a.setAttribute("target", "_blank");
                             a.appendChild(text);
 

@@ -375,7 +375,7 @@ button {
 
 .footer-container {
 	position: relative;
-	top: 100px;
+	top: 150px;
 	width: var(--pageWidth);
 	margin: 0 auto;
 	margin-top: 200px;
