@@ -128,14 +128,16 @@ router.get('/feed', auth.required, (req, res, next) => {
             }
             arts2.push(a)
         }
-        db.Convo_members.findAll({
+        seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.followed = "+id+" AND Fol.followed=C.UserId")
+        /*db.Convo_members.findAll({
             where: {
                 UserId: id
             }
-        }).then(async (convos) => {
+        })*/
+        .then(async (convos) => {
             var convs = []
             var i = 0
-            for (const convo of convos){
+            for (const convo of convos[0]){
                 let c = await db.Convo.findOne({
                     where: {
                         id: convo.ConvoId
