@@ -241,7 +241,7 @@ router.get('/conversation', auth.required, (req, res, next) => {
             catch(err){
                 return res.send(err);
             }
-            return res.redirect('/conversation/article/?article='+req.query["article"])
+            return res.redirect('/conversation/article?article='+req.query["article"])
         }
         db.Convo.findAll({
             limit: 2,
@@ -269,17 +269,23 @@ router.get('/conversation', auth.required, (req, res, next) => {
             if (convos.length == 0){
                 convos[0] = {
                     time: "No convo scheduled",
-                    id: -1
+                    id: -1,
+                    description: "Description",
+                    title: "Title"
                 }
                 convos[1] = {
                     time: "No convo scheduled",
-                    id: -1
+                    id: -1,
+                    description: "Description",
+                    title: "Title"
                 }
             }
             else if (convos.length == 1){
                 convos[1] = {
                     time: "No convo scheduled",
-                    id: -1
+                    id: -1,
+                    description: "Description",
+                    title: "Title"
                 }
             }
             let ts = Date.now();
@@ -287,7 +293,7 @@ router.get('/conversation', auth.required, (req, res, next) => {
             let date = date_ob.getDate();
             let month = date_ob.getMonth() + 1;
             let year = date_ob.getFullYear();
-            return res.render('conversation', {user: username, articlePic: art.img, artTitle: art.title, artLink: article, desc: convos.description, title: convos.title, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts})  
+            return res.render('conversation', {user: username, articlePic: art.img, artTitle: art.title, artLink: article, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts})  
         })
     })
 })
