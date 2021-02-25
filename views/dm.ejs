@@ -127,7 +127,7 @@
 
 			<form method="post" action="/api/chat/leave/<%=id%>">
 				<button type="submit" id="leave">LEAVE CONVO</button>
-			</form>
+			</form> 	
 			<!-- <button id="logout"> Logout </button> -->
 			<%if (status != true) { %>
 			<%if (admin == true) { %>
@@ -153,7 +153,7 @@
 						<% for(var i=0; i < lastMessages.length; i++) { %>
 							<div class="dm-list-item">
 								<img src=<%=lastMessages[i][2]%>>
-								<h3><%=lastMessages[i][0]%></h3>
+								<h3> <a href="/m/<%=lastMessages[i][0]%>"> <%=lastMessages[i][0]%></a></h3>
 								<p><%=lastMessages[i][1]%></p>
 							</div>
 						 <% } %>
