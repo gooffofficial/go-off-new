@@ -19,6 +19,36 @@ router.get('/folders', auth.required, (req, res, next) => {
     })
 })
 
+//get upcoming conversations for a user
+router.get('/upcoming', auth.required, (req, res, next) => {
+    const {payload: {id}} = req;
+    console.log("AHH\n\n\n\n\n\n\n\n")
+    db.Convo_members.findAll({
+        where: {
+            UserId: id
+        }
+    }).then(async (convoIds) => {
+        let convos = []
+        let convsObjects = []
+        for (let i=0; i<convoIds.length; i++) {
+            var conv = await db.Convo.findOne({
+                where: {
+                    id: convoIds[i].ConvoId
+                }
+            })
+            if (Date.now() - conv.time.getTime() < 30*(60*1000)){
+                convos.push({
+                    'article': conv.article,
+                    'time': conv.time,
+                    'roomId': conv.roomOd
+                })
+            }
+        }
+        return res.status(200).json(convos)       
+    })
+})
+
+
 router.get('/savedarts', auth.required, (req, res, next) => {
     const {payload: {id}} = req; 
     var foldname = req.query.namez;

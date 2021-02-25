@@ -54,7 +54,16 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                 }
                 sgMail.send(msg).then(() => {
                     console.log('Email scheduled to send to ' + username)
-                    return res.redirect('/conversation/?article='+req.body.article)
+                    const msg2 = {
+                        to: u.email,
+                        from: 'go.offmedia@gmail.com',
+                        subject: "You just signed up for a convo!",
+                        text: 'Hello ' + u.firstname + ',\n\n You just signed up for a conversation\
+                        about this article: ' + req.body.article + ' at ' + convo.time
+                    }
+                    sgMail.send(msg2).then(() => {
+                        return res.redirect('/conversation/?article='+req.body.article)
+                    })
                 }).catch((error) => {
                     console.log(error)
                     return res.status(422).json({
@@ -95,7 +104,16 @@ router.post('/join', auth.required, [body('convo').escape()], (req, res, next) =
         }
         sgMail.send(msg).then(() => {
             console.log('Email scheduled to send to ' + username)
-            return res.status(200)
+            const msg2 = {
+                to: u.email,
+                from: 'go.offmedia@gmail.com',
+                subject: "You just signed up for a convo!",
+                text: 'Hello ' + u.firstname + ',\n\n You just signed up for a conversation\
+                about this article: ' + req.body.article + ' at ' + convo.time
+            }
+            sgMail.send(msg2).then(() => {
+                return res.status(200)
+            })
         }).catch((error) => {
             console.log(error.response.body.errors)
             return res.status(422).json({

@@ -155,8 +155,8 @@
 				<img src="/share_outline.svg" id="edit-icon">
 				<a href="<%=artLink%>" id="article-link"><%=artLink%></a>
 
-				<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="img-pfp1">
-				<!--<span id="user-name">User Name</span>-->
+				<!--<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="img-pfp1">
+				<span id="user-name">User Name</span>-->
 			</div>
 
 			<div id="article-info-container">
@@ -164,8 +164,8 @@
 				<span id="article-publisher">New York Times</span>
 				<span id="article-dater">2d</span>
 
-				<h1 id="article-title"><%=title%></h1>
-				<p id="article-desc"><%=desc%></p>
+				<h1 id="article-title"><%=artTitle%></h1>
+				<p id="article-desc">Description</p>
 			</div>
 
 			<!-- COMMENTED OUT ORIGINAL!! -->
@@ -184,6 +184,8 @@
 				<button type="button" id="create-convo-btn" onclick="dropmodal()" >Create Convo</button>
 				<div id="arrowdropmodal" class="dropdown-arrowcontent" style="width: min-content;">
 					<form id="createConvo" method="post" action="/api/convos/create">
+						<label for="title">Title</label>
+						<input type="text" id="convoTitle" name="convoTitle">
 						<label for="convoTime">Conversation Time</label>
 						<input type="datetime-local" min=<%=date%> id="convoTime" name="convoTime">
 						<label for="convoTitle">Convo Title</label>
@@ -203,8 +205,8 @@
 					</div>
 					<div id="convo-right-content">
 						<p id="convo-date"><%=convos[0].time%></p>
-						<p id="convo-title"><%=artTitle%></p>
-						<p id="convo-description">Description</p>
+						<p id="convo-title"><%=convos[0].title%></p>
+						<p id="convo-description"><%=convos[0].description%></p>
 						<span id="convo-host">Hosted by <%=hosts[0]%></span>
 					
 						<div id="convo-btns">
@@ -224,8 +226,8 @@
 					</div>
 					<div id="convo-right-content">
 						<p id="convo-date"><%=convos[1].time%></p>
-						<p id="convo-title"><%=artTitle%></p>
-						<p id="convo-description">Description</p>
+						<p id="convo-title"><%=convos[1].title%></p>
+						<p id="convo-description"><%=convos[1].description%></p>
 						<span id="convo-host">Hosted by <%=hosts[1]%></span>
 					
 						<div id="convo-btns">
