@@ -149,6 +149,8 @@ router.post('/', auth.optional, [
       gender: user.gender,
       password: user.password,
       admin: user.admin,
+      host: user.host,
+      phonenumber: user.phonenumber,
       birthdate: user.birthdate,
       user_ver: 0,
       followercount: user.followercount,
@@ -288,6 +290,7 @@ router.post('/update', upload.single("file"), auth.required, [
   body('age').escape(),
   body('location').escape(),
   body('gender').escape(),
+  body('phonenumber').escape(),
   body('password').escape(),
   body('bio').escape()
 ],(req, res, next) => {
@@ -301,6 +304,7 @@ router.post('/update', upload.single("file"), auth.required, [
     location: req.body.location,
     gender: req.body.gender,
     password: req.body.password,
+    phonenumber: req.body.phonenumber,
     bio: req.body.bio,
     followercount: req.body.followercount,
     followingcount: req.body.followingcount,
