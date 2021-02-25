@@ -355,8 +355,10 @@ router.get('/m/:username', auth.required, (req, res, next) => {
                         console.log(err);
                     }
                     //Get the last messages from all dm conversations
+                    console.log(dms, '\n\n\n\n\n');
                     for(let i=0; i < dms.length; i++){
                         for(let k=0; k<dms[i].users.length; k++){
+
                             if (dms[i].users[k] != id) {
                                 lastMessages.push([dms[i].users[k], dms[i].messages[dms[i].messages.length - 1].message])
                             } 
