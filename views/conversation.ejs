@@ -184,6 +184,8 @@
 				<button type="button" id="create-convo-btn" onclick="dropmodal()">Create Convo</button>
 				<div id="arrowdropmodal" class="dropdown-arrowcontent">
 					<form id="createConvo" method="post" action="/api/convos/create">
+						<label for="title">Title</label>
+						<input type="text" id="convoTitle" name="convoTitle">
 						<label for="convoTime">Conversation Time</label>
 						<input type="datetime-local" min=<%=date%> id="convoTime" name="convoTime">
 						<!-- Sus security here -->
