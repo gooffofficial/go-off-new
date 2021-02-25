@@ -36,6 +36,7 @@ module.exports = (sequelize, type) => {
         gender: type.STRING,
         phonenumber: type.INTEGER,
         admin: type.STRING,
+        host: type.STRING,
         followercount: type.INTEGER,
         followingcount: type.INTEGER,
         user_ver: type.TINYINT(1),
@@ -110,8 +111,8 @@ module.exports = (sequelize, type) => {
             age: this.age,
             phonenumber: this.phonenumber,
             location: this.location,
-            email: this.email,
             admin: this.admin,
+            host: this.host,
             followingcount: this.followingcount,
             followercount: this.followercount,
         }

@@ -65,7 +65,7 @@
 						</div>
 						<br>
 						<!-- <a href="/profile_edit">Folder</a> -->
-						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="media-adder"
+						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="convobtn"
 							style="display: inline-block;" href="#add-convo">Convo</a>
 						<!-- Modal -->
 						<div class="modal fade" id="add-convo" tabindex="-1" role="dialog"
@@ -78,7 +78,7 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
-									<div class="modal-body">
+									<div class="modal-body" style="width: min-content;">
 										<form action="/api/convos/create" method="post">
 											<label for="convoTime">Conversation Time</label>
 											<input type="datetime-local" id="convoTime" name="convoTime">
@@ -1068,9 +1068,15 @@ toggle between hiding and showing the dropdown content */
 							console.log(currUser);
 							console.log("works1");
 						}
+						if (myArr.user.admin != "(Admin)" || myArr.user.admin != "(Host)"){
+							document.getElementById("convobtn").style.visibility = "hidden";
+							console.log(document.getElementById("convobtn").style.visibility)
+
+						}
 						document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
+						
 						document.getElementById("profile-name").innerHTML = myArr.user.firstname + " " + myArr.user
-							.lastname + " " + myArr.user.admin;
+							.lastname + " " + myArr.user.admin + myArr.user.host;
 						document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
 						document.getElementById("profbutton").setAttribute("href", "/profiles/" + currUser);
 						console.log("outside if statement" + currUser);

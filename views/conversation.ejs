@@ -80,7 +80,7 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
-									<div class="modal-body">
+									<div class="modal-body" style="width: min-content;">
 										<form action="/api/convos/create" method="post">
 											<label for="convoTime">Conversation Time</label>
 											<input type="datetime-local" id="convoTime" name="convoTime">
@@ -181,13 +181,17 @@
 				<hr id="tablink-line">
 				<button class="tablinks1 active">Upcoming Convos</button>
 				<!-- <button class="tablinks1">Previous Convos</button> -->
-				<button type="button" id="create-convo-btn" onclick="dropmodal()">Create Convo</button>
-				<div id="arrowdropmodal" class="dropdown-arrowcontent">
+				<button type="button" id="create-convo-btn" onclick="dropmodal()" >Create Convo</button>
+				<div id="arrowdropmodal" class="dropdown-arrowcontent" style="width: min-content;">
 					<form id="createConvo" method="post" action="/api/convos/create">
 						<label for="title">Title</label>
 						<input type="text" id="convoTitle" name="convoTitle">
 						<label for="convoTime">Conversation Time</label>
 						<input type="datetime-local" min=<%=date%> id="convoTime" name="convoTime">
+						<label for="convoTitle">Convo Title</label>
+						<input type="text" id="convoTitle" name="convoTitle">
+						<label for="convoDesc">Convo Description</label>
+						<input type="text" id="convoDesc" name="convoDesc">
 						<!-- Sus security here -->
 						<input type="hidden" id="article" name="article" value="<%=artLink%>">
 						<input type="submit" value="submit">
@@ -365,6 +369,7 @@
 		title = document.getElementById("convo-title").innerHTML;
 		button = document.getElementById("go-to-convo-button").src;
 		console.log(button);
+		console.log()
 
 		}
 		

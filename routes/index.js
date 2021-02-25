@@ -154,7 +154,13 @@ router.get('/feed', auth.required, (req, res, next) => {
                         id: c.host
                     }
                 })
-                convs[i]['host'] = user.username
+                if(!user){
+                    convs[i]['host'] = " "
+
+                }else{
+                    convs[i]['host'] = user.username
+                }
+                
                 convs[i]['img'] = art.img
                 convs[i]['title'] = art.title
                 i++
