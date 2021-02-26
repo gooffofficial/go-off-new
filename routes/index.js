@@ -178,7 +178,7 @@ router.get('/feed', auth.required, (req, res, next) => {
                 }
                 
                 convs[i]['img'] = art.img
-                convs[i]['title'] = art.title
+                convs[i]['title'] = c.title
                 i++
             }
             convs=convs.reverse();
@@ -231,6 +231,7 @@ router.get('/feed', auth.required, (req, res, next) => {
                 }
             }
             console.log(convs[0].article)
+<<<<<<< HEAD
             console.log(arts2[1].article + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
             let user = await db.User.findOne({
                 where:{
@@ -240,6 +241,10 @@ router.get('/feed', auth.required, (req, res, next) => {
             let host = user.host == "(Host)"
             let admin = user.admin == "(Admin)"
             res.render('feed', {myuser: username, user: req.params.user, articles: arts2, convos: convs, host: host, admin: admin})
+=======
+            console.log(convs[0].title + convs[0].description + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
+            res.render('feed', {myuser: username, user: req.params.user, articles: arts2, convos: convs})
+>>>>>>> 892b7220f3c0d964478f76c983d6079041981313
         })
     })
 })
@@ -391,8 +396,10 @@ router.get('/m/:username', auth.required, (req, res, next) => {
                         console.log(err);
                     }
                     //Get the last messages from all dm conversations
+                    console.log(dms, '\n\n\n\n\n');
                     for(let i=0; i < dms.length; i++){
                         for(let k=0; k<dms[i].users.length; k++){
+
                             if (dms[i].users[k] != id) {
                                 lastMessages.push([dms[i].users[k], dms[i].messages[dms[i].messages.length - 1].message])
                             } 

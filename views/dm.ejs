@@ -173,7 +173,7 @@
 				<span id="messages-text">Messages <img src="/add_box.svg" id="add-box"></span>
 			</div>
 
-			<div id="chat-container">
+			<div id="chat-container" style="overflow-x: hidden; overflow-y: auto;">
 				<div id="chat">
 					<!--<input type="text" id = "username" class="form-control" placeholder="Enter Name">-->
 					<!--
@@ -194,8 +194,8 @@
 		</div>
 		
 		<div class="dm-main">
-			<div class="card" id="card">
-				<div id="messages" class="card-block">
+			<div class="card" id="card"style="overflow-x: hidden; overflow-y: auto;">
+				<div id="messages" class="card-block" >
 					<h1 id="loading-text">Loading...</h1>
 
 					<%if (status != true) { %>

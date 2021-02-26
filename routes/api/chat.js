@@ -110,10 +110,47 @@ router.post('/m/:room', auth.required, [
             console.log(err);
             return res.send(err);
         }
-        if(!room){
-            room = new DM({identifier: req.params.room});
-        }
         const { payload: { username, id }} = req;
+        if(!room){
+           
+            var nameUser = req.params.room.replace(username,'');
+            console.log(nameUser, 'usernamee of person')
+            db.User.findOne({
+                where: {
+                    username: nameUser
+                }
+            }).then((use)=>{
+                room = new DM({identifier: req.params.room, users: [use.id, id]});
+                const message = req.body.message;
+                //create message object
+                let chatMessage = new Chat({user: id, name: username, message: message});
+                //only allow messages if chat is not ended
+                if(room.status != true){
+                    room.messages.push(chatMessage);
+                    //adds user to room if not already in -- TODO: Fix to make it so that users can't post nor view if not in chatroom
+                    if(!room.users.includes(id)){
+                        console.log("new user \n\n\n\n", id)
+                        room.users.push(id);
+                    }
+                    room.save(); //save chatroom updates
+                    console.log(username);
+                    socket.emit('input', {
+                        name: username,
+                        message: message,
+                        room: req.params.room,
+                        user: id
+                    });
+                    //save chat message into database
+                    chatMessage.save().then(() => { 
+                        console.log('Chat sent');
+                        return res.status(200);
+                    })
+                }
+                else{
+                    return res.status(202)
+                }
+            });
+        } else{
         const message = req.body.message;
         //create message object
         let chatMessage = new Chat({user: id, name: username, message: message});
@@ -122,7 +159,7 @@ router.post('/m/:room', auth.required, [
             room.messages.push(chatMessage);
             //adds user to room if not already in -- TODO: Fix to make it so that users can't post nor view if not in chatroom
             if(!room.users.includes(id)){
-                console.log("new user")
+                console.log("new user \n\n\n\n", id)
                 room.users.push(id);
             }
             room.save(); //save chatroom updates
@@ -142,6 +179,7 @@ router.post('/m/:room', auth.required, [
         else{
             return res.status(202)
         }
+    }
     })
 })
 
