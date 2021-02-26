@@ -276,7 +276,11 @@ router.get('/conversation', auth.required, (req, res, next) => {
             limit: 2,
             where: {
                 article: article
-            }
+            },
+            //order by convo date
+            order : [
+                ['time', 'ASC']
+            ]
         }).then(async (convos) => {
             var hosts = []
             // current timestamp in milliseconds
