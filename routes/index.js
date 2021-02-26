@@ -231,7 +231,6 @@ router.get('/feed', auth.required, (req, res, next) => {
                 }
             }
             console.log(convs[0].article)
-<<<<<<< HEAD
             console.log(arts2[1].article + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
             let user = await db.User.findOne({
                 where:{
@@ -241,10 +240,6 @@ router.get('/feed', auth.required, (req, res, next) => {
             let host = user.host == "(Host)"
             let admin = user.admin == "(Admin)"
             res.render('feed', {myuser: username, user: req.params.user, articles: arts2, convos: convs, host: host, admin: admin})
-=======
-            console.log(convs[0].title + convs[0].description + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
-            res.render('feed', {myuser: username, user: req.params.user, articles: arts2, convos: convs})
->>>>>>> 892b7220f3c0d964478f76c983d6079041981313
         })
     })
 })
@@ -281,7 +276,11 @@ router.get('/conversation', auth.required, (req, res, next) => {
             limit: 2,
             where: {
                 article: article
-            }
+            },
+            //order by convo date
+            order : [
+                ['time', 'ASC']
+            ]
         }).then(async (convos) => {
             var hosts = []
             // current timestamp in milliseconds

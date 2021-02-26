@@ -11,7 +11,12 @@ const io = require('socket.io-client')
 const { body } = require('express-validator');
 const _ = require('lodash')
 const sgMail = require('@sendgrid/mail')
+const twilio = require('twilio')
+const cronJob = require('cron')
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+var twilioClient = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
 
 router.post('/create', auth.required, [body('convoTime').escape()], (req, res, next) => {
     const {payload: { id, username } } = req;
@@ -42,6 +47,20 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                         id: id
                     }
                 })
+
+                //set up, schedule, and send 30 min sms reminder in a cron job
+                var d = new Date(0)
+                d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
+                console.log("HEEEEYYYY UR PHONE NUMBER IS "+ u.phonenumber+"\n"+process.env.TWILIO_PHONE_NUMBER)
+                var textJob = new cronJob.CronJob(d, function() {
+                    console.log("TEEEEXXXTTTT\n\n\n\n")
+                    twilioClient.messages.create( {to: u.phonenumber,
+                        from: process.env.TWILIO_PHONE_NUMBER, 
+                        body: "Hi, it's Go Off! We are reminding you that you are hosting a conversation about this article: " + req.body.article + " in 30 minutes.\n\n\
+                        Join the conversation at https://go-off.co/chat/"+convo.roomId})
+                }, null, true)
+
+                //set up, schedule, and send 30 min email reminder
                 console.log("TIMEEEEEEE " + ((convo.time.getTime() - (30*60000))/1000))
                 const msg = {
                     to: u.email,
@@ -53,6 +72,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                     send_at: Math.floor((convo.time.getTime() - (30*60000))/1000)
                 }
                 sgMail.send(msg).then(() => {
+                    //send confirmation email
                     console.log('Email scheduled to send to ' + username)
                     const msg2 = {
                         to: u.email,
@@ -93,15 +113,32 @@ router.post('/join', auth.required, [body('convo').escape()], (req, res, next) =
                 id: req.body.convo
             }
         })
+        //set up, schedule, and send 30 min reminder sms using cron job
+
+        //TODO: Fix Date in the past Warning message after reminder text is sent to
+        // participant
+        var d = new Date(0)
+        d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
+        var textJob = new cronJob.CronJob(d, function() {
+            console.log("TEEEEXXXTTTT\n\n\n\n")
+            twilioClient.messages.create( {to: u.phonenumber,
+                from: process.env.TWILIO_PHONE_NUMBER, 
+                body: "Hi, it's Go Off! We are reminding you that you have a conversation about this article: " + convo.article + " in 30 minutes.\n\n\
+                Join the conversation at https://go-off.co/chat/"+convo.roomId})
+        }, null, true)
+
+        //set up, schedule and send 30 min reminder email
         const msg = {
             to: u.email,
             from: 'go.offmedia@gmail.com',
-            subject: "Reminder: You're hosting a convo soon!",
+            subject: "Reminder: You're in a convo soon!",
             text: 'Hello ' + u.firstname + ',\n\n We are reminding you that you\
-            are signed up for a convo about this article: ' + req.body.article + ' in 30 minutes (' + req.body.convo.time + ')!\n\
+            are signed up for a convo about this article: ' + convo.article + ' in 30 minutes (' + req.body.convo.time + ')!\n\
             Join the conversation at https://go-off.co/chat/'+convo.roomId,
             send_at: Math.floor((convo.time.getTime() - (30*60000))/1000)
         }
+
+        //send confirmation email
         sgMail.send(msg).then(() => {
             console.log('Email scheduled to send to ' + username)
             const msg2 = {

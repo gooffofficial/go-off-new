@@ -19,6 +19,7 @@
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
     "core-util-is": "^1.0.2",
+    "cron": "^1.8.2",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
@@ -46,6 +47,7 @@
     "sequelize-cli": "^5.5.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
+    "twilio": "^3.57.0",
     "yarn": "^1.22.4"
   }
 }
