@@ -162,7 +162,7 @@ router.get('/feed', auth.required, (req, res, next) => {
                 }
                 
                 convs[i]['img'] = art.img
-                convs[i]['title'] = art.title
+                convs[i]['title'] = c.title
                 i++
             }
             convs=convs.reverse();
@@ -215,7 +215,7 @@ router.get('/feed', auth.required, (req, res, next) => {
                 }
             }
             console.log(convs[0].article)
-            console.log(arts2[1].article + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
+            console.log(convs[0].title + convs[0].description + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
             res.render('feed', {myuser: username, user: req.params.user, articles: arts2, convos: convs})
         })
     })
