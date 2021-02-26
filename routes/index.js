@@ -459,16 +459,22 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
                 where: {
                     id: id
                 }
-            }).then((user) => {
+            }).then(async (user) => {
+                var convo = await db.Convo.findOne({
+                    where: {
+                        RoomId: req.params.roomid
+                    }
+                })
+                var convoHost = id == convo.host
                 var title = article.title;
                 if(title.length > 30){
                     title = title.substring(0,30);
                 }
                 if(user.admin != "(Admin)" && user.host != "(Host)"){
-                    return res.render('index', {user: user.username, admin: false, host: false, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
+                    return res.render('index', {user: user.username, admin: false, host: false, id: req.params.roomid, status: room.status, title: title, url: article.url, convoHost: convoHost, js: "index.js"});
                 }
                 else{
-                    return res.render('index', {user: user.username, admin: true, host: true, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
+                    return res.render('index', {user: user.username, admin: true, host: true, id: req.params.roomid, status: room.status, title: title, url: article.url, convoHost: convoHost, js: "index.js"});
                 }
             })
         })

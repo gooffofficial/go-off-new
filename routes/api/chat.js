@@ -230,6 +230,7 @@ router.post('/end/:roomid', auth.required, (req, res, next) => {
                 RoomId: req.params.roomid
             }
         }).then((convo) => {
+            console.log("Hello " + id + " " + convo.host + "\n\n\n\n"+ (id==convo.host).toString())
             if(user.admin != "(Admin)" && id != convo.host){
                 return res.sendStatus(403);
             }
@@ -245,7 +246,7 @@ router.post('/end/:roomid', auth.required, (req, res, next) => {
                             id: id
                         }
                     }).then((user) => {
-                        if (user.admin != "(Admin)"){
+                        if (user.admin != "(Admin)" && id != convo.host){
                             return res.sendStatus(403);
                         }
                         else{
