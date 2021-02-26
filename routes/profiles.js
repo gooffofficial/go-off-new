@@ -29,9 +29,10 @@ router.get('/:user', auth.required, (req, res, next) => {
                 }
             })
             conv['date'] = c.time;
-            conv['title'] = art.title.substring(0,25);
+            conv['title'] = c.title;
             conv['img'] = art.img;
             conv['id'] = c.roomId;
+            conv['description'] = c.description;
             //get username of host
             var host = await db.User.findOne({
                 where: {

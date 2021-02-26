@@ -87,8 +87,8 @@
 						</div>
 						<br>
 						<!-- <a href="/profile_edit">Folder</a> -->
-						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="media-adder"
-							style="display: inline-block;" href="#add-convo">Convo</a>
+						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="convobtn"
+							style="display: inline-block; visibility: hidden;" href="#add-convo">Convo</a>
 						<!-- Modal -->
 						<div class="modal fade" id="add-convo" tabindex="-1" role="dialog"
 							aria-labelledby="exampleModalLabelConv" aria-hidden="true">
@@ -259,10 +259,13 @@
 				x.style.display = "block";
 			}
 		}
-<<<<<<< HEAD
-=======
 
->>>>>>> 0f28d13aec5634b367c90ff19be0df978d7eaeac
+		console.log(<%=host%>)
+		console.log(<%=admin%>)
+		if(<%=host%> == true || <%=admin%> == true){
+			document.getElementById("convobtn").style.visibility = "visible";
+			console.log("test")
+		}
 		function plsWork(str) {
 			str.toLowerCase();
 			var stringz = ""

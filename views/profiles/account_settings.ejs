@@ -64,8 +64,8 @@
 						</div>
 						<br>
 						<!-- <a href="/profile_edit">Folder</a> -->
-						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="media-adder"
-							style="display: inline-block;" href="#add-convo">Convo</a>
+						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="convobtn"
+							style="display: inline-block; visibility: hidden;" href="#add-convo">Convo</a>
 						<div class="modal fade" id="add-convo" tabindex="-1" role="dialog"
 							aria-labelledby="exampleModalLabelConv" aria-hidden="true">
 							<div class="modal-dialog" role="document">
@@ -219,6 +219,12 @@
 	// 	document.getElementsByClassName('pname')[0].style.visibility = "visible";
 	// 	document.getElementById("bar_form").style.display = "block";
 	// }
+
+	console.log(<%=host%>)
+	console.log(<%=admin%>)
+	if(<%=host%> == true || <%=admin%> == true){
+		document.getElementById("convobtn").style.visibility = "visible";
+	}
 
 	function dropclick1(id) {
 		var x = document.getElementById(id);

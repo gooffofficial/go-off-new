@@ -55,12 +55,14 @@ router.post('/', auth.optional, [
   body('age').escape(),
   body('location').escape(),
   body('gender').escape(),
+  body('phonenumber').escape(),
   body('password').escape(),
   body('birthdate').escape()
 ],(req, res, next) => {
     //const { body: { user } } = req;
     //console.log(req);
     const user = req.body;
+    console.log("PHONE NUMBER HELLLO" + user.phonenumber);
     if(!user.username){
         return res.status(422).json({
             errors: {
@@ -111,6 +113,13 @@ router.post('/', auth.optional, [
             }
         })
     }
+    if(!user.phonenumber){
+      return res.status(422).json({
+          errors: {
+              phonenumber: 'is required',
+          }
+      })
+  }
     if(!user.password){
         return res.status(422).json({
             errors: {
@@ -138,13 +147,20 @@ router.post('/', auth.optional, [
       })
     }
     */
+    //calculate birthday function 
+    function calculate_age(dob) { 
+      var diff_ms = Date.now() - dob.getTime();
+      var age_dt = new Date(diff_ms); 
+    
+      return Math.abs(age_dt.getUTCFullYear() - 1970);
+  }
     db.User.create({
       username: user.username,
       firstname: user.firstname,
       lastname: user.lastname,
       name: user.firstname+' '+user.lastname,
       email: user.email,
-      age: user.age,
+      age: calculate_age(new Date(user.birthdate)),
       location: user.location,
       gender: user.gender,
       password: user.password,

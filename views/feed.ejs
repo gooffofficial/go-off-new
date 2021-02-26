@@ -68,8 +68,8 @@
 						<!-- <a href="/profile_edit">Folder</a> -->
 						<br>
 						<!-- <a href="/profile_edit">Folder</a> -->
-						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="media-adder"
-							style="display: inline-block;" href="#add-convo">Convo</a>
+						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="convobtn"
+							style="display: inline-block; visibility: hidden;" href="#add-convo">Convo</a>
 						<!-- Modal -->
 						<div class="modal fade" id="add-convo" tabindex="-1" role="dialog"
 							aria-labelledby="exampleModalLabelConv" aria-hidden="true">
@@ -154,7 +154,7 @@
 			<h1 id="articles-text">Who you Follow</h1>
 
 			<div id="user-article-1" class="article">
-				<a id="user-article1_link" href="<%=articles[0].link%>">
+				<a id="user-article1_link" href="/conversation/?article=<%=articles[0].link%>">
 					<div class="article-image-container">
 						<img id="user-article-1-image" class="article-image" src="<%=articles[0].img%>">
 					</div>
@@ -182,7 +182,7 @@
 						<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[0].link%>')" id="update4" style="visibility: visible">Save to profile</a></li>
-							<li><a id="article1convolink" href="/conversation/?article=<%=articles[0].link%>">Check Conversations</a></li>
+							<li><a id="article1convolink" href="<%=articles[0].link%>">Check Conversations</a></li>
 							<li class="dropdown-submenu">
 								<a id="save-to-folder" onclick="dropclickfolders1()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options1">
@@ -205,7 +205,7 @@
 			</div> -->
 
 			<div id="user-article-2" class="article">
-				<a id="user-article2_link" href="<%=articles[1].link%>">
+				<a id="user-article2_link" href="/conversation/?article=<%=articles[1].link%>">
 					<div class="article-image-container">
 						<img id="user-article-2-image" class="article-image" src="<%=articles[1].img%>">
 					</div>
@@ -234,7 +234,7 @@
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[1].link%>')" id="update4" style="visibility: visible">Save to
 									profile</a></li>
-							<li><a id="article2convolink" href="/conversation/?article=<%=articles[1].link%>">Check Conversations</a></li>
+							<li><a id="article2convolink" href="<%=articles[1].link%>">Check Conversations</a></li>
 							<li class="dropdown-submenu">
 								<a id="save-to-folder" onclick="dropclickfolders2()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options2">
@@ -250,7 +250,7 @@
 
 			<!-- third article-->
 			<div id="user-article-3" class="article">
-				<a id="user-article3_link" href="<%=articles[2].link%>">
+				<a id="user-article3_link" href="/conversation/?article=<%=articles[2].link%>">
 					<div class="article-image-container">
 						<img id="user-article-3-image" class="article-image" src="<%=articles[2].img%>">
 					</div>
@@ -279,7 +279,7 @@
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[2].link%>')" id="update4" style="visibility: visible">Save to
 									profile</a></li>
-							<li><a id="article3convolink" href="/conversation/?article=<%=articles[2].link%>">Check Conversations</a></li>
+							<li><a id="article3convolink" href="<%=articles[2].link%>">Check Conversations</a></li>
 							<li class="dropdown-submenu">
 								<a id="save-to-folder" onclick="dropclickfolders3()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options3">
@@ -295,7 +295,7 @@
 
 			<!-- fourth article-->
 			<div id="user-article-4" class="article">
-				<a id="user-article4_link" href="<%=articles[3].link%>">
+				<a id="user-article4_link" href="/conversation/?article=<%=articles[3].link%>">
 					<div class="article-image-container">
 						<img id="user-article-4-image" class="article-image" src="<%=articles[3].img%>">
 					</div>
@@ -324,7 +324,7 @@
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[3].link%>')" id="update4" style="visibility: visible">Save to
 									profile</a></li>
-							<li><a id="article4convolink" href="/conversation/?article=<%=articles[3].link%>">Check Conversations</a></li>
+							<li><a id="article4convolink" href="<%=articles[3].link%>">Check Conversations</a></li>
 							<li class="dropdown-submenu">
 								<a id="save-to-folder" onclick="dropclickfolders4()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options1">
@@ -337,13 +337,18 @@
 					</div>
 				</div>
 			</div>
-			<img src="/rightarrow.png" class="articlecyclebtn">
+
+			<a href="" class="side-button">
+				<img src="/rightarrow.png" class="articlecyclebtn">
+			</a>
+			
+
 			<div id="user-articles-container">
 				<h1 id="articles-text">Convos</h1>
 
 				<!--First convo-->
 				<div id="user-article-1" class="article">
-					<a id="user-article1_link" href="<%=convos[0].article%>">
+					<a id="user-article1_link" href="/conversation/?article=<%=convos[0].article%>">
 						<div class="article-image-container">
 							<img id="user-article-1-image" class="article-image" src="<%=convos[0].img%>">
 						</div>
@@ -367,7 +372,7 @@
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[0].host%></p>
 						<h3 id="convo-title"><%=convos[0].title%></h3>
-						<p id="convo-desc">Description</p>
+						<p id="convo-desc"><%=convos[0].description%></p>
 
 						<!-- <div id="convo-bl-container">
 							<img src="/lightbulb.svg" id="convo-ico">
@@ -404,7 +409,7 @@
 
 				<!--Second convo-->
 				<div id="user-article-2" class="article">
-					<a id="user-article2_link" href="<%=convos[1].article%>">
+					<a id="user-article2_link" href="/conversation/?article=<%=convos[1].article%>">
 						<div class="article-image-container">
 							<img id="user-article-2-image" class="article-image">
 						</div>
@@ -428,7 +433,7 @@
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[1].host%></p>
 						<h3 id="convo-title1"><%=convos[1].title%></h3>
-						<p id="convo-desc">Description</p>
+						<p id="convo-desc"><%=convos[1].description%></p>
 
 						<!-- <div id="convo-bl-container">
 							<img src="/lightbulb.svg" id="convo-ico">
@@ -456,7 +461,7 @@
 
 				<!--Third Convo-->
 				<div id="user-article-3" class="article">
-					<a id="user-article3_link" href="<%=convos[2].article%>">
+					<a id="user-article3_link" href="/conversation/?article=<%=convos[2].article%>">
 						<div class="article-image-container">
 							<img id="user-article-3-image" class="article-image">
 						</div>
@@ -480,7 +485,7 @@
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[2].host%></p>
 						<h3 id="convo-title2"><%=convos[2].title%></h3>
-						<p id="convo-desc">Description</p>
+						<p id="convo-desc"><%=convos[2].description%></p>
 
 						<!-- <div id="convo-bl-container">
 							<img src="/lightbulb.svg" id="convo-ico">
@@ -508,7 +513,7 @@
 
 				<!--Fourth convo-->
 				<div id="user-article-4" class="article">
-					<a id="user-article4_link" href="<%=convos[3].article%>">
+					<a id="user-article4_link" href="/conversation/?article=<%=convos[3].article%>">
 						<div class="article-image-container">
 							<img id="user-article-4-image" class="article-image">
 						</div>
@@ -532,7 +537,7 @@
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Hosted by <%=convos[3].host%></p>
 						<h3 id="convo-title3"><%=convos[3].title%></h3>
-						<p id="convo-desc">Description</p>
+						<p id="convo-desc"><%=convos[3].description%></p>
 
 						<!-- <div id="convo-bl-container">
 							<img src="/lightbulb.svg" id="convo-ico">
@@ -557,7 +562,9 @@
 						</div>
 					</div>
 				</div>
-				<img src="/rightarrow.png" class="articlecyclebtn">
+				<a href="" class="side-button">
+					<img src="/rightarrow.png" class="articlecyclebtn">
+				</a>
 			</div>
 
 			<!-- <div id="rsvp-pop" style="visibility: hidden;">
@@ -589,7 +596,7 @@
 							</button>
 						</a>
 
-						<a href="Mailto:sn23@bu.edu">
+						<a href="Mailto:go.offmedia@gmail.com">
 							<button type="submit" id="contact">
 								Contact us
 							</button>
@@ -755,6 +762,12 @@
 		console.log(title5.length);
 		console.log(title6.length);
 		console.log(title7.length);
+		console.log(<%=host%>)
+		console.log(<%=admin%>)
+		if(<%=host%> == true || <%=admin%> == true){
+			document.getElementById("convobtn").style.visibility = "visible";
+			console.log("test")
+		}
 		if(title.length > 50){
 			title = title.substring(0,50) + "...";
 			document.getElementById("convo-title").innerHTML = title;
