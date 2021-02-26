@@ -55,12 +55,14 @@ router.post('/', auth.optional, [
   body('age').escape(),
   body('location').escape(),
   body('gender').escape(),
+  body('phonenumber').escape(),
   body('password').escape(),
   body('birthdate').escape()
 ],(req, res, next) => {
     //const { body: { user } } = req;
     //console.log(req);
     const user = req.body;
+    console.log("PHONE NUMBER HELLLO" + user.phonenumber);
     if(!user.username){
         return res.status(422).json({
             errors: {
@@ -111,6 +113,13 @@ router.post('/', auth.optional, [
             }
         })
     }
+    if(!user.phonenumber){
+      return res.status(422).json({
+          errors: {
+              phonenumber: 'is required',
+          }
+      })
+  }
     if(!user.password){
         return res.status(422).json({
             errors: {
