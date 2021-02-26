@@ -101,6 +101,10 @@
 				</div>
 				<a href="/feed"><img src="/home.svg" class="navIcon"></a>
 				<a href=""><img src="/mail.svg" class="navIcon"></a>
+				<a href="#" id="notif" onclick="dropclick1('notif-dropdown')"><img src="/notification.svg" class="navIcon"></a>
+				<div id="notif-dropdown" class="dropdown-arrowcontent" style="position: absolute; top: 25px;">
+					
+				</div>
 				<a href=""><img src="/chart.svg" class="navIcon"></a>
 				<img onclick="dropclick1('plusdrop')" src="/plus.svg" class="navIcon">
 			</div>
@@ -325,6 +329,34 @@
 			window.alert("Successfully joined conversation")
 		}
 
+		var xhrNotif = new XMLHttpRequest();
+		xhrNotif.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				var convArr = JSON.parse(this.responseText);
+				//console.log("HELLO\n\n"+convArr+"\n\n")
+				console.log(document.getElementById("notif"))
+				document.getElementById("notif").innerText = convArr.length
+				for	(var i=0; i<convArr.length; i++){
+					var notifDiv = document.createElement('div')
+					notifDiv.setAttribute('class', 'notification')
+					var notifText = document.createElement('p')
+					notifText.setAttribute('font-size', 'small')
+					notifText.setAttribute('id', 'notiftext')
+					var notifTextNode = document.createTextNode('You have a convo on ' + convArr[i].article +' coming up soon!\n Find it on your converations tab.')
+					notifText.appendChild(notifTextNode)
+					
+					notifDiv.appendChild(notifText)
+					var linkText = document.createElement('a')
+					linkText.setAttribute('href', "/chat/"+convArr[i].roomId)
+					notifDiv.appendChild(linkText)
+					document.getElementById('notif-dropdown').appendChild(notifDiv)
+				}
+			}
+		}				
+		xhrNotif.open("GET", '/api/upcoming', true);
+		xhrNotif.withCredentials = true
+		xhrNotif.send();
+		
 		function plsWork(str) {
 			str.toLowerCase();
 			var stringz = ""
