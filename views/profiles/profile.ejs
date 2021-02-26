@@ -26,7 +26,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 	</script>
-	<!-- <script type="text/javascript" src="profile.js"></script> -->
+
 	<title>Profile Page</title>
 </head>
 
@@ -36,7 +36,6 @@
 			<img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center">
 
 			<div class="navigationIcons align-self-center">
-				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
 				<div class="droparrow align-self-center">
 					<div id="plusdrop" class="dropdown-arrowcontent" style="position: absolute; top: 25px;">
 						<a data-target="#add-media" data-toggle="modal" class="MainNavText" id="media-adder"
@@ -64,7 +63,6 @@
 							</div>
 						</div>
 						<br>
-						<!-- <a href="/profile_edit">Folder</a> -->
 						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="convobtn"
 							style="display: inline-block;" href="#add-convo">Convo</a>
 						<!-- Modal -->
@@ -108,11 +106,8 @@
 			</div>
 
 			<div class="searchContainer align-self-center d-flex">
-				<!-- <form id="bar_form"> SEARCH BAR NEEDS TO BE CONNECTED -->
 				<img src="/search_icon.svg" class="search-icon align-self-center">
 				<input type="text" id="search" placeholder="Search" autocomplete="off" onkeyup="plsWork(this.value)">
-				<!-- </form> -->
-				<!--<p>Suggestions: <span id="txtHint"></span></p>-->
 			</div>
 
 			<div id="search-input-results" style="visibility: hidden">
@@ -146,19 +141,6 @@
 		</div>
 	</nav>
 
-	<!-- <button type="submit" id="Plus">
-        <img src="/Plus.jpg" alt="add icon" height="65" width="50">
-    </button> -->
-
-	<!-- <button type="submit" id="Submit" onclick="searchBar()">
-		<img src="/Search.png" alt="profile icon 1" class="img-circle"
-			style="width: 5%; height: auto; margin-left: 85%;">
-	</button>
-	<button id="Cancel" onclick="searchBar1()">Cancel</button> -->
-
-	<!-- <form id="bar_form">
-        <input type="text" id="search" style="display: block" placeholder="Filter">
-	</form> -->
 
 	<div class="pageContainer">
 		<div id="top-profile">
@@ -170,11 +152,9 @@
 				<h3 id="user-name"></h3>
 
 				<div id="user-data">
-					<!--<a href="/followers" target="_blank" id="follower-count" style="display: inline-block;"></a>-->
 					<a data-target="#follower-modal" data-toggle="modal" class="MainNavText" id="follower-count"
 						style="display: inline-block;" href="#follower-modal"></a>
 					<p id="followers-text" style="display: inline-block;">followers</p>
-					<!--<a href="/following" target="_blank" id="following-count" style="display: inline-block;"></a>-->
 					<!-- Modal -->
 					<div class="modal fade" id="follower-modal" tabindex="-1" role="dialog"
 						aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -196,7 +176,6 @@
 
 					<a data-target="#following-modal" data-toggle="modal" class="MainNavText" id="following-count"
 						style="display: inline-block;" href="#following-modal"></a>
-					<!--<a href="/following" target="_blank" id="following-count" style="display: inline-block;"></a>-->
 					<p id="following-text" style="display: inline-block;">following</p>
 					<!-- Modal -->
 					<div class="modal fade" id="following-modal" tabindex="-1" role="dialog"
@@ -218,8 +197,6 @@
 					</div>
 
 
-					<!-- <h4 id="post-count" style="display: inline-block;"></h4> hiding post count for now -->
-					<!-- <p id="post-count-text" style="display: inline-block;">posts</p> -->
 
 					<h4 id="location" style="display: inline-block;"></h4>
 
@@ -228,18 +205,6 @@
 			</div>
 		</div>
 
-		<!--<div id="tabs-container" style="margin-top: 100px;">
-			<hr>
-			<nav>
-				<ul id="tabs-ul">
-					<li class="tabs-li"><a href="#" class="tabs-a">Media</a></li>
-					<li class="tabs-li"><a href="#" class="tabs-a">Folders</a></li>
-					<li class="tabs-li"><a href="#" class="tabs-a">Convos</a></li>
-					<li class="tabs-li"><a data-target="#following-modal" data-toggle="modal" class="tabs-a"
-							href="#following-modal">Following</a></li>
-				</ul>
-			</nav>
-		</div> -->
 
 		<div class="tab" id="tabs-container" style="margin-top: 112px">
 			<hr id="line">
@@ -301,13 +266,7 @@
 					</div>
 				</div>
 
-				<!-- <div class="user-Chat1" id="update1" style="display: none;">
-					<form action="/api/users/add_article1" method="post">
-						<label for="url">Article Url:</label>
-						<input type="text" id="url" name="article">
-						<input type="submit" value="update">
-					</form>
-				</div> -->
+
 
 				<div id="user-article-2" class="article">
 					<a id="user-article2_link">
@@ -334,12 +293,10 @@
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Posted by User</p>
 
-						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 						<div class="dropdown">
 							<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
 
 							<ul class="dropdown-menu">
-								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
 									<li><a id="user-article2check_link" href="">Check Conversations</a></li>
 									<a id="save-to-folder" onclick="dropclickfolders2()">Save to folder</a>
@@ -354,14 +311,7 @@
 						</div>
 					</div>
 				</div>
-<!-- 
-				<div class="user-Chat2" id="update2" style="display: none;">
-					<form action="/api/users/add_article2" method="post">
-						<label for="url">Article Url:</label>
-						<input type="text" id="url" name="article">
-						<input type="submit" value="update">
-					</form>
-				</div> -->
+
 
 				<div id="user-article-3" class="article">
 					<a id="user-article3_link">
@@ -388,12 +338,11 @@
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Posted by User</p>
 
-						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
+
 						<div class="dropdown">
 							<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
 
 							<ul class="dropdown-menu">
-								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
 									<li><a id="user-article3check_link" href="">Check Conversations</a></li>
 									<a id="save-to-folder" onclick="dropclickfolders3()">Save to folder</a>
@@ -409,13 +358,6 @@
 					</div>
 				</div>
 
-				<!-- <div class="user-Chat3" id="update3" style="display:none">
-					<form action="/api/users/add_article3" method="post">
-						<label for="url">Article Url:</label>
-						<input type="text" id="url" name="article">
-						<input type="submit" value="update">
-					</form>
-				</div> -->
 
 				<div id="user-article-4" class="article">
 					<a id="user-article4_link">
@@ -442,12 +384,10 @@
 						<!-- POSTED BY USER PROFILE PICTURE -->
 						<p>Posted by User</p>
 
-						<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 						<div class="dropdown">
 							<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
 
 							<ul class="dropdown-menu">
-								<!-- <li><a href="" tabindex="-1" onclick="sendreq()" id="update4" style="visibility: visible">Save to profile</a></li> -->
 								<li class="dropdown-submenu">
 									<li><a id="user-article4check_link" href="">Check Conversations</a></li>
 									<a id="save-to-folder" onclick="dropclickfolders4()">Save to folder</a>
@@ -463,13 +403,6 @@
 					</div>
 				</div>
 
-				<!-- <div class="user-Chat4" id="update4" style="display:none">
-					<form action="/api/users/add_article4" method="post" id="Dot4">
-						<label for="url">Article Url:</label>
-						<input type="text" id="url" name="article">
-						<input type="submit" value="update">
-					</form>
-				</div> -->
 			</div>
 		</div>
 
@@ -484,13 +417,7 @@
 						<p id="folder1_title">Business/Tech</p>
 					</a>
 
-					<!--<div class="user-Chat4" id="update4" style="display:none">
-						<form action="/api/users/add_article4" method="post" id="Dot4">
-							<label for="url">Article Url:</label>
-							<input type="text" id="url" name="article">
-							<input type="submit" value="update">
-						</form>
-					</div>-->
+
 					<button onclick=saveArticles()>Check Contents</button>
 				</div>
 
@@ -502,13 +429,7 @@
 						<p id="folder2_title">Art/Literature</p>
 					</a>
 
-					<!--<div class="user-Chat4" id="update4" style="display:none">
-						<form action="/api/users/add_article4" method="post" id="Dot4">
-							<label for="url">Article Url:</label>
-							<input type="text" id="url" name="article">
-							<input type="submit" value="update">
-						</form>
-					</div>-->
+
 					<button onclick=saveArticles2()>Check Contents</button>
 				</div>
 
@@ -521,34 +442,9 @@
 
 					</a>
 
-					<!--<div class="user-Chat4" id="update4" style="display:none">
-						<form action="/api/users/add_article4" method="post" id="Dot4">
-							<label for="url">Article Url:</label>
-							<input type="text" id="url" name="article">
-							<input type="submit" value="update">
-						</form>
-					</div>-->
+
 					<button onclick=saveArticles3()>Check Contents</button>
 				</div>
-
-				<!-- <div id="folder-4" class="article">
-					<a id="folder4_link">
-						<div class="article-image-container">
-							<img id="article-1-image" class="article-image">
-						</div>
-						<p id="folder4_title"></p>
-
-					</a>
-
-					<!--<div class="user-Chat4" id="update4" style="display:none">
-						<form action="/api/users/add_article4" method="post" id="Dot4">
-							<label for="url">Article Url:</label>
-							<input type="text" id="url" name="article">
-							<input type="submit" value="update">
-						</form>
-					</div>
-					<a onclick=saveArticles3()>button</a>
-				</div> -->
 			</div>
 		</div>
 
@@ -560,12 +456,8 @@
 			</div>
 
 			<div id="upcoming_convo" class="tabcontent1" style = "display: block;">
-				<!--<div id="convo-container">-->
-					<!-- <div id="convo-img-container">
-						<img id="convo-img">
-					</div> -->
+
 					<% for(var i=0; i < upConvos.length; i++) { %>
-						<!--<div id="upcoming_convo">-->
 							<div id="convo-container">
 								<div id="convo-img-container">
 									<img id="convo-img" src="<%=upConvos[i].img%>">
@@ -583,29 +475,10 @@
 									</div>
 								</div>
 							</div>
-						<!--</div>-->
 					 <% } %>
-				<!-- </div> -->
-					<!--<div id="convo-right-content">
-						<p id="convo-date">Thursday, November 19, 7:30 PM EDT</p>
-						<p id="convo-title">Title of Convo</p>
-						<p id="convo-description">Description</p>
-						<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by Name</span>
-						
-						<div id="convo-btns">
-							<a><img src="/share_outline.svg" id="convo-share-btn"></a>
-							<button id="go-to-convo-button">Go to Convo</button>
-						</div>
-					</div>-->
-				<!--</div>-->
-				<!--</div>-->
 			</div>
 
 			<div id="prev_convo" class="tabcontent1" style="display: none;">
-				<!--<div id="convo-container">
-					<div id="convo-img-container">
-						<img id="convo-img">
-					</div> -->
 					<% for(var i=prevConvos.length-1; i >= 0; i--) { %>
 							<div id="convo-container">
 								<div id="convo-img-container">
@@ -625,20 +498,6 @@
 								</div>
 							</div>
 					 <% } %>
-					 
-					<!--<div id="convo-right-content">
-						<p id="convo-date">Thursday, November 19, 7:30 PM EDT</p>
-						<p id="convo-title">Title of Convo</p>
-						<p id="convo-description">Description</p>
-						<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by Name</span>
-						
-						<div id="convo-btns">
-							<a><img src="/share_outline.svg" id="convo-share-btn"></a>
-							<button id="go-to-convo-button">Go to Convo</button>
-						</div>
-					</div>-->
-				<!--</div>
-		</div> -->
 			</div> 
 		</div>
 
@@ -653,15 +512,13 @@
 			<div class="footer-link-container">
 				<a href="https://www.gooffco.com/">
 					<button type="submit" id="home">
-						<!-- <img src="/home.svg" alt="house icon" height="20" width="20">-->Home
+						Home
 					</button>
 				</a>
 
 				<a
 					href="https://docs.google.com/forms/d/e/1FAIpQLScRZFA4owbzMnqmcS2D02LMqHks2RhoQfvfwZpTpcGtOkWwLA/viewform">
 					<button type="submit" id="profile">
-						<!-- <img src="https://i7.pngguru.com/preview/906/222/368/computer-icons-user-profile-avatar-french-people.jpg"
-							alt="profile icon" height="20" width="20" /> -->
 						Beta Sign Up
 					</button>
 				</a>
@@ -674,34 +531,9 @@
 			</div>
 		</div>
 	</footer>
-	<!-- <button type="submit" id="Notification">
-    <img src="https://freeiconshop.com/wp-content/uploads/edd/notification-outline.png" alt="notification icon" height="20" width="20"/>
-    Notifications
-</button> -->
 
 
 	<script>
-		/*
-		    if ("maxTouchPoints" in navigator) { 
-		        hasTouchScreen = navigator.maxTouchPoints > 0;
-		    } else if ("msMaxTouchPoints" in navigator) {
-		        hasTouchScreen = navigator.msMaxTouchPoints > 0; 
-		    } else {
-		        var mQ = window.matchMedia && matchMedia("(pointer:coarse)");
-		        if (mQ && mQ.media === "(pointer:coarse)") {
-		            hasTouchScreen = !!mQ.matches;
-		        } else if ('orientation' in window) {
-		            hasTouchScreen = true; // deprecated, but good fallback
-		        } else {
-		            // Only as a last resort, fall back to user agent sniffing
-		            var UA = navigator.userAgent;
-		            hasTouchScreen = (
-		                /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
-		                /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
-		            );
-		        }
-		    }
-		*/
 		//NOTE: This is not the recommended way to detect mobile anymore, in the future
 		// it will be better to just make the site responsive by default
 		var UA = navigator.userAgent;
@@ -778,7 +610,6 @@
 				document.getElementById("followbtn").value = "FOLLOW";
 			}
 		}
-		//document.getElementById("bar_form").style.visibility = "hidden";
 		//FOR TAB FUNCTIONALITY
 		function openCity(evt, cityName) {
 			// Declare all variables
@@ -835,7 +666,6 @@
 				xmlhttp.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
 						var names = JSON.parse(this.responseText);
-						// console.log(this.responseText);
 						for (var i = 0; i < names.length; i++) {
 							var obj = names[i].username;
 							var na = names[i].name;
@@ -856,45 +686,21 @@
 		}
 		function searchBar() {
 			document.getElementById("Submit").style.visibility = "hidden";
-			// document.getElementById("Plus").style.visibility = "hidden";
 			document.getElementById("Cancel").style.visibility = "visible";
 			document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
 			document.getElementsByClassName('fpname')[0].style.visibility = "hidden";
-			//document.getElementsByClassName('lpname')[0].style.visibility = "hidden";
 			document.getElementById("bar_form").style.visibility = "visible";
 			document.getElementById("droparrow").style.display = "none";
 		}
 		function searchBar1() {
 			document.getElementById("Submit").style.visibility = "visible";
-			// document.getElementById("Plus").style.visibility = "visible";
 			document.getElementById("Cancel").style.visibility = "hidden";
 			document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
 			document.getElementsByClassName('fpname')[0].style.visibility = "visible";
-			//document.getElementsByClassName('lpname')[0].style.visibility = "visible";
 			document.getElementById("bar_form").style.visibility = "hidden";
 			document.getElementById("droparrow").style.display = "block";
 		}
-		// $(window).resize(function() {
-		//     console.log('window was resized');
-		// });
-		// window.onload = function() {
-		//     var d = document.getElementsByTagName("profile-name")
-		//     if (d.offsetHeight < d.scrollHeight ||
-		//         d.offsetWidth < d.scrollWidth) {
-		//     console.log("overflow");
-		//     } else {
-		//     console.log("no overflow");
-		//     }
-		// }
-		// var arrow = document.getElementById("arrows");
-		// arrow.addEventListener('click', function(){
-		//     var x = document.getElementById("arrowdrop");
-		//         if (x.style.display === "none") {
-		//             x.style.display = "block";
-		//         } else {
-		//             x.style.display = "none";
-		//         }
-		// });
+
 		function dropclick1(id) {
 			var x = document.getElementById(id);
 			if (x.style.display === "block") {
@@ -904,7 +710,7 @@
 			}
 		}
 		/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
+		toggle between hiding and showing the dropdown content */
 		function myFunction() {
 			document.getElementById("myDropdown").classList.toggle("show");
 		}
@@ -1062,7 +868,6 @@ toggle between hiding and showing the dropdown content */
 						if (myArr.user.is_user == true) {
 							currUser = myArr.user.username;
 							document.getElementById("followbtn").style.visibility = "hidden";
-							//document.getElementById("profbutton").setAttribute("src", "/profiles/" + myArr.user.username);
 							console.log("USERNAMEEEEEEE" + myArr.user.username);
 							document.getElementById("fprofpic").src = myArr.user.propic;
 							console.log(currUser);
@@ -1086,43 +891,8 @@ toggle between hiding and showing the dropdown content */
 						document.getElementById("profile-pic").src = myArr.user.propic;
 						document.getElementById("follower-count").innerHTML = myArr.user.followercount;
 						document.getElementById("following-count").innerHTML = myArr.user.followingcount;
-						// document.getElementById("post-count").innerHTML = myArr.user.Posts;
 						document.getElementById("location").innerHTML = myArr.user.location;
 						document.getElementById("bio").innerHTML = myArr.user.bio;
-						//document.getElementById("article1_link").setAttribute("href", myArr.user.article1link);
-						//document.getElementById("article1convolink").setAttribute("href", "/conversation?article=" +
-						//	myArr.user.article1link);
-						/*document.getElementById("article1_link1").setAttribute("href", myArr.user.article1link);
-						document.getElementById("article1_link2").setAttribute("href", myArr.user.article1link);
-						document.getElementById("article1_link3").setAttribute("href", myArr.user.article1link);
-						document.getElementById("article-1-image").src = myArr.user.article1img;
-						document.getElementById("article-1-title").innerHTML = myArr.user.article1title;
-						document.getElementById("article-1-author").innerHTML = myArr.user.article1author;
-						document.getElementById("article-1-read-time").innerHTML = myArr.user.article1readtime;
-						document.getElementById("article2_link").setAttribute("href", myArr.user.article2link);
-						document.getElementById("article2_link1").setAttribute("href", myArr.user.article2link);
-						document.getElementById("article2_link2").setAttribute("href", myArr.user.article2link);
-						document.getElementById("article2_link3").setAttribute("href", myArr.user.article2link);
-						document.getElementById("article-2-image").src = myArr.user.article2img;
-						document.getElementById("article-2-title").innerHTML = myArr.user.article2title;
-						document.getElementById("article-2-author").innerHTML = myArr.user.article2author;
-						document.getElementById("article-2-read-time").innerHTML = myArr.user.article2readtime;
-						document.getElementById("article3_link").setAttribute("href", myArr.user.article3link);
-						document.getElementById("article3_link1").setAttribute("href", myArr.user.article3link);
-						document.getElementById("article3_link2").setAttribute("href", myArr.user.article3link);
-						document.getElementById("article3_link3").setAttribute("href", myArr.user.article3link);
-						document.getElementById("article-3-image").src = myArr.user.article3img;
-						document.getElementById("article-3-title").innerHTML = myArr.user.article3title;
-						document.getElementById("article-3-author").innerHTML = myArr.user.article3author;
-						document.getElementById("article-3-read-time").innerHTML = myArr.user.article3readtime;
-						document.getElementById("article4_link").setAttribute("href", myArr.user.article4link);
-						document.getElementById("article4_link1").setAttribute("href", myArr.user.article4link);
-						document.getElementById("article4_link2").setAttribute("href", myArr.user.article4link);
-						document.getElementById("article4_link3").setAttribute("href", myArr.user.article4link);
-						document.getElementById("article-4-image").src = myArr.user.article4img;
-						document.getElementById("article-4-title").innerHTML = myArr.user.article4title;
-						document.getElementById("article-4-author").innerHTML = myArr.user.article4author;
-						document.getElementById("article-4-read-time").innerHTML = myArr.user.article4readtime;*/
 						console.log(myArr);
 						var pageURL = window.location.href;
 						var lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
@@ -1130,9 +900,6 @@ toggle between hiding and showing the dropdown content */
 						console.log(lastURLSegment);
 						console.log(myArr.user.username);
 						console.log("testtesttest");
-						// if (lastURLSegment == myArr.user.username){
-						//     document.getElementById("followbtn").style.visibility = "hidden";
-						// }
 					}
 				};
 				xhr.open("GET", '/api/users/profile/<%=user%>', true);
@@ -1144,7 +911,6 @@ toggle between hiding and showing the dropdown content */
 				xhrNotif.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
 						var convArr = JSON.parse(this.responseText);
-						//console.log("HELLO\n\n"+convArr+"\n\n")
 						for	(var i=0; i<convArr.length; i++){
 							var notifDiv = document.createElement('div')
 							notifDiv.setAttribute('class', 'notification')
@@ -1170,7 +936,6 @@ toggle between hiding and showing the dropdown content */
 				xhr2.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
 						userArticles = JSON.parse(this.responseText);
-						// document.getElementById("user-article1_link").setAttribute("href", userArticles.article1Url);
 						document.getElementById("user-article1check_link").setAttribute("href", "/conversation/?article="+userArticles.article1Url);
 						document.getElementById("user-article2check_link").setAttribute("href", "/conversation/?article="+userArticles.article2Url);
 						document.getElementById("user-article3check_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
@@ -1208,28 +973,21 @@ toggle between hiding and showing the dropdown content */
 						}else{
 							document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title;
 						}
-						// document.getElementById("user-article-1-read-time").innerHTML = userArticles.article1Readtime;
 						document.getElementById("user-article2_link").setAttribute("href", "/conversation/?article="+userArticles.article2Url);
 						document.getElementById("user-article2_link1").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link2").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link3").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article-2-image").src = userArticles.article2img;
-						// document.getElementById("user-article-2-title").innerHTML = userArticles.article2Title.substring(0,50) + "...";
-						// document.getElementById("user-article-2-read-time").innerHTML = userArticles.article2Readtime;
 						document.getElementById("user-article3_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
 						document.getElementById("user-article3_link1").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link2").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link3").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article-3-image").src = userArticles.article3img;
-						// document.getElementById("user-article-3-title").innerHTML = userArticles.article3Title.substring(0,50) + "...";
-						// document.getElementById("user-article-3-read-time").innerHTML = userArticles.article3Readtime;
 						document.getElementById("user-article4_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
 						document.getElementById("user-article4_link1").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article4_link2").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article4_link3").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article-4-image").src = userArticles.article4img;
-						// document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title.substring(0,50) + "...";
-						// document.getElementById("user-article-4-read-time").innerHTML = userArticles.article4Readtime;
 					}
 				}
 				xhr2.open("GET", '/api/users/articles/<%=user%>', true);
@@ -1250,13 +1008,6 @@ toggle between hiding and showing the dropdown content */
 				xhr3.open("GET", '/api/users/current', true);
 				xhr3.withCredentials = true;
 				xhr3.send();
-				// fetch('http://localhost:8000/api/users/current').then(r => r.text()).then(result => {
-				// document.getElementById("username").innerHTML = result.user.name;
-				// console.log(result.user.name);
-				// hold = document.getElementById("username");
-				// console.log('hold', hold);
-				// })       
-				//console.log(myArr.user.admin);
 				var xhr4 = new XMLHttpRequest();
 				xhr4.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
@@ -1273,20 +1024,16 @@ toggle between hiding and showing the dropdown content */
 				xhr4.withCredentials = true;
 				xhr4.send();
 			})();
-			// document.getElementById("pname").innerHTML = result.user.name;
 			function test() {
 				len = document.getElementById("profile-name").textContent.length;
 				len = len - 1;
 				if (len <= 10) {
-					// console.log("test 45 10%");
 					document.getElementById("profile-name").style.top = "10%";
 					document.getElementById("profile-name").style.fontSize = "45px";
 				} else if (len <= 20 && len > 10) {
-					// console.log("test1 35 20%");
 					document.getElementById("profile-name").style.top = "20%";
 					document.getElementById("profile-name").style.fontSize = "35px";
 				} else {
-					// console.log("test2 20 30%");
 					document.getElementById("profile-name").style.top = "30%";
 					document.getElementById("profile-name").style.fontSize = "20px";
 				}

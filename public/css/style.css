@@ -123,6 +123,10 @@ html {
 	opacity: 0.5;
 }
 
+.iti{
+	width: 100%;
+	margin-bottom: 5%;
+}
 .field-input {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;

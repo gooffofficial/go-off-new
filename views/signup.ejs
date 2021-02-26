@@ -8,7 +8,13 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link
 		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-		rel="stylesheet">
+    rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
 	<!-- Include latest PatternFly CSS via CDN -->
 	<link rel="stylesheet" href="/css/style.css" />
 	<title>Sign Up</title>
@@ -45,8 +51,19 @@
         <input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="email"><br>
 
         <label>PHONE NUMBER <span class="required">*</span></label><br>
-        <input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="phonenumber"><br>
-        
+        <input type="text" class="field-input" autocomplete="off" id="phone" name="phonenumber"><br>
+        <script>
+          const phoneInputField = document.querySelector("#phone");
+          const phoneInput = window.intlTelInput(phoneInputField, {
+            utilsScript:
+              "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+          });
+          
+          const phoneNumber = phoneInput.getNumber();
+          phoneInputField.textContent = phoneNumber;
+          console.log(phoneNumber);
+        </script>
+
         <label>Location <span class="required">*</span></label><br>
 				<input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="location"><br>
 	
