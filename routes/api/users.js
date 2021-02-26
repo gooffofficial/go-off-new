@@ -147,13 +147,20 @@ router.post('/', auth.optional, [
       })
     }
     */
+    //calculate birthday function 
+    function calculate_age(dob) { 
+      var diff_ms = Date.now() - dob.getTime();
+      var age_dt = new Date(diff_ms); 
+    
+      return Math.abs(age_dt.getUTCFullYear() - 1970);
+  }
     db.User.create({
       username: user.username,
       firstname: user.firstname,
       lastname: user.lastname,
       name: user.firstname+' '+user.lastname,
       email: user.email,
-      age: user.age,
+      age: calculate_age(new Date(user.birthdate)),
       location: user.location,
       gender: user.gender,
       password: user.password,
