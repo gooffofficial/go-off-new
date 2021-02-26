@@ -196,20 +196,22 @@
 				</div>
 
 				<div class="card" id="card">
-					<div id="messages" class="card-block">
-						<h1 id="loading-text">Loading...</h1>
-
-						<%if (status != true) { %>
+					<%if (status != true) { %>
 						<%if (admin == true) { %>
-
+							<div id="messages" class="card-block">
+								<h1 id="loading-text">Loading...</h1>
+		
+				
+							</div>
 						<% } %>
 						<% } else { %>
+							<div id="messages2" class="card-block">
 							<p id="convo-ended">CONVERSATION HAS ENDED</p>
 						<%if (admin == true) { %>
 							<button onclick="window.location.href='/analytics/<%=id%>'" id="analysis-button">View chat analysis</button>
 						<% } %>
+							</div>
 						<% } %>
-					</div>
 				</div>
 		
 				<input type="text" id="textarea" class="form-control" placeholder="Send a message">

@@ -99,6 +99,10 @@
 	height: 48vh;
 }
 
+#messages2 {
+	height: 48vh;
+}
+
 #chat {
 	border-radius: 10px;
 	box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.05);
