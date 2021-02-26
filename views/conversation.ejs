@@ -67,8 +67,8 @@
 						</div>
 						<br>
 						<!-- <a href="/profile_edit">Folder</a> -->
-						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="media-adder"
-							style="display: inline-block;" href="#add-convo">Convo</a>
+						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="convobtn"
+							style="display: inline-block; visibility: hidden;" href="#add-convo">Convo</a>
 						<!-- Modal -->
 						<div class="modal fade" id="add-convo" tabindex="-1" role="dialog"
 							aria-labelledby="exampleModalLabelConv" aria-hidden="true">
@@ -181,7 +181,7 @@
 				<hr id="tablink-line">
 				<button class="tablinks1 active">Upcoming Convos</button>
 				<!-- <button class="tablinks1">Previous Convos</button> -->
-				<button type="button" id="create-convo-btn" onclick="dropmodal()" >Create Convo</button>
+				<button type="button" id="create-convo-btn" onclick="dropmodal()" style="visibility: hidden;">Create Convo</button>
 				<div id="arrowdropmodal" class="dropdown-arrowcontent" style="width: min-content;">
 					<form id="createConvo" method="post" action="/api/convos/create">
 						<label for="title">Title</label>
@@ -366,11 +366,14 @@
 		}
 
 		function fillinvar(){
-		title = document.getElementById("convo-title").innerHTML;
-		button = document.getElementById("go-to-convo-button").src;
-		console.log(button);
-		console.log()
-
+			title = document.getElementById("convo-title").innerHTML;
+			button = document.getElementById("go-to-convo-button").src;
+			console.log(button);
+			console.log(<%=host%>)
+			if(<%=host%> == true || <%=admin%> == true){
+				document.getElementById("create-convo-btn").style.visibility = "visible";
+				document.getElementById("convobtn").style.visibility = "visible";
+			}
 		}
 		
 	</script>

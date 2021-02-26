@@ -65,8 +65,8 @@
 						<!-- <a href="/profile_edit">Folder</a> -->
 						<br>
 						<!-- <a href="/profile_edit">Folder</a> -->
-						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="media-adder"
-							style="display: inline-block;" href="#add-convo">Convo</a>
+						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="convobtn"
+							style="display: inline-block; visibility: hidden;" href="#add-convo">Convo</a>
 						<div class="modal fade" id="add-convo" tabindex="-1" role="dialog"
 							aria-labelledby="exampleModalLabelConv" aria-hidden="true">
 							<div class="modal-dialog" role="document">
@@ -231,6 +231,10 @@
 		// 	document.getElementById("bar_form").style.visibility = "hidden";
 		// }
 
+		
+		if(<%=host%> == true || <%=admin%> == true){
+			document.getElementById("convobtn").style.visibility = "visible";
+		}
 		function dropclick1(id) {
 			var x = document.getElementById(id);
 			if (x.style.display === "block") {
@@ -246,6 +250,13 @@
 				if (this.readyState == 4 && this.status == 200) {
 					var myArr = JSON.parse(this.responseText);
 					console.log(myArr);
+
+					if(myArr.user.admin == "(Admin)" || myArr.user.host == "(Host)"){
+						document.getElementById("create-convo-btn").style.visibility = "visible";
+						document.getElementById("convobtn").style.visibility = "visible";
+						console.log("test")
+					}
+
 					document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
 					//document.getElementById("lpname").innerHTML = myArr.user.lastname;
 					document.getElementById("profile-pic").src = myArr.user.propic;

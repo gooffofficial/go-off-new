@@ -24,14 +24,30 @@ router.use('/api', require('./api'));
 router.use('/profiles', require('./profiles'))
 router.use('/analytics', require('./analytics'))
 
-router.get('/profile_edit', auth.required, (req, res, next) => {
-    const { payload: { username } } = req;
-    res.render('profiles/profile_edit', {user: username})
+router.get('/profile_edit', auth.required, async (req, res, next) => {
+    const { payload: { username, id } } = req;
+    let user = await db.User.findOne({
+        where:{
+            id: id
+        }
+    })
+    let host = user.host == "(Host)"
+    let admin = user.admin == "(Admin)"
+    console.log(host)
+    console.log(admin)
+    res.render('profiles/profile_edit', {user: username, host: host, admin: admin})
 })
 
-router.get('/account_settings', auth.required, (req, res, next) => {
-    const { payload: { username } } = req;
-    res.render('profiles/account_settings', {user: username})
+router.get('/account_settings', auth.required, async (req, res, next) => {
+    const { payload: { username, id } } = req;
+    let user = await db.User.findOne({
+        where:{
+            id: id
+        }
+    })
+    let host = user.host == "(Host)"
+    let admin = user.admin == "(Admin)"
+    res.render('profiles/account_settings', {user: username, host: host, admin: admin})
 })
 
 router.get('/followers', auth.required, (req, res, next) => {
@@ -216,7 +232,14 @@ router.get('/feed', auth.required, (req, res, next) => {
             }
             console.log(convs[0].article)
             console.log(arts2[1].article + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
-            res.render('feed', {myuser: username, user: req.params.user, articles: arts2, convos: convs})
+            let user = await db.User.findOne({
+                where:{
+                    id: id
+                }
+            })
+            let host = user.host == "(Host)"
+            let admin = user.admin == "(Admin)"
+            res.render('feed', {myuser: username, user: req.params.user, articles: arts2, convos: convs, host: host, admin: admin})
         })
     })
 })
@@ -232,7 +255,7 @@ router.get('/feed', auth.required, (req, res, next) => {
 // })
 
 router.get('/conversation', auth.required, (req, res, next) => {
-    const { payload: { username} } = req;
+    const { payload: {username, id} } = req;
     var article = req.query["article"];
     //picture, title, author, link
     db.Article.findOne({
@@ -299,7 +322,14 @@ router.get('/conversation', auth.required, (req, res, next) => {
             let date = date_ob.getDate();
             let month = date_ob.getMonth() + 1;
             let year = date_ob.getFullYear();
-            return res.render('conversation', {user: username, articlePic: art.img, artTitle: art.title, artLink: article, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts})  
+            let user = await db.User.findOne({
+                where:{
+                    id: id
+                }
+            })
+            let host = user.host == "(Host)"
+            let admin = user.admin == "(Admin)"
+            return res.render('conversation', {user: username, articlePic: art.img, artTitle: art.title, artLink: article, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts, host: host, admin: admin})  
         })
     })
 })
@@ -428,11 +458,11 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
                 if(title.length > 30){
                     title = title.substring(0,30);
                 }
-                if(user.admin != "(Admin)"){
-                    return res.render('index', {user: user.username, admin: false, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
+                if(user.admin != "(Admin)" && user.host != "(Host)"){
+                    return res.render('index', {user: user.username, admin: false, host: false, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
                 }
                 else{
-                    return res.render('index', {user: user.username, admin: true, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
+                    return res.render('index', {user: user.username, admin: true, host: true, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
                 }
             })
         })

@@ -68,8 +68,8 @@
 						<!-- <a href="/profile_edit">Folder</a> -->
 						<br>
 						<!-- <a href="/profile_edit">Folder</a> -->
-						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="media-adder"
-							style="display: inline-block;" href="#add-convo">Convo</a>
+						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="convobtn"
+							style="display: inline-block; visibility: hidden;" href="#add-convo">Convo</a>
 						<!-- Modal -->
 						<div class="modal fade" id="add-convo" tabindex="-1" role="dialog"
 							aria-labelledby="exampleModalLabelConv" aria-hidden="true">
@@ -337,7 +337,12 @@
 					</div>
 				</div>
 			</div>
-			<img src="/rightarrow.png" class="articlecyclebtn">
+
+			<a href="" class="side-button">
+				<img src="/rightarrow.png" class="articlecyclebtn">
+			</a>
+			
+
 			<div id="user-articles-container">
 				<h1 id="articles-text">Convos</h1>
 
@@ -557,7 +562,9 @@
 						</div>
 					</div>
 				</div>
-				<img src="/rightarrow.png" class="articlecyclebtn">
+				<a href="" class="side-button">
+					<img src="/rightarrow.png" class="articlecyclebtn">
+				</a>
 			</div>
 
 			<!-- <div id="rsvp-pop" style="visibility: hidden;">
@@ -755,6 +762,12 @@
 		console.log(title5.length);
 		console.log(title6.length);
 		console.log(title7.length);
+		console.log(<%=host%>)
+		console.log(<%=admin%>)
+		if(<%=host%> == true || <%=admin%> == true){
+			document.getElementById("convobtn").style.visibility = "visible";
+			console.log("test")
+		}
 		if(title.length > 50){
 			title = title.substring(0,50) + "...";
 			document.getElementById("convo-title").innerHTML = title;

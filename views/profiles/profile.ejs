@@ -1068,7 +1068,7 @@ toggle between hiding and showing the dropdown content */
 							console.log(currUser);
 							console.log("works1");
 						}
-						if (myArr.user.admin != "(Admin)" || myArr.user.admin != "(Host)"){
+						if (myArr.user.admin != "(Admin)" && myArr.user.admin != "(Host)"){
 							document.getElementById("convobtn").style.visibility = "hidden";
 							console.log(document.getElementById("convobtn").style.visibility)
 
@@ -1148,9 +1148,12 @@ toggle between hiding and showing the dropdown content */
 						for	(var i=0; i<convArr.length; i++){
 							var notifDiv = document.createElement('div')
 							notifDiv.setAttribute('class', 'notification')
-							var notifText = document.createElement('h3')
+							var notifText = document.createElement('p')
+							notifText.setAttribute('font-size', 'small')
+							notifText.setAttribute('id', 'notiftext')
 							var notifTextNode = document.createTextNode('You have a convo on ' + convArr[i].article +' coming up soon!\n Find it on your converations tab.')
 							notifText.appendChild(notifTextNode)
+							
 							notifDiv.appendChild(notifText)
 							var linkText = document.createElement('a')
 							linkText.setAttribute('href', "/chat/"+convArr[i].roomId)
