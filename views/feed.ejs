@@ -341,7 +341,7 @@
 				</div>
 			</div>
 
-			<a href="" class="side-button">
+			<a href="javascript:void(0)" onclick="getNextArticles()" class="side-button">
 				<img src="/rightarrow.png" class="articlecyclebtn">
 			</a>
 			
@@ -351,9 +351,9 @@
 
 				<!--First convo-->
 				<div id="user-article-1" class="article">
-					<a id="user-article1_link" href="/conversation/?article=<%=convos[0].article%>">
+					<a id="user-convo1_link" href="/conversation/?article=<%=convos[0].article%>">
 						<div class="article-image-container">
-							<img id="user-article-1-image" class="article-image" src="<%=convos[0].img%>">
+							<img id="user-convo-1-image" class="article-image" src="<%=convos[0].img%>">
 						</div>
 					</a>
 
@@ -373,9 +373,9 @@
 						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
-						<p>Hosted by <%=convos[0].host%></p>
-						<h3 id="convo-title"><%=convos[0].title%></h3>
-						<p id="convo-desc"><%=convos[0].description%></p>
+						<p id="convo-host1">Hosted by <%=convos[0].host%></p>
+						<h3 id="convo1-title"><%=convos[0].title%></h3>
+						<p id="convo1-desc"><%=convos[0].description%></p>
 
 						<!-- <div id="convo-bl-container">
 							<img src="/lightbulb.svg" id="convo-ico">
@@ -411,22 +411,22 @@
 				</div>
 
 				<!--Second convo-->
-				<div id="user-article-2" class="article">
-					<a id="user-article2_link" href="/conversation/?article=<%=convos[1].article%>">
+				<div id="user-convo-2" class="article">
+					<a id="user-convo2_link" href="/conversation/?article=<%=convos[1].article%>">
 						<div class="article-image-container">
-							<img id="user-article-2-image" class="article-image">
+							<img id="user-convo-2-image" class="article-image">
 						</div>
 					</a>
 
 					<div class="article-info-container">
-						<a id="user-article2_link2">
-							<h4 id="user-article-2-author" class="article-author"></h4>
+						<a id="user-convo2_link2">
+							<h4 id="user-convo-2-author" class="article-author"></h4>
 						</a>
-						<a id="user-article2_link3">
-							<h4 id="user-article-2-read-time" class="article-read-time"></h4>
+						<a id="user-convo2_link3">
+							<h4 id="user-convo-2-read-time" class="article-read-time"></h4>
 						</a>
-						<a id="user-article2_link1">
-							<h3 id="user-article-2-title" class="article-title"></h3>
+						<a id="user-convo2_link1">
+							<h3 id="user-convo-2-title" class="article-title"></h3>
 						</a>
 					</div>
 
@@ -434,9 +434,9 @@
 						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
-						<p>Hosted by <%=convos[1].host%></p>
-						<h3 id="convo-title1"><%=convos[1].title%></h3>
-						<p id="convo-desc"><%=convos[1].description%></p>
+						<p id="convo-host2">Hosted by <%=convos[1].host%></p>
+						<h3 id="convo2-title"><%=convos[1].title%></h3>
+						<p id="convo2-desc"><%=convos[1].description%></p>
 
 						<!-- <div id="convo-bl-container">
 							<img src="/lightbulb.svg" id="convo-ico">
@@ -464,21 +464,21 @@
 
 				<!--Third Convo-->
 				<div id="user-article-3" class="article">
-					<a id="user-article3_link" href="/conversation/?article=<%=convos[2].article%>">
+					<a id="user-convo3_link" href="/conversation/?article=<%=convos[2].article%>">
 						<div class="article-image-container">
-							<img id="user-article-3-image" class="article-image">
+							<img id="user-convo-3-image" class="article-image">
 						</div>
 					</a>
 
 					<div class="article-info-container">
-						<a id="user-article3_link2">
+						<a id="user-convo3_link2">
 							<h4 id="user-article-3-author" class="article-author"></h4>
 						</a>
 						<a id="user-article3_link3">
-							<h4 id="user-article-3-read-time" class="article-read-time"></h4>
+							<h4 id="user-convo-3-read-time" class="article-read-time"></h4>
 						</a>
 						<a id="user-article3_link1">
-							<h3 id="user-article-3-title" class="article-title"></h3>
+							<h3 id="user-convo-3-title" class="article-title"></h3>
 						</a>
 					</div>
 
@@ -486,9 +486,9 @@
 						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
-						<p>Hosted by <%=convos[2].host%></p>
-						<h3 id="convo-title2"><%=convos[2].title%></h3>
-						<p id="convo-desc"><%=convos[2].description%></p>
+						<p id="convo-host3">Hosted by <%=convos[2].host%></p>
+						<h3 id="convo3-title"><%=convos[2].title%></h3>
+						<p id="convo3-desc"><%=convos[2].description%></p>
 
 						<!-- <div id="convo-bl-container">
 							<img src="/lightbulb.svg" id="convo-ico">
@@ -516,21 +516,21 @@
 
 				<!--Fourth convo-->
 				<div id="user-article-4" class="article">
-					<a id="user-article4_link" href="/conversation/?article=<%=convos[3].article%>">
+					<a id="user-convo4_link" href="/conversation/?article=<%=convos[3].article%>">
 						<div class="article-image-container">
-							<img id="user-article-4-image" class="article-image">
+							<img id="user-convo-4-image" class="article-image">
 						</div>
 					</a>
 
 					<div class="article-info-container">
 						<a id="user-article4_link2">
-							<h4 id="user-article-4-author" class="article-author"></h4>
+							<h4 id="user-convo-4-author" class="article-author"></h4>
 						</a>
 						<a id="user-article4_link3">
-							<h4 id="user-article-4-read-time" class="article-read-time"></h4>
+							<h4 id="user-convo-4-read-time" class="article-read-time"></h4>
 						</a>
 						<a id="user-article4_link1">
-							<h3 id="user-article-4-title" class="article-title"></h3>
+							<h3 id="user-convo-4-title" class="article-title"></h3>
 						</a>
 					</div>
 
@@ -538,9 +538,9 @@
 						<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"
 							class="posted-user-img">
 						<!-- POSTED BY USER PROFILE PICTURE -->
-						<p>Hosted by <%=convos[3].host%></p>
-						<h3 id="convo-title3"><%=convos[3].title%></h3>
-						<p id="convo-desc"><%=convos[3].description%></p>
+						<p id="convo-host4">Hosted by <%=convos[3].host%></p>
+						<h3 id="convo4-title"><%=convos[3].title%></h3>
+						<p id="convo4-desc"><%=convos[3].description%></p>
 
 						<!-- <div id="convo-bl-container">
 							<img src="/lightbulb.svg" id="convo-ico">
@@ -565,7 +565,7 @@
 						</div>
 					</div>
 				</div>
-				<a href="" class="side-button">
+				<a href="javascript:void(0)" onclick="getNextConvos()" class="side-button">
 					<img src="/rightarrow.png" class="articlecyclebtn">
 				</a>
 			</div>
@@ -611,7 +611,49 @@
 </body>
 <script>
 	console.log("test test test <%=articles[1].link%>");
-
+	var articleOffset = 4
+	var convoOffset = 4
+	function getNextArticles(){
+		var xhrNotif = new XMLHttpRequest();
+		xhrNotif.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				var artArr = JSON.parse(this.responseText);
+				for(var i=0; i<artArr.length; i++) {
+					console.log(artArr[i].title)
+					document.getElementById("article"+(i+1)+"convolink").setAttribute("href", artArr[i].link)
+					//document.getElementById("update"+(i+1)).setAttribute(onclick, "sendreq('"+artArr[i].link+"'")
+					document.getElementById("user-article-"+(i+1)+"-title").innerText = artArr[i].title
+					//document.getElementById("user-article-"+(i+1)+"_link3").setAttribute("href", artArr[i].link)
+					//document.getElementById("user-article-"+(i+1)+"_link2").setAttribute("href", artArr[i].link)
+					document.getElementById("user-article"+(i+1)+"_link").setAttribute("href", "/conversation/?article="+artArr[i].link)
+					document.getElementById("user-article-"+(i+1)+"-image").setAttribute("src", artArr[i].img)
+				}
+				}
+			}
+			xhrNotif.open("GET", '/api/getarticles?o='+articleOffset, true);
+			xhrNotif.withCredentials = true
+			xhrNotif.send();
+			articleOffset += 4;
+		}			
+		function getNextConvos(){
+			var xhrNotif = new XMLHttpRequest();
+			xhrNotif.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					var convArr = JSON.parse(this.responseText);
+					//console.log("HELLO\n\n"+convArr+"\n\n")
+					for(var i=0; i<convArr.length; i++) {
+						document.getElementById("user-convo"+(i+1)+"_link").setAttribute("href", "/conversation/?article="+convArr[i].article)
+						document.getElementById("convo-host"+(i+1)).innerText = "Hosted by " + convArr[i].host
+						document.getElementById("convo"+(i+1)+"-title").innerText = convArr[i].title
+						document.getElementById("convo"+(i+1)+"-desc").innerText = convArr[i].description
+					}
+					}
+				}
+				xhrNotif.open("GET", '/api/getconvos?o='+convoOffset, true);
+				xhrNotif.withCredentials = true
+				xhrNotif.send();
+				convoOffset += 4;
+			}				
 	function plsWork(str) {
 			str.toLowerCase();
 			var stringz = ""
@@ -655,7 +697,6 @@
 		xhrNotif.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
 				var convArr = JSON.parse(this.responseText);
-				//console.log("HELLO\n\n"+convArr+"\n\n")
 				console.log(document.getElementById("notif"))
 				document.getElementById("notif").innerText = convArr.length
 				for	(var i=0; i<convArr.length; i++){
@@ -778,10 +819,10 @@
 		}
 	}
 	function fillinvar(){
-		title = document.getElementById("convo-title").innerHTML;
-		title1 = document.getElementById("convo-title1").innerHTML;
-		title2 = document.getElementById("convo-title2").innerHTML;
-		title3 = document.getElementById("convo-title3").innerHTML;
+		title = document.getElementById("convo-title1").innerHTML;
+		title1 = document.getElementById("convo-title2").innerHTML;
+		title2 = document.getElementById("convo-title3").innerHTML;
+		title3 = document.getElementById("convo-title4").innerHTML;
 		title4 = document.getElementById("user-article-1-title").innerHTML;
 		title5 = document.getElementById("user-article-2-title").innerHTML;
 		title6 = document.getElementById("user-article-3-title").innerHTML;
@@ -802,25 +843,25 @@
 		}
 		if(title.length > 50){
 			title = title.substring(0,50) + "...";
-			document.getElementById("convo-title").innerHTML = title;
+			document.getElementById("convo-title1").innerHTML = title;
 			console.log(title);
 			console.log("works!");
 		}
 		if(title1.length > 50){
 			title1 = title1.substring(0,50) + "...";
-			document.getElementById("convo-title1").innerHTML = title1;
+			document.getElementById("convo-title2").innerHTML = title1;
 			console.log(title1);
 			console.log("works!");
 		}
 		if(title2.length > 50){
 			title2 = title2.substring(0,50) + "...";
-			document.getElementById("convo-title2").innerHTML = title2;
+			document.getElementById("convo-title3").innerHTML = title2;
 			console.log(title2);
 			console.log("works!");
 		}
 		if(title3.length > 50){
 			title3 = title3.substring(0,50) + "...";
-			document.getElementById("convo-title3").innerHTML = title3;
+			document.getElementById("convo-title4").innerHTML = title3;
 			console.log(title3);
 			console.log("works!");
 		}
