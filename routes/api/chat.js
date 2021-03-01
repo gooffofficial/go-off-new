@@ -52,9 +52,7 @@ router.get('/create', auth.required, (req, res, next) => {
 
 
 //Route to post messages to specific chatroom
-router.post('/:room', auth.required, [
-    body('message').escape()
-],(req, res, next) => {
+router.post('/:room', auth.required,(req, res, next) => {
     Room.findById(req.params.room, (err, room) => {
         if(err){
             console.log(err);
@@ -102,9 +100,7 @@ router.post('/:room', auth.required, [
     })
 })
 
-router.post('/m/:room', auth.required, [
-    body('message').escape()
-], (req, res, next) => {
+router.post('/m/:room', auth.required, (req, res, next) => {
     DM.findOne({identifier: req.params.room}, (err, room) => {
         if(err){
             console.log(err);

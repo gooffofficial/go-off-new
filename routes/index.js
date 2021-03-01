@@ -78,7 +78,7 @@ router.get("/verify", (req, res) => {
 router.get('/feed', auth.required, (req, res, next) => {
     const { payload: { id, username } } = req;
     //seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
-    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=S.userId")
+    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=S.userId ORDER BY S.createdAt LIMIT 4")
     .then(async (articles) => { 
         var arts = []
         for(var i=0; i<articles[0].length; i++){
@@ -144,13 +144,14 @@ router.get('/feed', auth.required, (req, res, next) => {
             }
             arts2.push(a)
         }
-        seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId")
+        seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt LIMIT 4")
         /*db.Convo_members.findAll({
             where: {
                 UserId: id
             }
         })*/
         .then(async (convos) => {
+            console.log("HOW MANY \n\n\n\n\n" + convos[0].length)
             var convs = []
             var i = 0
             for (const convo of convos[0]){
@@ -230,8 +231,8 @@ router.get('/feed', auth.required, (req, res, next) => {
                     id: -1
                 }
             }
-            console.log(convs[0].article)
-            console.log(arts2[1].article + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
+            //console.log(convs[0].article)
+            //console.log(arts2[1].article + "AHAFJHSD;KJFGPAWUEHFBKSDJFGWPEUIFHSDJHFBGWEIURHFSDVGLSIDUBS\N\N\N\N\N\N\N\N\N\N\N")
             let user = await db.User.findOne({
                 where:{
                     id: id

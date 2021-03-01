@@ -36,8 +36,9 @@ router.get('/folders', auth.required, (req, res, next) => {
 router.get('/getarticles', auth.required, (req, res, next) => {
     const {payload: {id}} = req;
     var offset = req.query["o"]
-    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=S.userId LIMIT 4 OFFSET " + offset)
+    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt LIMIT 4 OFFSET "+ offset)
     .then(async (articles) => { 
+        console.log("LENGTH\n\n\n\n" + articles[0].length)
         var arts = []
         for(var i=0; i<articles[0].length; i++){
             arts.push(articles[0][i].article)
@@ -110,7 +111,7 @@ router.get('/getconvos', auth.required, (req,res,next) => {
     const {payload: {id}} = req
     var offset = req.query["o"]
     console.log("AFGG\n\n\n")
-    seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId LIMIT 4 OFFSET " + offset)
+    seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt LIMIT 4 OFFSET "+ offset)
         /*db.Convo_members.findAll({
             where: {
                 UserId: id
