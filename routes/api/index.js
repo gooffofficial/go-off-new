@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../auth');
 const crawler = require('../../apify/crawler')
+const { body, query } = require('express-validator');
 const db = require('../../models')
 const Sequelize = require('sequelize')
 
@@ -33,7 +34,7 @@ router.get('/folders', auth.required, (req, res, next) => {
     })
 })
 
-router.get('/getarticles', auth.required, (req, res, next) => {
+router.get('/getarticles', auth.required,[query('o').escape()], (req, res, next) => {
     const {payload: {id}} = req;
     var offset = req.query["o"]
     seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt LIMIT 4 OFFSET "+ offset)
@@ -107,7 +108,7 @@ router.get('/getarticles', auth.required, (req, res, next) => {
     })
 })
 
-router.get('/getconvos', auth.required, (req,res,next) => {
+router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => {
     const {payload: {id}} = req
     var offset = req.query["o"]
     console.log("AFGG\n\n\n")
