@@ -179,11 +179,11 @@
 				<p id="article-info-date">2 days ago</p>
 
 				<p id="article-info-title"><%=title%></p>
-				<p id="article-info-user-description">User description goes here</p>
+				<p id="article-info-user-description"><%=desc%></p>
 
 				<div id="article-info-bottom">
 					<a href="" id="article-info-article-link"><%=url%></a>
-					<p id="article-info-convo-host">John Doe</p> <!-- hosters name goes here -->
+					<p id="article-info-convo-host"><%=hosting%></p> <!-- hosters name goes here -->
 				</div>
 			</div>
 		</div>
@@ -200,24 +200,38 @@
 				</div>
 
 				<div class="card" id="card">
-					<div id="messages" class="card-block">
-						<h1 id="loading-text">Loading...</h1>
-
-						<%if (status != true) { %>
+					<%if (convoStarted == true) { %>
 						<%if (admin == true) { %>
-
+							<div id="messages" class="card-block">
+								<h1 id="loading-text">Loading...</h1>
+		
+				
+							</div>
 						<% } %>
 						<% } else { %>
-							<p id="convo-ended">CONVERSATION HAS ENDED</p>
+							<div id="messages2" class="card-block">
+							<p id="convo-ended">CONVERSATION HAS NOT STARTED YET</p>
+						<% } %>
+					<%if (status != true) { %>
 						<%if (admin == true) { %>
+							<div id="messages" class="card-block">
+								<h1 id="loading-text">Loading...</h1>
+		
+				
+							</div>
+						<% } %>
+						<% } else { %>
+							<div id="messages2" class="card-block">
+							<p id="convo-ended">CONVERSATION HAS ENDED</p>
+						<%if (admin == true || convoHost) { %>
 							<button onclick="window.location.href='/analytics/<%=id%>'" id="analysis-button">View chat analysis</button>
 						<% } %>
+							</div>
 						<% } %>
-					</div>
 				</div>
-		
+				<%if (status != true && convoStarted) {%>
 				<input type="text" id="textarea" class="form-control" placeholder="Send a message">
-				<%if (status != true) {%>
+				
 				<button id="send">SEND</button>
 				<% } %>
 			</div>
@@ -228,7 +242,7 @@
 		</form>
 		<!-- <button id="logout"> Logout </button> -->
 		<%if (status != true) { %>
-		<%if (admin == true) { %>
+		<%if (admin == true || convoHost) { %>
 		<form method="post" action="/api/chat/end/<%=id%>">
 			<button type="submit" id="end" onclick = "bye()">END CONVERSATION</button>
 		</form>

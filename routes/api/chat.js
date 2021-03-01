@@ -225,33 +225,40 @@ router.post('/end/:roomid', auth.required, (req, res, next) => {
             id: id
         }
     }).then((user) => {
-        if(user.admin != "(Admin)"){
-            return res.sendStatus(403);
-        }
-        else{
-            Room.findById(roomid, (err, room) => {
-                if(err){
-                    console.log(err);
-                    return res.send(err);
-                }
-                const { payload: { id } } = req;
-                db.User.findOne({
-                    where: {
-                        id: id
+        db.Convo.findOne({
+            where: {
+                RoomId: req.params.roomid
+            }
+        }).then((convo) => {
+            console.log("Hello " + id + " " + convo.host + "\n\n\n\n"+ (id==convo.host).toString())
+            if(user.admin != "(Admin)" && id != convo.host){
+                return res.sendStatus(403);
+            }
+            else{
+                Room.findById(roomid, (err, room) => {
+                    if(err){
+                        console.log(err);
+                        return res.send(err);
                     }
-                }).then((user) => {
-                    if (user.admin != "(Admin)"){
-                        return res.sendStatus(403);
-                    }
-                    else{
-                        room.status = true;
-                        room.save().then(() => {
-                            return res.redirect('/chat/'+roomid);
-                        })
-                    }
+                    const { payload: { id } } = req;
+                    db.User.findOne({
+                        where: {
+                            id: id
+                        }
+                    }).then((user) => {
+                        if (user.admin != "(Admin)" && id != convo.host){
+                            return res.sendStatus(403);
+                        }
+                        else{
+                            room.status = true;
+                            room.save().then(() => {
+                                return res.redirect('/chat/'+roomid);
+                            })
+                        }
+                    })
                 })
-            })
-        }
+            }
+        })
     })
 })
 

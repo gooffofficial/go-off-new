@@ -3,6 +3,20 @@ const router = express.Router();
 const auth = require('../auth');
 const crawler = require('../../apify/crawler')
 const db = require('../../models')
+const Sequelize = require('sequelize')
+
+const seq = new Sequelize('test_server1', process.env.RDS_USER, process.env.RDS_PASSWORD, {
+    port: process.env.RDS_PORT,
+    host: process.env.RDS_HOSTNAME,
+    dialect: 'mysql',
+    pool: {
+      max: 10,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  })
+
 
 router.use('/users', require('./users'));
 router.use('/chat', require('./chat'))
@@ -16,6 +30,173 @@ router.get('/folders', auth.required, (req, res, next) => {
         }
     }).then((folders) => {
         return res.json(folders)
+    })
+})
+
+router.get('/getarticles', auth.required, (req, res, next) => {
+    const {payload: {id}} = req;
+    var offset = req.query["o"]
+    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=S.userId LIMIT 4 OFFSET " + offset)
+    .then(async (articles) => { 
+        var arts = []
+        for(var i=0; i<articles[0].length; i++){
+            arts.push(articles[0][i].article)
+        } 
+        console.log(arts)
+        var arts2 = []
+        for(const art of arts){
+            var art2 = {}
+            let a = await db.Article.findOne({
+                where: {
+                    url: art
+                }
+            })
+            if (!a) {
+            art2['img'] = ""
+            art2['title'] = ""
+            art2['link'] = ""
+            }else{
+                art2['img'] = a.getArticleInfo()['img']
+                art2['title'] = a.getArticleInfo()['title']
+                art2['link'] = a.getArticleInfo()['url']
+            }
+            arts2.push(art2)
+        }
+        console.log(arts2.length)
+        arts2 = arts2.reverse();
+        if(arts2.length == 0){
+            let a = {
+                img: '',
+                title: '',
+                link: '' 
+            }
+            arts2.push(a);
+            arts2.push(a);
+            arts2.push(a);
+            arts2.push(a);
+        }
+        if (arts.length == 1){
+            let a = {
+                img: '',
+                title: '',
+                link: ''
+            }
+            arts2.push(a);
+            arts2.push(a);
+            arts2.push(a);
+        }
+        if (arts.length == 2){
+            let a = {
+                img: '',
+                title: '',
+                link: ''
+            }
+            arts2.push(a)
+            arts2.push(a)
+        }
+        if (arts.length == 3){
+            let a = {
+                img: '',
+                title: '',
+                link: ''
+            }
+            arts2.push(a)
+        }
+        return res.json(arts2);
+    })
+})
+
+router.get('/getconvos', auth.required, (req,res,next) => {
+    const {payload: {id}} = req
+    var offset = req.query["o"]
+    console.log("AFGG\n\n\n")
+    seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId LIMIT 4 OFFSET " + offset)
+        /*db.Convo_members.findAll({
+            where: {
+                UserId: id
+            }
+        })*/
+        .then(async (convos) => {
+            var convs = []
+            var i = 0
+            for (const convo of convos[0]){
+                let c = await db.Convo.findOne({
+                    where: {
+                        id: convo.ConvoId
+                    }
+                })
+                convs.push(c);
+                let art = await db.Article.findOne({
+                    where: {
+                        url: c.article
+                    }
+                })
+                let user = await db.User.findOne({
+                    where: {
+                        id: c.host
+                    }
+                })
+                if(!user){
+                    convs[i]['host'] = " "
+
+                }else{
+                    convs[i]['host'] = user.username
+                }
+                
+                convs[i]['img'] = art.img
+                convs[i]['title'] = c.title
+                i++
+            }
+            convs=convs.reverse();
+            if(convs.length == 0) {
+                convs[0] = {
+                    article: "",
+                    id: -1
+                }
+                convs[1] = {
+                    article: "",
+                    id: -1
+                }
+                convs[2] = {
+                    article: "",
+                    id: -1
+                }
+                convs[3] = {
+                    article: "",
+                    id: -1
+                }
+            }
+            else if(convs.length == 1){
+                convs[1] = {
+                    article: "",
+                    id: -1
+                }
+                convs[2] = {
+                    article: "",
+                    id: -1
+                }
+                convs[3] = {
+                    article: "",
+                    id: -1
+                }
+            }
+            else if(convs.length == 2){
+                convs[2] = {
+                    article: "",
+                    id: -1
+                }
+                convs[3] = {
+                    article: "",
+                    id: -1
+                }
+            }
+            else if(convs.length == 3){
+                convs[3] = {
+                    article: "",
+                    id: -1
+                }
+            }
+            return res.json(convs)
     })
 })
 

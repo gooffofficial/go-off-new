@@ -459,17 +459,39 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
                 where: {
                     id: id
                 }
-            }).then((user) => {
-                var title = article.title;
-                if(title.length > 30){
-                    title = title.substring(0,30);
+            }).then(async (user) => {
+                var convo = await db.Convo.findOne({
+                    where: {
+                        RoomId: req.params.roomid
+                    }
+                })
+
+                //Check to see whether the conversation has started yet
+                var convoStarted = false
+                var curTime = Date.now()
+                var convoTime = convo.time.getTime()
+                if (curTime >= convoTime){
+                    convoStarted = true
                 }
-                if(user.admin != "(Admin)" && user.host != "(Host)"){
-                    return res.render('index', {user: user.username, admin: false, host: false, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
-                }
-                else{
-                    return res.render('index', {user: user.username, admin: true, host: true, id: req.params.roomid, status: room.status, title: title, url: article.url, js: "index.js"});
-                }
+                var convoHost = id == convo.host
+                var title = convo.title;
+                var desc = convo.description;
+                db.User.findOne({
+                    where: {
+                        id: convo.host
+                    }
+                }).then((hoster) => {
+                    var hosting = hoster.name
+                    if(title.length > 30){
+                        title = title.substring(0,30);
+                    }
+                    if(user.admin != "(Admin)" && user.host != "(Host)"){
+                        return res.render('index', {user: user.username, admin: false, host: false, id: req.params.roomid, status: room.status, title: title, hosting: hosting, desc: desc, url: article.url, convoHost: convoHost, convoStarted: convoStarted, js: "index.js"});
+                    }
+                    else{
+                        return res.render('index', {user: user.username, admin: true, host: true, id: req.params.roomid, status: room.status, title: title, hosting: hosting, desc: desc, url: article.url, convoHost: convoHost, convoStarted: convoStarted, js: "index.js"});
+                    }
+                })
             })
         })
     })
