@@ -404,6 +404,13 @@
 				document.getElementById("create-convo-btn").style.visibility = "visible";
 				document.getElementById("convobtn").style.visibility = "visible";
 			}
+			title = document.getElementById("article-title").innerHTML;
+			if(title.length > 70){
+			title = title.substring(0,70) + "...";
+			document.getElementById("article-title").innerHTML = title;
+			console.log(title);
+			console.log("works!");
+		}
 		}
 		
 	</script>
