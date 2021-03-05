@@ -11,7 +11,7 @@ module.exports = (sequelize, type) => {
             allowNull: false
         },  
         time : {
-            type: type.DATE,
+            type: type.STRING,
             allowNull: false
         },
         host: {
@@ -24,6 +24,10 @@ module.exports = (sequelize, type) => {
         }, 
         title: {
             type: type.STRING, 
+            allowNull: false
+        },
+        tz: {
+            type: type.INTEGER,
             allowNull: false
         },
         description: {

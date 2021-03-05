@@ -28,6 +28,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 	</script>
+	<script src="/convoCreate.js"></script>
 	<!-- <script type="text/javascript" src="profile.js"></script> -->
 	<title>Profile Page</title>
 </head>
@@ -81,9 +82,11 @@
 										</button>
 									</div>
 									<div class="modal-body" style="width: min-content;">
-										<form action="/api/convos/create" method="post">
+										<form action="/api/convos/create" method="post" id="createConvoBar">
 											<label for="convoTime">Conversation Time</label>
-											<input type="datetime-local" id="convoTime" name="convoTime">
+											<input type="datetime-local" id="convoTime">
+											<input type="hidden" id="datetime-bar" name="convoTime" value="">
+											<input type="hidden" id="timezone" name="tz" value="">
 											<label for="convoTitle">Convo Title</label>
 											<input type="text" id="convoTitle" name="convoTitle">
 											<label for="convoDesc">Convo Description</label>
@@ -91,7 +94,8 @@
 											<!-- Sus security here -->
 											<label for="article">Article URL</label>
 											<input type="text" id="article" name="article">
-											<input type="submit" value="submit">
+											<!--<input type="submit" value="submit">-->
+											<button onclick="createConvoBar()">Create</button>
 										</form>
 									</div>
 								</div>
@@ -189,14 +193,17 @@
 				<div id="arrowdropmodal" class="dropdown-arrowcontent" style="width: min-content;">
 					<form id="createConvo" method="post" action="/api/convos/create">
 						<label for="convoTime">Conversation Time</label>
-						<input type="datetime-local" min=<%=date%> id="convoTime" name="convoTime">
+						<input type="datetime-local" min=<%=date%> id="convoTimeMain">
+						<input type="hidden" id="timezone2" name="tz" value="">
+						<input type="hidden" id="datetime" name="convoTime" value="">
 						<label for="convoTitle">Convo Title</label>
 						<input type="text" id="convoTitle" name="convoTitle">
 						<label for="convoDesc">Convo Description</label>
 						<input type="text" id="convoDesc" name="convoDesc">
 						<!-- Sus security here -->
 						<input type="hidden" id="article" name="article" value="<%=artLink%>">
-						<input type="submit" value="submit">
+						<!--<input type="submit" value="submit">-->
+						<button onclick="submitMain()">Create</button>
 					</form>
 				</div>
 			</div>
@@ -206,7 +213,7 @@
 						<img id="convo-img" src="<%=articlePic%>">
 					</div>
 					<div id="convo-right-content">
-						<p id="convo-date"><%=convos[0].time%></p>
+						<p id="convo-date0"><%=convos[0].time%></p>
 						<p id="convo-title"><%=convos[0].title%></p>
 						<p id="convo-description"><%=convos[0].description%></p>
 						<span id="convo-host">Hosted by <%=hosts[0]%></span>
@@ -227,7 +234,7 @@
 						<img id="convo-img" src="<%=articlePic%>">
 					</div>
 					<div id="convo-right-content">
-						<p id="convo-date"><%=convos[1].time%></p>
+						<p id="convo-date1"><%=convos[1].time%></p>
 						<p id="convo-title"><%=convos[1].title%></p>
 						<p id="convo-description"><%=convos[1].description%></p>
 						<span id="convo-host">Hosted by <%=hosts[1]%></span>
@@ -275,6 +282,15 @@
 		</div> -->
 	</div>
 	<script>
+
+		function submitMain() {
+			var dateInput = new Date(document.getElementById('convoTimeMain').value)
+			var epoch = dateInput.getTime();
+			//document.getElementById('timezone2').value = dateInput.getTimezoneOffset();
+			document.getElementById('datetime').value = epoch;
+			document.getElementById('createConvo').submit();
+		}
+
 		function dropclick1(id) {
 			var x = document.getElementById(id);
 			if (x.style.display === "block") {
@@ -396,6 +412,27 @@
 		}
 
 		function fillinvar(){
+			if("<%=convos[0].time%>" == "No convo scheduled" || "<%=convos[1].time%>" == "No convo scheduled"){
+				if ("<%=convos[0].time%>" == "No convo scheduled"){
+					document.getElementById('convo-date0').innerHTML = "No convo scheduled"
+				}
+				else {
+					document.getElementById('convo-date0').innerHTML = new Date(parseInt("<%=convos[0].time%>", 10))
+				}
+				if ("<%=convos[1].time%>" == "No convo scheduled") {
+					document.getElementById('convo-date1').innerHTML = "No convo scheduled"
+				}
+				else {
+					document.getElementById('convo-date1').innerHTML = new Date(parseInt("<%=convos[1].time%>", 10))
+				} 	
+			}
+			else{
+				document.getElementById('convo-date0').innerHTML = new Date(parseInt("<%=convos[0].time%>", 10))
+				document.getElementById('convo-date1').innerHTML = new Date(parseInt("<%=convos[1].time%>", 10))
+			}
+			var d = new Date()
+			document.getElementById('timezone').setAttribute('value', d.getTimezoneOffset()/60)
+			document.getElementById('timezone2').setAttribute('value', d.getTimezoneOffset()/60)
 			title = document.getElementById("convo-title").innerHTML;
 			button = document.getElementById("go-to-convo-button").src;
 			console.log(button);

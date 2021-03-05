@@ -219,7 +219,7 @@ router.get('/upcoming', auth.required, (req, res, next) => {
                     id: convoIds[i].ConvoId
                 }
             })
-            if (Date.now() - conv.time.getTime() < 30*(60*1000)){
+            if (Date.now() - conv.time < 30*(60*1000)){
                 convos.push({
                     'article': conv.article,
                     'time': conv.time,

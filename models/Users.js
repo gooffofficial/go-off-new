@@ -40,7 +40,10 @@ module.exports = (sequelize, type) => {
         followercount: type.INTEGER,
         followingcount: type.INTEGER,
         user_ver: type.TINYINT(1),
-        birthdate: type.DATE,
+        birthdate: {
+            type: type.DATE,
+            allowNull: false,
+        },
         user_tok: type.STRING,
         password: {
             type: type.STRING,

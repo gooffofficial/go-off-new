@@ -25,6 +25,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 	</script>
+	<script src="/convoCreate.js"></script>
 	<title> Chat About It! </title>
 	<style>
 		/* #messages {
@@ -52,7 +53,7 @@
 	</style>
 </head>
 
-<body>
+<body onload="form()">
 	<nav class="navigationBar d-flex">
 		<div class="navigationContainer d-flex">
 			<img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center">
@@ -101,9 +102,11 @@
 										</button>
 									</div>
 									<div class="modal-body" style="width: min-content;">
-										<form action="/api/convos/create" method="post">
+										<form action="/api/convos/create" method="post" id="createConvoBar">
 											<label for="convoTime">Conversation Time</label>
-											<input type="datetime-local" id="convoTime" name="convoTime">
+											<input type="datetime-local" id="convoTime">
+											<input type="hidden" id="datetime-bar" name="convoTime" value="">
+											<input type="hidden" name="tz" id="timezone" value="">
 											<label for="convoTitle">Convo Title</label>
 											<input type="text" id="convoTitle" name="convoTitle">
 											<label for="convoDesc">Convo Description</label>
@@ -111,7 +114,7 @@
 											<!-- Sus security here -->
 											<label for="article">Article URL</label>
 											<input type="text" id="article" name="article">
-											<input type="submit" value="submit">
+											<button onclick="submitBarConvo()">Create</button>
 										</form>
 									</div>
 								</div>
@@ -269,6 +272,10 @@
 
 	<script src="/<%=js%>"></script>
 	<script>
+		function form(){
+			var d = new Date();
+			document.getElementById('timezone').setAttribute('value', d.getTimezoneOffset()/60)
+		}
 		function dropclick1(id) {
 			var x = document.getElementById(id);
 			if (x.style.display === "block") {

@@ -28,6 +28,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 	</script>
+	<script src="/convoCreate.js"></script>
 	<!-- <script type="text/javascript" src="profile.js"></script> -->
 	<title>Feed</title>
 </head>
@@ -82,9 +83,11 @@
 										</button>
 									</div>
 									<div class="modal-body" style="width: min-content;">
-										<form action="/api/convos/create" method="post">
+										<form action="/api/convos/create" method="post" id="createConvoBar">
+											<input type="hidden" name="tz" id="timezone" value="">
+											<input type="hidden" name="convoTime" id="datetime-bar" value="">
 											<label for="convoTime">Conversation Time</label>
-											<input type="datetime-local" id="convoTime" name="convoTime">
+											<input type="datetime-local" id="convoTime">
 											<label for="convoTitle">Convo Title</label>
 											<input type="text" id="convoTitle" name="convoTitle">
 											<label for="convoDesc">Convo Description</label>
@@ -92,7 +95,7 @@
 											<!-- Sus security here -->
 											<label for="article">Article URL</label>
 											<input type="text" id="article" name="article">
-											<input type="submit" value="submit">
+											<button onclick="submitBarConvo()">Create</button>
 										</form>
 									</div>
 								</div>
@@ -820,6 +823,8 @@
 		}
 	}
 	function fillinvar(){
+		var d = new Date()
+		document.getElementById('timezone').setAttribute('value', d.getTimezoneOffset()/60)
 		title = document.getElementById("convo-title1").innerHTML;
 		title1 = document.getElementById("convo-title2").innerHTML;
 		title2 = document.getElementById("convo-title3").innerHTML;
