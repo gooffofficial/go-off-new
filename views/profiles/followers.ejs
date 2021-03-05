@@ -60,15 +60,15 @@
     
     <script>
         function fillinVar(){
-            console.log("test");
+            // console.log("test");
             (function(){
-                console.log("test1");
+                // console.log("test1");
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
-                    console.log("test2");
+                    // console.log("test2");
                     if (this.readyState == 4 && this.status == 200) {
-                        console.log("test3");
-                        console.log(this.responseText)
+                        // console.log("test3");
+                        // console.log(this.responseText)
                         var myArr = JSON.parse(this.responseText);
                         console.log(myArr);
                         var div, a, text, img, dmbutton, profbutton;
@@ -117,7 +117,7 @@
                             document.querySelector("#followerlist").appendChild(img);
                         }
                          
-                        console.log(myArr);
+                        // console.log(myArr);
                     }
                 };
                 xhr.open("GET", '/api/users/followers/<%=user%>', true);

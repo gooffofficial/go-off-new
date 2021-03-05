@@ -59,9 +59,6 @@
               "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
           });
           console.log(phoneInputField)
-          const phoneNumber = phoneInput.getNumber();
-          phoneInputField.text = phoneNumber;
-          console.log(phoneNumber);
         </script>
 
         <label>Location <span class="required">*</span></label><br>
@@ -87,7 +84,8 @@
           <input type="radio" id="Other" name="genderType">
           <input type="text" name="gender" placeholder="OTHER" id="other-gender-textbox">
         </fieldset><br>
-				
+        
+        <!--add onchange to call submithandle for changing phone number-->
 				<div class="checkbox-container">
 					<input type="checkbox" id="checkbox" id="login-demo-checkbox" name="login-demo-checkbox"><img src="/check.svg" id="check">
 					<label for="checkbox" id="terms">Agree to <b>Terms of Service & Privacy Policy</b></label>
@@ -95,9 +93,11 @@
 
 				<br>
 
-        <form action="/emailver">
+        <form action="" onsubmit="submithandle()" id="signupform">
           <button type="submit" id="submit-button">SIGN UP</button>
         </form>
+
+  
 				<p id="ques-text">Already have an account? <a href="/login">Log in here</a></p>
 			</form>
 		</div>
@@ -107,6 +107,15 @@
 		</div>
 	</div>
 </body>
+<script>
+  function submithandle(){
+    let signupform = document.getElementById("signupform");
+
+    const phoneNumber = phoneInput.getNumber();
+    phoneInputField.value = phoneNumber;
+    console.log(phoneNumber);
+  }
+</script>
 
 <!-- OLD DISCARDED CODE -->
 <!-- <body style = "background-color: white;">
