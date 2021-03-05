@@ -470,7 +470,7 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
                 //Check to see whether the conversation has started yet
                 var convoStarted = false
                 var curTime = Date.now()
-                var convoTime = convo.time.getTime()
+                var convoTime = convo.time
                 if (curTime >= convoTime){
                     convoStarted = true
                 }

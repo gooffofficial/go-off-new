@@ -36,6 +36,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
             time: req.body.convoTime,
             roomId: ''+room._id,
             title: req.body.convoTitle,
+            tz: req.body.tz,
             description: req.body.convoDesc
         }).then((convo) => {
             db.Convo_members.create({
@@ -50,7 +51,8 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
 
                 //set up, schedule, and send 30 min sms reminder in a cron job
                 var d = new Date(0)
-                d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
+                //d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
+                d.setUTCMilliseconds((convo.time - (30*60000)))
                 console.log("HEEEEYYYY UR PHONE NUMBER IS "+ u.phonenumber+"\n"+process.env.TWILIO_PHONE_NUMBER)
                 var textJob = new cronJob.CronJob(d, function() {
                     console.log("TEEEEXXXTTTT\n\n\n\n")
@@ -61,7 +63,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                 }, null, true)
 
                 //set up, schedule, and send 30 min email reminder
-                console.log("TIMEEEEEEE " + ((convo.time.getTime() - (30*60000))/1000))
+                //console.log("TIMEEEEEEE " + ((convo.time.getTime() - (30*60000))/1000))
                 const msg = {
                     to: u.email,
                     from: 'go.offmedia@gmail.com',
@@ -69,7 +71,8 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                     text: 'Hello ' + u.firstname + ',\n\n We are reminding you that you\
                     are hosting a convo about this article: ' + req.body.article + ' in 30 minutes (' + req.body.convoTime + ')!\n\
                     Join the conversation at https://go-off.co/chat/'+convo.roomId,
-                    send_at: Math.floor((convo.time.getTime() - (30*60000))/1000)
+                    //send_at: Math.floor((convo.time.getTime() - (30*60000))/1000)
+                    send_at: Math.floor((convo.time - (30*60000))/1000)
                 }
                 sgMail.send(msg).then(() => {
                     //send confirmation email
@@ -118,7 +121,8 @@ router.post('/join', auth.required, [body('convo').escape()], (req, res, next) =
         //TODO: Fix Date in the past Warning message after reminder text is sent to
         // participant
         var d = new Date(0)
-        d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
+        //d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
+        d.setUTCMilliseconds((convo.time - (30*60000)))
         var textJob = new cronJob.CronJob(d, function() {
             console.log("TEEEEXXXTTTT\n\n\n\n")
             twilioClient.messages.create( {to: u.phonenumber,
@@ -135,7 +139,8 @@ router.post('/join', auth.required, [body('convo').escape()], (req, res, next) =
             text: 'Hello ' + u.firstname + ',\n\n We are reminding you that you\
             are signed up for a convo about this article: ' + convo.article + ' in 30 minutes (' + req.body.convo.time + ')!\n\
             Join the conversation at https://go-off.co/chat/'+convo.roomId,
-            send_at: Math.floor((convo.time.getTime() - (30*60000))/1000)
+            //send_at: Math.floor((convo.time.getTime() - (30*60000))/1000)
+            send_at: Math.floor((convo.time - (30*60000))/1000)
         }
 
         //send confirmation email

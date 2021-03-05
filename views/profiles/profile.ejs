@@ -26,6 +26,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 	</script>
+	<script src="/convoCreate.js"></script>
 
 	<title>Profile Page</title>
 </head>
@@ -77,9 +78,11 @@
 										</button>
 									</div>
 									<div class="modal-body" style="width: min-content;">
-										<form action="/api/convos/create" method="post">
+										<form action="/api/convos/create" method="post" id="createConvoBar">
 											<label for="convoTime">Conversation Time</label>
-											<input type="datetime-local" id="convoTime" name="convoTime">
+											<input type="datetime-local" id="convoTime">
+											<input type="hidden" id="datetime-bar" name="convoTime" value="">
+											<input type="hidden" id="timezone" name="tz" value="">
 											<label for="convoTitle">Convo Title</label>
 											<input type="text" id="convoTitle" name="convoTitle">
 											<label for="convoDesc">Convo Description</label>
@@ -87,7 +90,7 @@
 											<!-- Sus security here -->
 											<label for="article">Article URL</label>
 											<input type="text" id="article" name="article">
-											<input type="submit" value="submit">
+											<button onclick="submitConvoBar()">Create</button>
 										</form>
 									</div>
 								</div>
@@ -463,7 +466,7 @@
 									<img id="convo-img" src="<%=upConvos[i].img%>">
 								</div>
 								<div id="convo-right-content">
-									<p id="convo-date"><%=upConvos[i].date%></p>
+									<p id="up-convo-date<%=i%>"><%=upConvos[i].date%></p>
 									<p id="convo-title"><%=upConvos[i].title%></p>
 									<p id="convo-description"><%=upConvos[i].description%></p>
 									<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by <%=upConvos[i].host%></span>
@@ -485,7 +488,7 @@
 									<img id="convo-img" src="<%=prevConvos[i].img%>">
 								</div>
 								<div id="convo-right-content">
-									<p id="convo-date"><%=prevConvos[i].date%></p>
+									<p id="prev-convo-date<%=i%>"><%=prevConvos[i].date%></p>
 									<p id="convo-title"><%=prevConvos[i].title%></p>
 									<p id="convo-description"><%=prevConvos[i].description%></p>
 									<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by <%=prevConvos[i].host%></span>
@@ -852,6 +855,16 @@
 		}
 		function fillinVar() {
 			(function () {
+				var upConvos = <%- JSON.stringify(upConvos)%>
+				var prevConvos = <%- JSON.stringify(prevConvos)%>
+				for(var i=0; i<upConvos.length; i++){
+					document.getElementById('up-convo-date'+i).innerHTML = new Date(parseInt(upConvos[i].date, 10))
+				}
+				for(var i=0; i<prevConvos.length; i++){
+					document.getElementById('prev-convo-date'+i).innerHTML = new Date(parseInt(prevConvos[i].date, 10))
+				}
+				var d = new Date()
+				document.getElementById('timezone').setAttribute('value', d.getTimezoneOffset()/60)
 				var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
