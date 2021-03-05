@@ -45,7 +45,7 @@ router.get('/:user', auth.required, (req, res, next) => {
             else{
                 conv['host'] = host.username;
             }
-            if(Date.now() < Date.parse(c.time)){
+            if(Date.now() < c.time){
                 upConvos.push(conv);
             }
             else{

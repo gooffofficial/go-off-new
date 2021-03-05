@@ -13,6 +13,7 @@ const _ = require('lodash')
 const sgMail = require('@sendgrid/mail')
 const twilio = require('twilio')
 const cronJob = require('cron')
+const crawler = require('../../apify/crawler')
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
@@ -22,12 +23,21 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
     const {payload: { id, username } } = req;
     Room.create({
         url: req.body.article
-    }, (err, room) => {
+    }, async (err, room) => {
         if(err){
             console.log(err)
             return res.status(422).json({
                 error: err
             })
+        }
+        var userC = await db.Article.findOne({
+            where: {
+                url: req.body.article
+            }
+        });
+
+        if (!userC){
+            crawler(req.body.article)
         }
         //console.log("IDDDDD "+room._id)
         db.Convo.create({
@@ -53,14 +63,16 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                 var d = new Date(0)
                 //d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
                 d.setUTCMilliseconds((convo.time - (30*60000)))
-                console.log("HEEEEYYYY UR PHONE NUMBER IS "+ u.phonenumber+"\n"+process.env.TWILIO_PHONE_NUMBER)
-                var textJob = new cronJob.CronJob(d, function() {
-                    console.log("TEEEEXXXTTTT\n\n\n\n")
-                    twilioClient.messages.create( {to: u.phonenumber,
-                        from: process.env.TWILIO_PHONE_NUMBER, 
-                        body: "Hi, it's Go Off! We are reminding you that you are hosting a conversation about this article: " + req.body.article + " in 30 minutes.\n\n\
-                        Join the conversation at https://go-off.co/chat/"+convo.roomId})
-                }, null, true)
+                if (Date.now() < convo.time - (30*60000)){
+                    console.log("HEEEEYYYY UR PHONE NUMBER IS "+ u.phonenumber+"\n"+process.env.TWILIO_PHONE_NUMBER)
+                    var textJob = new cronJob.CronJob(d, function() {
+                        console.log("TEEEEXXXTTTT\n\n\n\n")
+                        twilioClient.messages.create( {to: u.phonenumber,
+                            from: process.env.TWILIO_PHONE_NUMBER, 
+                            body: "Hi, it's Go Off! We are reminding you that you are hosting a conversation about this article: " + req.body.article + " in 30 minutes.\n\n\
+                            Join the conversation at https://go-off.co/chat/"+convo.roomId})
+                    }, null, true)
+                }
 
                 //set up, schedule, and send 30 min email reminder
                 //console.log("TIMEEEEEEE " + ((convo.time.getTime() - (30*60000))/1000))
@@ -123,14 +135,15 @@ router.post('/join', auth.required, [body('convo').escape()], (req, res, next) =
         var d = new Date(0)
         //d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
         d.setUTCMilliseconds((convo.time - (30*60000)))
-        var textJob = new cronJob.CronJob(d, function() {
-            console.log("TEEEEXXXTTTT\n\n\n\n")
-            twilioClient.messages.create( {to: u.phonenumber,
-                from: process.env.TWILIO_PHONE_NUMBER, 
-                body: "Hi, it's Go Off! We are reminding you that you have a conversation about this article: " + convo.article + " in 30 minutes.\n\n\
-                Join the conversation at https://go-off.co/chat/"+convo.roomId})
-        }, null, true)
-
+        if (Date.now() < (convo.time - (30*60000))){
+            var textJob = new cronJob.CronJob(d, function() {
+                console.log("TEEEEXXXTTTT\n\n\n\n")
+                twilioClient.messages.create( {to: u.phonenumber,
+                    from: process.env.TWILIO_PHONE_NUMBER, 
+                    body: "Hi, it's Go Off! We are reminding you that you have a conversation about this article: " + convo.article + " in 30 minutes.\n\n\
+                    Join the conversation at https://go-off.co/chat/"+convo.roomId})
+            }, null, true)
+        }
         //set up, schedule and send 30 min reminder email
         const msg = {
             to: u.email,
