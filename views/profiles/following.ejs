@@ -56,17 +56,17 @@
     <script>
         function fillinVar(){
             numusers = 0;
-            console.log("test");
+            // console.log("test");
             (function(){
-                console.log("test1");
+                // console.log("test1");
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
-                    console.log("test2");
+                    // console.log("test2");
                     if (this.readyState == 4 && this.status == 200) {
-                        console.log("test3");
-                        console.log(this.responseText)
+                        // console.log("test3");
+                        // console.log(this.responseText)
                         var myArr = JSON.parse(this.responseText);
-                        console.log(myArr);
+                        // console.log(myArr);
                         var div, div2, a, text, img, dmtext, dma;
                         for (var i = 0, l = myArr.length; i < l; ++i) {
                             div = document.createElement('div');
@@ -86,7 +86,7 @@
                             img.setAttribute("id", "user"+i+"pic");
 
                             user = myArr[i][0];
-                            console.log(myArr[i][0]);
+                            // console.log(myArr[i][0]);
                             dma.setAttribute("class", "userchat" + i);
                             dma.setAttribute("id", "userchat"+i)
                             dma.setAttribute("href", "/m/" + user);
@@ -96,7 +96,7 @@
                             div2.appendChild(dma);
 
                             user = myArr[i][0];
-                            console.log(myArr[i][0]);
+                            // console.log(myArr[i][0]);
                             a.setAttribute("class", "user" + i);
                             a.setAttribute("id", "user"+i);
                             a.setAttribute("href", "/profiles/" + user);
@@ -112,7 +112,7 @@
                             document.querySelector("#followerlist").appendChild(img);
                         }
                          
-                        console.log(myArr);
+                        // console.log(myArr);
                     }
                 };
                 xhr.open("GET", '/api/users/following/<%=user%>', true);

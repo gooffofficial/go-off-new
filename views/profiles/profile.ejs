@@ -221,7 +221,7 @@
 				<h1 id="articles-text">USER CONTENT</h1>
 
 				<div id="user-article-1" class="article">
-					<a id="user-article1_link" onclick="ConvoCheck()">
+					<a id="user-article1_link">
 						<div class="article-image-container">
 							<img id="user-article-1-image" class="article-image">
 						</div>
@@ -545,21 +545,21 @@
 			document.getElementById("pro-style").setAttribute('href', '/css/profile.css')
 		}
 
-		function ConvoCheck() {
-			x = document.getElementById("user-article1_link2")
-			if(x == "#"){
-				x = document.getElementById("add-media");
-				x.style.display = "none";
-			}
-			console.log(x)
-		}
+		// function ConvoCheck() {
+		// 	x = document.getElementById("user-article1_link2")
+		// 	if(x == "#"){
+		// 		x = document.getElementById("add-media");
+		// 		x.style.display = "none";
+		// 	}
+		// 	console.log(x)
+		// }
 		function saveArticles() {
 			xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function () {
-				console.log("returned nothigngggggalskfjs");
+				// console.log("returned nothigngggggalskfjs");
 				if (this.readyState == 4 && this.status == 200) {
 					var userArr = JSON.parse(this.responseText);
-					console.log("ahhhhhhhhhhhhhhh", userArr.id);
+					// console.log("ahhhhhhhhhhhhhhh", userArr.id);
 					var x = userArr.id;
 					window.location.href = "/folder/" + x.toString();
 				}
@@ -570,10 +570,10 @@
 		function saveArticles2() {
 			xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function () {
-				console.log("returned nothigngggggalskfjs");
+				// console.log("returned nothigngggggalskfjs");
 				if (this.readyState == 4 && this.status == 200) {
 					var userArr = JSON.parse(this.responseText);
-					console.log("ahhhhhhhhhhhhhhh", userArr.id);
+					// console.log("ahhhhhhhhhhhhhhh", userArr.id);
 					var x = userArr.id;
 					window.location.href = "/folder/" + x.toString();
 				}
@@ -584,10 +584,10 @@
 		function saveArticles3() {
 			xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function () {
-				console.log("returned nothigngggggalskfjs");
+				// console.log("returned nothigngggggalskfjs");
 				if (this.readyState == 4 && this.status == 200) {
 					var userArr = JSON.parse(this.responseText);
-					console.log("ahhhhhhhhhhhhhhh", userArr.id);
+					// console.log("ahhhhhhhhhhhhhhh", userArr.id);
 					var x = userArr.id;
 					window.location.href = "/folder/" + x.toString();
 				}
@@ -604,7 +604,7 @@
 			}));
 			//change colors based off click
 			if (document.getElementById("followbtn").value == "FOLLOW") {
-				console.log("test");
+				// console.log("test");
 				document.getElementById("followbtn").value = "FOLLOWING";
 			} else {
 				document.getElementById("followbtn").value = "FOLLOW";
@@ -630,7 +630,7 @@
 		}
 		//FOR TAB FUNCTIONALITY
 		function openCity1(evt, cityName) {
-			console.log(cityName);
+			// console.log(cityName);
 			// Declare all variables
 			var i, tabcontent, tablinks;
 			// Get all elements with class="tabcontent" and hide them
@@ -684,22 +684,22 @@
 				xmlhttp.send();
 			}
 		}
-		function searchBar() {
-			document.getElementById("Submit").style.visibility = "hidden";
-			document.getElementById("Cancel").style.visibility = "visible";
-			document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
-			document.getElementsByClassName('fpname')[0].style.visibility = "hidden";
-			document.getElementById("bar_form").style.visibility = "visible";
-			document.getElementById("droparrow").style.display = "none";
-		}
-		function searchBar1() {
-			document.getElementById("Submit").style.visibility = "visible";
-			document.getElementById("Cancel").style.visibility = "hidden";
-			document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
-			document.getElementsByClassName('fpname')[0].style.visibility = "visible";
-			document.getElementById("bar_form").style.visibility = "hidden";
-			document.getElementById("droparrow").style.display = "block";
-		}
+		// function searchBar() {
+		// 	document.getElementById("Submit").style.visibility = "hidden";
+		// 	document.getElementById("Cancel").style.visibility = "visible";
+		// 	document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
+		// 	document.getElementsByClassName('fpname')[0].style.visibility = "hidden";
+		// 	document.getElementById("bar_form").style.visibility = "visible";
+		// 	document.getElementById("droparrow").style.display = "none";
+		// }
+		// function searchBar1() {
+		// 	document.getElementById("Submit").style.visibility = "visible";
+		// 	document.getElementById("Cancel").style.visibility = "hidden";
+		// 	document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
+		// 	document.getElementsByClassName('fpname')[0].style.visibility = "visible";
+		// 	document.getElementById("bar_form").style.visibility = "hidden";
+		// 	document.getElementById("droparrow").style.display = "block";
+		// }
 
 		function dropclick1(id) {
 			var x = document.getElementById(id);
@@ -711,38 +711,38 @@
 		}
 		/* When the user clicks on the button,
 		toggle between hiding and showing the dropdown content */
-		function myFunction() {
-			document.getElementById("myDropdown").classList.toggle("show");
-		}
+		// function myFunction() {
+		// 	document.getElementById("myDropdown").classList.toggle("show");
+		// }
 		// Close the dropdown menu if the user clicks outside of it
-		window.onclick = function (event) {
-			if (!event.target.matches('.dropbtn')) {
-				var dropdowns = document.getElementsByClassName("dropdown-content");
-				var i;
-				for (i = 0; i < dropdowns.length; i++) {
-					var openDropdown = dropdowns[i];
-					if (openDropdown.classList.contains('show')) {
-						openDropdown.classList.remove('show');
-					}
-				}
-			}
-		}
-		function dropclick5() {
-			var x = document.getElementById("arrowdrop5");
-			if (x.style.display === "block") {
-				x.style.display = "none";
-			} else {
-				x.style.display = "block";
-			}
-		}
-		function dropclick6() {
-			var x = document.getElementById("dropdown-supersubmenu");
-			if (x.style.display === "block") {
-				x.style.display = "none";
-			} else {
-				x.style.display = "block";
-			}
-		}
+		// window.onclick = function (event) {
+		// 	if (!event.target.matches('.dropbtn')) {
+		// 		var dropdowns = document.getElementsByClassName("dropdown-content");
+		// 		var i;
+		// 		for (i = 0; i < dropdowns.length; i++) {
+		// 			var openDropdown = dropdowns[i];
+		// 			if (openDropdown.classList.contains('show')) {
+		// 				openDropdown.classList.remove('show');
+		// 			}
+		// 		}
+		// 	}
+		// }
+		// function dropclick5() {
+		// 	var x = document.getElementById("arrowdrop5");
+		// 	if (x.style.display === "block") {
+		// 		x.style.display = "none";
+		// 	} else {
+		// 		x.style.display = "block";
+		// 	}
+		// }
+		// function dropclick6() {
+		// 	var x = document.getElementById("dropdown-supersubmenu");
+		// 	if (x.style.display === "block") {
+		// 		x.style.display = "none";
+		// 	} else {
+		// 		x.style.display = "block";
+		// 	}
+		// }
 		function dropclickfolders1() {
 			var x = document.getElementById("folders-options1");
 			if (x.style.display === "block") {
@@ -787,7 +787,7 @@
 		function sendfolderreq(x, y) {
 			var xhr = new XMLHttpRequest();
 			var url = document.getElementById(y).href;
-			console.log(url);
+			// console.log(url);
 			xhr.open("POST", "/api/users/saveto_folder", true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify({
@@ -799,19 +799,19 @@
 			var xhr1 = new XMLHttpRequest();
 			xhr1.onreadystatechange = function () {
 				// if (this.readyState == 4 && this.status == 200) {
-				console.log(this.responseText);
+				// console.log(this.responseText);
 				var idnum = JSON.parse(this.responseText);
 				// console.log('the idnum set to', idnum.id);
 				// socket.emit('room', idnum.id); //sets the room to that idnum returned
-				console.log("hello");
-				console.log(idnum);
+				// console.log("hello");
+				// console.log(idnum);
 				location.href = "/chat/" + idnum.id;
-				console.log(location.href)
+				// console.log(location.href)
 				// }else{
 				//     console.log("its not working");
 				// }
 			};
-			console.log(document.getElementById("article1_link").href);
+			// console.log(document.getElementById("article1_link").href);
 			xhr1.open("GET", '/api/chat/getid?article=' + document.getElementById("article1_link").href, true);
 			xhr1.send();
 		}
@@ -822,13 +822,13 @@
 				var idnum = JSON.parse(this.responseText);
 				// console.log('the idnum set to', idnum.id);
 				// socket.emit('room', idnum.id); //sets the room to that idnum returned
-				console.log("hello");
+				// console.log("hello");
 				location.href = "/chat/" + idnum.id;
 				// }else{
 				//     console.log("its not working");
 				// }
 			};
-			console.log(document.getElementById("article1_link").href);
+			// console.log(document.getElementById("article1_link").href);
 			xhr2.open("GET", '/api/chat/getid?article=' + document.getElementById("article2_link").href, true);
 			xhr2.send();
 		}
@@ -839,14 +839,14 @@
 				var idnum = JSON.parse(this.responseText);
 				// console.log('the idnum set to', idnum.id);
 				// socket.emit('room', idnum.id); //sets the room to that idnum returned
-				console.log(idnum);
-				console.log("hello");
+				// console.log(idnum);
+				// console.log("hello");
 				location.href = "/chat/" + idnum.id;
 				// }else{
 				//     console.log("its not working");
 				// }
 			};
-			console.log(document.getElementById("article3_link").href);
+			// console.log(document.getElementById("article3_link").href);
 			xhr3.open("GET", '/api/chat/getid?article=' + document.getElementById("article3_link").href, true);
 			xhr3.send();
 		}
@@ -855,51 +855,50 @@
 				var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
-						console.log(this.responseText)
+						// console.log(this.responseText)
 						var myArr = JSON.parse(this.responseText);
 						var currUser = '<%=myUser%>';
-						console.log("CURRRRENT" + currUser);
-						console.log(myArr);
-						console.log(myArr.user.is_user)
+						// console.log("CURRRRENT" + currUser);
+						// console.log(myArr);
+						// console.log(myArr.user.is_user)
 						if (myArr.user.is_following == true) {
 							document.getElementById("followbtn").value = "FOLLOWING";
-							console.log("worksworksworks");
+							// console.log("worksworksworks");
 						}
 						if (myArr.user.is_user == true) {
 							currUser = myArr.user.username;
 							document.getElementById("followbtn").style.visibility = "hidden";
-							console.log("USERNAMEEEEEEE" + myArr.user.username);
+							// console.log("USERNAMEEEEEEE" + myArr.user.username);
 							document.getElementById("fprofpic").src = myArr.user.propic;
-							console.log(currUser);
-							console.log("works1");
+							// console.log(currUser);
+							// console.log("works1");
 						}
 						if (myArr.user.admin != "(Admin)" && myArr.user.admin != "(Host)"){
 							document.getElementById("convobtn").style.visibility = "hidden";
-							console.log(document.getElementById("convobtn").style.visibility)
+							// console.log(document.getElementById("convobtn").style.visibility)
 
 						}
-						document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
+						// document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
 						
 						document.getElementById("profile-name").innerHTML = myArr.user.firstname + " " + myArr.user
 							.lastname + " " + myArr.user.admin + myArr.user.host;
 						document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
 						document.getElementById("profbutton").setAttribute("href", "/profiles/" + currUser);
-						console.log("outside if statement" + currUser);
+						// console.log("outside if statement" + currUser);
 						document.getElementById("following-iframe").setAttribute("src", "/following/<%=user%>");
 						document.getElementById("follower-iframe").setAttribute("src", "/followers/<%=user%>");
 						document.getElementById("location").innerHTML = myArr.user.location;
 						document.getElementById("profile-pic").src = myArr.user.propic;
 						document.getElementById("follower-count").innerHTML = myArr.user.followercount;
 						document.getElementById("following-count").innerHTML = myArr.user.followingcount;
-						document.getElementById("location").innerHTML = myArr.user.location;
 						document.getElementById("bio").innerHTML = myArr.user.bio;
-						console.log(myArr);
+						// console.log(myArr);
 						var pageURL = window.location.href;
 						var lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
 						var user = document.getElementById("user-name");
-						console.log(lastURLSegment);
-						console.log(myArr.user.username);
-						console.log("testtesttest");
+						// console.log(lastURLSegment);
+						// console.log(myArr.user.username);
+						// console.log("testtesttest");
 					}
 				};
 				xhr.open("GET", '/api/users/profile/<%=user%>', true);
@@ -941,52 +940,52 @@
 						document.getElementById("user-article3check_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
 						document.getElementById("user-article4check_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
 						document.getElementById("user-article1_link").setAttribute("href", "/conversation/?article="+userArticles.article1Url);
-						x = document.getElementById("user-article1_link").href
-						if(x == "http://localhost:8000/conversation/?article="){
-							document.getElementById("user-article1_link").href = "";
-						}
-						document.getElementById("user-article1_link2").setAttribute("href", userArticles.article1Url);
-						document.getElementById("user-article1_link3").setAttribute("href", userArticles.article1Url);
+						// x = document.getElementById("user-article1_link").href
+						// if(x == "http://localhost:8000/conversation/?article="){
+						// 	document.getElementById("user-article1_link").href = "";
+						// }
+						// document.getElementById("user-article1_link2").setAttribute("href", userArticles.article1Url);
+						// document.getElementById("user-article1_link3").setAttribute("href", userArticles.article1Url);
 						document.getElementById("user-article-1-image").src = userArticles.article1img;
-						document.getElementById("user-article-1-title").innerHTML = userArticles.article1Title.substring(0,50) + "...";
+						// document.getElementById("user-article-1-title").innerHTML = userArticles.article1Title.substring(0,50) + "...";
 						if(userArticles.article1Title.length > 50){
 							document.getElementById("user-article-1-title").innerHTML = userArticles.article1Title.substring(0,50) + "...";
-							console.log("works!");
+							// console.log("works!");
 						}else{
 							document.getElementById("user-article-1-title").innerHTML = userArticles.article1Title;
 						}
 						if(userArticles.article2Title.length > 50){
 							document.getElementById("user-article-2-title").innerHTML = userArticles.article2Title.substring(0,50) + "...";
-							console.log("works!");
+							// console.log("works!");
 						}else{
 							document.getElementById("user-article-2-title").innerHTML = userArticles.article2Title;
 						}
 						if(userArticles.article3Title.length > 50){
 							document.getElementById("user-article-3-title").innerHTML = userArticles.article3Title.substring(0,50) + "...";
-							console.log("works!");
+							// console.log("works!");
 						}else{
 							document.getElementById("user-article-3-title").innerHTML = userArticles.article3Title;
 						}
 						if(userArticles.article4Title.length > 50){
 							document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title.substring(0,50) + "...";
-							console.log("works!");
+							// console.log("works!");
 						}else{
 							document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title;
 						}
 						document.getElementById("user-article2_link").setAttribute("href", "/conversation/?article="+userArticles.article2Url);
-						document.getElementById("user-article2_link1").setAttribute("href", userArticles.article2Url);
-						document.getElementById("user-article2_link2").setAttribute("href", userArticles.article2Url);
-						document.getElementById("user-article2_link3").setAttribute("href", userArticles.article2Url);
+						// document.getElementById("user-article2_link1").setAttribute("href", userArticles.article2Url);
+						// document.getElementById("user-article2_link2").setAttribute("href", userArticles.article2Url);
+						// document.getElementById("user-article2_link3").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article-2-image").src = userArticles.article2img;
 						document.getElementById("user-article3_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
-						document.getElementById("user-article3_link1").setAttribute("href", userArticles.article3Url);
-						document.getElementById("user-article3_link2").setAttribute("href", userArticles.article3Url);
-						document.getElementById("user-article3_link3").setAttribute("href", userArticles.article3Url);
+						// document.getElementById("user-article3_link1").setAttribute("href", userArticles.article3Url);
+						// document.getElementById("user-article3_link2").setAttribute("href", userArticles.article3Url);
+						// document.getElementById("user-article3_link3").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article-3-image").src = userArticles.article3img;
 						document.getElementById("user-article4_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
-						document.getElementById("user-article4_link1").setAttribute("href", userArticles.article4Url);
-						document.getElementById("user-article4_link2").setAttribute("href", userArticles.article4Url);
-						document.getElementById("user-article4_link3").setAttribute("href", userArticles.article4Url);
+						// document.getElementById("user-article4_link1").setAttribute("href", userArticles.article4Url);
+						// document.getElementById("user-article4_link2").setAttribute("href", userArticles.article4Url);
+						// document.getElementById("user-article4_link3").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article-4-image").src = userArticles.article4img;
 					}
 				}
@@ -1013,7 +1012,7 @@
 					if (this.readyState == 4 && this.status == 200) {
 						var userArr = JSON.parse(this.responseText);
 						for (var i = 0; i < userArr.length; i++) {
-							console.log(userArr[i].foldername);
+							// console.log(userArr[i].foldername);
 							var x = i + 1
 							document.getElementById("folder" + x.toString() + "_title").textContent = userArr[i]
 								.foldername;
@@ -1024,20 +1023,20 @@
 				xhr4.withCredentials = true;
 				xhr4.send();
 			})();
-			function test() {
-				len = document.getElementById("profile-name").textContent.length;
-				len = len - 1;
-				if (len <= 10) {
-					document.getElementById("profile-name").style.top = "10%";
-					document.getElementById("profile-name").style.fontSize = "45px";
-				} else if (len <= 20 && len > 10) {
-					document.getElementById("profile-name").style.top = "20%";
-					document.getElementById("profile-name").style.fontSize = "35px";
-				} else {
-					document.getElementById("profile-name").style.top = "30%";
-					document.getElementById("profile-name").style.fontSize = "20px";
-				}
-			}
+			// function test() {
+			// 	len = document.getElementById("profile-name").textContent.length;
+			// 	len = len - 1;
+			// 	if (len <= 10) {
+			// 		document.getElementById("profile-name").style.top = "10%";
+			// 		document.getElementById("profile-name").style.fontSize = "45px";
+			// 	} else if (len <= 20 && len > 10) {
+			// 		document.getElementById("profile-name").style.top = "20%";
+			// 		document.getElementById("profile-name").style.fontSize = "35px";
+			// 	} else {
+			// 		document.getElementById("profile-name").style.top = "30%";
+			// 		document.getElementById("profile-name").style.fontSize = "20px";
+			// 	}
+			// }
 		}
 	</script>
 
