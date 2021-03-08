@@ -70,7 +70,7 @@
                         // console.log("test3");
                         // console.log(this.responseText)
                         var myArr = JSON.parse(this.responseText);
-                        console.log(myArr);
+                        // console.log(myArr);
                         var div, a, text, img, dmbutton, profbutton;
                         for (var i = 0, l = myArr.length; i < l; ++i) {
                             div = document.createElement('div');
@@ -91,7 +91,7 @@
                             img.setAttribute("id", "user"+i+"pic")
 
                             user = myArr[i][0];
-                            console.log(myArr[i][0]);
+                            // console.log(myArr[i][0]);
                             dma.setAttribute("class", "user" + i);
                             dma.setAttribute("id", "user"+i)
                             dma.setAttribute("href", "/m/" + user);
@@ -101,7 +101,7 @@
                             div2.appendChild(dma);
 
                             user = myArr[i][0];
-                            console.log(myArr[i][0]);
+                            // console.log(myArr[i][0]);
                             a.setAttribute("class", "user" + i);
                             a.setAttribute("id", "user"+i);
                             a.setAttribute("href", "/profiles/" + user);

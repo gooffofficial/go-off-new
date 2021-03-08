@@ -405,31 +405,31 @@
 					</div>
 				</div>
 
-				<div class="user-Chat1" id="update1" style="display: none;">
+				<!-- <div class="user-Chat1" id="update1" style="display: none;">
 					<form action="/api/users/add_article1" method="post">
 						<label for="url">Article Url:</label>
 						<input type="text" id="url" name="article">
 						<input type="submit" value="update">
 					</form>
-				</div>
+				</div> -->
 
 				<!--Second convo-->
-				<div id="user-convo-2" class="article">
+				<div id="user-article-2" class="article">
 					<a id="user-convo2_link" href="/conversation/?article=<%=convos[1].article%>">
 						<div class="article-image-container">
-							<img id="user-convo-2-image" class="article-image">
+							<img id="user-convo-2-image" class="article-image" src="<%=convos[1].img%>">
 						</div>
 					</a>
 
 					<div class="article-info-container">
-						<a id="user-convo2_link2">
-							<h4 id="user-convo-2-author" class="article-author"></h4>
+						<a id="user-article1_link2">
+							<h4 id="user-article-2-author" class="article-author"></h4>
 						</a>
-						<a id="user-convo2_link3">
-							<h4 id="user-convo-2-read-time" class="article-read-time"></h4>
+						<a id="user-article1_link3">
+							<h4 id="user-article-2-read-time" class="article-read-time"></h4>
 						</a>
-						<a id="user-convo2_link1">
-							<h3 id="user-convo-2-title" class="article-title"></h3>
+						<a id="user-article1_link1">
+							<h3 id="user-article-2-title" class="article-title"></h3>
 						</a>
 					</div>
 
@@ -450,11 +450,12 @@
 							<!-- <img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown"> -->
 							<button onclick="joinConvo1()" id="rsvp-button">RSVP</button>
 							<!-- <ul class="dropdown-menu">
-								<li><a tabindex="-1" href="#" onclick="sendreq6()" id="update4" style="visibility: visible">Save
+								<li><a tabindex="-1" href="#" onclick="sendreq5()" id="update4" style="visibility: visible">Save
 										to profile</a></li>
+								<li><a id="article1convolink" href="/conversation/?article=<%=articles[0].link%>">Check Conversations</a></li>
 								<li class="dropdown-submenu">
-									<a id="save-to-folder" onclick="dropclickfolders6()">Save to folder</a>
-									<ul class="dropdown-menu" id="folders-options6">
+									<a id="save-to-folder" onclick="dropclickfolders5()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options5">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -469,19 +470,19 @@
 				<div id="user-article-3" class="article">
 					<a id="user-convo3_link" href="/conversation/?article=<%=convos[2].article%>">
 						<div class="article-image-container">
-							<img id="user-convo-3-image" class="article-image">
+							<img id="user-convo-3-image" class="article-image" src="<%=convos[2].img%>">
 						</div>
 					</a>
 
 					<div class="article-info-container">
-						<a id="user-convo3_link2">
+						<a id="user-article3_link2">
 							<h4 id="user-article-3-author" class="article-author"></h4>
 						</a>
 						<a id="user-article3_link3">
-							<h4 id="user-convo-3-read-time" class="article-read-time"></h4>
+							<h4 id="user-article-3-read-time" class="article-read-time"></h4>
 						</a>
 						<a id="user-article3_link1">
-							<h3 id="user-convo-3-title" class="article-title"></h3>
+							<h3 id="user-article-3-title" class="article-title"></h3>
 						</a>
 					</div>
 
@@ -502,11 +503,12 @@
 							<!-- <img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown"> -->
 							<button onclick="joinConvo2()" id="rsvp-button">RSVP</button>
 							<!-- <ul class="dropdown-menu">
-								<li><a tabindex="-1" href="#" onclick="sendreq7()" id="update4" style="visibility: visible">Save
+								<li><a tabindex="-1" href="#" onclick="sendreq5()" id="update4" style="visibility: visible">Save
 										to profile</a></li>
+								<li><a id="article1convolink" href="/conversation/?article=<%=articles[0].link%>">Check Conversations</a></li>
 								<li class="dropdown-submenu">
-									<a id="save-to-folder" onclick="dropclickfolders7()">Save to folder</a>
-									<ul class="dropdown-menu" id="folders-options7">
+									<a id="save-to-folder" onclick="dropclickfolders5()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options5">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -521,19 +523,19 @@
 				<div id="user-article-4" class="article">
 					<a id="user-convo4_link" href="/conversation/?article=<%=convos[3].article%>">
 						<div class="article-image-container">
-							<img id="user-convo-4-image" class="article-image">
+							<img id="user-convo-4-image" class="article-image" src="<%=convos[3].img%>">
 						</div>
 					</a>
 
 					<div class="article-info-container">
 						<a id="user-article4_link2">
-							<h4 id="user-convo-4-author" class="article-author"></h4>
+							<h4 id="user-article-4-author" class="article-author"></h4>
 						</a>
 						<a id="user-article4_link3">
-							<h4 id="user-convo-4-read-time" class="article-read-time"></h4>
+							<h4 id="user-article-4-read-time" class="article-read-time"></h4>
 						</a>
 						<a id="user-article4_link1">
-							<h3 id="user-convo-4-title" class="article-title"></h3>
+							<h3 id="user-article-4-title" class="article-title"></h3>
 						</a>
 					</div>
 
@@ -554,11 +556,12 @@
 							<!-- <img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown"> -->
 							<button onclick="joinConvo3()" id="rsvp-button">RSVP</button>
 							<!-- <ul class="dropdown-menu">
-								<li><a tabindex="-1" href="#" onclick="sendreq8()" id="update4" style="visibility: visible">Save
+								<li><a tabindex="-1" href="#" onclick="sendreq5()" id="update4" style="visibility: visible">Save
 										to profile</a></li>
+								<li><a id="article1convolink" href="/conversation/?article=<%=articles[0].link%>">Check Conversations</a></li>
 								<li class="dropdown-submenu">
-									<a id="save-to-folder" onclick="dropclickfolders8()">Save to folder</a>
-									<ul class="dropdown-menu" id="folders-options8">
+									<a id="save-to-folder" onclick="dropclickfolders5()">Save to folder</a>
+									<ul class="dropdown-menu" id="folders-options5">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -624,32 +627,57 @@
 				for(var i=0; i<artArr.length; i++) {
 					console.log(artArr[i].title)
 					document.getElementById("article"+(i+1)+"convolink").setAttribute("href", artArr[i].link)
-					//document.getElementById("update"+(i+1)).setAttribute(onclick, "sendreq('"+artArr[i].link+"'")
 					document.getElementById("user-article-"+(i+1)+"-title").innerText = artArr[i].title
-					//document.getElementById("user-article-"+(i+1)+"_link3").setAttribute("href", artArr[i].link)
-					//document.getElementById("user-article-"+(i+1)+"_link2").setAttribute("href", artArr[i].link)
 					document.getElementById("user-article"+(i+1)+"_link").setAttribute("href", "/conversation/?article="+artArr[i].link)
 					document.getElementById("user-article-"+(i+1)+"-image").setAttribute("src", artArr[i].img)
 				}
+				title4 = document.getElementById("user-article-1-title").innerHTML;
+				title5 = document.getElementById("user-article-2-title").innerHTML;
+				title6 = document.getElementById("user-article-3-title").innerHTML;
+				title7 = document.getElementById("user-article-4-title").innerHTML;
+				if(title4.length > 50){
+					title4 = title4.substring(0,50) + "...";
+					document.getElementById("user-article-1-title").innerHTML = title4;
+					console.log(title4);
+					console.log("works!");
 				}
-			}
+				if(title5.length > 50){
+					title5 = title5.substring(0,50) + "...";
+					document.getElementById("user-article-2-title").innerHTML = title5;
+					console.log(title5);
+					console.log("works!");
+				}
+				if(title6.length > 50){
+					title6 = title6.substring(0,50) + "...";
+					document.getElementById("user-article-3-title").innerHTML = title6;
+					console.log(title6);
+					console.log("works!");
+				}
+				if(title7.length > 50){
+					title7 = title7.substring(0,50) + "...";
+					document.getElementById("user-article-4-title").innerHTML = title7;
+					console.log(title7);
+					console.log("works!");
+				}
+				}
+		}
 			xhrNotif.open("GET", '/api/getarticles?o='+articleOffset, true);
 			xhrNotif.withCredentials = true
 			xhrNotif.send();
 			articleOffset += 4;
-		}			
+	}			
 		function getNextConvos(){
 			var xhrNotif = new XMLHttpRequest();
 			xhrNotif.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
 					var convArr = JSON.parse(this.responseText);
-					//console.log("HELLO\n\n"+convArr+"\n\n")
+					console.log("HELLO\n\n"+convArr+"\n\n")
 					for(var i=0; i<convArr.length; i++) {
 						document.getElementById("user-convo"+(i+1)+"_link").setAttribute("href", "/conversation/?article="+convArr[i].article)
 						document.getElementById("convo-host"+(i+1)).innerText = "Hosted by " + convArr[i].host
 						document.getElementById("convo"+(i+1)+"-title").innerText = convArr[i].title
 						document.getElementById("convo"+(i+1)+"-desc").innerText = convArr[i].description
-						document.getElementById("user-convo-"+(i+1)+"-image").setAttribute('src', convArr[i].img)
+						document.getElementById("user-convo-"+(i+1)+"-image").setAttribute("src", convArr[i].img)
 					}
 					}
 				}
@@ -825,18 +853,10 @@
 	function fillinvar(){
 		var d = new Date()
 		document.getElementById('timezone').setAttribute('value', d.getTimezoneOffset()/60)
-		//title = document.getElementById("convo-title1").innerHTML;
-		//title1 = document.getElementById("convo-title2").innerHTML;
-		//title2 = document.getElementById("convo-title3").innerHTML;
-		//title3 = document.getElementById("convo-title4").innerHTML;
 		title4 = document.getElementById("user-article-1-title").innerHTML;
 		title5 = document.getElementById("user-article-2-title").innerHTML;
 		title6 = document.getElementById("user-article-3-title").innerHTML;
 		title7 = document.getElementById("user-article-4-title").innerHTML;
-		// console.log(title.replace(/\s+/g, " "));
-		// console.log(title1.length);
-		// console.log(title2.length);
-		// console.log(title3.length);
 		console.log(title4.length);
 		console.log(title5.length);
 		console.log(title6.length);
@@ -847,30 +867,37 @@
 			document.getElementById("convobtn").style.visibility = "visible";
 			console.log("test")
 		}
-		// if(title.length > 50){
-		// 	title = title.substring(0,50) + "...";
-		// 	document.getElementById("convo-title1").innerHTML = title;
-		// 	console.log(title);
-		// 	console.log("works!");
-		// }
-		// if(title1.length > 50){
-		// 	title1 = title1.substring(0,50) + "...";
-		// 	document.getElementById("convo-title2").innerHTML = title1;
-		// 	console.log(title1);
-		// 	console.log("works!");
-		// }
-		// if(title2.length > 50){
-		// 	title2 = title2.substring(0,50) + "...";
-		// 	document.getElementById("convo-title3").innerHTML = title2;
-		// 	console.log(title2);
-		// 	console.log("works!");
-		// }
-		// if(title3.length > 50){
-		// 	title3 = title3.substring(0,50) + "...";
-		// 	document.getElementById("convo-title4").innerHTML = title3;
-		// 	console.log(title3);
-		// 	console.log("works!");
-		// }
+		if(title4.length > 50){
+			title4 = title4.substring(0,50) + "...";
+			document.getElementById("user-article-1-title").innerHTML = title4;
+			console.log(title4);
+			console.log("works!");
+		}
+		if(title5.length > 50){
+			title5 = title5.substring(0,50) + "...";
+			document.getElementById("user-article-2-title").innerHTML = title5;
+			console.log(title5);
+			console.log("works!");
+		}
+		if(title6.length > 50){
+			title6 = title6.substring(0,50) + "...";
+			document.getElementById("user-article-3-title").innerHTML = title6;
+			console.log(title6);
+			console.log("works!");
+		}
+		if(title7.length > 50){
+			title7 = title7.substring(0,50) + "...";
+			document.getElementById("user-article-4-title").innerHTML = title7;
+			console.log(title7);
+			console.log("works!");
+		}
+	}
+
+	function titlelen(){
+		title4 = document.getElementById("user-article-1-title").innerHTML;
+		title5 = document.getElementById("user-article-2-title").innerHTML;
+		title6 = document.getElementById("user-article-3-title").innerHTML;
+		title7 = document.getElementById("user-article-4-title").innerHTML;
 		if(title4.length > 50){
 			title4 = title4.substring(0,50) + "...";
 			document.getElementById("user-article-1-title").innerHTML = title4;
