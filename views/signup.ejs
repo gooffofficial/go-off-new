@@ -61,16 +61,20 @@
           console.log(phoneInputField)
         </script>
 
+        
+        <!--input type is hidden then assign the country code to that and concatenate it in the backend-->
         <label>Location <span class="required">*</span></label><br>
 				<input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="location"><br>
 	
 				<label>PASSWORD <span class="required">*</span></label><br>
 				<input type="password" class="field-input" autocomplete="off" id="login-demo-form-password" name="password"><br>
 				
-				<br>
+				
 				
 				<label for="">DATE OF BIRTH <span class="required">*</span></label><br>
         <input type="date" id="birthday" id="basic-input" name="birthdate"><br>
+
+
         
         <label>Pronouns <span class="required">*</span></label><br>
 				<fieldset id="Gender" name="gender">
@@ -91,7 +95,9 @@
 					<label for="checkbox" id="terms">Agree to <b>Terms of Service & Privacy Policy</b></label>
 				</div>
 
-				<br>
+        <input type="text" id="cc" style="visibility: hidden;" name="countrycode">
+        
+        
 
         <form action="" id="signupform">
           <button type="submit" id="submit-button">SIGN UP</button>
@@ -109,11 +115,12 @@
 </body>
 <script>
   function submithandle(){
-    let signupform = document.getElementById("signupform");
-
+    
     const phoneNumber = phoneInput.getNumber();
-    phoneInputField.value = phoneNumber;
-    console.log(phoneNumber);
+    //grab hidden input field id then set the value equal to the country code and then send it to the backend and concatenate it their
+    
+    ccInputField = document.querySelector("#cc");
+    ccInputField.value = phoneNumber;
   }
 </script>
 

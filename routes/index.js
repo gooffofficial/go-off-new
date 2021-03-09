@@ -144,7 +144,7 @@ router.get('/feed', auth.required, (req, res, next) => {
             }
             arts2.push(a)
         }
-        seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt LIMIT 4")
+        seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4")
         /*db.Convo_members.findAll({
             where: {
                 UserId: id

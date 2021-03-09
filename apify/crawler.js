@@ -11,7 +11,7 @@ async function testCrawl(url){
         //const title = $('head meta[property^="og:title"]').attr("content")
         //const img = $('img').attr("src");
         const img = $('head meta[property^="og:image"]').attr("content")
-        console.log(img, "\n\n\n")
+        console.log(img + "\n\n\n")
         //getting the word count of the webpage to calculate the read time
         const len = $('body').text().split(' ').length;
 

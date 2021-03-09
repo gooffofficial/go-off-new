@@ -112,7 +112,7 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
     const {payload: {id}} = req
     var offset = req.query["o"]
     console.log("AFGG\n\n\n")
-    seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt LIMIT 4 OFFSET "+ offset)
+    seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
         /*db.Convo_members.findAll({
             where: {
                 UserId: id

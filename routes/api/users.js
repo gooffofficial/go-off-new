@@ -56,6 +56,7 @@ router.post('/', auth.optional, [
   body('location').escape(),
   body('gender').escape(),
   body('phonenumber').escape(),
+  body('countrycode').escape(),
   body('password').escape(),
   body('birthdate').escape()
 ],(req, res, next) => {
@@ -166,7 +167,7 @@ router.post('/', auth.optional, [
       password: user.password,
       admin: user.admin,
       host: user.host,
-      phonenumber: user.phonenumber,
+      phonenumber: user.countrycode,
       birthdate: user.birthdate,
       user_ver: 0,
       followercount: user.followercount,
