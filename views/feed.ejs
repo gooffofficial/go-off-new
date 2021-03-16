@@ -188,7 +188,7 @@
 						<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[0].link%>')" id="update4" style="visibility: visible">Save to profile</a></li>
-							<li><a id="article1convolink" href="<%=articles[0].link%>">Check Conversations</a></li>
+							<li><a id="article1convolink" href="/conversation/?article=<%=articles[0].link%>">Check Conversations</a></li>
 							<li class="dropdown-submenu">
 								<a id="save-to-folder" onclick="dropclickfolders1()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options1">
@@ -240,7 +240,7 @@
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[1].link%>')" id="update4" style="visibility: visible">Save to
 									profile</a></li>
-							<li><a id="article2convolink" href="<%=articles[1].link%>">Check Conversations</a></li>
+							<li><a id="article2convolink" href="/conversation/?article=<%=articles[1].link%>">Check Conversations</a></li>
 							<li class="dropdown-submenu">
 								<a id="save-to-folder" onclick="dropclickfolders2()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options2">
@@ -285,7 +285,7 @@
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[2].link%>')" id="update4" style="visibility: visible">Save to
 									profile</a></li>
-							<li><a id="article3convolink" href="<%=articles[2].link%>">Check Conversations</a></li>
+							<li><a id="article3convolink" href="/conversation/?article=<%=articles[2].link%>">Check Conversations</a></li>
 							<li class="dropdown-submenu">
 								<a id="save-to-folder" onclick="dropclickfolders3()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options3">
@@ -330,7 +330,7 @@
 						<ul class="dropdown-menu">
 							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[3].link%>')" id="update4" style="visibility: visible">Save to
 									profile</a></li>
-							<li><a id="article4convolink" href="<%=articles[3].link%>">Check Conversations</a></li>
+							<li><a id="article4convolink" href="/conversation/?article=<%=articles[3].link%>">Check Conversations</a></li>
 							<li class="dropdown-submenu">
 								<a id="save-to-folder" onclick="dropclickfolders4()">Save to folder</a>
 									<ul class="dropdown-menu" id="folders-options1">
@@ -350,7 +350,7 @@
 			
 
 			<div id="user-articles-container">
-				<h1 id="articles-text">My Friends Convos</h1>
+				<h1 id="articles-text">Your Friends Convos</h1>
 
 				<!--First convo-->
 				<div id="user-article-1" class="article">
@@ -667,10 +667,13 @@
 			articleOffset += 4;
 	}			
 		function getNextConvos(){
+			console.log("testing")
 			var xhrNotif = new XMLHttpRequest();
 			xhrNotif.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
 					var convArr = JSON.parse(this.responseText);
+					console.log(convArr[0].img)
+					console.log(convArr[0].title)
 					console.log("HELLO\n\n"+convArr+"\n\n")
 					for(var i=0; i<convArr.length; i++) {
 						document.getElementById("user-convo"+(i+1)+"_link").setAttribute("href", "/conversation/?article="+convArr[i].article)
