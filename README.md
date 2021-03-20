@@ -9,9 +9,22 @@ For example, if I were working on a user page the branch I would working on is "
 
 Once you have your feature working, submit a pull request so that we can merge the code!
 
+# Docker and deployment
+
+We are deploying our application via docker images so that we can easily control our environment and ensure that we have all the dependencies that we need installed for multiple programming languages at one (i.e. JS and Python).
+
+I set up a dockerhub repository that automatically triggers a new build each time a change is pushed to the master branch of the github repo. It is crucial that master only contains working code because of this!
+
+When you push a change to the master branch, you can log in to hub.docker.com with our Go Off! account info to see the build progress. To see this, go to the gooff repo on dockerhub, and click on 'Builds', and scroll down to 'Automated Builds' to see the progress.
+
+After the build is finished, go to AWS, and to our elastic beanstalk environment (GooffBetaDocker1-env). From there, click upload and deploy and upload to Dockerrun.aws.json file which you were provided. When it is done deploying, then you should be able to access the site and see the changes!
+
+If something goes wrong in deployment, the logs are probably the first place you should go. You can find them on the left side of the elastic beanstalk page, and clicking on Logs. Usually getting the last 100 lines will be good enough, but if not, you also have the option to download the full logs.
+
+If you need to add something to the environment variables. Updating .env will not be enough as we are not pushing that file to the github repo. You will adlso need to add it into the build configurations on Dockerhub. Once you are in the dockerhub repo, go to builds, then configure automated builds, then add a build environment variable.
+
 # running the backend server
 
-To get the server working, install mongodb locally (we are running it locally for testing purposes), and run the mongo server.
 Install node dependencies with 'yarn install package', then run the server with 'node server.js'.
 
 Make sure to download the .env folder with all the sensitive AWS folder if you haven't already. 
