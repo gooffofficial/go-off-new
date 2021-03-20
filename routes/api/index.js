@@ -37,7 +37,7 @@ router.get('/folders', auth.required, (req, res, next) => {
 router.get('/getarticles', auth.required,[query('o').escape()], (req, res, next) => {
     const {payload: {id}} = req;
     var offset = req.query["o"]
-    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt LIMIT 4 OFFSET "+ offset)
+    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
     .then(async (articles) => { 
         console.log("LENGTH\n\n\n\n" + articles[0].length)
         var arts = []
