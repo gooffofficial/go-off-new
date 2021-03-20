@@ -13,15 +13,18 @@ Once you have your feature working, submit a pull request so that we can merge t
 
 We are deploying our application via docker images so that we can easily control our environment and ensure that we have all the dependencies that we need installed for multiple programming languages at one (i.e. JS and Python).
 
-I set up a dockerhub repository that automatically triggers a new build each time a change is pushed to the master branch of the github repo. It is crucial that master only contains working code because of this!
+I set up a dockerhub repository which AWS will grab our image from. See details at hub.docker.com and login in with our Go Off! account info.
 
-When you push a change to the master branch, you can log in to hub.docker.com with our Go Off! account info to see the build progress. To see this, go to the gooff repo on dockerhub, and click on 'Builds', and scroll down to 'Automated Builds' to see the progress.
+To build and deploy first you want to install docker. After docker is installed, then run 'docker login' and login with the Go Off docker credentials.
+
+1. In the the root folder of the Go Off repository run docker build -t gooffofficial/gooff
+2. After that build is complete run docker push gooffofficial/gooff
+
+Note: This is via the terminal. I don't know how docker desktop works, so if you do it through that I'm not sure the entire process.
 
 After the build is finished, go to AWS, and to our elastic beanstalk environment (GooffBetaDocker1-env). From there, click upload and deploy and upload to Dockerrun.aws.json file which you were provided. When it is done deploying, then you should be able to access the site and see the changes!
 
 If something goes wrong in deployment, the logs are probably the first place you should go. You can find them on the left side of the elastic beanstalk page, and clicking on Logs. Usually getting the last 100 lines will be good enough, but if not, you also have the option to download the full logs.
-
-If you need to add something to the environment variables. Updating .env will not be enough as we are not pushing that file to the github repo. You will adlso need to add it into the build configurations on Dockerhub. Once you are in the dockerhub repo, go to builds, then configure automated builds, then add a build environment variable.
 
 # running the backend server
 
