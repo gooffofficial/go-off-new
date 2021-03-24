@@ -408,10 +408,10 @@
 		</div>
 
 
-		<div id="Media" class="tabcontent" style="display: block;">
+		<div id="Media" class="tabcontent" >
             <div id="user-articles-container">
                 <h1 id="articles-text">UPCOMING CONVERSATIONS</h1>
-                <div id="upcoming_convo" class="tabcontent1" style = "display: block;">
+                <div id="upcoming_convo" class="tabcontent1">
                                     <% for(var i=0; i < upConvos.length; i++) { %>
                                             <div id="convo-container">
                                                 <div id="convo-img-container">
@@ -426,7 +426,7 @@
                                                     <div id="convo-btns">
                                                         <!-- SHARE BUTTON NO FUNCTIONALITY YET
                                                         <a><img src="/share_outline.svg" id="convo-share-btn"></a> -->
-														<button id="go-to-convo-button" onclick="joinConvo(i)">RSVP</button>
+														<button id="go-to-convo-button" onclick="joinConvo(<%=i%>)"">RSVP</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -579,6 +579,19 @@
 		// 	}
 		// 	console.log(x)
 		// }
+
+		function joinConvo(i) {
+			console.log("HEEEEYYYYY")
+			upConvs = <%- JSON.stringify(upConvos)%>
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", '/api/convos/join', true);
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify({
+				convo: upConvs[i].id
+			}));
+			var x = document.getElementById("rsvp-pop");
+			x.style.visibility = "visible";
+		}
 
 		function saveArticles() {
 			xhr = new XMLHttpRequest();
