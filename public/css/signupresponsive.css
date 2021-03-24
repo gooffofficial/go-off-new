@@ -1,0 +1,16 @@
+.whole-container {
+    position: flex;
+}
+
+@media only screen and (max-width: 1000px) {
+    .left-side {
+        display: none !important;
+    }
+    
+    .right-container {
+        position: fixed !important;
+        right: 13% !important;
+        font-size: 4px;
+        left: 10%;
+    }
+  }
