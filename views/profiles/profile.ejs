@@ -426,7 +426,7 @@
                                                     <div id="convo-btns">
                                                         <!-- SHARE BUTTON NO FUNCTIONALITY YET
                                                         <a><img src="/share_outline.svg" id="convo-share-btn"></a> -->
-                                                    
+														<button id="go-to-convo-button" onclick="joinConvo(i)">RSVP</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -579,6 +579,7 @@
 		// 	}
 		// 	console.log(x)
 		// }
+
 		function saveArticles() {
 			xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function () {
