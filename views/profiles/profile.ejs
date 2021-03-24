@@ -492,7 +492,7 @@
 									<img id="convo-img" src="<%=upConvos[i].img%>">
 								</div>
 								<div id="convo-right-content">
-									<p id="up-convo-date<%=i%>"><%=upConvos[i].date%></p>
+									<p id="up-convo-datetab<%=i%>"><%=upConvos[i].date%></p>
 									<p id="convo-title"><%=upConvos[i].title%></p>
 									<p id="convo-description"><%=upConvos[i].description%></p>
 									<span id="convo-host"><img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="convo-usr-pfp"> Hosted by <%=upConvos[i].host%></span>
@@ -896,6 +896,7 @@
 				var prevConvos = <%- JSON.stringify(prevConvos)%>
 				for(var i=0; i<upConvos.length; i++){
 					document.getElementById('up-convo-date'+i).innerHTML = new Date(parseInt(upConvos[i].date, 10))
+					document.getElementById('up-convo-datetab'+i).innerHTML = new Date(parseInt(upConvos[i].date, 10))
 				}
 				for(var i=0; i<prevConvos.length; i++){
 					document.getElementById('prev-convo-date'+i).innerHTML = new Date(parseInt(prevConvos[i].date, 10))
