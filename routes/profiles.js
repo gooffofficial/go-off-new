@@ -38,6 +38,7 @@ router.get('/:user', auth.required, (req, res, next) => {
                 conv['title'] = c.title;
                 conv['img'] = art.img;
                 conv['id'] = c.roomId;
+                conv['convoId'] = c.id;
                 conv['description'] = c.description;
                 //get username of host
                 var host = await db.User.findOne({
