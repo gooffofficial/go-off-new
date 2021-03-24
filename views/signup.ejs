@@ -17,10 +17,13 @@
 
 	<!-- Include latest PatternFly CSS via CDN -->
 	<link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/signupresponsive.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<title>Sign Up</title>
 </head>
 
 <body>
+  <div class="whole-container">
 	<div class="left-side">
 		<div class="left-container">
 			<img src="/GO_OFF_LOGO_WHITE.svg" id="left-logo">
@@ -112,12 +115,12 @@
 			<img src="/wave_thin.svg" id="wave">
 		</div>
 	</div>
+</div>
 </body>
 <script>
   function submithandle(){
-    
     const phoneNumber = phoneInput.getNumber();
-    //grab hidden input field id then set the value equal to the country code and then send it to the backend and concatenate it their
+    //grab hidden input field id then set the value equal to the country code and then send it to the backend and concatenate it there
     
     ccInputField = document.querySelector("#cc");
     ccInputField.value = phoneNumber;
