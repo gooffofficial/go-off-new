@@ -12,7 +12,7 @@ async function testCrawl(url){
         //const img = $('img').attr("src");
         let img = $('head meta[property^="og:image"]').attr("content");
         if ( img == null)  {
-            img = "/GO_Off300.png";
+            img = "https://images.wsj.net/im-308677/social";
         }
         console.log(img + "\n\n\n")
         //getting the word count of the webpage to calculate the read time

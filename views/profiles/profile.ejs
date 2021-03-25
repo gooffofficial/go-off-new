@@ -587,7 +587,7 @@
 			xhr.open("POST", '/api/convos/join', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify({
-				convo: upConvs[i].id
+				convo: upConvs[i].convoId
 			}));
 			var x = document.getElementById("rsvp-pop");
 			x.style.visibility = "visible";
@@ -636,6 +636,12 @@
 			xhr.send();
 		}
 		function testclick() {
+			if (document.getElementById("followbtn").value == "FOLLOW") {
+				console.log("test");
+				document.getElementById("followbtn").value = "FOLLOWING";
+			} else {
+				document.getElementById("followbtn").value = "FOLLOW";
+			}
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", '/api/users/follower_update', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
@@ -643,12 +649,8 @@
 				username: document.getElementById("user-name").innerHTML.substring(1)
 			}));
 			//change colors based off click
-			if (document.getElementById("followbtn").value == "FOLLOW") {
-				// console.log("test");
-				document.getElementById("followbtn").value = "FOLLOWING";
-			} else {
-				document.getElementById("followbtn").value = "FOLLOW";
-			}
+			
+			
 		}
 		//FOR TAB FUNCTIONALITY
 		function openCity(evt, cityName) {

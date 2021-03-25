@@ -32,7 +32,7 @@ label:focus,
 	outline: 0px !important;
 	-webkit-appearance: none;
 	box-shadow: none !important;
-	background-color: rgba(0, 0, 0, 0.07) !important;
+	/* background-color: rgba(0, 0, 0, 0.07) !important; */
 }
 
 .pageContainer {
