@@ -52,6 +52,7 @@ router.get('/:user', auth.required, (req, res, next) => {
                 else{
                     conv['host'] = host.username;
                 }
+                // Sort user's convos into upcoming or previous based on time
                 if(Date.now() < c.time){
                     upConvos.push(conv);
                 }

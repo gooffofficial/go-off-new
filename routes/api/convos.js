@@ -21,6 +21,7 @@ var twilioClient = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO
 
 router.post('/create', auth.required, [body('convoTime').escape()], (req, res, next) => {
     const {payload: { id, username } } = req;
+    // Create Chat room from the article
     Room.create({
         url: req.body.article
     }, async (err, room) => {
@@ -30,16 +31,18 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                 error: err
             })
         }
+        // Find the article in the database
         var userC = await db.Article.findOne({
             where: {
                 url: req.body.article
             }
         });
-
+        // If article not already in database, then scrape and add to database
         if (!userC){
             crawler(req.body.article)
         }
         //console.log("IDDDDD "+room._id)
+        // Create conversation in database
         db.Convo.create({
             article: req.body.article,
             host: id,
@@ -49,6 +52,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
             tz: req.body.tz,
             description: req.body.convoDesc
         }).then((convo) => {
+            // Add host to convo member list
             db.Convo_members.create({
                 UserId: id,
                 ConvoId: convo.id
@@ -62,6 +66,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                 //set up, schedule, and send 30 min sms reminder in a cron job
                 var d = new Date(0)
                 //d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
+                // Set trigger time to be 30 min before convo
                 d.setUTCMilliseconds((convo.time - (30*60000)))
                 if (Date.now() < convo.time - (30*60000)){
                     console.log("HEEEEYYYY UR PHONE NUMBER IS "+ u.phonenumber+"\n"+process.env.TWILIO_PHONE_NUMBER)
@@ -114,6 +119,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
 
 router.post('/join', auth.required, [body('convo').escape()], (req, res, next) => {
     const {payload: {id, username}} = req;
+    // Add user to convo member list
     db.Convo_members.create({
         UserId: id,
         ConvoId: req.body.convo
@@ -133,6 +139,7 @@ router.post('/join', auth.required, [body('convo').escape()], (req, res, next) =
         //TODO: Fix Date in the past Warning message after reminder text is sent to
         // participant
         var d = new Date(0)
+        // Set trigger time to 30 min before convo
         //d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
         d.setUTCMilliseconds((convo.time - (30*60000)))
         if (Date.now() < (convo.time - (30*60000))){

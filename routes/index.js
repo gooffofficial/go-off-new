@@ -78,6 +78,7 @@ router.get("/verify", (req, res) => {
 router.get('/feed', auth.required, (req, res, next) => {
     const { payload: { id, username } } = req;
     //seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
+    // Query to get first 4 articles from people who user is following
     seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=S.userId ORDER BY S.createdAt DESC LIMIT 4")
     .then(async (articles) => { 
         var arts = []
@@ -87,6 +88,7 @@ router.get('/feed', auth.required, (req, res, next) => {
         console.log(arts)
         var arts2 = []
         for(const art of arts){
+            // For each article, find in the articles database, and add the image, title and url
             var art2 = {}
             let a = await db.Article.findOne({
                 where: {
@@ -117,6 +119,7 @@ router.get('/feed', auth.required, (req, res, next) => {
             arts2.push(a);
             arts2.push(a);
         }
+        // Check to make sure length is 4, and add dummy entries if not
         if (arts.length == 1){
             let a = {
                 img: '',
@@ -144,6 +147,7 @@ router.get('/feed', auth.required, (req, res, next) => {
             }
             arts2.push(a)
         }
+        // Query to find convos of people following
         seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4")
         /*db.Convo_members.findAll({
             where: {
@@ -154,6 +158,7 @@ router.get('/feed', auth.required, (req, res, next) => {
             console.log("HOW MANY \n\n\n\n\n" + convos[0].length)
             var convs = []
             var i = 0
+            // Add host, image, and title info for each convo
             for (const convo of convos[0]){
                 let c = await db.Convo.findOne({
                     where: {
@@ -183,6 +188,7 @@ router.get('/feed', auth.required, (req, res, next) => {
                 i++
             }
             convs=convs.reverse();
+            // Check length = 4 and add dummy entries if not
             if(convs.length == 0) {
                 convs[0] = {
                     article: "",
@@ -264,6 +270,7 @@ router.get('/conversation', auth.required, (req, res, next) => {
             url: article
         }
     }).then((art) => {
+        // if article not found, scrape and add to databse. Reload page
         if(!art){
             try{
                 crawler(req.query["article"]);
@@ -284,7 +291,7 @@ router.get('/conversation', auth.required, (req, res, next) => {
             ]
         }).then(async (convos) => {
             var hosts = []
-            // current timestamp in milliseconds
+            // Add host username for each convo
             for (const convo of convos){
                 let host = await db.User.findOne({
                     where: {
@@ -293,6 +300,7 @@ router.get('/conversation', auth.required, (req, res, next) => {
                 })
                 hosts.push(host.username)
             }
+            // Verify length and add dummy entries if not right
             if(hosts.length == 0){
                 hosts[0] = ""
                 hosts[1] = ""
@@ -332,6 +340,7 @@ router.get('/conversation', auth.required, (req, res, next) => {
                     id: id
                 }
             })
+            // Ensure user is host or admin
             let host = user.host == "(Host)"
             let admin = user.admin == "(Admin)"
             return res.render('conversation', {user: username, articlePic: art.img, artTitle: art.title, artLink: article, date: year + "-" + month + "-" + date+"T00:00", convos: convos, hosts: hosts, host: host, admin: admin})  
@@ -384,6 +393,7 @@ router.get('/m/:username', auth.required, (req, res, next) => {
         var userPic = profile.ppic;
         var users = [req.params.username, username];
         users.sort();
+        // Find the room of the dms between users via room identifier (usernames concatenated in alphabetical order)
         var roomIdentifier = users[0]+users[1] 
         DM.findOne(
             {identifier: roomIdentifier}, (err, room) => {
@@ -447,6 +457,7 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
                 url: room.url[0]
             }
         }).then((article) => {
+            // If article not in database, scrape and add
             if(!article){
                 try{
                     crawler(room.url[0]);
