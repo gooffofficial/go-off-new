@@ -131,7 +131,7 @@
 
 			<div class="navigationProfile d-flex">
 				<div class="align-self-center">
-					<a href="">
+					<a href="/profiles/<%=user%>">
 						<img id="fprofpic" src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"
 							class="navigationProfilePic">
 						<p class="navigationProfileName"></p>
@@ -177,11 +177,11 @@
 			</div>
 
 			<!-- COMMENTED OUT ORIGINAL!! -->
-			<!-- <div id="article-info-container"></div>
+			 <div id="article-info-container"></div>
 				<a href="<%=artLink%>" id="article-link">article link</a>
 				<h1 id="article-title"><%=artTitle%></h1>
 				<button onclick="joinConvo()">RSVP</button>
-			</div> -->
+			</div> 
 		</div>
 
 		<div id="convos-container">
@@ -251,14 +251,14 @@
 			</div>
 		</div>
 
-		<!-- <div id="rsvp-pop" style="visibility: hidden;">
+		<div id="rsvp-pop" style="visibility: hidden;">
 			<p>You have succesfully RSVP'd for this conversation! 
 				Go to the Conversations Tab on your profile to join!
 			</p>
 			<a href="/profiles/<%=user%>">
 				<button type="submit">Go to Profile</button>
 			</a>
-		</div> -->
+		</div> 
 		<!-- <div id="arrowdropmodal" class="dropdown-arrowcontent">
 			<form id="createConvo" method="post" action="/api/convos/create">
 				<label for="convoTime">Conversation Time</label>
