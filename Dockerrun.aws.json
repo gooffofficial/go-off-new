@@ -1,0 +1,27 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+      "Name": "gooffofficial/gooff"
+    },
+    "authentication": {
+        "bucket": "elasticbeanstalk-us-west-1-855995294489",
+        "key": ".dockercfg"
+      },
+    "Ports": [
+      {
+        "ContainerPort": "8000"
+      },
+      {
+          "HostPort": "4050",
+          "ContainerPort": "4050"
+      },
+      {
+        "HostPort":"2052",
+        "ContainerPort":"2052"
+      },
+      {
+        "HostPort":"2053",
+        "ContainerPort":2053
+      }
+    ]
+  }

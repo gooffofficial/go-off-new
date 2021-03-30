@@ -11,9 +11,11 @@ const io = require('socket.io-client')
 const { body } = require('express-validator');
 const _ = require('lodash')
 
-
+//Connect to socket.io server
 var socket = io.connect('http://127.0.0.1:4050');
 
+
+//Find all admins and create a persisting list
 db.User.findAll({
     where: {
         admin: "(Admin)"
@@ -101,6 +103,7 @@ router.post('/:room', auth.required,(req, res, next) => {
 })
 
 router.post('/m/:room', auth.required, (req, res, next) => {
+    //Find direct message room
     DM.findOne({identifier: req.params.room}, (err, room) => {
         if(err){
             console.log(err);
@@ -192,11 +195,13 @@ router.get('/getid', auth.optional, (req, res, next) => {
 router.post('/leave/:roomid', auth.required, (req, res, next) => {
     const { payload: {id, username} } = req;
     var roomId = req.params.roomid;
+    //Find room
     Room.findById(roomId, (err, room) => {
         if(err){
             console.log(err);
             res.send(err);
         }
+        //Tell socket.io server to leave this user
         socket.emit('leave', {
             name: username,
             room: roomId,
@@ -226,6 +231,7 @@ router.post('/end/:roomid', auth.required, (req, res, next) => {
                 RoomId: req.params.roomid
             }
         }).then((convo) => {
+            //Ensure the user is either an admin or the host of this convo
             console.log("Hello " + id + " " + convo.host + "\n\n\n\n"+ (id==convo.host).toString())
             if(user.admin != "(Admin)" && id != convo.host){
                 return res.sendStatus(403);

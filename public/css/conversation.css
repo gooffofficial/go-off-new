@@ -75,6 +75,44 @@ button {
 	opacity: 1;
 }
 
+.footer-container {
+	position: relative;
+	top: 100px;
+	width: var(--pageWidth);
+	margin: 0 auto;
+	height: 200px;
+	background-color: #fff;
+	font-size: 14px;
+}
+
+#footer-logo {
+	height: 36px;
+	position: absolute;
+	bottom: 10px;
+}
+
+.footer-container a:hover {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.footer-link-container {
+	position: absolute;
+	bottom: 11px;
+	left: 70px;
+}
+
+#home,
+#profile,
+#contact {
+	border: 0;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
+	margin-right: 16px;
+	border-radius: 100px;
+	padding: 6px 18px;
+}
+
 #article-link {
 	font-family: 'Poppins', sans-serif;
 	font-size: 14px;

@@ -37,7 +37,8 @@ router.get('/folders', auth.required, (req, res, next) => {
 router.get('/getarticles', auth.required,[query('o').escape()], (req, res, next) => {
     const {payload: {id}} = req;
     var offset = req.query["o"]
-    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt LIMIT 4 OFFSET "+ offset)
+    // Query for next 4 articles from people the user is following based on the offset in the GET parameters
+    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
     .then(async (articles) => { 
         console.log("LENGTH\n\n\n\n" + articles[0].length)
         var arts = []
@@ -46,8 +47,10 @@ router.get('/getarticles', auth.required,[query('o').escape()], (req, res, next)
         } 
         console.log(arts)
         var arts2 = []
+        // For every article found, we add the image title and link
         for(const art of arts){
             var art2 = {}
+            // Find the article in the Articles table in the database
             let a = await db.Article.findOne({
                 where: {
                     url: art
@@ -66,6 +69,8 @@ router.get('/getarticles', auth.required,[query('o').escape()], (req, res, next)
         }
         console.log(arts2.length)
         arts2 = arts2.reverse();
+        // Check to make sure we return an array of length 4
+        // Else fill in dummy entries
         if(arts2.length == 0){
             let a = {
                 img: '',
@@ -112,6 +117,7 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
     const {payload: {id}} = req
     var offset = req.query["o"]
     console.log("AFGG\n\n\n")
+    // Same as above except with convos from people the user is following
     seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
         /*db.Convo_members.findAll({
             where: {
@@ -219,6 +225,7 @@ router.get('/upcoming', auth.required, (req, res, next) => {
                     id: convoIds[i].ConvoId
                 }
             })
+            // Check the date of the convo to see if it is within 30 minutes of current
             if (Date.now() - conv.time < 30*(60*1000)){
                 convos.push({
                     'article': conv.article,
