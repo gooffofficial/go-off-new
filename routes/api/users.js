@@ -764,6 +764,97 @@ router.get('/profile/:user', auth.optional, (req, res, next) => {
   })
 })
 
+router.get('/trending', auth.optional, (req, res, next) => {
+  
+    return db.UserArticle.findOne({
+      where: {
+        UserId: 59
+      }
+    })
+    .then((TArts) => {
+      var articleLinks = TArts.getArticles();
+      var Tarticles = {};
+      db.Article.findOne({
+        where: {
+          url: articleLinks["article1"]
+        }
+      }).then((article1) => {
+        if(!article1){
+          Tarticles["article1Url"] = "";
+          Tarticles["article1Title"] = "No article added";
+          Tarticles["article1Readtime"] = "";
+          Tarticles["article1img"] = "/Plus.png";
+        }
+        else{
+          var article1Info = article1.getArticleInfo();
+          Tarticles["article1Url"] = article1Info["url"];
+          Tarticles["article1Title"] = article1Info["title"];
+          Tarticles["article1Readtime"] = article1Info["readTime"]
+          Tarticles["article1img"] = article1Info["img"];
+        }
+        db.Article.findOne({
+          where: {
+            url: articleLinks["article2"]
+          }
+        }).then((article2) => {
+        if (!article2){
+          Tarticles["article2Url"] = "";
+          Tarticles["article2Title"] = "No article added";
+          Tarticles["article2Readtime"] = "";
+          Tarticles["article2img"] = "/Plus.png";
+        }
+        else{
+          var article2Info = article2.getArticleInfo();
+          Tarticles["article2Url"] = article2Info["url"];
+          Tarticles["article2Title"] = article2Info["title"];
+          Tarticles["article2Readtime"] = article2Info["readTime"]
+          Tarticles["article2img"] = article2Info["img"];
+        }
+        db.Article.findOne({
+          where: {
+            url: articleLinks["article3"]
+          }
+        }).then((article3) => {
+        if(!article3){
+          Tarticles["article3Url"] = "";
+          Tarticles["article3Title"] = "No article added";
+          Tarticles["article3Readtime"] = "";
+          Tarticles["article3img"] = "/Plus.png";
+        }
+        else{
+          var article3Info = article3.getArticleInfo();
+          Tarticles["article3Url"] = article3Info["url"];
+          Tarticles["article3Title"] = article3Info["title"];
+          Tarticles["article3Readtime"] = article3Info["readTime"]
+          Tarticles["article3img"] = article3Info["img"];
+        }
+        db.Article.findOne({
+          where: {
+            url: articleLinks["article4"]
+          }
+        }).then((article4) => {
+          if(!article4){
+            Tarticles["article4Url"] = "";
+            Tarticles["article4Title"] = "No article added";
+            Tarticles["article4Readtime"] = "";
+            Tarticles["article4img"] = "/Plus.png";
+          }
+          else{
+            var article4Info = article4.getArticleInfo();
+            Tarticles["article4Url"] = article4Info["url"];
+            Tarticles["article4Title"] = article4Info["title"];
+            Tarticles["article4Readtime"] = article4Info["readTime"]
+            Tarticles["article4img"] = article4Info["img"];
+          }
+        return res.status(200).json(Tarticles);
+    })
+    })
+    })
+    })
+    })
+  })
+
+
 router.get('/articles/:user', auth.optional, (req, res, next) => {
   return db.User.findOne({
     where: {

@@ -8,7 +8,7 @@ module.exports = (sequelize, type) => {
             allowNull: false
         },
         article1: type.STRING,
-        article2: type.STRING,
+        article2: type.STRING,  
         article3: type.STRING,
         article4: type.STRING
     });

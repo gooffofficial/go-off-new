@@ -151,7 +151,7 @@
 
 			<div id="user-info-container">
 				<h1 id="profile-name"></h1>
-				<input type="button" value="Follow" id="followbtn" onclick="testclick()"></input>
+				<input type="button" value="FOLLOW" id="followbtn" onclick="testclick()"></input>
 				<h3 id="user-name"></h3>
 
 				<div id="user-data">
@@ -636,15 +636,18 @@
 			xhr.send();
 		}
 		function testclick() {
+			console.log(document.getElementById("followbtn").value)
 			if (document.getElementById("followbtn").value == "FOLLOW") {
 				console.log("test");
 				document.getElementById("followbtn").value = "FOLLOWING";
 			} else {
+				console.log("test1")
 				document.getElementById("followbtn").value = "FOLLOW";
 			}
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", '/api/users/follower_update', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
+			console.log("test2")
 			xhr.send(JSON.stringify({
 				username: document.getElementById("user-name").innerHTML.substring(1)
 			}));
