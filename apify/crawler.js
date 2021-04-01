@@ -11,8 +11,8 @@ async function testCrawl(url){
         //const title = $('head meta[property^="og:title"]').attr("content")
         //const img = $('img').attr("src");
         let img = $('head meta[property^="og:image"]').attr("content");
-        if ( img == null)  {
-            img = "";
+        if (img == null)  {
+            img = `https://files.slack.com/files-pri/TTS73H9TK-F01SW4XUEUW/go_off_bb_2.0-04.png`;
         }
         console.log(img + "\n\n\n")
         //getting the word count of the webpage to calculate the read time
