@@ -36,7 +36,8 @@
 <body onload="fillinvar()">
 	<nav class="navigationBar d-flex">
 		<div class="navigationContainer d-flex">
-			<img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center">
+			<a href="/feed"><img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center"></a>
+			
 
 			<div class="navigationIcons align-self-center">
 				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
@@ -333,7 +334,7 @@
 							<li><a id="tarticle4convolink" href="">Check Conversations</a></li>
 							<li class="dropdown-submenu">
 								<a id="save-to-folder" onclick="dropclickfolders4()">Save to folder</a>
-									<ul class="dropdown-menu" id="folders-options1">
+									<ul class="dropdown-menu" id=rsvp"folders-options1">
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
 										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
@@ -964,8 +965,7 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[0].id %>
 		}));
-		var x = document.getElementById("rsvp-pop");
-		x.style.visibility = "visible";
+		window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
 	}
 
 	function joinConvo1() {
@@ -976,8 +976,7 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[1].id %>
 		}));
-		var x = document.getElementById("rsvp-pop");
-		x.style.visibility = "visible";
+		window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
 	}
 
 	function joinConvo2() {
@@ -988,8 +987,7 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[2].id %>
 		}));
-		var x = document.getElementById("rsvp-pop");
-		x.style.visibility = "visible";
+		window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
 	}
 
 	function joinConvo3() {
@@ -1000,8 +998,7 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[3].id %>
 		}));
-		var x = document.getElementById("rsvp-pop");
-		x.style.visibility = "visible";
+		window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
 	}
 	function dropclick1(id) {
 			var x = document.getElementById(id);

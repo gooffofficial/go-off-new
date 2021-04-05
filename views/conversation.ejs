@@ -36,7 +36,7 @@
 <body onload="fillinvar()">
 	<nav class="navigationBar d-flex">
 		<div class="navigationContainer d-flex">
-			<img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center">
+			<a href="/feed"><img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center"></a>
 
 			<div class="navigationIcons align-self-center">
 				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
@@ -355,8 +355,6 @@
 				convo: <%=convos[0].id%>
 			}));
 
-			var x = document.getElementById("rsvp-pop");
-			x.style.visibility = "visible";
 			window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
 		}
 
@@ -368,9 +366,7 @@
 			xhr.send(JSON.stringify({
 				convo: <%=convos[1].id%>
 			}));
-			var x = document.getElementById("rsvp-pop");
-			x.style.visibility = "visible";
-			window.alert("Successfully joined conversation")
+			window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
 		}
 
 		var xhrNotif = new XMLHttpRequest();

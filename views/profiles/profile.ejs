@@ -34,7 +34,7 @@
 <body onload="fillinVar()">
 	<nav class="navigationBar d-flex">
 		<div class="navigationContainer d-flex">
-			<img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center">
+			<a href="/feed"><img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center"></a>
 
 			<div class="navigationIcons align-self-center">
 				<div class="droparrow align-self-center">
@@ -123,7 +123,7 @@
 
 			<div class="navigationProfile d-flex">
 				<div class="align-self-center">
-					<a href="/profiles/<%=user%>">
+					<a href="">
 						<img id="fprofpic" src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"
 							class="navigationProfilePic">
 						<p class="navigationProfileName"></p>
@@ -589,8 +589,7 @@
 			xhr.send(JSON.stringify({
 				convo: upConvs[i].convoId
 			}));
-			var x = document.getElementById("rsvp-pop");
-			x.style.visibility = "visible";
+			window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
 		}
 
 		function saveArticles() {
