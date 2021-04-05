@@ -1,0 +1,5 @@
+keybert==0.2.0
+pandas==1.2.2
+selenium==3.141.0
+keybert==0.2.0
+bs4==0.0.1
