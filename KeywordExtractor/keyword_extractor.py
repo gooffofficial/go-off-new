@@ -89,6 +89,7 @@ class scraper:
             '''chrome.execute_script(
                 "window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")'''
             object = driver.find_element_by_tag_name("body").get_attribute('outerHTML')
+            pages.append(object)
             sleep(randint(10, 11))
         driver.close()
         return pages
