@@ -29,7 +29,7 @@ const auth = {
             return next();
         }
         else{
-            console.log("fail");
+            res.redirect('/login')
         }
     },
     

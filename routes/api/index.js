@@ -39,6 +39,9 @@ router.get('/getarticles', auth.required,[query('o').escape()], (req, res, next)
     var offset = req.query["o"]
     // Query for next 4 articles from people the user is following based on the offset in the GET parameters
     seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
+    
+    //Query for next 4 articles from the available pool
+    seq.query("SELECT article FROM test_server1.SavedArticles S ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
     .then(async (articles) => { 
         console.log("LENGTH\n\n\n\n" + articles[0].length)
         var arts = []
@@ -118,7 +121,10 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
     var offset = req.query["o"]
     console.log("AFGG\n\n\n")
     // Same as above except with convos from people the user is following
-    seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
+    // seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
+    
+    // Same as above except for all convos
+    seq.query("SELECT ConvoId FROM test_server1.Convo_members C ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
         /*db.Convo_members.findAll({
             where: {
                 UserId: id

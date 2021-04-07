@@ -16,8 +16,8 @@ def run():
         raise Exception("Supply 1 url as a parameter")
 
 
-    url: str = sys.argv[1]
-    cur_room = rooms.find_one({"url":url})
+    id: str = sys.argv[1]
+    cur_room = rooms.find_one({"_id":ObjectId(id)})
 
     message_ids = cur_room["messages"]
     messages: [] = []

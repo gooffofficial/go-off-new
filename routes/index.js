@@ -79,7 +79,9 @@ router.get('/feed', auth.required, (req, res, next) => {
     const { payload: { id, username } } = req;
     //seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
     // Query to get first 4 articles from people who user is following
-    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=S.userId ORDER BY S.createdAt DESC LIMIT 4")
+    // seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=S.userId ORDER BY S.createdAt DESC LIMIT 4")
+
+    seq.query("SELECT article FROM test_server1.SavedArticles S ORDER BY S.createdAt DESC LIMIT 4")
     .then(async (articles) => { 
         var arts = []
         for(var i=0; i<articles[0].length; i++){
@@ -148,7 +150,8 @@ router.get('/feed', auth.required, (req, res, next) => {
             arts2.push(a)
         }
         // Query to find convos of people following
-        seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4")
+        // seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4")
+        seq.query("SELECT ConvoId FROM test_server1.Convo_members C ORDER BY C.createdAt DESC LIMIT 4")
         /*db.Convo_members.findAll({
             where: {
                 UserId: id
