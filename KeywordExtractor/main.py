@@ -12,19 +12,20 @@ from selenium.webdriver.common.by import By
 import pandas as pd
 from bs4 import BeautifulSoup
 from keybert import KeyBERT
+import mysql.connector
+import CRUD
+from CRUD import Crud
+from tqdm import tqdm
+import mysql.connector
 import keyword_extractor
 from keyword_extractor import scraper
 
 
 def main():
-    url_list = [
-        'https://www.vox.com/the-goods/2021/3/23/22345407/what-did-david-dobrik-do-vlog-squad-cancelled-youtube',
-        'https://www.billboard.com/articles/columns/pop/9545592/miley-cyrus-pens-thoughtful-letter-hannah-montana-15th-anniversary/',
-        'https://www.ctvnews.ca/health/coronavirus/if-you-feel-angry-name-it-experts-offer-help-to-those-traumatized-by-anti-asian-hate-1.5362545',
-    'https://www.forbes.com/sites/abigailfreeman/2021/03/14/grammys-2021-the-winners-list/?sh=74a29c957548',
-    'https://www.bu.edu/articles/2021/bu-administrators-add-two-wellness-days-to-this-semesters-calendar/']
-    extractor = scraper()
-    extractor.run(url_list)
+    db_config = {"host":"new-db.cga2dg8jzozg.us-west-1.rds.amazonaws.com","user":"admin",
+                 "passwd":"password1", "database":"test_server1"}
+    extractor = scraper(db_config)
+    extractor.run()
 
 
 

@@ -12,18 +12,29 @@ from selenium.webdriver.common.by import By
 import pandas as pd
 from bs4 import BeautifulSoup
 from keybert import KeyBERT
+import mysql.connector
+import CRUD
+from CRUD import Crud
+from tqdm import tqdm
 
 class scraper:
 
 
-    def __init__(self):
+    def __init__(self, db_config):
         """Creating a new class to build a Keyword Extractor that takes article links,
         scrapes them for text and returns the keywords of the text.
 
-         """
-        pass
+            Args:
+                db_config: A dictionary object containing the host, user, passwd and
+                database to connect to in MYSQL workbench.
 
-    def initialize_driver(self): #driver.manage: delete all cookies.
+         """
+        self.host= db_config["host"]
+        self.user= db_config["user"]
+        self.passwd = db_config["passwd"]
+        self.database= db_config["database"]
+
+    def initialize_driver(self):
         """This is a function that initializes the Selenium webdriver
 
            Args:
@@ -49,50 +60,37 @@ class scraper:
         chrome = wb.Chrome(executable_path = 'chromedriver.exe')
         return chrome
 
-    def initialize_browser(self):
-        """This function opens up the Chrome Browser and returns the Selenium Webdriver.
-        This becomes important for scraping as the scraper can scrape all the links in
-        the same tab instead of opening new tabs for each link
-
-           Args:
-               None
-
-           Returns:
-               The configured Selenium Webdriver
-
-           """
-        driver = self.initialize_driver()
-        WebDriverWait(driver, 30).until(  # wait until document loads. No explicit wait.
-            lambda driver: driver.execute_script('return document.readyState') == 'complete')
-        return driver
-
-    def get_outer_html(self,url_list, driver):
+    def get_outer_html(self,url_list, user_id_list, driver):
         """This is a function that goes to each news article link and scrapes the outer
         html of each news article link. Returns the raw outerhtml text of these links.
 
            Args:
                url_list: list of news article links to scrape
+               user_id_list: list of user_ids from database associated with the
+               news article links
                driver: the selenium webdriver to use to scrape the link
 
            Returns:
                 pages: raw outerhtml content of each news article link
                 page.
+                user_ids: the user id's associated with each page content.
 
            """
-        driver.delete_all_cookies()
+
         pages = []
-        for url in url_list:
-            driver.execute_script("window.open('" + url + "','_self');")#replace lins 40-41 with the snippet on slack. move line 40 to the start function.
-            WebDriverWait(driver, 10).until( #wait until document loads. No explicit wait.
+        user_ids = []
+        for url, user_id in tqdm(zip(url_list, user_id_list)):
+            driver.get(url)
+            driver.execute_script(
+                "window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
+            time.sleep(30)
+            WebDriverWait(driver, 10).until(
                 lambda driver: driver.execute_script('return document.readyState') == 'complete')
-            driver.implicitly_wait(20)
-            '''chrome.execute_script(
-                "window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")'''
             object = driver.find_element_by_tag_name("body").get_attribute('outerHTML')
             pages.append(object)
-            sleep(randint(10, 11))
+            user_ids.append(user_id)
         driver.close()
-        return pages
+        return pages, user_ids
 
     def parser(self,pagelist):
         """This is a function that given the raw outerhtml data
@@ -162,7 +160,7 @@ class scraper:
                its link.
 
            Returns:
-               df: The articles_df appended with a keywords column containing
+               keywords: A keywords list containing
                the top 5 bi/trigrams of each article
 
            """
@@ -173,10 +171,9 @@ class scraper:
             extracted = [model.extract_keywords(string, keyphrase_ngram_range=(2, 3), stop_words='english'
                                                 , use_maxsum=True, top_n=5)]
             keywords.append(extracted)
-        df['keywords'] = keywords
-        return df
+        return keywords
 
-    def run(self, url_list):
+    def run(self):
         """This is a function that given the list of article links to scrape
         will combine all the methods above and generate a csv of the final
         articles_df created in the keybert method
@@ -189,13 +186,25 @@ class scraper:
                is what's fed into the model.
 
            """
-        driver = self.initialize_browser()
-        pages = self.get_outer_html(url_list, driver)
+        Crud_ops = Crud()
+        my_cursor, my_db = Crud_ops.initialize_db(self.host, self.user,
+                                                  self.passwd, self.database)
+        initial_df = Crud_ops.read_data(my_cursor)
+        url_list = initial_df['article_links'].tolist()
+        user_list = initial_df['user_id'].tolist()
+        print(url_list)
+        driver = self.initialize_driver()
+        pages, user_ids = self.get_outer_html(url_list, user_list, driver)
         parsed = self.parser(pages)
+        initial_df["content"] = parsed
         text, page = self.get_text(parsed, url_list)
         articles_df = self.aggregator(text, page)
-        articles_df = self.keybert(articles_df)
-        articles_df.to_csv('keyword_extraction_poc.csv')
+        keywords = self.keybert(articles_df)
+        initial_df.to_csv('initial_df.csv')
+        articles_df.to_csv('articles_df.csv')
+        keywords_table = Crud_ops.create_table("keywords_table", my_cursor)
+        Crud_ops.populate_table(my_cursor, "keywords_table",
+                                url_list, user_list, keywords, my_db)
 
 
 
