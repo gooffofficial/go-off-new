@@ -33,7 +33,7 @@
 <body>
 	<nav class="navigationBar d-flex">
 		<div class="navigationContainer d-flex">
-			<a href="/feed"><img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center"></a>
+			<a href="/feed"><img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center" style="margin-top: 10px"></a>
 
 			<div class="navigationIcons align-self-center">
 				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
@@ -290,7 +290,7 @@
 					var notifText = document.createElement('p')
 					notifText.setAttribute('font-size', 'small')
 					notifText.setAttribute('id', 'notiftext')
-					var notifTextNode = document.createTextNode('You have a convo on ' + convArr[i].article +' coming up soon!\n Find it on your converations tab.')
+					var notifTextNode = document.createTextNode('You have a convo "' + convArr[i].title +'" coming up soon!\n Find it on your converations tab.')
 					notifText.appendChild(notifTextNode)
 					
 					notifDiv.appendChild(notifText)

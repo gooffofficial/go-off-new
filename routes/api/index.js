@@ -236,7 +236,8 @@ router.get('/upcoming', auth.required, (req, res, next) => {
                 convos.push({
                     'article': conv.article,
                     'time': conv.time,
-                    'roomId': conv.roomOd
+                    'roomId': conv.roomId,
+                    'title': conv.title
                 })
             }
         }

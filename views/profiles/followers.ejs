@@ -77,14 +77,14 @@
                             div2 = document.createElement('div');
                             div.setAttribute('class', 'follow-list-element')
                             div.setAttribute('id', 'followElement')
-                            div2.setAttribute('class', 'follow-list-element')
-                            div2.setAttribute('id', 'chatElement')
+                            // div2.setAttribute('class', 'follow-list-element')
+                            // div2.setAttribute('id', 'chatElement')
                             a  = document.createElement('a');
                             img = document.createElement('img');
                             text = document.createTextNode(myArr[i][0]);
-                            dmbutton = document.createElement('button');
+                            // dmbutton = document.createElement('button');
                             profbutton = document.createElement('button');
-                            dma = document.createElement('a');
+                            // dma = document.createElement('a');
 
                             img.setAttribute("src", myArr[i][1]);
                             img.setAttribute("class","userPic")
@@ -92,13 +92,13 @@
 
                             user = myArr[i][0];
                             // console.log(myArr[i][0]);
-                            dma.setAttribute("class", "user" + i);
-                            dma.setAttribute("id", "user"+i)
-                            dma.setAttribute("href", "/m/" + user);
-                            dma.setAttribute("target", "_blank");
-                            dma.appendChild(text);
+                            // dma.setAttribute("class", "user" + i);
+                            // dma.setAttribute("id", "user"+i)
+                            // dma.setAttribute("href", "/m/" + user);
+                            // dma.setAttribute("target", "_blank");
+                            // dma.appendChild(text);
 
-                            div2.appendChild(dma);
+                            // div2.appendChild(dma);
 
                             user = myArr[i][0];
                             // console.log(myArr[i][0]);
@@ -113,7 +113,7 @@
                             div.appendChild(a);
                             // document.querySelector("#followerlist").appendChild(dmbutton);
                             document.querySelector("#followerlist").appendChild(div);
-                            document.querySelector("#followerlist").appendChild(div2);
+                            // document.querySelector("#followerlist").appendChild(div2);
                             document.querySelector("#followerlist").appendChild(img);
                         }
                          
