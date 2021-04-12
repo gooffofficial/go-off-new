@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="pf-m-redhat-font">
-
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,8 +7,21 @@
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-180244749-2"></script>
 	<script>
-		window.dataLayer = window.dataLayer || [];
 
+
+		window.dataLayer = window.dataLayer || [];
+		
+		
+		window.onload = function() {
+			let invitable = "<%= redirectLink %>"
+			if(invitable != 'noRedirect') {
+				console.log(invitable)
+				document.getElementById('test-container123').action = "/api/users/loginRedirect";
+				document.getElementById('redirectLink').value = invitable;
+			}
+		};
+		
+		//console.log(invitable)
 		function gtag() {
 			dataLayer.push(arguments);
 		}
@@ -31,7 +43,6 @@
 	<div class="left-side">
 		<div class="left-container">
 			<img src="/GO_OFF_LOGO_WHITE.svg" id="left-logo">
-
 			<p id="main-text">Join the conversation, literally.</p>
 			<p id="sub-text">Log in to join GoOFF!</p>
 		</div>
@@ -43,16 +54,16 @@
 
 			<p id="head-text">LOG IN</p>
 			<p id="desc-text">Log into your account</p>
-
-			<form action="api/users/login" method="post" class="field-container">
+			
+			<form action="/api/users/login" method="post" class="field-container" id="test-container123">
 				<label>USERNAME <span class="required">*</span></label><br>
 				<input type="text" class="field-input" id="username" name="username"><br>
 
 				<label>PASSWORD <span class="required">*</span></label><br>
 				<input type="password" class="field-input" id="password" name="password"><br>
-
 				<br>
-
+				<input type="hidden" name="redirectLinkName" id="redirectLink"  value = ''>
+	
 				<button type="submit" id="submit-button">LOG IN</button>
 				<p id="ques-text">Don't have an account? <a href="/usertype">Sign up here</a></p>
 			</form>
