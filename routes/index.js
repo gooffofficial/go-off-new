@@ -88,10 +88,12 @@ router.get('/feed', auth.required, (req, res, next) => {
             arts.push(articles[0][i].article)
         } 
         console.log(arts)
+        // console.log("TESTESTESTESTESTEST")
         var arts2 = []
         for(const art of arts){
             // For each article, find in the articles database, and add the image, title and url
             var art2 = {}
+            console.log(art)
             let a = await db.Article.findOne({
                 where: {
                     url: art
@@ -106,6 +108,30 @@ router.get('/feed', auth.required, (req, res, next) => {
                 art2['title'] = a.getArticleInfo()['title']
                 art2['link'] = a.getArticleInfo()['url']
             }
+
+            let b = await db.SavedArticle.findOne({
+                where: {
+                    article: art
+                }
+            })
+            if(!b){
+                art2['poster'] = ""
+            }else{
+                art2['poster'] = b.getFolderInfo()['userId']
+            }
+            
+            let c = await db.User.findOne({
+                where: {
+                    id: art2['poster']
+                }
+            })
+            if(!c){
+                art2['user'] = ""
+            }else{
+                art2['user'] = c.getUserInfo()['username']
+            }
+            console.log(art2)
+            console.log("TESTESTESTESTESTEST")
             arts2.push(art2)
         }
         console.log(arts2.length)
@@ -249,7 +275,14 @@ router.get('/feed', auth.required, (req, res, next) => {
             })
             let host = user.host == "(Host)"
             let admin = user.admin == "(Admin)"
-            res.render('feed', {myuser: username, user: req.params.user, articles: arts2, convos: convs, host: host, admin: admin})
+            
+            let user1 = await db.Profile.findOne({
+                where:{
+                    UserId: id
+                }
+            })
+            let ppic = user1.ppic
+            res.render('feed', {myuser: username, user: req.params.user, ppic: ppic, articles: arts2, convos: convs, host: host, admin: admin})
         })
     })
 })

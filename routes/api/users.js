@@ -642,7 +642,7 @@ router.get('/followers', auth.optional, (req, res, next) => {
     if(!user) {
       return res.sendStatus(400);
     }
-    //find all users that we follow
+    //find all users that follow us
     db.Follower.findAll({
       where: { followed: id} 
     })
@@ -689,14 +689,14 @@ router.get('/followers/:user', auth.optional, (req, res, next) => {
     if(!user) {
       return res.sendStatus(400);
     }
-    //find all users that we follow
+    //find all users that follow us
     db.Follower.findAll({
       where: { followed: user.id} 
     })
     .then(async(followed) => {
       
       let data = [];
-      
+      console.log("followed length is: ", followed.length)
       for(i = 0; i < followed.length; i++){
         user = ({ followed: followed[i].getFollowerInfo() });
         
@@ -751,11 +751,11 @@ router.get('/profile/:user', auth.optional, (req, res, next) => {
       .then((follower) => {
         if (!follower ){
           prof.user["is_following"] = false
-          console.log(prof)
+          // console.log(prof)
           return res.status(200).json(prof);
         }else{
           prof.user["is_following"] = true
-          console.log(prof)
+          // console.log(prof)
           return res.status(200).json(prof);
         }
       })

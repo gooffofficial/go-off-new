@@ -161,7 +161,7 @@
 			<h1 id="articles-text">Trending</h1> 
 
 			<div id=user-article-1" class="article">
-				<a id="tuser-article1_link" href="">
+				<a id="tuser-article1_link" href="" target="_blank">
 					<div class="article-image-container">
 						<img id="tuser-article-1-image" class="article-image" src="">
 					</div>
@@ -212,7 +212,7 @@
 			</div> -->
 
 			<div id="user-article-2" class="article">
-				<a id="tuser-article2_link" href="">
+				<a id="tuser-article2_link" href="" target="_blank">
 					<div class="article-image-container">
 						<img id="tuser-article-2-image" class="article-image" src="">
 					</div>
@@ -257,7 +257,7 @@
 
 			<!-- third article-->
 			<div id="user-article-3" class="article">
-				<a id="tuser-article3_link" href="">
+				<a id="tuser-article3_link" href="" target="_blank">
 					<div class="article-image-container">
 						<img id="tuser-article-3-image" class="article-image" src="">
 					</div>
@@ -302,7 +302,7 @@
 
 			<!-- fourth article-->
 			<div id="user-article-4" class="article">
-				<a id="tuser-article4_link" href="">
+				<a id="tuser-article4_link" href="" target="_blank">
 					<div class="article-image-container">
 						<img id="tuser-article-4-image" class="article-image" src="">
 					</div>
@@ -347,10 +347,11 @@
 
 		
 		<div id="user-articles-container">
-			<h1 id="articles-text">Who you Follow</h1>
+			<h1 id="articles-text">All Media</h1>
 
 			<div id="user-article-1" class="article">
-				<a id="user-article1_link" href="/conversation/?article=<%=articles[0].link%>">
+				<a id="user-article1_link" target="_blank" href="<%=articles[0].link%>">
+				<!-- <a id="user-article1_link" href="/conversation/?article=<%=articles[0].link%>"> -->
 					<div class="article-image-container">
 						<img id="user-article-1-image" class="article-image" src="<%=articles[0].img%>">
 					</div>
@@ -371,7 +372,7 @@
 				<div class="article-info-bottom-container">
 					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
 					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
+					<p>Posted by <%=articles[0].user%></p>
 
 					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 					<div class="dropdown">
@@ -401,7 +402,8 @@
 			</div> -->
 
 			<div id="user-article-2" class="article">
-				<a id="user-article2_link" href="/conversation/?article=<%=articles[1].link%>">
+				<a id="user-article2_link" target="_blank" href="<%=articles[1].link%>">
+				<!-- <a id="user-article2_link" href="/conversation/?article=<%=articles[1].link%>"> -->
 					<div class="article-image-container">
 						<img id="user-article-2-image" class="article-image" src="<%=articles[1].img%>">
 					</div>
@@ -422,7 +424,7 @@
 				<div class="article-info-bottom-container">
 					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
 					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
+					<p>Posted by <%=articles[1].user%></p>
 
 					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 					<div class="dropdown">
@@ -446,7 +448,8 @@
 
 			<!-- third article-->
 			<div id="user-article-3" class="article">
-				<a id="user-article3_link" href="/conversation/?article=<%=articles[2].link%>">
+				<a id="user-article3_link" target="_blank" href="<%=articles[2].link%>">
+				<!-- <a id="user-article3_link" href="/conversation/?article=<%=articles[2].link%>"> -->
 					<div class="article-image-container">
 						<img id="user-article-3-image" class="article-image" src="<%=articles[2].img%>">
 					</div>
@@ -467,7 +470,7 @@
 				<div class="article-info-bottom-container">
 					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
 					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
+					<p>Posted by <%=articles[2].user%></p>
 
 					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 					<div class="dropdown">
@@ -491,7 +494,8 @@
 
 			<!-- fourth article-->
 			<div id="user-article-4" class="article">
-				<a id="user-article4_link" href="/conversation/?article=<%=articles[3].link%>">
+				<a id="user-article4_link" target="_blank" href="<%=articles[3].link%>">
+				<!-- <a id="user-article4_link" href="/conversation/?article=<%=articles[3].link%>"> -->
 					<div class="article-image-container">
 						<img id="user-article-4-image" class="article-image" src="<%=articles[3].img%>">
 					</div>
@@ -512,7 +516,7 @@
 				<div class="article-info-bottom-container">
 					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
 					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
+					<p>Posted by <%=articles[3].user%></p>
 
 					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 					<div class="dropdown">
@@ -540,11 +544,11 @@
 			
 
 			<div id="user-articles-container">
-				<h1 id="articles-text">Your Friends Convos</h1>
+				<h1 id="articles-text">All Convos</h1>
 
 				<!--First convo-->
 				<div id="user-article-1" class="article">
-					<a id="user-convo1_link" href="/conversation/?article=<%=convos[0].article%>">
+					<a id="user-convo1_link" target="_blank" href="<%=convos[0].article%>">
 						<div class="article-image-container">
 							<img id="user-convo-1-image" class="article-image" src="<%=convos[0].img%>">
 						</div>
@@ -605,7 +609,8 @@
 
 				<!--Second convo-->
 				<div id="user-article-2" class="article">
-					<a id="user-convo2_link" href="/conversation/?article=<%=convos[1].article%>">
+					<!-- <a id="user-convo2_link" href="/conversation/?article=<%=convos[1].article%>"> -->
+					<a id="user-convo2_link" target="_blank" href="<%=convos[1].article%>">
 						<div class="article-image-container">
 							<img id="user-convo-2-image" class="article-image" src="<%=convos[1].img%>">
 						</div>
@@ -658,7 +663,8 @@
 
 				<!--Third Convo-->
 				<div id="user-article-3" class="article">
-					<a id="user-convo3_link" href="/conversation/?article=<%=convos[2].article%>">
+					<!-- <a id="user-convo3_link" href="/conversation/?article=<%=convos[2].article%>"> -->
+					<a id="user-convo3_link" target="_blank" href="<%=convos[2].article%>">
 						<div class="article-image-container">
 							<img id="user-convo-3-image" class="article-image" src="<%=convos[2].img%>">
 						</div>
@@ -711,7 +717,8 @@
 
 				<!--Fourth convo-->
 				<div id="user-article-4" class="article">
-					<a id="user-convo4_link" href="/conversation/?article=<%=convos[3].article%>">
+					<!-- <a id="user-convo4_link" href="/conversation/?article=<%=convos[3].article%>"> -->
+					<a id="user-convo4_link" target="_blank" href="<%=convos[0].article%>">
 						<div class="article-image-container">
 							<img id="user-convo-4-image" class="article-image" src="<%=convos[3].img%>">
 						</div>
@@ -1043,25 +1050,28 @@
 	}
 	function fillinvar(){
 
+		// document.getElementById("fprofpic").src("<%=ppic%>")
+		// console.log(<%=ppic%>)
+
 		var xhrNotif = new XMLHttpRequest();
 		xhrNotif.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
 				var TrendingArr = JSON.parse(this.responseText);
 				console.log("trending test")
 				console.log(TrendingArr);
-				document.getElementById("tuser-article1_link").setAttribute("href", "/conversation/?article=" + TrendingArr.article1Url)
+				document.getElementById("tuser-article1_link").setAttribute("href", TrendingArr.article1Url)
 				document.getElementById("tuser-article-1-image").setAttribute("src", TrendingArr.article1img)
 				document.getElementById("tuser-article-1-title").innerHTML = TrendingArr.article1Title
 				document.getElementById("tarticle1convolink").setAttribute("href", "/conversation/?article=" + TrendingArr.article1Url)
-				document.getElementById("tuser-article2_link").setAttribute("href", "/conversation/?article=" + TrendingArr.article2Url)
+				document.getElementById("tuser-article2_link").setAttribute("href", TrendingArr.article2Url)
 				document.getElementById("tuser-article-2-image").setAttribute("src", TrendingArr.article2img)
 				document.getElementById("tuser-article-2-title").innerHTML = TrendingArr.article2Title
 				document.getElementById("tarticle2convolink").setAttribute("href", "/conversation/?article=" + TrendingArr.article2Url)
-				document.getElementById("tuser-article3_link").setAttribute("href", "/conversation/?article=" + TrendingArr.article3Url)
+				document.getElementById("tuser-article3_link").setAttribute("href", TrendingArr.article3Url)
 				document.getElementById("tuser-article-3-image").setAttribute("src", TrendingArr.article3img)
 				document.getElementById("tuser-article-3-title").innerHTML = TrendingArr.article3Title
 				document.getElementById("tarticle3convolink").setAttribute("href", "/conversation/?article=" + TrendingArr.article3Url)
-				document.getElementById("tuser-article4_link").setAttribute("href", "/conversation/?article=" + TrendingArr.article4Url)
+				document.getElementById("tuser-article4_link").setAttribute("href", TrendingArr.article4Url)
 				document.getElementById("tuser-article-4-image").setAttribute("src", TrendingArr.article4img)
 				document.getElementById("tuser-article-4-title").innerHTML = TrendingArr.article4Title
 				document.getElementById("tarticle4convolink").setAttribute("href", "/conversation/?article=" + TrendingArr.article4Url)
@@ -1072,15 +1082,18 @@
 		xhrNotif.withCredentials = true
 		xhrNotif.send();
 
+		
 
 		var d = new Date()
 		document.getElementById('timezone').setAttribute('value', d.getTimezoneOffset()/60)
 		console.log(<%=host%>)
 		console.log(<%=admin%>)
+		console.log(<%=ppic%>)
 		if(<%=host%> == true || <%=admin%> == true){
 			document.getElementById("convobtn").style.visibility = "visible";
 			console.log("test")
 		}
+		
 	}
 
 	function titlelen(){

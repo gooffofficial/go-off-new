@@ -20,6 +20,7 @@ module.exports = (sequelize, type) => {
         return {
             FolderId: this.FolderId,
             article: this.article,
+            userId: this.userId,
          }
     }
     return SavedArticle;
