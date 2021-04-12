@@ -258,11 +258,7 @@ button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
     background-color: lightskyblue;
 }
 #Home{
-<<<<<<< HEAD
     margin-top: 220px;
-=======
-    margin-top: 250px;
->>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c
     font-size: 20px;
 }
 

@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 const auth = require('./auth');
@@ -550,8 +551,37 @@ router.get('/usertype', auth.optional, (req, res, next) => {
 })
 
 router.get('/login', auth.optional, (req, res, next) => {
-    res.render('login')
-})
+    // send extra parameter so that if the parameter isnt there, just send to main page
+    // if parameter is there, we send them to that link after login
+    // can send to redirectlogin where login button goes to parameter sent with it
+    //let invitable = req.params.invitableLink;
+    //console.log(invitable)
+    // without slash goes to relative url following /login
+
+    // 'login?article=/conversation/?article=https://nypost.com/2021/04/01/pfizer-says-vaccine-lasts-six-months-protects-against-variants/?utm_campaign=iphone_nyp&utm_source=message_app'
+    
+    let myConversation = req.query['convo'];
+    if (myConversation === undefined) {
+        console.log("test")
+        res.render('login', { redirectLink: 'noRedirect' });
+    } else {
+        
+        console.log(myConversation);
+        // if default login jsut snd them to login page
+        res.render('login', { redirectLink: myConversation });
+    }
+    
+    /*
+    
+    if (invitable === 'default') {
+        res.render('login', { redirectLink: 'noRedirect' });
+    } else {
+        res.render('login', { redirectLink: req.params.invite });
+    } */
+    // login page has a post request in the signup form. see if login is invitable link. if it isnt just send them to regular login page.
+    // if it is, send them to redirect login.
+    // line 23 of splash.ejs is what we need to change. send them to 'login/nonInvite' or just check if invitable is ''
+});
 
 router.get('/signup', auth.optional, (req, res, next) => {
     res.render('signup')
@@ -561,3 +591,4 @@ router.get('/', auth.optional, (req, res, next) => {
     res.render('splash')
 })
 module.exports = router;
+
