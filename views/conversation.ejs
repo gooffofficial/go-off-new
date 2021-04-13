@@ -6,7 +6,9 @@
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-180244749-2"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-
+		window.onload = function() {
+			console.log("SDASDASDASDASD");
+		}
 		function gtag() {
 			dataLayer.push(arguments);
 		}
@@ -160,7 +162,8 @@
 
 			<div id="article-edit-container">
 				<img src="/pencil.svg" id="edit-icon">
-				<img src="/share_outline.svg" id="edit-icon">
+				<a id="sharable" >
+				<img src="/share_outline.svg" id="edit-icon"> </a>
 				<a href="<%=artLink%>" target="_blank" id="article-link">Article link</a>
 
 				<!--<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" id="img-pfp1">
@@ -436,6 +439,22 @@
 		}
 
 		function fillinvar(){
+			let windowLocation = window.location.href.toString()
+			console.log(windowLocation);
+			//.slice(22);
+			console.log(windowLocation.slice(7,16))
+			let mySharable;
+			if(windowLocation.slice(7,16) == 'localhost') {
+				console.log("This is localhost")
+				mySharable = 'localhost:8000/login/?convo=/' + windowLocation.slice(22);
+			}else {
+				console.log("Deployed")
+				mySharable = 'https://go-off.co/login/?convo=/'+  windowLocation.slice(22);
+			}
+			console.log(windowLocation);
+			console.log(mySharable)
+			document.getElementById("sharable").onclick = function () { alert("Here is the sharable link: "+ mySharable); };
+
 			if("<%=convos[0].time%>" == "No convo scheduled" || "<%=convos[1].time%>" == "No convo scheduled"){
 				if ("<%=convos[0].time%>" == "No convo scheduled"){
 					document.getElementById('convo-date0').innerHTML = "No convo scheduled"
@@ -471,8 +490,10 @@
 			document.getElementById("article-title").innerHTML = title;
 			console.log(title);
 			console.log("works!");
+			console.log("Current url: ", window.location.href);
+			
 		}
-		}
+	}
 		
 	</script>
 </body>
