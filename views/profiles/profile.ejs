@@ -222,7 +222,7 @@
 				<h1 id="articles-text">USER CONTENT</h1>
 
 				<div id="user-article-1" class="article">
-					<a id="user-article1_link">
+					<a id="user-article1_link" target="_blank">
 						<div class="article-image-container">
 							<img id="user-article-1-image" class="article-image">
 						</div>
@@ -270,7 +270,7 @@
 
 
 				<div id="user-article-2" class="article">
-					<a id="user-article2_link">
+					<a id="user-article2_link" target="_blank">
 						<div class="article-image-container">
 							<img id="user-article-2-image" class="article-image">
 						</div>
@@ -315,7 +315,7 @@
 
 
 				<div id="user-article-3" class="article">
-					<a id="user-article3_link">
+					<a id="user-article3_link" target="_blank">
 						<div class="article-image-container">
 							<img id="user-article-3-image" class="article-image">
 						</div>
@@ -361,7 +361,7 @@
 
 
 				<div id="user-article-4" class="article">
-					<a id="user-article4_link">
+					<a id="user-article4_link" target="_blank"> 
 						<div class="article-image-container">
 							<img id="user-article-4-image" class="article-image">
 						</div>
@@ -994,7 +994,7 @@
 						document.getElementById("user-article2check_link").setAttribute("href", "/conversation/?article="+userArticles.article2Url);
 						document.getElementById("user-article3check_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
 						document.getElementById("user-article4check_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
-						document.getElementById("user-article1_link").setAttribute("href", "/conversation/?article="+userArticles.article1Url);
+						document.getElementById("user-article1_link").setAttribute("href", userArticles.article1Url);
 						// x = document.getElementById("user-article1_link").href
 						// if(x == "http://localhost:8000/conversation/?article="){
 						// 	document.getElementById("user-article1_link").href = "";
@@ -1027,17 +1027,20 @@
 						}else{
 							document.getElementById("user-article-4-title").innerHTML = userArticles.article4Title;
 						}
-						document.getElementById("user-article2_link").setAttribute("href", "/conversation/?article="+userArticles.article2Url);
+						// document.getElementById("user-article2_link").setAttribute("href", "/conversation/?article="+userArticles.article2Url);
+						document.getElementById("user-article2_link").setAttribute("href", userArticles.article2Url);
 						// document.getElementById("user-article2_link1").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article2_link2").setAttribute("href", userArticles.article2Url);
 						// document.getElementById("user-article2_link3").setAttribute("href", userArticles.article2Url);
 						document.getElementById("user-article-2-image").src = userArticles.article2img;
-						document.getElementById("user-article3_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
+						// document.getElementById("user-article3_link").setAttribute("href", "/conversation/?article="+userArticles.article3Url);
+						document.getElementById("user-article3_link").setAttribute("href", userArticles.article3Url);
 						// document.getElementById("user-article3_link1").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article3_link2").setAttribute("href", userArticles.article3Url);
 						// document.getElementById("user-article3_link3").setAttribute("href", userArticles.article3Url);
 						document.getElementById("user-article-3-image").src = userArticles.article3img;
-						document.getElementById("user-article4_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
+						// document.getElementById("user-article4_link").setAttribute("href", "/conversation/?article="+userArticles.article4Url);
+						document.getElementById("user-article4_link").setAttribute("href", userArticles.article4Url);
 						// document.getElementById("user-article4_link1").setAttribute("href", userArticles.article4Url);
 						document.getElementById("user-article4_link2").setAttribute("href", userArticles.article4Url);
 						// document.getElementById("user-article4_link3").setAttribute("href", userArticles.article4Url);
