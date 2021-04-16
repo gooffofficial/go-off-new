@@ -27,6 +27,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
     }, async (err, room) => {
         if(err){
             console.log(err)
+            console.log("ERRORRRERRORERRORERRORERRORERRORERROR")
             return res.status(422).json({
                 error: err
             })

@@ -76,7 +76,7 @@ router.get("/verify", (req, res) => {
     res.render("emailver", { email: req.query.email });
   });
 
-router.get('/feed', auth.required, (req, res, next) => {
+router.get('/feed', auth.optional, (req, res, next) => {
     const { payload: { id, username } } = req;
     //seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Folders F, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND F.id=S.FolderId")
     // Query to get first 4 articles from people who user is following
@@ -298,7 +298,7 @@ router.get('/feed', auth.required, (req, res, next) => {
 //     })
 // })
 
-router.get('/conversation', auth.required, (req, res, next) => {
+router.get('/conversation', auth.optional, (req, res, next) => {
     const { payload: {username, id} } = req;
     var article = req.query["article"];
     //picture, title, author, link

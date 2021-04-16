@@ -4,7 +4,7 @@ const auth = require('./auth');
 //const Users = require('models/Users');
 const db = require('../models')
 
-router.get('/:user', auth.required, (req, res, next) => {
+router.get('/:user', auth.optional, (req, res, next) => {
     const { payload: {id, username} } = req;
     return db.User.findOne({
         where: {

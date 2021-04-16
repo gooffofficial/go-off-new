@@ -15,11 +15,11 @@ router.get('/', auth.required, (req, res, next) => {
         }
     }).then(async (user) => {
         var userInfo = user.getUserInfo();
-        if (user.admin != "(Admin)"){
+        if (user.admin != "(Admin)" || user.host != "(Host)"){
             return res.sendStatus(401).json({"Err": "Unauthorized"})
         }
         var userInfo = user.getUserInfo();
-        if (user.admin != "(Admin)"){
+        if (user.admin != "(Admin)" || user.host != "(Host)"){
             return res.sendStatus(401).json({"Err": "Unauthorized"})
         }
         db.Analytics.findAll({
@@ -65,7 +65,7 @@ router.get('/convos', auth.required, (req, res, next) => {
         }
     }).then((user) => {
         var userInfo = user.getUserInfo();
-        if (user.admin != "(Admin)"){
+        if (user.admin != "(Admin)" || user.host != "(Host)"){
             return res.sendStatus(401).json({"Err": "Unauthorized"})
         }
         db.Analytics.findAll({
@@ -142,11 +142,11 @@ router.get('/users', auth.required, (req,res,next) => {
         }
     }).then(async (user) => {
         var userInfo = user.getUserInfo();
-        if (user.admin != "(Admin)"){
+        if (user.admin != "(Admin)" || user.host != "(Host)"){
             return res.sendStatus(401).json({"Err": "Unauthorized"})
         }
         var userInfo = user.getUserInfo();
-        if (user.admin != "(Admin)"){
+        if (user.admin != "(Admin)" || user.host != "(Host)"){
             return res.sendStatus(401).json({"Err": "Unauthorized"})
         }
         db.Analytics.findAll({
