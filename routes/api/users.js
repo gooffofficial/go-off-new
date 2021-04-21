@@ -1104,6 +1104,14 @@ router.get('/articles/:user', auth.optional, (req, res, next) => {
     });
 });
 
+
+router.post('/sendPasswordResetCode', auth.optional ,(req,res,next) => {
+    // sends password reset code to their email, sends this code nack.
+})
+router.get('/checkUsernameEmail', auth.optional, (req,res) => {
+    //check if email/username exists, if it does, 
+})
+
 router.get('/failure', (req, res, next) => {
     res.send('failure');
 });
