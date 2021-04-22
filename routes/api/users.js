@@ -1108,8 +1108,32 @@ router.get('/articles/:user', auth.optional, (req, res, next) => {
 router.post('/sendPasswordResetCode', auth.optional ,(req,res,next) => {
     // sends password reset code to their email, sends this code nack.
 })
-router.get('/checkUsernameEmail', auth.optional, (req,res) => {
+router.get('/checkUsername', auth.optional, (req,res) => {
     //check if email/username exists, if it does, 
+    let myUser = db.User.findOne({
+        where: {
+            username: req.params.user,
+        },
+    })
+    if(!myUser) {
+        res.send({found: "false"})
+    }else {
+        let r = Math.random().toString(36).substring(10);
+        console.log(r)
+        const msg = {
+            to: myUser.user.email,
+            from: 'go.offmedia@gmail.com',
+            subject: 'Email Verification Link',
+            text:
+                'Hello ' +
+                user.firstname +
+                ',\n\n' +
+                'Here is your verification code: ' + r.toString() +
+                '\n\nThank You!\n',
+        }
+        sgMail.send()
+        res.send({message: "Check your email for code"})
+    }
 })
 
 router.get('/failure', (req, res, next) => {

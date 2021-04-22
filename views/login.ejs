@@ -19,8 +19,15 @@
 				document.getElementById('test-container123').action = "/api/users/loginRedirect";
 				document.getElementById('redirectLink').value = invitable;
 			}
+
 		};
-		
+		function testAlert() {
+			let userName = prompt("Enter your username: ")
+
+			fetch('/checkUsername', {name: userName})
+			.then(response => response.json())
+			.then(data => console.log(data));
+		}
 		//console.log(invitable)
 		function gtag() {
 			dataLayer.push(arguments);
@@ -66,7 +73,9 @@
 	
 				<button type="submit" id="submit-button">LOG IN</button>
 				<p id="ques-text">Don't have an account? <a href="/usertype">Sign up here</a></p>
+				
 			</form>
+			<div><p id="ques-text">Forgot your password? Click here</p></div>
 		</div>
 
 		<div class="wave-container">
