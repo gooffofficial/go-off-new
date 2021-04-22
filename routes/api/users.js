@@ -1118,6 +1118,7 @@ router.get('/checkUsername', auth.optional, (req,res) => {
     if(!myUser) {
         res.send({found: "false"})
     }else {
+        // need to somehow get this random key to frontend so we can check it on frontend
         let r = Math.random().toString(36).substring(10);
         console.log(r)
         const msg = {
@@ -1131,7 +1132,7 @@ router.get('/checkUsername', auth.optional, (req,res) => {
                 'Here is your verification code: ' + r.toString() +
                 '\n\nThank You!\n',
         }
-        sgMail.send()
+        sgMail.send(msg)
         res.send({message: "Check your email for code"})
     }
 })
