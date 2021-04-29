@@ -38,7 +38,7 @@ router.get('/getarticles', auth.required,[query('o').escape()], (req, res, next)
     const {payload: {id}} = req;
     var offset = req.query["o"]
     // Query for next 4 articles from people the user is following based on the offset in the GET parameters
-    seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
+    // seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
     
     //Query for next 4 articles from the available pool
     seq.query("SELECT article FROM test_server1.SavedArticles S ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)

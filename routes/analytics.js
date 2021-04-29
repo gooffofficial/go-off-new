@@ -203,7 +203,7 @@ router.get('/:chat', auth.required, (req, res, next) => {
                 var python = spawn('python3', ['./data-analysis/vanity.py', req.params.chat]);
                 python.stderr.on('data', function (data){
                     console.log(data.toString())
-                    return res.json({"Err": "Somehing went wrong with you analysis"})
+                    return res.json({"Err": "Somehing went wrong with your analysis"})
                 });            
                 python.stdout.on('data', (data) => {
                     console.log(data.toString())
