@@ -616,7 +616,6 @@ router.post('/resetPasswordRequest', auth.optional, async (req,res,next) => {
             username: req.body.username
         }
     })
-    console.log(myUser.dataValues.email)
     const msg = {
         to: myUser.email,
         from: 'go.offmedia@gmail.com',
