@@ -624,7 +624,7 @@ router.post('/resetPasswordRequest', auth.optional, async (req,res,next) => {
         text: 'Hello ' + myUser.firstname + ',\n\n You have requested a password reset \n\
         Reset your password at the following link: \n \
         localhost:8000/passwordResetRequest'
-    }
+    }// just need to change link to deployed website
 
     sgMail.send(msg).then(() => {
         //password reset email
