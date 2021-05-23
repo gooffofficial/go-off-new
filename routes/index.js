@@ -8,7 +8,9 @@ const DM = require('../models/DMSchema')
 const crawler = require('../apify/crawler');
 const sequelize = require('../sequelize');
 const Sequelize = require('sequelize')
-
+const sgMail = require('@sendgrid/mail')
+const bcrypt = require('bcrypt')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const seq = new Sequelize('test_server1', process.env.RDS_USER, process.env.RDS_PASSWORD, {
     port: process.env.RDS_PORT,
     host: process.env.RDS_HOSTNAME,
@@ -585,6 +587,55 @@ router.get('/login', auth.optional, (req, res, next) => {
 
 router.get('/signup', auth.optional, (req, res, next) => {
     res.render('signup')
+})
+router.get('/resetPassword', auth.optional, (req, res, next) => {
+    res.render('resetPassword')
+})
+
+router.post('/finalResetPassword' , auth.optional, (req,res,next) => {
+    console.log("TESTING", req.body)
+    
+    db.User.update({password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null)},{
+        where: {
+            username: req.body.username
+        }
+    })
+    db.User.findOne({
+        where: {
+            username: req.body.username
+        }
+    }).then(user => {
+        console.log(user.dataValues)
+    })
+    res.send({message: "success"})
+}) //attach key to user field with token and have to validate with token
+router.post('/resetPasswordRequest', auth.optional, async (req,res,next) => {
+    console.log(req.body.username)
+    const myUser = await db.User.findOne({
+        where: {
+            username: req.body.username
+        }
+    })
+    console.log(myUser.dataValues.email)
+    const msg = {
+        to: myUser.email,
+        from: 'go.offmedia@gmail.com',
+        subject: "Password reset request",
+        text: 'Hello ' + myUser.firstname + ',\n\n You have requested a password reset \n\
+        Reset your password at the following link: \n \
+        localhost:8000/passwordResetRequest'
+    }
+
+    sgMail.send(msg).then(() => {
+        //password reset email
+        sgMail.send(msg2).then(() => {
+            return res.redirect('/conversation/?article='+req.body.article)
+        })
+    })
+    res.send({"message": "Successfully reset password"}) 
+})
+router.get('/passwordResetRequest', auth.optional, (req,res,next) => {
+    res.render('passwordResetAfterEmail')
 })
 
 router.get('/', auth.optional, (req, res, next) => {

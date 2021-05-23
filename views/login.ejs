@@ -32,6 +32,9 @@
 		function gtag() {
 			dataLayer.push(arguments);
 		}
+		$('#forgotPassword').click(function() {
+			alert("Test")
+		})
 		gtag('js', new Date());
 
 		gtag('config', 'UA-180244749-2');
@@ -51,7 +54,7 @@
 		<div class="left-container">
 			<img src="/GO_OFF_LOGO_WHITE.svg" id="left-logo">
 			<p id="main-text">Join the conversation, literally.</p>
-			<p id="sub-text">Log in to join GoOFF!</p>
+			<p id="sub-text">Log in to join Go Off!</p>
 		</div>
 	</div>
 
@@ -75,7 +78,7 @@
 				<p id="ques-text">Don't have an account? <a href="/usertype">Sign up here</a></p>
 				
 			</form>
-			<div><p id="ques-text">Forgot your password? Click here</p></div>
+			<div id="ques-text"><a href="/resetPassword"><p>Forgot password?</p></a></div>
 		</div>
 
 		<div class="wave-container">
