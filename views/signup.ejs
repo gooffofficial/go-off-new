@@ -16,7 +16,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
 	<!-- Include latest PatternFly CSS via CDN -->
-	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/styleflip.css" />
   <link rel="stylesheet" href="/css/signupresponsive.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<title>Sign Up</title>
@@ -24,98 +24,63 @@
 
 <body>
   <div class="whole-container">
-	<div class="left-side">
-		<div class="left-container">
-			<img src="/GO_OFF_LOGO_WHITE.svg" id="left-logo">
+    <div class="left-side">
+      <div class="left-container">
+        <img src="/GO_Off300.png" id="left-logo">
+        <span class="dot" id="pdot1" style="background: #3A86FF;"></span>
+        <span class="bar" id="pbar1" style="background: #3A86FF;"></span>
+        <span class="dot" id="pdot2"></span>
+        <span class="bar" id="pbar2"></span>
+        <span class="dot" id="pdot3"></span>
+        <p id="head-text">SIGN UP</p>
+        <p id="desc-text">Create a new account</p>
 
-			<p id="main-text">Join the conversation, literally.</p>
-			<p id="sub-text">Create an account to join GoOFF!</p>
-		</div>
-	</div>
+        <form action="comp_profile" method="GET" class="field-container">
+          <label>FULL NAME <span class="required">*</span></label><br>
+          <input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="firstname"><br>
 
-	<div class="right-side">
-		<div class="right-container">
-			<!-- <img src="/GO_OFF_LOGO.svg" id="logo"> -->
-
-			<p id="head-text">SIGN UP</p>
-			<p id="desc-text">Create a new account</p>
-
-			<form novalidate action="/api/users/" method="post" class="field-container">
-				<label>FIRST NAME <span class="required">*</span></label><br>
-				<input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="firstname"><br>
-	
-				<label>LAST NAME <span class="required">*</span></label><br>
-				<input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="lastname"><br>
-	
-				<label>USERNAME <span class="required">*</span></label><br>
-        <input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="username"><br>
-        
-        <label>EMAIL <span class="required">*</span></label><br>
-        <input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="email"><br>
-
-        <label>PHONE NUMBER <span class="required">*</span></label><br>
-        <input type="text" class="field-input" autocomplete="off" id="phone" name="phonenumber"><br>
-        <script>
-          const phoneInputField = document.querySelector("#phone");
-          const phoneInput = window.intlTelInput(phoneInputField, {
-            utilsScript:
-              "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-          });
-          console.log(phoneInputField)
-        </script>
-
-        
-        <!--input type is hidden then assign the country code to that and concatenate it in the backend-->
-        <label>Location <span class="required">*</span></label><br>
-				<input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="location"><br>
-	
-				<label>PASSWORD <span class="required">*</span></label><br>
-				<input type="password" class="field-input" autocomplete="off" id="login-demo-form-password" name="password"><br>
-				
-				
-				
-				<label for="">DATE OF BIRTH <span class="required">*</span></label><br>
-        <input type="date" id="birthday" id="basic-input" name="birthdate"><br>
-
-
-        
-        <label>Pronouns <span class="required">*</span></label><br>
-				<fieldset id="Gender" name="gender">
+          <label>EMAIL <span class="required">*</span></label><br>
+          <input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="email"><br>
     
-          <input type="radio" id="Male" name="gender" value="male">
-          <label for="Male">He/Him</label>
+          <label>USERNAME <span class="required">*</span></label><br>
+          <input type="text" class="field-input" autocomplete="off" id="login-demo-form-username" name="username"><br>
     
-          <input type="radio" id="Female" name="gender" value="female">
-          <label for="Female">She/Her</label>
+          <label>PASSWORD <span class="required">*</span></label><br>
+          <input type="password" class="field-input" autocomplete="off" id="login-demo-form-password" name="password"><br>
+           
+          <label for="">DATE OF BIRTH <span class="required">*</span></label><br>
+          <input type="date" id="birthday" id="basic-input" name="birthdate"><br>
+          
+          <!--add onchange to call submithandle for changing phone number-->
+          <div class="checkbox-container">
+            <input type="checkbox" id="checkbox" id="login-demo-checkbox" name="login-demo-checkbox"><img src="/check.svg" id="check">
+            <label for="checkbox" id="terms">Agree to <b>Terms of Service & Privacy Policy</b></label>
+          </div>
+
+          <!-- <input type="text" id="cc" style="visibility: hidden;" name="countrycode"> -->
+          
+          
+
+          <form action="" id="signupform">
+            <button type="submit" id="submit-button">SIGN UP</button>
+          </form>
+
     
-          <input type="radio" id="Other" name="genderType">
-          <input type="text" name="gender" placeholder="OTHER" id="other-gender-textbox">
-        </fieldset><br>
-        
-        <!--add onchange to call submithandle for changing phone number-->
-				<div class="checkbox-container">
-					<input type="checkbox" id="checkbox" id="login-demo-checkbox" onclick="submithandle()" name="login-demo-checkbox"><img src="/check.svg" id="check">
-					<label for="checkbox" id="terms">Agree to <b>Terms of Service & Privacy Policy</b></label>
-				</div>
-
-        <input type="text" id="cc" style="visibility: hidden;" name="countrycode">
-        
-        
-
-        <form action="" id="signupform">
-          <button type="submit" id="submit-button">SIGN UP</button>
+          <p id="ques-text">Already have an account? <a href="/login">Log in here</a></p>
         </form>
+      </div>
+      <!-- <div class="wave-container">
+        <!-- <img src="/wave_thin.svg" id="wave"> 
+      </div> -->
+    </div>
 
-  
-				<p id="ques-text">Already have an account? <a href="/login">Log in here</a></p>
-			</form>
-		</div>
-
-		<div class="wave-container">
-			<img src="/wave_thin.svg" id="wave">
-		</div>
-	</div>
-</div>
+    <div class="right-side">
+      <div class="right-container">
+        <p id="main-text">Join the Conversation, Literally.</p>
+        <p id="sub-text">Create an account to join GoOFF!</p>
+      </div>  
+    </div>
+  </div>
 </body>
 <script>
   function submithandle(){

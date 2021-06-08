@@ -13,7 +13,9 @@ const crawler = require('../../apify/crawler');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const sgMail = require('@sendgrid/mail');
+const twilio = require('twilio')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+var twilioClient = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
 
 AWS.config.update({
     region: 'us-east-1',
@@ -51,9 +53,9 @@ const upload = multer({
     }),
     limits: { fileSize: 1024 * 1024 },
 });
-//POST for new user registration
+//POST for new user registration using email to verify account
 router.post(
-    '/',
+    '/ecreate',
     auth.optional,
     [
         body('username').escape(),
@@ -73,6 +75,7 @@ router.post(
         //console.log(req);
         const user = req.body;
         console.log('PHONE NUMBER HELLLO' + user.phonenumber);
+        console.log(user)
         if (!user.username) {
             return res.status(422).json({
                 errors: {
@@ -256,9 +259,197 @@ router.post(
                                 .catch((error) => {
                                     console.error(error);
                                 });
-                            return res.redirect('/verify');
+                            // return res.redirect('/verify');
                             //return res.redirect('/login'); //redirect to check email verification page
                         });
+                    return res.redirect('/ver_account');
+                });
+            })
+            .catch((err) => {
+                res.json({ error: err.errors[0].message });
+            });
+    }
+);
+//router post for sms account creation
+router.post(
+    '/screate',
+    auth.optional,
+    [
+        body('username').escape(),
+        body('email').escape(),
+        body('firstname').escape(),
+        body('lastname').escape(),
+        body('age').escape(),
+        body('location').escape(),
+        body('gender').escape(),
+        body('phonenumber').escape(),
+        body('countrycode').escape(),
+        body('password').escape(),
+        body('birthdate').escape(),
+    ],
+    (req, res, next) => {
+        //const { body: { user } } = req;
+        //console.log(req);
+        const user = req.body;
+        console.log('PHONE NUMBER HELLLO' + user.phonenumber);
+        console.log(user)
+        if (!user.username) {
+            return res.status(422).json({
+                errors: {
+                    username: 'is required',
+                },
+            });
+        }
+        if (!user.email) {
+            return res.status(422).json({
+                errors: {
+                    email: 'is required',
+                },
+            });
+        }
+        if (!user.firstname) {
+            return res.status(422).json({
+                errors: {
+                    firstname: 'is required',
+                },
+            });
+        }
+        if (!user.lastname) {
+            return res.status(422).json({
+                errors: {
+                    lastname: 'is required',
+                },
+            });
+        }
+        /*
+    if(!user.age){
+        return res.status(422).json({
+            errors: {
+                age: 'is required',
+            }
+        })
+    }*/
+        if (!user.location) {
+            return res.status(422).json({
+                errors: {
+                    location: 'is required',
+                },
+            });
+        }
+        if (!user.gender) {
+            return res.status(422).json({
+                errors: {
+                    gender: 'is required',
+                },
+            });
+        }
+        if (!user.phonenumber) {
+            return res.status(422).json({
+                errors: {
+                    phonenumber: 'is required',
+                },
+            });
+        }
+        if (!user.password) {
+            return res.status(422).json({
+                errors: {
+                    password: 'is required',
+                },
+            });
+        }
+        if (!user.birthdate) {
+            return res.status(422).json({
+                errors: {
+                    birthdate: 'is required',
+                },
+            });
+        }
+        /*
+    if(db.User.findOne({
+      where: {
+        username: user.username
+      }
+    })){
+      return res.status(422).json({
+        errors: {
+          username: 'is already taken'
+        }
+      })
+    }
+    */
+        //calculate birthday function
+        function calculate_age(dob) {
+            var diff_ms = Date.now() - dob.getTime();
+            var age_dt = new Date(diff_ms);
+
+            return Math.abs(age_dt.getUTCFullYear() - 1970);
+        }
+        db.User.create({
+            username: user.username,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            name: user.firstname + ' ' + user.lastname,
+            email: user.email,
+            age: calculate_age(new Date(user.birthdate)),
+            location: user.location,
+            gender: user.gender,
+            password: user.password,
+            admin: user.admin,
+            host: user.host,
+            phonenumber: user.countrycode,
+            birthdate: user.birthdate,
+            user_ver: 0,
+            followercount: user.followercount,
+            followingcount: user.followingcount,
+            user_tok: crypto.randomBytes(16).toString('hex'), //create the token
+        })
+            .then((user) => {
+                logger(
+                    'User ' +
+                        user.id +
+                        ' created With username ' +
+                        user.username
+                );
+                db.Profile.create({
+                    UserId: user.id,
+                }).then(() => {
+                    db.UserArticle.create({
+                        UserId: user.id,
+                    })
+                        .then(() => {
+                            db.Folder.create({
+                                UserId: user.id,
+                                foldername: 'Business/Tech',
+                            });
+                        })
+                        .then(() => {
+                            db.Folder.create({
+                                UserId: user.id,
+                                foldername: 'Art/Literature',
+                            });
+                        })
+                        .then(() => {
+                            db.Folder.create({
+                                UserId: user.id,
+                                foldername: 'Miscellaneous',
+                            });
+                        })
+                        .then(() => {
+                            //would send email here
+                            // Send email (use credintials of SendGrid)
+                            //send sms message with six digit number
+                            twilioClient.messages.create(
+                                {
+                                    to: user.phonenumber,
+                                    from: process.env.TWILIO_PHONE_NUMBER,
+                                    body: "Hi, it's Go Off! Here is the six digit number to verify your account:" + Math.floor(100000 + Math.random() * 900000)
+                                }
+                            )
+                            
+                            // return res.redirect('/verify');
+                            //return res.redirect('/login'); //redirect to check email verification page
+                        });
+                    return res.redirect('/ver_account');
                 });
             })
             .catch((err) => {

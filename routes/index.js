@@ -587,6 +587,14 @@ router.get('/signup', auth.optional, (req, res, next) => {
     res.render('signup')
 })
 
+router.get('/comp_profile', auth.optional, (req, res, next) => {
+    res.render('comp_profile')
+})
+
+router.get('/ver_account', auth.optional, (req, res, next) => {
+    res.render('ver_account')
+})
+
 router.get('/', auth.optional, (req, res, next) => {
     res.render('splash')
 })
