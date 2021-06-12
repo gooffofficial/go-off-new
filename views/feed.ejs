@@ -33,11 +33,11 @@
 	<title>Feed</title>
 </head>
 
+
 <body onload="fillinvar()">
 	<nav class="navigationBar d-flex">
 		<div class="navigationContainer d-flex">
-			<a href="/feed"><img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center" style="margin-top: 10px"></a>
-			
+			<img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center">
 
 			<div class="navigationIcons align-self-center">
 				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
@@ -152,206 +152,18 @@
 			</div>
 		</div>
 	</nav>
-
+	
 	<div class="pageContainer">
 		<h1 id="header">Go Explore</h1>
 		<p id="subheading">See the latest posts and convos from your friends and your interests</p>
 		<hr id="line">
 		<div id="user-articles-container">
-			<h1 id="articles-text">Trending</h1> 
-
-			<div id=user-article-1" class="article">
-				<a id="tuser-article1_link" href="" target="_blank">
-					<div class="article-image-container">
-						<img id="tuser-article-1-image" class="article-image" src="">
-					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="user-article1_link2" href="<%=articles[0].link%>">
-						<h4 id="user-article-1-author" class="article-author"></h4>
-					</a>
-					<a id="user-article1_link3" href="<%=articles[0].link%>">
-						<h4 id="user-article-1-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article1_link1">
-						<h3 id="tuser-article-1-title" class="article-title"></h3>
-					</a>
-				</div>
-
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
-					<div class="dropdown">
-						<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
-						<ul class="dropdown-menu">
-							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[0].link%>')" id="update4" style="visibility: visible">Save to profile</a></li>
-							<li><a id="tarticle1convolink" href="">Check Conversations</a></li>
-							<li class="dropdown-submenu">
-								<a id="save-to-folder" onclick="dropclickfolders1()">Save to folder</a>
-									<ul class="dropdown-menu" id="folders-options1">
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
-									</ul>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<!-- <div class="user-Chat1" id="update1" style="display: none;">
-				<form action="/api/users/add_article1" method="post">
-					<label for="url">Article Url:</label>
-					<input type="text" id="url" name="article">
-					<input type="submit" value="update">
-				</form>
-			</div> -->
-
-			<div id="user-article-2" class="article">
-				<a id="tuser-article2_link" href="" target="_blank">
-					<div class="article-image-container">
-						<img id="tuser-article-2-image" class="article-image" src="">
-					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="user-article2_link2" href="<%=articles[1].link%>">
-						<h4 id="user-article-2-author" class="article-author"></h4>
-					</a>
-					<a id="user-article2_link3" href="<%=articles[1].link%>">
-						<h4 id="user-article-2-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article2_link1">
-						<h3 id="tuser-article-2-title" class="article-title"></h3>
-					</a>
-				</div>
-
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
-					<div class="dropdown">
-						<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
-						<ul class="dropdown-menu">
-							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[1].link%>')" id="update4" style="visibility: visible">Save to
-									profile</a></li>
-							<li><a id="tarticle2convolink" href="">Check Conversations</a></li>
-							<li class="dropdown-submenu">
-								<a id="save-to-folder" onclick="dropclickfolders2()">Save to folder</a>
-									<ul class="dropdown-menu" id="folders-options2">
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
-									</ul>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<!-- third article-->
-			<div id="user-article-3" class="article">
-				<a id="tuser-article3_link" href="" target="_blank">
-					<div class="article-image-container">
-						<img id="tuser-article-3-image" class="article-image" src="">
-					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="user-article3_link2" href="<%=articles[2].link%>">
-						<h4 id="user-article-3-author" class="article-author"></h4>
-					</a>
-					<a id="user-article3_link3" href="<%=articles[2].link%>">
-						<h4 id="user-article-3-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article3_link1">
-						<h3 id="tuser-article-3-title" class="article-title"></h3>
-					</a>
-				</div>
-
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
-					<div class="dropdown">
-						<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
-						<ul class="dropdown-menu">
-							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[2].link%>')" id="update4" style="visibility: visible">Save to
-									profile</a></li>
-							<li><a id="tarticle3convolink" href="">Check Conversations</a></li>
-							<li class="dropdown-submenu">
-								<a id="save-to-folder" onclick="dropclickfolders3()">Save to folder</a>
-									<ul class="dropdown-menu" id="folders-options3">
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
-									</ul>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<!-- fourth article-->
-			<div id="user-article-4" class="article">
-				<a id="tuser-article4_link" href="" target="_blank">
-					<div class="article-image-container">
-						<img id="tuser-article-4-image" class="article-image" src="">
-					</div>
-				</a>
-
-				<div class="article-info-container">
-					<a id="user-article4_link2" href="<%=articles[3].link%>">
-						<h4 id="user-article-4-author" class="article-author"></h4>
-					</a>
-					<a id="user-article4_link3" href="<%=articles[3].link%>">
-						<h4 id="user-article-4-read-time" class="article-read-time"></h4>
-					</a>
-					<a id="user-article4_link1">
-						<h3 id="tuser-article-4-title" class="article-title"></h3>
-					</a>
-				</div>
-
-				<div class="article-info-bottom-container">
-					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
-					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by User</p>
-
-					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
-					<div class="dropdown">
-						<img src="/more_horiz.svg" class="more-horiz" data-toggle="dropdown">
-						<ul class="dropdown-menu">
-							<li><a tabindex="-1" href="#" onclick="sendreq('<%=articles[3].link%>')" id="update4" style="visibility: visible">Save to
-									profile</a></li>
-							<li><a id="tarticle4convolink" href="">Check Conversations</a></li>
-							<li class="dropdown-submenu">
-								<a id="save-to-folder" onclick="dropclickfolders4()">Save to folder</a>
-									<ul class="dropdown-menu" id=rsvp"folders-options1">
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Business/Tech')">Business/Tech</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Art/Literature')">Art/Literature</a></li>
-										<li><a href="" tabindex="-1" onclick="sendfolderreq('Miscellaneous')">Miscellaneous</a></li>
-									</ul>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-		
-		<div id="user-articles-container">
-			<h1 id="articles-text">All Media</h1>
-
+			<h1 id="articles-text">Who you Follow</h1>
+			<a href="javascript:void(0)" onclick="getPrevArticles()" class="side-button">
+				<img src="/backarrow.webp" class="articlecyclebtn">
+			</a>
 			<div id="user-article-1" class="article">
-				<a id="user-article1_link" target="_blank" href="<%=articles[0].link%>">
-				<!-- <a id="user-article1_link" href="/conversation/?article=<%=articles[0].link%>"> -->
+				<a id="user-article1_link" href="/conversation/?article=<%=articles[0].link%>">
 					<div class="article-image-container">
 						<img id="user-article-1-image" class="article-image" src="<%=articles[0].img%>">
 					</div>
@@ -372,7 +184,7 @@
 				<div class="article-info-bottom-container">
 					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
 					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by <%=articles[0].user%></p>
+					<p>Posted by User</p>
 
 					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 					<div class="dropdown">
@@ -402,8 +214,7 @@
 			</div> -->
 
 			<div id="user-article-2" class="article">
-				<a id="user-article2_link" target="_blank" href="<%=articles[1].link%>">
-				<!-- <a id="user-article2_link" href="/conversation/?article=<%=articles[1].link%>"> -->
+				<a id="user-article2_link" href="/conversation/?article=<%=articles[1].link%>">
 					<div class="article-image-container">
 						<img id="user-article-2-image" class="article-image" src="<%=articles[1].img%>">
 					</div>
@@ -424,7 +235,7 @@
 				<div class="article-info-bottom-container">
 					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
 					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by <%=articles[1].user%></p>
+					<p>Posted by User</p>
 
 					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 					<div class="dropdown">
@@ -448,8 +259,7 @@
 
 			<!-- third article-->
 			<div id="user-article-3" class="article">
-				<a id="user-article3_link" target="_blank" href="<%=articles[2].link%>">
-				<!-- <a id="user-article3_link" href="/conversation/?article=<%=articles[2].link%>"> -->
+				<a id="user-article3_link" href="/conversation/?article=<%=articles[2].link%>">
 					<div class="article-image-container">
 						<img id="user-article-3-image" class="article-image" src="<%=articles[2].img%>">
 					</div>
@@ -470,7 +280,7 @@
 				<div class="article-info-bottom-container">
 					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
 					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by <%=articles[2].user%></p>
+					<p>Posted by User</p>
 
 					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 					<div class="dropdown">
@@ -494,8 +304,7 @@
 
 			<!-- fourth article-->
 			<div id="user-article-4" class="article">
-				<a id="user-article4_link" target="_blank" href="<%=articles[3].link%>">
-				<!-- <a id="user-article4_link" href="/conversation/?article=<%=articles[3].link%>"> -->
+				<a id="user-article4_link" href="/conversation/?article=<%=articles[3].link%>">
 					<div class="article-image-container">
 						<img id="user-article-4-image" class="article-image" src="<%=articles[3].img%>">
 					</div>
@@ -516,7 +325,7 @@
 				<div class="article-info-bottom-container">
 					<img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" class="posted-user-img">
 					<!-- POSTED BY USER PROFILE PICTURE -->
-					<p>Posted by <%=articles[3].user%></p>
+					<p>Posted by User</p>
 
 					<!-- <img src="/more_horiz.svg" class="horiz-icon"> -->
 					<div class="dropdown">
@@ -537,18 +346,17 @@
 					</div>
 				</div>
 			</div>
-
 			<a href="javascript:void(0)" onclick="getNextArticles()" class="side-button">
 				<img src="/rightarrow.png" class="articlecyclebtn">
 			</a>
-			
-
 			<div id="user-articles-container">
-				<h1 id="articles-text">All Convos</h1>
-
+				<h1 id="articles-text">Your Friends Convos</h1>
+				<a href="javascript:void(0)" onclick="getPrevConvos()" class="side-button">
+					<img src="/backarrow.webp" class="articlecyclebtn">
+				</a>
 				<!--First convo-->
 				<div id="user-article-1" class="article">
-					<a id="user-convo1_link" target="_blank" href="<%=convos[0].article%>">
+					<a id="user-convo1_link" href="/conversation/?article=<%=convos[0].article%>">
 						<div class="article-image-container">
 							<img id="user-convo-1-image" class="article-image" src="<%=convos[0].img%>">
 						</div>
@@ -609,8 +417,7 @@
 
 				<!--Second convo-->
 				<div id="user-article-2" class="article">
-					<!-- <a id="user-convo2_link" href="/conversation/?article=<%=convos[1].article%>"> -->
-					<a id="user-convo2_link" target="_blank" href="<%=convos[1].article%>">
+					<a id="user-convo2_link" href="/conversation/?article=<%=convos[1].article%>">
 						<div class="article-image-container">
 							<img id="user-convo-2-image" class="article-image" src="<%=convos[1].img%>">
 						</div>
@@ -663,8 +470,7 @@
 
 				<!--Third Convo-->
 				<div id="user-article-3" class="article">
-					<!-- <a id="user-convo3_link" href="/conversation/?article=<%=convos[2].article%>"> -->
-					<a id="user-convo3_link" target="_blank" href="<%=convos[2].article%>">
+					<a id="user-convo3_link" href="/conversation/?article=<%=convos[2].article%>">
 						<div class="article-image-container">
 							<img id="user-convo-3-image" class="article-image" src="<%=convos[2].img%>">
 						</div>
@@ -717,8 +523,7 @@
 
 				<!--Fourth convo-->
 				<div id="user-article-4" class="article">
-					<!-- <a id="user-convo4_link" href="/conversation/?article=<%=convos[3].article%>"> -->
-					<a id="user-convo4_link" target="_blank" href="<%=convos[3].article%>">
+					<a id="user-convo4_link" href="/conversation/?article=<%=convos[3].article%>">
 						<div class="article-image-container">
 							<img id="user-convo-4-image" class="article-image" src="<%=convos[3].img%>">
 						</div>
@@ -773,14 +578,14 @@
 				</a>
 			</div>
 
-			<!-- <div id="rsvp-pop" style="visibility: hidden;">
+			<div id="rsvp-pop" style="visibility: hidden;">
 				<p>You have succesfully RSVP'd for this conversation! 
 					Go to the Conversations Tab on your profile to join!
 				</p>
 				<a href="/profiles/<%=myuser%>">
 					<button type="submit">Go to Profile</button>
 				</a>
-			</div> -->
+			</div>
 
 			<footer>
 				<div class="footer-container">
@@ -822,6 +627,7 @@
 			if (this.readyState == 4 && this.status == 200) {
 				var artArr = JSON.parse(this.responseText);
 				for(var i=0; i<artArr.length; i++) {
+					console.log(artArr)
 					console.log(artArr[i].title)
 					document.getElementById("article"+(i+1)+"convolink").setAttribute("href", artArr[i].link)
 					document.getElementById("user-article-"+(i+1)+"-title").innerText = artArr[i].title
@@ -863,6 +669,53 @@
 			xhrNotif.send();
 			articleOffset += 4;
 	}			
+	function getPrevArticles(){
+		var xhrNotif = new XMLHttpRequest();
+		xhrNotif.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				var artArr = JSON.parse(this.responseText);
+				for(var i=0; i<artArr.length; i++) {
+					console.log(artArr[i].title)
+					document.getElementById("article"+(i+1)+"convolink").setAttribute("href", artArr[i].link)
+					document.getElementById("user-article-"+(i+1)+"-title").innerText = artArr[i].title
+					document.getElementById("user-article"+(i+1)+"_link").setAttribute("href", "/conversation/?article="+artArr[i].link)
+					document.getElementById("user-article-"+(i+1)+"-image").setAttribute("src", artArr[i].img)
+				}
+				title4 = document.getElementById("user-article-1-title").innerHTML;
+				title5 = document.getElementById("user-article-2-title").innerHTML;
+				title6 = document.getElementById("user-article-3-title").innerHTML;
+				title7 = document.getElementById("user-article-4-title").innerHTML;
+				if(title4.length > 50){
+					title4 = title4.substring(0,50) + "...";
+					document.getElementById("user-article-1-title").innerHTML = title4;
+					console.log(title4);
+					console.log("works!");
+				}
+				if(title5.length > 50){
+					title5 = title5.substring(0,50) + "...";
+					document.getElementById("user-article-2-title").innerHTML = title5;
+					console.log(title5);
+					console.log("works!");
+				}
+				if(title6.length > 50){
+					title6 = title6.substring(0,50) + "...";
+					document.getElementById("user-article-3-title").innerHTML = title6;
+					console.log(title6);
+					console.log("works!");
+				}
+				if(title7.length > 50){
+					title7 = title7.substring(0,50) + "...";
+					document.getElementById("user-article-4-title").innerHTML = title7;
+					console.log(title7);
+					console.log("works!");
+				}
+			}
+		}
+			xhrNotif.open("GET", '/api/getarticles?o='+articleOffset, true);
+			xhrNotif.withCredentials = true
+			xhrNotif.send();
+			articleOffset -= 4;
+	}			
 		function getNextConvos(){
 			console.log("testing")
 			var xhrNotif = new XMLHttpRequest();
@@ -885,7 +738,31 @@
 				xhrNotif.withCredentials = true
 				xhrNotif.send();
 				convoOffset += 4;
-			}				
+			}
+
+			function getPrevConvos(){
+			console.log("testing")
+			var xhrNotif = new XMLHttpRequest();
+			xhrNotif.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					var convArr = JSON.parse(this.responseText);
+					console.log(convArr[0].img)
+					console.log(convArr[0].title)
+					console.log("HELLO\n\n"+convArr+"\n\n")
+					for(var i=0; i<convArr.length; i++) {
+						document.getElementById("user-convo"+(i+1)+"_link").setAttribute("href", "/conversation/?article="+convArr[i].article)
+						document.getElementById("convo-host"+(i+1)).innerText = "Hosted by " + convArr[i].host
+						document.getElementById("convo"+(i+1)+"-title").innerText = convArr[i].title
+						document.getElementById("convo"+(i+1)+"-desc").innerText = convArr[i].description
+						document.getElementById("user-convo-"+(i+1)+"-image").setAttribute("src", convArr[i].img)
+					}
+					}
+				}
+				xhrNotif.open("GET", '/api/getconvos?o='+convoOffset, true);
+				xhrNotif.withCredentials = true
+				xhrNotif.send();
+				convoOffset -= 4;
+			}							
 	function plsWork(str) {
 			str.toLowerCase();
 			var stringz = ""
@@ -937,7 +814,7 @@
 					var notifText = document.createElement('p')
 					notifText.setAttribute('font-size', 'small')
 					notifText.setAttribute('id', 'notiftext')
-					var notifTextNode = document.createTextNode('You have a convo "' + convArr[i].title +'" coming up soon!\n Find it on your converations tab.')
+					var notifTextNode = document.createTextNode('You have a convo on ' + convArr[i].article +' coming up soon!\n Find it on your converations tab.')
 					notifText.appendChild(notifTextNode)
 					
 					notifDiv.appendChild(notifText)
@@ -951,8 +828,6 @@
 		xhrNotif.open("GET", '/api/upcoming', true);
 		xhrNotif.withCredentials = true
 		xhrNotif.send();
-
-		
 
 
 	function sendreq(x){
@@ -972,7 +847,8 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[0].id %>
 		}));
-		window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
+		var x = document.getElementById("rsvp-pop");
+		x.style.visibility = "visible";
 	}
 
 	function joinConvo1() {
@@ -983,7 +859,8 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[1].id %>
 		}));
-		window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
+		var x = document.getElementById("rsvp-pop");
+		x.style.visibility = "visible";
 	}
 
 	function joinConvo2() {
@@ -994,7 +871,8 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[2].id %>
 		}));
-		window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
+		var x = document.getElementById("rsvp-pop");
+		x.style.visibility = "visible";
 	}
 
 	function joinConvo3() {
@@ -1005,7 +883,8 @@
 		xhr.send(JSON.stringify({
 			convo: <%= convos[3].id %>
 		}));
-		window.alert("Successfully RSVP'd! Go to the Conversation tab on your Profile to join!");
+		var x = document.getElementById("rsvp-pop");
+		x.style.visibility = "visible";
 	}
 	function dropclick1(id) {
 			var x = document.getElementById(id);
@@ -1049,94 +928,53 @@
 		}
 	}
 	function fillinvar(){
-
-		// document.getElementById("fprofpic").src("<%=ppic%>")
-		// console.log(<%=ppic%>)
-
-		var xhrNotif = new XMLHttpRequest();
-		xhrNotif.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
-				var TrendingArr = JSON.parse(this.responseText);
-				console.log("trending test")
-				console.log(TrendingArr);
-				document.getElementById("tuser-article1_link").setAttribute("href", TrendingArr.article1Url)
-				document.getElementById("tuser-article-1-image").setAttribute("src", TrendingArr.article1img)
-				document.getElementById("tuser-article-1-title").innerHTML = TrendingArr.article1Title
-				document.getElementById("tarticle1convolink").setAttribute("href", "/conversation/?article=" + TrendingArr.article1Url)
-				document.getElementById("tuser-article2_link").setAttribute("href", TrendingArr.article2Url)
-				document.getElementById("tuser-article-2-image").setAttribute("src", TrendingArr.article2img)
-				document.getElementById("tuser-article-2-title").innerHTML = TrendingArr.article2Title
-				document.getElementById("tarticle2convolink").setAttribute("href", "/conversation/?article=" + TrendingArr.article2Url)
-				document.getElementById("tuser-article3_link").setAttribute("href", TrendingArr.article3Url)
-				document.getElementById("tuser-article-3-image").setAttribute("src", TrendingArr.article3img)
-				document.getElementById("tuser-article-3-title").innerHTML = TrendingArr.article3Title
-				document.getElementById("tarticle3convolink").setAttribute("href", "/conversation/?article=" + TrendingArr.article3Url)
-				document.getElementById("tuser-article4_link").setAttribute("href", TrendingArr.article4Url)
-				document.getElementById("tuser-article-4-image").setAttribute("src", TrendingArr.article4img)
-				document.getElementById("tuser-article-4-title").innerHTML = TrendingArr.article4Title
-				document.getElementById("tarticle4convolink").setAttribute("href", "/conversation/?article=" + TrendingArr.article4Url)
-				titlelen()
-			}
-		}				
-		xhrNotif.open("GET", '/api/users/trending', true);
-		xhrNotif.withCredentials = true
-		xhrNotif.send();
-
-		
-
 		var d = new Date()
 		document.getElementById('timezone').setAttribute('value', d.getTimezoneOffset()/60)
-		console.log(<%=host%>)
-		console.log(<%=admin%>)
-		// console.log(<%=ppic%>)
-		if(<%=host%> == true || <%=admin%> == true){
-			document.getElementById("convobtn").style.visibility = "visible";
-			console.log("test")
-		}
-		
-	}
-
-	function titlelen(){
-		title = document.getElementById("tuser-article-1-title").innerHTML;
-		title1 = document.getElementById("tuser-article-2-title").innerHTML;
-		title2 = document.getElementById("tuser-article-3-title").innerHTML;
-		title3 = document.getElementById("tuser-article-4-title").innerHTML;
 		title4 = document.getElementById("user-article-1-title").innerHTML;
 		title5 = document.getElementById("user-article-2-title").innerHTML;
 		title6 = document.getElementById("user-article-3-title").innerHTML;
 		title7 = document.getElementById("user-article-4-title").innerHTML;
-		console.log(title);
-		console.log(title1.length);
-		console.log(title2.length);
-		console.log(title3.length);
 		console.log(title4.length);
 		console.log(title5.length);
 		console.log(title6.length);
 		console.log(title7.length);
-		if(title.length > 50){
-			title = title.substring(0,50) + "...";
-			document.getElementById("tuser-article-1-title").innerHTML = title;
-			console.log(title);
+		console.log(<%=host%>)
+		console.log(<%=admin%>)
+		if(<%=host%> == true || <%=admin%> == true){
+			document.getElementById("convobtn").style.visibility = "visible";
+			console.log("test")
+		}
+		if(title4.length > 50){
+			title4 = title4.substring(0,50) + "...";
+			document.getElementById("user-article-1-title").innerHTML = title4;
+			console.log(title4);
 			console.log("works!");
 		}
-		if(title1.length > 50){
-			title1 = title1.substring(0,50) + "...";
-			document.getElementById("tuser-article-2-title").innerHTML = title1;
-			console.log(title1);
+		if(title5.length > 50){
+			title5 = title5.substring(0,50) + "...";
+			document.getElementById("user-article-2-title").innerHTML = title5;
+			console.log(title5);
 			console.log("works!");
 		}
-		if(title2.length > 50){
-			title2 = title2.substring(0,50) + "...";
-			document.getElementById("tuser-article-3-title").innerHTML = title2;
-			console.log(title2);
+		if(title6.length > 50){
+			title6 = title6.substring(0,50) + "...";
+			document.getElementById("user-article-3-title").innerHTML = title6;
+			console.log(title6);
 			console.log("works!");
 		}
-		if(title3.length > 50){
-			title3 = title3.substring(0,50) + "...";
-			document.getElementById("tuser-article-4-title").innerHTML = title3;
-			console.log(title3);
+		if(title7.length > 50){
+			title7 = title7.substring(0,50) + "...";
+			document.getElementById("user-article-4-title").innerHTML = title7;
+			console.log(title7);
 			console.log("works!");
 		}
+	}
+
+	function titlelen(){
+		title4 = document.getElementById("user-article-1-title").innerHTML;
+		title5 = document.getElementById("user-article-2-title").innerHTML;
+		title6 = document.getElementById("user-article-3-title").innerHTML;
+		title7 = document.getElementById("user-article-4-title").innerHTML;
 		if(title4.length > 50){
 			title4 = title4.substring(0,50) + "...";
 			document.getElementById("user-article-1-title").innerHTML = title4;
