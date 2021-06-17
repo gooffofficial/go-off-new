@@ -9,6 +9,12 @@ For example, if I were working on a user page the branch I would working on is "
 
 Once you have your feature working, submit a pull request so that we can merge the code!
 
+# running the backend server
+
+Install node dependencies with 'yarn install package', then run the server with 'node server.js'.
+
+Make sure to download the .env folder with all the sensitive AWS folder if you haven't already. 
+
 # Docker and deployment
 
 We are deploying our application via docker images so that we can easily control our environment and ensure that we have all the dependencies that we need installed for multiple programming languages at one (i.e. JS and Python).
@@ -25,12 +31,6 @@ Note: This is via the terminal. I don't know how docker desktop works, so if you
 After the build is finished, go to AWS, and to our elastic beanstalk environment (GooffBetaDocker1-env). From there, click upload and deploy and upload to Dockerrun.aws.json file which you were provided. When it is done deploying, then you should be able to access the site and see the changes!
 
 If something goes wrong in deployment, the logs are probably the first place you should go. You can find them on the left side of the elastic beanstalk page, and clicking on Logs. Usually getting the last 100 lines will be good enough, but if not, you also have the option to download the full logs.
-
-# running the backend server
-
-Install node dependencies with 'yarn install package', then run the server with 'node server.js'.
-
-Make sure to download the .env folder with all the sensitive AWS folder if you haven't already. 
 
 # user account stuff
 
