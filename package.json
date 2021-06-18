@@ -47,6 +47,7 @@
     "package.json": "^2.0.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "react": "^17.0.2",
     "selenium": "^2.20.0",
     "sequelize": "^5.21.11",
     "sequelize-cli": "^5.5.1",
