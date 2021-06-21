@@ -11,7 +11,7 @@ Once you have your feature working, submit a pull request so that we can merge t
 
 # running the backend server
 
-Install node dependencies with 'yarn install package', then run the server with 'node server.js'.
+Install node dependencies with 'yarn add package', then run the server with 'node server.js'.
 
 Make sure to download the .env folder with all the sensitive AWS folder if you haven't already. 
 
