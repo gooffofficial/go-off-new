@@ -10,76 +10,28 @@ html {
 }
 
 .left-side {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	bottom: 0;
-	width: 50%;
-	height: 100%;
-	/* background: linear-gradient(166.7deg, #3A86FF 35.85%, #5667FF 81.01%); */
+	width: 60%;
+	background: linear-gradient(166.7deg, #3A86FF 35.85%, #5667FF 81.01%);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
+	z-index: 120;
 }
 
 .left-container {
-	
-	z-index: 200;
-	height: 80%;
+	margin-left: -16vw;
 }
 
 #left-logo {
 	width: 55px;
 	height: 55px;
-	margin-left: -2%;
-
 }
 
-#pdot1 {
-	position: absolute;
-	width: 13px;
-	height: 13px;
-	border-radius: 50%;
-	left: 32%;
-	top: 13%;
-	background: #C4C4C4;
-}
-#pdot2 {
-	position: absolute;
-	width: 13px;
-	height: 13px;
-	border-radius: 50%;
-	left: 38%;
-	top: 13%;
-	background: #C4C4C4;
-}
-#pdot3 {
-	position: absolute;
-	width: 13px;
-	height: 13px;
-	border-radius: 50%;
-	left: 44%;
-	top: 13%;
-	background: #C4C4C4;
-}
-#pbar1 {
-	position: absolute;
-	width: 6%;
-	height: 4px;
-	background: #C4C4C4;
-	top: 13.5%;
-	left: 33%;
-}
-#pbar2 {
-	position: absolute;
-	width: 6%;
-	height: 4px;
-	background: #C4C4C4;
-	top: 13.5%;
-	left: 39%;
-}
-#main-text {
+#main-text1 {
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
 	font-size: 50px;
@@ -87,7 +39,7 @@ html {
 	line-height: 1;
 	letter-spacing: -2px;
 	margin-bottom: 0;
-	margin-top: 60px;
+	margin-top: 65%;
 	width: 335px;
 }
 
@@ -96,25 +48,24 @@ html {
 	font-weight: 500;
 	font-size: 18px;
 	color: #fff;
-	margin-top: 54px;
+	margin-top: 74px;
 }
 
 .right-side {
 	position: absolute;
-	width: 60%;
-	height: 100%;
-	left: 50%;
 	top: 0;
-	background: linear-gradient(166.7deg, #3A86FF 35.85%, #5667FF 81.01%);
-	/* transform: rotate(-36.81deg); */
-	z-index: 120;
+	right: 0;
+	bottom: 0;
+	width: 50%;
+	display: flex;
+	align-items: center;
 }
 
-.right-container {
+.right-container1 {
 	width: 400px;
 	margin: 0 auto;
 	position: relative;
-	margin-top: 20%;
+	z-index: 200;
 }
 
 .wave-container {
@@ -123,33 +74,28 @@ html {
 	bottom: 0;
 	right: 0;
 	left: 0;
-	background-color: #FFFFFF;
-	
+	background-color: #fff;
 }
 
-#wave {
-	position: absolute;
+#wave1 {
+	position: fixed;
 	height: 102%;
 	margin-top: -2px;
-	margin-left: 30%;
+	margin-left: -70px;
 	min-height: 600px;
-	
-	transform: rotate(180deg);
-	
 	z-index: 150;
 }
 
 #logo {
 	width: 48px;
 	height: 48px;
-
 }
 
 #head-text {
 	font-size: 40px;
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
-	margin-bottom: 1%;
+	margin-bottom: 0;
 	margin-top: 0;
 }
 
@@ -163,8 +109,6 @@ html {
 
 .field-container {
 	margin-top: 30px;
-	width: 100%;
-	height: 55%;
 }
 
 .field-container label {
@@ -181,7 +125,7 @@ html {
 
 .iti{
 	width: 100%;
-	margin-bottom: 10%;
+	margin-bottom: 5%;
 }
 .field-input {
 	font-family: 'Poppins', sans-serif;
@@ -191,7 +135,7 @@ html {
 	border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 	width: 100%;
 	padding: 2px 0px;
-	margin-bottom: 5%;
+	margin-bottom: 25px;
 }
 
 #birthday {
@@ -212,7 +156,7 @@ html {
 
 .checkbox-container {
 	display: inline-block;
-	/* margin-top: 20px; */
+	margin-top: 20px;
 }
 
 #check {
@@ -271,7 +215,7 @@ html {
 	width: 100%;
 	padding: 11px 20px;
 	border-radius: 100px;
-	margin-top: 2%;
+	margin-top: 14px;
 }
 
 #submit-button:hover {
@@ -284,7 +228,6 @@ html {
 	font-weight: 500;
 	color: rgba(0, 0, 0, 0.3);
 	font-size: 14px;
-	margin-top: 20%;
 }
 
 #ques-text a {
@@ -295,125 +238,3 @@ html {
 }
 
 ::-webkit-datetime-edit-text { padding: 0 0.8em; }
-
-#evertext {
-	position: absolute;
-	width: 133px;
-	height: 30px;
-	left: 30%;
-	top: -10%;
-	font-family: Poppins;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 30px;
-	/* identical to box height, or 214% */
-
-
-	color: #FFFFFF;
-}
-
-#evertext2 {
-	position: absolute;
-	width: 133px;
-	height: 30px;
-	left: 30%;
-	top: 20%;
-
-	font-family: Poppins;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 30px;
-	/* identical to box height, or 214% */
-
-
-	color: #FFFFFF;
-}
-
-#svertext {
-	position: absolute;
-	width: 128px;
-	height: 30px;
-	left: 30%;
-	top: -10%;
-
-	font-family: Poppins;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 30px;
-	/* identical to box height, or 250% */
-
-
-	color: #FFFFFF;
-}
-
-#svertext2 {
-	position: absolute;
-	width: 133px;
-	height: 30px;
-	left: 30%;
-	top: 20%;
-
-	font-family: Poppins;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 30px;
-	/* identical to box height, or 214% */
-
-
-	color: #FFFFFF;
-}
-
-.verbutton {
-	position: relative;
-	top: 0px;
-	width: 100%;
-	margin-top: 4px;
-	left: 0;
-	font-size: 14px;
-	font-family: 'Poppins', sans-serif;
-	font-weight: bold;
-	text-align: left;
-	border: 0;
-	letter-spacing: -0.5px !important;
-	padding: 11px 18px 11px 25px;
-	border-radius: 50px;
-	margin-top: 15%;
-	opacity: 0.65;
-	display: block;
-	text-decoration: none !important;
-	background-color: #3A86FF;
-	box-shadow: 0px 1px 15px rgba(58, 134, 255, 0.25);
-    /*background-color:  #FFFFFF !important; */
-	opacity: 1;
-	/* position: absolute;
-	width: 303px;
-	height: 53px;
-	left: 127px;
-	top: 254px;
-
-	background: #3A86FF;
-	box-shadow: 0px 1px 15px rgba(58, 134, 255, 0.25);
-	border-radius: 16.5px; */
-}
-
-#rightarrow {
-	height: 40px;
-	width: 40px;
-	position: absolute;
-	right: 10%;
-}
-
-#mailbutton {
-	height: 40px;
-	width: 40px;
-}
-
-#phonebutton {
-	height: 40px;
-	width: 40px;
-}
-

@@ -1,5 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
+import Splash from './components/splash.js';
+import Login from './components/login.js';
 import Sform from './components/sform.js';
 import Cform from './components/cform.js';
 import Ver from './components/ver.js';
@@ -13,9 +15,12 @@ function App() {
     <div className="App">
       {/* routes (sets different url paths) / should be splash*/}
       <Switch>
-        {/* <Route path="/">
-          
-        </Route> */}
+        <Route path="/splash">
+          <Splash/>
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
         <Route path="/signup/sform">
           <Sform />
         </Route>

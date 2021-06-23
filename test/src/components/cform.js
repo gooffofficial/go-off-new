@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { signupactions} from "../redux/actions";
 import '../styles/signup.css';
@@ -15,6 +15,7 @@ const Cform = props => {
 
     let history = useHistory();
 
+   
     const formhandler = events =>{
         //takes whatever we are trying to update
         const name = events.target.name;

@@ -64,7 +64,7 @@ const Sform =  props => {
                     <div className="left-side">
                         <div className="left-container">
                             {/* logo */}
-                            <img src="GO_Off300.png" id="left-logo"/>
+                            <img src="/GO_Off300.png" id="left-logo"/>
                             {/* progress bar */}
                             <span className="dot" id="pdot1" style={{background: "#3A86FF"}} ></span>
                             <span className="bar" id="pbar1" style={{background: "#3A86FF"}} ></span>
@@ -128,10 +128,10 @@ const Sform =  props => {
                                     
                                 /><img src="/check.svg" id="check"/>
                                 </div>
-                                
+                                <button onClick={buttonhandler} id="submit-button">SIGN UP </button>
                             </form>
-                            <button onClick={buttonhandler} id="submit-button">SIGN UP </button>
-                            <p id="ques-text">Already have an account? <a href="/login">Log in here</a></p>
+                            
+                            {/* <p id="ques-text">Already have an account? <a href="/login">Log in here</a></p> */}
                             
                         </div>
                 
