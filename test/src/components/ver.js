@@ -11,7 +11,11 @@ const Ver = props => {
   //handle the axios call
   const buttonhandler = events =>{
     events.preventDefault();
-    axios.post("https://cors-anywhere.herokuapp.com/localhost:8000/api/users/ecreate", JSON.stringify(data)).then(res =>{
+    axios.post("https://cors-anywhere.herokuapp.com/http://go-off.co/api/users/ecreate", data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res =>{
       console.log(res)
     }).catch(error =>{
       console.log(error)
