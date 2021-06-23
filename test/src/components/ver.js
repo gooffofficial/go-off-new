@@ -24,12 +24,24 @@ const Ver = props => {
 
   const emailbuttonhandler = events =>{
     events.preventDefault();
+<<<<<<< HEAD
     history.push("/signup/eauth")
     // axios.post("https://cors-anywhere.herokuapp.com/localhost:8000/api/users/ecreate", JSON.stringify(data)).then(res =>{
     //   console.log(res)
     // }).catch(error =>{
     //   console.log(error)
     // })
+=======
+    axios.post("https://cors-anywhere.herokuapp.com/http://go-off.co/api/users/ecreate", data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res =>{
+      console.log(res)
+    }).catch(error =>{
+      console.log(error)
+    })
+>>>>>>> c61d931448930980df4322f38fa3d19fe2e04dae
   }
 
   return (

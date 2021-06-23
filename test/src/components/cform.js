@@ -33,6 +33,7 @@ const Cform = props => {
     const buttonhandler = events =>{
         events.preventDefault();
         // events.stopPropagation();
+        // let mergedData = { ...data, ...form_values}
         dispatch(update_form_values(form_values))
         history.push("/signup/ver");
     }  
@@ -41,7 +42,6 @@ const Cform = props => {
         //same logic as above
         const name = events.target.name
         const value = events.target.value
-        console.log(events.target.value)
 
         set_form_values({
             ...form_values,

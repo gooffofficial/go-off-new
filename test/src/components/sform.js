@@ -50,12 +50,11 @@ const Sform =  props => {
         //same logic as above
         const name = events.target.name
         const value = events.target.checked
-        console.log(events)
 
-        // set_form_values({
-        //     ...form_values,
-        //     [name]: value
-        // })
+        set_form_values({
+            ...form_values,
+            [name]: value
+        })
     }
 
         return (

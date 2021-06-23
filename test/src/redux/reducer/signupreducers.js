@@ -7,22 +7,13 @@ const initState = {
 export const signupreducers = (state = initState, action) => {
 	switch (action.type) {
         case "UPDATE_ALL_FORM_VALUES": 
-        console.log(action.key)
-            const data = action.payload;
+        
+            const mergedObj = {...state.form_values, ...action.payload}
+            
             //gets and updates form (action.payload)
             return {
                 ...state,
-                form_values: {
-                    fullname: data.fullname,
-                    email: data.email,
-                    username: data.username,
-                    password: data.password,
-                    birthdate: data.birthdate,
-                    checkbox: data.checkbox,
-                    phonenumber: data.phonenumber,
-                    location: data.location,
-                    gender: data.gender
-                },
+                form_values: mergedObj
             }
 		default:
             return state;
