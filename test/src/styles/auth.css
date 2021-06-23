@@ -1,0 +1,113 @@
+.logo{
+    position: absolute;
+    left: 47.66%;
+    right: 47.66%;
+    top: 13.47%;
+    bottom: 78.19%;
+
+    background: linear-gradient(180deg, #3A86FF 0%, #5667FF 100%);
+}
+
+.vertext{
+    position: absolute;
+    width: 212px;
+    height: 36px;
+    left: 30%;
+    top: 20%;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.sverdesc{
+    position: absolute;
+    width: 212px;
+    height: 30px;
+    left: 30%;
+    top: 28%;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+
+    color: #000000;
+
+    opacity: 0.32;
+
+}
+
+.everdesc{
+    position: absolute;
+    width: 300px;
+    height: 117px;
+    left: 490px;
+    top: 259px;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+
+    color: #000000;
+
+    opacity: 0.32;
+}
+
+.input{
+    position: absolute;
+    width: 57px;
+    height: 65px;
+    left: 408px;
+    top: 294px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+.authsubmit{
+    position: absolute;
+    width: 221px;
+    height: 31px;
+    left: 30%;
+    top: 70%;
+
+    background: linear-gradient(171.72deg, #3A86FF 24.63%, #3A71FF 93.65%);
+    box-shadow: 0px 1px 15px rgba(58, 134, 255, 0.25);
+    border-radius: 16.5px;
+}
+
+.container{
+    position: absolute;
+    width: 527px;
+    height: 530px;
+    left: 35%;
+    top: 15%;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.25);
+    border-radius: 32px;
+}
+
+.swave{
+    position: absolute;
+    width: 1395.71px;
+    height: 1752.43px;
+    left: 1074.19px;
+    top: -342.07px;
+
+    background: linear-gradient(121.71deg, #3A86FF 26.99%, #5667FF 50.46%);
+    transform: rotate(60deg);
+}

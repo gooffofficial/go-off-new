@@ -370,6 +370,7 @@ html {
 .verbutton {
 	position: relative;
 	top: 0px;
+	width: 100%;
 	margin-top: 4px;
 	left: 0;
 	font-size: 14px;
@@ -384,7 +385,7 @@ html {
 	display: block;
 	text-decoration: none !important;
 	background-color: #3A86FF;
-    color: background: #FFFFFF !important;
+    /* background-color:  #FFFFFF !important; */
     opacity: 1;
 }
 
@@ -404,3 +405,4 @@ html {
 	height: 40px;
 	width: 40px;
 }
+

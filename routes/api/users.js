@@ -167,6 +167,10 @@ router.post(
 
             return Math.abs(age_dt.getUTCFullYear() - 1970);
         }
+        function calculate_code(){
+            code = Math.floor(100000 + Math.random() * 900000)
+            return code
+        }
         db.User.create({
             username: user.username,
             firstname: user.firstname,
@@ -182,6 +186,7 @@ router.post(
             phonenumber: user.countrycode,
             birthdate: user.birthdate,
             user_ver: 0,
+            smscode: calculate_code(),
             followercount: user.followercount,
             followingcount: user.followingcount,
             user_tok: crypto.randomBytes(16).toString('hex'), //create the token
@@ -228,24 +233,15 @@ router.post(
                                     'Hello ' +
                                     user.firstname +
                                     ',\n\n' +
-                                    'Please verify your account by clicking the link: \nhttps://' +
-                                    'www.go-off.co' +
-                                    '/api/users/verification?useremail=' +
-                                    user.email +
-                                    '&verification_token=' +
-                                    user.user_tok +
+                                    'Please verify your account by entering the number: '+ user.smscode + 
+                                    'on the website' +
                                     '\n\nThank You!\n',
                                 html:
                                     'Hello ' +
                                     user.firstname +
                                     ',\n\n' +
-                                    'Please verify your account by clicking the link: <a href = \nhttps://' +
-                                    'www.go-off.co' +
-                                    '/api/users/verification?useremail=' +
-                                    user.email +
-                                    '&verification_token=' +
-                                    user.user_tok +
-                                    '> Here </a>' +
+                                    'Please verify your account by entering the number: '+ user.smscode + 
+                                    'on the website' +
                                     '\n\nThank You!\n',
                                 //change into an HREF
                             };
@@ -384,6 +380,10 @@ router.post(
 
             return Math.abs(age_dt.getUTCFullYear() - 1970);
         }
+        function calculate_code(){
+            code = Math.floor(100000 + Math.random() * 900000)
+            return code
+        }
         db.User.create({
             username: user.username,
             firstname: user.firstname,
@@ -399,6 +399,7 @@ router.post(
             phonenumber: user.countrycode,
             birthdate: user.birthdate,
             user_ver: 0,
+            smscode: calculate_code(),
             followercount: user.followercount,
             followingcount: user.followingcount,
             user_tok: crypto.randomBytes(16).toString('hex'), //create the token

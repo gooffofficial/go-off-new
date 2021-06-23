@@ -48,6 +48,8 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "react": "^17.0.2",
+    "react-code-input": "^3.10.1",
+    "react-step-builder": "^2.0.10",
     "selenium": "^2.20.0",
     "sequelize": "^5.21.11",
     "sequelize-cli": "^5.5.1",
