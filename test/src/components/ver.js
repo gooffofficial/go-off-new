@@ -24,24 +24,12 @@ const Ver = props => {
 
   const emailbuttonhandler = events =>{
     events.preventDefault();
-<<<<<<< HEAD
     history.push("/signup/eauth")
     // axios.post("https://cors-anywhere.herokuapp.com/localhost:8000/api/users/ecreate", JSON.stringify(data)).then(res =>{
     //   console.log(res)
     // }).catch(error =>{
     //   console.log(error)
     // })
-=======
-    axios.post("https://cors-anywhere.herokuapp.com/http://go-off.co/api/users/ecreate", data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(res =>{
-      console.log(res)
-    }).catch(error =>{
-      console.log(error)
-    })
->>>>>>> c61d931448930980df4322f38fa3d19fe2e04dae
   }
 
   return (
@@ -50,11 +38,11 @@ const Ver = props => {
         <div className="left-side">
             <div className="left-container">
               <img src="/GO_Off300.png" id="left-logo"></img>
-              <span className="dot" id="pdot1" style={{background: "#3A86FF"}}></span>
-              <span className="bar" id="pbar1" style={{background: "#3A86FF"}}></span>
-              <span className="dot" id="pdot2" style={{background: "#3A86FF"}}></span>
-              <span className="bar" id="pbar2" style={{background: "#3A86FF"}}></span>
-              <span className="dot" id="pdot3" style={{background: "#3A86FF"}}></span>
+              <span className="dot" id="pdot1" style={{background: "#3A86FF", left: "40%"}}></span>
+              <span className="bar" id="pbar1" style={{background: "#3A86FF", left: "40%"}}></span>
+              <span className="dot" id="pdot2" style={{background: "#3A86FF", left: "45%"}}></span>
+              <span className="bar" id="pbar2" style={{background: "#3A86FF", left: "45%"}}></span>
+              <span className="dot" id="pdot3" style={{background: "#3A86FF", left: "50%"}}></span>
               <p id="head-text">Verify your account</p>
               <p id="desc-text">Choose your account verification method</p>
               {/* two forms each submit to a different verification form*/}
@@ -82,7 +70,7 @@ const Ver = props => {
 
                 <p id="main-text">Welcome to Go Off!</p>
                 <p id="sub-text">A community made for you!</p>
-                <img src="/GO_OFF_LOGO.svg" id="logo"/>
+                {/* <img src="/GO_OFF_LOGO.svg" id="logo"/> */}
             </div>
         </div>
       </div>

@@ -17,16 +17,16 @@ const Splash = props => {
 
     return (
         <div>
-            <div className="left-side1">
+            <div className="left-side2">
                 <img src="/go-off-logo-big.svg" id="left-logo1" draggable="false"/>
             </div>
 
-            <div className="right-side1">
+            <div className="right-side2">
                 <div className="center-container">
                     <img src="/GO_OFF_LOGO.svg" className="right-logo" draggable="false"/>
 
-                    <p id="main-text1">Join the conversation, literally.</p>
-                    <p id="sub-text1">Sign up or login to join Go Off!</p>
+                    <p id="main-text2">Join the conversation, literally.</p>
+                    <p id="sub-text2">Sign up or login to join Go Off!</p>
 
                     <div className="button-container">
                         <button onClick={signupbuttonhandler} className="form-button">Sign Up</button>

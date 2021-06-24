@@ -9,7 +9,7 @@ html {
 	overflow-x: hidden;
 }
 
-.left-side {
+.left-side1 {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -22,7 +22,7 @@ html {
 	z-index: 120;
 }
 
-.left-container {
+.left-container1 {
 	margin-left: -16vw;
 }
 
@@ -51,7 +51,7 @@ html {
 	margin-top: 74px;
 }
 
-.right-side {
+.right-side1 {
 	position: absolute;
 	top: 0;
 	right: 0;

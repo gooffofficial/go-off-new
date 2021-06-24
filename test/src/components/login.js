@@ -11,14 +11,14 @@ const Login = props => {
 
     return (
         <div>
-            <div class="left-side">
-                <div class="left-container">
+            <div class="left-side1">
+                <div class="left-container1">
                     <p id="main-text1">Adventure starts here.</p>
                     <p id="sub-text">Log in to join the community</p>
                 </div>
             </div>
 
-            <div class="right-side">
+            <div class="right-side1">
                 <div class="right-container1">
                     <img src="/GO_OFF_LOGO.svg" id="logo"/> 
 
