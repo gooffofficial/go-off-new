@@ -15,7 +15,8 @@ import Sform from "./sform";
   
 const Signup = props =>{
 //   var fieldValues = {
-//     fullname : null,
+//     firstname : null,
+//     lastname : null,
 //     email    : null,
 //     username : null,
 //     password : null,

@@ -5,7 +5,7 @@ import { signupactions} from "../redux/actions";
 import '../styles/signup.css';
 
 
-const initial_form_values = {phonenumber: "", location: "", gender: "HeHim"}
+const initial_form_values = {phonenumber: "", countrycode: "", location: "", gender: "HeHim"}
 const Cform = props => {
     const [form_values, set_form_values] = useState(initial_form_values)
     
@@ -34,7 +34,11 @@ const Cform = props => {
         events.preventDefault();
         // events.stopPropagation();
         // let mergedData = { ...data, ...form_values}
-        dispatch(update_form_values(form_values))
+        let { phonenumber } = form_values; 
+        let isCountryCodeInPhonenumber = phonenumber.includes("+") && phonenumber.length > 11
+        let countrycode = isCountryCodeInPhonenumber ? phonenumber.slice(0, phonenumber.length - 10) : "N/A" // Slicing all of first digits before the last 10
+        set_form_values({ ...form_values, 'countrycode': countrycode })
+        dispatch(update_form_values({ ...form_values, 'countrycode': countrycode })) // setState doesn't update the values until the end of the render, so we also add it here
         history.push("/signup/ver");
     }  
     

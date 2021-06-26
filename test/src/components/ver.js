@@ -1,20 +1,21 @@
 import React from "react";
-// import axios from "axios";
-import {useSelector} from "react-redux";
+import { sendEmailRegister, sendSMSRegister } from '../api.js'
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import '../styles/signup.css';
 
 const Ver = props => {
-
-  const data = useSelector(state => state.signupreducers.form_values)
-  console.log(data);
-
+  const userInfo = useSelector(state => state.signupreducers.form_values)
+  // const { firstname, lastname, email, username, password, birthdate, checkbox, phonenumber, location, gender } = userInfo
+  console.log("userInfo: ", userInfo);
+  // let serverResponse = await axios.post('http:/localhost:8000/api/users/ecreate')
   let history = useHistory();
 
   //handle the axios call
-  const smsbuttonhandler = events =>{
+  const emailbuttonhandler = events =>{
     events.preventDefault();
-    history.push("/signup/smsauth")
+    sendEmailRegister(userInfo);
+    history.push("/signup/eauth")
     // axios.post("https://cors-anywhere.herokuapp.com/localhost:8000/api/users/ecreate", JSON.stringify(data)).then(res =>{
     //   console.log(res)
     // }).catch(error =>{
@@ -22,9 +23,12 @@ const Ver = props => {
     // })
   }
 
-  const emailbuttonhandler = events =>{
-    events.preventDefault();
-    history.push("/signup/eauth")
+
+  const smsbuttonhandler = async (evt) => {
+    evt.preventDefault();
+    sendSMSRegister(userInfo);
+    history.push("/signup/smsauth")
+    
     // axios.post("https://cors-anywhere.herokuapp.com/localhost:8000/api/users/ecreate", JSON.stringify(data)).then(res =>{
     //   console.log(res)
     // }).catch(error =>{
@@ -50,14 +54,14 @@ const Ver = props => {
               <button className="verbutton" onClick={emailbuttonhandler}>
                 <img src="/mail.svg" id="mailbutton"></img>
                 <p id="evertext">VERIFY WITH EMAIL</p>
-                <p id="evertext2">{data.email}</p>
+                <p id="evertext2">{userInfo.email}</p>
                 <img src="/Arrow.svg" id="rightarrow"></img>
               </button>
 
               <button className="verbutton" onClick={smsbuttonhandler}>
                 <img src="/Phone.svg" id="phonebutton"></img>
                 <p id="svertext">VERIFY WITH SMS</p>
-                <p id="svertext2">({data.phonenumber})</p>
+                <p id="svertext2">({userInfo.phonenumber})</p>
                 <img src="/Arrow.svg" id="rightarrow"></img>
               </button>
             </div>

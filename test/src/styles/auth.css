@@ -142,3 +142,11 @@
     color: 'lightskyblue';
     border: '1px solid lightskyblue'; */
 }
+
+.SMSErrorText {
+  position: absolute;
+  left: 35%;
+  top: 80%;
+  color: rgb(250, 51, 51);
+  text-decoration: underline;
+}

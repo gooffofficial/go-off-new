@@ -39,6 +39,7 @@ module.exports = (sequelize, type) => {
         host: type.STRING,
         followercount: type.INTEGER,
         followingcount: type.INTEGER,
+        smscode: type.INTEGER,
         user_ver: type.TINYINT(1),
         birthdate: {
             type: type.DATE,

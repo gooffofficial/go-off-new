@@ -168,7 +168,7 @@ router.post(
             return Math.abs(age_dt.getUTCFullYear() - 1970);
         }
         function calculate_code(){
-            code = Math.floor(100000 + Math.random() * 900000)
+            let code = Math.floor(100000 + Math.random() * 900000)
             return code
         }
         db.User.create({
@@ -181,66 +181,67 @@ router.post(
             location: user.location,
             gender: user.gender,
             password: user.password,
-            admin: user.admin,
-            host: user.host,
+            admin: user.admin || "",
+            host: user.host || "",
             phonenumber: user.countrycode,
             birthdate: user.birthdate,
             user_ver: 0,
             smscode: calculate_code(),
-            followercount: user.followercount,
-            followingcount: user.followingcount,
+            followercount: user.followercount || 0,
+            followingcount: user.followingcount || 0,
             user_tok: crypto.randomBytes(16).toString('hex'), //create the token
         })
-            .then((user) => {
+            .then((createdUser) => {
                 logger(
                     'User ' +
-                        user.id +
+                    createdUser.id +
                         ' created With username ' +
-                        user.username
+                        createdUser.username
                 );
                 db.Profile.create({
-                    UserId: user.id,
+                    UserId: createdUser.id,
                 }).then(() => {
                     db.UserArticle.create({
-                        UserId: user.id,
+                        UserId: createdUser.id,
                     })
                         .then(() => {
                             db.Folder.create({
-                                UserId: user.id,
+                                UserId: createdUser.id,
                                 foldername: 'Business/Tech',
                             });
                         })
                         .then(() => {
                             db.Folder.create({
-                                UserId: user.id,
+                                UserId: createdUser.id,
                                 foldername: 'Art/Literature',
                             });
                         })
                         .then(() => {
                             db.Folder.create({
-                                UserId: user.id,
+                                UserId: createdUser.id,
                                 foldername: 'Miscellaneous',
                             });
                         })
                         .then(() => {
                             //would send email here
                             // Send email (use credintials of SendGrid)
+                            console.log("createdUser.smscode: ", createdUser.smscode) // Testing Purposes delete if not needed to check
                             const msg = {
-                                to: user.email, // Change to your recipient
+                                to: createdUser.email, // Change to your recipient
                                 from: 'go.offmedia@gmail.com', // Change to your verified sender
                                 subject: 'Email Verification Link',
                                 text:
                                     'Hello ' +
-                                    user.firstname +
+                                    createdUser.firstname +
                                     ',\n\n' +
-                                    'Please verify your account by entering the number: '+ user.smscode + 
+                                    'Please verify your account by entering the number: '+ createdUser.smscode + 
                                     'on the website' +
                                     '\n\nThank You!\n',
                                 html:
                                     'Hello ' +
-                                    user.firstname +
+                                    createdUser.firstname +
                                     ',\n\n' +
-                                    'Please verify your account by entering the number: '+ user.smscode + 
+                                    'Please verify your account by entering the number: '+ createdUser.smscode + 
                                     'on the website' +
                                     '\n\nThank You!\n',
                                 //change into an HREF
@@ -381,7 +382,7 @@ router.post(
             return Math.abs(age_dt.getUTCFullYear() - 1970);
         }
         function calculate_code(){
-            code = Math.floor(100000 + Math.random() * 900000)
+            let code = Math.floor(100000 + Math.random() * 900000)
             return code
         }
         db.User.create({
@@ -394,44 +395,44 @@ router.post(
             location: user.location,
             gender: user.gender,
             password: user.password,
-            admin: user.admin,
-            host: user.host,
+            admin: user.admin || "",
+            host: user.host || "",
             phonenumber: user.countrycode,
             birthdate: user.birthdate,
             user_ver: 0,
             smscode: calculate_code(),
-            followercount: user.followercount,
-            followingcount: user.followingcount,
+            followercount: user.followercount || 0,
+            followingcount: user.followingcount || 0,
             user_tok: crypto.randomBytes(16).toString('hex'), //create the token
         })
-            .then((user) => {
+            .then((createdUser) => {
                 logger(
                     'User ' +
-                        user.id +
+                        createdUser.id +
                         ' created With username ' +
-                        user.username
+                        createdUser.username
                 );
                 db.Profile.create({
-                    UserId: user.id,
+                    UserId: createdUser.id,
                 }).then(() => {
                     db.UserArticle.create({
-                        UserId: user.id,
+                        UserId: createdUser.id,
                     })
                         .then(() => {
                             db.Folder.create({
-                                UserId: user.id,
+                                UserId: createdUser.id,
                                 foldername: 'Business/Tech',
                             });
                         })
                         .then(() => {
                             db.Folder.create({
-                                UserId: user.id,
+                                UserId: createdUser.id,
                                 foldername: 'Art/Literature',
                             });
                         })
                         .then(() => {
                             db.Folder.create({
-                                UserId: user.id,
+                                UserId: createdUser.id,
                                 foldername: 'Miscellaneous',
                             });
                         })
@@ -439,11 +440,12 @@ router.post(
                             //would send email here
                             // Send email (use credintials of SendGrid)
                             //send sms message with six digit number
+                            console.log("createdUser.smscode: ", createdUser.smscode) // Testing Purposes delete if not needed to check
                             twilioClient.messages.create(
                                 {
-                                    to: user.phonenumber,
+                                    to: createdUser.phonenumber,
                                     from: process.env.TWILIO_PHONE_NUMBER,
-                                    body: "Hi, it's Go Off! Here is the six digit number to verify your account:" + Math.floor(100000 + Math.random() * 900000)
+                                    body: "Hi, it's Go Off! Here is the six digit number to verify your account:" + createdUser.smscode
                                 }
                             )
                             
@@ -791,16 +793,16 @@ router.get('/all', auth.required, (req, res, next) => {
 
 //GET for email verification
 router.get('/verification', auth.optional, (req, res, next) => {
-    var email = req.query['useremail'];
-    var token = req.query['verification_token'];
+    var sentEmail = req.query['email'];
+    var sentSMSCode = req.query['smscode'];
 
     db.User.findOne({
         where: {
-            email: email,
+            email: sentEmail,
         },
     }).then((user) => {
         if (!user) {
-            return res.sendStatus(401).send({
+            return res.status(401).send({
                 msg:
                     'We were unable to find a user for this verification. Please SignUp!',
             });
@@ -809,7 +811,7 @@ router.get('/verification', auth.optional, (req, res, next) => {
                 .status(200)
                 .send('User has been already verified. Please Login');
         } else {
-            if (user.user_tok == token) {
+            if (user.smscode == sentSMSCode) {
                 user.user_ver = 1;
                 user.save()
                     .then((saveUser) => {
@@ -836,7 +838,7 @@ router.get('/verification', auth.optional, (req, res, next) => {
                 });
             }
         }
-    });
+    })
 });
 
 //GET authenticated user

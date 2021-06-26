@@ -7,8 +7,8 @@ import '../styles/signup.css';
 
 
 //initial values to be set in form
-// const form_values = { fullname: "", email: "", username: "", password: "", birthdate: "", checkbox: false};
-const initial_form_values = { fullname: "", email: "", username: "", password: "", birthdate: "", checkbox: false}
+// const form_values = { firstname: "", lastname: "", email: "", username: "", password: "", birthdate: "", checkbox: false};
+const initial_form_values = { firstname: "", lastname: "", email: "", username: "", password: "", birthdate: "", checkbox: false}
 const Sform =  props => {
     const [form_values, set_form_values] = useState(initial_form_values);
     //invoke the function
@@ -18,7 +18,8 @@ const Sform =  props => {
     
     //accesses the state inside redux to pass the data
     // const global_form_values = useSelector((state) => state.signupreducers.form_values)
-    // form_values.fullname = "Samuel Leach";
+    // form_values.firstname = "Samuel";
+    // form_values.lastname = "Leach";
     console.log(form_values)
 
     let history = useHistory();
@@ -76,12 +77,20 @@ const Sform =  props => {
 
                             <form className="field-container">
                                 {/* form for user creation */}
-                                <label htmlFor='fullname' >FULL NAME<span className="required">*</span></label><br/>
+                                <label htmlFor='firstname' >FIRST NAME<span className="required">*</span></label><br/>
                                 <input
                                     type='text'
-                                    name='fullname'
+                                    name='firstname'
                                     className="field-input"
-                                    value={form_values.fullname}
+                                    value={form_values.firstname}
+                                    onChange={formhandler}
+                                />
+                                <label htmlFor='lastname' >LAST NAME<span className="required">*</span></label><br/>
+                                <input
+                                    type='text'
+                                    name='lastname'
+                                    className="field-input"
+                                    value={form_values.lastname}
                                     onChange={formhandler}
                                 />
                                 <label htmlFor='email' >EMAIL<span className="required">*</span></label><br/>

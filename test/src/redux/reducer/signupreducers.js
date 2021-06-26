@@ -1,6 +1,6 @@
 const initState = {
     //pasting in values from sform.js
-	form_values : { fullname: "", email: "", username: "", password: "", birthdate: "", checkbox: false, phonenumber: "", location: "", gender: ""}
+	form_values : { firstname: "", lastname: "", email: "", username: "", password: "", birthdate: "", checkbox: false, countrycode: "", phonenumber: "", location: "", gender: ""}
 
 };
 
