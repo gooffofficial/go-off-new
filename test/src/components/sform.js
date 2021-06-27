@@ -95,7 +95,7 @@ const Sform =  props => {
                                 />
                                 <label htmlFor='email' >EMAIL<span className="required">*</span></label><br/>
                                 <input
-                                    type='text'
+                                    type="email"
                                     name='email'
                                     className="field-input"
                                     value={form_values.email}
