@@ -7,6 +7,7 @@ import Cform from './components/cform.js';
 import Ver from './components/ver.js';
 import SMSAuth from './components/smsauth.js';
 import EAuth from './components/eauth.js';
+import LiveChat from './components/LiveChat'
 import { Route, Switch } from 'react-router-dom';
 
 
@@ -17,6 +18,9 @@ function App() {
       <Switch>
         <Route path="/splash">
           <Splash/>
+        </Route>
+        <Route path="/livechat">
+          <LiveChat/>
         </Route>
         <Route path="/login">
           <Login />
