@@ -38,7 +38,13 @@ app.set('view engine', 'ejs');
 
 app.use((req, res, next) => {
     console.log(req.hostname);
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8000');
+    const allowedOrigins = ['http://localhost:8000', 'http://localhost:3000'];
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+      res.setHeader("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token");
+    }
     res.header("Access-Control-Allow-Credentials", "true");
     next();
   });
