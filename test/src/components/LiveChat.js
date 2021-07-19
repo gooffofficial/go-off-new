@@ -119,7 +119,7 @@ const LiveChat = () => {
   </div>
 }
 
-const NavBar = ({ }) => {
+const NavBar = ({}) => {
   return <div className="navbar">
     <img src={goOffLogo} alt="Go Off! Logo" className="goOffLogo" />
     <div className="searchBar">
@@ -142,7 +142,7 @@ const NavBar = ({ }) => {
 
 const ChatCard = ({ title, timeStart, chatImage }) => {
   return <div className="chatCard">
-    <img src={chatImage} alt="Image" className="chatImage" />
+    <img src={chatImage} alt="chatImage" className="chatImage" />
     <div className="chatBottomSide">
       <h2 className="timeStart">{timeStart}</h2>
       <h4 className="chatTitle">{title}</h4>

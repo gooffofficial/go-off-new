@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import './App.css';
 import Splash from './components/splash.js';
 import Login from './components/login.js';
@@ -8,6 +7,8 @@ import Ver from './components/ver.js';
 import SMSAuth from './components/smsauth.js';
 import EAuth from './components/eauth.js';
 import LiveChat from './components/LiveChat'
+import EditProfilePage from './components/EditProfilePage'
+import AccountSettingsPage from './components/AccountSettingsPage'
 import { Route, Switch } from 'react-router-dom';
 
 
@@ -19,7 +20,7 @@ function App() {
         <Route path="/splash">
           <Splash/>
         </Route>
-        <Route path="/livechat">
+        <Route path="/live_chat">
           <LiveChat/>
         </Route>
         <Route path="/login">
@@ -39,6 +40,12 @@ function App() {
         </Route>
         <Route path="/signup/eauth">
           <EAuth/>
+        </Route>
+        <Route path="/profile_edit">
+          <EditProfilePage/>
+        </Route>
+        <Route path="/account_settings">
+          <AccountSettingsPage/>
         </Route>
       </Switch>
     </div>
