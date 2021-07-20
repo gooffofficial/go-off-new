@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
 import searchIcon from '../images/liveChatImages/search-icon.png'
 import optionsIcon from '../images/liveChatImages/options.png'
@@ -18,8 +18,30 @@ import dots3Icon from '../images/liveChatImages/dots3.png'
 import inputAddIcon from '../images/liveChatImages/addIcon.png'
 import inputSendIcon from '../images/liveChatImages/chatSend.png'
 import '../styles/livechat.css';
+import {usePubNub} from 'pubnub-react';
 
 const LiveChat = () => {
+//importing pubnub into this component 
+const pubnub = usePubNub();
+
+//this will handle incoming messages
+const handleMessage = (message) => {
+
+};
+
+//useEffect will add listeners and will subscribe to channel. will refresh if pubnub changes
+useEffect(() => {
+  pubnub.addListener({
+    message: handleMessage,
+    status: (event)=>{console.log("status: "+ JSON.stringify(event))}
+  })
+  pubnub.subscribe({ 
+    channels:['Test'],
+    withPresence: true
+  })
+  return pubnub.removeListener()
+},[pubnub]);
+
   return <div className="liveChat">
     <NavBar />
     <div className="mainContent">
@@ -55,13 +77,14 @@ const LiveChat = () => {
             </div>
           </div>
           <div className="liveChatBox">
+            {/* will map messages out here*/}
             <span className="chatTime">10:00 PM</span>
             <MeMessage isHost />
             <OtherMessage />
           </div>
           <div className="chatInputBox">
             <img src={inputAddIcon} alt="Add Icon" className="inputAddIcon" />
-            <input type="text" className="inputText" />
+            <input type="text" className="inputText" /> {/*this is for sending message, onSubmit here*/}
             <img src={inputSendIcon} alt="Send Input" className="inputSendIcon" />
           </div>
         </div>
