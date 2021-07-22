@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
 import searchIcon from '../images/liveChatImages/search-icon.png'
 import optionsIcon from '../images/liveChatImages/options.png'
@@ -19,28 +19,80 @@ import inputAddIcon from '../images/liveChatImages/addIcon.png'
 import inputSendIcon from '../images/liveChatImages/chatSend.png'
 import '../styles/livechat.css';
 import {usePubNub} from 'pubnub-react';
+import { useForm } from "react-hook-form";
 
 const LiveChat = () => {
 //importing pubnub into this component 
 const pubnub = usePubNub();
 
-//this will handle incoming messages
-const handleMessage = (message) => {
+const {
+  register, //used to register an input field
+  handleSubmit, //is a function that will call your onSubmit function, whatever you declare that to be
+  formState: { errors }, //this keeps track of the errors that can be easily retrieved
+} = useForm({ criteriaMode: "all" });
 
+
+//this will hold channel(s) for now default is test. will need to add way to join via a unique identifier to set as channel
+const [channels , setChannels] = useState(['Test']);
+//this state will hold all messages; Note every message will be structured as such {text:'string', user:'string', isHost:'boolean'}
+const [messages, addMessages] = useState([]);
+
+//this is temporary user, later need to use user data from sign in
+const user = pubnub.getUUID();
+const isHost=true;
+
+//this is a ref that will give scroll to bottom functionality
+const scrollhook = useRef();
+
+//this will handle incoming messages
+const handleMessage = (object) => {
+    const message = object.message
+    if(!message.user){return}
+    const text = message.text;
+    if (typeof text === 'string' && text.length!==0){
+      addMessages(messages => [...messages, message]);
+    }
+    scrollhook.current.scrollIntoView({behavior:'smooth'}); // scrolls to bottom when message is recieved
 };
 
-//useEffect will add listeners and will subscribe to channel. will refresh if pubnub changes
+  //this on submit function is publishing the message to the channel
+  const onSubmit = (message, e) => {
+    pubnub.publish({
+      channel: channels[0],
+      message: {user:user,isHost:isHost,text:message.message}
+    },
+    function(status) { //this will print a status error in console
+      if (status.error) {
+        console.log(status)
+      }});
+    e.target.reset(); // resets the input fields
+    scrollhook.current.scrollIntoView({behavior:'smooth'});// scrolls to bottom when message is sent
+  };
+
+//useEffect will add listeners and will subscribe to channel. will refresh if pubnub or the channels change 
 useEffect(() => {
+  //this listener sets up how to handle messages and gives status
   pubnub.addListener({
     message: handleMessage,
     status: (event)=>{console.log("status: "+ JSON.stringify(event))}
-  })
+  });
+  //this subscribes to a list of channels
   pubnub.subscribe({ 
-    channels:['Test'],
+    channels:channels,
     withPresence: true
   })
+  pubnub.fetchMessages({channels:channels,count:100}).then((e)=>{
+    //this will fetch all messages in Test chat then add them to the messages state.
+    e.channels.Test.forEach((e)=>{
+      if(e.message.message || e.message.text.message){return} // this is just done to filter out previous versions of the messages
+      if(e.message.user && e.message.text){
+        addMessages(messages=>[...messages,{user:e.message.user,isHost:e.message.isHost,text:e.message.text}])
+      }
+      scrollhook.current.scrollIntoView({behavior:'smooth'});
+    })    
+  }).catch(error=>console.log(error)) 
   return pubnub.removeListener()
-},[pubnub]);
+},[pubnub, channels]);
 
   return <div className="liveChat">
     <NavBar />
@@ -77,14 +129,30 @@ useEffect(() => {
             </div>
           </div>
           <div className="liveChatBox">
-            {/* will map messages out here*/}
+            {/* will map messages out here. need to get all messages first then display them, then I need to set up handlers
+              to add them to the list of all messages and re-render components */}
             <span className="chatTime">10:00 PM</span>
-            <MeMessage isHost />
-            <OtherMessage />
+            { messages.map((message, index)=>{
+                  if(message.user===user){
+                    return (
+                      <MeMessage key={index} isHost={message.isHost} user={message.user} text={message.text}/>
+                    );
+                  } else {
+                    return(
+                      <OtherMessage key={index} isHost={message.isHost} user={message.user} text={message.text}/>
+                    );
+                  }
+                })
+                }
+                
+            <div ref={scrollhook}></div>
           </div>
           <div className="chatInputBox">
             <img src={inputAddIcon} alt="Add Icon" className="inputAddIcon" />
-            <input type="text" className="inputText" /> {/*this is for sending message, onSubmit here*/}
+            <form className='form-demo'  onSubmit={handleSubmit(onSubmit)}>
+              <input style={{width:'33vw',marginRight:'0px'}} type="text" className="inputText" placeholder='Type your message' {...register('message', {required:'Please enter a message'})} /> {/*this is for sending message, onSubmit here*/}
+              {errors.message && <p className="error">{errors.message.message}</p>}
+            </form>
             <img src={inputSendIcon} alt="Send Input" className="inputSendIcon" />
           </div>
         </div>
@@ -173,31 +241,29 @@ const ChatCard = ({ title, timeStart, chatImage }) => {
   </div>
 }
 
-const MeMessage = ({ isHost = false }) => {
-  return <div className="meMessageBox">
+const MeMessage = ({isHost, user, text}) => {
+  return <div  className="meMessageBox">
     <img src={emilyIcon} alt="Message Icon" className="messageAvatar" />
     <div className="rightMessageBox">
-      <span className="messageUserName">Emily Patterson</span>
+      <span className="messageUserName">{user}</span>
       {isHost && <span className="hostText">HOST</span>}
       <div className="chatMessageBox">
-        <span className="messageText">
-          Hi everyone! Thank you so much for joining my
-          converstation! I look forward to having exciting
-          and meaningful conversations with all of you!
+        <span className="messageText"> 
+          {text}
         </span>
       </div>
     </div>
   </div>
 }
 
-const OtherMessage = ({ isHost }) => {
+const OtherMessage = ({isHost, user, text}) => {
   return <div className="otherMessageBox">
     <div className="leftMessageBox">
-      <span className="messageUserName">Emily Patterson</span>
+      <span className="messageUserName">{user}</span>
       {isHost && <span className="hostText">HOST</span>}
       <div className="chatMessageBox">
         <span className="messageText">
-          Thank you Emily for hosting this conversation! I am very excited to have this discussion with all of you and see what everyone has to say about this topic!
+          {text}
         </span>
       </div>
     </div>

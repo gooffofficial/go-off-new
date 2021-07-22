@@ -17,10 +17,10 @@ import { v4 as uuid_v4 } from 'uuid';
 const App = () => {
   // This will create a unique pubnub client with sub and pub keys. These are test keys we will need to buy full feature ones. 
   const pubnub = new PubNub({
-    publishKey: 'publishKey:"pub-c-59ae5e55-4285-42c4-b609-dbe4f6ceb5e2', 
+    publishKey: 'pub-c-59ae5e55-4285-42c4-b609-dbe4f6ceb5e2', 
     subscribeKey: 'sub-c-58789894-ce3c-11eb-9144-ea6857a81ff7',
-    uuid: uuid_v4(), //also maybe could use name of person here instead?
-    logVerbosity:true // logs important info 
+    uuid: uuid_v4(), //should not generate new one each time should create one for the user upon account creation and use that.
+    //logVerbosity:true // logs HTTP request info 
   })
 
   return (
