@@ -9,6 +9,7 @@ import EAuth from './components/eauth.js';
 import LiveChat from './components/LiveChat'
 import EditProfilePage from './components/EditProfilePage'
 import AccountSettingsPage from './components/AccountSettingsPage'
+import DiscoverPage from './components/DiscoverPage'
 import { Route, Switch } from 'react-router-dom';
 
 
@@ -46,6 +47,9 @@ function App() {
         </Route>
         <Route path="/account_settings">
           <AccountSettingsPage/>
+        </Route>
+        <Route path="/discover">
+          <DiscoverPage/>
         </Route>
       </Switch>
     </div>
