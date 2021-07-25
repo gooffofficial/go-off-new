@@ -1,5 +1,0 @@
-Script started on 2020-06-05 16:45:23-0400
-(base) ]0;eric@eric-XPS-13-9360: ~/Documents/GoOff/go-off[01;32meric@eric-XPS-13-9360[00m:[01;34m~/Documents/GoOff/go-off[00m$ exit
-exit
-
-Script done on 2020-06-05 16:45:27-0400
