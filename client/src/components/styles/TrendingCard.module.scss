@@ -1,0 +1,38 @@
+.trendingCardContainer {
+	display: flex;
+	background: #fff;
+	border-radius: 10px;
+	max-height: 72px;
+	cursor: pointer;
+	width: 100%;
+}
+.trendingCardContainer:hover {
+	background: rgba(58, 134, 255, 0.15);
+}
+.imageContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	width: 30%;
+	border-radius: 10px;
+	max-width: 80px;
+	max-height: 72px;
+}
+.trendingImage {
+	flex-shrink: 0;
+	min-width: 100%;
+	min-height: 100%;
+}
+.trendingDescription {
+	width: 70%;
+	padding: 4%;
+	display: flex;
+	align-items: center;
+}
+.trendingDescText {
+	font-weight: 500;
+	font-size: 0.813rem;
+	line-height: 1.219rem;
+	color: #3f3f46;
+}
