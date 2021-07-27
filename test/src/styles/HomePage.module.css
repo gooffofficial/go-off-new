@@ -1,0 +1,670 @@
+.homePage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: Poppins;
+}
+
+.navbar {
+  display: flex;
+  height: 55px;
+  padding: 10px 7px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.goOffLogo {
+  margin-right: 0.8%;
+  max-width: 70px;
+}
+
+.searchBar {
+  flex-grow: 0.9;
+  display: flex;
+  background: rgba(58, 134, 255, 0.08);
+  border-radius: 10px;
+  padding: 8px 15px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftSearchBarSide {
+  display: flex;
+}
+
+.searchInput {
+  flex-grow: 1;
+  font-weight: 500;
+  font-size: 16px;
+  color: #757D8A;
+  border: none;
+  background: rgba(58, 134, 255, 0.00);
+}
+
+.searchIcon {
+  margin-right: 10px;
+}
+
+.addPersonIcon, .bellIcon, .shareIcon {
+  margin: 8px 0px 13px 1.6%;
+  max-width: 37px;
+}
+
+.navProfileBox {
+  margin-left: 1.6%;
+  flex-grow: 0.1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  background: rgba(58, 134, 255, 0.08);
+  border-radius: 20px;
+  align-items: center;
+  padding: 4px;
+}
+
+.profileText {
+  color: #757D8A;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.mainContent {
+  flex-grow: 1;
+  display: flex;
+}
+
+.leftColumn {
+  background: rgba(58, 134, 255, 0.08);
+  padding: 23px;
+  padding-bottom: 0px;
+}
+
+.avatarBox, .homeBox, .discoverBox {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}
+
+.homeBox {
+  background: rgba(58, 134, 255, 0.15);
+}
+
+.prekshaIcon, .globeIcon, .homeIcon {
+  margin-right: 10px;
+}
+
+.avatarName, .globeText, .homeText  {
+  color: #757D8A;
+  font-weight: 500;
+}
+
+.upcommingHeading {
+ font-family: Poppins;
+ font-style: normal;
+ font-weight: 500;
+ font-size: 20px;
+ line-height: 30px;
+ color: #757D8A;
+ margin-bottom: 20px;
+}
+
+.chatCard {
+  flex-grow: 0.3;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+  margin-bottom: 26px;
+  max-width: 270px;
+}
+
+.chatImage {
+  flex-grow: 1;
+}
+
+.timeStart {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #01CB01;
+  margin-bottom: 3px;
+  margin-top: 6px;
+}
+
+.chatBottomSide {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.chatTitle {
+ margin-top: 0px;
+ font-family: Poppins;
+ font-style: normal;
+ font-weight: 500;
+ font-size: 15px;
+ line-height: 19px;
+ color: #3F3F46;
+ margin-bottom: 13px;
+}
+
+.middleColumn {
+  flex-grow: 1;
+}
+
+.rightColumn { 
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  max-width: 314px;
+  background-color: rgba(58, 134, 255, 0.08);
+}
+
+.everythingButProfile {
+  flex-grow: 1;
+}
+
+.chatHeading {
+  margin-top: 7px;
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.leftHeading {
+  background: rgba(86, 103, 255, 0.15);
+  border-radius: 10px;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  max-height: 48px;
+}
+
+.monthText {
+  height: 100%;
+  color: #3A86FF;
+  font-style: normal;
+  font-weight: 500;
+  text-align: center;
+  font-size: 14px;
+}
+
+.dayText {
+  height: 100%;
+  color: #3A86FF;
+  font-style: normal;
+  font-weight: 500;
+  text-align: center;
+  line-height: 20px;
+  font-size: 25px;
+}
+
+.middleHeading {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.rightHeading {
+
+}
+
+.NYTLogo {
+  object-fit: contain;
+  align-self: flex-start;
+}
+
+.articleTitle {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 21px;
+  color: #3F3F46;
+}
+
+.startTime {
+  display: block;
+  font-style: normal;
+  font-weight: normal;
+  color: #828282;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.chatTags {
+  display: flex;
+  align-items: center;
+}
+
+.chatTag {
+  text-align: center;
+  color: #3A86FF;
+  background: rgba(86, 103, 255, 0.15);
+  border-radius: 5px;
+  padding: 3px 8px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-right: 7px;
+}
+
+.chatDescription {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+  color: #000000;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+.convLine {
+  border: none;
+  border-bottom: 1px solid #E5E5E5;
+  margin-bottom: 14px;
+}
+
+.RSVP_Row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.RSVP_Left {
+  display: flex;
+}
+
+.dropDownRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.chatDropDownName {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+  color: #3F3F46;
+}
+
+.profileBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ProfileLeft {
+  position: relative;
+}
+
+.emilyIcon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.ProfileLeft {
+  position: relative;
+  height: 40px;
+  width: 40px;
+}
+
+.onlineCircle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #3A86FF;
+  border: 1.5px solid #FFFFFF;
+  border-radius: 50%;
+  left: 27px;
+  bottom: -1px;
+}
+
+.hostText {
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #FFFFFF;
+  padding: 1px 3px;
+  background: linear-gradient(180deg, #3A86FF 0%, #5667FF 100%);
+  border-radius: 5px;
+  margin-bottom: 2px;
+}
+
+.ProfileNames {
+  margin-left: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.profileName {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  color: #3F3F46;
+}
+
+.RSVP_Btn {
+  color: white;
+  background: linear-gradient(180deg, #3A86FF 0%, #5667FF 100%);
+  border-radius: 5px;
+  padding: 0px 3%;
+  border: none;
+  outline: none;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.dots3Icon {
+  margin-left: 10px;
+}
+
+.middleColumn {
+  padding: 15px;
+  background-color: rgb(196, 149, 87, 0.07);
+}
+
+.insideMiddleColumn {
+  height: 100%;
+}
+
+.userBox {
+  background-color: white;
+  padding: 20px 18px 13px 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.userConvRow {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.avatarIcon {
+  height: auto;
+  width: 60px;
+  margin-right: 10px;
+}
+
+.startAConvInput {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  flex-grow: 1;
+  background: rgba(58, 134, 255, 0.08);
+  border-radius: 32px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #757D8A;
+  border: none;
+  outline: none;
+  padding-left: 18px;
+}
+
+.grayLine {
+  border: none;
+  border-bottom: 1px solid #E5E5E5;
+  margin-bottom: 13px;
+}
+
+.userIconsRow {
+  margin-left: 60px;
+  margin-right: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.photoRow, .ytRow, .articleRow {
+  display: flex;
+  align-items: center;
+}
+
+.photoTxt, .videoTxt, .articleTxt {
+  margin-left: 10px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 27px;
+  color: #757D8A;
+}
+
+.conversationRow {
+  display: flex;
+  border-radius: 10px;
+  background-color: white;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.convImageBox {
+  margin-right: 14px;
+}
+
+.convImageBox, .convImg {
+  max-height: 251px;
+}
+
+.bookmarkIcon {
+  position: relative;
+  bottom: 99%;
+  left: 89%;
+}
+
+.articleHeading {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.firstRowHeading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchForIcon {
+  max-height: 15px;
+}
+
+.chatTime {
+  text-align: center;
+  display: block;
+  line-height: 25px;
+  color: #C4C4C4;
+  margin-top: 2px;
+  margin-bottom: 23px;
+}
+
+.mid_col_articleTitle {
+  display: inline;
+}
+
+.liveBox {
+  margin-left: 11px;
+  background: #05E100;
+  border-radius: 2px;
+  color: white;
+  font-size: 13px;
+  padding: 1px 4px;
+}
+
+.liveChatBox {
+  flex-grow: 1;
+  padding: 0px 8px 7px 8px;
+}
+
+.meMessageBox {
+  display: flex;
+}
+
+.messageAvatar {
+  align-self: flex-end;
+  object-fit: contain;
+  margin-right: 9px;
+}
+
+.chatMessageBox {
+  background: rgba(58, 134, 255, 0.25);
+  border-radius: 20px;
+  border-bottom-left-radius: 0px;
+  max-width: 500px;
+  padding: 4px 12px;
+  margin-bottom: 11px;
+  margin-top: 2px;
+  color: #3A86FF;
+}
+
+.messageUserName {
+  margin-left: 10px;
+  color: #C4C4C4;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.otherMessageBox {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.otherMessageBox .messageAvatar {
+  margin-right: 0px;
+  margin-left: 9px;
+}
+
+.otherMessageBox .chatMessageBox {
+  background: rgba(86, 103, 255, 0.25);
+  border-radius: 20px;
+  border-bottom-right-radius: 0px;
+  color: #5667FF;
+}
+
+.chatInputBox {
+  background: linear-gradient(180deg, rgba(58, 134, 255, 0.075) 0%, rgba(86, 103, 255, 0.075) 100%);
+  display: flex;
+  padding: 8px 12px;
+  max-height: 25px;
+  margin-left: 13px;
+  margin-bottom: 13px;
+  margin-right: 13px;
+  border-radius: 10px;
+}
+
+.inputText {
+  flex-grow: 1;
+  border-radius: 10px;
+  max-height: 47px;
+  border: none;
+  background: rgba(58, 134, 255, 0.00);
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 15px;
+}
+
+.inputAddIcon {
+  height: 100%;
+  max-height: 50px;
+}
+
+.inputSendIcon {
+  max-height: 50px;
+}
+
+.trendingRow, .friendActivityRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.friendActivityRow {
+  margin-top: 18px;
+}
+
+.trendingIcon, .friendsIcon {
+  margin-right: 4%;
+}
+
+.trendingTxt, .friendActivityHeading {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  color: #757D8A;
+}
+
+.trendingCardRow {
+  display: flex;
+  max-height: 72px;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.trendingRight {
+  padding: 0px 8px
+}
+
+.trendingTitle {
+  font-size: 95%;
+  color: #3F3F46;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.friendActivityCardRow {
+  display: flex;
+  margin-bottom: 26px;
+}
+
+.userAvatar {
+  height: 50px;
+  width: 50px;
+}
+
+.activityTxt {
+  align-self: center;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  color: #3F3F46;
+  margin-left: 3.5%;
+}
+
+.username, .friendName {
+  font-weight: 750;
+}
+
+.homeBox:hover, .discoverBox:hover {
+  background: rgba(58, 134, 255, 0.15);
+  cursor: pointer;
+}
+
+.prekshaIcon:hover, .photoRow:hover, .ytRow:hover, 
+.articleRow:hover, .goOffLogo:hover, .searchIcon:hover, 
+.optionsIcon:hover, .addPersonIcon:hover, .bellIcon:hover, 
+.shareIcon:hover, .profileText:hover, .arrowDownIcon:hover, 
+.trendingImage:hover, .userAvatar:hover, .convImg:hover, 
+.emilyIcon:hover, .ProfileLeft:hover, .RSVP_Btn:hover, .chatImage:hover, .threeDotsIcon:hover {
+  cursor: pointer;
+}
+
+.inputText:focus, .inputText:focus, .inputText:focus,
+.searchInput:focus, .searchInput:focus, .searchInput:focus {
+  outline: none;
+}
