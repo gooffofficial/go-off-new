@@ -20,10 +20,14 @@ import inputSendIcon from '../images/liveChatImages/chatSend.png'
 import '../styles/livechat.css';
 import {usePubNub} from 'pubnub-react';
 import { useForm } from "react-hook-form";
+import Chat from './Chat';
 
 const LiveChat = () => {
 //importing pubnub into this component 
 const pubnub = usePubNub();
+
+//list of members allowed to view chat
+const [members, setMembers] = useState([])
 
 const {
   register, //used to register an input field
@@ -34,8 +38,12 @@ const {
 
 //this will hold channel(s) for now default is test. will need to add way to join via a unique identifier to set as channel
 const [channels , setChannels] = useState(['Test']);
+
 //this state will hold all messages; Note every message will be structured as such {text:'string', user:'string', isHost:'boolean'}
 const [messages, addMessages] = useState([]);
+
+//this does not work it renders the limit to everyone!!! check logic when render messages
+const [limitReached, setLimitReached] = useState(false);
 
 //this is temporary user, later need to use user data from sign in
 const user = pubnub.getUUID();
@@ -69,11 +77,60 @@ const handleMessage = (object) => {
     scrollhook.current.scrollIntoView({behavior:'smooth'});// scrolls to bottom when message is sent
   };
 
+
 //useEffect will add listeners and will subscribe to channel. will refresh if pubnub or the channels change 
 useEffect(() => {
+  
+  const result = async ()=>{
+    let x = await pubnub.hereNow({
+      channels: ["Test"],
+      includeUUIDs: true,
+      includeState: true,
+  });
+
+  var y = x.channels.Test.occupants
+  console.log(y)
+  if (y.length>=10){
+    setLimitReached(true);
+  }else{
+    setMembers(state=>[...state, y.uuid])
+  }
+  return y
+  }
+  result()
+
+  var listener = {
+    message: handleMessage,
+    presence: function (p) {
+      const action = p.action; // Can be join, leave, state-change, or timeout
+      const channelName = p.channel; // Channel to which the message belongs
+      const occupancy = p.occupancy; // Number of users subscribed to the channel
+      const state = p.state; // User state
+      const channelGroup = p.subscription; //  Channel group or wildcard subscription match, if any
+      const publishTime = p.timestamp; // Publish timetoken
+      const timetoken = p.timetoken; // Current timetoken
+      const uuid = p.uuid; // UUIDs of users who are subscribed to the channel
+      console.log(occupancy,uuid)
+    },
+    status: (event)=>{console.log("status: "+ JSON.stringify(event))}
+  };
   //this listener sets up how to handle messages and gives status
   pubnub.addListener({
     message: handleMessage,
+    presence: function (p) {
+      const action = p.action; // Can be join, leave, state-change, or timeout
+      const channelName = p.channel; // Channel to which the message belongs
+      const occupancy = p.occupancy; // Number of users subscribed to the channel
+      const state = p.state; // User state
+      const channelGroup = p.subscription; //  Channel group or wildcard subscription match, if any
+      const publishTime = p.timestamp; // Publish timetoken
+      const timetoken = p.timetoken; // Current timetoken
+      const uuid = p.uuid; // UUIDs of users who are subscribed to the channel
+      if(action=='leave'){
+        let newlist = members.filter(m=>m!==uuid)
+        setMembers(newlist);
+      }
+    },
     status: (event)=>{console.log("status: "+ JSON.stringify(event))}
   });
   //this subscribes to a list of channels
@@ -81,17 +138,7 @@ useEffect(() => {
     channels:channels,
     withPresence: true
   })
-  pubnub.fetchMessages({channels:channels,count:100}).then((e)=>{
-    //this will fetch all messages in Test chat then add them to the messages state.
-    e.channels.Test.forEach((e)=>{
-      if(e.message.message || e.message.text.message){return} // this is just done to filter out previous versions of the messages
-      if(e.message.user && e.message.text){
-        addMessages(messages=>[...messages,{user:e.message.user,isHost:e.message.isHost,text:e.message.text}])
-      }
-      scrollhook.current.scrollIntoView({behavior:'smooth'});
-    })    
-  }).catch(error=>console.log(error)) 
-  return pubnub.removeListener()
+  return (pubnub.unsubscribe(channels), pubnub.removeListener())
 },[pubnub, channels]);
 
   return <div className="liveChat">
@@ -132,19 +179,15 @@ useEffect(() => {
             {/* will map messages out here. need to get all messages first then display them, then I need to set up handlers
               to add them to the list of all messages and re-render components */}
             <span className="chatTime">10:00 PM</span>
-            { messages.map((message, index)=>{
-                  if(message.user===user){
-                    return (
-                      <MeMessage key={index} isHost={message.isHost} user={message.user} text={message.text}/>
-                    );
-                  } else {
-                    return(
-                      <OtherMessage key={index} isHost={message.isHost} user={message.user} text={message.text}/>
-                    );
-                  }
-                })
+            {(()=>{
+              if(limitReached){
+                if(members.includes(user)){
+                  return <Chat scrollhook={scrollhook} channels={channels} addMessages={addMessages} messages={messages} user={user}/>
+                }else{
+                  return <div style={{textAlign:'center'}}>Chat is full</div>
                 }
-                
+              }else{return <Chat scrollhook={scrollhook} channels={channels} addMessages={addMessages} messages={messages} user={user}/>}
+            })() /*jsx not working here with if statements*/}           
             <div ref={scrollhook}></div>
           </div>
           <div className="chatInputBox">
@@ -238,36 +281,6 @@ const ChatCard = ({ title, timeStart, chatImage }) => {
       <h2 className="timeStart">{timeStart}</h2>
       <h4 className="chatTitle">{title}</h4>
     </div>
-  </div>
-}
-
-const MeMessage = ({isHost, user, text}) => {
-  return <div  className="meMessageBox">
-    <img src={emilyIcon} alt="Message Icon" className="messageAvatar" />
-    <div className="rightMessageBox">
-      <span className="messageUserName">{user}</span>
-      {isHost && <span className="hostText">HOST</span>}
-      <div className="chatMessageBox">
-        <span className="messageText"> 
-          {text}
-        </span>
-      </div>
-    </div>
-  </div>
-}
-
-const OtherMessage = ({isHost, user, text}) => {
-  return <div className="otherMessageBox">
-    <div className="leftMessageBox">
-      <span className="messageUserName">{user}</span>
-      {isHost && <span className="hostText">HOST</span>}
-      <div className="chatMessageBox">
-        <span className="messageText">
-          {text}
-        </span>
-      </div>
-    </div>
-    <img src={emilyIcon} alt="Message Icon" className="messageAvatar" />
   </div>
 }
 
