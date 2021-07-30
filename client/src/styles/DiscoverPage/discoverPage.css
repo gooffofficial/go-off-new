@@ -1,0 +1,274 @@
+.discoverPage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Poppins;
+  }
+  
+  .di-navbar {
+    display: flex;
+    height: 55px;
+    padding: 10px 7px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  .di-goOffLogo {
+    margin-right: 0.8%;
+    max-width: 70px;
+  }
+  
+  .di-searchBar {
+    flex-grow: 0.9;
+    display: flex;
+    background: rgba(58, 134, 255, 0.08);
+    border-radius: 10px;
+    padding: 8px 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .di-leftSearchBarSide {
+    display: flex;
+  }
+  
+  .di-searchInput {
+    flex-grow: 1;
+    font-weight: 500;
+    font-size: 16px;
+    color: #757D8A;
+    border: none;
+    background: rgba(58, 134, 255, 0.00);
+  }
+  
+  .di-searchIcon {
+    margin-right: 10px;
+  }
+  
+  .di-addPersonIcon, .di-bellIcon, .di-shareIcon {
+    margin: 8px 0px 13px 1.6%;
+    max-width: 37px;
+  }
+  
+  .di-navProfileBox {
+    margin-left: 1.6%;
+    flex-grow: 0.1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .di-profile {
+    display: flex;
+    background: rgba(58, 134, 255, 0.08);
+    border-radius: 20px;
+    align-items: center;
+    padding: 4px;
+  }
+  
+  .di-profileText {
+    color: #757D8A;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  
+  .di-mainContent {
+    flex-grow: 1;
+    display: flex;
+  }
+  
+  .di-leftColumn {
+    background: rgba(58, 134, 255, 0.08);
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  
+  .di-avatarBox, .di-homeBox, .di-discoverBox {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    margin: 20px 0px;
+    border-radius: 10px;
+  }
+  
+  .di-avatarBox {
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
+  
+  .di-prekshaIcon, .di-globeIcon, .di-homeIcon {
+    margin-right: 10px;
+  }
+  
+  .di-avatarName, .di-globeText, .di-homeText  {
+    color: #757D8A;
+    font-weight: 500;
+  }
+  
+  .di-upcommingHeading {
+   font-family: Poppins;
+   font-style: normal;
+   font-weight: 500;
+   font-size: 20px;
+   line-height: 30px;
+   color: #757D8A;
+   margin-top: 25px;
+   margin-bottom: 20px;
+  }
+  
+  .di-chatCard {
+    flex-grow: 0.3;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+    margin-bottom: 26px;
+    max-width: 270px;
+  }
+  
+  .di-chatImage {
+    flex-grow: 1;
+  }
+  
+  .di-timeStart {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #828282;
+    margin-bottom: 3px;
+    margin-top: 6px;
+  }
+  
+  .di-chatBottomSide {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .di-chatTitle {
+   margin-top: 0px;
+   font-family: Poppins;
+   font-style: normal;
+   font-weight: 500;
+   font-size: 15px;
+   line-height: 19px;
+   color: #3F3F46;
+   margin-bottom: 13px;
+  }
+  
+  .di-rightColumn {
+    flex-grow: 1;
+    padding-left: 35px;
+    background-color: rgb(196, 149, 87, 0.07);
+  }
+  
+  .di-inputText {
+    flex-grow: 1;
+    border-radius: 10px;
+    max-height: 47px;
+    border: none;
+    background: rgba(58, 134, 255, 0.00);
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 15px;
+  }
+  
+  .trendingConvoTxt, .di-browseTxt {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 54px;
+    color: #757D8A;
+    margin-bottom: 12px;
+  }
+  
+  .di-convRow {
+    display: flex;
+    margin-bottom: 35px;
+  }
+  
+  .di-convImg {
+    max-width: 37.5%;
+    height: auto;
+    border-radius: 10px;
+    margin-right: 1%;
+  }
+  
+  .di-browseRow1, .di-browseRow2 {
+    display: flex;
+    margin-bottom: 15px;
+    min-height: 200px;
+    align-items: stretch;
+  }
+  
+  .di-browseBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    margin-right: 1.4%;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    min-height: 73px;
+    min-width: 106px;
+    max-height: 220px;
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+    word-break: break-all;
+  }
+  
+  .di-LGBTQ {
+    background: #FD2B3B;
+  }
+  
+  .di-Politics {
+    background: #FB5607;
+  }
+  
+  .di-Fasion {
+    background: #FFC933;
+  }
+  
+  .di-popCultureBox {
+    background: #3A86FF;
+  }
+  
+  .di-artBox {
+    background: #5667FF;
+  }
+  
+  .di-SustainabilityBox {
+    background: #01CB01;
+  }
+  
+  .di-searchInput:focus, .di-searchInput:focus, .di-searchInput:focus {
+    outline: none;
+  }
+  
+  .di-selected, .di-homeBox:hover, .di-discoverBox {
+    cursor: pointer;
+    background: rgba(58, 134, 255, 0.15);
+    color: rgba(0, 0, 0, 0.9) !important;
+    opacity: 1;
+  }
+  
+  .di-browseBox:hover, .di-convImg:hover, .di-chatImage {
+    cursor: pointer;
+    opacity: 0.9;
+    transition-duration: 0.3s;
+  }
+  
+  .di-goOffLogo:hover, .di-searchIcon:hover, .di-optionsIcon:hover, .di-addPersonIcon:hover, .di-bellIcon:hover, .di-shareIcon:hover, .di-profileIcon:hover, .di-arrowDownIcon:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    transition-duration: 0.2s;
+  }
