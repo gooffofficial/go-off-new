@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/SplashPage/splash.module.css';
-import logoBig from '../images/go-off-logo-big.svg';
-import rightLogo from '../images/GO_OFF_LOGO.svg';
+// import logoBig from '../images/go-off-logo-big.svg';
+// import rightLogo from '../images/GO_OFF_LOGO.svg';
 
 const Splash = (props) => {
 	let history = useHistory();
@@ -20,13 +20,17 @@ const Splash = (props) => {
 	return (
 		<div>
 			<div className={styles['left-side2']}>
-				<img src={logoBig} className={styles['left-logo1']} draggable="false" />
+				<img
+					src="/images/go-off-logo-big.svg"
+					className={styles['left-logo1']}
+					draggable="false"
+				/>
 			</div>
 
 			<div className={styles['right-side2']}>
 				<div className={styles['center-container']}>
 					<img
-						src={rightLogo}
+						src="/images/GO_OFF_LOGO.svg"
 						className={styles['right-logo']}
 						draggable="false"
 					/>

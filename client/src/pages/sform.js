@@ -69,7 +69,7 @@ const Sform = (props) => {
 				<div className={styles['left-side']}>
 					<div className={styles['left-container']}>
 						{/* logo */}
-						<img src="/GO_Off300.png" id="left-logo" />
+						<img src="/images/GO_Off300.png" id="left-logo" />
 						{/* progress bar */}
 						<span
 							className={styles['dot']}
@@ -167,7 +167,7 @@ const Sform = (props) => {
 									value={form_values.checkbox}
 									onChange={checkboxhandler}
 								/>
-								<img src="/check.svg" id="check" />
+								<img src="/images/check.svg" id="check" />
 							</div>
 							<button onClick={buttonhandler} id="submit-button">
 								SIGN UP{' '}
@@ -178,7 +178,7 @@ const Sform = (props) => {
 					</div>
 
 					<div className={styles['wave-container']}>
-						<img src="/wave_thin.svg" id="wave" />
+						<img src="/images/wave_thin.svg" id="wave" />
 					</div>
 				</div>
 				<div className={styles['right-side']}>
