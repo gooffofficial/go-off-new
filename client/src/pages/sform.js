@@ -69,24 +69,22 @@ const Sform = (props) => {
 				<div className={styles['left-side']}>
 					<div className={styles['left-container']}>
 						{/* logo */}
-						<img src="/images/GO_Off300.png" id="left-logo" />
+						<img src="/images/GO_Off300.png" className={styles['left-logo']} />
 						{/* progress bar */}
 						<span
-							className={styles['dot']}
-							id="pdot1"
+							className={`${styles['dot']} ${styles['pdot1']}`}
 							style={{ background: '#3A86FF' }}
 						></span>
 						<span
-							className={styles['bar']}
-							id="pbar1"
+							className={`${styles.bar} ${styles.pbar1}`}
 							style={{ background: '#3A86FF' }}
 						></span>
-						<span className={styles['dot']} id="pdot2"></span>
-						<span className={styles['bar']} id="pbar2"></span>
-						<span className={styles['dot']} id="pdot3"></span>
+						<span className={`${styles['dot']} ${styles.pdot2}`}></span>
+						<span className={`${styles['bar']} ${styles.pbar2}`}></span>
+						<span className={`${styles['bar']} ${styles.pbar3}`}></span>
 						{/* signup header */}
-						<p id="head-text">SIGN UP</p>
-						<p id="desc-text">Create a new account</p>
+						<p className={styles['head-text']}>SIGN UP</p>
+						<p className={styles['desc-text']}>Create a new account</p>
 
 						<form className={styles['field-container']}>
 							{/* form for user creation */}
@@ -152,39 +150,46 @@ const Sform = (props) => {
 							<input
 								type="date"
 								name="birthdate"
-								id="birthday"
+								className={styles.birthday}
 								value={form_values.birthdate}
 								onChange={formhandler}
 							/>
 							<div className={styles['checkbox-container']}>
-								<label htmlFor="checkbox" id="terms">
+								<label htmlFor="checkbox" className={styles.terms}>
 									Agree to <b>Terms of Service & Privacy Policy</b>
 								</label>
 								<input
 									type="checkbox"
 									name="checkbox"
-									id="checkbox"
+									className={styles.checkbox}
 									value={form_values.checkbox}
 									onChange={checkboxhandler}
 								/>
-								<img src="/images/check.svg" id="check" />
+								<img src="/images/check.svg" className={styles.check} />
 							</div>
-							<button onClick={buttonhandler} id="submit-button">
+							<button
+								onClick={buttonhandler}
+								className={styles['submit-button']}
+							>
 								SIGN UP{' '}
 							</button>
 						</form>
 
-						{/* <p id="ques-text">Already have an account? <a href="/login">Log in here</a></p> */}
+						{/* <p className={styles.ques-text">Already have an account? <a href="/login">Log in here</a></p> */}
 					</div>
 
 					<div className={styles['wave-container']}>
-						<img src="/images/wave_thin.svg" id="wave" />
+						<img src="/images/wave_thin.svg" className={styles.wave} />
 					</div>
 				</div>
 				<div className={styles['right-side']}>
 					<div className={styles['right-container']}>
-						<p id="main-text">Join the Conversation, Literally.</p>
-						<p id="sub-text">Create an account to join GoOFF!</p>
+						<p className={styles['main-text']}>
+							Join the Conversation, Literally.
+						</p>
+						<p className={styles['sub-text']}>
+							Create an account to join GoOFF!
+						</p>
 					</div>
 				</div>
 			</div>
