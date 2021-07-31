@@ -16,8 +16,8 @@ import Cform from './pages/cform';
 import Ver from './pages/ver';
 import Eauth from './pages/eauth';
 import SMSauth from './pages/smsauth';
-import Log from 'apify/types/utils_log';
-
+import Splash from './pages/splash';
+// import Log from 'apify/types/utils_log';
 
 function App() {
 	return (
@@ -28,7 +28,6 @@ function App() {
 			<Route path="/accountsettings" component={AccountSettingsPage} />
 			<Route path="/editprofile" component={EditProfilePage} />
 			<Route path="/chat" component={LiveChat} />
-			<Route path="/splash" component={Splash} />
 			<Route path="/login" component={Login} />
 			<Route path="/signup" component={Signup} />
 			<Route path="/signup/sform" component={Sform} />
@@ -36,6 +35,7 @@ function App() {
 			<Route path="/signup/ver" component={Ver} />
 			<Route path="/signup/eauth" component={Eauth} />
 			<Route path="/signup/smsauth" component={SMSauth} />
+			<Route path="/" component={Splash} />
 		</Switch>
 	);
 }
