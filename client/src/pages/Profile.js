@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { getCookie, generateToken } from '../utils/helpers.js';
 import styles from '../styles/ProfilePage/Profile.module.scss';
 
 // Components
@@ -21,13 +20,6 @@ const Profile = (props) => {
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
 
 	useEffect(() => {
-		let cookie = getCookie('authJWT');
-
-		// development only
-		if (!cookie) {
-			generateToken();
-		}
-
 		axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
