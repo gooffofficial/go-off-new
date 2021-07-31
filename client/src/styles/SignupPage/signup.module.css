@@ -29,14 +29,14 @@ html {
 	height: 80%;
 }
 
-#left-logo {
+.left-logo {
 	width: 55px;
 	height: 55px;
 	margin-left: -2%;
 
 }
 
-#pdot1 {
+.pdot1 {
 	position: absolute;
 	width: 13px;
 	height: 13px;
@@ -45,7 +45,7 @@ html {
 	top: 13%;
 	background: #C4C4C4;
 }
-#pdot2 {
+.pdot2 {
 	position: absolute;
 	width: 13px;
 	height: 13px;
@@ -54,7 +54,7 @@ html {
 	top: 13%;
 	background: #C4C4C4;
 }
-#pdot3 {
+.pdot3 {
 	position: absolute;
 	width: 13px;
 	height: 13px;
@@ -63,7 +63,7 @@ html {
 	top: 13%;
 	background: #C4C4C4;
 }
-#pbar1 {
+.pbar1 {
 	position: absolute;
 	width: 6%;
 	height: 4px;
@@ -71,7 +71,7 @@ html {
 	top: 13.5%;
 	left: 33%;
 }
-#pbar2 {
+.pbar2 {
 	position: absolute;
 	width: 6%;
 	height: 4px;
@@ -79,7 +79,7 @@ html {
 	top: 13.5%;
 	left: 39%;
 }
-#main-text {
+.main-text {
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
 	font-size: 50px;
@@ -91,7 +91,7 @@ html {
 	width: 335px;
 }
 
-#sub-text {
+.sub-text {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
 	font-size: 18px;
@@ -127,7 +127,7 @@ html {
 	
 }
 
-#wave {
+.wave {
 	position: absolute;
 	height: 102%;
 	margin-top: -2px;
@@ -139,13 +139,13 @@ html {
 	z-index: 150;
 }
 
-#logo {
+.logo {
 	width: 48px;
 	height: 48px;
 
 }
 
-#head-text {
+.head-text {
 	font-size: 40px;
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
@@ -153,7 +153,7 @@ html {
 	margin-top: 0;
 }
 
-#desc-text {
+.desc-text {
 	font-size: 14px;
 	margin-top: -10px;
 	font-family: 'Poppins', sans-serif;
@@ -194,7 +194,7 @@ html {
 	margin-bottom: 5%;
 }
 
-#birthday {
+.birthday {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
 	background-color: rgba(0, 0, 0, 0.07);
@@ -215,7 +215,7 @@ html {
 	/* margin-top: 20px; */
 }
 
-#check {
+.check {
 	height: 30px;
 	position: absolute;
 	margin-left: -29px;
@@ -223,7 +223,7 @@ html {
 	display: none;
 }
 
-#checkbox {
+.checkbox {
 	border: 1px solid rgba(0, 0, 0, 0.3);
 	border-radius: 50%;
 	height: 22px;
@@ -240,16 +240,16 @@ html {
 	top: 8px;
 }
 
-#checkbox:checked {
+.checkbox:checked {
 	background-color: var(--goOffBlue);
 	border: 1px solid rgba(0, 0, 0, 0);
 }
 
-#checkbox:checked~#check {
+.checkbox:checked~.check {
 	display: inherit;
 }
 
-#terms {
+.terms {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
 	font-size: 14px;
@@ -260,7 +260,7 @@ html {
 	color: #000;
 }
 
-#submit-button {
+.submit-button {
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
 	color: #fff;
@@ -279,7 +279,7 @@ html {
 	cursor: pointer;
 }
 
-#ques-text {
+.ques-text {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
 	color: rgba(0, 0, 0, 0.3);
@@ -287,7 +287,7 @@ html {
 	margin-top: 20%;
 }
 
-#ques-text a {
+.ques-text a {
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
 	color: var(--goOffBlue);
@@ -296,7 +296,7 @@ html {
 
 ::-webkit-datetime-edit-text { padding: 0 0.8em; }
 
-#evertext {
+.evertext {
 	position: absolute;
 	width: 133px;
 	height: 30px;
@@ -313,7 +313,7 @@ html {
 	color: #FFFFFF;
 }
 
-#evertext2 {
+.evertext2 {
 	position: absolute;
 	width: 133px;
 	height: 30px;
@@ -331,7 +331,7 @@ html {
 	color: #FFFFFF;
 }
 
-#svertext {
+.svertext {
 	position: absolute;
 	width: 128px;
 	height: 30px;
@@ -349,7 +349,7 @@ html {
 	color: #FFFFFF;
 }
 
-#svertext2 {
+.svertext2 {
 	position: absolute;
 	width: 133px;
 	height: 30px;
@@ -406,12 +406,12 @@ html {
 	right: 10%;
 }
 
-#mailbutton {
+.mailbutton {
 	height: 40px;
 	width: 40px;
 }
 
-#phonebutton {
+.phonebutton {
 	height: 40px;
 	width: 40px;
 }

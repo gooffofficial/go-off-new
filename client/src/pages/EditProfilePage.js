@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import '../styles/editProfile.css';
+import styles from '../styles/EditProfilePage/editProfile.css';
 
 const EditProfilePage = ({}) => {
   let history = useHistory();

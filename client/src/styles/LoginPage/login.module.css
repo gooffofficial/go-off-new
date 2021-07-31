@@ -26,12 +26,12 @@ html {
 	margin-left: -16vw;
 }
 
-#left-logo {
+.left-logo {
 	width: 55px;
 	height: 55px;
 }
 
-#main-text1 {
+.main-text1 {
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
 	font-size: 50px;
@@ -43,7 +43,7 @@ html {
 	width: 335px;
 }
 
-#sub-text {
+.sub-text {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
 	font-size: 18px;
@@ -77,7 +77,7 @@ html {
 	background-color: #fff;
 }
 
-#wave1 {
+.wave1 {
 	position: fixed;
 	height: 102%;
 	margin-top: -2px;
@@ -86,12 +86,12 @@ html {
 	z-index: 150;
 }
 
-#logo {
+.logo {
 	width: 48px;
 	height: 48px;
 }
 
-#head-text {
+.head-text {
 	font-size: 40px;
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
@@ -99,7 +99,7 @@ html {
 	margin-top: 0;
 }
 
-#desc-text {
+.desc-text {
 	font-size: 14px;
 	margin-top: -10px;
 	font-family: 'Poppins', sans-serif;
@@ -138,7 +138,7 @@ html {
 	margin-bottom: 25px;
 }
 
-#birthday {
+.birthday {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
 	background-color: rgba(0, 0, 0, 0.07);
@@ -159,7 +159,7 @@ html {
 	margin-top: 20px;
 }
 
-#check {
+.check {
 	height: 30px;
 	position: absolute;
 	margin-left: -29px;
@@ -167,7 +167,7 @@ html {
 	display: none;
 }
 
-#checkbox {
+.checkbox {
 	border: 1px solid rgba(0, 0, 0, 0.3);
 	border-radius: 50%;
 	height: 22px;
@@ -184,16 +184,16 @@ html {
 	top: 8px;
 }
 
-#checkbox:checked {
+.checkbox:checked {
 	background-color: var(--goOffBlue);
 	border: 1px solid rgba(0, 0, 0, 0);
 }
 
-#checkbox:checked~#check {
+.checkbox:checked~.check {
 	display: inherit;
 }
 
-#terms {
+.terms {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
 	font-size: 14px;
@@ -204,7 +204,7 @@ html {
 	color: #000;
 }
 
-#submit-button {
+.submit-button {
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
 	color: #fff;
@@ -218,19 +218,19 @@ html {
 	margin-top: 14px;
 }
 
-#submit-button:hover {
+.submit-button:hover {
 	opacity: 0.9;
 	cursor: pointer;
 }
 
-#ques-text {
+.ques-text {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
 	color: rgba(0, 0, 0, 0.3);
 	font-size: 14px;
 }
 
-#ques-text a {
+.ques-text a {
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
 	color: var(--goOffBlue);

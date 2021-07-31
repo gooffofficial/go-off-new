@@ -17,7 +17,7 @@ html {
 	width: 50%;
 }
 
-#left-logo1 {
+.left-logo1 {
 	height: 100%;
 	width: 100%;
 }
@@ -41,7 +41,7 @@ html {
 	height: 60px;
 }
 
-#main-text2 {
+.main-text2 {
 	font-family: 'Poppins', sans-serif;
 	font-weight: bold;
 	font-size: 45px;
@@ -53,7 +53,7 @@ html {
 	width: 500px;
 }
 
-#sub-text2 {
+.sub-text2 {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 500;
 	font-size: 18px;
@@ -121,7 +121,7 @@ html {
 		width: 60%;
 	}
 
-	#left-logo {
+	.left-logo {
 		margin-left: -150px;
 	}
 }

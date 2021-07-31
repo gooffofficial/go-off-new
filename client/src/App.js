@@ -16,7 +16,8 @@ import Cform from './pages/cform';
 import Ver from './pages/ver';
 import Eauth from './pages/eauth';
 import SMSauth from './pages/smsauth';
-import Log from 'apify/types/utils_log';
+import Splash from './pages/splash';
+// import Log from '../../../apify/types/utils_log';
 
 
 function App() {
@@ -27,15 +28,16 @@ function App() {
 			<Route path="/profile" component={Profile} />
 			<Route path="/accountsettings" component={AccountSettingsPage} />
 			<Route path="/editprofile" component={EditProfilePage} />
+			<Route path="/discover" component={DiscoverPage} />
 			<Route path="/chat" component={LiveChat} />
-			<Route path="/splash" component={Splash} />
-			<Route path="/login" component={Login} />
-			<Route path="/signup" component={Signup} />
-			<Route path="/signup/sform" component={Sform} />
-			<Route path="/signup/cform" component={Cform} />
-			<Route path="/signup/ver" component={Ver} />
 			<Route path="/signup/eauth" component={Eauth} />
 			<Route path="/signup/smsauth" component={SMSauth} />
+			<Route path="/signup/ver" component={Ver} />
+			<Route path="/signup/cform" component={Cform} />
+			<Route path="/signup/sform" component={Sform} />
+			<Route path="/login" component={Login} />
+			<Route path="/signup" component={Signup} />
+			<Route path="/" component={Splash} />
 		</Switch>
 	);
 }

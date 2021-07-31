@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { sendVerifyCheck } from '../api';
+import { sendVerifyCheck } from "../styles/AuthPage/api";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import  ReactCodeInput  from 'react-verification-code-input';
-import '../styles/auth.css';
+import styles from '../styles/AuthPage/auth.module.css';
+import Logo from '../images/GO_OFF_LOGO.svg'
+import Wave from '../images/wave1.svg'
 
 const EAuth = props => {
     const [verfiyCode, setVerfiyCode] = useState("")
@@ -23,15 +25,20 @@ const EAuth = props => {
       const wasValidCode = await sendVerifyCheck(email, verfiyCode);
       if (wasValidCode)
         history.push("/Profile");
-      else
+      else 
         setErrorText("SMS Code was invalid...")
+    //   const wasValidCode = axios.get("/localhost:8000/verify")
+    //   if (wasValidCode)
+    //     history.push("/Profile");
+    //   else
+    //     setErrorText("SMS Code was invalid...")
     }    
     
 
     return (
         <div>
             <div className="container">
-                <img src="/GO_OFF_LOGO.svg" className="logo"/>
+                <img src={Logo} className={styles["logo"]}/>
                 <h1 className={styles["vertext"]}>Verification Code</h1>
                 <p className={styles["sverdesc"]}>Please enter the 6 digit verification code sent to </p>
                 <form>
@@ -40,7 +47,7 @@ const EAuth = props => {
                     <span className={styles["SMSErrorText"]}>{!!errorText && errorText}</span>
                 </form>
             </div>
-            <img src="/wave1.svg" className={styles["swave"]}></img>
+            <img src={Wave} className={styles["swave"]}></img>
         </div>
     )
 }

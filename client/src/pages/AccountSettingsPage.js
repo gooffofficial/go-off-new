@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import styles from '../styles/accountSettingsPage.css';
+import styles from '../styles/AccountSettingsPage/accountSettingsPage.module.css';
+import Left from '../images/short_left.svg'
+import Pencil from '../images/pencil.svg'
+import Circle from '../images/user_circle.svg'
+import Logo from '../images/GO_OFF_LOGO.svg'
+import Search from '../images/search_icon.svg'
+import Home from '../images/home.svg'
+import Plus from '../images/plus.svg'
+import Down from '../images/chevron_down.svg'
 
 const AccountSettingsPage = ({}) => {
   let history = useHistory();
@@ -14,15 +22,15 @@ const AccountSettingsPage = ({}) => {
     <div className={styles["as-content"]}>
       <div className={styles["as-leftContent"]}>
         <button className={styles["as-backBtn"]}>
-          <img src="/short_left.svg" className={styles["as-backIcon"]} alt="" />
+          <img src={Left} className={styles["as-backIcon"]} alt="" />
           <span className={styles["as-backTxt"]}>BACK</span>
         </button>
         <button onClick={toEditProfilePage} className={styles["as-editProfileBtn"]}>
-          <img src="/pencil.svg" className={styles.as-editIcon} alt="" />
+          <img src={Pencil} className={styles["as-editIcon"]} alt="" />
           <span className={styles["as-editProfileTxt"]}>EDIT PROFILE</span>
         </button>
         <button className={styles["as-accountSettingsBtn as-selectedBtn"]}>
-          <img src="/user_circle.svg" className={styles["as-accountIcon"]} alt="" />
+          <img src={Circle} className={styles["as-accountIcon"]} alt="" />
           <span className={styles["as-accountSettingsTxt"]}>ACCOUNT SETTINGS</span>
         </button>
       </div>
@@ -37,25 +45,25 @@ const AccountSettingsPage = ({}) => {
             <button className={styles["as-cancelBtn"]}>Cancel</button>
           </div>
         </div>
-        <span className="as-emailLbl">EMAIL</span>
-        <input type="email" className="as-emailInpt" />
-        <span className="as-passwordLbl">PASSWORD</span>
-        <input type="password" className="as-passwordInpt" />
-        <span className="as-countryLbl">COUNTRY/REGION</span>
-        <input type="text" className="as-countryInpt" />
+        <span className={styles["as-emailLbl"]}>EMAIL</span>
+        <input type="email" className={styles["as-emailInpt"]} />
+        <span className={styles["as-passwordLbl"]}>PASSWORD</span>
+        <input type="password" className={styles["as-passwordInpt"]} />
+        <span className={styles["as-countryLbl"]}>COUNTRY/REGION</span>
+        <input type="text" className={styles["as-countryInpt"]} />
 
-        <span className="as-genderLbl">GENDER</span>
-        <div className="as-maleRow">
-          <input type="radio" className="as-maleRadio" />
-          <span className="as-maleLbl">MALE</span>
+        <span className={styles["as-genderLbl"]}>GENDER</span>
+        <div className={styles["as-maleRow"]}>
+          <input type="radio" className={styles["as-maleRadio"]} />
+          <span className={styles["as-maleLbl"]} >MALE</span>
         </div>
-        <div className="as-femaleRow">
-          <input type="radio" className="as-femaleRadio" />
-          <span className="as-femaleLbl">FEMALE</span>
+        <div className={styles["as-femaleRow"]}>
+          <input type="radio" className={styles["as-femaleRadio"]} />
+          <span className={styles["as-femaleLbl"]}>FEMALE</span>
         </div>
-        <div className="as-otherRow">
-          <input type="radio" className="as-otherRadio" />
-          <input type="text" placeholder="OTHER" className="as-otherInpt" />
+        <div className={styles["as-otherRow"]}>
+          <input type="radio" className={styles["as-otherRadio"]} />
+          <input type="text" placeholder="OTHER" className={styles["as-otherInpt"]} />
         </div>
       </div> 
     </div>
@@ -63,21 +71,21 @@ const AccountSettingsPage = ({}) => {
 }
 
 const ASNavBar = ({}) => {
-  return <div className="as-navbar">
-    <img src="/GO_OFF_LOGO.svg" alt="Go Off Logo" className="as-goOffLogo" />
+  return <div className={styles["as-navbar"]}>
+    <img src={Logo} alt="Go Off Logo" className={styles["as-goOffLogo"]} />
     <div className="as-searchBox">
-      <img src="/search_icon.svg" className="as-searchIcon" alt="Search Icon" />
-      <input type="search" className="as-inputSearch" placeholder="Search" />
+      <img src={Search} className={styles["as-searchIcon"]} alt="Search Icon" />
+      <input type="search" className={styles["as-inputSearch"]} placeholder="Search" />
     </div>
-    <div className="as-emptySpace"></div>
-    <div className="as-optionsRow">
-      <img src="/home.svg" className="as-homeIcon" alt="" />
-      <a href="##" className="as-amount">0</a>
-      <img src="/plus.svg" alt="" className="as-plus" />
+    <div className={styles["as-emptySpace"]}></div>
+    <div className={styles["as-optionsRow"]}>
+      <img src={Home} className={styles["as-homeIcon"]} alt="" />
+      <a href="##" className={styles["as-amount"]}>0</a>
+      <img src={Plus} alt="" className={styles["as-plus"]} />
     </div>
-    <div className="as-profileRow">
-      <img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" className="as-profileAvatar" alt="profileAvatar" />
-      <img src="/chevron_down.svg" className="as-arrowDown" alt="" />
+    <div className={styles["as-profileRow"]}>
+      <img src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" className={styles["as-profileAvatar"]} alt="profileAvatar" />
+      <img src={Down} className={styles["as-arrowDown"]} alt="" />
     </div>
   </div>
 }

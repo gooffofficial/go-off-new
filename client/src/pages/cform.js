@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { signupactions} from "../redux/actions";
-import styles from '../styles/signup.css';
+import styles from '../styles/SignupPage/signup.module.css';
+import Wave from '../images/wave_thin.svg'
+import Logo from '../images/GO_Off300.png'
 
 
 const initial_form_values = {phonenumber: "", countrycode: "", location: "", gender: "HeHim"}
@@ -58,7 +60,7 @@ const Cform = props => {
                     <div className={styles["left-side"]}>
                         <div className={styles["left-container"]}>
                             {/* logo */}
-                            <img src="/GO_Off300.png" id="left-logo"/>
+                            <img src={Logo} className={styles["left-logo"]}/>
                             {/* progress bar */}
                             <span className={styles["dot"]} id="pdot1" style={{background: "#3A86FF"}}></span>
                             <span className={styles["bar"]} id="pbar1" style={{background: "#3A86FF"}}></span>
@@ -66,8 +68,8 @@ const Cform = props => {
                             <span className={styles["bar"]} id="pbar2" style={{background: "#3A86FF"}}></span>
                             <span className={styles["dot"]} id="pdot3"></span>
                             {/* signup header */}
-                            <p id="head-text">Complete your profile</p>
-                            <p id="desc-text">Almost there, we just need a few more details!</p>
+                            <p className={styles["head-text"]}>Complete your profile</p>
+                            <p className={styles["desc-text"]}>Almost there, we just need a few more details!</p>
 
                             <form className={styles["field-container"]}>
                                 {/* form for user creation */}
@@ -93,17 +95,17 @@ const Cform = props => {
                                     <option value="SheHer">She/Her</option>
                                     <option value="TheyTHem">They/Them</option>
                                 </select>
-                                <button id="submit-button" onClick={buttonhandler}>SAVE & CONTINUE</button>
+                                <button className={styles["submit-button"]} onClick={buttonhandler}>SAVE & CONTINUE</button>
                             </form>
                         </div>
                         <div className={styles["wave-container"]}>
-                            <img src="/wave_thin.svg" id="wave"/>
+                            <img src={Wave} className={styles["wave"]}/>
                         </div>
                     </div>
                     <div className={styles["right-side"]}>
                         <div className={styles["right-container"]}>
-                            <p id="main-text">Adventure starts here.</p>
-                            <p id="sub-text">Complete your profile to join GoOFF!</p>
+                            <p className={styles["main-text"]}>Adventure starts here.</p>
+                            <p className={styles["sub-text"]}>Complete your profile to join GoOFF!</p>
                         </div>  
                     </div>
                 </div>

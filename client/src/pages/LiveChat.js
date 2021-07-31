@@ -17,7 +17,7 @@ import sendIcon from '../images/liveChatImages/send.png'
 import dots3Icon from '../images/liveChatImages/dots3.png'
 import inputAddIcon from '../images/liveChatImages/addIcon.png'
 import inputSendIcon from '../images/liveChatImages/chatSend.png'
-import '../styles/livechat.css';
+import styles from '../styles/LiveChatPage/livechat.css';
 
 const LiveChat = () => {
   return <div className="liveChat">

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { sendVerifyCheck } from '../api';
+import { sendVerifyCheck } from "../styles/AuthPage/api";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import  ReactCodeInput  from 'react-verification-code-input';
-import '../styles/auth.css';
-
+import styles from '../styles/AuthPage/auth.module.css';
+import Logo from '../images/GO_OFF_LOGO.svg'
+import Wave from '../images/wave1.svg'
 
 const SMSAuth = props => {
     const [verfiyCode, setVerfiyCode] = useState("")
@@ -32,16 +33,16 @@ const SMSAuth = props => {
     return (
         <div>
             <div className={styles["container"]}>
-                <img src="/GO_OFF_LOGO.svg" className={styles["logo"]}/>
+                <img src={Logo} className={styles["logo"]}/>
                 <h1 className={styles["vertext"]}>Verification Code</h1>
                 <p className={styles["sverdesc"]}>Please enter the 6 digit verification code sent to </p>
                 <form>
                     <ReactCodeInput onChange={handleChange} className={styles["sixinput"]} />
-                    <button className={styles["authsubmit"]} onClick={handleClick}><span className="button-text">Verify Now</span></button>
+                    <button className={styles["authsubmit"]} onClick={handleClick}><span className={styles["button-text"]}>Verify Now</span></button>
                     <span className={styles["SMSErrorText"]}>{!!errorText && errorText}</span>
                 </form>
             </div>
-            <img src="/wave1.svg" className="swave"></img>
+            <img src={Wave} className={styles["swave"]}></img>
         </div>
     )
 }
