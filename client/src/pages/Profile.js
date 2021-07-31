@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import styles from '../styles/ProfilePage/Profile.module.scss';
 
 // Components
@@ -18,6 +19,8 @@ const fillerUser = {
 const Profile = (props) => {
 	const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+
+	const history = useHistory();
 
 	useEffect(() => {
 		axios
@@ -58,7 +61,10 @@ const Profile = (props) => {
 							/>
 							<p className={styles.sideBarUserLinkText}>{currentUser.name}</p>
 						</div>
-						<div className={styles.sideBarHome}>
+						<div
+							className={styles.sideBarHome}
+							onClick={() => history.push('/home')}
+						>
 							<svg
 								width="30"
 								height="30"
