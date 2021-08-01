@@ -37,7 +37,7 @@ const EAuth = props => {
 
     return (
         <div>
-            <div className="container">
+            <div className={styles["container"]}>
                 <img src={Logo} className={styles["logo"]}/>
                 <h1 className={styles["vertext"]}>Verification Code</h1>
                 <p className={styles["sverdesc"]}>Please enter the 6 digit verification code sent to </p>

@@ -82,7 +82,9 @@ const Profile = (props) => {
 
 							<p className={styles.sideBarLinkText}>Home</p>
 						</div>
-						<div className={styles.sideBarDiscover}>
+						<div 
+							className={styles.sideBarDiscover}
+							onClick={() => history.push('/discover')}>
 							<svg
 								width="30"
 								height="30"

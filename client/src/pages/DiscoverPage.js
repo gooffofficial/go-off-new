@@ -9,10 +9,10 @@ import prekshaIcon from '../images/liveChatImages/preksha-profile-icon.png'
 import arrowDownIcon from '../images/liveChatImages/arrow-ios-down.png'
 import homeIcon from '../images/liveChatImages/home-icon.png'
 import globeIcon from '../images/liveChatImages/globe-icon.png'
-import styles from '../styles/DiscoverPage/discoverPage.css';
+import styles from '../styles/DiscoverPage/discoverPage.module.css';
 
 const DiscoverPage = () => {
-  return <div className="discoverPage">
+  return <div className={styles["discoverPage"]}>
     <DINavBar />
     <div className={styles["di-mainContent"]}>
       <div className={styles["di-leftColumn"]}>

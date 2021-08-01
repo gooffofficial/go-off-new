@@ -42,9 +42,9 @@ const Ver = props => {
 
   return (
     <div>
-      <div className="whole-container">
-        <div className="left-side">
-            <div className="left-container">
+      <div className={styles["whole-container"]}>
+        <div className={styles["left-side"]}>
+            <div className={styles["left-container"]}>
               <img src={Logo} className={styles["left-logo"]}></img>
               <span className={styles["pdot1"]} style={{background: "#3A86FF", left: "40%"}}></span>
               <span className={styles["pbar1"]} style={{background: "#3A86FF", left: "40%"}}></span>
