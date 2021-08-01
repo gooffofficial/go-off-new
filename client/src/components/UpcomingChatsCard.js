@@ -6,7 +6,7 @@ const UpcomingChatsCard = (props) => {
 			<div className={styles.upcomingChatsCardImageContainer}>
 				<img
 					className={styles.upcomingChatsCardImage}
-					src="/images/Rectangle 328.png"
+					src="/images/Rectangle328.png"
 					alt="upcoming chat"
 				/>
 			</div>
