@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { getCookie, generateToken } from '../utils/helpers.js';
+import { useHistory } from 'react-router-dom';
 import styles from '../styles/ProfilePage/Profile.module.scss';
 
 // Components
@@ -20,14 +20,9 @@ const Profile = (props) => {
 	const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
 
+	const history = useHistory();
+
 	useEffect(() => {
-		let cookie = getCookie('authJWT');
-
-		// development only
-		if (!cookie) {
-			generateToken();
-		}
-
 		axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
@@ -66,7 +61,10 @@ const Profile = (props) => {
 							/>
 							<p className={styles.sideBarUserLinkText}>{currentUser.name}</p>
 						</div>
-						<div className={styles.sideBarHome}>
+						<div
+							className={styles.sideBarHome}
+							onClick={() => history.push('/home')}
+						>
 							<svg
 								width="30"
 								height="30"

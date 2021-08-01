@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { getCookie, generateToken } from '../utils/helpers.js';
 // import { useHistory } from 'react-router-dom';
 import styles from '../styles/HomePage/Home.module.scss';
 
@@ -23,13 +22,6 @@ const Home = (props) => {
 	// const history = useHistory();
 
 	useEffect(() => {
-		let cookie = getCookie('authJWT');
-
-		// development only
-		if (!cookie) {
-			generateToken();
-		}
-
 		axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
