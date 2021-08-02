@@ -12,7 +12,7 @@ const Chat = ({scrollhook, channels, addMessages, messages, user})=> {
             e.channels.Test.forEach((e)=>{
               if(e.message.message || e.message.text.message){return} // this is just done to filter out previous versions of the messages
               if(e.message.user && e.message.text){
-                addMessages(messages=>[...messages,{user:e.message.user,isHost:e.message.isHost,text:e.message.text}])
+                addMessages(messages=>[...messages,{user:e.message.user,isHost:e.message.isHost,text:e.message.text,uuid:e.message.uuid}])
               }
               scrollhook.current.scrollIntoView({behavior:'smooth'});
             })    
@@ -21,7 +21,7 @@ const Chat = ({scrollhook, channels, addMessages, messages, user})=> {
     return (
         <>
         { messages.map((message, index)=>{
-                  if(message.user===user){
+                  if(message.uuid==user.uuid){
                     return (
                       <MeMessage key={index} isHost={message.isHost} user={message.user} text={message.text}/>
                     );

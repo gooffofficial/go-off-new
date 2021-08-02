@@ -19,7 +19,7 @@ const App = () => {
   const pubnub = new PubNub({
     publishKey: 'pub-c-59ae5e55-4285-42c4-b609-dbe4f6ceb5e2', 
     subscribeKey: 'sub-c-58789894-ce3c-11eb-9144-ea6857a81ff7',
-    uuid: uuid_v4(), //should not generate new one each time should create one for the user upon account creation and use that.
+    uuid:uuid_v4(), //should not generate new one each time should create one for the user upon account creation and use that.
     //logVerbosity:true // logs HTTP request info 
   })
 
@@ -31,7 +31,7 @@ const App = () => {
           <Route path="/splash">
             <Splash/>
           </Route>
-          <Route path="/livechat">
+          <Route path="/livechat/:code?">
             <LiveChat/>
           </Route>
           <Route path="/login">

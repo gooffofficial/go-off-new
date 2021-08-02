@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useRef} from "react";
+import {useParams} from 'react-router';
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
 import searchIcon from '../images/liveChatImages/search-icon.png'
 import optionsIcon from '../images/liveChatImages/options.png'
@@ -21,8 +22,12 @@ import '../styles/livechat.css';
 import {usePubNub} from 'pubnub-react';
 import { useForm } from "react-hook-form";
 import Chat from './Chat';
+import axios from 'axios';
+import { v4 as uuid_v4 } from 'uuid';
 
 const LiveChat = () => {
+const {code} = useParams(); 
+
 //importing pubnub into this component 
 const pubnub = usePubNub();
 
@@ -37,7 +42,7 @@ const {
 
 
 //this will hold channel(s) for now default is test. will need to add way to join via a unique identifier to set as channel
-const [channels , setChannels] = useState(['Test']);
+const [channels , setChannels] = useState([code]);
 
 //this state will hold all messages; Note every message will be structured as such {text:'string', user:'string', isHost:'boolean'}
 const [messages, addMessages] = useState([]);
@@ -46,14 +51,21 @@ const [messages, addMessages] = useState([]);
 const [limitReached, setLimitReached] = useState(false);
 
 //this is temporary user, later need to use user data from sign in
-const user = pubnub.getUUID();
-const isHost=true;
+//const user = pubnub.getUUID();
+const [user, setUser] = useState({
+  name:'Christian Nava',
+  username:'',
+  uuid:pubnub.getUUID(),//'123456',//this needs to be same as pubnub uuid in app.js or user id 
+  isHost:false
+})
+
 
 //this is a ref that will give scroll to bottom functionality
 const scrollhook = useRef();
 
 //this will handle incoming messages
 const handleMessage = (object) => {
+  console.log(object)
     const message = object.message
     if(!message.user){return}
     const text = message.text;
@@ -67,7 +79,7 @@ const handleMessage = (object) => {
   const onSubmit = (message, e) => {
     pubnub.publish({
       channel: channels[0],
-      message: {user:user,isHost:isHost,text:message.message}
+      message: {user:user.name,isHost:user.isHost,text:message.message,uuid:user.uuid}
     },
     function(status) { //this will print a status error in console
       if (status.error) {
@@ -80,26 +92,41 @@ const handleMessage = (object) => {
 
 //useEffect will add listeners and will subscribe to channel. will refresh if pubnub or the channels change 
 useEffect(() => {
-  
-  const result = async ()=>{
-    let x = await pubnub.hereNow({
-      channels: ["Test"],
-      includeUUIDs: true,
-      includeState: true,
-  });
-
-  var y = x.channels.Test.occupants
-  console.log(y)
-  if (y.length>=10){
+  //checks for current occupancy and if too many people already then does not render chat
+const occupancy = pubnub.hereNow({
+    channels: channels,
+    includeUUIDs: true,
+    includeState: true,
+},(status,response)=>{
+  console.log(response)
+  const occupancy = response.totalOccupancy;
+  if (occupancy>=10){
     setLimitReached(true);
   }else{
-    setMembers(state=>[...state, y.uuid])
+    if(limitReached){
+      setLimitReached(false);
+    }
   }
-  return y
-  }
-  result()
+  return occupancy;
+});
 
-  var listener = {
+//checks for current user
+/**axios.get(`/api/users/current`, {
+				withCredentials: true,
+			}).then((res) => {
+        if(res.status===400){
+          // not a user
+          let user = {name:'guest',username:'guest',uuid:pubnub.getUUID(),isHost:false};
+          setUser(user)
+        }else if (res.user){
+          //is a user
+          let user = {name:res.user.name,username:res.user.username,uuid:res.user.uuid,isHost:false};
+          setUser(user);
+        }}) */
+
+/** this the variable version of listener used to add and remove the listener but using the var is not working so I created
+ * the object directly in the listener 
+ *   var listener = {
     message: handleMessage,
     presence: function (p) {
       const action = p.action; // Can be join, leave, state-change, or timeout
@@ -114,6 +141,8 @@ useEffect(() => {
     },
     status: (event)=>{console.log("status: "+ JSON.stringify(event))}
   };
+ */
+
   //this listener sets up how to handle messages and gives status
   pubnub.addListener({
     message: handleMessage,
@@ -126,20 +155,25 @@ useEffect(() => {
       const publishTime = p.timestamp; // Publish timetoken
       const timetoken = p.timetoken; // Current timetoken
       const uuid = p.uuid; // UUIDs of users who are subscribed to the channel
+      console.log(occupancy)
+      //this portion will add or remove members from a list.
       if(action=='leave'){
         let newlist = members.filter(m=>m!==uuid)
         setMembers(newlist);
+      }else if(action=='join' && occupancy<11){
+        setMembers(state=>[...state,uuid])
       }
     },
     status: (event)=>{console.log("status: "+ JSON.stringify(event))}
   });
+
   //this subscribes to a list of channels
   pubnub.subscribe({ 
     channels:channels,
     withPresence: true
   })
   return (pubnub.unsubscribe(channels), pubnub.removeListener())
-},[pubnub, channels]);
+},[pubnub]);
 
   return <div className="liveChat">
     <NavBar />
@@ -181,7 +215,7 @@ useEffect(() => {
             <span className="chatTime">10:00 PM</span>
             {(()=>{
               if(limitReached){
-                if(members.includes(user)){
+                if(members.includes(user.uuid)){
                   return <Chat scrollhook={scrollhook} channels={channels} addMessages={addMessages} messages={messages} user={user}/>
                 }else{
                   return <div style={{textAlign:'center'}}>Chat is full</div>
