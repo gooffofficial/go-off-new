@@ -111,7 +111,7 @@ const occupancy = pubnub.hereNow({
 });
 
 //checks for current user
-/**axios.get(`/api/users/current`, {
+axios.get(`/api/users/current`, {
 				withCredentials: true,
 			}).then((res) => {
         if(res.status===400){
@@ -122,7 +122,7 @@ const occupancy = pubnub.hereNow({
           //is a user
           let user = {name:res.user.name,username:res.user.username,uuid:res.user.uuid,isHost:false};
           setUser(user);
-        }}) */
+        }}) 
 
 /** this the variable version of listener used to add and remove the listener but using the var is not working so I created
  * the object directly in the listener 
