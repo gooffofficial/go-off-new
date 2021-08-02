@@ -5,7 +5,7 @@ import styles from '../styles/ProfilePage/Profile.module.scss';
 
 // Components
 import NavBar from '../components/NavBar.js';
-import FeedCard from '../components/FeedCard.js';
+import FeedCard, { ChatsFeed } from '../components/FeedCard.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 
 const fillerUser = {
@@ -19,6 +19,7 @@ const fillerUser = {
 const Profile = (props) => {
 	const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+  const [chatCategory, setChatCategory] = useState("Upcoming") // "Upcoming", "Past", "Saved"
 
 	const history = useHistory();
 
@@ -147,23 +148,22 @@ const Profile = (props) => {
 						<div className={styles.profilePageDivider} />
 
 						<div className={styles.profilePageTabsContainer}>
-							<div className={styles.profilePageTab}>
+							<div onClick={() => setChatCategory("Upcoming")} className={styles.profilePageTab}>
 								<p className={styles.profilePageTabText}>Upcoming</p>
 							</div>
 
-							<div className={styles.profilePageTab}>
+							<div onClick={() => setChatCategory("Past")} className={styles.profilePageTab}>
 								<p className={styles.profilePageTabText}>Past</p>
 							</div>
 
-							<div className={styles.profilePageTab}>
+							<div onClick={() => setChatCategory("Saved")} className={styles.profilePageTab}>
 								<p className={styles.profilePageTabText}>Saved</p>
 							</div>
 						</div>
 					</div>
 
 					<div className={styles.profCenterFeed}>
-						<FeedCard />
-						<FeedCard />
+						<ChatsFeed chatCategory={chatCategory} />
 					</div>
 				</div>
 			</div>

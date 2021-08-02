@@ -4,19 +4,24 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { QueryClient, QueryClientProvider } from 'react-query'
 import store from './redux';
 
 // Component Imports
 import App from './App';
 
+export const queryClient = new QueryClient()
+
 ReactDOM.render(
-	<Provider store={store}>
-		<Router>
-			<React.StrictMode>
-				<App />
-			</React.StrictMode>
-		</Router>
-	</Provider>,
+  <QueryClientProvider client={queryClient}>
+	  <Provider store={store}>
+	  	<Router>
+	  		<React.StrictMode>
+	  			<App />
+	  		</React.StrictMode>
+	  	</Router>
+	  </Provider>
+  </QueryClientProvider>,
 	document.getElementById('root')
 );
 

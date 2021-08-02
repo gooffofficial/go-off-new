@@ -25,3 +25,10 @@ export const sendVerifyCheck = async (email, verifyCode) => { // Basically, if t
     return true;
   } catch (err) { console.log("error", err); return false; }
 }
+
+export const getUpcomingChats = async () => (await axios.get(`/api/upcoming`)).data;
+export const getPastChats = async () => (await axios.get(`/api/pastconv`)).data;
+
+export const charLimit = (text, charMaxLength) => {
+  return text.length > charMaxLength ? text.slice(0, charMaxLength) + "..." : text
+}
