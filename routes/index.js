@@ -49,7 +49,12 @@ router.get('/profile_edit', auth.required, async (req, res, next) => {
 	let admin = user.admin == '(Admin)';
 	console.log(host);
 	console.log(admin);
-	res.render('profiles/profile_edit', {
+	// res.render('profiles/profile_edit', {
+	// 	user: username,
+	// 	host: host,
+	// 	admin: admin,
+	// });
+  res.json({
 		user: username,
 		host: host,
 		admin: admin,
@@ -67,44 +72,55 @@ router.get('/account_settings', auth.required, async (req, res, next) => {
 	});
 	let host = user.host == '(Host)';
 	let admin = user.admin == '(Admin)';
-	res.render('profiles/account_settings', {
-		user: username,
+	// res.render('profiles/account_settings', {
+	// 	user: username,
+	// 	host: host,
+	// 	admin: admin,
+	// });
+  res.json({
+    user: username,
 		host: host,
 		admin: admin,
-	});
+  })
+
 });
 
 router.get('/followers', auth.required, (req, res, next) => {
 	const {
 		payload: { username },
 	} = req;
-	res.render('profiles/followers', { user: username });
+	// res.render('profiles/followers', { user: username });
+  res.json({ user: username })
 });
 
 router.get('/followers/:user', auth.required, (req, res, next) => {
 	const {
 		payload: { username },
 	} = req;
-	res.render('profiles/followers', { user: req.params.user });
+	// res.render('profiles/followers', { user: req.params.user });
+  res.json({ user: req.params.user });
 });
 
 router.get('/following', auth.required, (req, res, next) => {
 	const {
 		payload: { username },
 	} = req;
-	res.render('profiles/following', { user: username });
+	// res.render('profiles/following', { user: username });
+  res.json({ user: username })
 });
 
 router.get('/following/:user', auth.required, (req, res, next) => {
 	const {
 		payload: { username },
 	} = req;
-	res.render('profiles/following', { user: req.params.user });
+	// res.render('profiles/following', { user: req.params.user });
+  res.json({ user: req.params.user });
 });
 
 //Requesting Verification Code
 router.get('/verify', (req, res) => {
-	res.render('emailver', { email: req.query.email });
+	// res.render('emailver', { email: req.query.email });
+  res.json({ email: req.query.email })
 });
 
 router.get('/feed', auth.optional, (req, res, next) => {
@@ -318,7 +334,16 @@ router.get('/feed', auth.optional, (req, res, next) => {
 						},
 					});
 					let ppic = user1.ppic;
-					res.render('feed', {
+					// res.render('feed', {
+					// 	myuser: username,
+					// 	user: req.params.user,
+					// 	ppic: ppic,
+					// 	articles: arts2,
+					// 	convos: convs,
+					// 	host: host,
+					// 	admin: admin,
+					// });
+          res.json({
 						myuser: username,
 						user: req.params.user,
 						ppic: ppic,
@@ -422,7 +447,18 @@ router.get('/conversation', auth.optional, (req, res, next) => {
 			// Ensure user is host or admin
 			let host = user.host == '(Host)';
 			let admin = user.admin == '(Admin)';
-			return res.render('conversation', {
+			// return res.render('conversation', {
+			// 	user: username,
+			// 	articlePic: art.img,
+			// 	artTitle: art.title,
+			// 	artLink: article,
+			// 	date: year + '-' + month + '-' + date + 'T00:00',
+			// 	convos: convos,
+			// 	hosts: hosts,
+			// 	host: host,
+			// 	admin: admin,
+			// });
+      return res.json({
 				user: username,
 				articlePic: art.img,
 				artTitle: art.title,
@@ -460,7 +496,8 @@ router.get('/folder/:id', auth.required, (req, res, next) => {
 				save.push(articles[i].getFolderInfo());
 			}
 			console.log(articles);
-			res.render('profiles/folder', { articles: save });
+			// res.render('profiles/folder', { articles: save });
+      res.json({ articles: save });
 		}
 	});
 });
@@ -532,7 +569,18 @@ router.get('/m/:username', auth.required, (req, res, next) => {
 						lastMessages[i][0] = user.username;
 						lastMessages[i].push(profile.ppic);
 					}
-					res.render('dm', {
+					// res.render('dm', {
+					// 	user: username,
+					// 	admin: true,
+					// 	id: req.params.username,
+					// 	status: false,
+					// 	title: req.params.username,
+					// 	url: '/profiles/' + req.params.username,
+					// 	js: 'dm.js',
+					// 	lastMessages: lastMessages,
+					// 	userPic: userPic,
+					// });
+          res.json({
 						user: username,
 						admin: true,
 						id: req.params.username,
@@ -603,7 +651,21 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
 						title = title.substring(0, 30);
 					}
 					if (user.admin != '(Admin)' && user.host != '(Host)') {
-						return res.render('index', {
+						// return res.render('index', {
+						// 	user: user.username,
+						// 	admin: false,
+						// 	host: false,
+						// 	id: req.params.roomid,
+						// 	status: room.status,
+						// 	title: title,
+						// 	hosting: hosting,
+						// 	desc: desc,
+						// 	url: article.url,
+						// 	convoHost: convoHost,
+						// 	convoStarted: convoStarted,
+						// 	js: 'index.js',
+						// });
+            return res.json({
 							user: user.username,
 							admin: false,
 							host: false,
@@ -618,7 +680,21 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
 							js: 'index.js',
 						});
 					} else {
-						return res.render('index', {
+						// return res.render('index', {
+						// 	user: user.username,
+						// 	admin: true,
+						// 	host: true,
+						// 	id: req.params.roomid,
+						// 	status: room.status,
+						// 	title: title,
+						// 	hosting: hosting,
+						// 	desc: desc,
+						// 	url: article.url,
+						// 	convoHost: convoHost,
+						// 	convoStarted: convoStarted,
+						// 	js: 'index.js',
+						// });
+            return res.json({
 							user: user.username,
 							admin: true,
 							host: true,
@@ -640,7 +716,8 @@ router.get('/chat/:roomid', auth.required, (req, res, next) => {
 });
 
 router.get('/usertype', auth.optional, (req, res, next) => {
-	res.render('usertype');
+	// res.render('usertype');
+  res.json({ 'usertype': 'usertype'})
 });
 
 router.get('/login', auth.optional, (req, res, next) => {
@@ -656,11 +733,13 @@ router.get('/login', auth.optional, (req, res, next) => {
 	let myConversation = req.query['convo'];
 	if (myConversation === undefined) {
 		console.log('test');
-		res.render('login', { redirectLink: 'noRedirect' });
+		// res.render('login', { redirectLink: 'noRedirect' });
+    res.json({ redirectLink: 'noRedirect' });
 	} else {
 		console.log(myConversation);
 		// if default login jsut snd them to login page
-		res.render('login', { redirectLink: myConversation });
+    // res.render('login', { redirectLink: myConversation });
+		res.json({ redirectLink: myConversation });
 	}
 
 	/*
@@ -676,15 +755,18 @@ router.get('/login', auth.optional, (req, res, next) => {
 });
 
 router.get('/signup', auth.optional, (req, res, next) => {
-	res.render('signup');
+	// res.render('signup');
+  res.json({ signup: 'signup'});
 });
 
 router.get('/comp_profile', auth.optional, (req, res, next) => {
-	res.render('comp_profile');
+	// res.render('comp_profile');
+  res.json({ comp_profile: 'comp_profile' });
 });
 
 router.get('/ver_account', auth.optional, (req, res, next) => {
-	res.render('ver_account');
+	// res.render('ver_account');
+  res.json({ ver_account: 'ver_account' });
 });
 
 module.exports = router;
