@@ -261,7 +261,7 @@ router.post(
 							// return res.redirect('/verify');
 							//return res.redirect('/login'); //redirect to check email verification page
 						});
-					return res.redirect('/ver_account');
+            return res.json({ Status: "Successfully created account " }) // return res.redirect('/ver_account');
 				});
 			})
 			.catch((err) => {
@@ -454,7 +454,7 @@ router.post(
 							// return res.redirect('/verify');
 							//return res.redirect('/login'); //redirect to check email verification page
 						});
-					return res.redirect('/ver_account');
+          return res.json({ Status: "Successfully created account! " }) // return res.redirect('/ver_account');
 				});
 			})
 			.catch((err) => {
@@ -467,7 +467,6 @@ router.post(
 router.post('/login', auth.optional, async (req, res, next) => {
 	//const { body: { user } } = req.body;
 	const user = req.body;
-
 	if (!user.username) {
 		return res.status(422).json({
 			errors: {
@@ -814,7 +813,8 @@ router.get('/verification', auth.optional, (req, res, next) => {
 				user
 					.save()
 					.then((saveUser) => {
-						return res.redirect('/login');
+						// return res.redirect('/login');
+            res.json({ redirect: '/login' })
 					})
 					.catch((err) => {
 						return res.status(500).send({ msg: err.message });
