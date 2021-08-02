@@ -1,5 +1,5 @@
 import React from "react";
-// import { sendEmailRegister, sendSMSRegister } from '../../../routes/api'
+import { sendEmailRegister, sendSMSRegister } from '../styles/AuthPage/api'
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styles from '../styles/SignupPage/signup.module.css';
@@ -19,6 +19,7 @@ const Ver = props => {
   //handle the axios call
   const emailbuttonhandler = events =>{
     events.preventDefault();
+    sendEmailRegister(userInfo);
     history.push("/signup/eauth")
     // axios.post("/localhost:8000/api/users/ecreate", JSON.stringify(data)).then(res =>{
     //   console.log(res)
@@ -30,7 +31,7 @@ const Ver = props => {
 
   const smsbuttonhandler = async (evt) => {
     evt.preventDefault();
-    // sendSMSRegister(userInfo);
+    sendSMSRegister(userInfo);
     history.push("/signup/smsauth")
     
     // axios.post("https://cors-anywhere.herokuapp.com/localhost:8000/api/users/ecreate", JSON.stringify(data)).then(res =>{
