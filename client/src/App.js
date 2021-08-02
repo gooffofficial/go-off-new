@@ -4,6 +4,7 @@ import './styles/index.scss';
 
 // Component Imports
 import Home from './pages/Home';
+import HostHome from './pages/HostHome';
 import Profile from './pages/Profile';
 import AccountSettingsPage from './pages/AccountSettingsPage';
 import LiveChat from './pages/LiveChat';
@@ -24,6 +25,7 @@ function App() {
 	return (
 		// Routes
 		<Switch>
+			<Route path="/hosthome" component={HostHome} />
 			<Route path="/home" component={Home} />
 			<Route path="/profile" component={Profile} />
 			<Route path="/accountsettings" component={AccountSettingsPage} />

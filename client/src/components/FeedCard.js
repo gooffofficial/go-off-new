@@ -142,11 +142,11 @@ const NewsFeedCard = ({ articleURL = "", articleImg = "", time = "", hostUsernam
 						<p className={styles.date}>{convoDate}</p>
 					</div>
 
-					<div className={styles.cardTagContainer}>
+					{/* <div className={styles.cardTagContainer}>
 						<Tag text="Eco-Friendly" />
 						<Tag text="Sustainability" />
 						<Tag text="Zero Waste" />
-					</div>
+					</div> */}
 
 					<div className={styles.feedCardDescriptionContainer}>
 						<p className={styles.feedCardDescription}>
@@ -175,9 +175,9 @@ const NewsFeedCard = ({ articleURL = "", articleImg = "", time = "", hostUsernam
 							</div>
 
 							<div className={styles.rsvpButtonContainer}>
-								<div className={styles.rsvpButton}>
+								{/* <div className={styles.rsvpButton}>
 									<p className={styles.buttonText}>RSVP NOW</p>
-								</div>
+								</div> */}
 							</div>
 						</div>
 					</div>

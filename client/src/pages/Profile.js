@@ -6,7 +6,7 @@ import styles from '../styles/ProfilePage/Profile.module.scss';
 // Components
 import NavBar from '../components/NavBar.js';
 import FeedCard, { ChatsFeed } from '../components/FeedCard.js';
-import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
+import UpcomingUserChatsCard from '../components/UpcomingUserChatsCard.js';
 
 const fillerUser = {
 	name: 'Username',
@@ -109,9 +109,9 @@ const Profile = (props) => {
 							<h3 className={styles.sideBarCardTitle}>Upcoming Chats</h3>
 						</div>
 
-						<div className={styles.upcomingChatsCards}>
-							<UpcomingChatsCard />
-							<UpcomingChatsCard />
+						<div className={styles.UpcomingUserChatsCards}>
+							<UpcomingUserChatsCard />
+							<UpcomingUserChatsCard />
 						</div>
 					</div>
 				</div>
