@@ -17,15 +17,16 @@ import Ver from './pages/ver';
 import Eauth from './pages/eauth';
 import SMSauth from './pages/smsauth';
 import Splash from './pages/splash';
+import UserProfile from './pages/UserProfile';
 // import Log from '../../../apify/types/utils_log';
-
 
 function App() {
 	return (
 		// Routes
 		<Switch>
 			<Route path="/home" component={Home} />
-			<Route path="/profile" component={Profile} />
+			<Route path="/profile/:username" component={UserProfile} />
+			<Route path="/profile" component={UserProfile} />
 			<Route path="/accountsettings" component={AccountSettingsPage} />
 			<Route path="/editprofile" component={EditProfilePage} />
 			<Route path="/discover" component={DiscoverPage} />

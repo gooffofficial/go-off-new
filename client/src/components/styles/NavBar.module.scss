@@ -26,6 +26,15 @@
 	align-items: center;
 	padding: 0 0.5rem;
 	margin: 0 2%;
+	position: relative;
+
+	&:focus-within {
+		// border-radius: 10px 10px 0 0;
+
+		.suggestionsContainer {
+			display: initial;
+		}
+	}
 }
 .searchTab input {
 	width: 100%;
@@ -96,4 +105,43 @@
 	display: flex;
 	align-items: center;
 	margin-right: 7px;
+}
+.suggestionsContainer {
+	width: 100%;
+	z-index: 10000;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background: #fff;
+	border-radius: 10px;
+	border: 1px solid rgba(128, 128, 128, 0.15);
+	// display: none;
+	overflow: hidden;
+}
+.suggestionTab {
+	background: rgba(58, 133, 255, 0.027);
+	border-bottom: 1px solid rgb(226, 226, 226);
+	height: 30px;
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		background: rgba(58, 133, 255, 0.212);
+		cursor: pointer;
+	}
+
+	&:last-child {
+		border-radius: 0 0 10px 10px;
+		border: none;
+	}
+}
+.suggestionText {
+	padding: 0 2%;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+.hide {
+	display: none !important;
 }
