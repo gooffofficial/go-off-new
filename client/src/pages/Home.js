@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styles from '../styles/HomePage/Home.module.scss';
 
 // Components
@@ -19,6 +19,7 @@ const Home = (props) => {
 	const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
 
+	const history = useHistory();
 	// const history = useHistory();
 
 	useEffect(() => {
@@ -81,7 +82,9 @@ const Home = (props) => {
 
 							<p className={styles.sideBarLinkText}>Home</p>
 						</div>
-						<div className={styles.sideBarDiscover}>
+						<div 
+							className={styles.sideBarDiscover}
+							onClick={() => history.push('/discover')}>
 							<svg
 								width="30"
 								height="30"

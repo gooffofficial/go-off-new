@@ -29,7 +29,8 @@ const auth = {
             return next();
         }
         else{
-            res.redirect('/login')
+            // res.redirect('/login')
+            res.json({ redirect: '/login' })
         }
     },
     

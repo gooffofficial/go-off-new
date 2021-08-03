@@ -274,7 +274,7 @@ html {
 	margin-top: 2%;
 }
 
-#submit-button:hover {
+.submit-button:hover {
 	opacity: 0.9;
 	cursor: pointer;
 }
@@ -399,7 +399,7 @@ html {
 	border-radius: 16.5px; */
 }
 
-#rightarrow {
+.rightarrow {
 	height: 40px;
 	width: 40px;
 	position: absolute;

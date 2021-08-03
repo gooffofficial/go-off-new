@@ -98,7 +98,7 @@ const NavBar = (props) => {
 					</svg>
 				</div>
 
-				<div className={styles.iconContainer}>
+				{/* <div className={styles.iconContainer}>
 					<svg
 						width="35"
 						height="35"
@@ -113,7 +113,7 @@ const NavBar = (props) => {
 							fill="#757D8A"
 						/>
 					</svg>
-				</div>
+				</div> */}
 			</div>
 			<div
 				className={styles.loginInfo}

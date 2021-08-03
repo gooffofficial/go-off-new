@@ -6,14 +6,17 @@
 	position: relative;
 	display: flex;
 	font-weight: 500;
+  margin-bottom: 25px;
 }
 .feedCardImageContainer {
+  align-self: center;
 	position: relative;
+  height: 100%;
 }
 .feedCardImage,
 .feedCardImageContainer {
 	width: 18.125rem;
-	height: 18.125rem;
+	// height: 18.125rem;
 }
 .bookmarkIcon {
 	position: absolute;
