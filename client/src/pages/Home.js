@@ -8,7 +8,7 @@ import NavBar from '../components/NavBar.js';
 import FeedCard from '../components/FeedCard.js';
 import TrendingCard from '../components/TrendingCard.js';
 import FriendActivityCard from '../components/FriendActivityCard.js';
-import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
+import UpcomingUserChatsCard from '../components/UpcomingUserChatsCard.js';
 
 const fillerUser = {
 	name: 'Username',
@@ -108,9 +108,9 @@ const Home = (props) => {
 							<h3 className={styles.sideBarCardTitle}>Upcoming Chats</h3>
 						</div>
 
-						<div className={styles.upcomingChatsCards}>
-							<UpcomingChatsCard />
-							<UpcomingChatsCard />
+						<div className={styles.UpcomingUserChatsCards}>
+							<UpcomingUserChatsCard />
+							<UpcomingUserChatsCard />
 						</div>
 					</div>
 				</div>
