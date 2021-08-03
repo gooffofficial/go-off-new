@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
 import searchIcon from '../images/liveChatImages/search-icon.png'
 import optionsIcon from '../images/liveChatImages/options.png'
@@ -14,7 +16,7 @@ import article2 from '../images/liveChatImages/article-2.png'
 import NYTLogo from '../images/liveChatImages/NYT-Logo.png'
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png'
 import dots3Icon from '../images/liveChatImages/dots3.png'
-import articleIcon from '../images/liveChatImages/article-2.png'
+import articleIcon from '../images/liveChatImages/article-3.png'
 import peopleIcon from '../images/people.svg'
 import photoIcon from '../images/photo.png'
 import trendingArrow from '../images/trending-up.png'
@@ -26,11 +28,49 @@ import ytIcon from '../images/youtube.png'
 import bookmarkIcon from '../images/bookmark.svg'
 // import avatarMedium from '../images/avatar-medium.png'
 import avatarMedium from '../images/bookmark.svg'
-import s from '../styles/HomePage/Home.module.scss'; // s = styles
+import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
+
+const fillerUser = {
+	name: 'Username',
+	propic: '/images/stock-face.jpg',
+};
 
 const HomePage = () => {
+    const [currentUser, setCurrentUser] = useState(fillerUser);
+	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+
+	const history = useHistory();
+	// const history = useHistory();
+
+	useEffect(() => {
+		axios
+			.get(`/api/users/current`, {
+				withCredentials: true,
+			})
+			.then((res) => {
+				setCurrentUser(res.data.user);
+
+				axios
+					.get(`/api/users/profile/${res.data.user.username}`, {
+						withCredentials: true,
+					})
+					.then((res2) => {
+						setCurrentUserFull(res2.data.user);
+					});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
+
+	let trendingImageSources = [
+		'/images/trend-stock1.png',
+		'/images/trend-stock2.png',
+		'/images/trend-stock3.png',
+		'/images/trend-stock4.png',
+	];
   return <div className={s.homePage}>
-    <NavBar />
+   <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} />
     <div className={s.mainContent}>
       <div className={s.leftColumn}>
         <div className={s.avatarBox}>
@@ -43,7 +83,7 @@ const HomePage = () => {
         </div>
         <div className={s.discoverBox}>
           <img src={globeIcon} alt="discoverImage" className={s.globeIcon} />
-          <span className={s.globeText}>Preksha Munot</span>
+          <span className={s.globeText}>Explore</span>
         </div>
         <h1 className={s.upcommingHeading}>Upcoming Chats</h1>
         <div className={s.upcomingChats}>

@@ -64,7 +64,7 @@ const Profile = (props) => {
 						</div>
 						<div
 							className={styles.sideBarHome}
-							onClick={() => history.push('/home')}
+							onClick={() => history.push('/hosthome')}
 						>
 							<svg
 								width="30"
