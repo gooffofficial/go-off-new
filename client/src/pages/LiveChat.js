@@ -21,7 +21,7 @@ import inputSendIcon from '../images/liveChatImages/chatSend.png'
 import styles from '../styles/LiveChatPage/livechat.css';
 import {usePubNub} from 'pubnub-react';
 import { useForm } from "react-hook-form";
-import Chat from './Chat';
+import Chat from '../components/Chat.js';
 import axios from 'axios';
 
 const LiveChat = () => {
