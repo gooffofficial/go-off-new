@@ -51,12 +51,7 @@ const [limitReached, setLimitReached] = useState(false);
 
 //this is temporary user, later need to use user data from sign in
 //const user = pubnub.getUUID();
-const [user, setUser] = useState({
-  name:'Christian Nava',
-  username:'',
-  uuid:pubnub.getUUID(),//'123456',//this needs to be same as pubnub uuid in app.js or user id 
-  isHost:false
-})
+const [user, setUser] = useState({name:'guest',username:'guest',uuid:pubnub.getUUID(),isHost:false})
 
 
 //this is a ref that will give scroll to bottom functionality
@@ -116,8 +111,7 @@ axios.get(`/api/users/current`, {
 			}).then((res) => {
         if(res.status===400){
           // not a user
-          let user = {name:'guest',username:'guest',uuid:pubnub.getUUID(),isHost:false};
-          setUser(user)
+          console.log('not found')
         }else if (res.user){
           //is a user
           let user = {name:res.user.name,username:res.user.username,uuid:res.user.uuid,isHost:false};
