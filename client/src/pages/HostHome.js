@@ -68,7 +68,8 @@ const HomePage = () => {
 		'/images/trend-stock2.png',
 		'/images/trend-stock3.png',
 		'/images/trend-stock4.png',
-	];
+    ];
+    
   return <div className={s.homePage}>
    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} />
     <div className={s.mainContent}>
@@ -183,6 +184,20 @@ const FriendActivityCard = ({ userAvatar, username, friendName }) => {
 }
 
 const Conversation = ({ convImg }) => {
+
+    const rsvpbuttonhandler = (e) => {
+        e.preventDefault();
+
+        axios  
+            .get('/join')
+            .then((res) => {
+                window.alert("You have Succesfully RSVP'd!")
+            })
+            .catch((err) => {
+                console.log('RSVP ERROR: ${err}')
+            });
+    };
+    
   return <div className={s.conversationRow}>
     <div className={s.convImageBox}>
       <img src={convImg} alt="" className={s.convImg} />
@@ -223,7 +238,7 @@ const Conversation = ({ convImg }) => {
             <div className={s.profileName}>Emily Patterson</div>
           </div>
         </div>
-        <button className={s.RSVP_Btn}>RSVP NOW</button>
+        <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>RSVP NOW</button>
       </div>
     </div>
   </div>

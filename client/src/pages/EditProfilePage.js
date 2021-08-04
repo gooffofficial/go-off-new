@@ -1,28 +1,32 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import styles from '../styles/EditProfilePage/editProfile.css';
+import styles from '../styles/EditProfilePage/editProfile.module.css';
+import Left from '../images/short_left.svg'
+import Pencil from '../images/pencil.svg'
+import Circle from '../images/user_circle.svg'
+import Logo from '../images/GO_OFF_LOGO.svg'
 
 const EditProfilePage = ({}) => {
   let history = useHistory();
 
   const toAccountSettingsPage = (evt) => {
-    history.push("/account_settings")
+    history.push("/accountsettings")
   }
 
-  return <div className="editProfile">
+  return <div className={styles["editProfile"]}>
     <EPNavBar />
     <div className={styles["ep-content"]}>
       <div className={styles["ep-leftContent"]}>
         <button className={styles["ep-backBtn"]}>
-          <img src="/short_left.svg" className={styles["ep-backIcon"]} alt="" />
+          <img src={Left} className={styles["ep-backIcon"]} alt="" />
           <span className={styles["ep-backTxt"]}>BACK</span>
         </button>
-        <button className={styles["ep-editProfileBtn ep-selectedBtn"]}>
-          <img src="/pencil.svg" className={styles["ep-editIcon"]} alt="" />
+        <button className={styles["ep-editProfileBtn"]}>
+          <img src={Pencil} className={styles["ep-editIcon"]} alt="" />
           <span className={styles["ep-editProfileTxt"]}>EDIT PROFILE</span>
         </button>
         <button onClick={toAccountSettingsPage} className={styles["ep-accountSettingsBtn"]}>
-          <img src="/user_circle.svg" className={styles["ep-accountIcon"]} alt="" />
+          <img src={Circle} className={styles["ep-accountIcon"]} alt="" />
           <span className={styles["ep-accountSettingsTxt"]}>ACCOUNT SETTINGS</span>
         </button>
       </div>
@@ -65,8 +69,8 @@ const EditProfilePage = ({}) => {
 }
 
 const EPNavBar = ({}) => {
-  return <div className="ep-navbar">
-    <img src="/GO_OFF_LOGO.svg" alt="Go Off Logo" className={styles["ep-goOffLogo"]} />
+  return <div className={styles["ep-navbar"]}>
+    <img src={Logo} alt="Go Off Logo" className={styles["ep-goOffLogo"]} />
     <div className={styles["ep-searchBox"]}>
       <img src="/search_icon.svg" className={styles["ep-searchIcon"]} alt="Search Icon" />
       <input type="search" className={styles["ep-inputSearch"]} placeholder="Search" />

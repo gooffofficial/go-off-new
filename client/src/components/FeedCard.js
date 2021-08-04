@@ -175,9 +175,9 @@ const NewsFeedCard = ({ articleURL = "", articleImg = "", time = "", hostUsernam
 							</div>
 
 							<div className={styles.rsvpButtonContainer}>
-								{/* <div className={styles.rsvpButton}>
-									<p className={styles.buttonText}>RSVP NOW</p>
-								</div> */}
+								<div className={styles.convoButton}>
+									<p className={styles.buttonText}>GO TO CONVO</p>
+								</div>
 							</div>
 						</div>
 					</div>

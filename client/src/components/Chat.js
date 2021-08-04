@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {usePubNub} from 'pubnub-react';
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png'
-import styles from '../styles/LiveChatPage/livechat.css';
+import styles from '../styles/LiveChatPage/livechat.module.css';
 
 
 

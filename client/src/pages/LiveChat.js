@@ -18,7 +18,7 @@ import sendIcon from '../images/liveChatImages/send.png'
 import dots3Icon from '../images/liveChatImages/dots3.png'
 import inputAddIcon from '../images/liveChatImages/addIcon.png'
 import inputSendIcon from '../images/liveChatImages/chatSend.png'
-import styles from '../styles/LiveChatPage/livechat.css';
+import styles from '../styles/LiveChatPage/livechat.module.css';
 import {usePubNub} from 'pubnub-react';
 import { useForm } from "react-hook-form";
 import Chat from '../components/Chat.js';
@@ -213,6 +213,7 @@ axios.get(`/api/users/current`, {
                 }
               }else{return <Chat scrollhook={scrollhook} channels={channels} addMessages={addMessages} messages={messages} user={user}/>}
             })()}
+            <div ref={scrollhook}></div>
           </div>
           <div className={styles["chatInputBox"]}>
             <img src={inputAddIcon} alt="Add Icon" className={styles["inputAddIcon"]} />

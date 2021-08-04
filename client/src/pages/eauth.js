@@ -24,7 +24,7 @@ const EAuth = props => {
 
       const wasValidCode = await sendVerifyCheck(email, verfiyCode);
       if (wasValidCode)
-        history.push("/login");
+        history.push("/Profile");
       else 
         setErrorText("SMS Code was invalid...")
     //   const wasValidCode = axios.get("/localhost:8000/verify")
