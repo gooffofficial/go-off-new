@@ -1,10 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles/NavBar.module.scss';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const NavBar = (props) => {
 	const { name, avatarSource } = props;
+
+	const [searchInput, setSearchInput] = useState('');
+	const [isFetched, setIsFetched] = useState(false);
+	const [users, setUsers] = useState([]);
+	const [filteredUsers, setFilteredUsers] = useState([]);
+	const [suggestionsHider, setSuggestionsHider] = useState('');
 	const history = useHistory();
+
+	useEffect(() => {
+		if (searchInput.length && isFetched === false) {
+			axios
+				.get('/api/users/all')
+				.then((res) => {
+					setIsFetched(true);
+					setUsers(res.data);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
+	}, [searchInput, isFetched]);
+
+	useEffect(() => {
+		setFilteredUsers(
+			searchInput === ''
+				? []
+				: users.filter((user) => user.username.startsWith(searchInput))
+		);
+	}, [searchInput, users]);
+
+	useEffect(() => {
+		if (filteredUsers.length === 0) {
+			setSuggestionsHider(`${styles.hide}`);
+		}
+
+		if (filteredUsers.length) {
+			setSuggestionsHider(``);
+		}
+	}, [filteredUsers]);
+
+	const inputHandler = (e) => {
+		setSearchInput(e.target.value);
+	};
+
+	const usernameClickHandler = (e) => {
+		// e.preventDefault();
+
+		const username = e.target.innerHTML;
+		setSuggestionsHider(`${styles.hide}`);
+		setSearchInput('');
+		history.push(`/profile/${username}`);
+	};
 
 	return (
 		<div className={styles.NavBarContainer}>
@@ -42,7 +94,12 @@ const NavBar = (props) => {
 					</svg>
 				</div>
 
-				<input placeholder="Search" type="text" />
+				<input
+					placeholder="Search"
+					type="text"
+					value={searchInput}
+					onChange={inputHandler}
+				/>
 
 				<div className={styles.iconContainer}>
 					<svg
@@ -60,6 +117,26 @@ const NavBar = (props) => {
 							fill="#757D8A"
 						/>
 					</svg>
+				</div>
+
+				<div className={`${styles.suggestionsContainer} ${suggestionsHider}`}>
+					<div className={styles.suggestionTab} onClick={usernameClickHandler}>
+						<p className={styles.suggestionText}>
+							{filteredUsers[0] ? filteredUsers[0].username : ''}
+						</p>
+					</div>
+
+					<div className={styles.suggestionTab} onClick={usernameClickHandler}>
+						<p className={styles.suggestionText}>
+							{filteredUsers[1] ? filteredUsers[1].username : ''}
+						</p>
+					</div>
+
+					<div className={styles.suggestionTab}>
+						<p className={styles.suggestionText}>
+							{filteredUsers[2] ? filteredUsers[2].username : ''}
+						</p>
+					</div>
 				</div>
 			</div>
 
@@ -98,7 +175,7 @@ const NavBar = (props) => {
 					</svg>
 				</div>
 
-				{/* <div className={styles.iconContainer}>
+				<div className={styles.iconContainer}>
 					<svg
 						width="35"
 						height="35"
@@ -113,8 +190,9 @@ const NavBar = (props) => {
 							fill="#757D8A"
 						/>
 					</svg>
-				</div> */}
+				</div>
 			</div>
+
 			<div
 				className={styles.loginInfo}
 				onClick={() => history.push('/profile')}
