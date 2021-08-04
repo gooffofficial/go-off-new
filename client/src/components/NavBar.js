@@ -138,7 +138,7 @@ const NavBar = (props) => {
 						</p>
 					</div>
 
-					<div className={styles.suggestionTab}>
+					<div className={styles.suggestionTab} onClick={usernameClickHandler}>
 						<p className={styles.suggestionText}>
 							{filteredUsers[2] ? filteredUsers[2].username : ''}
 						</p>
