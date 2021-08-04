@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles/NavBar.module.scss';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { getCookie } from '../utils/helpers';
 
 const NavBar = (props) => {
 	const { name, avatarSource } = props;
@@ -56,6 +57,12 @@ const NavBar = (props) => {
 		setSuggestionsHider(`${styles.hide}`);
 		setSearchInput('');
 		history.push(`/profile/${username}`);
+	};
+
+	const logoutHandler = (e) => {
+		e.preventDefault();
+
+		axios.get('/api/users/logout').then((res) => history.push('/'));
 	};
 
 	return (
@@ -158,7 +165,7 @@ const NavBar = (props) => {
 					</svg>
 				</div>
 
-				<div className={styles.iconContainer}>
+				{/* <div className={styles.iconContainer}>
 					<svg
 						width="35"
 						height="35"
@@ -173,9 +180,9 @@ const NavBar = (props) => {
 							fill="#757D8A"
 						/>
 					</svg>
-				</div>
+				</div> */}
 
-				<div className={styles.iconContainer}>
+				<div className={styles.iconContainer} onClick={logoutHandler}>
 					<svg
 						width="35"
 						height="35"
