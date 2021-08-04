@@ -6,7 +6,7 @@ import styles from '../styles/ProfilePage/Profile.module.scss';
 // Components
 import NavBar from '../components/NavBar.js';
 import FeedCard, { ChatsFeed } from '../components/FeedCard.js';
-import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
+// import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 
 const fillerUser = {
 	name: 'Username',
@@ -16,7 +16,7 @@ const fillerUser = {
 	followingcount: 0,
 };
 
-const Profile = (props) => {
+const PublicProfile = (props) => {
 	const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
 	const [viewUser, setViewUser] = useState(fillerUser);
@@ -122,8 +122,8 @@ const Profile = (props) => {
 						</div>
 
 						<div className={styles.upcomingChatsCards}>
-							<UpcomingChatsCard />
-							<UpcomingChatsCard />
+							{/* <UpcomingChatsCard />
+							<UpcomingChatsCard /> */}
 						</div>
 					</div>
 				</div>
@@ -190,4 +190,4 @@ const Profile = (props) => {
 	);
 };
 
-export default Profile;
+export default PublicProfile;
