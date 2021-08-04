@@ -368,6 +368,8 @@
   .liveChatBox {
     flex-grow: 1;
     padding: 0px 8px 7px 8px;
+    overflow: scroll;
+    height:82vh;
   }
   
   .meMessageBox {

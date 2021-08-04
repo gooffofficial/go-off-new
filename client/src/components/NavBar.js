@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles/NavBar.module.scss';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { getCookie } from '../utils/helpers';
+
 
 const NavBar = (props) => {
 	const { name, avatarSource } = props;

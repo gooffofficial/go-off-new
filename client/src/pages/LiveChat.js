@@ -18,7 +18,7 @@ import sendIcon from '../images/liveChatImages/send.png'
 import dots3Icon from '../images/liveChatImages/dots3.png'
 import inputAddIcon from '../images/liveChatImages/addIcon.png'
 import inputSendIcon from '../images/liveChatImages/chatSend.png'
-import styles from '../styles/LiveChatPage/livechat.css';
+import styles from '../styles/LiveChatPage/livechat.module.css';
 import {usePubNub} from 'pubnub-react';
 import { useForm } from "react-hook-form";
 import Chat from '../components/Chat.js';
@@ -109,14 +109,11 @@ if(code){
 axios.get(`/api/users/current`, {
 				withCredentials: true,
 			}).then((res) => {
-        if(res.status===400){
-          // not a user
-          console.log('not found')
-        }else if (res.user){
           //is a user
-          let user = {name:res.user.name,username:res.user.username,uuid:res.user.uuid,isHost:false};
+          console.log(res)
+          let user = {name:res.data.user.name,username:res.data.user.username,uuid:pubnub.getUUID(),isHost:false};
           setUser(user);
-        }}) 
+        }) 
 
 /** this the variable version of listener used to add and remove the listener but using the var is not working so I created
  * the object directly in the listener 
@@ -213,12 +210,12 @@ axios.get(`/api/users/current`, {
                 }
               }else{return <Chat scrollhook={scrollhook} channels={channels} addMessages={addMessages} messages={messages} user={user}/>}
             })()}
+            <div ref={scrollhook}></div>
           </div>
           <div className={styles["chatInputBox"]}>
             <img src={inputAddIcon} alt="Add Icon" className={styles["inputAddIcon"]} />
             <form className='form-demo'  onSubmit={handleSubmit(onSubmit)}>
-              <input style={{width:'33vw',marginRight:'0px'}} type="text" className="inputText" placeholder='Type your message' {...register('message', {required:'Please enter a message'})} /> {/*this is for sending message, onSubmit here*/}
-              {errors.message && <p className="error">{errors.message.message}</p>}
+              <input style={{width:'33vw',marginRight:'0px'}} type="text" className="inputText" placeholder='Type your message' {...register('message')} /> {/*this is for sending message, onSubmit here*/}
             </form>
             <img src={inputSendIcon} alt="Send Input" className={styles["inputSendIcon"]} />
           </div>
