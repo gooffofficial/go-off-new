@@ -261,7 +261,7 @@ router.post(
 							// return res.redirect('/verify');
 							//return res.redirect('/login'); //redirect to check email verification page
 						});
-            return res.json({ Status: "Successfully created account " }) // return res.redirect('/ver_account');
+					return res.json({ Status: 'Successfully created account ' }); // return res.redirect('/ver_account');
 				});
 			})
 			.catch((err) => {
@@ -454,7 +454,7 @@ router.post(
 							// return res.redirect('/verify');
 							//return res.redirect('/login'); //redirect to check email verification page
 						});
-          return res.json({ Status: "Successfully created account! " }) // return res.redirect('/ver_account');
+					return res.json({ Status: 'Successfully created account! ' }); // return res.redirect('/ver_account');
 				});
 			})
 			.catch((err) => {
@@ -697,11 +697,9 @@ router.post(
 
 router.post('/follower_update', auth.required, (req, res, next) => {
 	//id of logged in user
-	const {
-		payload: { id },
-	} = req;
 
 	var username = req.body.username;
+	let id = req.body.id;
 
 	//find username in db
 	return db.User.findOne({
@@ -744,7 +742,7 @@ router.post('/follower_update', auth.required, (req, res, next) => {
 						},
 					}
 				);
-				return res.redirect('/profiles/' + username);
+				return res.status(200).json({ followingStatus: true });
 			} else {
 				db.Follower.destroy({
 					where: {
@@ -772,9 +770,9 @@ router.post('/follower_update', auth.required, (req, res, next) => {
 						},
 					}
 				);
-				return res.redirect('/profiles/' + username);
+				// return res.redirect('/profiles/' + username);
 
-				return res.status(200).json(prof);
+				return res.status(200).json({ followingStatus: false });
 			}
 		});
 	});
@@ -814,7 +812,7 @@ router.get('/verification', auth.optional, (req, res, next) => {
 					.save()
 					.then((saveUser) => {
 						// return res.redirect('/login');
-            res.json({ redirect: '/login' })
+						res.json({ redirect: '/login' });
 					})
 					.catch((err) => {
 						return res.status(500).send({ msg: err.message });

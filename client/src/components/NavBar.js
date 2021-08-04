@@ -3,7 +3,6 @@ import styles from './styles/NavBar.module.scss';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-
 const NavBar = (props) => {
 	const { name, avatarSource } = props;
 
@@ -139,7 +138,7 @@ const NavBar = (props) => {
 						</p>
 					</div>
 
-					<div className={styles.suggestionTab}>
+					<div className={styles.suggestionTab} onClick={usernameClickHandler}>
 						<p className={styles.suggestionText}>
 							{filteredUsers[2] ? filteredUsers[2].username : ''}
 						</p>
