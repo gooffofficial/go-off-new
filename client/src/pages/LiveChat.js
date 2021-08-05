@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-import React, {useEffect, useState, useRef} from "react";
-import {useParams} from 'react-router';
-import goOffLogo from '../images/liveChatImages/go-off-logo.png'
-import searchIcon from '../images/liveChatImages/search-icon.png'
-import optionsIcon from '../images/liveChatImages/options.png'
-import addPersonIcon from '../images/liveChatImages/person-add.png'
-import bellIcon from '../images/liveChatImages/bell.png'
-import shareIcon from '../images/liveChatImages/paper-plane.png'
-import prekshaIcon from '../images/liveChatImages/preksha-profile-icon.png'
-import arrowDownIcon from '../images/liveChatImages/arrow-ios-down.png'
-import homeIcon from '../images/liveChatImages/home-icon.png'
-import globeIcon from '../images/liveChatImages/globe-icon.png'
-import article1 from '../images/liveChatImages/article-1.png'
-import article2 from '../images/liveChatImages/article-2.png'
-import NYTLogo from '../images/liveChatImages/NYT-Logo.png'
-import emilyIcon from '../images/liveChatImages/emily-profile-icon.png'
-import sendIcon from '../images/liveChatImages/send.png'
-import dots3Icon from '../images/liveChatImages/dots3.png'
-import inputAddIcon from '../images/liveChatImages/addIcon.png'
-import inputSendIcon from '../images/liveChatImages/chatSend.png'
-import styles from '../styles/LiveChatPage/livechat.module.css';
-import {usePubNub} from 'pubnub-react';
-import { useForm } from "react-hook-form";
-=======
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router';
 import goOffLogo from '../images/liveChatImages/go-off-logo.png';
@@ -46,7 +21,6 @@ import inputSendIcon from '../images/liveChatImages/chatSend.png';
 import styles from '../styles/LiveChatPage/livechat.module.css';
 import { usePubNub } from 'pubnub-react';
 import { useForm } from 'react-hook-form';
->>>>>>> eafe24caf10c9ec6b20d51b43fc54908abeafb15
 import Chat from '../components/Chat.js';
 import axios from 'axios';
 
@@ -151,12 +125,18 @@ const LiveChat = () => {
 		axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
-			}).then((res) => {
-          //is a user
-          console.log(res)
-          let user = {name:res.data.user.name,username:res.data.user.username,uuid:pubnub.getUUID(),isHost:false};
-          setUser(user);
-        }) 
+			})
+			.then((res) => {
+				//is a user
+				console.log(res);
+				let user = {
+					name: res.data.user.name,
+					username: res.data.user.username,
+					uuid: pubnub.getUUID(),
+					isHost: false,
+				};
+				setUser(user);
+			});
 
 		/** this the variable version of listener used to add and remove the listener but using the var is not working so I created
  * the object directly in the listener 
@@ -203,123 +183,6 @@ const LiveChat = () => {
 			},
 		});
 
-<<<<<<< HEAD
-  //this subscribes to a list of channels
-  pubnub.subscribe({ 
-    channels:channels,
-    withPresence: true
-  })
-  return (pubnub.unsubscribe(channels), pubnub.removeListener())
-},[pubnub]);
-  return <div className="liveChat">
-    <NavBar />
-    <div className={styles["mainContent"]}>
-      <div className={styles["leftColumn"]}>
-        <div className={styles["avatarBox"]}>
-          <img src={prekshaIcon} alt="avatar" className={styles["prekshaIcon"]} />
-          <span className={styles["avatarName"]}>Preksha Munot</span>
-        </div>
-        <div className={styles["homeBox"]}>
-          <img src={homeIcon} alt="homeImage" className={styles["homeIcon"]} />
-          <span className={styles["homeText"]}>Home</span>
-        </div>
-        <div className={styles["discoverBox"]}>
-          <img src={globeIcon} alt="discoverImage" className={styles["globeIcon"]} />
-          <span className={styles["globeText"]}>Preksha Munot</span>
-        </div>
-        <h1 className={styles["upcommingHeading"]}>Upcoming Chats</h1>
-        <div className={styles["upcomingChats"]}>
-          <ChatCard title="Zero Waste Toothbrush: How does it really make a difference?" timeStart="HAPPENING NOW" chatImage={article1} />
-          <ChatCard title="Zero Waste Toothbrush: How does it really make a difference?" timeStart="HAPPENING NOW" chatImage={article1} />
-        </div>
-      </div>
-      <div className={styles["middleColumn"]}>
-        <div className={styles["innerMiddleBox"]}>
-          <div className={styles["articleHeading"]}>
-            <div className={styles["firstRowHeading"]}>
-              <img src={NYTLogo} alt="NYT Logo" className={styles["NYTLogo"]} />
-              <img src={searchIcon} alt="Search Icon" className={styles["searchForIcon"]} />
-            </div>
-            <div className={styles["secondRowHeading"]}>
-              <span className={styles["mid-col-articleTitle"]}>Zero Waste Toothbrush: How does it really make a difference?</span>
-              <span className={styles["liveBox"]}>LIVE</span>
-            </div>
-          </div>
-          <div className={styles["liveChatBox"]}>
-            <span className={styles["chatTime"]}>10:00 PM</span>
-            {(()=>{
-              if(limitReached){
-                if(members.includes(user.uuid)){
-                  return <Chat scrollhook={scrollhook} channels={channels} addMessages={addMessages} messages={messages} user={user}/>
-                }else{
-                  return <div style={{textAlign:'center'}}>Chat is full</div>
-                }
-              }else{return <Chat scrollhook={scrollhook} channels={channels} addMessages={addMessages} messages={messages} user={user}/>}
-            })()}
-            <div ref={scrollhook}></div>
-          </div>
-          <div className={styles["chatInputBox"]}>
-            <img src={inputAddIcon} alt="Add Icon" className={styles["inputAddIcon"]} />
-            <form className='form-demo'  onSubmit={handleSubmit(onSubmit)}>
-              <input style={{width:'33vw',marginRight:'0px'}} type="text" className="inputText" placeholder='Type your message' {...register('message')} /> {/*this is for sending message, onSubmit here*/}
-            </form>
-            <img src={inputSendIcon} alt="Send Input" className={styles["inputSendIcon"]} />
-          </div>
-        </div>
-      </div>
-      <div className={styles["rightColumn"]}>
-        <div className={styles["everythingButProfile"]}>
-          <img src={article2} alt="articleImage" className={styles["article2"]} />
-          <div className={styles["chatHeading"]}>
-            <div className={styles["leftHeading"]}>
-              <span className={styles["monthText"]}>MAY</span>
-              <div className={styles["dayText"]}>22</div>
-            </div>
-            <div className={styles["rightHeading"]}>
-              <img src={NYTLogo} alt="NYT Logo" className={styles["NYTLogo"]} />
-              <span className={styles["articleTitle"]}>Zero Waste Toothbrush: How does it really make a difference</span>
-            </div>
-          </div>
-          <span className={styles["startTime"]}>THURSDAY 10:00 PM EST</span>
-            <div className={styles["chatTags"]}>
-              <div className={styles["chatTag"]}>Eco-Friendly</div>
-              <div className={styles["chatTag"]}>Sustainability</div>
-              <div className={styles["chatTag"]}>Zero Waste</div>
-            </div>
-            <p className={styles["chatDescription"]}>
-              With zero waste taking over the world and people becoming more aware of their carbon footprint and how their actions affect the planet more options for sustaiable items have become avaiable.
-            </p>
-            <div className={styles["dropDownRow"]}>
-              <span className={styles["chatDropDownName"]}>Participants</span>
-              <img src={arrowDownIcon} alt="dropDownImg" className={styles["dropDownImg"]} />
-            </div>
-            <div className={styles["dropDownRow"]}>
-              <span className={styles["chatDropDownName"]}>Shared Media</span>
-              <img src={arrowDownIcon} alt="dropDownImg" className={styles["dropDownImg"]} />
-            </div>
-            <div className={styles["dropDownRow"]}>
-              <span className={styles["chatDropDownName"]}>Privacy & Support</span>
-              <img src={arrowDownIcon} alt="dropDownImg" className={styles["dropDownImg"]} />
-            </div>
-         </div>
-         <div className={styles["profileBox"]}>
-           <div className={styles["profileLeftSide"]}>
-             <img src={emilyIcon} alt="Profile Icon" className={styles["emilyIcon"]} />
-             <div className={styles["ProfileNames"]}>
-               <span className={styles["hostText"]}>HOST</span>
-               <div className={styles["profileName"]}>Emily Patterson</div>
-             </div>
-           </div>
-           <div className={styles["profileRightSide"]}>
-            <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
-            <img src={dots3Icon} alt="3 Things Setting" className={styles["dots3Icon"]} />
-           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-}
-=======
 		//this subscribes to a list of channels
 		pubnub.subscribe({
 			channels: channels,
@@ -540,7 +403,6 @@ const LiveChat = () => {
 		</div>
 	);
 };
->>>>>>> eafe24caf10c9ec6b20d51b43fc54908abeafb15
 
 const NavBar = ({}) => {
 	return (
