@@ -1,80 +1,129 @@
 import styles from './styles/FeedCard.module.scss';
 import Tag from '../components/Tag';
-import moment from 'moment'
-import { getUpcomingChats, getPastChats, charLimit } from "../styles/AuthPage/api.js"
-import { useQuery } from 'react-query'
+import moment from 'moment';
+import {
+	getUpcomingChats,
+	getPastChats,
+	charLimit,
+} from '../styles/AuthPage/api.js';
+import { useQuery } from 'react-query';
 
 // NEED TO IMPLEMENT DYNAMIC FUNCTIONALITY FOR:
 // FEED IMAGE - CALENDAR - COMPANY LOGO - HEADING - DATE - TAGS - DESCRIPTION - HOST NAME / HOST AVATAR
 
-export const ChatsFeed = ({ chatCategory }) => { // "Upcoming", "Past", "Saved"
-  switch (chatCategory) {
-   case "Upcoming": return <UpComingChatsFeed/>
-   case "Past": return <PastChatsFeed/>
-   case "Saved": return <SavedChatsFeed/>
-   default: return;
-  }
-}
+export const ChatsFeed = ({ chatCategory }) => {
+	// "Upcoming", "Past", "Saved"
+	switch (chatCategory) {
+		case 'Upcoming':
+			return <UpComingChatsFeed />;
+		case 'Past':
+			return <PastChatsFeed />;
+		case 'Saved':
+			return <SavedChatsFeed />;
+		default:
+			return;
+	}
+};
 
 const UpComingChatsFeed = () => {
-  const { data: upcomingChats, isLoading, error } = useQuery("upcomingChat", getUpcomingChats)
-  if (isLoading) return <p>Loading...</p>
-  if (error) return <p>Unable loading upcoming chats...</p>
-  if (!upcomingChats || upcomingChats.length === 0) return <p>No joined upcoming conversation chats...</p>
+	const {
+		data: upcomingChats,
+		isLoading,
+		error,
+	} = useQuery('upcomingChat', getUpcomingChats);
+	if (isLoading) return <p>Loading...</p>;
+	if (error) return <p>Unable loading upcoming chats...</p>;
+	if (!upcomingChats || upcomingChats.length === 0)
+		return <p>No joined upcoming conversation chats...</p>;
 
-  console.log("")
-  
-  return <div>
-    {upcomingChats.map(({ articleURL, articleImg, time, hostUsername, roomId, convTitle, hostAvatar, convDesc }) => 
-      <NewsFeedCard 
-        articleURL={articleURL}
-        articleImg={articleImg}
-        time={time}
-        hostUsername={hostUsername}
-        convTitle={convTitle}
-        hostAvatar={hostAvatar}
-        convDesc={convDesc}
-      />
-    )}
-  </div>
-}
+	return (
+		<div>
+			{upcomingChats.map(
+				({
+					articleURL,
+					articleImg,
+					time,
+					hostUsername,
+					roomId,
+					convTitle,
+					hostAvatar,
+					convDesc,
+				}) => (
+					<NewsFeedCard
+						articleURL={articleURL}
+						articleImg={articleImg}
+						time={time}
+						hostUsername={hostUsername}
+						convTitle={convTitle}
+						hostAvatar={hostAvatar}
+						convDesc={convDesc}
+					/>
+				)
+			)}
+		</div>
+	);
+};
 
 const PastChatsFeed = () => {
-  const { data: pastChats, isLoading, error } = useQuery("pastChats", getPastChats)
-  if (isLoading) return <p>Loading...</p>
-  if (error) return <p>Unable loading upcoming chats...</p>
-  if (!pastChats || pastChats.length === 0) return <p>No joined past conversation chats...</p>
-  return <div>
-    {pastChats.map(({ articleURL, articleImg, time, hostUsername, roomId, convTitle, hostAvatar, convDesc }) => 
-      <NewsFeedCard 
-        articleURL={articleURL}
-        articleImg={articleImg}
-        time={time}
-        hostUsername={hostUsername}
-        convTitle={convTitle}
-        hostAvatar={hostAvatar}
-        convDesc={convDesc}
-      />
-    )}
-  </div>
-}
+	const {
+		data: pastChats,
+		isLoading,
+		error,
+	} = useQuery('pastChats', getPastChats);
+	if (isLoading) return <p>Loading...</p>;
+	if (error) return <p>Unable loading upcoming chats...</p>;
+	if (!pastChats || pastChats.length === 0)
+		return <p>No joined past conversation chats...</p>;
+	return (
+		<div>
+			{pastChats.map(
+				({
+					articleURL,
+					articleImg,
+					time,
+					hostUsername,
+					roomId,
+					convTitle,
+					hostAvatar,
+					convDesc,
+				}) => (
+					<NewsFeedCard
+						articleURL={articleURL}
+						articleImg={articleImg}
+						time={time}
+						hostUsername={hostUsername}
+						convTitle={convTitle}
+						hostAvatar={hostAvatar}
+						convDesc={convDesc}
+					/>
+				)
+			)}
+		</div>
+	);
+};
 
 const SavedChatsFeed = () => {
-  return <div>
-    No saved conversation chats implemented yet...
-  </div>
-}
+	return <div>No saved conversation chats implemented yet...</div>;
+};
 
-const NewsFeedCard = ({ articleURL = "", articleImg = "", time = "", hostUsername = "", convTitle = "", hostAvatar = "", convDesc = "" }) => {
-  let UTCTime = parseInt(time)
-  let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
-  let convoCalendarDay = moment(UTCTime).format('D');
-  let convoDay = moment(UTCTime).format('dddd').toUpperCase();
-  let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
-  let convoDate = `${convoDay} ${convoHoursMinutes}`;
+const NewsFeedCard = ({
+	articleURL = '',
+	articleImg = '',
+	time = '',
+	hostUsername = '',
+	convTitle = '',
+	hostAvatar = '',
+	convDesc = '',
+}) => {
+	let UTCTime = parseInt(time);
+	let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
+	let convoCalendarDay = moment(UTCTime).format('D');
+	let convoDay = moment(UTCTime).format('dddd').toUpperCase();
+	let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
+	let convoDate = `${convoDay} ${convoHoursMinutes}`;
 
-  // console.log("upComingChats: ", upComingChats)
-  // console.log("OOF")z
+	// console.log("upComingChats: ", upComingChats)
+	// console.log("OOF")z
 	// const {
 	//  feedImage,
 	//  calendar,
@@ -150,7 +199,7 @@ const NewsFeedCard = ({ articleURL = "", articleImg = "", time = "", hostUsernam
 
 					<div className={styles.feedCardDescriptionContainer}>
 						<p className={styles.feedCardDescription}>
-              {charLimit(convDesc, 190)}
+							{charLimit(convDesc, 190)}
 						</p>
 					</div>
 

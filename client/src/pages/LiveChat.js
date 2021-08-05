@@ -108,15 +108,18 @@ if(code){
 //checks for current user
 axios.get(`/api/users/current`, {
 				withCredentials: true,
-			}).then((res) => {
-        if(res.status===400){
-          // not a user
-          console.log('not found')
-        }else if (res.user){
-          //is a user
-          let user = {name:res.user.name,username:res.user.username,uuid:res.user.uuid,isHost:false};
-          setUser(user);
-        }}) 
+			})
+			.then((res) => {
+				//is a user
+				console.log(res);
+				let user = {
+					name: res.data.user.name,
+					username: res.data.user.username,
+					uuid: pubnub.getUUID(),
+					isHost: false,
+				};
+				setUser(user);
+			});
 
 /** this the variable version of listener used to add and remove the listener but using the var is not working so I created
  * the object directly in the listener 

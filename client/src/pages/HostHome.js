@@ -26,8 +26,10 @@ import trendImg3 from '../images/trend-stock3.png'
 import trendImg4 from '../images/trend-stock4.png'
 import ytIcon from '../images/youtube.png'
 import bookmarkIcon from '../images/bookmark.svg'
-// import avatarMedium from '../images/avatar-medium.png'
-import avatarMedium from '../images/bookmark.svg'
+import { sendCreateConv } from "../styles/AuthPage/api.js"
+import { useMutation } from 'react-query'
+import Rodal from "rodal";
+import "rodal/lib/rodal.css";
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
 import NavBar from '../components/NavBar.js';
 const fillerUser = {
@@ -36,11 +38,13 @@ const fillerUser = {
 };
 
 const HomePage = () => {
-    const [currentUser, setCurrentUser] = useState(fillerUser);
+  const history = useHistory();
+  const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+  const [isCreateConvModalVisible, setCreateConvModalVisible] = useState(false)
 
-	const history = useHistory();
-	// const history = useHistory();
+  const openCreateConvModal = () => setCreateConvModalVisible(true);
+  const closeCreateConvModal = () => setCreateConvModalVisible(false);
 
 	useEffect(() => {
 		axios
@@ -96,8 +100,12 @@ const HomePage = () => {
         <div className={s.insideMiddleColumn}>
           <div className={s.userBox}>
             <div className={s.userConvRow}>
-              <img src={avatarMedium} alt="Avatar" className={s.avatarIcon} />
-              <input type="text" className={s.startAConvInput} placeholder="Start a conversation"/>
+              <img src={prekshaIcon} alt="Avatar" className={s.avatarIcon} />
+              <input onClick={openCreateConvModal} type="text" className={s.startAConvInput} placeholder="Start a conversation"/>
+              <CreateConvModal 
+                closeCreateConvModal={closeCreateConvModal}
+                isCreateConvModalVisible={isCreateConvModalVisible} 
+              />
             </div>
             <hr className={s.grayLine} />
             <div className={s.userIconsRow}>
@@ -140,6 +148,64 @@ const HomePage = () => {
       </div>
     </div>
   </div>
+}
+
+const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible }) => {
+  const [dateInput, setDateInput] = useState("");
+  const [convTitleInput, setConvTitleInput] = useState("");
+  const [convDescInput, setConvDescInput] = useState("");
+  const [articleURLInput, setArticleURLInput] = useState("");
+  const { mutate } = useMutation((convCreationInfo) => sendCreateConv(convCreationInfo))
+
+  const handleDateInputChange = (evt) => setDateInput(evt.target.value)
+  const handleConvTitleInputInput = (evt) => setConvTitleInput(evt.target.value)
+  const handleConvDescInputChange = (evt) => setConvDescInput(evt.target.value)
+  const handleArticleURLInputChange = (evt) => setArticleURLInput(evt.target.value)
+
+  const handleCreateConv = (evt) => {
+    // Check if values are empty, For now we'll just do an alert, in the future put some red lower text
+    if (!dateInput) alert("There's something wrong with the Conversation Time Input")
+    else if (!convTitleInput) alert("There's something wrong with the Convo Title Input")
+    else if (!convDescInput) alert("There's something wrong with the Conv Description Input")
+    else if (!articleURLInput) alert("There's something wrong with the Ariticle URL Input")
+
+    const convCreationInfo = { articleURL: articleURLInput, time: dateInput, title: convTitleInput, description: articleURLInput }
+    mutate(convCreationInfo)
+    closeCreateConvModal();
+  }
+
+  const rodalCustomStyles = {
+    padding: '0px'
+  }
+
+  return <Rodal
+    width="283"
+    height="391"
+    visible={isCreateConvModalVisible}
+    showMask={true}
+    showCloseButton={true}
+    enterAnimation="slideUp"
+    leaveAnimation="door"
+    onClose={closeCreateConvModal}
+    customStyles={rodalCustomStyles}
+  >
+    <div className={s.convoModal}>
+      <div className={s.convModalHeading}>
+        <h1 className={s.convoModalHeader}>Convo</h1>
+      </div>
+      <div className={s.convModalContent}>
+        <h3 className={s.convTimeTxt}>Conversation Time</h3>
+        <input className={s.convTimeInput} type="datetime-local" onChange={handleDateInputChange} value={dateInput} />
+        <h3 className={s.convTitleTxt}>Convo Title</h3>
+        <input className={s.convTitleInput} type="text" onChange={handleConvTitleInputInput} value={convTitleInput} />
+        <h3 className={s.convDescTxt}>Convo Description</h3>
+        <input className={s.convTitleInput} type="text" onChange={handleConvDescInputChange} value={convDescInput} />
+        <h3 className={s.articleURLTxt}>Article URL</h3>
+        <input className={s.convTitleInput} type="text" onChange={handleArticleURLInputChange} value={articleURLInput} />
+        <button className={s.createConvBtn} onClick={handleCreateConv}>Create Conversation</button>
+      </div>
+    </div>
+  </Rodal>
 }
 
 // const NavBar = ({ }) => {

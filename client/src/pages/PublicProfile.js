@@ -21,6 +21,7 @@ const PublicProfile = (props) => {
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
 	const [viewUser, setViewUser] = useState(fillerUser);
 	const [chatCategory, setChatCategory] = useState('Upcoming'); // "Upcoming", "Past", "Saved"
+	const [isFollowingButton, setIsFollowingButton] = useState(false);
 
 	const history = useHistory();
 	const username = props.match.params.username;
@@ -49,11 +50,32 @@ const PublicProfile = (props) => {
 			.get(`/api/users/profile/${username}`)
 			.then((res) => {
 				setViewUser(res.data.user);
+				setIsFollowingButton(res.data.user.is_following);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	}, [username]);
+
+	const followHandler = (e) => {
+		axios
+			.post(`/api/users/follower_update`, {
+				username: viewUser.username,
+				id: currentUser.id,
+			})
+			.then((res) => {
+				setIsFollowingButton(res.data.followingStatus);
+				setViewUser({
+					...viewUser,
+					followercount: res.data.followingStatus
+						? (viewUser.followercount += 1)
+						: (viewUser.followercount -= 1),
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 
 	return (
 		<div className={styles.profilePageContainer}>
@@ -152,6 +174,19 @@ const PublicProfile = (props) => {
 								<p className={styles.profilePageBio}>
 									{viewUser.bio ? viewUser.bio : 'No bio yet!'}
 								</p>
+							</div>
+
+							<div className={styles.followBtnContainer}>
+								<div
+									className={
+										isFollowingButton
+											? styles.followBtnFollowing
+											: styles.followBtn
+									}
+									onClick={followHandler}
+								>
+									<p>{isFollowingButton ? 'Unfollow' : 'Follow'}</p>
+								</div>
 							</div>
 						</div>
 

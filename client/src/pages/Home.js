@@ -8,7 +8,7 @@ import NavBar from '../components/NavBar.js';
 import FeedCard from '../components/FeedCard.js';
 import TrendingCard from '../components/TrendingCard.js';
 import FriendActivityCard from '../components/FriendActivityCard.js';
-import UpcomingUserChatsCard from '../components/UpcomingUserChatsCard.js';
+import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 
 const fillerUser = {
 	name: 'Username',
@@ -36,6 +36,15 @@ const Home = (props) => {
 					})
 					.then((res2) => {
 						setCurrentUserFull(res2.data.user);
+
+						axios
+							.get('/api/upcoming', { withCredentials: true })
+							.then((res) => {
+								setCurrentUserFull({
+									...res2.data.user,
+									upcomingChats: res.data,
+								});
+							});
 					});
 			})
 			.catch((err) => {
@@ -82,9 +91,10 @@ const Home = (props) => {
 
 							<p className={styles.sideBarLinkText}>Home</p>
 						</div>
-						<div 
+						<div
 							className={styles.sideBarDiscover}
-							onClick={() => history.push('/discover')}>
+							onClick={() => history.push('/discover')}
+						>
 							<svg
 								width="30"
 								height="30"
@@ -108,9 +118,23 @@ const Home = (props) => {
 							<h3 className={styles.sideBarCardTitle}>Upcoming Chats</h3>
 						</div>
 
-						<div className={styles.UpcomingUserChatsCards}>
-							<UpcomingUserChatsCard />
-							<UpcomingUserChatsCard />
+						<div className={styles.upcomingChatsCards}>
+							{currentUserFull.upcomingChats ? (
+								currentUserFull.upcomingChats.map((prop) => {
+									return (
+										<UpcomingChatsCard
+											articleURL={prop.articleURL}
+											articleImg={prop.articleImg}
+											time={prop.time}
+											convTitle={prop.convTitle}
+											hostName={prop.hostname}
+											roomId={prop.roomId}
+										/>
+									);
+								})
+							) : (
+								<UpcomingChatsCard />
+							)}
 						</div>
 					</div>
 				</div>
