@@ -3,7 +3,11 @@ import { Switch, Route } from 'react-router-dom';
 import './styles/index.scss';
 import PubNub from 'pubnub';
 import { PubNubProvider } from 'pubnub-react';
+import pubnub from 'pubnub';
 import { v4 as uuid_v4 } from 'uuid';
+import { Provider } from 'react-redux';
+import store from './redux/Other/store'
+
 
 // Component Imports
 import Home from './pages/Home';
@@ -25,14 +29,14 @@ import PublicProfile from './pages/PublicProfile';
 // import Log from '../../../apify/types/utils_log';
 
 const App = () => {
+
 	// This will create a unique pubnub client with sub and pub keys. These are test keys we will need to buy full feature ones.
 	const pubnub = new PubNub({
 		publishKey: 'pub-c-59ae5e55-4285-42c4-b609-dbe4f6ceb5e2',
 		subscribeKey: 'sub-c-58789894-ce3c-11eb-9144-ea6857a81ff7',
-		uuid: '987654321', //uuid_v4(), //should not generate new one each time should create one for the user upon account creation and use that.
+		uuid:uuid_v4(),//should not generate new one each time should create one for the user upon account creation and use that.
 		//logVerbosity:true // logs HTTP request info
 	});
-
 	return (
 		// Routes
 		<PubNubProvider client={pubnub}>
@@ -44,7 +48,9 @@ const App = () => {
 				<Route path="/accountsettings" component={AccountSettingsPage} />
 				<Route path="/editprofile" component={EditProfilePage} />
 				<Route path="/discover" component={DiscoverPage} />
-				<Route path="/chat/:code?" component={LiveChat} />
+				<Provider store={store}>
+				<Route path="/chat/:code?" component={LiveChat}/>
+				</Provider>
 				<Route path="/signup/eauth" component={Eauth} />
 				<Route path="/signup/smsauth" component={SMSauth} />
 				<Route path="/signup/ver" component={Ver} />
@@ -52,7 +58,10 @@ const App = () => {
 				<Route path="/signup/sform" component={Sform} />
 				<Route path="/login" component={Login} />
 				<Route path="/signup" component={Signup} />
-				<Route path="/" component={Splash} />
+				<Route exact path="/" component={Splash} />
+				<Route exact path="/404ERROR">
+					<div>Oops! Page Not Found</div>
+				</Route>
 			</Switch>
 		</PubNubProvider>
 	);

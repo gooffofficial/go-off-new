@@ -3,14 +3,14 @@ import { usePubNub } from 'pubnub-react';
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png';
 import styles from '../styles/LiveChatPage/livechat.module.css';
 
-const Chat = ({ scrollhook, channels, addMessages, messages, user }) => {
+const Chat = ({ scrollhook, addMessages, messages, user, code }) => {
 	const pubnub = usePubNub();
 	useEffect(() => {
 		pubnub
-			.fetchMessages({ channels: channels, count: 100 })
+			.fetchMessages({ channels: [code], count: 100 })
 			.then((e) => {
 				//this will fetch all messages in Test chat then add them to the messages state.
-				e.channels.Test.forEach((e) => {
+				e.channels[code].forEach((e) => {
 					if (e.message.message || e.message.text.message) {
 						return;
 					} // this is just done to filter out previous versions of the messages
@@ -33,7 +33,7 @@ const Chat = ({ scrollhook, channels, addMessages, messages, user }) => {
 	return (
 		<>
 			{messages.map((message, index) => {
-				if (message.uuid == user.uuid) {
+				if (message.uuid == user.id) {
 					return (
 						<MeMessage
 							key={index}

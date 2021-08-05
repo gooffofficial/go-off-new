@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
     "@sendgrid/mail": "^7.4.2",
     "animate.css": "^4.1.0",
     "apify": "^0.21.10",
