@@ -125,7 +125,8 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                         about this article: ' + req.body.article + ' at ' + dateConvoTime.toString()
                     }
                     sgMail.send(msg2).then(() => {
-                        return res.redirect('/conversation/?article='+req.body.article)
+                      // return res.redirect('/conversation/?article='+req.body.article)
+                      return res.json({ redirect: '/conversation/?article='+req.body.article })
                     }).catch(err => {
                       console.log("err: ", err)
                       return res.status(422).json({ errors: { error: "Something went wrong setting up your reminder email." } })

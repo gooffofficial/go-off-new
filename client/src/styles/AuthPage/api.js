@@ -34,3 +34,15 @@ export const getPastChats = async () => (await axios.get(`/api/pastconv`)).data;
 export const charLimit = (text, charMaxLength) => {
   return text.length > charMaxLength ? text.slice(0, charMaxLength) + "..." : text
 }
+
+export const sendCreateConv = async (convCreationInfo) => {
+  const { articleURL, time, title, description } = convCreationInfo;
+  const infoSent = { 
+    article: articleURL, 
+    convoTime: time + "", 
+    convoTitle: title,
+    convoDesc: description,
+    tz: ""
+  }
+  return (await axios.post(`/api/convos/create`, infoSent)).data;
+}
