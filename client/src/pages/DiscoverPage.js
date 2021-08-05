@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
 import searchIcon from '../images/liveChatImages/search-icon.png'
 import optionsIcon from '../images/liveChatImages/options.png'
@@ -15,10 +17,50 @@ import BrushConv from '../images/BrushConv.png'
 import brushChat from '../images/brushChat.png'
 import peopleIcon from '../images/people.png'
 import styles from '../styles/DiscoverPage/discoverPage.module.css';
+import NavBar from '../components/NavBar.js';
+
+const fillerUser = {
+	name: 'Username',
+	propic: '/images/stock-face.jpg',
+};
 
 const DiscoverPage = () => {
+  const [currentUser, setCurrentUser] = useState(fillerUser);
+	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+
+	const history = useHistory();
+	// const history = useHistory();
+
+	useEffect(() => {
+		axios
+			.get(`/api/users/current`, {
+				withCredentials: true,
+			})
+			.then((res) => {
+				setCurrentUser(res.data.user);
+
+				axios
+					.get(`/api/users/profile/${res.data.user.username}`, {
+						withCredentials: true,
+					})
+					.then((res2) => {
+						setCurrentUserFull(res2.data.user);
+					});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
+
+	let trendingImageSources = [
+		'/images/trend-stock1.png',
+		'/images/trend-stock2.png',
+		'/images/trend-stock3.png',
+		'/images/trend-stock4.png',
+    ];
+
   return <div className={styles["discoverPage"]}>
-    <DINavBar />
+    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic}/>
     <div className={styles["di-mainContent"]}>
       <div className={styles["di-leftColumn"]}>
         <div className={styles["di-avatarBox"]}>
@@ -118,26 +160,26 @@ const TrendingCard = ({ convImg, convTitle }) => {
   </div>
 }
 
-const DINavBar = ({}) => {
-  return <div className={styles["di-navbar"]}>
-    <img src={goOffLogo} alt="Go Off! Logo" className={styles["di-goOffLogo"]} />
-    <div className={styles["di-searchBar"]}>
-      <img src={searchIcon} alt="Search Icon" className={styles["di-searchIcon"]} />
-      <input type="search" className={styles["di-searchInput"]} placeholder="Search" />
-      <img src={optionsIcon} alt="Settings" className={styles["di-optionsIcon"]} />
-    </div>
-    <img src={addPersonIcon} alt="Add person" className={styles["di-addPersonIcon"]} />
-    <img src={bellIcon} alt="Notifications" className={styles["di-bellIcon"]} />
-    <img src={shareIcon} alt="Share" className={styles["di-shareIcon"]} />
-    <div className={styles["di-navProfileBox"]}>
-      <div className={styles["di-profile"]}>
-        <img src={prekshaIcon} alt="avatar" className={styles["di-profileIcon"]} />
-        <span className={styles["di-profileText"]}>Preksha Munot</span>
-        <img src={arrowDownIcon} alt="dropDown" className={styles["di-arrowDownIcon"]} />
-      </div>
-    </div>
-  </div>
-}
+// const DINavBar = ({}) => {
+//   return <div className={styles["di-navbar"]}>
+//     <img src={goOffLogo} alt="Go Off! Logo" className={styles["di-goOffLogo"]} />
+//     <div className={styles["di-searchBar"]}>
+//       <img src={searchIcon} alt="Search Icon" className={styles["di-searchIcon"]} />
+//       <input type="search" className={styles["di-searchInput"]} placeholder="Search" />
+//       <img src={optionsIcon} alt="Settings" className={styles["di-optionsIcon"]} />
+//     </div>
+//     <img src={addPersonIcon} alt="Add person" className={styles["di-addPersonIcon"]} />
+//     <img src={bellIcon} alt="Notifications" className={styles["di-bellIcon"]} />
+//     <img src={shareIcon} alt="Share" className={styles["di-shareIcon"]} />
+//     <div className={styles["di-navProfileBox"]}>
+//       <div className={styles["di-profile"]}>
+//         <img src={prekshaIcon} alt="avatar" className={styles["di-profileIcon"]} />
+//         <span className={styles["di-profileText"]}>Preksha Munot</span>
+//         <img src={arrowDownIcon} alt="dropDown" className={styles["di-arrowDownIcon"]} />
+//       </div>
+//     </div>
+//   </div>
+// }
 
 const DIChatCard = ({ title, timeStart, chatImage }) => {
   return <div className={styles["di-chatCard"]}>

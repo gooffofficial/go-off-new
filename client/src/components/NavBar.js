@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './styles/NavBar.module.scss';
 import { useHistory } from 'react-router-dom';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 import axios from 'axios';
 
 const NavBar = (props) => {
@@ -12,6 +14,11 @@ const NavBar = (props) => {
 	const [filteredUsers, setFilteredUsers] = useState([]);
 	const [suggestionsHider, setSuggestionsHider] = useState('');
 	const history = useHistory();
+	const options = [
+		'one', 'two'
+	];
+
+	const defaultOption = options[0];
 
 	useEffect(() => {
 		if (searchInput.length && isFetched === false) {
@@ -199,7 +206,8 @@ const NavBar = (props) => {
 				</div>
 			</div>
 
-			<div
+			<Dropdown options={options}  value={defaultOption} placeholder={name ? name : '<pass in name>'}/>
+			{/* <div
 				className={styles.loginInfo}
 				onClick={() => history.push('/profile')}
 			>
@@ -231,7 +239,7 @@ const NavBar = (props) => {
 						</g>
 					</svg>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };
