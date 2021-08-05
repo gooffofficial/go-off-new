@@ -29,7 +29,7 @@
 }
 .leftSideBar {
 	width: 18%;
-	// overflow: scroll;
+	overflow: scroll;
 }
 .sideBarProfile,
 .sideBarHome,
@@ -164,7 +164,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-top: 2%;
+	margin: 2% 0 15%;
 	flex-direction: column;
 }
 .upcomingChatsCards > * {
