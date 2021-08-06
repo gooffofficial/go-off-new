@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Select from 'react-select';
 import styles from './styles/NavBar.module.scss';
 import { useHistory } from 'react-router-dom';
 import Dropdown from 'react-dropdown';
@@ -14,11 +15,12 @@ const NavBar = (props) => {
 	const [filteredUsers, setFilteredUsers] = useState([]);
 	const [suggestionsHider, setSuggestionsHider] = useState('');
 	const history = useHistory();
-	const options = [
-		'one', 'two'
-	];
+	// const options = [
+	// 	{ label: 'Go to Profile', onclick: () => history.push('/profile')},
+	// 	{ label: 'Logout', onclick: () => history.push('/home') }
+	// ];
 
-	const defaultOption = options[0];
+	// const defaultOption = options[0];
 
 	useEffect(() => {
 		if (searchInput.length && isFetched === false) {
@@ -206,8 +208,15 @@ const NavBar = (props) => {
 				</div>
 			</div>
 
-			<Dropdown options={options}  value={defaultOption} placeholder={name ? name : '<pass in name>'}/>
-			{/* <div
+			{/* <Dropdown 
+				options={options}  
+				value={defaultOption} 
+				placeholder={name ? name : '<pass in name>'}
+				className={styles.loginInfo}
+				placeholderClassName={styles.navUserText}
+				arrowClassName={styles.navArrowContainer}
+			/> */}
+			<div
 				className={styles.loginInfo}
 				onClick={() => history.push('/profile')}
 			>
@@ -239,7 +248,8 @@ const NavBar = (props) => {
 						</g>
 					</svg>
 				</div>
-			</div> */}
+				{/* <Select options ={ options } /> */}
+			</div>
 		</div>
 	);
 };
