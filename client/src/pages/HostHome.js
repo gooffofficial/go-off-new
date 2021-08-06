@@ -31,7 +31,7 @@ import { useMutation } from 'react-query'
 import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
-
+import NavBar from '../components/NavBar.js';
 const fillerUser = {
 	name: 'Username',
 	propic: '/images/stock-face.jpg',
@@ -72,7 +72,8 @@ const HomePage = () => {
 		'/images/trend-stock2.png',
 		'/images/trend-stock3.png',
 		'/images/trend-stock4.png',
-	];
+    ];
+    
   return <div className={s.homePage}>
    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} />
     <div className={s.mainContent}>
@@ -81,11 +82,11 @@ const HomePage = () => {
           <img src={prekshaIcon} alt="avatar" className={s.prekshaIcon} />
           <span className={s.avatarName}>Preksha Munot</span>
         </div>
-        <div className={s.homeBox}>
+        <div className={s.homeBox} onClick = {() => history.push('/home')}>
           <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
           <span className={s.homeText}>Home</span>
         </div>
-        <div className={s.discoverBox}>
+        <div className={s.discoverBox} onClick = {() => history.push('/discover')}>
           <img src={globeIcon} alt="discoverImage" className={s.globeIcon} />
           <span className={s.globeText}>Explore</span>
         </div>
@@ -207,26 +208,26 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible }) => 
   </Rodal>
 }
 
-const NavBar = ({ }) => {
-  return <div className={s.navbar}>
-    <img src={goOffLogo} alt="Go Off! Logo" className={s.goOffLogo} />
-    <div className={s.searchBar}>
-      <img src={searchIcon} alt="Search Icon" className={s.searchIcon} />
-      <input type="search" className={s.searchInput} placeholder="Search" />
-      <img src={optionsIcon} alt="Settings" className={s.optionsIcon} />
-    </div>
-    <img src={addPersonIcon} alt="Add person" className={s.addPersonIcon} />
-    <img src={bellIcon} alt="Notifications" className={s.bellIcon} />
-    <img src={shareIcon} alt="Share" className={s.shareIcon} />
-    <div className={s.navProfileBox}>
-      <div className={s.profile}>
-        <img src={prekshaIcon} alt="avatar" className={s.profileIcon} />
-        <span className={s.profileText}>Preksha Munot</span>
-        <img src={arrowDownIcon} alt="dropDown" className={s.arrowDownIcon} />
-      </div>
-    </div>
-  </div>
-}
+// const NavBar = ({ }) => {
+//   return <div className={s.navbar}>
+//     <img src={goOffLogo} alt="Go Off! Logo" className={s.goOffLogo} />
+//     <div className={s.searchBar}>
+//       <img src={searchIcon} alt="Search Icon" className={s.searchIcon} />
+//       <input type="search" className={s.searchInput} placeholder="Search" />
+//       <img src={optionsIcon} alt="Settings" className={s.optionsIcon} />
+//     </div>
+//     <img src={addPersonIcon} alt="Add person" className={s.addPersonIcon} />
+//     <img src={bellIcon} alt="Notifications" className={s.bellIcon} />
+//     <img src={shareIcon} alt="Share" className={s.shareIcon} />
+//     <div className={s.navProfileBox}>
+//       <div className={s.profile}>
+//         <img src={prekshaIcon} alt="avatar" className={s.profileIcon} />
+//         <span className={s.profileText}>Preksha Munot</span>
+//         <img src={arrowDownIcon} alt="dropDown" className={s.arrowDownIcon} />
+//       </div>
+//     </div>
+//   </div>
+// }
 
 const TrendingCard = ({ image, title }) => {
   return <div className={s.trendingCardRow}>
@@ -249,6 +250,20 @@ const FriendActivityCard = ({ userAvatar, username, friendName }) => {
 }
 
 const Conversation = ({ convImg }) => {
+
+    const rsvpbuttonhandler = (e) => {
+        e.preventDefault();
+
+        axios  
+            .get('/join')
+            .then((res) => {
+                window.alert("You have Succesfully RSVP'd!")
+            })
+            .catch((err) => {
+                console.log('RSVP ERROR: ${err}')
+            });
+    };
+
   return <div className={s.conversationRow}>
     <div className={s.convImageBox}>
       <img src={convImg} alt="" className={s.convImg} />
@@ -289,7 +304,7 @@ const Conversation = ({ convImg }) => {
             <div className={s.profileName}>Emily Patterson</div>
           </div>
         </div>
-        <button className={s.RSVP_Btn}>RSVP NOW</button>
+        <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>RSVP NOW</button>
       </div>
     </div>
   </div>

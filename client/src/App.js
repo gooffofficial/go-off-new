@@ -37,6 +37,8 @@ const App = () => {
 		uuid:uuid_v4(),//should not generate new one each time should create one for the user upon account creation and use that.
 		//logVerbosity:true // logs HTTP request info
 	});
+	// const token = localStorage.getItem
+
 	return (
 		// Routes
 		<PubNubProvider client={pubnub}>

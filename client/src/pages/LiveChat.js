@@ -562,4 +562,4 @@ const ChatCard = ({ title, timeStart, chatImage }) => {
   );
 };
 
-export default LiveChat;
+export default LiveChat

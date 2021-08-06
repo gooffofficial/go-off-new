@@ -14,7 +14,7 @@ const AccountSettingsPage = ({}) => {
   let history = useHistory();
 
   const toEditProfilePage = (evt) => {
-    history.push("/profile_edit")
+    history.push("/editprofile")
   }
 
   return <div className={styles.accountSettings}>

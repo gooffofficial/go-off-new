@@ -37,12 +37,15 @@ export const charLimit = (text, charMaxLength) => {
 
 export const sendCreateConv = async (convCreationInfo) => {
   const { articleURL, time, title, description } = convCreationInfo;
+  const convTime = new Date(time)
   const infoSent = { 
     article: articleURL, 
-    convoTime: time + "", 
+    convoTime: convTime.getTime() + "", 
+    // convoTime: time,
     convoTitle: title,
     convoDesc: description,
-    tz: ""
+    tz: "",
+    roomId: Math.floor(1000000000 + Math.random() * 9000000000),
   }
   return (await axios.post(`/api/convos/create`, infoSent)).data;
 }
