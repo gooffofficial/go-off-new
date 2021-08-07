@@ -24,10 +24,14 @@ import { useForm } from "react-hook-form";
 import Chat from "../components/Chat.js";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import firebase from "../firebase.js";
+import { v4 as uuid_v4 } from 'uuid';
 
 //*!add typing indicator, use redux for user and channel metadata using signals.
 const LiveChat = () => {
-  let history = useHistory();
+  const db = firebase.firestore()
+
+  const history = useHistory();
 
   const fillerUser = {
     name: "Username",
@@ -45,6 +49,7 @@ const LiveChat = () => {
 
   const [members, setMembers] = useState();
 
+  const [metaData, setMetaData] = useState();
 
   const [userTyping, setUserTyping] = useState('');
 
@@ -188,8 +193,36 @@ const LiveChat = () => {
 	  pubnub.signal({channel:code,message:{action:'UT',uuid:pubnub.getUUID()}})//*!
 	}
 
+  //use this to look at the metadata
+  const fetchMetaData = () => {
+    /**
+    db.collection('Conversations').onSnapshot((snapshot)=>{
+      snapshot.forEach(doc => console.log(doc.data()))
+    })
+     */
+    db.collection('Conversations').where('convoId','==', 0).get().then((querySnapshot) => {
+      console.log(querySnapshot.docs[0].data())
+      querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          setMetaData(doc.data());
+          console.log(doc.id, " => ", doc.data());
+      });
+  })
+  }
+
+  const createDoc=() => {
+    db.collection('Conversations').add({
+      convoID: code,
+      description:'another example',
+      hostId: 3,
+      rsvp:[],
+      title:'new Title'
+    })
+  }
+
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   useEffect(() => {
+    fetchMetaData()
     axios
       .get(`/api/users/current`, {
         withCredentials: true,
@@ -216,12 +249,8 @@ const LiveChat = () => {
 				//there are 9 or less people in
 				let occupants = response?response.channels[code].occupants:''
                 if(occupants){console.log(occupants);
-				occupants.forEach(x =>{
-					if(x!==pubnub.getUUID()){
-						setMembers(state=>[...state,x])
-					}
-				})//res.data.user.id
-				pubnub.signal({channel:code, message:{action:'AM',uuid:pubnub.getUUID()}}).catch(error => console.log(error))//res.data.user//setMember
+
+				//res.data.user//setMember
 			}
                 if (limitReached) {
                   setLimitReached(false);

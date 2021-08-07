@@ -32,10 +32,14 @@ import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
 import NavBar from '../components/NavBar.js';
+import firebase from '../firebase.js';
 const fillerUser = {
 	name: 'Username',
 	propic: '/images/stock-face.jpg',
+  id:0
 };
+
+const db = firebase.firestore();
 
 const HomePage = () => {
   const history = useHistory();
@@ -105,6 +109,7 @@ const HomePage = () => {
               <CreateConvModal 
                 closeCreateConvModal={closeCreateConvModal}
                 isCreateConvModalVisible={isCreateConvModalVisible} 
+                id={currentUser.id}
               />
             </div>
             <hr className={s.grayLine} />
@@ -123,8 +128,8 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <Conversation convImg={article2} />
-          <Conversation convImg={article2} />
+          <Conversation convImg={article2} userid={currentUser.id} />
+          <Conversation convImg={article2} userid={currentUser.id} />
         </div>
       </div>
       <div className={s.rightColumn}>
@@ -150,12 +155,12 @@ const HomePage = () => {
   </div>
 }
 
-const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible }) => {
+const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id }) => {
   const [dateInput, setDateInput] = useState("");
   const [convTitleInput, setConvTitleInput] = useState("");
   const [convDescInput, setConvDescInput] = useState("");
   const [articleURLInput, setArticleURLInput] = useState("");
-  const { mutate } = useMutation((convCreationInfo) => sendCreateConv(convCreationInfo))
+  const { mutate } = useMutation((convCreationInfo) => sendCreateConv(convCreationInfo,id))
 
   const handleDateInputChange = (evt) => setDateInput(evt.target.value)
   const handleConvTitleInputInput = (evt) => setConvTitleInput(evt.target.value)
@@ -249,7 +254,9 @@ const FriendActivityCard = ({ userAvatar, username, friendName }) => {
   </div>
 }
 
-const Conversation = ({ convImg }) => {
+//need to pass in all data from convo in order to be able to rsvp using id.
+const Conversation = ({ convImg, userid }) => {
+  let convoId = 'dummyId'
 
     const rsvpbuttonhandler = (e) => {
         e.preventDefault();
@@ -258,9 +265,22 @@ const Conversation = ({ convImg }) => {
             .get('/join')
             .then((res) => {
                 window.alert("You have Succesfully RSVP'd!")
+                db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
+                  querySnapshot.forEach((doc) => {
+                      // doc.data() is never undefined for query doc snapshots
+                      let rsvp = doc.data(userid).rsvp;
+                      if(rsvp.legnth<10){
+                      rsvp.push(userid)
+                      db.collection('Conversations').get(doc.id).update({ rsvp:rsvp }).then(res => console.log('success')).catch(err => console.log(err))
+                    }else{
+                      console.log('limit reached')
+                    }
+                      console.log(doc.id, " => ", doc.data());
+                  });
+              })
             })
             .catch((err) => {
-                console.log('RSVP ERROR: ${err}')
+                console.log(`RSVP ERROR: ${err}`)
             });
     };
 

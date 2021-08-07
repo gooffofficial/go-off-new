@@ -5,8 +5,6 @@ import PubNub from 'pubnub';
 import { PubNubProvider } from 'pubnub-react';
 import pubnub from 'pubnub';
 import { v4 as uuid_v4 } from 'uuid';
-import { Provider } from 'react-redux';
-import store from './redux/Other/store'
 
 
 // Component Imports
@@ -50,9 +48,7 @@ const App = () => {
 				<Route path="/accountsettings" component={AccountSettingsPage} />
 				<Route path="/editprofile" component={EditProfilePage} />
 				<Route path="/discover" component={DiscoverPage} />
-				<Provider store={store}>
 				<Route path="/chat/:code?" component={LiveChat}/>
-				</Provider>
 				<Route path="/signup/eauth" component={Eauth} />
 				<Route path="/signup/smsauth" component={SMSauth} />
 				<Route path="/signup/ver" component={Ver} />
