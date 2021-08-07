@@ -27,7 +27,6 @@ import { useHistory } from "react-router-dom";
 import firebase from "../firebase.js";
 import { v4 as uuid_v4 } from 'uuid';
 
-//*!add typing indicator, use redux for user and channel metadata using signals.
 const LiveChat = () => {
   const db = firebase.firestore()
 
@@ -37,20 +36,31 @@ const LiveChat = () => {
     name: "Username",
     propic: "/images/stock-face.jpg",
     username: "username",
-    id: 999999999,
+    id: 0,
     followercount: 0,
     followingcount: 0,
   };
+  const fillerMetaData={
+    convoId:0,
+    title:'Example',
+    descrition: 'Example',
+    hostId: 0,
+    isOpen:false,
+    rsvp:[]
+  }
 
   const { code } = useParams();
 
   //importing pubnub into this component
   const pubnub = usePubNub();
 
+  //people in chat
   const [members, setMembers] = useState();
 
+  //chat metadata from firebase
   const [metaData, setMetaData] = useState();
 
+  //typing indicator
   const [userTyping, setUserTyping] = useState('');
 
 
@@ -66,15 +76,16 @@ const LiveChat = () => {
   //this state will hold all messages; Note every message will be structured as such {text:'string', user:'string', isHost:'boolean'}
   const [messages, addMessages] = useState([]);
 
-  //this does not work it renders the limit to everyone!!! check logic when render messages
-  const [limitReached, setLimitReached] = useState(false);
-
   //sets current user with dummy info
   const [currentUser, setCurrentUser] = useState(fillerUser);
 
   const [loading, setLoading] = useState(true);
 
   const [isHost, setIsHost] = useState(false);
+
+  const [content, setContent] = useState();
+
+  const [reload, setReload] = useState(false)
 
   //this is a ref that will give scroll to bottom functionality
   const scrollhook = useRef();
@@ -115,82 +126,18 @@ const LiveChat = () => {
     e.target.reset(); // resets the input fields
     scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
   };
-//*! not working
-  const setMD = () => {
-    pubnub.objects
-      .setChannelMetadata({
-        channel: "Test2",
-        data: {
-          name: "Test Channel",
-          description: "channel description",
-          custom: {
-            hostID: "3",
-            date: "",
-            time: "",
-            capacity: "",
-          },
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
 
-  const CheckPermission = () => {
-    if (currentUser.id === 999999999) {
-      return <div style={{ textAlign: "center" }}>Please Sign In</div>;
-    } else {
-      if (limitReached) {
-        if (members.includes(currentUser.id)) {
-          return (
-            <Chat
-              scrollhook={scrollhook}
-              addMessages={addMessages}
-              messages={messages}
-              user={currentUser}
-              code={code}
-            />
-          );
-        } else {
-          return <div style={{ textAlign: "center" }}>Chat is full</div>;
-        }
-      } else {
-        return (
-          <Chat
-            scrollhook={scrollhook}
-            addMessages={addMessages}
-            messages={messages}
-            user={currentUser}
-            code={code}
-          />
-        );
-      }
-    }
-  };
-
-  const MetaData = (currentUserID) => {
-    pubnub.objects
-      .getChannelMetadata({ channel: code })
-      .then((res) => {
-        console.log(res);
-        let hostId = res.data.custom.hostID;
-        if (hostId == currentUserID) {
-          setIsHost(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        //history.push("/404ERROR")
-      });
-  };
-
+  //handles leave/end button
   const handleButton = () => {
 	pubnub.unsubscribe({channels: channels});
 	pubnub.signal({channel:code,message:{action:'DM',uuid:pubnub.getUUID()}});
 	console.log('left');
 	isHost?pubnub.signal({channel:code,message:{action:'END'}}):history.push('/home')
   }
-  const handleClick=()=>{
-	  pubnub.signal({channel:code,message:{action:'UT',uuid:pubnub.getUUID()}})//*!
+
+  //handles typing indicator signaling
+  const handlePress=()=>{
+	  pubnub.signal({channel:code,message:{action:'UT',name:currentUser.name}});
 	}
 
   //use this to look at the metadata
@@ -200,90 +147,119 @@ const LiveChat = () => {
       snapshot.forEach(doc => console.log(doc.data()))
     })
      */
-    db.collection('Conversations').where('convoId','==', 0).get().then((querySnapshot) => {
-      console.log(querySnapshot.docs[0].data())
+    db.collection('Conversations').where('convoId','==', code).get().then((querySnapshot) => {
+
       querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
           setMetaData(doc.data());
+          checkUser(doc.data());
+          //console.log(doc.id, " => ", doc.data());
+      });
+  }).catch((err) => console.log(err))
+  }
+
+  const openConversation = () =>{
+    db.collection('Conversations').where('convoId','==', code).get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          db.collection('Conversations').doc(doc.id).update({isOpen:true}).then(res=>console.log('success')).catch(err => console.log(err))
           console.log(doc.id, " => ", doc.data());
       });
   })
   }
 
-  const createDoc=() => {
-    db.collection('Conversations').add({
-      convoID: code,
-      description:'another example',
-      hostId: 3,
-      rsvp:[],
-      title:'new Title'
-    })
-  }
+  //checks the room and returns chat or other error based on rsvp and occupancy
+  const checkRoom = async (user, metadata) =>{
+    pubnub.hereNow(
+      {
+        channels: channels,
+        includeUUIDs: true,
+        includeState: true,
+      },
+      (status, response) => {
+        const occupancy = response?response.totalOccupancy:null;
+        const occupants = response?response.occupants:null;
+        if(occupancy<10){
+          //room not full now check for rsvp
+          if(metadata.isOpen==false){
+            setContent(<div style={{textAlign: 'center'}}>Conversation not yet open</div>)
+          }else if((metadata.rsvp.includes(user.id)||user.id==metadata.hostId)&&metadata.isOpen==true){
+            //the user rsvp'd or is host. and can now see chat
+            setMembers(occupants);
+            setReload(true);
+            scrollhook.current.scrollIntoView({ behavior: 'smooth' });
+          }else{
+            //person not rsvp. redirect or respond?
+           setContent(<div style={{textAlign: 'center'}}>You did not rsvp for this conversation</div>)
+          }
+        }else{
+          //too many people
+           setContent(<div style={{textAlign: 'center'}}>Chat is full</div>)
+        }
+      }
+    )}
 
-  //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
-  useEffect(() => {
-    fetchMetaData()
-    axios
+    //checks for and sets User
+    const checkUser = async (data) =>{
+      axios
       .get(`/api/users/current`, {
         withCredentials: true,
       })
       .then((res) => {
         setCurrentUser(res.data.user);
-        //pubnub.setUUID(res.data.user.id);//*! use this to set metadata that has to do with user.
-        //MetaData(res.data.user.id);
-        //checks for current occupancy and if too many people already then does not render chat
-        if (code) {
-		//pubnub.objects.setChannelMembers({channel:code,uuids:[pubnub.getUUID()]})
-          pubnub.hereNow(
-            {
-              channels: channels,
-              includeUUIDs: true,
-              includeState: true,
-            },
-            (status, response) => {
-              console.log(response);
-              const occupancy = response?response.totalOccupancy:''
-              if (occupancy >= 10) {
-                setLimitReached(true);
-              } else {
-				//there are 9 or less people in
-				let occupants = response?response.channels[code].occupants:''
-                if(occupants){console.log(occupants);
+        pubnub.setUUID(res.data.user.id);
+        let metadata = {...data}
+        if(data.hostId==res.data.user.id){
+          setIsHost(true);
+          if(data.isOpen==false){
+            metadata.isOpen=true;
+            openConversation();
+          }
+        }        
+        checkRoom(res.data.user, metadata)
+      }).catch(err =>{
+        setContent(<div style={{textAlign: 'center'}}>Please sign in</div>)
+        console.log(`could not make request: ${err}`
+      )})
+    }
 
-				//res.data.user//setMember
-			}
-                if (limitReached) {
-                  setLimitReached(false);
-                }
-              }
-            }
-          );
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        //redirect or render a please sign input
-      });
+    //fetches all channel messages
+    const fetchAllMessages = async () => {
+      pubnub.fetchMessages({ channels: [code], count: 100 })
+			.then((e) => {
+				//this will fetch all messages in Test chat then add them to the messages state.
+				e.channels[code].forEach((e) => {
+					if (e.message.message || e.message.text.message) {
+						return;
+					} // this is just done to filter out previous versions of the messages
+					if (e.message.user && e.message.text) {
+						addMessages((messages) => [
+							...messages,
+							{
+								user: e.message.user,
+								isHost: e.message.isHost,
+								text: e.message.text,
+								uuid: e.message.uuid,
+							},
+						]);
+					}
+				});
+			})
+			.catch((error) => console.log(error));
+    }
 
-    /** this the variable version of listener used to add and remove the listener but using the var is not working so I created
- * the object directly in the listener 
- *   var listener = {
-    message: handleMessage,
-    presence: function (p) {
-      const action = p.action; // Can be join, leave, state-change, or timeout
-      const channelName = p.channel; // Channel to which the message belongs
-      const occupancy = p.occupancy; // Number of users subscribed to the channel
-      const state = p.state; // User state
-      const channelGroup = p.subscription; //  Channel group or wildcard subscription match, if any
-      const publishTime = p.timestamp; // Publish timetoken
-      const timetoken = p.timetoken; // Current timetoken
-      const uuid = p.uuid; // UUIDs of users who are subscribed to the channel
-      console.log(occupancy,uuid)
-    },
-    status: (event)=>{console.log("status: "+ JSON.stringify(event))}
-  };
- */
+  //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
+  useEffect(() => {
+    if(!code){
+      //!should set content
+      setLoading(false);
+      return setContent(<div style={{textAlign: 'center'}}>Chat does not exist</div>)
+    }
+    fetchAllMessages();
+    fetchMetaData();
+    
+    setLoading(false);
+    
 
     //this listener sets up how to handle messages and gives status
     pubnub.addListener({
@@ -297,7 +273,6 @@ const LiveChat = () => {
         const publishTime = p.timestamp; // Publish timetoken
         const timetoken = p.timetoken; // Current timetoken
         const uuid = p.uuid; // UUIDs of users who are subscribed to the channel
-        console.log(uuid, occupancy,action);
       },
 	  signal: function(s) {
         // handle signal
@@ -307,22 +282,18 @@ const LiveChat = () => {
         var msg = s.message; // The Payload
         var publisher = s.publisher; //The Publisher
 		console.log('signal',s)
-		console.log('member', members)
 		//** use redux to see if the signals work better.
 		if(msg.action=='AM'){
-			if(!members.includes(msg.uuid)){
-				setMembers(state=>[...state,msg.uuid])
-			}
+
 		}else if(msg.action=='DM'){
-			let newlist = members.filter(x=>x!==msg.uuid);
-			setMembers(newlist);
+
 		}else if (msg.action=='END'){
 			//** redirect everyone out
 			history.push('/home');
 		}else if(msg.action=='UT'){
 			//sends message if use is typing
 			console.log('typing');
-			setUserTyping(`${msg.uuid} is typing`);
+			setUserTyping(`${msg.name} is typing`);
 			setTimeout(()=>{setUserTyping('')},5000)
 		}
     },
@@ -336,8 +307,8 @@ const LiveChat = () => {
       channels: channels,
       withPresence: true,
     });
-    return code?pubnub.signal({channel:code,message:{action:'DM',uuid:pubnub.getUUID()}}):'', pubnub.removeListener();
-  }, [userTyping]);
+    return pubnub.removeListener();
+  }, []);
   return (
     <div className="liveChat">
       <NavBar />
@@ -409,8 +380,12 @@ const LiveChat = () => {
               {loading ? (
                 <div style={{ textAlign: "center" }}>Loading...</div>
               ) : (
-                CheckPermission()
+                content
               )}
+              {reload?<Chat
+                messages={messages}
+                user={currentUser}
+              />:''}
               <div ref={scrollhook}></div>
             </div>
 			{<div >{userTyping}</div>}
@@ -425,7 +400,7 @@ const LiveChat = () => {
                   style={{ width: "33vw", marginRight: "0px" }}
                   type="text"
                   className="inputText"
-				  onKeyPress={handleClick}
+				  onKeyPress={handlePress}
                   placeholder="Type your message"
                   {...register("message", {
                     required: "Please enter a message",

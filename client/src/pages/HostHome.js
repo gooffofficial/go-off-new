@@ -268,8 +268,9 @@ const Conversation = ({ convImg, userid }) => {
                 db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
                   querySnapshot.forEach((doc) => {
                       // doc.data() is never undefined for query doc snapshots
-                      let rsvp = doc.data(userid).rsvp;
-                      if(rsvp.legnth<10){
+                      let data = doc.data();
+                      let rsvp = data.rsvp;
+                      if(rsvp.legnth<10 && data.hostId!==userid){
                       rsvp.push(userid)
                       db.collection('Conversations').get(doc.id).update({ rsvp:rsvp }).then(res => console.log('success')).catch(err => console.log(err))
                     }else{
