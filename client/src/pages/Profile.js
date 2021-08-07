@@ -6,7 +6,7 @@ import styles from '../styles/ProfilePage/Profile.module.scss';
 // Components
 import NavBar from '../components/NavBar.js';
 import FeedCard, { ChatsFeed } from '../components/FeedCard.js';
-import UpcomingUserChatsCard from '../components/UpcomingUserChatsCard.js';
+import UpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
 
 const fillerUser = {
 	name: 'Username',
@@ -19,7 +19,7 @@ const fillerUser = {
 const Profile = (props) => {
 	const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
-  const [chatCategory, setChatCategory] = useState("Upcoming") // "Upcoming", "Past", "Saved"
+  	const [chatCategory, setChatCategory] = useState("Upcoming") // "Upcoming", "Past", "Saved"
 
 	const history = useHistory();
 
@@ -37,6 +37,15 @@ const Profile = (props) => {
 					})
 					.then((res2) => {
 						setCurrentUserFull(res2.data.user);
+
+						axios
+							.get('/api/upcoming', { withCredentials: true })
+							.then((res) => {
+								setCurrentUserFull({
+									...res2.data.user,
+									upcomingChats: res.data,
+								});
+							});
 					});
 			})
 			.catch((err) => {
@@ -109,9 +118,23 @@ const Profile = (props) => {
 							<h3 className={styles.sideBarCardTitle}>Upcoming Chats</h3>
 						</div>
 
-						<div className={styles.UpcomingUserChatsCards}>
-							<UpcomingUserChatsCard />
-							<UpcomingUserChatsCard />
+						<div className={styles.upcomingChatsCards}>
+							{currentUserFull.upcomingChats ? (
+								currentUserFull.upcomingChats.map((prop) => {
+									return (
+										<UpcomingChatsCard
+											articleURL={prop.articleURL}
+											articleImg={prop.articleImg}
+											time={prop.time}
+											convTitle={prop.convTitle}
+											hostName={prop.hostname}
+											roomId={prop.roomId}
+										/>
+									);
+								})
+							) : (
+								<UpcomingChatsCard />
+							)}
 						</div>
 					</div>
 				</div>

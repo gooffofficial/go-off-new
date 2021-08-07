@@ -98,6 +98,15 @@
     background: rgba(58, 134, 255, 0.15);
   }
   
+  .prekshaIcon {
+    // position: absolute;
+    width: 37px;
+    height: 37px;
+    left: 26px;
+    top: 124px;
+    border-radius: 18.5px;
+  }
+
   .prekshaIcon, .globeIcon, .homeIcon {
     margin-right: 10px;
   }
@@ -402,8 +411,12 @@
   
   .avatarIcon {
     height: auto;
-    width: 60px;
     margin-right: 10px;
+    width: 60px;
+    height: 60px;
+    left: 354px;
+    top: 147px;
+    border-radius: 77px;
   }
   
   .startAConvInput {

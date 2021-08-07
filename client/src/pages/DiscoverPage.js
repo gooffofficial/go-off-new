@@ -18,6 +18,7 @@ import brushChat from '../images/brushChat.png'
 import peopleIcon from '../images/people.png'
 import styles from '../styles/DiscoverPage/discoverPage.module.css';
 import NavBar from '../components/NavBar.js';
+import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 
 const fillerUser = {
 	name: 'Username',
@@ -44,7 +45,16 @@ const DiscoverPage = () => {
 						withCredentials: true,
 					})
 					.then((res2) => {
-						setCurrentUserFull(res2.data.user);
+            setCurrentUserFull(res2.data.user);
+            
+            axios
+							.get('/api/upcoming', { withCredentials: true })
+							.then((res) => {
+								setCurrentUserFull({
+									...res2.data.user,
+									upcomingChats: res.data,
+								});
+							});
 					});
 			})
 			.catch((err) => {
@@ -67,7 +77,7 @@ const DiscoverPage = () => {
           <img src={prekshaIcon} alt="avatar" className={styles["di-prekshaIcon"]} />
           <span className={styles["di-avatarName"]}>Preksha Munot</span>
         </div>
-        <div className={styles["di-homeBox"]}>
+        <div className={styles["di-homeBox"]} onClick={() => history.push('/discover')}>
           <img src={homeIcon} alt="homeImage" className={styles["di-homeIcon"]} />
           <span className={styles["di-homeText"]}>Home</span>
         </div>
@@ -77,8 +87,22 @@ const DiscoverPage = () => {
         </div>
         <h1 className={styles["di-upcommingHeading"]}>Upcoming Chats</h1>
         <div className={styles["di-upcomingChats"]}>
-          <DIChatCard title="Zero Waste Toothbrush: How does it really make a difference?" timeStart="HAPPENING NOW" chatImage={brushChat} />
-          <DIChatCard title="Zero Waste Toothbrush: How does it really make a difference?" timeStart="HAPPENING NOW" chatImage={brushChat} />
+          {currentUserFull.upcomingChats ? (
+                  currentUserFull.upcomingChats.map((prop) => {
+                    return (
+                      <UpcomingChatsCard
+                        articleURL={prop.articleURL}
+                        articleImg={prop.articleImg}
+                        time={prop.time}
+                        convTitle={prop.convTitle}
+                        hostName={prop.hostname}
+                        roomId={prop.roomId}
+                      />
+                    );
+                  })
+                ) : (
+                  <UpcomingChatsCard />
+                )}
         </div>
       </div>
       <div className={styles["di-middleColumn"]}>

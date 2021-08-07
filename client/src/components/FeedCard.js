@@ -5,8 +5,10 @@ import {
 	getUpcomingChats,
 	getPastChats,
 	charLimit,
+	getAllUpcomingChats,
 } from '../styles/AuthPage/api.js';
 import { useQuery } from 'react-query';
+import { useHistory } from 'react-router-dom';
 
 // NEED TO IMPLEMENT DYNAMIC FUNCTIONALITY FOR:
 // FEED IMAGE - CALENDAR - COMPANY LOGO - HEADING - DATE - TAGS - DESCRIPTION - HOST NAME / HOST AVATAR
@@ -24,6 +26,8 @@ export const ChatsFeed = ({ chatCategory }) => {
 			return;
 	}
 };
+
+
 
 const UpComingChatsFeed = () => {
 	const {
@@ -57,6 +61,7 @@ const UpComingChatsFeed = () => {
 						convTitle={convTitle}
 						hostAvatar={hostAvatar}
 						convDesc={convDesc}
+						roomId={roomId}
 					/>
 				)
 			)}
@@ -95,6 +100,7 @@ const PastChatsFeed = () => {
 						convTitle={convTitle}
 						hostAvatar={hostAvatar}
 						convDesc={convDesc}
+						roomId={roomId}
 					/>
 				)
 			)}
@@ -114,6 +120,7 @@ const NewsFeedCard = ({
 	convTitle = '',
 	hostAvatar = '',
 	convDesc = '',
+	roomId = '',
 }) => {
 	let UTCTime = parseInt(time);
 	let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
@@ -122,6 +129,7 @@ const NewsFeedCard = ({
 	let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
 	let convoDate = `${convoDay} ${convoHoursMinutes}`;
 
+	const history = useHistory();
 	// console.log("upComingChats: ", upComingChats)
 	// console.log("OOF")z
 	// const {
@@ -209,7 +217,7 @@ const NewsFeedCard = ({
 								<img
 									className={styles.hostImage}
 									src={hostAvatar} //src="/images/stock-face.jpg"
-									alt="profile pic"
+									// alt="profile pic"
 								/>
 								<div className={styles.hostStatus}></div>
 							</div>
@@ -224,8 +232,10 @@ const NewsFeedCard = ({
 							</div>
 
 							<div className={styles.rsvpButtonContainer}>
-								<div className={styles.convoButton}>
-									<p className={styles.buttonText}>GO TO CONVO</p>
+								<div className={styles.convoButton} onClick={() => {
+									history.push(`/chat/${roomId}`)
+									}}>
+									<p className={styles.buttonText}>{roomId}</p>
 								</div>
 							</div>
 						</div>

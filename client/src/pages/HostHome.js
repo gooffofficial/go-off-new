@@ -32,6 +32,7 @@ import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
 import NavBar from '../components/NavBar.js';
+import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 const fillerUser = {
 	name: 'Username',
 	propic: '/images/stock-face.jpg',
@@ -79,8 +80,8 @@ const HomePage = () => {
     <div className={s.mainContent}>
       <div className={s.leftColumn}>
         <div className={s.avatarBox}>
-          <img src={prekshaIcon} alt="avatar" className={s.prekshaIcon} />
-          <span className={s.avatarName}>Preksha Munot</span>
+          <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
+          <span className={s.avatarName}>{ currentUser.name }</span>
         </div>
         <div className={s.homeBox} onClick = {() => history.push('/home')}>
           <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
@@ -91,16 +92,30 @@ const HomePage = () => {
           <span className={s.globeText}>Explore</span>
         </div>
         <h1 className={s.upcommingHeading}>Upcoming Chats</h1>
-        <div className={s.upcomingChats}>
-          <ChatCard title="Zero Waste Toothbrush: How does it really make a difference?" timeStart="HAPPENING NOW" chatImage={article1} />
-          <ChatCard title="Zero Waste Toothbrush: How does it really make a difference?" timeStart="HAPPENING NOW" chatImage={article1} />
-        </div>
+        <div className={s.upcomingChatsCards}>
+							{currentUserFull.upcomingChats ? (
+								currentUserFull.upcomingChats.map((prop) => {
+									return (
+										<UpcomingChatsCard
+											articleURL={prop.articleURL}
+											articleImg={prop.articleImg}
+											time={prop.time}
+											convTitle={prop.convTitle}
+											hostName={prop.hostname}
+											roomId={prop.roomId}
+										/>
+									);
+								})
+							) : (
+								<UpcomingChatsCard />
+							)}
+						</div>
       </div>
       <div className={s.middleColumn}>
         <div className={s.insideMiddleColumn}>
           <div className={s.userBox}>
             <div className={s.userConvRow}>
-              <img src={prekshaIcon} alt="Avatar" className={s.avatarIcon} />
+              <img src={currentUserFull.propic} alt="Avatar" className={s.avatarIcon} />
               <input onClick={openCreateConvModal} type="text" className={s.startAConvInput} placeholder="Start a conversation"/>
               <CreateConvModal 
                 closeCreateConvModal={closeCreateConvModal}
@@ -132,10 +147,10 @@ const HomePage = () => {
           <img src={trendingArrow} alt="" className={s.trendingIcon} />
           <span className={s.trendingTxt}>Trending</span>
         </div>
-        <TrendingCard image={trendImg1} title="Zero Waste Toothbrush: How does it really make a difference?" />
-        <TrendingCard image={trendImg2} title="Zero Waste Toothbrush: How does it really make a difference?" />
-        <TrendingCard image={trendImg3} title="Zero Waste Toothbrush: How does it really make a difference?" />
-        <TrendingCard image={trendImg4} title="Zero Waste Toothbrush: How does it really make a difference?" />
+        <TrendingCard image={trendImg1} onClick = {() => history.push('/discover')} title="Zero Waste Toothbrush: How does it really make a difference?" />
+        <TrendingCard image={trendImg2} onClick = {() => history.push('/discover')} title="Zero Waste Toothbrush: How does it really make a difference?" />
+        <TrendingCard image={trendImg3} onClick = {() => history.push('/discover')} title="Zero Waste Toothbrush: How does it really make a difference?" />
+        <TrendingCard image={trendImg4} onClick = {() => history.push('/discover')} title="Zero Waste Toothbrush: How does it really make a difference?" />
         <div className={s.friendActivityRow}>
           <img src={peopleIcon} alt="" className={s.friendsIcon} />
           <span className={s.friendActivityHeading}>Friend Activity</span>

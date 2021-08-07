@@ -9,6 +9,7 @@ import FeedCard from '../components/FeedCard.js';
 import TrendingCard from '../components/TrendingCard.js';
 import FriendActivityCard from '../components/FriendActivityCard.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
+import AllUpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
 
 const fillerUser = {
 	name: 'Username',
@@ -18,6 +19,7 @@ const fillerUser = {
 const Home = (props) => {
 	const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+	const [allUserFull, setAllUserFull] = useState(fillerUser);
 
 	const history = useHistory();
 	// const history = useHistory();
@@ -44,6 +46,13 @@ const Home = (props) => {
 									...res2.data.user,
 									upcomingChats: res.data,
 								});
+								axios
+									.get('/api/getconvos', { withCredentials: true})
+									.then((res3) => {
+										setAllUserFull({
+											allupcomingChats: res3.data,
+										});
+									});
 							});
 					});
 			})
@@ -158,8 +167,24 @@ const Home = (props) => {
 						</div>
 					</div>
 					<div className={styles.centerFeed}>
-						<FeedCard />
-						<FeedCard />
+							{/* {allUserFull.allupcomingChats ? (
+								allUserFull.allupcomingChats.map((prop1) => {
+									return (
+										<AllUpcomingChatsCard
+											articleURL={prop1.articleURL}
+											articleImg={prop1.articleImg}
+											time={prop1.time}
+											convTitle={prop1.convTitle}
+											hostName={prop1.hostname}
+											roomId={prop1.roomId}
+										/>
+									);
+								})
+							) : (
+								<AllUpcomingChatsCard />
+							)} */}
+							<FeedCard />
+							<FeedCard />
 					</div>
 				</div>
 				<div className={styles.rightSideBar}>
@@ -193,6 +218,7 @@ const Home = (props) => {
 										key={src}
 										imageSource={src}
 										description="Zero Waste Toothbrush: How does it really make a difference?"
+										onClick = {() => history.push('/discover')}
 									/>
 								);
 							})}
