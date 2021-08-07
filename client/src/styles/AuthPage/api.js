@@ -1,5 +1,8 @@
 
 import axios from 'axios'
+import firebase from '../../firebase.js'
+
+const db = firebase.firestore();
 
 // let isLocalhost = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'; 
 // export let API_LINK = isLocalhost ? 'http://localhost:8000' : 'PRODUCTION_SITE_LINK_HERE'
@@ -36,7 +39,7 @@ export const charLimit = (text, charMaxLength) => {
   return text.length > charMaxLength ? text.slice(0, charMaxLength) + "..." : text
 }
 
-export const sendCreateConv = async (convCreationInfo) => {
+export const sendCreateConv = async (convCreationInfo,userId) => {
   const { articleURL, time, title, description } = convCreationInfo;
   const convTime = new Date(time)
   const infoSent = { 
@@ -48,5 +51,16 @@ export const sendCreateConv = async (convCreationInfo) => {
     tz: "",
     roomId: Math.floor(1000000000 + Math.random() * 9000000000),
   }
+  db.collection('Conversations').add({
+    convoId:infoSent.roomId,
+    title:title,
+    description:description,
+    articleURL:articleURL,
+    hostId:userId,
+    isOpen:false,
+    date:convTime.getTime() + "",
+    rsvp:[]
+  }).then(doc =>console.log(`conversation ${doc.title} added`)).catch(err => console.log(err));
+  
   return (await axios.post(`/api/convos/create`, infoSent)).data;
 }

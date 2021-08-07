@@ -1,39 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePubNub } from 'pubnub-react';
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png';
 import styles from '../styles/LiveChatPage/livechat.module.css';
+import axios from 'axios';
 
-const Chat = ({ scrollhook, channels, addMessages, messages, user }) => {
-	const pubnub = usePubNub();
-	useEffect(() => {
-		pubnub
-			.fetchMessages({ channels: channels, count: 100 })
-			.then((e) => {
-				//this will fetch all messages in Test chat then add them to the messages state.
-				e.channels.Test.forEach((e) => {
-					if (e.message.message || e.message.text.message) {
-						return;
-					} // this is just done to filter out previous versions of the messages
-					if (e.message.user && e.message.text) {
-						addMessages((messages) => [
-							...messages,
-							{
-								user: e.message.user,
-								isHost: e.message.isHost,
-								text: e.message.text,
-								uuid: e.message.uuid,
-							},
-						]);
-					}
-					scrollhook.current.scrollIntoView({ behavior: 'smooth' });
-				});
-			})
-			.catch((error) => console.log(error));
-	}, []);
+const Chat = ({ messages, user }) => {
 	return (
-		<>
+		<div>
 			{messages.map((message, index) => {
-				if (message.uuid == user.uuid) {
+				if (message.uuid == user.id) {
 					return (
 						<MeMessage
 							key={index}
@@ -53,7 +28,7 @@ const Chat = ({ scrollhook, channels, addMessages, messages, user }) => {
 					);
 				}
 			})}
-		</>
+		</div>
 	);
 };
 
