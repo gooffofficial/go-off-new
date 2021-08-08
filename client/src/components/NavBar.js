@@ -15,12 +15,27 @@ const NavBar = (props) => {
 	const [filteredUsers, setFilteredUsers] = useState([]);
 	const [suggestionsHider, setSuggestionsHider] = useState('');
 	const history = useHistory();
-	// const options = [
-	// 	{ label: 'Go to Profile', onclick: () => history.push('/profile')},
-	// 	{ label: 'Logout', onclick: () => history.push('/home') }
-	// ];
+	// this.state = {
+	// 	displayMenu: false,
+	// };
 
-	// const defaultOption = options[0];
+	// const showDropdownMenu = this.showDropdownMenu.bind(this);
+	// const hideDropdownMenu = this.hideDropdownMenu.bind(this);
+
+	
+
+	// const showDropdownMenu = (event) => {
+	// 	event.preventDefault();
+	// 	this.setState({ displayMenu: true }, () => {
+	// 		document.addEventListener('click', this.hideDropdownMenu);
+	// 	});
+	// };
+
+	// const hideDropdownMenu = () => {
+	// 	this.setState({ displayMenu: false }, () => {
+	// 		document.removeEventListener('click', this.hideDropdownMenu);
+	// 	});
+	// };
 
 	useEffect(() => {
 		if (searchInput.length && isFetched === false) {
@@ -211,6 +226,7 @@ const NavBar = (props) => {
 			{/* <Dropdown 
 				options={options}  
 				value={defaultOption} 
+				// onChange={this._onSelect}
 				placeholder={name ? name : '<pass in name>'}
 				className={styles.loginInfo}
 				placeholderClassName={styles.navUserText}
@@ -220,6 +236,21 @@ const NavBar = (props) => {
 				className={styles.loginInfo}
 				onClick={() => history.push('/profile')}
 			>
+				{/* { displayMenu ? (
+          			<ul>
+						<li><a className="active" href="#Create Page">Create Page</a></li>
+						<li><a href="#Manage Pages">Manage Pages</a></li>
+						<li><a href="#Create Ads">Create Ads</a></li>
+						<li><a href="#Manage Ads">Manage Ads</a></li>
+						<li><a href="#Activity Logs">Activity Logs</a></li>
+						<li><a href="#Setting">Setting</a></li>
+						<li><a href="#Log Out">Log Out</a></li>
+					</ul>
+					):
+					(
+						null
+					)
+				} */}
 				<img
 					className={styles.navUserImage}
 					src={avatarSource ? avatarSource : '/images/stock-face.jpg'}

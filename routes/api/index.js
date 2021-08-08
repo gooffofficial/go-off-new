@@ -124,7 +124,7 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
     // seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
     
     // Same as above except for all convos
-    seq.query("SELECT ConvoId FROM test_server1.Convo_members C ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
+    seq.query("SELECT ConvoId FROM test_server1.Convo_members C ORDER BY C.createdAt ")
         /*db.Convo_members.findAll({
             where: {
                 UserId: id
@@ -139,7 +139,8 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                         id: convo.ConvoId
                     }
                 })
-                convs.push(c);
+                // console.log(c)
+                // convs.push(c);
                 let art = await db.Article.findOne({
                     where: {
                         url: c.article
@@ -150,66 +151,87 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                         id: c.host
                     }
                 })
-                if(!user){
-                    convs[i]['host'] = " "
-
-                }else{
-                    convs[i]['host'] = user.username
-                }
+                console.log(user)
+                // console.log(c.host)
+                // console.log(user)
+                // if(c.host != user.id){
+                    convs.push({
+                        'articleURL': c.article,
+                        'articleImg': art.img,
+                        'time': c.time,
+                        'hostName': user.name,
+                        'roomId': c.roomId,
+                        'convTitle': c.title,
+                        'desc': c.description,
+                    })
+                // }
                 
-                convs[i]['img'] = art.img
-                convs[i]['title'] = c.title
+
+                // if(!user){
+                //     convs[i]['host'] = " "
+
+                // }else{
+                //     convs[i]['host'] = user.username
+                // }
+                
+                
+                // convs[i]['img'] = art.img
+                // console.log(convs[i]['img'])
+                // convs[i]['title'] = c.title
+                // console.log(c.title)
+                // console.log(convs)
                 i++
+                // console.log("CONVOSSSSSSSSSSSS", convs)
             }
             convs=convs.reverse();
-            if(convs.length == 0) {
-                convs[0] = {
-                    article: "",
-                    id: -1
-                }
-                convs[1] = {
-                    article: "",
-                    id: -1
-                }
-                convs[2] = {
-                    article: "",
-                    id: -1
-                }
-                convs[3] = {
-                    article: "",
-                    id: -1
-                }
-            }
-            else if(convs.length == 1){
-                convs[1] = {
-                    article: "",
-                    id: -1
-                }
-                convs[2] = {
-                    article: "",
-                    id: -1
-                }
-                convs[3] = {
-                    article: "",
-                    id: -1
-                }
-            }
-            else if(convs.length == 2){
-                convs[2] = {
-                    article: "",
-                    id: -1
-                }
-                convs[3] = {
-                    article: "",
-                    id: -1
-                }
-            }
-            else if(convs.length == 3){
-                convs[3] = {
-                    article: "",
-                    id: -1
-                }
-            }
+            // if(convs.length == 0) {
+            //     convs[0] = {
+            //         article: "",
+            //         id: -1
+            //     }
+            //     convs[1] = {
+            //         article: "",
+            //         id: -1
+            //     }
+            //     convs[2] = {
+            //         article: "",
+            //         id: -1
+            //     }
+            //     convs[3] = {
+            //         article: "",
+            //         id: -1
+            //     }
+            // }
+            // else if(convs.length == 1){
+            //     convs[1] = {
+            //         article: "",
+            //         id: -1
+            //     }
+            //     convs[2] = {
+            //         article: "",
+            //         id: -1
+            //     }
+            //     convs[3] = {
+            //         article: "",
+            //         id: -1
+            //     }
+            // }
+            // else if(convs.length == 2){
+            //     convs[2] = {
+            //         article: "",
+            //         id: -1
+            //     }
+            //     convs[3] = {
+            //         article: "",
+            //         id: -1
+            //     }
+            // }
+            // else if(convs.length == 3){
+            //     convs[3] = {
+            //         article: "",
+            //         id: -1
+            //     }
+            // }
             return res.json(convs)
     })
 })
@@ -275,7 +297,7 @@ router.get('/upcoming', auth.required, async (req, res, next) => {
               'articleURL': conv.article,
               'articleImg': article.img,
               'time': conv.time,
-              'hostUsername': user.username,
+              'hostUsername': user.name,
               'roomId': conv.roomId,
               'convTitle': conv.title,
               'hostAvatar': profile.ppic,

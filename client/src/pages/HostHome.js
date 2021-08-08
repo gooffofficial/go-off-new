@@ -32,6 +32,8 @@ import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
 import NavBar from '../components/NavBar.js';
+import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
+import Conversation from '../components/Conversation.js'; 
 import firebase from '../firebase.js';
 const fillerUser = {
 	name: 'Username',
@@ -43,7 +45,8 @@ const fillerUser = {
 const HomePage = () => {
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState(fillerUser);
-	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+  const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+  const [allUserFull, setAllUserFull] = useState(fillerUser);
   const [isCreateConvModalVisible, setCreateConvModalVisible] = useState(false)
 
   const openCreateConvModal = () => setCreateConvModalVisible(true);
@@ -62,7 +65,23 @@ const HomePage = () => {
 						withCredentials: true,
 					})
 					.then((res2) => {
-						setCurrentUserFull(res2.data.user);
+            setCurrentUserFull(res2.data.user);
+            
+            axios
+              .get('/api/upcoming', { withCredentials: true})
+              .then((res) => {
+                setCurrentUserFull({
+                  ...res2.data.user,
+                  upcomingChats: res.data,
+                })
+                axios
+									.get('/api/getconvos', { withCredentials: true})
+									.then((res3) => {
+										setAllUserFull({
+											allupcomingChats: res3.data,
+										});
+									});
+              })
 					});
 			})
 			.catch((err) => {
@@ -70,6 +89,9 @@ const HomePage = () => {
 			});
 	}, []);
 
+  console.log(currentUserFull.upcomingChats)
+  console.log(allUserFull.allupcomingChats)
+  console.log(currentUser.id)
 	let trendingImageSources = [
 		'/images/trend-stock1.png',
 		'/images/trend-stock2.png',
@@ -82,8 +104,8 @@ const HomePage = () => {
     <div className={s.mainContent}>
       <div className={s.leftColumn}>
         <div className={s.avatarBox}>
-          <img src={prekshaIcon} alt="avatar" className={s.prekshaIcon} />
-          <span className={s.avatarName}>Preksha Munot</span>
+          <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
+          <span className={s.avatarName}>{ currentUser.name }</span>
         </div>
         <div className={s.homeBox} onClick = {() => history.push('/home')}>
           <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
@@ -94,16 +116,30 @@ const HomePage = () => {
           <span className={s.globeText}>Explore</span>
         </div>
         <h1 className={s.upcommingHeading}>Upcoming Chats</h1>
-        <div className={s.upcomingChats}>
-          <ChatCard title="Zero Waste Toothbrush: How does it really make a difference?" timeStart="HAPPENING NOW" chatImage={article1} />
-          <ChatCard title="Zero Waste Toothbrush: How does it really make a difference?" timeStart="HAPPENING NOW" chatImage={article1} />
-        </div>
+        <div className={s.upcomingChatsCards}>
+							{currentUserFull.upcomingChats ? (
+								currentUserFull.upcomingChats.map((prop) => {
+									return (
+										<UpcomingChatsCard
+											articleURL={prop.articleURL}
+											articleImg={prop.articleImg}
+											time={prop.time}
+											convTitle={prop.convTitle}
+											hostName={prop.hostname}
+											roomId={prop.roomId}
+										/>
+									);
+								})
+							) : (
+								<UpcomingChatsCard />
+							)}
+						</div>
       </div>
       <div className={s.middleColumn}>
         <div className={s.insideMiddleColumn}>
           <div className={s.userBox}>
             <div className={s.userConvRow}>
-              <img src={prekshaIcon} alt="Avatar" className={s.avatarIcon} />
+              <img src={currentUserFull.propic} alt="Avatar" className={s.avatarIcon} />
               <input onClick={openCreateConvModal} type="text" className={s.startAConvInput} placeholder="Start a conversation"/>
               <CreateConvModal 
                 closeCreateConvModal={closeCreateConvModal}
@@ -127,8 +163,27 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <Conversation convImg={article2} userid={currentUser.id} />
-          <Conversation convImg={article2} userid={currentUser.id} />
+          {allUserFull.allupcomingChats ? (
+								allUserFull.allupcomingChats.map((prop1) => {
+									return (
+										<Conversation
+											articleURL={prop1.articleURL}
+											articleImg={prop1.articleImg}
+											time={prop1.time}
+											convTitle={prop1.convTitle}
+											hostName={prop1.hostName}
+                      roomId={prop1.roomId}
+                      desc={prop1.desc}
+                      userid={currentUser.id}
+                      userpfp={currentUserFull.propic}
+										/>
+									);
+								})
+							) : (
+								<Conversation />
+							)}
+          {/* <Conversation convImg={article2} userid={currentUser.id} />
+          <Conversation convImg={article2} userid={currentUser.id} /> */}
         </div>
       </div>
       <div className={s.rightColumn}>
@@ -136,10 +191,10 @@ const HomePage = () => {
           <img src={trendingArrow} alt="" className={s.trendingIcon} />
           <span className={s.trendingTxt}>Trending</span>
         </div>
-        <TrendingCard image={trendImg1} title="Zero Waste Toothbrush: How does it really make a difference?" />
-        <TrendingCard image={trendImg2} title="Zero Waste Toothbrush: How does it really make a difference?" />
-        <TrendingCard image={trendImg3} title="Zero Waste Toothbrush: How does it really make a difference?" />
-        <TrendingCard image={trendImg4} title="Zero Waste Toothbrush: How does it really make a difference?" />
+        <TrendingCard image={trendImg1} onClick = {() => history.push('/discover')} title="Zero Waste Toothbrush: How does it really make a difference?" />
+        <TrendingCard image={trendImg2} onClick = {() => history.push('/discover')} title="Zero Waste Toothbrush: How does it really make a difference?" />
+        <TrendingCard image={trendImg3} onClick = {() => history.push('/discover')} title="Zero Waste Toothbrush: How does it really make a difference?" />
+        <TrendingCard image={trendImg4} onClick = {() => history.push('/discover')} title="Zero Waste Toothbrush: How does it really make a difference?" />
         <div className={s.friendActivityRow}>
           <img src={peopleIcon} alt="" className={s.friendsIcon} />
           <span className={s.friendActivityHeading}>Friend Activity</span>
@@ -294,51 +349,52 @@ const Conversation = ({ convImg, userid }) => {
             });
     };
 
-  return <div className={s.conversationRow}>
-    <div className={s.convImageBox}>
-      <img src={convImg} alt="" className={s.convImg} />
-      <img src={bookmarkIcon} alt="" className={s.bookmarkIcon} />
-    </div>
-    <div className={s.convRight}>
-      <div className={s.chatHeading}>
-        <div className={s.leftHeading}>
-          <span className={s.monthText}>MAY</span>
-          <div className={s.dayText}>22</div>
-        </div>
-        <div className={s.middleHeading}>
-          <img src={NYTLogo} alt="NYT Logo" className={s.NYTLogo} />
-          <span className={s.articleTitle}>Zero Waste Toothbrush: How does it really make a difference</span>
-        </div>
-        <div className={s.rightHeading}>
-          <img src={dots3Icon} alt="" className={s.threeDotsIcon} />
-        </div>
-      </div>
-      <span className={s.startTime}>THURSDAY 10:00 PM EST</span>
-      <div className={s.chatTags}>
-        <div className={s.chatTag}>Eco-Friendly</div>
-        <div className={s.chatTag}>Sustainability</div>
-        <div className={s.chatTag}>Zero Waste</div>
-      </div>
-      <p className={s.chatDescription}>
-        With zero waste taking over the world and people becoming more aware of their carbon footprint and how their actions affect the planet more options for sustaiable items have become avaiable.
-      </p>
-      <hr className={s.convLine} />
-      <div className={s.RSVP_Row}>
-        <div className={s.RSVP_Left}>
-          <div className={s.ProfileLeft}>
-            <img src={emilyIcon} alt="Profile Icon" className={s.emilyIcon} />
-            <div className={s.onlineCircle}></div>
-          </div>
-          <div className={s.ProfileNames}>
-            <span className={s.hostText}>HOST</span>
-            <div className={s.profileName}>Emily Patterson</div>
-          </div>
-        </div>
-        <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>RSVP NOW</button>
-      </div>
-    </div>
-  </div>
-}
+//     // const { articleImg, articleURL, time, hostName, roomId, convTitle, convDesc } = props;
+//   return <div className={s.conversationRow}>
+//     <div className={s.convImageBox}>
+//       {/* <img src={articleImg ? articleImg : '/images/Rectangle328.png'} alt="" className={s.convImg} /> */}
+//       <img src={bookmarkIcon} alt="" className={s.bookmarkIcon} />
+//     </div>
+//     <div className={s.convRight}>
+//       <div className={s.chatHeading}>
+//         <div className={s.leftHeading}>
+//           <span className={s.monthText}>MAY</span>
+//           <div className={s.dayText}>22</div>
+//         </div>
+//         <div className={s.middleHeading}>
+//           <img src={NYTLogo} alt="NYT Logo" className={s.NYTLogo} />
+//           {/* <span className={s.articleTitle}>{convTitle}</span> */}
+//         </div>
+//         <div className={s.rightHeading}>
+//           <img src={dots3Icon} alt="" className={s.threeDotsIcon} />
+//         </div>
+//       </div>
+//       {/* <span className={s.startTime}>{time}</span> */}
+//       <div className={s.chatTags}>
+//         <div className={s.chatTag}>Eco-Friendly</div>
+//         <div className={s.chatTag}>Sustainability</div>
+//         <div className={s.chatTag}>Zero Waste</div>
+//       </div>
+//       {/* <p className={s.chatDescription}>
+//         {convDesc}} */}
+//       {/* </p> */}
+//       <hr className={s.convLine} />
+//       <div className={s.RSVP_Row}>
+//         <div className={s.RSVP_Left}>
+//           <div className={s.ProfileLeft}>
+//             <img src={emilyIcon} alt="Profile Icon" className={s.emilyIcon} />
+//             <div className={s.onlineCircle}></div>
+//           </div>
+//           <div className={s.ProfileNames}>
+//             <span className={s.hostText}>HOST</span>
+//             {/* <div className={s.profileName}>{hostName}</div> */}
+//           </div>
+//         </div>
+//         <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>RSVP NOW</button>
+//       </div>
+//     </div>
+//   </div>
+// }
 
 const ChatCard = ({ title, timeStart, chatImage }) => {
   return <div className={s.chatCard}>

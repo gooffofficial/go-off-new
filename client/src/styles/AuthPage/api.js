@@ -32,10 +32,13 @@ export const sendVerifyCheck = async (email, verifyCode) => { // Basically, if t
 }
 
 export const getUpcomingChats = async () => (await axios.get(`/api/upcoming`)).data;
+export const getAllUpcomingChats = async () => (await axios.get('/api/getconvos')).data;
 export const getPastChats = async () => (await axios.get(`/api/pastconv`)).data;
 
 export const charLimit = (text, charMaxLength) => {
+  console.log(text)
   return text.length > charMaxLength ? text.slice(0, charMaxLength) + "..." : text
+  
 }
 
 export const sendCreateConv = async (convCreationInfo,userId) => {

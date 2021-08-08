@@ -390,9 +390,9 @@ const LiveChat = () => {
               alt="avatar"
               className={styles["prekshaIcon"]}
             />
-            <span className={styles["avatarName"]}>Preksha Munot</span>
+            <span className={styles["avatarName"]} >Preksha Munot</span>
           </div>
-          <div className={styles["homeBox"]}>
+          <div className={styles["homeBox"]} onClick={() => history.push('/home')} >
             <img
               src={homeIcon}
               alt="homeImage"
@@ -400,7 +400,7 @@ const LiveChat = () => {
             />
             <span className={styles["homeText"]}>Home</span>
           </div>
-          <div className={styles["discoverBox"]}>
+          <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
             <img
               src={globeIcon}
               alt="discoverImage"

@@ -5,8 +5,10 @@ import {
 	getUpcomingChats,
 	getPastChats,
 	charLimit,
+	getAllUpcomingChats,
 } from '../styles/AuthPage/api.js';
 import { useQuery } from 'react-query';
+import { useHistory } from 'react-router-dom';
 
 // NEED TO IMPLEMENT DYNAMIC FUNCTIONALITY FOR:
 // FEED IMAGE - CALENDAR - COMPANY LOGO - HEADING - DATE - TAGS - DESCRIPTION - HOST NAME / HOST AVATAR
@@ -24,6 +26,8 @@ export const ChatsFeed = ({ chatCategory }) => {
 			return;
 	}
 };
+
+
 
 const UpComingChatsFeed = () => {
 	const {
@@ -57,6 +61,7 @@ const UpComingChatsFeed = () => {
 						convTitle={convTitle}
 						hostAvatar={hostAvatar}
 						convDesc={convDesc}
+						roomId={roomId}
 					/>
 				)
 			)}
@@ -95,6 +100,7 @@ const PastChatsFeed = () => {
 						convTitle={convTitle}
 						hostAvatar={hostAvatar}
 						convDesc={convDesc}
+						roomId={roomId}
 					/>
 				)
 			)}
@@ -106,15 +112,8 @@ const SavedChatsFeed = () => {
 	return <div>No saved conversation chats implemented yet...</div>;
 };
 
-const NewsFeedCard = ({
-	articleURL = '',
-	articleImg = '',
-	time = '',
-	hostUsername = '',
-	convTitle = '',
-	hostAvatar = '',
-	convDesc = '',
-}) => {
+const NewsFeedCard = (props) => {
+	const { articleImg, articleURL, convTitle, convDesc, time, hostUsername, roomId, hostAvatar } = props;
 	let UTCTime = parseInt(time);
 	let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
 	let convoCalendarDay = moment(UTCTime).format('D');
@@ -122,6 +121,7 @@ const NewsFeedCard = ({
 	let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
 	let convoDate = `${convoDay} ${convoHoursMinutes}`;
 
+	const history = useHistory();
 	// console.log("upComingChats: ", upComingChats)
 	// console.log("OOF")z
 	// const {
@@ -180,7 +180,8 @@ const NewsFeedCard = ({
 							</div>
 							<div className={styles.feedCardHeadingContainer}>
 								<h4 className={styles.feedCardHeading}>
-									{charLimit(convTitle, 60)}
+									{convTitle}
+									{/* {charLimit(convTitle, 60)} */}
 									{/* SET CHARACTER LIMIT */}
 								</h4>
 							</div>
@@ -199,7 +200,7 @@ const NewsFeedCard = ({
 
 					<div className={styles.feedCardDescriptionContainer}>
 						<p className={styles.feedCardDescription}>
-							{charLimit(convDesc, 190)}
+							{convDesc ? convDesc : ''}{' '}
 						</p>
 					</div>
 
@@ -208,8 +209,8 @@ const NewsFeedCard = ({
 							<div className={styles.hostImageContainer}>
 								<img
 									className={styles.hostImage}
-									src={hostAvatar} //src="/images/stock-face.jpg"
-									alt="profile pic"
+									src={hostAvatar ? hostAvatar : '/images/stock-face.jpg'} //src="/images/stock-face.jpg"
+									// alt="profile pic"
 								/>
 								<div className={styles.hostStatus}></div>
 							</div>
@@ -224,7 +225,9 @@ const NewsFeedCard = ({
 							</div>
 
 							<div className={styles.rsvpButtonContainer}>
-								<div className={styles.convoButton}>
+								<div className={styles.convoButton} onClick={() => {
+									history.push(`/chat/${roomId}`)
+									}}>
 									<p className={styles.buttonText}>GO TO CONVO</p>
 								</div>
 							</div>

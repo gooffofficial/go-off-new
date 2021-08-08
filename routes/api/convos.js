@@ -48,7 +48,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
             article: req.body.article,
             host: id,
             time: req.body.convoTime,
-            roomId: ''+room._id,
+            roomId: ''+req.body.roomId,
             title: req.body.convoTitle,
             tz: req.body.tz,
             description: req.body.convoDesc
@@ -81,15 +81,18 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                 //         })
                 //     , null, true)
                 // }
-                let dateConvoTime = new Date(Number(convo.time))
-                let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
+                console.log('TIME OF CHAT IS: ' + convo.time)
+                let dateConvoTime = (Number(convo.time))
+                console.log('UPDATED TIME OF CHAT IS: ', dateConvoTime)
+                let dateConvoTime30minsBefore = (dateConvoTime - 30 * 60*1000)
+                console.log('UPDATED TIME OF CHAT IS: ', dateConvoTime30minsBefore)
 
                 // SMS about joining conversation
                 twilioClient.messages.create({
                   to: u.phonenumber,
                   from: process.env.TWILIO_PHONE_NUMBER, 
                   body: 'Hello ' + u.firstname + ',\n\n You just signed up for a conversation ' +
-                  'about this article: ' + convo.article + ' at ' + dateConvoTime.toString()
+                  'about this article: ' + convo.article + ' at ' + new Date(dateConvoTime)
                 })
 
                 // 30 min SMS reminder
@@ -109,10 +112,10 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                     from: 'go.offmedia@gmail.com',
                     subject: "Reminder: You're hosting a convo soon!",
                     text: 'Hello ' + u.firstname + ',\n\n We are reminding you that you\
-                    are hosting a convo about this article: ' + req.body.article + ' in 30 minutes (' + dateConvoTime.toString() + ')!\n\
+                    are hosting a convo about this article: ' + req.body.article + ' in 30 minutes (' + new Date(dateConvoTime) + ')!\n\
                     Join the conversation at https://go-off.co/chat/ '+ convo.roomId,
                     //send_at: Math.floor((convo.time.getTime() - (30*60000))/1000)
-                    send_at: Math.floor(dateConvoTime30minsBefore.getTime() / 1000) // send_at requires unix time in seconds, so we / 1000 to seconds
+                    send_at: Math.floor(dateConvoTime30minsBefore / 1000) // send_at requires unix time in seconds, so we / 1000 to seconds
                 }
                 sgMail.send(msg).then(() => {
                     //send confirmation email
@@ -122,7 +125,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                         from: 'go.offmedia@gmail.com',
                         subject: "You just signed up for a convo!",
                         text: 'Hello ' + u.firstname + ',\n\n You just signed up for a conversation\
-                        about this article: ' + req.body.article + ' at ' + dateConvoTime.toString()
+                        about this article: ' + req.body.article + ' at ' + new Date(dateConvoTime)
                     }
                     sgMail.send(msg2).then(() => {
                       // return res.redirect('/conversation/?article='+req.body.article)

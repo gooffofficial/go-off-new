@@ -1,5 +1,7 @@
 // Module Imports
 import { Switch, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './styles/index.scss';
 import PubNub from 'pubnub';
 import { PubNubProvider } from 'pubnub-react';
@@ -24,7 +26,12 @@ import Eauth from './pages/eauth';
 import SMSauth from './pages/smsauth';
 import Splash from './pages/splash';
 import PublicProfile from './pages/PublicProfile';
+import HostRoute from './components/HostRoute';
 // import Log from '../../../apify/types/utils_log';
+
+const fillerUser = {
+	host: " "
+};
 
 const App = () => {
 
@@ -37,12 +44,29 @@ const App = () => {
 	});
 	// const token = localStorage.getItem
 
+	const [currentUser, setCurrentUser] = useState(fillerUser);
+
+	useEffect(() => {
+		axios
+			.get(`/api/users/current`, {
+				withCredentials: true,
+			})
+			.then((res) => {
+				setCurrentUser(res.data.user);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
+	
 	return (
 		// Routes
 		<PubNubProvider client={pubnub}>
 			<Switch>
+				
 				<Route path="/hosthome" component={HostHome} />
 				<Route path="/home" component={Home} />
+				{/* <HostRoute path="/home" component={HostHome} /> */}
 				<Route path="/profile/:username" component={PublicProfile} />
 				<Route path="/profile" component={Profile} />
 				<Route path="/accountsettings" component={AccountSettingsPage} />

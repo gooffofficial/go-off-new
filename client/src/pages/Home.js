@@ -5,10 +5,12 @@ import styles from '../styles/HomePage/Home.module.scss';
 
 // Components
 import NavBar from '../components/NavBar.js';
-import FeedCard from '../components/FeedCard.js';
+import NewsFeedCard from '../components/FeedCard.js';
 import TrendingCard from '../components/TrendingCard.js';
 import FriendActivityCard from '../components/FriendActivityCard.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
+import AllUpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
+import Conversation from '../components/Conversation.js'; 
 
 const fillerUser = {
 	name: 'Username',
@@ -18,6 +20,7 @@ const fillerUser = {
 const Home = (props) => {
 	const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+	const [allUserFull, setAllUserFull] = useState(fillerUser);
 
 	const history = useHistory();
 	// const history = useHistory();
@@ -44,6 +47,13 @@ const Home = (props) => {
 									...res2.data.user,
 									upcomingChats: res.data,
 								});
+								axios
+									.get('/api/getconvos', { withCredentials: true})
+									.then((res3) => {
+										setAllUserFull({
+											allupcomingChats: res3.data,
+										});
+									});
 							});
 					});
 			})
@@ -52,6 +62,8 @@ const Home = (props) => {
 			});
 	}, []);
 
+	console.log(currentUserFull.upcomingChats)
+	console.log(allUserFull.allupcomingChats)
 	let trendingImageSources = [
 		'/images/trend-stock1.png',
 		'/images/trend-stock2.png',
@@ -121,6 +133,7 @@ const Home = (props) => {
 						<div className={styles.upcomingChatsCards}>
 							{currentUserFull.upcomingChats ? (
 								currentUserFull.upcomingChats.map((prop) => {
+									
 									return (
 										<UpcomingChatsCard
 											articleURL={prop.articleURL}
@@ -158,8 +171,29 @@ const Home = (props) => {
 						</div>
 					</div>
 					<div className={styles.centerFeed}>
-						<FeedCard />
-						<FeedCard />
+							{allUserFull.allupcomingChats ? (
+								allUserFull.allupcomingChats.map((prop1) => {
+									return (
+										<Conversation
+										articleURL={prop1.articleURL}
+										articleImg={prop1.articleImg}
+										time={prop1.time}
+										convTitle={prop1.convTitle}
+										hostName={prop1.hostName}
+										roomId={prop1.roomId}
+										desc={prop1.desc}
+										userid={currentUser.id}
+										userpfp={currentUserFull.propic}
+										/>
+										
+									);
+									
+								})
+							) : (
+								<Conversation />
+							)}
+							{/* <FeedCard />
+							<FeedCard /> */}
 					</div>
 				</div>
 				<div className={styles.rightSideBar}>
@@ -193,6 +227,7 @@ const Home = (props) => {
 										key={src}
 										imageSource={src}
 										description="Zero Waste Toothbrush: How does it really make a difference?"
+										onClick = {() => history.push('/discover')}
 									/>
 								);
 							})}

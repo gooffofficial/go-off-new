@@ -1,19 +1,18 @@
-import './styles/UpcomingChatsCard.scss';
+import'./styles/AllUpcomingChatsCard.module.scss';
 
-const UpcomingChatsCard = (props) => {
-	// console.log(props)
+const AllUpcomingChatsCard = (props) => {
 	const { articleImg, articleURL, time, hostName, roomId, convTitle } = props;
 	return (
-		<div className="upcomingChatsCardContainer" onClick="#">
-			<div className="upcomingChatsCardImageContainer">
+		<div className="AllUpcomingChatsCardContainer" onClick="#">
+			<div className="AllUpcomingChatsCardImageContainer">
 				<img
-					className="upcomingChatsCardImage"
+					className="AllUpcomingChatsCardImage"
 					src={articleImg ? articleImg : '/images/Rectangle328.png'}
 					alt=""
 				/>
 			</div>
-			<div className="upcomingChatsCardContent">
-				<h2 className="upcomingChatsCardHeading">
+			<div className="AllUpcomingChatsCardContent">
+				<h2 className="AllUpcomingChatsCardHeading">
 					{time
 						? Date(time)
 								.toLocaleString()
@@ -23,7 +22,7 @@ const UpcomingChatsCard = (props) => {
 								.toUpperCase()
 						: 'HAPPENING SOON'}
 				</h2>
-				<p className="upcomingChatsCardDescription">
+				<p className="AllUpcomingChatsCardDescription">
 					{convTitle ? convTitle : ''}{' '}
 				</p>
 			</div>
@@ -31,4 +30,4 @@ const UpcomingChatsCard = (props) => {
 	);
 };
 
-export default UpcomingChatsCard;
+export default AllUpcomingChatsCard;
