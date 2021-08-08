@@ -1,5 +1,7 @@
 import firebase from "firebase";
 import config from "./config.js";
+import 'firebase/storage';
+
 const configuration = {
     apiKey: config.apiKey,
     authDomain: config.au,

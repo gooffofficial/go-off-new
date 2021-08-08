@@ -39,7 +39,6 @@ const fillerUser = {
   id:0
 };
 
-const db = firebase.firestore();
 
 const HomePage = () => {
   const history = useHistory();
@@ -256,29 +255,39 @@ const FriendActivityCard = ({ userAvatar, username, friendName }) => {
 
 //need to pass in all data from convo in order to be able to rsvp using id.
 const Conversation = ({ convImg, userid }) => {
-  let convoId = 'dummyId'
+  let convoId = 'Test'
+  let dummyId = 54
+  const db = firebase.firestore();
+
 
     const rsvpbuttonhandler = (e) => {
         e.preventDefault();
+
+        db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              let data = doc.data();
+              let rsvp = data.rsvp;
+              console.log(rsvp, rsvp.length)
+              if(data.hostId==userid){
+                return console.log('is already host')
+              }
+              if(rsvp.length<10){
+              rsvp.push(dummyId)
+              db.collection('Conversations').doc(doc.id).update({ rsvp:rsvp }).then(res => console.log('successfully rsvpd')).catch(err => console.log(err))
+            }else{
+              console.log('limit reached')
+            }
+              console.log(doc.id, " => ", doc.data());
+          });
+
+      }).catch(err => console.log(err));
 
         axios  
             .get('/join')
             .then((res) => {
                 window.alert("You have Succesfully RSVP'd!")
-                db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
-                  querySnapshot.forEach((doc) => {
-                      // doc.data() is never undefined for query doc snapshots
-                      let data = doc.data();
-                      let rsvp = data.rsvp;
-                      if(rsvp.legnth<10 && data.hostId!==userid){
-                      rsvp.push(userid)
-                      db.collection('Conversations').get(doc.id).update({ rsvp:rsvp }).then(res => console.log('success')).catch(err => console.log(err))
-                    }else{
-                      console.log('limit reached')
-                    }
-                      console.log(doc.id, " => ", doc.data());
-                  });
-              })
+                
             })
             .catch((err) => {
                 console.log(`RSVP ERROR: ${err}`)

@@ -259,6 +259,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    display: inline-block;
   }
   
   .chatDropDownName {
@@ -451,4 +452,17 @@
   .inputText:focus, .inputText:focus, .inputText:focus,
   .searchInput:focus, .searchInput:focus, .searchInput:focus {
     outline: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #F9F9F9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+  .dropDownRow:hover .dropdown-content {
+    display: block;
   }
