@@ -103,6 +103,7 @@
   .di-prekshaIcon, .di-profileIcon {
     height: 41px;
     width: 41px;
+    border-radius: 100%;
   }
   
   .di-prekshaIcon, .di-globeIcon, .di-homeIcon {

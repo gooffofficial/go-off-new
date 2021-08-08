@@ -27,6 +27,7 @@ const HostRoute = ({ component: Component, ...rest }) => {
     }, []);
 
     const token = localStorage.getItem('token')
+    console.log("ASFKS;DLKFGJ;LDSKGSAD", token)
 
     return (
         <Route render={() => {

@@ -19,6 +19,7 @@ import peopleIcon from '../images/people.png'
 import styles from '../styles/DiscoverPage/discoverPage.module.css';
 import NavBar from '../components/NavBar.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
+import Conversation from '../components/Conversation.js'; 
 
 const fillerUser = {
 	name: 'Username',
@@ -27,7 +28,8 @@ const fillerUser = {
 
 const DiscoverPage = () => {
   const [currentUser, setCurrentUser] = useState(fillerUser);
-	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+  const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+  const [allUserFull, setAllUserFull] = useState(fillerUser);
 
 	const history = useHistory();
 	// const history = useHistory();
@@ -53,7 +55,14 @@ const DiscoverPage = () => {
 								setCurrentUserFull({
 									...res2.data.user,
 									upcomingChats: res.data,
-								});
+                });
+                axios
+									.get('/api/getconvos', { withCredentials: true})
+									.then((res3) => {
+										setAllUserFull({
+											allupcomingChats: res3.data,
+										});
+									});
 							});
 					});
 			})
@@ -74,10 +83,10 @@ const DiscoverPage = () => {
     <div className={styles["di-mainContent"]}>
       <div className={styles["di-leftColumn"]}>
         <div className={styles["di-avatarBox"]}>
-          <img src={prekshaIcon} alt="avatar" className={styles["di-prekshaIcon"]} />
-          <span className={styles["di-avatarName"]}>Preksha Munot</span>
+          <img src={currentUserFull.propic} alt="avatar" className={styles["di-prekshaIcon"]} />
+          <span className={styles["di-avatarName"]}>{currentUser.name}</span>
         </div>
-        <div className={styles["di-homeBox"]} onClick={() => history.push('/discover')}>
+        <div className={styles["di-homeBox"]} onClick={() => history.push('/home')}>
           <img src={homeIcon} alt="homeImage" className={styles["di-homeIcon"]} />
           <span className={styles["di-homeText"]}>Home</span>
         </div>
@@ -108,6 +117,27 @@ const DiscoverPage = () => {
       <div className={styles["di-middleColumn"]}>
         <h1 className={styles["happeningNowTxt"]}>Happening Now</h1>
         <div className={styles["di-convRow"]}>
+        {/* {allUserFull.allupcomingChats ? (
+								allUserFull.allupcomingChats.map((prop1) => {
+									return (
+										<Conversation
+										articleURL={prop1.articleURL}
+										articleImg={prop1.articleImg}
+										time={prop1.time}
+										convTitle={prop1.convTitle}
+										hostName={currentUserFull.name}
+										roomId={prop1.roomId}
+										desc={prop1.desc}
+										userid={currentUser.id}
+										userpfp={currentUserFull.propic}
+										/>
+										
+									);
+									
+								})
+							) : (
+								<Conversation />
+							)} */}
           <HappeningNowCard convImg={BrushConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
           <HappeningNowCard convImg={FacesConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
           <HappeningNowCard convImg={EyeConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />

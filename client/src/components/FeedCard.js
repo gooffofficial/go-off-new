@@ -112,16 +112,8 @@ const SavedChatsFeed = () => {
 	return <div>No saved conversation chats implemented yet...</div>;
 };
 
-const NewsFeedCard = ({
-	articleURL = '',
-	articleImg = '',
-	time = '',
-	hostUsername = '',
-	convTitle = '',
-	hostAvatar = '',
-	convDesc = '',
-	roomId = '',
-}) => {
+const NewsFeedCard = (props) => {
+	const { articleImg, articleURL, convTitle, convDesc, time, hostUsername, roomId, hostAvatar } = props;
 	let UTCTime = parseInt(time);
 	let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
 	let convoCalendarDay = moment(UTCTime).format('D');
@@ -188,7 +180,8 @@ const NewsFeedCard = ({
 							</div>
 							<div className={styles.feedCardHeadingContainer}>
 								<h4 className={styles.feedCardHeading}>
-									{charLimit(convTitle, 60)}
+									{convTitle}
+									{/* {charLimit(convTitle, 60)} */}
 									{/* SET CHARACTER LIMIT */}
 								</h4>
 							</div>
@@ -207,7 +200,7 @@ const NewsFeedCard = ({
 
 					<div className={styles.feedCardDescriptionContainer}>
 						<p className={styles.feedCardDescription}>
-							{charLimit(convDesc, 190)}
+							{convDesc ? convDesc : ''}{' '}
 						</p>
 					</div>
 
@@ -216,7 +209,7 @@ const NewsFeedCard = ({
 							<div className={styles.hostImageContainer}>
 								<img
 									className={styles.hostImage}
-									src={hostAvatar} //src="/images/stock-face.jpg"
+									src={hostAvatar ? hostAvatar : '/images/stock-face.jpg'} //src="/images/stock-face.jpg"
 									// alt="profile pic"
 								/>
 								<div className={styles.hostStatus}></div>
@@ -235,7 +228,7 @@ const NewsFeedCard = ({
 								<div className={styles.convoButton} onClick={() => {
 									history.push(`/chat/${roomId}`)
 									}}>
-									<p className={styles.buttonText}>{roomId}</p>
+									<p className={styles.buttonText}>GO TO CONVO</p>
 								</div>
 							</div>
 						</div>

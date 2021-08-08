@@ -66,7 +66,7 @@ const App = () => {
 				
 				<Route path="/hosthome" component={HostHome} />
 				<Route path="/home" component={Home} />
-				{/* <HostRoute path="/hosthome" component={HostHome} /> */}
+				{/* <HostRoute path="/home" component={HostHome} /> */}
 				<Route path="/profile/:username" component={PublicProfile} />
 				<Route path="/profile" component={Profile} />
 				<Route path="/accountsettings" component={AccountSettingsPage} />

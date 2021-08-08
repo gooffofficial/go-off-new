@@ -84,6 +84,7 @@
     padding: 23px;
     padding-bottom: 0px;
     min-width: 310px;
+    // overflow: scroll;
   }
   
   .avatarBox, .homeBox, .discoverBox {
@@ -169,6 +170,7 @@
   
   .middleColumn {
     flex-grow: 1;
+    // overflow: scroll;
   }
   
   .rightColumn { 
@@ -320,6 +322,7 @@
     width: 40px;
     height: 40px;
     object-fit: contain;
+    border-radius: 18.5px;
   }
   
   .ProfileLeft {
@@ -483,6 +486,7 @@
   .convImg {
     max-height: 237px;
     max-width: 237px;
+    border-radius: 10px;
   }
   
   // .convImageBox, .convImg {
@@ -662,6 +666,17 @@
   .friendActivityCardRow {
     display: flex;
     margin-bottom: 26px;
+  }
+
+  .upcomingChatsCards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2% 0 15%;
+    flex-direction: column;
+  }
+  .upcomingChatsCards > * {
+    margin-top: 10%;
   }
   
   .userAvatar {

@@ -1,6 +1,7 @@
 import './styles/UpcomingChatsCard.scss';
 
 const UpcomingChatsCard = (props) => {
+	// console.log(props)
 	const { articleImg, articleURL, time, hostName, roomId, convTitle } = props;
 	return (
 		<div className="upcomingChatsCardContainer" onClick="#">

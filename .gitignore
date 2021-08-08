@@ -261,4 +261,4 @@ cython_debug/
 
 .DS_Store
 views/.DS_Store
-/client/src/config.js
+# /client/src/config.js

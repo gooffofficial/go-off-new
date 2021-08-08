@@ -33,6 +33,7 @@ import "rodal/lib/rodal.css";
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
 import NavBar from '../components/NavBar.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
+import Conversation from '../components/Conversation.js'; 
 import firebase from '../firebase.js';
 const fillerUser = {
 	name: 'Username',
@@ -45,7 +46,8 @@ const db = firebase.firestore();
 const HomePage = () => {
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState(fillerUser);
-	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+  const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+  const [allUserFull, setAllUserFull] = useState(fillerUser);
   const [isCreateConvModalVisible, setCreateConvModalVisible] = useState(false)
 
   const openCreateConvModal = () => setCreateConvModalVisible(true);
@@ -64,7 +66,23 @@ const HomePage = () => {
 						withCredentials: true,
 					})
 					.then((res2) => {
-						setCurrentUserFull(res2.data.user);
+            setCurrentUserFull(res2.data.user);
+            
+            axios
+              .get('/api/upcoming', { withCredentials: true})
+              .then((res) => {
+                setCurrentUserFull({
+                  ...res2.data.user,
+                  upcomingChats: res.data,
+                })
+                axios
+									.get('/api/getconvos', { withCredentials: true})
+									.then((res3) => {
+										setAllUserFull({
+											allupcomingChats: res3.data,
+										});
+									});
+              })
 					});
 			})
 			.catch((err) => {
@@ -72,6 +90,9 @@ const HomePage = () => {
 			});
 	}, []);
 
+  console.log(currentUserFull.upcomingChats)
+  console.log(allUserFull.allupcomingChats)
+  console.log(currentUser.id)
 	let trendingImageSources = [
 		'/images/trend-stock1.png',
 		'/images/trend-stock2.png',
@@ -143,8 +164,27 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <Conversation convImg={article2} userid={currentUser.id} />
-          <Conversation convImg={article2} userid={currentUser.id} />
+          {allUserFull.allupcomingChats ? (
+								allUserFull.allupcomingChats.map((prop1) => {
+									return (
+										<Conversation
+											articleURL={prop1.articleURL}
+											articleImg={prop1.articleImg}
+											time={prop1.time}
+											convTitle={prop1.convTitle}
+											hostName={prop1.hostName}
+                      roomId={prop1.roomId}
+                      desc={prop1.desc}
+                      userid={currentUser.id}
+                      userpfp={currentUserFull.propic}
+										/>
+									);
+								})
+							) : (
+								<Conversation />
+							)}
+          {/* <Conversation convImg={article2} userid={currentUser.id} />
+          <Conversation convImg={article2} userid={currentUser.id} /> */}
         </div>
       </div>
       <div className={s.rightColumn}>
@@ -270,81 +310,83 @@ const FriendActivityCard = ({ userAvatar, username, friendName }) => {
 }
 
 //need to pass in all data from convo in order to be able to rsvp using id.
-const Conversation = ({ convImg, userid }) => {
-  let convoId = 'dummyId'
+// const Conversation = ({ userid, props }) => {
+//   let convoId = 'dummyId'
+//   // const { articleURL, time, hostUsername, roomId, hostAvatar } = props;
+//   console.log(props)
+//     const rsvpbuttonhandler = (e) => {
+//         e.preventDefault();
 
-    const rsvpbuttonhandler = (e) => {
-        e.preventDefault();
+//         axios  
+//             .get('/join')
+//             .then((res) => {
+//                 window.alert("You have Succesfully RSVP'd!")
+//                 db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
+//                   querySnapshot.forEach((doc) => {
+//                       // doc.data() is never undefined for query doc snapshots
+//                       let data = doc.data();
+//                       let rsvp = data.rsvp;
+//                       if(rsvp.legnth<10 && data.hostId!==userid){
+//                       rsvp.push(userid)
+//                       db.collection('Conversations').get(doc.id).update({ rsvp:rsvp }).then(res => console.log('success')).catch(err => console.log(err))
+//                     }else{
+//                       console.log('limit reached')
+//                     }
+//                       console.log(doc.id, " => ", doc.data());
+//                   });
+//               })
+//             })
+//             .catch((err) => {
+//                 console.log(`RSVP ERROR: ${err}`)
+//             });
+//     };
 
-        axios  
-            .get('/join')
-            .then((res) => {
-                window.alert("You have Succesfully RSVP'd!")
-                db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
-                  querySnapshot.forEach((doc) => {
-                      // doc.data() is never undefined for query doc snapshots
-                      let data = doc.data();
-                      let rsvp = data.rsvp;
-                      if(rsvp.legnth<10 && data.hostId!==userid){
-                      rsvp.push(userid)
-                      db.collection('Conversations').get(doc.id).update({ rsvp:rsvp }).then(res => console.log('success')).catch(err => console.log(err))
-                    }else{
-                      console.log('limit reached')
-                    }
-                      console.log(doc.id, " => ", doc.data());
-                  });
-              })
-            })
-            .catch((err) => {
-                console.log(`RSVP ERROR: ${err}`)
-            });
-    };
-
-  return <div className={s.conversationRow}>
-    <div className={s.convImageBox}>
-      <img src={convImg} alt="" className={s.convImg} />
-      <img src={bookmarkIcon} alt="" className={s.bookmarkIcon} />
-    </div>
-    <div className={s.convRight}>
-      <div className={s.chatHeading}>
-        <div className={s.leftHeading}>
-          <span className={s.monthText}>MAY</span>
-          <div className={s.dayText}>22</div>
-        </div>
-        <div className={s.middleHeading}>
-          <img src={NYTLogo} alt="NYT Logo" className={s.NYTLogo} />
-          <span className={s.articleTitle}>Zero Waste Toothbrush: How does it really make a difference</span>
-        </div>
-        <div className={s.rightHeading}>
-          <img src={dots3Icon} alt="" className={s.threeDotsIcon} />
-        </div>
-      </div>
-      <span className={s.startTime}>THURSDAY 10:00 PM EST</span>
-      <div className={s.chatTags}>
-        <div className={s.chatTag}>Eco-Friendly</div>
-        <div className={s.chatTag}>Sustainability</div>
-        <div className={s.chatTag}>Zero Waste</div>
-      </div>
-      <p className={s.chatDescription}>
-        With zero waste taking over the world and people becoming more aware of their carbon footprint and how their actions affect the planet more options for sustaiable items have become avaiable.
-      </p>
-      <hr className={s.convLine} />
-      <div className={s.RSVP_Row}>
-        <div className={s.RSVP_Left}>
-          <div className={s.ProfileLeft}>
-            <img src={emilyIcon} alt="Profile Icon" className={s.emilyIcon} />
-            <div className={s.onlineCircle}></div>
-          </div>
-          <div className={s.ProfileNames}>
-            <span className={s.hostText}>HOST</span>
-            <div className={s.profileName}>Emily Patterson</div>
-          </div>
-        </div>
-        <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>RSVP NOW</button>
-      </div>
-    </div>
-  </div>
-}
+//     // const { articleImg, articleURL, time, hostName, roomId, convTitle, convDesc } = props;
+//   return <div className={s.conversationRow}>
+//     <div className={s.convImageBox}>
+//       {/* <img src={articleImg ? articleImg : '/images/Rectangle328.png'} alt="" className={s.convImg} /> */}
+//       <img src={bookmarkIcon} alt="" className={s.bookmarkIcon} />
+//     </div>
+//     <div className={s.convRight}>
+//       <div className={s.chatHeading}>
+//         <div className={s.leftHeading}>
+//           <span className={s.monthText}>MAY</span>
+//           <div className={s.dayText}>22</div>
+//         </div>
+//         <div className={s.middleHeading}>
+//           <img src={NYTLogo} alt="NYT Logo" className={s.NYTLogo} />
+//           {/* <span className={s.articleTitle}>{convTitle}</span> */}
+//         </div>
+//         <div className={s.rightHeading}>
+//           <img src={dots3Icon} alt="" className={s.threeDotsIcon} />
+//         </div>
+//       </div>
+//       {/* <span className={s.startTime}>{time}</span> */}
+//       <div className={s.chatTags}>
+//         <div className={s.chatTag}>Eco-Friendly</div>
+//         <div className={s.chatTag}>Sustainability</div>
+//         <div className={s.chatTag}>Zero Waste</div>
+//       </div>
+//       {/* <p className={s.chatDescription}>
+//         {convDesc}} */}
+//       {/* </p> */}
+//       <hr className={s.convLine} />
+//       <div className={s.RSVP_Row}>
+//         <div className={s.RSVP_Left}>
+//           <div className={s.ProfileLeft}>
+//             <img src={emilyIcon} alt="Profile Icon" className={s.emilyIcon} />
+//             <div className={s.onlineCircle}></div>
+//           </div>
+//           <div className={s.ProfileNames}>
+//             <span className={s.hostText}>HOST</span>
+//             {/* <div className={s.profileName}>{hostName}</div> */}
+//           </div>
+//         </div>
+//         <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>RSVP NOW</button>
+//       </div>
+//     </div>
+//   </div>
+// }
 
 const ChatCard = ({ title, timeStart, chatImage }) => {
   return <div className={s.chatCard}>
