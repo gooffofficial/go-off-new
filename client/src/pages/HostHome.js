@@ -92,7 +92,9 @@ const HomePage = () => {
 
   console.log(currentUserFull.upcomingChats)
   console.log(allUserFull.allupcomingChats)
-  console.log(currentUser.id)
+  console.log(currentUserFull)
+  console.log(allUserFull)
+  // console.log(currentUser.id)
 	let trendingImageSources = [
 		'/images/trend-stock1.png',
 		'/images/trend-stock2.png',
@@ -175,8 +177,8 @@ const HomePage = () => {
 											hostName={prop1.hostName}
                       roomId={prop1.roomId}
                       desc={prop1.desc}
-                      userid={currentUser.id}
-                      userpfp={currentUserFull.propic}
+                      userid={prop1.hostID}
+                      userpfp={prop1.hostpfp}
 										/>
 									);
 								})

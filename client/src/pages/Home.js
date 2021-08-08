@@ -182,8 +182,8 @@ const Home = (props) => {
 										hostName={prop1.hostName}
 										roomId={prop1.roomId}
 										desc={prop1.desc}
-										userid={currentUser.id}
-										userpfp={currentUserFull.propic}
+										userid={prop1.id}
+										userpfp={prop1.propic}
 										/>
 										
 									);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
 import NYTLogo from '../images/liveChatImages/NYT-Logo.png'
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png'
@@ -8,7 +9,7 @@ import bookmarkIcon from '../images/bookmark.svg'
 import firebase from '../firebase.js';
 const db = firebase.firestore();
 const Conversation = (props, userid) => {
-    // console.log(props)
+    console.log(props)
     // console.log(userid)
     let convoId = 'dummyId'
       const rsvpbuttonhandler = (e) => {
@@ -38,9 +39,20 @@ const Conversation = (props, userid) => {
               });
       };
   
-      const { articleImg, articleURL, time, hostName, roomId, convTitle, desc, userpfp } = props;
-      const month = Date(time).toLocaleString().split(' ').splice(1, 1).join(' ').toUpperCase()
-      const date = Date(time).toLocaleString().split(' ').splice(2, 1).join(' ').toUpperCase()
+      const { articleImg, articleURL, time, hostName, roomId, convTitle, desc, userpfp} = props;
+      console.log(time)
+    //   const month = new Date(time)
+    //   const date = new Date(time)
+    //   const month1 = Date(time)
+    //   const date1 = Date(time)
+    //   console.log(month, date)
+    //   console.log(month1, date1)
+    let UTCTime = parseInt(time);
+	let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
+	let convoCalendarDay = moment(UTCTime).format('D');
+	let convoDay = moment(UTCTime).format('dddd').toUpperCase();
+	let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
+	let convoDate = `${convoDay} ${convoHoursMinutes}`;
     return <div className={s.conversationRow}>
       <div className={s.convImageBox}>
         <img src={articleImg ? articleImg : '/images/Rectangle328.png'} alt="" className={s.convImg} />
@@ -49,8 +61,8 @@ const Conversation = (props, userid) => {
       <div className={s.convRight}>
         <div className={s.chatHeading}>
           <div className={s.leftHeading}>
-            <span className={s.monthText}>{month}</span>
-            <div className={s.dayText}>{date}</div>
+            <span className={s.monthText}>{convoMonth}</span>
+            <div className={s.dayText}>{convoCalendarDay}</div>
           </div>
           <div className={s.middleHeading}>
             <img src={NYTLogo} alt="NYT Logo" className={s.NYTLogo} />
@@ -60,14 +72,7 @@ const Conversation = (props, userid) => {
             <img src={dots3Icon} alt="" className={s.threeDotsIcon} />
           </div>
         </div>
-        <span className={s.startTime}>{time
-						? Date(time)
-								.toLocaleString()
-								.split(' ')
-								.splice(0, 4)
-								.join(' ')
-								.toUpperCase()
-						: 'HAPPENING SOON'}</span>
+        <span className={s.startTime}>{convoDate}</span>
         {/* <div className={s.chatTags}>
           <div className={s.chatTag}>Eco-Friendly</div>
           <div className={s.chatTag}>Sustainability</div>
