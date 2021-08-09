@@ -30,7 +30,9 @@ const Participants = () => {
               if(msg.name!==user.name)
               {
                 setParticipants(state=>[...state,msg.name]);
-              }else{console.log('same dude')}
+              }else{
+                
+              }
             }else if(msg.action=='DM'){
                 let newList = participants.filter(x=>x!==msg.uuid)
                 setParticipants(newList);
