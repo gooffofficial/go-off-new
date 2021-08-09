@@ -198,7 +198,15 @@ const LiveChat = () => {
 
   const endConversation = () => {
     pubnub.signal({channel:code,message:{action:'END'}})
-    //use db to make isOpen to false on conversation metadata 
+    //use db to make isOpen to false on conversation metadata
+    db.collection('Conversations').where('convoId','==', code).get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          db.collection('Conversations').doc(doc.id).update({ ended: true}).then(res => console.log('successfully ended')).catch(err => console.log(err))
+          console.log(doc.id, " => ", doc.data());
+      });
+
+  }).catch(err => console.log(err)); 
   }
 
   //handles typing indicator signaling
@@ -289,6 +297,9 @@ const LiveChat = () => {
       (status, response) => {
         const occupancy = response?response.totalOccupancy:null;
         const occupants = response?response.occupants:null;
+        if(metadata.ended){
+          return setContent(<div style={{textAlign: 'center'}}>Conversation has ended</div>)
+        }
         if(occupancy<10){
           //room not full now check for rsvp
           if(metadata.isOpen==false){
@@ -344,7 +355,7 @@ const LiveChat = () => {
 					if (e.message.message || e.message.text.message) {
 						return;
 					} // this is just done to filter out previous versions of the messages
-					if (e.message.user && e.message.text) {
+					if (e.message.user && (e.message.text || e.message.attachment)) {
 						addMessages((messages) => [
 							...messages,
 							{
@@ -375,8 +386,6 @@ const LiveChat = () => {
       withPresence: true,
     });
     setLoading(false);
-    //for example
-    setTimeout(()=>{pubnub.signal({channel:code,message:{action:'AM',name:'something'}})},5000)
     return pubnub.removeListener(), unmount 
   }, []);
   return (

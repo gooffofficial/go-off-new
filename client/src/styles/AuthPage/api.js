@@ -54,15 +54,16 @@ export const sendCreateConv = async (convCreationInfo,userId) => {
     roomId: Math.floor(1000000000 + Math.random() * 9000000000),
   }
   db.collection('Conversations').add({
-    convoId:infoSent.roomId,
+    convoId:String.valueOf(infoSent.roomId),
     title:title,
     description:description,
     articleURL:articleURL,
     hostId:userId,
     isOpen:false,
     date:convTime.getTime() + "",
-    rsvp:[]
-  }).then(doc =>console.log(`conversation ${doc.title} added`)).catch(err => console.log(err));
+    rsvp:[],
+    ended:false
+  }).then(doc =>console.log(`conversation ${title} added`)).catch(err => console.log(err));
   
   return (await axios.post(`/api/convos/create`, infoSent)).data;
 }
