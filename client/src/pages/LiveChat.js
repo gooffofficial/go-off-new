@@ -328,6 +328,7 @@ const LiveChat = () => {
       })
       .then((res) => {
         setCurrentUser(res.data.user);
+        console.log(res.data.user)
         pubnub.setUUID(res.data.user.id);
         let metadata = {...data}
         if(data.hostId==res.data.user.id){
@@ -378,12 +379,15 @@ const LiveChat = () => {
       setLoading(false);
       return
     }
+    console.log('before fetch')
     const unmount = fetchMetaData();
     //this subscribes to a list of channels
+    console.log('about subscribed to channels')
     pubnub.subscribe({
       channels: channels,
       withPresence: true,
     });
+    console.log('about to show content')
     setLoading(false);
     return pubnub.removeListener(), unmount 
   }, []);

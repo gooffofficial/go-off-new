@@ -1,5 +1,4 @@
 #imports
-from pymongo import MongoClient
 import mysql.connector
 import pandas as pd
 from nltk.corpus import stopwords
@@ -7,7 +6,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os.path
-from transcripts import create_transcript
+#from transcripts import create_transcript
 from bson.objectid import ObjectId
 from datetime import datetime
 from statistics import mean
@@ -21,15 +20,18 @@ s3 = boto3.resource('s3')
 bucket = s3.Bucket('gooff')
 color = sns.color_palette()
 
-client: MongoClient = MongoClient("mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true")
+#client: MongoClient = MongoClient("mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true")
 
 mydb = mysql.connector.connect(
   host="new-db.cga2dg8jzozg.us-west-1.rds.amazonaws.com",
   user="admin",
   password="password1"
 )
+user = '1'
+mycursor = mydb.cursor()
+mycursor.execute("SELECT username FROM test_server1.Users U WHERE U.id="+user)
 
-db = client.test
+"""db = client.test
 rooms = db.rooms
 chats = db.chats
 
@@ -241,4 +243,4 @@ def vanity(room_id: str):
     print(str({'total_chars':total_chars,'avg_chars':avg_chars,'total_words':total_words,'avg_words':avg_words, 'num_users':len(usernames)}))
 
 if __name__ == '__main__':
-    vanity(sys.argv[1])
+    vanity(sys.argv[1])"""
