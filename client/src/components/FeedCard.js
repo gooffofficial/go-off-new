@@ -13,15 +13,15 @@ import { useHistory } from 'react-router-dom';
 // NEED TO IMPLEMENT DYNAMIC FUNCTIONALITY FOR:
 // FEED IMAGE - CALENDAR - COMPANY LOGO - HEADING - DATE - TAGS - DESCRIPTION - HOST NAME / HOST AVATAR
 
-export const ChatsFeed = ({ chatCategory }) => {
+export const ChatsFeed = ({ chatCategory, username = "" }) => {
 	// "Upcoming", "Past", "Saved"
 	switch (chatCategory) {
 		case 'Upcoming':
-			return <UpComingChatsFeed />;
+			return <UpComingChatsFeed username={username} />;
 		case 'Past':
-			return <PastChatsFeed />;
+			return <PastChatsFeed username={username} />;
 		case 'Saved':
-			return <SavedChatsFeed />;
+			return <SavedChatsFeed username={username} />;
 		default:
 			return;
 	}
@@ -29,12 +29,12 @@ export const ChatsFeed = ({ chatCategory }) => {
 
 
 
-const UpComingChatsFeed = () => {
+const UpComingChatsFeed = ({ username }) => {
 	const {
 		data: upcomingChats,
 		isLoading,
 		error,
-	} = useQuery('upcomingChat', getUpcomingChats);
+	} = useQuery(`upcomingChat${username}`, () => getUpcomingChats(username));
 	if (isLoading) return <p>Loading...</p>;
 	if (error) return <p>Unable loading upcoming chats...</p>;
 	if (!upcomingChats || upcomingChats.length === 0)
@@ -69,12 +69,12 @@ const UpComingChatsFeed = () => {
 	);
 };
 
-const PastChatsFeed = () => {
+const PastChatsFeed = ({ username }) => {
 	const {
 		data: pastChats,
 		isLoading,
 		error,
-	} = useQuery('pastChats', getPastChats);
+	} = useQuery(`pastChats${username}`, () => getPastChats(username));
 	if (isLoading) return <p>Loading...</p>;
 	if (error) return <p>Unable loading upcoming chats...</p>;
 	if (!pastChats || pastChats.length === 0)
@@ -122,8 +122,6 @@ const NewsFeedCard = (props) => {
 	let convoDate = `${convoDay} ${convoHoursMinutes}`;
 
 	const history = useHistory();
-	// console.log("upComingChats: ", upComingChats)
-	// console.log("OOF")z
 	// const {
 	//  feedImage,
 	//  calendar,

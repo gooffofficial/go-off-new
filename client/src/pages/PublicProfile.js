@@ -217,7 +217,7 @@ const PublicProfile = (props) => {
 					</div>
 
 					<div className={styles.profCenterFeed}>
-						<ChatsFeed chatCategory={chatCategory} />
+						<ChatsFeed chatCategory={chatCategory} username={viewUser.username} />
 					</div>
 				</div>
 			</div>

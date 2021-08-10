@@ -98,12 +98,13 @@
 	color: #3f3f46;
 }
 .dateContainer {
-	margin: 2% 0;
+	// margin: 2% 0;
 }
 .date {
-	color: #828282;
-	font-weight: 400;
-	font-size: 0.9rem;
+  color: #828282;
+  font-weight: 400;
+  font-size: 0.85rem;
+  margin-top: 4px;
 }
 .cardTagContainer {
 	display: flex;
@@ -112,7 +113,8 @@
 	margin: 0 2%;
 }
 .feedCardDescriptionContainer {
-	padding: 3% 0;
+	padding-top: 2px;
+  padding-bottom: 5px;
 	border-bottom: 1px solid #e5e5e5;
 }
 .feedCardDescription {
@@ -182,9 +184,9 @@
 }
 .hostBadge {
 	background: linear-gradient(180deg, #3a86ff 0%, #5667ff 100%);
-	padding: 0 5%;
 	width: fit-content;
-	border-radius: 5px;
+  border-radius: 3px;
+  padding: 0.8px 3.2px;
 }
 .badgeText {
 	font-size: 0.7rem;
