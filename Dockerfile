@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:latest
 # Create app directory
 WORKDIR /app
 
@@ -25,6 +25,13 @@ rm -rf /var/lib/apt/lists/*
 # RUN npm ci --only=production
 
 COPY . .
+
+RUN cd /app/client && \
+    yarn add moment && \
+    npm install && \
+    npm run build
+
+
 RUN yarn install && \ 
 pip3 install -r requirements.txt && \
 python3 -m nltk.downloader popular -d /usr/nltk_data && \
@@ -36,5 +43,17 @@ python3 -m nltk.downloader vader_lexicon -d /usr/nltk_data && \
 python3 -m nltk.downloader averaged_perceptron_tagger -d /usr/nltk_data
 EXPOSE 8000
 EXPOSE 4050
+EXPOSE 3000
 
-CMD [ "node", "server.js" ]
+RUN mkdir client || :
+RUN mkdir backrun || :
+
+COPY client/package.json /app/client/package.json
+COPY package.json /app/backrun/package.json
+COPY wrapper_script.sh wrapper_script.sh
+RUN chmod a+x wrapper_script.sh
+RUN touch client-out.log
+RUN touch backrun-out.log
+CMD ./wrapper_script.sh
+
+# CMD [ "node", "server.js" ]

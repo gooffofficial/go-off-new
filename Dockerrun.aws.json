@@ -1,7 +1,7 @@
 {
     "AWSEBDockerrunVersion": "1",
     "Image": {
-      "Name": "gooffofficial/gooff"
+      "Name": "gooffofficial/go-off-new"
     },
     "authentication": {
         "bucket": "elasticbeanstalk-us-west-1-855995294489",

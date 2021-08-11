@@ -23,98 +23,98 @@ router.use('/users', require('./users'));
 router.use('/chat', require('./chat'))
 router.use('/convos', require('./convos'))
 
-router.get('/folders', auth.required, (req, res, next) => {
-    const {payload: {id}} = req;
-    db.Folder.findAll({
-        where: {
-            UserId: id
-        }
-    }).then((folders) => {
-        return res.json(folders)
-    })
-})
+// router.get('/folders', auth.required, (req, res, next) => {
+//     const {payload: {id}} = req;
+//     db.Folder.findAll({
+//         where: {
+//             UserId: id
+//         }
+//     }).then((folders) => {
+//         return res.json(folders)
+//     })
+// })
 
-router.get('/getarticles', auth.required,[query('o').escape()], (req, res, next) => {
-    const {payload: {id}} = req;
-    var offset = req.query["o"]
-    // Query for next 4 articles from people the user is following based on the offset in the GET parameters
-    // seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
+// router.get('/getarticles', auth.required,[query('o').escape()], (req, res, next) => {
+//     const {payload: {id}} = req;
+//     var offset = req.query["o"]
+//     // Query for next 4 articles from people the user is following based on the offset in the GET parameters
+//     // seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
     
-    //Query for next 4 articles from the available pool
-    seq.query("SELECT article FROM test_server1.SavedArticles S ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
-    .then(async (articles) => { 
-        console.log("LENGTH\n\n\n\n" + articles[0].length)
-        var arts = []
-        for(var i=0; i<articles[0].length; i++){
-            arts.push(articles[0][i].article)
-        } 
-        console.log(arts)
-        var arts2 = []
-        // For every article found, we add the image title and link
-        for(const art of arts){
-            var art2 = {}
-            // Find the article in the Articles table in the database
-            let a = await db.Article.findOne({
-                where: {
-                    url: art
-                }
-            })
-            if (!a) {
-            art2['img'] = ""
-            art2['title'] = ""
-            art2['link'] = ""
-            }else{
-                art2['img'] = a.getArticleInfo()['img']
-                art2['title'] = a.getArticleInfo()['title']
-                art2['link'] = a.getArticleInfo()['url']
-            }
-            arts2.push(art2)
-        }
-        console.log(arts2.length)
-        arts2 = arts2.reverse();
-        // Check to make sure we return an array of length 4
-        // Else fill in dummy entries
-        if(arts2.length == 0){
-            let a = {
-                img: '',
-                title: '',
-                link: '' 
-            }
-            arts2.push(a);
-            arts2.push(a);
-            arts2.push(a);
-            arts2.push(a);
-        }
-        if (arts.length == 1){
-            let a = {
-                img: '',
-                title: '',
-                link: ''
-            }
-            arts2.push(a);
-            arts2.push(a);
-            arts2.push(a);
-        }
-        if (arts.length == 2){
-            let a = {
-                img: '',
-                title: '',
-                link: ''
-            }
-            arts2.push(a)
-            arts2.push(a)
-        }
-        if (arts.length == 3){
-            let a = {
-                img: '',
-                title: '',
-                link: ''
-            }
-            arts2.push(a)
-        }
-        return res.json(arts2);
-    })
-})
+//     //Query for next 4 articles from the available pool
+//     seq.query("SELECT article FROM test_server1.SavedArticles S ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
+//     .then(async (articles) => { 
+//         console.log("LENGTH\n\n\n\n" + articles[0].length)
+//         var arts = []
+//         for(var i=0; i<articles[0].length; i++){
+//             arts.push(articles[0][i].article)
+//         } 
+//         console.log(arts)
+//         var arts2 = []
+//         // For every article found, we add the image title and link
+//         for(const art of arts){
+//             var art2 = {}
+//             // Find the article in the Articles table in the database
+//             let a = await db.Article.findOne({
+//                 where: {
+//                     url: art
+//                 }
+//             })
+//             if (!a) {
+//             art2['img'] = ""
+//             art2['title'] = ""
+//             art2['link'] = ""
+//             }else{
+//                 art2['img'] = a.getArticleInfo()['img']
+//                 art2['title'] = a.getArticleInfo()['title']
+//                 art2['link'] = a.getArticleInfo()['url']
+//             }
+//             arts2.push(art2)
+//         }
+//         console.log(arts2.length)
+//         arts2 = arts2.reverse();
+//         // Check to make sure we return an array of length 4
+//         // Else fill in dummy entries
+//         if(arts2.length == 0){
+//             let a = {
+//                 img: '',
+//                 title: '',
+//                 link: '' 
+//             }
+//             arts2.push(a);
+//             arts2.push(a);
+//             arts2.push(a);
+//             arts2.push(a);
+//         }
+//         if (arts.length == 1){
+//             let a = {
+//                 img: '',
+//                 title: '',
+//                 link: ''
+//             }
+//             arts2.push(a);
+//             arts2.push(a);
+//             arts2.push(a);
+//         }
+//         if (arts.length == 2){
+//             let a = {
+//                 img: '',
+//                 title: '',
+//                 link: ''
+//             }
+//             arts2.push(a)
+//             arts2.push(a)
+//         }
+//         if (arts.length == 3){
+//             let a = {
+//                 img: '',
+//                 title: '',
+//                 link: ''
+//             }
+//             arts2.push(a)
+//         }
+//         return res.json(arts2);
+//     })
+// })
 
 router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => {
     const {payload: {id}} = req
@@ -151,7 +151,15 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                         id: c.host
                     }
                 })
-                console.log(user)
+                // console.log(c.host)
+                // console.log(c.id)
+                let prof = await db.Profile.findOne({
+                    
+                    where: {
+                        id: c.host
+                    }
+                })
+                // console.log(prof)
                 // console.log(c.host)
                 // console.log(user)
                 // if(c.host != user.id){
@@ -160,9 +168,12 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                         'articleImg': art.img,
                         'time': c.time,
                         'hostName': user.name,
+                        'hostNum': user.phonenumber,
                         'roomId': c.roomId,
                         'convTitle': c.title,
                         'desc': c.description,
+                        'hostID': user.id,
+                        'hostpfp': prof.ppic,
                     })
                 // }
                 
@@ -237,39 +248,39 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
 })
 
 //get upcoming conversations for a user
-router.get('/upcoming', auth.required, async (req, res, next) => {
-    const {payload: {id}} = req;
-    console.log("AHH\n\n\n\n\n\n\n\n")
-    db.Convo_members.findAll({
-        where: {
-            UserId: id
-        }
-    }).then(async (convoIds) => {
-        let convos = []
-        let convsObjects = []
-        for (let i=0; i<convoIds.length; i++) {
-            var conv = await db.Convo.findOne({
-                where: {
-                    id: convoIds[i].ConvoId
-                }
-            })
-            // Check the date of the convo to see if it is within 30 minutes of current
-            if (Date.now() - conv.time < 30*(60*1000)){
-                let article = await db.Article.findOne({ where: { url: conv.article } })
-                let user = await db.User.findOne({ where: { id: conv.host } })
-                convos.push({
-                  'articleURL': conv.article,
-                  'articleImg': article.img,
-                  'time': conv.time,
-                  'hostname': user.name,
-                  'roomId': conv.roomId,
-                  'convTitle': conv.title,
-                })
-            }
-        }
-        return res.status(200).json(convos)       
-    })
-})
+// router.get('/upcoming', auth.required, async (req, res, next) => {
+//     const {payload: {id}} = req;
+//     console.log("AHH\n\n\n\n\n\n\n\n")
+//     db.Convo_members.findAll({
+//         where: {
+//             UserId: id
+//         }
+//     }).then(async (convoIds) => {
+//         let convos = []
+//         let convsObjects = []
+//         for (let i=0; i<convoIds.length; i++) {
+//             var conv = await db.Convo.findOne({
+//                 where: {
+//                     id: convoIds[i].ConvoId
+//                 }
+//             })
+//             // Check the date of the convo to see if it is within 30 minutes of current
+//             if (Date.now() - conv.time < 30*(60*1000)){
+//                 let article = await db.Article.findOne({ where: { url: conv.article } })
+//                 let user = await db.User.findOne({ where: { id: conv.host } })
+//                 convos.push({
+//                   'articleURL': conv.article,
+//                   'articleImg': article.img,
+//                   'time': conv.time,
+//                   'hostname': user.name,
+//                   'roomId': conv.roomId,
+//                   'convTitle': conv.title,
+//                 })
+//             }
+//         }
+//         return res.status(200).json(convos)       
+//     })
+// })
 
 //get upcoming conversations for a user
 router.get('/upcoming', auth.required, async (req, res, next) => {
@@ -345,16 +356,16 @@ router.get('/pastconv', auth.required, async (req, res, next) => {
   })
 })
 
-router.get('/savedarts', auth.required, (req, res, next) => {
-    const {payload: {id}} = req; 
-    var foldname = req.query.namez;
-    console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHH", foldname, id);
-    db.Folder.findOne({
-        where: {
-            foldername: foldname, 
-            UserId: id
-        }
-    }).then((folder) => {return res.json({id: folder.id})})
+// router.get('/savedarts', auth.required, (req, res, next) => {
+//     const {payload: {id}} = req; 
+//     var foldname = req.query.namez;
+//     console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHH", foldname, id);
+//     db.Folder.findOne({
+//         where: {
+//             foldername: foldname, 
+//             UserId: id
+//         }
+//     }).then((folder) => {return res.json({id: folder.id})})
     // db.Folder.findAll({
     //     where:{
     //         UserId: id,
