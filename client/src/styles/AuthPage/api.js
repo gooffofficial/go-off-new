@@ -3,6 +3,16 @@ import axios from 'axios'
 import firebase from '../../firebase.js'
 
 const db = firebase.firestore();
+const getCurrentDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const day = today.getDate();
+  const hour = today.getHours();
+  const minute = today.getMinutes();
+  const second = today.getSeconds();
+  return `${year}-${month<10?'0'+month:month}-${day<10?'0'+day:day} ${hour<10?'0'+hour:hour}:${minute<10?'0'+minute:minute}:${second<10?'0'+second:second}`
+}
 
 // let isLocalhost = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'; 
 // export let API_LINK = isLocalhost ? 'http://localhost:8000' : 'PRODUCTION_SITE_LINK_HERE'
@@ -42,8 +52,9 @@ export const charLimit = (text, charMaxLength) => {
 }
 
 export const sendCreateConv = async (convCreationInfo,userId) => {
-  const { articleURL, time, title, description } = convCreationInfo;
+  const { articleURL, time, title, description } = convCreationInfo; //*!description is the same as articleURL when
   const convTime = new Date(time)
+  const currentDate= getCurrentDate()
   const infoSent = { 
     article: articleURL, 
     convoTime: convTime.getTime() + "", 
@@ -54,16 +65,19 @@ export const sendCreateConv = async (convCreationInfo,userId) => {
     roomId: Math.floor(1000000000 + Math.random() * 9000000000),
   }
   db.collection('Conversations').add({
-    convoId:String.valueOf(infoSent.roomId),
+    convoId:String(infoSent.roomId),
     title:title,
     description:description,
     articleURL:articleURL,
     hostId:userId,
     isOpen:false,
-    date:convTime.getTime() + "",
+    time:convTime.getTime() + "",
     rsvp:[],
-    ended:false
+    ended:false,
+    createdAt:currentDate,
+    updatedAt:currentDate,
+    tz:0
   }).then(doc =>console.log(`conversation ${title} added`)).catch(err => console.log(err));
   
-  return (await axios.post(`/api/convos/create`, infoSent)).data;
+  return (await axios.post(`/api/convos/create`, infoSent)).data; //*!not working
 }

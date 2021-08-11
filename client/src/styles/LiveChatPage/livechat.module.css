@@ -371,6 +371,7 @@
     padding: 0px 8px 7px 8px;
     overflow: scroll;
     height:82vh;
+    overflow-x: hidden;
   }
   
   .meMessageBox {

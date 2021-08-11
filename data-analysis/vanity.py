@@ -27,6 +27,7 @@ mydb = mysql.connector.connect(
   user="admin",
   password="password1"
 )
+
 user = '1'
 mycursor = mydb.cursor()
 mycursor.execute("SELECT username FROM test_server1.Users U WHERE U.id="+user)
