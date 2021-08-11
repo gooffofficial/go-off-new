@@ -81,10 +81,10 @@
   
   .di-leftColumn {
     background: rgba(58, 134, 255, 0.08);
-    padding-top: 30px;
-    padding-left: 22px;
-    padding-right: 22px;
-    min-width: 300px;
+    padding-top: 20px;
+    padding-left: 14px;
+    padding-right: 14px;
+    min-width: 220px;
   }
   
   .di-avatarBox, .di-homeBox, .di-discoverBox {
@@ -113,14 +113,14 @@
   .di-avatarName, .di-globeText, .di-homeText  {
     color: #757D8A;
     font-weight: 500;
-    font-size: 22px;
+    font-size: 18px;
   }
   
   .di-upcommingHeading {
    font-family: Poppins;
    font-style: normal;
    font-weight: 500;
-   font-size: 24px;
+   font-size: 21px;
    line-height: 30px;
    color: #757D8A;
    margin-top: 32px;
@@ -189,41 +189,41 @@
     font-family: Poppins;
     font-style: normal;
     font-weight: 500;
-    font-size: 36px;
+    font-size: 29px;
     line-height: 54px;
     color: #757D8A;
-    margin-top: 18px;
-    margin-bottom: 20px;
+    margin-top: 11px;
+    margin-bottom: 7px;
   }
 
-  .happeningNowTxt {
+  /* .happeningNowTxt {
     margin-top: 42px;
-  }
+  } */
   
   .di-convRow {
     display: flex;
-    margin-bottom: 35px;
+    margin-bottom: 10px;
   }
 
   .HappeningNowCard, .TrendingCard {
     display: flex;
     flex-direction: column;
-    margin-right: 35px;
-    max-width: 420px;
+    margin-right: 18px;
+    max-width: 320px;
   }
 
   .convDateStart {
     color: #01CB01;
     margin-top: 7px;
     font-weight: 600;
-    font-size: 17px;
+    font-size: 14px;
   }
 
   .convDateStartTrending {
     color: #828282;
     margin-top: 7px;
     font-weight: 600;
-    font-size: 17px;
+    font-size: 14px;
   }
 
   .convTitle {
@@ -231,14 +231,15 @@
     font-style: normal;
     color: #3F3F46;
     font-weight: 500;
+    font-size: 18px;
   }
   
   .di-convImg {
     border-radius: 10px;
-    min-width: 420px;
-    min-height: 280px;
-    max-width: 420px;
-    max-height: 280px;
+    min-width: 320px;
+    min-height: 240px;
+    max-width: 239px;
+    max-height: 242px;
   }
   
   .di-browseRow1, .di-browseRow2 {
@@ -318,10 +319,10 @@
 
   .rightColumn {
     background: rgba(58, 134, 255, 0.08);
-    padding-top: 30px;
-    padding-left: 22px;
-    padding-right: 22px;
-    min-width: 375px;
+    padding-top: 20px;
+    padding-left: 14px;
+    padding-right: 14px;
+    min-width: 310px;
   }
 
   .peopleIcon {
@@ -352,8 +353,10 @@
 
   .hostAvatar {
     margin-right: 9px;
-    height: 60px;
+    height: 50px;
     width: auto;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .hostInfo {
@@ -364,14 +367,14 @@
 
   .hostName {
     color: #3F3F46;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 20px;
   }
 
   .followersAmt {
     color: #828282;
-    font-size: 17px;
+    font-size: 15px;
   }
 
   .rightSideFeatured {
@@ -384,17 +387,17 @@
     background: linear-gradient(180deg, #3A86FF 0%, #5667FF 100%);
     border-radius: 5px;
     color: white;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.8px;
-    padding: 6px 15px;
+    padding: 6px 13px;
     border: none;
   }
 
   .followingBtn {
     border-radius: 5px;
     background-color: #dae1ffc0;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
     padding: 6px 7px;
     letter-spacing: 0.5px;

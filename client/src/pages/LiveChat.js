@@ -27,6 +27,8 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import firebase from "../firebase.js";
 
+const fastapi = axios.create({baseURL: "https://localhost:8080", timeout: 10000});
+
 const LiveChat = () => {
   const db = firebase.firestore()
   //storage is
@@ -113,7 +115,6 @@ const LiveChat = () => {
       return 
     }
     //uploads the file
-    console.log('here')
     await fileRef.put(file)
     setFile('')
   }
@@ -130,18 +131,14 @@ const LiveChat = () => {
 
   //this on submit function is publishing the message to the channel
   const onSubmit = async (message, e) => {
-    console.log(message)
     if(message.message=='' && !file){
       return
     }
     const storageRef = firebase.storage().ref();
     if(file.name){
-      console.log('file', file.name)
     const fileRef = storageRef.child(file.name);
     uploadFile(fileRef).then(res => {
-      console.log('upload success')
       fileRef.getDownloadURL().then(fileURL=>{
-        console.log('URL success')
         pubnub.publish(
           {
             channel: channels[0],
@@ -166,7 +163,6 @@ const LiveChat = () => {
       ).catch()
   }).catch(error =>console.log(error))
 }else{
-    console.log('no pic')
     pubnub.publish(
       {
         channel: channels[0],
@@ -192,21 +188,24 @@ const LiveChat = () => {
   const handleButton = () => {
 	pubnub.unsubscribe({channels: channels});
 	pubnub.signal({channel:code,message:{action:'DM',uuid:pubnub.getUUID()}});
-	console.log('left');
 	isHost?endConversation():history.push('/home')
   }
 
   const endConversation = () => {
+    //fastapi.get('/').then(res => console.log(res)).catch(err => console.log(err))
     pubnub.signal({channel:code,message:{action:'END'}})
     //use db to make isOpen to false on conversation metadata
     db.collection('Conversations').where('convoId','==', code).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          db.collection('Conversations').doc(doc.id).update({ ended: true}).then(res => console.log('successfully ended')).catch(err => console.log(err))
+          db.collection('Conversations').doc(doc.id).update({ ended: true}).then(res => console.log('successfully ended')).catch(err => console.log(`Could not end ${err}`))
           console.log(doc.id, " => ", doc.data());
+          axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
       });
 
-  }).catch(err => console.log(err)); 
+  }).catch(err => console.log(`did not find convo ${err}`));
+
+
   }
 
   //handles typing indicator signaling
@@ -329,6 +328,7 @@ const LiveChat = () => {
       })
       .then((res) => {
         setCurrentUser(res.data.user);
+        console.log(res.data.user)
         pubnub.setUUID(res.data.user.id);
         let metadata = {...data}
         if(data.hostId==res.data.user.id){
@@ -379,12 +379,15 @@ const LiveChat = () => {
       setLoading(false);
       return
     }
+    console.log('before fetch')
     const unmount = fetchMetaData();
     //this subscribes to a list of channels
+    console.log('about subscribed to channels')
     pubnub.subscribe({
       channels: channels,
       withPresence: true,
     });
+    console.log('about to show content')
     setLoading(false);
     return pubnub.removeListener(), unmount 
   }, []);

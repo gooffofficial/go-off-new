@@ -10,7 +10,7 @@ const Chat = ({	messages, user }) => {
 	return (
 		<div>
 			{messages.map((message, index) => {
-				console.log(message)//renders a lot 
+				//console.log(message)//renders a lot 
 				if (message.uuid == user.id) {
 					if(!message.attachment){
 						return (
@@ -133,7 +133,8 @@ const Attachment = ({isHost, user, src, me=true}) => {
 		</div>
 		</>
 	)}else{
-		<>
+		return(
+			<>
 		<div className={styles['otherMessageBox']}>
 			<div className={styles['leftMessageBox']}>
 				<span className={styles['messageUserName']}>{user}</span>
@@ -149,6 +150,7 @@ const Attachment = ({isHost, user, src, me=true}) => {
 			/>
 		</div>
 		</>
+		)
 	}
 }
 
