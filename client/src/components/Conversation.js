@@ -8,6 +8,12 @@ import dots3Icon from '../images/liveChatImages/dots3.png'
 import bookmarkIcon from '../images/bookmark.svg'
 import firebase from '../firebase.js';
 
+// const twilio = require('twilio')
+// const sgMail = require('@sendgrid/mail')
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+// var twilioClient = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
+
+
 const Conversation = (props,{ userid }) => {
   let convoId = 'Test'
   let dummyId = 54
@@ -34,9 +40,14 @@ const Conversation = (props,{ userid }) => {
           });
 
       }).catch(err => console.log(err));
+      // twilioClient.messages.create({
+      //   to: hostNum,
+      //   from: process.env.TWILIO_PHONE_NUMBER, 
+      //   body: 'Hello ' + hostName + ', A user just RSVPd to your conversation: ' + convTitle + '.'
+      // })
       };
   
-      const { articleImg, articleURL, time, hostName, roomId, convTitle, desc, userpfp} = props;
+      const { articleImg, articleURL, time, hostName, roomId, convTitle, desc, userpfp, hostNum} = props;
       console.log(time)
     //   const month = new Date(time)
     //   const date = new Date(time)
@@ -82,7 +93,7 @@ const Conversation = (props,{ userid }) => {
         <div className={s.RSVP_Row}>
           <div className={s.RSVP_Left}>
             <div className={s.ProfileLeft}>
-              <img src={userpfp} alt="Profile Icon" className={s.emilyIcon} />
+              <img src={userpfp}  className={s.emilyIcon} />
               <div className={s.onlineCircle}></div>
             </div>
             <div className={s.ProfileNames}>

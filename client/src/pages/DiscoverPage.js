@@ -117,7 +117,7 @@ const DiscoverPage = () => {
       <div className={styles["di-middleColumn"]}>
         <h1 className={styles["happeningNowTxt"]}>Happening Now</h1>
         <div className={styles["di-convRow"]}>
-        {/* {allUserFull.allupcomingChats ? (
+        {allUserFull.allupcomingChats ? (
 								allUserFull.allupcomingChats.map((prop1) => {
 									return (
 										<Conversation
@@ -137,20 +137,21 @@ const DiscoverPage = () => {
 								})
 							) : (
 								<Conversation />
-							)} */}
-          <HappeningNowCard convImg={BrushConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
+							)}
+
+          {/* <HappeningNowCard convImg={BrushConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
           <HappeningNowCard convImg={FacesConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
-          <HappeningNowCard convImg={EyeConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
+          <HappeningNowCard convImg={EyeConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' /> */}
           {/* <img src={BrushConv} alt="" className={styles["di-convImg"]} />
           <img src={FacesConv} alt="" className={styles["di-convImg"]} />
           <img src={EyeConv} alt="" className={styles["di-convImg"]} /> */}
         </div>
         <h2 className={styles["trendingTxt"]}>Trending</h2>
-        <div className={styles["di-convRow"]}>
+        {/* <div className={styles["di-convRow"]}>
           <TrendingCard convImg={BrushConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
           <TrendingCard convImg={FacesConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
           <TrendingCard convImg={EyeConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
-        </div>
+        </div> */}
         {/* <div className={styles["di-browseRow1"]}>
           <div className={`${styles['di-browseBox']} ${styles['di-LGBTQ']}`}>LGBTQ+</div>
           <div className={`${styles['di-browseBox']} ${styles['di-Politics']}`}>Politics</div>

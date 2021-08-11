@@ -19,7 +19,7 @@ const fillerUser = {
 const Profile = (props) => {
 	const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
-  	const [chatCategory, setChatCategory] = useState("Upcoming") // "Upcoming", "Past", "Saved"
+  const [chatCategory, setChatCategory] = useState("Upcoming") // "Upcoming", "Past", "Saved"
 
 	const history = useHistory();
 

@@ -170,7 +170,7 @@
   
   .middleColumn {
     flex-grow: 1;
-    // overflow: scroll;
+    overflow: scroll;
   }
   
   .rightColumn { 
@@ -398,6 +398,7 @@
   
   .insideMiddleColumn {
     height: 100%;
+    overflow: scroll;
   }
   
   .userBox {

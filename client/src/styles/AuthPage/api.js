@@ -41,9 +41,16 @@ export const sendVerifyCheck = async (email, verifyCode) => { // Basically, if t
   } catch (err) { console.log("error", err); return false; }
 }
 
-export const getUpcomingChats = async () => (await axios.get(`/api/upcoming`)).data;
-export const getAllUpcomingChats = async () => (await axios.get('/api/getconvos')).data;
-export const getPastChats = async () => (await axios.get(`/api/pastconv`)).data;
+export const getUpcomingChats = async (username = "") => { 
+  if (username === "") return (await axios.get(`/api/upcoming`)).data
+  else return (await axios.get(`/api/upcoming/${username}`)).data
+}
+export const getAllUpcomingChats = async (username) => (await axios.get('/api/getconvos')).data;
+
+export const getPastChats = async (username = "") => { 
+  if (username === "") return (await axios.get(`/api/pastconv`)).data;
+  else return (await axios.get(`/api/pastconv/${username}`)).data;
+}
 
 export const charLimit = (text, charMaxLength) => {
   console.log(text)

@@ -165,25 +165,28 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          {allUserFull.allupcomingChats ? (
-								allUserFull.allupcomingChats.map((prop1) => {
-									return (
-										<Conversation
-											articleURL={prop1.articleURL}
-											articleImg={prop1.articleImg}
-											time={prop1.time}
-											convTitle={prop1.convTitle}
-											hostName={prop1.hostName}
-                      roomId={prop1.roomId}
-                      desc={prop1.desc}
-                      userid={prop1.hostID}
-                      userpfp={prop1.hostpfp}
-										/>
-									);
-								})
-							) : (
-								<Conversation user={currentUser.id}/>
-							)}
+          <div className={s.centerFeed}>
+            {allUserFull.allupcomingChats ? (
+                  allUserFull.allupcomingChats.map((prop1) => {
+                    return (
+                      <Conversation
+                        articleURL={prop1.articleURL}
+                        articleImg={prop1.articleImg}
+                        time={prop1.time}
+                        convTitle={prop1.convTitle}
+                        hostName={prop1.hostName}
+                        roomId={prop1.roomId}
+                        desc={prop1.desc}
+                        userid={prop1.hostID}
+                        userpfp={prop1.hostpfp}
+                        hostNum={prop1.hostNum}
+                      />
+                    );
+                  })
+                ) : (
+                  <Conversation user={currentUser.id}/>
+                )}
+            </div>
           {/* <Conversation convImg={article2} userid={currentUser.id} />
           <Conversation convImg={article2} userid={currentUser.id} /> */}
         </div>
