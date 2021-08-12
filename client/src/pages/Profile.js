@@ -23,6 +23,14 @@ const Profile = (props) => {
 
 	const history = useHistory();
 
+  const goToHomePage = (evt) => {
+    let isHost = currentUserFull.host === "(Host)";
+    if (isHost)
+      history.push('/hosthome')
+    else 
+      history.push('/home')
+  }
+
 	useEffect(() => {
 		axios
 			.get(`/api/users/current`, {
@@ -55,7 +63,7 @@ const Profile = (props) => {
 
 	return (
 		<div className={styles.profilePageContainer}>
-			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} />
+			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
 			<div className={styles.subContainer}>
 				<div className={styles.leftSideBar}>
 					<div className={styles.sideBarLinks}>
@@ -73,7 +81,7 @@ const Profile = (props) => {
 						</div>
 						<div
 							className={styles.sideBarHome}
-							onClick={() => history.push('/home')}
+							onClick={goToHomePage}
 						>
 							<svg
 								width="30"

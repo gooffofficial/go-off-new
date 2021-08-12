@@ -79,7 +79,7 @@ const PublicProfile = (props) => {
 
 	return (
 		<div className={styles.profilePageContainer}>
-			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} />
+			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
 			<div className={styles.subContainer}>
 				<div className={styles.leftSideBar}>
 					<div className={styles.sideBarLinks}>

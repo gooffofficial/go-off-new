@@ -34,6 +34,15 @@ const DiscoverPage = () => {
 	const history = useHistory();
 	// const history = useHistory();
 
+  const goToHomePage = (evt) => {
+    console.log("currentUserFull.host: ", currentUserFull.host)
+    let isHost = currentUserFull.host === "(Host)";
+    if (isHost)
+      history.push('/hosthome')
+    else 
+      history.push('/home')
+  }
+
 	useEffect(() => {
 		axios
 			.get(`/api/users/current`, {
@@ -79,14 +88,14 @@ const DiscoverPage = () => {
     ];
 
   return <div className={styles["discoverPage"]}>
-    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic}/>
+    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
     <div className={styles["di-mainContent"]}>
       <div className={styles["di-leftColumn"]}>
         <div className={styles["di-avatarBox"]}>
           <img src={currentUserFull.propic} alt="avatar" className={styles["di-prekshaIcon"]} />
           <span className={styles["di-avatarName"]}>{currentUser.name}</span>
         </div>
-        <div className={styles["di-homeBox"]} onClick={() => history.push('/home')}>
+        <div className={styles["di-homeBox"]} onClick={goToHomePage}>
           <img src={homeIcon} alt="homeImage" className={styles["di-homeIcon"]} />
           <span className={styles["di-homeText"]}>Home</span>
         </div>

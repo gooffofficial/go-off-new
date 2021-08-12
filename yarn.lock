@@ -4413,7 +4413,7 @@ package.json@^2.0.1:
 
 package@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.npmjs.org/package/-/package-1.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/package/-/package-1.0.1.tgz#d25a1f99e2506dcb27d6704b83dca8a312e4edcc"
   integrity sha1-0lofmeJQbcsn1nBLg9yooxLk7cw=
 
 parse-json@^2.1.0:

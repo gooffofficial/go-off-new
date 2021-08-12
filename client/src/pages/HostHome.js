@@ -51,6 +51,14 @@ const HomePage = () => {
 
   const openCreateConvModal = () => setCreateConvModalVisible(true);
   const closeCreateConvModal = () => setCreateConvModalVisible(false);
+  
+  const goToHomePage = (evt) => {
+    let isHost = currentUserFull.host === "(Host)";
+    if (isHost)
+      history.push('/hosthome')
+    else 
+      history.push('/home')
+  }
 
 	useEffect(() => {
 		axios
@@ -102,14 +110,14 @@ const HomePage = () => {
     ];
     
   return <div className={s.homePage}>
-   <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} />
+   <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
     <div className={s.mainContent}>
       <div className={s.leftColumn}>
         <div className={s.avatarBox}>
           <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
           <span className={s.avatarName}>{ currentUser.name }</span>
         </div>
-        <div className={s.homeBox} onClick = {() => history.push('/home')}>
+        <div className={s.homeBox} onClick = {goToHomePage}>
           <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
           <span className={s.homeText}>Home</span>
         </div>
