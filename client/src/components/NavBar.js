@@ -7,7 +7,7 @@ import 'react-dropdown/style.css';
 import axios from 'axios';
 
 const NavBar = (props) => {
-	const { name, avatarSource } = props;
+	const { name, avatarSource, host = "" } = props;
 
 	const [searchInput, setSearchInput] = useState('');
 	const [isFetched, setIsFetched] = useState(false);
@@ -15,6 +15,15 @@ const NavBar = (props) => {
 	const [filteredUsers, setFilteredUsers] = useState([]);
 	const [suggestionsHider, setSuggestionsHider] = useState('');
 	const history = useHistory();
+
+  const goToHomePage = (evt) => {
+    let isHost = host === "(Host)";
+    if (isHost)
+      history.push('/hosthome')
+    else 
+      history.push('/home')
+  }
+
 	// this.state = {
 	// 	displayMenu: false,
 	// };
@@ -90,7 +99,7 @@ const NavBar = (props) => {
 
 	return (
 		<div className={styles.NavBarContainer}>
-			<div className={styles.logo} onClick={() => history.push('/home')}>
+			<div className={styles.logo} onClick={goToHomePage}>
 				<svg
 					width="65"
 					height="58"

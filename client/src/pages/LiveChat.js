@@ -26,15 +26,9 @@ import Participants from '../components/Participants.js';
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import firebase from "../firebase.js";
-<<<<<<< HEAD
 
-const fastapi = axios.create({baseURL: "https://localhost:8080", timeout: 10000});
-// const fastapi = axios.create({baseURL: "http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/", timeout: 10000});
-// const fastapi = axios.create({baseURL: "go-off.co", timeout: 10000});
-=======
 import { v4 as uuid_v4 } from 'uuid';
 import { components } from "react-select";
->>>>>>> fc2508c89df8b4080ad4d3c268361ea61f9f9a63
 
 const LiveChat = () => {
   const db = firebase.firestore()
@@ -128,6 +122,14 @@ const LiveChat = () => {
     scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is recieved
   };
 
+
+  const goToHomePage = (evt) => {
+    if (isHost)
+      history.push('/hosthome')
+    else 
+      history.push('/home')
+  }
+
   const uploadFile = async (fileRef) =>{
     if(!file){
       return 
@@ -208,7 +210,7 @@ const LiveChat = () => {
   const handleButton = () => {
 	pubnub.unsubscribe({channels: channels});
 	pubnub.signal({channel:code,message:{action:'DM',uuid:pubnub.getUUID()}});
-	isHost?endConversation():history.push('/home')
+	isHost ? endConversation() : goToHomePage()
   }
 
   const processMessages = (messages) => {
@@ -234,11 +236,7 @@ const LiveChat = () => {
           const metadata = doc.data()
           // doc.data() is never undefined for query doc snapshots
           db.collection('Conversations').doc(doc.id).update({ ended: true}).then(res => console.log('successfully ended')).catch(err => console.log(`Could not end ${err}`))
-<<<<<<< HEAD
-          console.log(doc.id, " => ", doc.data());
-          // axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
-          axios(`http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
-=======
+
           console.log(doc.id, " => ", metadata);
           const convoData = {
             article:metadata.articleURL,
@@ -255,7 +253,6 @@ const LiveChat = () => {
           axios({method: 'post',url: `http://localhost:8080/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
           axios({method: 'post',url: `http://localhost:8080/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
           axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
->>>>>>> fc2508c89df8b4080ad4d3c268361ea61f9f9a63
       });
 
   }).catch(err => console.log(`did not find convo ${err}`));
@@ -326,7 +323,7 @@ const LiveChat = () => {
         //** use redux to see if the signals work better.
         if (msg.action=='END'){
           //** redirect everyone out
-          history.push('/home');
+          goToHomePage();
         }else if(msg.action=='UT'){
           //sends message if use is typing
           setUserTyping(`${msg.name} is typing`);
@@ -454,7 +451,7 @@ const LiveChat = () => {
             />
             <span className={styles["avatarName"]} >Preksha Munot</span>
           </div>
-          <div className={styles["homeBox"]} onClick={() => history.push('/home')} >
+          <div className={styles["homeBox"]} onClick={goToHomePage}>
             <img
               src={homeIcon}
               alt="homeImage"
