@@ -28,6 +28,8 @@ import { useHistory } from "react-router-dom";
 import firebase from "../firebase.js";
 
 const fastapi = axios.create({baseURL: "https://localhost:8080", timeout: 10000});
+// const fastapi = axios.create({baseURL: "http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/", timeout: 10000});
+// const fastapi = axios.create({baseURL: "go-off.co", timeout: 10000});
 
 const LiveChat = () => {
   const db = firebase.firestore()
@@ -200,7 +202,8 @@ const LiveChat = () => {
           // doc.data() is never undefined for query doc snapshots
           db.collection('Conversations').doc(doc.id).update({ ended: true}).then(res => console.log('successfully ended')).catch(err => console.log(`Could not end ${err}`))
           console.log(doc.id, " => ", doc.data());
-          axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+          // axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+          axios(`http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
       });
 
   }).catch(err => console.log(`did not find convo ${err}`));

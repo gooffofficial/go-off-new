@@ -8255,6 +8255,11 @@ nice-try@^1.0.4:
   resolved "https://registry.npmjs.org/nice-try/-/nice-try-1.0.5.tgz"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
+nmap@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/nmap/-/nmap-1.1.0.tgz#544b3c5c4ab2054d8f18388908ecaee8b93b343d"
+  integrity sha1-VEs8XEqyBU2PGDiJCOyu6Lk7ND0=
+
 no-case@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/no-case/-/no-case-3.0.4.tgz"

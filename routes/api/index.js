@@ -489,7 +489,7 @@ router.get('/pastconv', auth.required, async (req, res, next) => {
     // }).then((articles) => {
     //     return res.json(articles)
     // })
-})
+// })
 /*
 router.get('/update_article', auth.optional, (req,res, next) => {
     db.Profile.update({
