@@ -30,7 +30,7 @@ const Profile = (props) => {
 			})
 			.then((res) => {
 				setCurrentUser(res.data.user);
-
+				console.log("test")
 				axios
 					.get(`/api/users/profile/${res.data.user.username}`, {
 						withCredentials: true,
