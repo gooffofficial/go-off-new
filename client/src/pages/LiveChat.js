@@ -26,10 +26,15 @@ import Participants from '../components/Participants.js';
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import firebase from "../firebase.js";
+<<<<<<< HEAD
 
 const fastapi = axios.create({baseURL: "https://localhost:8080", timeout: 10000});
 // const fastapi = axios.create({baseURL: "http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/", timeout: 10000});
 // const fastapi = axios.create({baseURL: "go-off.co", timeout: 10000});
+=======
+import { v4 as uuid_v4 } from 'uuid';
+import { components } from "react-select";
+>>>>>>> fc2508c89df8b4080ad4d3c268361ea61f9f9a63
 
 const LiveChat = () => {
   const db = firebase.firestore()
@@ -98,9 +103,20 @@ const LiveChat = () => {
   //this is a ref that will give scroll to bottom functionality
   const scrollhook = useRef();
 
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDate();
+    const hour = today.getHours();
+    const minute = today.getMinutes();
+    const second = today.getSeconds();
+    return `${year}-${month<10?'0'+month:month}-${day<10?'0'+day:day} ${hour<10?'0'+hour:hour}:${minute<10?'0'+minute:minute}:${second<10?'0'+second:second}`
+  }
+
   //this will handle incoming messages
   const handleMessage = (object) => {
-    console.log(object.message);
+    console.log(object);
     const message = object.message;
     if (!message.user) {
       return;
@@ -149,7 +165,8 @@ const LiveChat = () => {
               isHost: isHost,
               text: message.message,
               uuid: currentUser.id,
-              attachment: fileURL
+              attachment: fileURL,
+              id:uuid_v4()
             },
           },
           function (status) {
@@ -173,6 +190,7 @@ const LiveChat = () => {
           isHost: isHost,
           text: message.message,
           uuid: currentUser.id,
+          id:uuid_v4()
         },
       },
       function (status) {
@@ -193,22 +211,54 @@ const LiveChat = () => {
 	isHost?endConversation():history.push('/home')
   }
 
+  const processMessages = (messages) => {
+    let newList = [ ]
+    messages.forEach((message) =>{newList.push({
+      mongoid:String(message.id),
+      message:String(message.text),
+      user_id: String(message.uuid),
+      username: String(message.user),
+      createdat: String(getCurrentDate()),
+      updatedat: String(getCurrentDate()),
+      roomid:String(code)
+    })})
+    return newList
+  }
+
+  //*!need to fix posting messages to fastapi
   const endConversation = () => {
-    //fastapi.get('/').then(res => console.log(res)).catch(err => console.log(err))
     pubnub.signal({channel:code,message:{action:'END'}})
-    //use db to make isOpen to false on conversation metadata
+
     db.collection('Conversations').where('convoId','==', code).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
+          const metadata = doc.data()
           // doc.data() is never undefined for query doc snapshots
           db.collection('Conversations').doc(doc.id).update({ ended: true}).then(res => console.log('successfully ended')).catch(err => console.log(`Could not end ${err}`))
+<<<<<<< HEAD
           console.log(doc.id, " => ", doc.data());
           // axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
           axios(`http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+=======
+          console.log(doc.id, " => ", metadata);
+          const convoData = {
+            article:metadata.articleURL,
+            time:metadata.time,
+            host:metadata.hostId,
+            roomid:metadata.convoId,
+            title:metadata.title,
+            description:metadata.description,
+            createdAt:metadata.createdAt,
+            updatedAt:metadata.updatedAt,
+            tz:metadata.tz
+          }
+          const  messageList = messages?processMessages(messages):''
+          axios({method: 'post',url: `http://localhost:8080/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
+          axios({method: 'post',url: `http://localhost:8080/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
+          axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+>>>>>>> fc2508c89df8b4080ad4d3c268361ea61f9f9a63
       });
 
   }).catch(err => console.log(`did not find convo ${err}`));
-
-
   }
 
   //handles typing indicator signaling
@@ -331,7 +381,6 @@ const LiveChat = () => {
       })
       .then((res) => {
         setCurrentUser(res.data.user);
-        console.log(res.data.user)
         pubnub.setUUID(res.data.user.id);
         let metadata = {...data}
         if(data.hostId==res.data.user.id){
@@ -367,6 +416,7 @@ const LiveChat = () => {
 								text: e.message.text,
 								uuid: e.message.uuid,
                 attachment: e.message.attachment,
+                id:e.message.id
 							},
 						]);
 					}
@@ -382,15 +432,12 @@ const LiveChat = () => {
       setLoading(false);
       return
     }
-    console.log('before fetch')
     const unmount = fetchMetaData();
     //this subscribes to a list of channels
-    console.log('about subscribed to channels')
     pubnub.subscribe({
       channels: channels,
       withPresence: true,
     });
-    console.log('about to show content')
     setLoading(false);
     return pubnub.removeListener(), unmount 
   }, []);
