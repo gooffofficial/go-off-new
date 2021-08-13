@@ -17,29 +17,80 @@ const getCurrentDate = () => {
 // let isLocalhost = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'; 
 // export let API_LINK = isLocalhost ? 'http://localhost:8000' : 'PRODUCTION_SITE_LINK_HERE'
 
+// export const sendEmailRegister = async (userInfo) => {
+//   try {
+//     let axiosResponse = await axios.post(`/api/users/ecreate`, userInfo)
+//     let serverResponse = axiosResponse.data // serverResponse returns us a huge HTML file that we dont need to use
+//     console.log("sendEmailRegister: ", serverResponse)
+//   } catch (err) { 
+//     console.log("error: ", err) 
+//   }
+// }
+
 export const sendEmailRegister = async (userInfo) => {
+  let errorResponse = {}
   try {
     let axiosResponse = await axios.post(`/api/users/ecreate`, userInfo)
-    let serverResponse = axiosResponse.data // serverResponse returns us a huge HTML file that we dont need to use
+    let serverResponse = axiosResponse.data 
+
+    if (serverResponse.error) {
+      errorResponse = serverResponse;
+      throw serverResponse
+    }
     console.log("sendEmailRegister: ", serverResponse)
-  } catch (err) { console.log("error", err) }
+    return { res: serverResponse, isError: false }
+  } catch (err) { 
+    errorResponse = isEmpty(errorResponse) ? err.response.data : errorResponse;
+    console.log("Error: ", errorResponse) 
+    return { res: errorResponse, isError: true }
+  }
 }
 
 export const sendSMSRegister = async (userInfo) => {
+  let errorResponse = {}
   try {
     let axiosResponse = await axios.post(`/api/users/screate`, userInfo)
     let serverResponse = axiosResponse.data 
+
+    if (serverResponse.error) {
+      errorResponse = serverResponse;
+      throw serverResponse
+    }
     console.log("sendSMSRegister: ", serverResponse)
-  } catch (err) { console.log("error", err) }
+    return { res: serverResponse, isError: false }
+  } catch (err) { 
+    errorResponse = isEmpty(errorResponse) ? err.response.data : errorResponse;
+    console.log("Error: ", errorResponse) 
+    return { res: errorResponse, isError: true }
+  }
 }
 
-export const sendVerifyCheck = async (email, verifyCode) => { // Basically, if there is no error then the verify code was correct!
+export const sendVerifyCheck = async (email, verifyCode) => {
+  let errorResponse = {}
   try {
     let axiosResponse = await axios.get(`/api/users/verification?email=${email}&smscode=${verifyCode}`)
     let serverResponse = axiosResponse.data 
-    return true;
-  } catch (err) { console.log("error", err); return false; }
+
+    if (serverResponse.error) {
+      errorResponse = serverResponse;
+      throw serverResponse
+    }
+    console.log("sendVerifyCheck: ", serverResponse)
+    return { res: serverResponse, isError: false }
+  } catch (err) { 
+    errorResponse = isEmpty(errorResponse) ? err.response.data : errorResponse;
+    console.log("Error: ", errorResponse) 
+    return { res: errorResponse, isError: true }
+  }
 }
+
+// export const sendVerifyCheck = async (email, verifyCode) => {
+//   try {
+//     let axiosResponse = await axios.get(`/api/users/verification?email=${email}&smscode=${verifyCode}`)
+//     let serverResponse = axiosResponse.data 
+//     return true;
+//   } catch (err) { console.log("error", err); return false; }
+// }
 
 export const getUpcomingChats = async (username = "") => { 
   if (username === "") return (await axios.get(`/api/upcoming`)).data
@@ -88,3 +139,5 @@ export const sendCreateConv = async (convCreationInfo,userId) => {
   
   return (await axios.post(`/api/convos/create`, infoSent)).data; //*!not working
 }
+
+const isEmpty = (obj) => obj && Object.keys(obj).length === 0 && obj.constructor === Object

@@ -26,18 +26,9 @@ import Participants from '../components/Participants.js';
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import firebase from "../firebase.js";
-<<<<<<< HEAD
-import { v4 as uuid_v4 } from 'uuid';
-import { components } from "react-select";
-const fastapi = axios.create({baseURL: "https://localhost:8080", timeout: 10000});
-// const fastapi = axios.create({baseURL: "http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/", timeout: 10000});
-// const fastapi = axios.create({baseURL: "go-off.co", timeout: 10000});
-
-=======
 
 import { v4 as uuid_v4 } from 'uuid';
 import { components } from "react-select";
->>>>>>> 5d0acb7ee22378af1a27720594a2f32f72525cdf
 
 const LiveChat = () => {
   const db = firebase.firestore()
@@ -245,10 +236,6 @@ const LiveChat = () => {
           const metadata = doc.data()
           // doc.data() is never undefined for query doc snapshots
           db.collection('Conversations').doc(doc.id).update({ ended: true}).then(res => console.log('successfully ended')).catch(err => console.log(`Could not end ${err}`))
-<<<<<<< HEAD
-=======
-
->>>>>>> 5d0acb7ee22378af1a27720594a2f32f72525cdf
           console.log(doc.id, " => ", metadata);
           const convoData = {
             article:metadata.articleURL,

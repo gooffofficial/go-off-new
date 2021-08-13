@@ -78,30 +78,22 @@ router.post(
 		console.log(user);
 		if (!user.username) {
 			return res.status(422).json({
-				errors: {
-					username: 'is required',
-				},
+        error: "Username is required"
 			});
 		}
 		if (!user.email) {
 			return res.status(422).json({
-				errors: {
-					email: 'is required',
-				},
+        error: "email is required"
 			});
 		}
 		if (!user.firstname) {
 			return res.status(422).json({
-				errors: {
-					firstname: 'is required',
-				},
+        error: "firstname is required"
 			});
 		}
 		if (!user.lastname) {
 			return res.status(422).json({
-				errors: {
-					lastname: 'is required',
-				},
+        error: "lastname is required"
 			});
 		}
 		/*
@@ -114,37 +106,27 @@ router.post(
     }*/
 		if (!user.location) {
 			return res.status(422).json({
-				errors: {
-					location: 'is required',
-				},
+        error: "location is required"
 			});
 		}
 		if (!user.gender) {
 			return res.status(422).json({
-				errors: {
-					gender: 'is required',
-				},
+        error: "gender is required"
 			});
 		}
 		if (!user.phonenumber) {
 			return res.status(422).json({
-				errors: {
-					phonenumber: 'is required',
-				},
+        error: "phonenumber is required"
 			});
 		}
 		if (!user.password) {
 			return res.status(422).json({
-				errors: {
-					password: 'is required',
-				},
+        error: "password is required"
 			});
 		}
 		if (!user.birthdate) {
 			return res.status(422).json({
-				errors: {
-					birthdate: 'is required',
-				},
+        error: "birthdate is required"
 			});
 		}
 		/*
@@ -244,7 +226,7 @@ router.post(
 									',\n\n' +
 									'Please verify your account by entering the number: ' +
 									createdUser.smscode +
-									'on the website' +
+									' on the website' +
 									'\n\nThank You!\n',
 								//change into an HREF
 							};
@@ -261,7 +243,7 @@ router.post(
 							// return res.redirect('/verify');
 							//return res.redirect('/login'); //redirect to check email verification page
 						});
-					return res.json({ Status: 'Successfully created account ' }); // return res.redirect('/ver_account');
+					return res.json({ Status: 'Successfully created account' }); // return res.redirect('/ver_account');
 				});
 			})
 			.catch((err) => {
@@ -294,30 +276,22 @@ router.post(
 		console.log(user);
 		if (!user.username) {
 			return res.status(422).json({
-				errors: {
-					username: 'is required',
-				},
+				error: "Username is required"
 			});
 		}
 		if (!user.email) {
 			return res.status(422).json({
-				errors: {
-					email: 'is required',
-				},
+        error: "Email is required"
 			});
 		}
 		if (!user.firstname) {
 			return res.status(422).json({
-				errors: {
-					firstname: 'is required',
-				},
+        error: "First name is required"
 			});
 		}
 		if (!user.lastname) {
 			return res.status(422).json({
-				errors: {
-					lastname: 'is required',
-				},
+        error: "Last name is required"
 			});
 		}
 		/*
@@ -330,37 +304,27 @@ router.post(
     }*/
 		if (!user.location) {
 			return res.status(422).json({
-				errors: {
-					location: 'is required',
-				},
+        error: "Location is required"
 			});
 		}
 		if (!user.gender) {
 			return res.status(422).json({
-				errors: {
-					gender: 'is required',
-				},
+        error: "Gender is required"
 			});
 		}
 		if (!user.phonenumber) {
 			return res.status(422).json({
-				errors: {
-					phonenumber: 'is required',
-				},
+        error: "Phone number is required"
 			});
 		}
 		if (!user.password) {
 			return res.status(422).json({
-				errors: {
-					password: 'is required',
-				},
+        error: "Password is required"
 			});
 		}
 		if (!user.birthdate) {
 			return res.status(422).json({
-				errors: {
-					birthdate: 'is required',
-				},
+        error: "Birthdate is required"
 			});
 		}
 		/*
@@ -417,10 +381,10 @@ router.post(
 				db.Profile.create({
 					UserId: createdUser.id,
 				}).then(() => {
+          console.log("test 0")
 					db.UserArticle.create({
 						UserId: createdUser.id,
 					})
-					console.log("test 0")
 						.then(() => {
 							db.Folder.create({
 								UserId: createdUser.id,
@@ -458,7 +422,7 @@ router.post(
 							// return res.redirect('/verify');
 							//return res.redirect('/login'); //redirect to check email verification page
 						});
-					return res.json({ Status: 'Successfully created account! ' }); // return res.redirect('/ver_account');
+					return res.json({ Status: 'Successfully created account!' }); // return res.redirect('/ver_account');
 				});
 			})
 			.catch((err) => {
@@ -803,12 +767,12 @@ router.get('/verification', auth.optional, (req, res, next) => {
 	}).then((user) => {
 		if (!user) {
 			return res.status(401).send({
-				msg: 'We were unable to find a user for this verification. Please SignUp!',
+				error: 'We were unable to find a user for this verification. Please Sign Up!',
 			});
 		} else if (user.user_ver == 1) {
-			return res
-				.status(200)
-				.send('User has been already verified. Please Login');
+			return res.status(200).send({ 
+        error: 'User has been already verified. Please Login'
+      });
 		} else {
 			if (user.smscode == sentSMSCode) {
 				user.user_ver = 1;
@@ -819,7 +783,7 @@ router.get('/verification', auth.optional, (req, res, next) => {
 						res.json({ redirect: '/login' });
 					})
 					.catch((err) => {
-						return res.status(500).send({ msg: err.message });
+						return res.status(500).send({ error: err.message });
 					});
 				/*
       user.save(function (err) {
@@ -834,7 +798,7 @@ router.get('/verification', auth.optional, (req, res, next) => {
     });*/
 			} else {
 				return res.status(401).send({
-					msg: 'We were unable to find a user for this verification. Please SignUp!',
+					error: 'We were unable to find a user for this verification. Please SignUp!',
 				});
 			}
 		}

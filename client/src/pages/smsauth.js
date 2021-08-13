@@ -22,11 +22,13 @@ const SMSAuth = props => {
       evt.preventDefault();
       if (verfiyCode.length !== 6) return;
 
-      const wasValidCode = await sendVerifyCheck(email, verfiyCode);
-      if (wasValidCode)
-        history.push("/Profile");
-      else 
-        setErrorText("SMS Code was invalid...")
+      const { res, isError } = await sendVerifyCheck(email, verfiyCode);
+      if (!isError)
+        history.push("/login");
+      else {
+        let errorMsg = res.error || "Unspecificed error recieved";
+        setErrorText(errorMsg)
+      }
       
     }  
 
