@@ -19,7 +19,7 @@ const Ver = props => {
   //handle the axios call
   const emailbuttonhandler = async (evt) => {
     evt.preventDefault();
-    const { res, isError } = await sendSMSRegister(userInfo);
+    const { res, isError } = await sendEmailRegister(userInfo);
     if (isError) {
       let errorMsg = res.error || "Unspecificed error recieved";
       alert(errorMsg)
