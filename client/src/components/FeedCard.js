@@ -142,7 +142,7 @@ const NewsFeedCard = (props) => {
 					src={articleImg} // src="/images/article-stock-img.png"
 					alt="article"
 				/>
-				<svg
+				{/* <svg
 					className={styles.bookmarkIcon}
 					width="40"
 					height="40"
@@ -156,7 +156,7 @@ const NewsFeedCard = (props) => {
 						d="M19.7022 25.8432C19.9839 25.8432 20.2672 25.9149 20.5222 26.0582L28.3339 30.4765V8.88988C28.3339 8.55488 28.1322 8.33321 28.0005 8.33321H12.0005C11.8672 8.33321 11.6672 8.55488 11.6672 8.88988V30.3899L18.8439 26.0815C19.1089 25.9232 19.4055 25.8432 19.7022 25.8432ZM10.0005 34.9999C9.7172 34.9999 9.43386 34.9282 9.17886 34.7832C8.6572 34.4882 8.33386 33.9332 8.33386 33.3332V8.88988C8.33386 6.74488 9.97886 4.99988 12.0005 4.99988H28.0005C30.0222 4.99988 31.6672 6.74488 31.6672 8.88988V33.3332C31.6672 33.9265 31.3522 34.4749 30.8405 34.7732C30.3272 35.0732 29.6972 35.0782 29.1805 34.7849L19.7272 29.4382L10.8572 34.7632C10.5939 34.9199 10.2972 34.9999 10.0005 34.9999Z"
 						fill="white"
 					/>
-				</svg>
+				</svg> */}
 			</div>
 			<div className={styles.feedCardContentContainer}>
 				<div className={styles.feedCardContent}>
@@ -169,13 +169,13 @@ const NewsFeedCard = (props) => {
 						</div>
 
 						<div className={styles.titleColumn}>
-							<div className={styles.companyLogoContainer}>
+							{/* <div className={styles.companyLogoContainer}>
 								<img
 									className={styles.companyLogo}
 									src="/images/New-York-Times-Logo.png"
 									alt="publisher logo"
 								/>
-							</div>
+							</div> */}
 							<div className={styles.feedCardHeadingContainer}>
 								<h4 className={styles.feedCardHeading}>
 									{convTitle}

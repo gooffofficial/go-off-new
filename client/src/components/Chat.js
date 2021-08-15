@@ -79,7 +79,7 @@ const MeMessage = ({ isHost, user, text}) => {
 	return (
 		<div className={styles['meMessageBox']}>
 			<img
-				src={emilyIcon}
+				src={'/images/stock-face.jpg'}
 				alt="Message Icon"
 				className={styles['messageAvatar']}
 			/>
@@ -125,7 +125,7 @@ const Attachment = ({isHost, user, src, me=true}) => {
 			/>
 			<div className={styles['rightMessageBox']}>
 				<span className={styles['messageUserName']}>{user}</span>
-				{isHost && <span className={styles['hostText']}>HOST</span>}
+				{isHost && <span className={styles['hostText']}>HOSTs</span>}
 				<div className={styles['chatMessageBox']}>
 					<img style={{widht:'50px',height:'50px'}} src={src}/>
 				</div>
@@ -138,7 +138,7 @@ const Attachment = ({isHost, user, src, me=true}) => {
 		<div className={styles['otherMessageBox']}>
 			<div className={styles['leftMessageBox']}>
 				<span className={styles['messageUserName']}>{user}</span>
-				{isHost && <span className={styles['hostText']}>HOST</span>}
+				{isHost && <span className={styles['hostText']}>HOSTs</span>}
 				<div className={styles['chatMessageBox']}>
 					<img style={{widht:'50px',height:'50px'}} src={src}/>
 				</div>

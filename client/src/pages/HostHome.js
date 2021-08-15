@@ -54,10 +54,11 @@ const HomePage = () => {
   
   const goToHomePage = (evt) => {
     let isHost = currentUserFull.host === "(Host)";
-    if (isHost)
-      history.push('/hosthome')
-    else 
-      history.push('/home')
+    let isAdmin = currentUserFull.admin === "(Admin)";
+      if (isHost || isAdmin)
+        history.push('/hosthome')
+      else 
+        history.push('/home')
   }
 
 	useEffect(() => {
@@ -157,6 +158,7 @@ const HomePage = () => {
                 id={currentUser.id}
               />
             </div>
+            <span className={s.convdesc} >It can be a......</span>
             <hr className={s.grayLine} />
             <div className={s.userIconsRow}>
               <div className={s.photoRow}>
@@ -200,7 +202,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className={s.rightColumn}>
-        <div className={s.trendingRow}>
+        {/* <div className={s.trendingRow}>
           <img src={trendingArrow} alt="" className={s.trendingIcon} />
           <span className={s.trendingTxt}>Trending</span>
         </div>
@@ -216,7 +218,7 @@ const HomePage = () => {
         <FriendActivityCard userAvatar={emilyIcon} username="Emily Patterson" friendName="Clarissa Peers" />
         <FriendActivityCard userAvatar={emilyIcon} username="Emily Patterson" friendName="Clarissa Peers" />
         <FriendActivityCard userAvatar={emilyIcon} username="Emily Patterson" friendName="Clarissa Peers" />
-        <FriendActivityCard userAvatar={emilyIcon} username="Emily Patterson" friendName="Clarissa Peers" />
+        <FriendActivityCard userAvatar={emilyIcon} username="Emily Patterson" friendName="Clarissa Peers" /> */}
       </div>
     </div>
   </div>
@@ -369,14 +371,14 @@ const FriendActivityCard = ({ userAvatar, username, friendName }) => {
 //   </div>
 // }
 
-const ChatCard = ({ title, timeStart, chatImage }) => {
-  return <div className={s.chatCard}>
-    <img src={chatImage} alt="Chat Img" className={s.chatImage} />
-    <div className={s.chatBottomSide}>
-      <h2 className={s.timeStart}>{timeStart}</h2>
-      <h4 className={s.chatTitle}>{title}</h4>
-    </div>
-  </div>
-}
+// const ChatCard = ({ title, timeStart, chatImage }) => {
+//   return <div className={s.chatCard}>
+//     <img src={chatImage} alt="Chat Img" className={s.chatImage} />
+//     <div className={s.chatBottomSide}>
+//       <h2 className={s.timeStart}>{timeStart}</h2>
+//       <h4 className={s.chatTitle}>{title}</h4>
+//     </div>
+//   </div>
+// }
 
 export default HomePage;

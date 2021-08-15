@@ -30,17 +30,18 @@ const DiscoverPage = () => {
   const [currentUser, setCurrentUser] = useState(fillerUser);
   const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
   const [allUserFull, setAllUserFull] = useState(fillerUser);
+  const [otherUser, setOtherUsers] = useState(fillerUser);
 
 	const history = useHistory();
 	// const history = useHistory();
 
   const goToHomePage = (evt) => {
-    console.log("currentUserFull.host: ", currentUserFull.host)
     let isHost = currentUserFull.host === "(Host)";
-    if (isHost)
-      history.push('/hosthome')
-    else 
-      history.push('/home')
+    let isAdmin = currentUserFull.admin === "(Admin)";
+      if (isHost || isAdmin)
+        history.push('/hosthome')
+      else 
+        history.push('/home')
   }
 
 	useEffect(() => {
@@ -70,8 +71,18 @@ const DiscoverPage = () => {
 									.then((res3) => {
 										setAllUserFull({
 											allupcomingChats: res3.data,
-										});
-									});
+                    });
+                    console.log(res3.data)
+                  });
+                  // axios
+                  //   .get('/api/gettopusers', { withCredentials: true})
+                  //   .then((res4) => {
+                  //     setOtherUsers({
+                  //       ...res4.data.user,
+                  //       topUser: res.data,
+                  //     })
+                  //     console.log(res4.data)
+                  //   })
 							});
 					});
 			})
@@ -79,7 +90,8 @@ const DiscoverPage = () => {
 				console.log(err);
 			});
 	}, []);
-
+  
+  // console.log(otherUser)
 	let trendingImageSources = [
 		'/images/trend-stock1.png',
 		'/images/trend-stock2.png',
@@ -155,7 +167,7 @@ const DiscoverPage = () => {
           <img src={FacesConv} alt="" className={styles["di-convImg"]} />
           <img src={EyeConv} alt="" className={styles["di-convImg"]} /> */}
         </div>
-        <h2 className={styles["trendingTxt"]}>Trending</h2>
+        {/* <h2 className={styles["trendingTxt"]}>Trending</h2> */}
         {/* <div className={styles["di-convRow"]}>
           <TrendingCard convImg={BrushConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
           <TrendingCard convImg={FacesConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
@@ -177,6 +189,21 @@ const DiscoverPage = () => {
           <img src={peopleIcon} alt="" className={styles["peopleIcon"]} />
           <h2 className={styles["featuredTxt"]}>Featured Hosts</h2>
         </div>
+        {/* {otherUser.topUser ? (
+                  otherUser.topUser.map((prop2) => {
+                    // console.log(prop2)
+                    return (
+                      <FeaturedHost
+                        hostImg={prop2.hostpfp}
+                        hostName={prop2.hostName}
+                        followersAmt={prop2.followercount}
+                        isFollowing={prop2.isFollowing}
+                      />
+                    );
+                  })
+                ) : (
+                  <FeaturedHost />
+                )} */}
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={true} />
@@ -193,6 +220,7 @@ const DiscoverPage = () => {
 }
 
 const FeaturedHost = ({ hostImg, hostName, followersAmt, isFollowing = false }) => {
+  // console.log(hostImg, hostName, followersAmt, isFollowing )
   return <div className={styles['FeaturedHostRow']}>
     <div className={styles['leftSideFeatured']}>
       <img src={hostImg} alt="" className={styles['hostAvatar']} />

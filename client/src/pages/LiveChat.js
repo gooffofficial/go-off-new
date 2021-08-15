@@ -23,6 +23,8 @@ import { PubNubConsumer, usePubNub } from "pubnub-react";
 import { useForm } from "react-hook-form";
 import Chat from "../components/Chat.js";
 import Participants from '../components/Participants.js';
+import NavBar from '../components/NavBar.js';
+import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import firebase from "../firebase.js";
@@ -64,7 +66,10 @@ const LiveChat = () => {
 
   
   //chat metadata from firebase
-  const [metaData, setMetaData] = useState();
+  const [metaData, setMetaData] = useState({title: 'Title', description: 'Description', time: '10:00 pm'});
+
+  //host data
+  const [hostData, setHostData] = useState({name: 'Host Name', pfpic: '/images/stock-face.jpg'})
 
   //typing indicator
   const [userTyping, setUserTyping] = useState('');
@@ -88,6 +93,7 @@ const LiveChat = () => {
 
   //sets current user with dummy info
   const [currentUser, setCurrentUser] = useState(fillerUser);
+  const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
 
   const [loading, setLoading] = useState(true);
 
@@ -96,6 +102,8 @@ const LiveChat = () => {
   const [content, setContent] = useState();
 
   const [reload, setReload] = useState(false)
+
+  const [ConvoData] = []
 
   //this is a ref that will give scroll to bottom functionality
   const scrollhook = useRef();
@@ -127,10 +135,12 @@ const LiveChat = () => {
 
 
   const goToHomePage = (evt) => {
-    if (isHost)
-      history.push('/hosthome')
-    else 
-      history.push('/home')
+    let isHost = currentUserFull.host === "(Host)";
+    let isAdmin = currentUserFull.admin === "(Admin)";
+      if (isHost || isAdmin)
+        history.push('/hosthome')
+      else 
+        history.push('/home')
   }
 
   const uploadFile = async (fileRef) =>{
@@ -278,6 +288,7 @@ const LiveChat = () => {
       querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
           let metadata= doc.data()
+          console.log(metadata)
           setMetaData(metadata);
           fetchAllMessages();
           checkUser(metadata);
@@ -395,7 +406,6 @@ const LiveChat = () => {
         console.log(`could not make request: ${err}`
       )})
     }
-
     //fetches all channel messages
     const fetchAllMessages = async () => {
 
@@ -425,6 +435,37 @@ const LiveChat = () => {
     }
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   useEffect(() => {
+
+    axios
+			.get(`/api/users/current`, {
+				withCredentials: true,
+			})
+			.then((res) => {
+				setCurrentUser(res.data.user);
+
+				axios
+					.get(`/api/users/profile/${res.data.user.username}`, {
+						withCredentials: true,
+					})
+					.then((res2) => {
+            setCurrentUserFull(res2.data.user);
+            
+            axios
+							.get('/api/upcoming', { withCredentials: true })
+							.then((res) => {
+								setCurrentUserFull({
+									...res2.data.user,
+									upcomingChats: res.data,
+                });
+              });
+          });
+      });
+    console.log(currentUserFull.upcomingChats)
+
+    // axios.get(`/api/users/getuser/${metadata.hostId}`)
+    //   .then((res) => {
+
+    //   })
     if(!code){
       //!should set content
       setContent(<div style={{textAlign: 'center'}}>Chat does not exist</div>)
@@ -440,18 +481,21 @@ const LiveChat = () => {
     setLoading(false);
     return pubnub.removeListener(), unmount 
   }, []);
+
+  console.log(currentUserFull)
   return (
-    <div className="liveChat">
-      <NavBar />
+    
+    <div className={styles["liveChat"]}>
+      <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
       <div className={styles["mainContent"]}>
         <div className={styles["leftColumn"]}>
           <div className={styles["avatarBox"]}>
             <img
-              src={prekshaIcon}
+              src={currentUserFull.propic}
               alt="avatar"
               className={styles["prekshaIcon"]}
             />
-            <span className={styles["avatarName"]} >Preksha Munot</span>
+            <span className={styles["avatarName"]} >{currentUser.name}</span>
           </div>
           <div className={styles["homeBox"]} onClick={goToHomePage}>
             <img
@@ -467,11 +511,28 @@ const LiveChat = () => {
               alt="discoverImage"
               className={styles["globeIcon"]}
             />
-            <span className={styles["globeText"]}>Preksha Munot</span>
+            
+            <span className={styles["globeText"]}>Discover</span>
           </div>
           <h1 className={styles["upcommingHeading"]}>Upcoming Chats</h1>
           <div className={styles["upcomingChats"]}>
-            <ChatCard
+            {currentUserFull.upcomingChats ? (
+                    currentUserFull.upcomingChats.map((prop) => {
+                      return (
+                        <UpcomingChatsCard
+                          articleURL={prop.articleURL}
+                          articleImg={prop.articleImg}
+                          time={prop.time}
+                          convTitle={prop.convTitle}
+                          hostName={prop.hostname}
+                          roomId={prop.roomId}
+                        />
+                      );
+                    })
+                  ) : (
+                    <UpcomingChatsCard />
+                  )}
+            {/* <ChatCard
               title="Zero Waste Toothbrush: How does it really make a difference?"
               timeStart="HAPPENING NOW"
               chatImage={article1}
@@ -480,7 +541,7 @@ const LiveChat = () => {
               title="Zero Waste Toothbrush: How does it really make a difference?"
               timeStart="HAPPENING NOW"
               chatImage={article1}
-            />
+            /> */}
           </div>
 		  <button onClick={handleButton}>{isHost?'End Conversation':'Leave Conversation'}</button>
         </div>
@@ -488,7 +549,7 @@ const LiveChat = () => {
           <div className={styles["innerMiddleBox"]}>
             <div className={styles["articleHeading"]}>
               <div className={styles["firstRowHeading"]}>
-                <img
+                {/* <img
                   src={NYTLogo}
                   alt="NYT Logo"
                   className={styles["NYTLogo"]}
@@ -497,22 +558,23 @@ const LiveChat = () => {
                   src={searchIcon}
                   alt="Search Icon"
                   className={styles["searchForIcon"]}
-                />
+                /> */}
               </div>
               <div className={styles["secondRowHeading"]}>
                 <span className={styles["mid-col-articleTitle"]}>
-                  Zero Waste Toothbrush: How does it really make a difference?
+                {metaData.title}
                 </span>
                 <span className={styles["liveBox"]}>LIVE</span>
               </div>
             </div>
             <div className={styles["liveChatBox"]}>
-              <span className={styles["chatTime"]}>10:00 PM</span>
+              <span className={styles["chatTime"]}></span>
               {loading ? (
+                
                 <div style={{ textAlign: "center" }}>Loading...</div>
               ) : (
                 content
-              )}
+              )} 
               {reload?<Chat
                 messages={messages}
                 user={currentUser}
@@ -560,30 +622,40 @@ const LiveChat = () => {
             />
             <div className={styles["chatHeading"]}>
               <div className={styles["leftHeading"]}>
-                <span className={styles["monthText"]}>MAY</span>
-                <div className={styles["dayText"]}>22</div>
+                <span className={styles["monthText"]}>{Date(metaData.time).toLocaleString()
+								.split(' ')
+								.splice(1, 1)
+								.join(' ')
+								.toUpperCase()}</span>
+                <div className={styles["dayText"]}>{Date(metaData.time).toLocaleString()
+								.split(' ')
+								.splice(2, 1)
+								.join(' ')
+								.toUpperCase()}</div>
               </div>
               <div className={styles["rightHeading"]}>
-                <img
+                {/* <img
                   src={NYTLogo}
                   alt="NYT Logo"
                   className={styles["NYTLogo"]}
-                />
+                /> */}
                 <span className={styles["articleTitle"]}>
-                  Zero Waste Toothbrush: How does it really make a difference
+                  {metaData.title}
                 </span>
               </div>
             </div>
-            <span className={styles["startTime"]}>THURSDAY 10:00 PM EST</span>
-            <div className={styles["chatTags"]}>
+            <span className={styles["startTime"]}>{Date(metaData.time).toLocaleString()
+								.split(' ')
+								.splice(0, 6)
+								.join(' ')
+								.toUpperCase()}</span>
+            {/* <div className={styles["chatTags"]}>
               <div className={styles["chatTag"]}>Eco-Friendly</div>
               <div className={styles["chatTag"]}>Sustainability</div>
               <div className={styles["chatTag"]}>Zero Waste</div>
-            </div>
+            </div> */}
             <p className={styles["chatDescription"]}>
-              With zero waste taking over the world and people becoming more
-              aware of their carbon footprint and how their actions affect the
-              planet more options for sustaiable items have become avaiable.
+              {metaData.description}
             </p>
             <Participants/>
             <div className={styles["dropDownRow"]}>
@@ -631,64 +703,64 @@ const LiveChat = () => {
     </div>
   );
 };
-
-const NavBar = ({}) => {
-  return (
-    <div className={styles["navbar"]}>
-      <img src={goOffLogo} alt="Go Off! Logo" className={styles["goOffLogo"]} />
-      <div className={styles["searchBar"]}>
-        <img
-          src={searchIcon}
-          alt="Search Icon"
-          className={styles["searchIcon"]}
-        />
-        <input
-          type="search"
-          className={styles["searchInput"]}
-          placeholder="Search"
-        />
-        <img
-          src={optionsIcon}
-          alt="Settings"
-          className={styles["optionsIcon"]}
-        />
-      </div>
-      <img
-        src={addPersonIcon}
-        alt="Add person"
-        className={styles["addPersonIcon"]}
-      />
-      <img src={bellIcon} alt="Notifications" className={styles["bellIcon"]} />
-      <img src={shareIcon} alt="Share" className={styles["shareIcon"]} />
-      <div className={styles["navProfileBox"]}>
-        <div className={styles["profile"]}>
-          <img
-            src={prekshaIcon}
-            alt="avatar"
-            className={styles["profileIcon"]}
-          />
-          <span className={styles["profileText"]}>Preksha Munot</span>
-          <img
-            src={arrowDownIcon}
-            alt="dropDown"
-            className={styles["arrowDownIcon"]}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const ChatCard = ({ title, timeStart, chatImage }) => {
-  return (
-    <div className={styles["chatCard"]}>
-      <img src={chatImage} alt="chatImage" className={styles["chatImage"]} />
-      <div className={styles["chatBottomSide"]}>
-        <h2 className={styles["timeStart"]}>{timeStart}</h2>
-        <h4 className={styles["chatTitle"]}>{title}</h4>
-      </div>
-    </div>
-  );
-};
-
 export default LiveChat
+// const NavBar = ({}) => {
+//   return (
+//     <div className={styles["navbar"]}>
+//       <img src={goOffLogo} alt="Go Off! Logo" className={styles["goOffLogo"]} />
+//       <div className={styles["searchBar"]}>
+//         <img
+//           src={searchIcon}
+//           alt="Search Icon"
+//           className={styles["searchIcon"]}
+//         />
+//         <input
+//           type="search"
+//           className={styles["searchInput"]}
+//           placeholder="Search"
+//         />
+//         <img
+//           src={optionsIcon}
+//           alt="Settings"
+//           className={styles["optionsIcon"]}
+//         />
+//       </div>
+//       <img
+//         src={addPersonIcon}
+//         alt="Add person"
+//         className={styles["addPersonIcon"]}
+//       />
+//       <img src={bellIcon} alt="Notifications" className={styles["bellIcon"]} />
+//       <img src={shareIcon} alt="Share" className={styles["shareIcon"]} />
+//       <div className={styles["navProfileBox"]}>
+//         <div className={styles["profile"]}>
+//           <img
+//             src={prekshaIcon}
+//             alt="avatar"
+//             className={styles["profileIcon"]}
+//           />
+//           <span className={styles["profileText"]}>Preksha Munot</span>
+//           <img
+//             src={arrowDownIcon}
+//             alt="dropDown"
+//             className={styles["arrowDownIcon"]}
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// const ChatCard = ({ title, timeStart, chatImage }) => {
+//   return (
+//     <div className={styles["chatCard"]}>
+//       <img src={chatImage} alt="chatImage" className={styles["chatImage"]} />
+//       <div className={styles["chatBottomSide"]}>
+//         <h2 className={styles["timeStart"]}>{timeStart}</h2>
+//         <h4 className={styles["chatTitle"]}>{title}</h4>
+//       </div>
+//     </div>
+//   );
+// };
+
+

@@ -74,6 +74,13 @@
     margin-right: 15px;
   }
   
+  .prekshaIcon {
+    width: 37px;
+    height: 37px;
+    border-radius: 100%;
+    margin-right: 5%;
+  }
+
   .mainContent {
     flex-grow: 1;
     display: flex;
@@ -90,6 +97,20 @@
     display: flex;
     align-items: center;
     margin-bottom: 30px;
+    /* padding: 4% 6%;
+    margin-top: 7%;
+    font-size: 1.25rem; */
+    padding: 4% 0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+  }
+
+  .homeBox:hover, .discoverBox:hover {
+    background: rgba(58, 134, 255, 0.15);
+    cursor: pointer;
+    transition: background 0.5s;
   }
   
   .prekshaIcon, .globeIcon, .homeIcon {
@@ -382,6 +403,9 @@
     align-self: flex-end;
     object-fit: contain;
     margin-right: 9px;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 100%;
   }
   
   .chatMessageBox {

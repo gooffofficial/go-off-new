@@ -17,9 +17,13 @@ const Ver = props => {
   let history = useHistory();
 
   //handle the axios call
-  const emailbuttonhandler = events =>{
-    events.preventDefault();
-    sendEmailRegister(userInfo);
+  const emailbuttonhandler = async (evt) => {
+    evt.preventDefault();
+    const { res, isError } = await sendEmailRegister(userInfo);
+    if (isError) {
+      let errorMsg = res.error || "Unspecificed error recieved";
+      alert(errorMsg)
+    }
     history.push("/signup/eauth")
     // axios.post("/localhost:8000/api/users/ecreate", JSON.stringify(data)).then(res =>{
     //   console.log(res)
@@ -31,7 +35,11 @@ const Ver = props => {
 
   const smsbuttonhandler = async (evt) => {
     evt.preventDefault();
-    sendSMSRegister(userInfo);
+    const { res, isError } = await sendSMSRegister(userInfo);
+    if (isError) {
+      let errorMsg = res.error || "Unspecificed error recieved";
+      alert(errorMsg)
+    }
     history.push("/signup/smsauth")
     
     // axios.post("https://cors-anywhere.herokuapp.com/localhost:8000/api/users/ecreate", JSON.stringify(data)).then(res =>{

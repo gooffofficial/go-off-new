@@ -6,7 +6,7 @@ import styles from '../styles/ProfilePage/Profile.module.scss';
 // Components
 import NavBar from '../components/NavBar.js';
 import FeedCard, { ChatsFeed } from '../components/FeedCard.js';
-// import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
+import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 
 const fillerUser = {
 	name: 'Username',
@@ -40,6 +40,15 @@ const PublicProfile = (props) => {
 					})
 					.then((res2) => {
 						setCurrentUserFull(res2.data.user);
+
+						axios
+							.get('/api/upcoming', { withCredentials: true })
+							.then((res) => {
+								setCurrentUserFull({
+									...res2.data.user,
+									upcomingChats: res.data,
+								});
+							});
 					});
 			})
 			.catch((err) => {
@@ -144,8 +153,22 @@ const PublicProfile = (props) => {
 						</div>
 
 						<div className={styles.upcomingChatsCards}>
-							{/* <UpcomingChatsCard />
-							<UpcomingChatsCard /> */}
+							{currentUserFull.upcomingChats ? (
+								currentUserFull.upcomingChats.map((prop) => {
+									return (
+										<UpcomingChatsCard
+											articleURL={prop.articleURL}
+											articleImg={prop.articleImg}
+											time={prop.time}
+											convTitle={prop.convTitle}
+											hostName={prop.hostname}
+											roomId={prop.roomId}
+										/>
+									);
+								})
+							) : (
+								<UpcomingChatsCard />
+							)}
 						</div>
 					</div>
 				</div>
@@ -164,7 +187,7 @@ const PublicProfile = (props) => {
 							</div>
 
 							<div className={styles.profilePageInfo}>
-								<h1 className={styles.profilePageName}>{viewUser.name}</h1>
+								<h1 className={styles.profilePageName}>{viewUser.name}{viewUser.admin}{viewUser.host}</h1>
 								<p
 									className={styles.profilePageUsername}
 								>{`@${viewUser.username}`}</p>
@@ -207,12 +230,12 @@ const PublicProfile = (props) => {
 								<p className={styles.profilePageTabText}>Past</p>
 							</div>
 
-							<div
+							{/* <div
 								onClick={() => setChatCategory('Saved')}
 								className={styles.profilePageTab}
 							>
 								<p className={styles.profilePageTabText}>Saved</p>
-							</div>
+							</div> */}
 						</div>
 					</div>
 

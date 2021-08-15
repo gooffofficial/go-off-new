@@ -24,8 +24,9 @@ const Profile = (props) => {
 	const history = useHistory();
 
   const goToHomePage = (evt) => {
-    let isHost = currentUserFull.host === "(Host)";
-    if (isHost)
+	let isHost = currentUserFull.host === "(Host)";
+	let isAdmin = currentUserFull.admin === "(Admin)";
+    if (isHost || isAdmin)
       history.push('/hosthome')
     else 
       history.push('/home')
@@ -53,6 +54,8 @@ const Profile = (props) => {
 									...res2.data.user,
 									upcomingChats: res.data,
 								});
+
+								
 							});
 					});
 			})
@@ -60,7 +63,7 @@ const Profile = (props) => {
 				console.log(err);
 			});
 	}, []);
-
+console.log(currentUserFull)
 	return (
 		<div className={styles.profilePageContainer}>
 			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
@@ -163,7 +166,7 @@ const Profile = (props) => {
 							</div>
 
 							<div className={styles.profilePageInfo}>
-								<h1 className={styles.profilePageName}>{currentUser.name}</h1>
+								<h1 className={styles.profilePageName}>{currentUser.name}{currentUserFull.host}{currentUserFull.admin}</h1>
 								<p
 									className={styles.profilePageUsername}
 								>{`@${currentUser.username}`}</p>
@@ -187,9 +190,9 @@ const Profile = (props) => {
 								<p className={styles.profilePageTabText}>Past</p>
 							</div>
 
-							<div onClick={() => setChatCategory("Saved")} className={styles.profilePageTab}>
+							{/* <div onClick={() => setChatCategory("Saved")} className={styles.profilePageTab}>
 								<p className={styles.profilePageTabText}>Saved</p>
-							</div>
+							</div> */}
 						</div>
 					</div>
 
