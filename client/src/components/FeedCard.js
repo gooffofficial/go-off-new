@@ -2,6 +2,12 @@ import styles from './styles/FeedCard.module.scss';
 import Tag from '../components/Tag';
 import moment from 'moment';
 import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile
+} from "react-device-detect";
+import {
 	getUpcomingChats,
 	getPastChats,
 	charLimit,
@@ -9,6 +15,7 @@ import {
 } from '../styles/AuthPage/api.js';
 import { useQuery } from 'react-query';
 import { useHistory } from 'react-router-dom';
+import MobileNewsFeedCard from './MobileNewsFeedCard';
 
 // NEED TO IMPLEMENT DYNAMIC FUNCTIONALITY FOR:
 // FEED IMAGE - CALENDAR - COMPANY LOGO - HEADING - DATE - TAGS - DESCRIPTION - HOST NAME / HOST AVATAR
@@ -17,11 +24,11 @@ export const ChatsFeed = ({ chatCategory, username = "" }) => {
 	// "Upcoming", "Past", "Saved"
 	switch (chatCategory) {
 		case 'Upcoming':
-			return <UpComingChatsFeed username={username} />;
+			return <UpComingChatsFeed username={username} isOnMobile={isMobile} />;
 		case 'Past':
-			return <PastChatsFeed username={username} />;
+			return <PastChatsFeed username={username} isOnMobile={isMobile} />;
 		case 'Saved':
-			return <SavedChatsFeed username={username} />;
+			return <SavedChatsFeed username={username} isOnMobile={isMobile} />;
 		default:
 			return;
 	}
@@ -29,16 +36,16 @@ export const ChatsFeed = ({ chatCategory, username = "" }) => {
 
 
 
-const UpComingChatsFeed = ({ username }) => {
+const UpComingChatsFeed = ({ username, isOnMobile = false }) => {
 	const {
 		data: upcomingChats,
 		isLoading,
 		error,
 	} = useQuery(`upcomingChat${username}`, () => getUpcomingChats(username));
-	if (isLoading) return <p>Loading...</p>;
-	if (error) return <p>Unable loading upcoming chats...</p>;
+	if (isLoading) return <p className={styles.largerText}>Loading...</p>;
+	if (error) return <p className={styles.largerText}>Unable loading upcoming chats...</p>;
 	if (!upcomingChats || upcomingChats.length === 0)
-		return <p>No joined upcoming conversation chats...</p>;
+		return <p className={styles.largerText}>No joined upcoming conversation chats...</p>;
 
 	return (
 		<div>
@@ -62,6 +69,7 @@ const UpComingChatsFeed = ({ username }) => {
 						hostAvatar={hostAvatar}
 						convDesc={convDesc}
 						roomId={roomId}
+            isOnMobile={isOnMobile}
 					/>
 				)
 			)}
@@ -69,16 +77,16 @@ const UpComingChatsFeed = ({ username }) => {
 	);
 };
 
-const PastChatsFeed = ({ username }) => {
+const PastChatsFeed = ({ username, isOnMobile = false }) => {
 	const {
 		data: pastChats,
 		isLoading,
 		error,
 	} = useQuery(`pastChats${username}`, () => getPastChats(username));
-	if (isLoading) return <p>Loading...</p>;
-	if (error) return <p>Unable loading upcoming chats...</p>;
+	if (isLoading) return <p className={styles.largerText}>Loading...</p>;
+	if (error) return <p className={styles.largerText}>Unable loading upcoming chats...</p>;
 	if (!pastChats || pastChats.length === 0)
-		return <p>No joined past conversation chats...</p>;
+		return <p className={styles.largerText}>No joined past conversation chats...</p>;
 	return (
 		<div>
 			{pastChats.map(
@@ -101,6 +109,7 @@ const PastChatsFeed = ({ username }) => {
 						hostAvatar={hostAvatar}
 						convDesc={convDesc}
 						roomId={roomId}
+            isOnMobile={isOnMobile}
 					/>
 				)
 			)}
@@ -109,19 +118,34 @@ const PastChatsFeed = ({ username }) => {
 };
 
 const SavedChatsFeed = () => {
-	return <div>No saved conversation chats implemented yet...</div>;
+	return <div className={styles.largerText}>No saved conversation chats implemented yet...</div>;
 };
 
 const NewsFeedCard = (props) => {
-	const { articleImg, articleURL, convTitle, convDesc, time, hostUsername, roomId, hostAvatar } = props;
-	let UTCTime = parseInt(time);
+	const { articleImg, articleURL, convTitle, convDesc, time, hostUsername, roomId, hostAvatar, isOnMobile } = props;
+  const history = useHistory();
+
+  if (isOnMobile)
+    return <MobileNewsFeedCard
+      articleImg={articleImg} 
+      articleURL={articleURL} 
+      convTitle={convTitle} 
+      convDesc={convDesc} 
+      time={time} 
+      hostUsername={hostUsername} 
+      roomId={roomId} 
+      hostAvatar={hostAvatar} 
+      isOnMobile={isOnMobile}
+      history={history}
+    />
+  
+  let UTCTime = parseInt(time);
 	let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
 	let convoCalendarDay = moment(UTCTime).format('D');
 	let convoDay = moment(UTCTime).format('dddd').toUpperCase();
 	let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
 	let convoDate = `${convoDay} ${convoHoursMinutes}`;
 
-	const history = useHistory();
 	// const {
 	//  feedImage,
 	//  calendar,

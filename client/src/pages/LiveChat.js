@@ -30,10 +30,17 @@ import { useHistory } from "react-router-dom";
 import firebase from "../firebase.js";
 import { v4 as uuid_v4 } from 'uuid';
 import { components } from "react-select";
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile,
+} from "react-device-detect";
+import MobileLiveChat from "./LiveChatMobile";
+
 const fastapi = axios.create({baseURL: "https://localhost:8080", timeout: 10000});
 // const fastapi = axios.create({baseURL: "http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/", timeout: 10000});
 // const fastapi = axios.create({baseURL: "go-off.co", timeout: 10000});
-
 
 const LiveChat = () => {
   const db = firebase.firestore()
@@ -481,6 +488,9 @@ const LiveChat = () => {
     setLoading(false);
     return pubnub.removeListener(), unmount 
   }, []);
+
+  if (isMobile)
+    return <MobileLiveChat />
 
   console.log(currentUserFull)
   return (
