@@ -18,6 +18,7 @@ const seq = new Sequelize('test_server1', process.env.RDS_USER, process.env.RDS_
     }
   })
 
+const placeholderImg = "https://besthqwallpapers.com/Uploads/10-6-2020/135848/thumb2-gray-abstract-background-gray-luxury-background-gray-lines-background-gray-geometric-background.jpg"
 
 router.use('/users', require('./users'));
 router.use('/chat', require('./chat'))
@@ -195,7 +196,7 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                     where: {
                         url: c.article
                     }
-                })
+                }) || {}
                 let user = await db.User.findOne({
                     where: {
                         id: c.host
@@ -208,11 +209,12 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                     where: {
                         UserId: c.host
                     }
-                })
+                }) || {}
                 // console.log(prof)
                 // console.log(c.host)
                 // console.log(user)
                 // if(c.host != user.id){
+<<<<<<< HEAD
 
                     // if(new Date() > new Date(c.time)){
                         console.log("test")
@@ -231,6 +233,21 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                     // }
                     // }
                     
+=======
+                    convs.push({
+                        'articleURL': c.article,
+                        'articleImg': art.img || placeholderImg,
+                        'time': c.time,
+                        'hostName': user.name,
+                        'hostNum': user.phonenumber,
+                        'roomId': c.roomId,
+                        'convTitle': c.title,
+                        'desc': c.description,
+                        'hostID': user.id,
+                        'hostpfp': prof.ppic,
+                    })
+                // }
+>>>>>>> d6a5e04da3b82fe0b67820a0313995231ba9a5ec
                 
 
                 // if(!user){
@@ -356,12 +373,12 @@ router.get('/upcoming', auth.required, async (req, res, next) => {
           })
           // Check the date of the convo to see if it is within 30 minutes of current
           if (Date.now() - conv.time < 30*(60*1000)) {
-            let article = await db.Article.findOne({ where: { url: conv.article } })
+            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
             let user = await db.User.findOne({ where: { id: conv.host } })
             let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
             convos.push({
               'articleURL': conv.article,
-              'articleImg': article.img,
+              'articleImg': article.img || placeholderImg,
               'time': conv.time,
               'hostUsername': user.name,
               'roomId': conv.roomId,
@@ -393,12 +410,12 @@ router.get('/upcoming', auth.required, async (req, res, next) => {
           })
           // Check the date of the convo to see if it is within 30 minutes of current
           if (Date.now() - conv.time < 30*(60*1000)) {
-            let article = await db.Article.findOne({ where: { url: conv.article } })
+            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
             let user = await db.User.findOne({ where: { id: conv.host } })
             let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
             convos.push({
               'articleURL': conv.article,
-              'articleImg': article.img,
+              'articleImg': article.img || placeholderImg,
               'time': conv.time,
               'hostUsername': user.name,
               'roomId': conv.roomId,
@@ -432,12 +449,12 @@ router.get('/upcoming/:username', auth.required, async (req, res, next) => {
           })
           // Check the date of the convo to see if it is within 30 minutes of current
           if (Date.now() - conv.time < 30*(60*1000)) {
-            let article = await db.Article.findOne({ where: { url: conv.article } })
+            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
             let user = await db.User.findOne({ where: { id: conv.host } })
             let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
             convos.push({
               'articleURL': conv.article,
-              'articleImg': article.img,
+              'articleImg': article.img || placeholderImg,
               'time': conv.time,
               'hostUsername': user.name,
               'roomId': conv.roomId,
@@ -470,12 +487,12 @@ router.get('/pastconv/:username', auth.required, async (req, res, next) => {
               }
           })
           if (Date.now() > conv.time){
-            let article = await db.Article.findOne({ where: { url: conv.article } })
+            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
             let user = await db.User.findOne({ where: { id: conv.host } })
             let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
             convos.push({
               'articleURL': conv.article,
-              'articleImg': article.img,
+              'articleImg': article.img || placeholderImg,
               'time': conv.time,
               'hostUsername': user.username,
               'roomId': conv.roomId,
@@ -506,12 +523,12 @@ router.get('/pastconv', auth.required, async (req, res, next) => {
               }
           })
           if (Date.now() > conv.time){
-            let article = await db.Article.findOne({ where: { url: conv.article } })
+            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
             let user = await db.User.findOne({ where: { id: conv.host } })
             let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
             convos.push({
               'articleURL': conv.article,
-              'articleImg': article.img,
+              'articleImg': article.img || placeholderImg,
               'time': conv.time,
               'hostUsername': user.username,
               'roomId': conv.roomId,

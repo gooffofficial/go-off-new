@@ -2,8 +2,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/ProfilePage/Profile.module.scss';
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile
+} from "react-device-detect";
 
 // Components
+import ProfileMobile from './ProfileMobile';
 import NavBar from '../components/NavBar.js';
 import { ChatsFeed } from '../components/FeedCard.js';
 import UpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
@@ -63,6 +70,19 @@ const Profile = (props) => {
 				console.log(err);
 			});
 	}, []);
+
+  if (isMobile)
+    return <ProfileMobile 
+      currentUser={currentUser}
+      setCurrentUser={setCurrentUser}
+      currentUserFull={currentUserFull}
+      setCurrentUserFull={setCurrentUserFull}
+      chatCategory={chatCategory}
+      setChatCategory={setChatCategory}
+      goToHomePage={goToHomePage}
+      history={history}
+    />
+
 console.log(currentUserFull)
 	return (
 		<div className={styles.profilePageContainer}>
