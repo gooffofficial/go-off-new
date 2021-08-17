@@ -184,11 +184,11 @@ const DiscoverPage = () => {
           <div className={`${styles['di-browseBox']} ${styles['di-SustainabilityBox']}`}>Sustainability</div>
         </div> */}
       </div>
-      <div className={styles["rightColumn"]}>
+      {/* <div className={styles["rightColumn"]}>
         <div className={styles["featuredTxtRow"]}>
           <img src={peopleIcon} alt="" className={styles["peopleIcon"]} />
           <h2 className={styles["featuredTxt"]}>Featured Hosts</h2>
-        </div>
+        </div> */}
         {/* {otherUser.topUser ? (
                   otherUser.topUser.map((prop2) => {
                     // console.log(prop2)
@@ -204,17 +204,17 @@ const DiscoverPage = () => {
                 ) : (
                   <FeaturedHost />
                 )} */}
-        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
-        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
-        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={true} />
-        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
-        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
-        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={true} />
+        {/* <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={true} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
-      </div>
+        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={true} />
+        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
+        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={true} />
+        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
+        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} /> */}
+      {/* </div> */}
     </div>
   </div>
 }

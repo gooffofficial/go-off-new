@@ -5,7 +5,7 @@ import styles from '../styles/ProfilePage/Profile.module.scss';
 
 // Components
 import NavBar from '../components/NavBar.js';
-import FeedCard, { ChatsFeed } from '../components/FeedCard.js';
+import { ChatsFeed } from '../components/FeedCard.js';
 import UpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
 
 const fillerUser = {

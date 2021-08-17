@@ -246,6 +246,7 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id }) 
     const convCreationInfo = { articleURL: articleURLInput, time: dateInput, title: convTitleInput, description: articleURLInput }
     mutate(convCreationInfo)
     closeCreateConvModal();
+    window.alert("Conversation created! To find the conversation check your Profile page or the Home page!")
   }
 
   const rodalCustomStyles = {

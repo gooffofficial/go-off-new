@@ -62,6 +62,7 @@ app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
  db.once('open', function() {
      console.log('MongoDB connected...');
      //get admins from RDS
+     console.log("test")
      sqlModels.User.findAll({
          where: {
              admin: "(Admin)"

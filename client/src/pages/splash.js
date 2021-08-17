@@ -26,7 +26,7 @@ const Splash = props => {
                 <div className={styles["center-container"]}>
                     <img src={SmallLogo} className={styles["right-logo"]} draggable="false"/>
 
-                    <p className={styles["main-text2"]}>Join the conversation, literally.</p>
+                    <p className={styles["main-text2"]}>JOIN the conversation, literally.</p>
                     <p className={styles["sub-text2"]}>Sign up or login to join Go Off!</p>
 
                     <div className={styles["button-container"]}>

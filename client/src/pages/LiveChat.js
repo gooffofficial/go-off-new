@@ -12,7 +12,7 @@ import homeIcon from "../images/liveChatImages/home-icon.png";
 import globeIcon from "../images/liveChatImages/globe-icon.png";
 import article1 from "../images/liveChatImages/article-1.png";
 import article2 from "../images/liveChatImages/article-2.png";
-import NYTLogo from "../images/liveChatImages/NYT-Logo.png";
+// import NYTLogo from "../images/liveChatImages/NYT-Logo.png";
 import emilyIcon from "../images/liveChatImages/emily-profile-icon.png";
 import sendIcon from "../images/liveChatImages/send.png";
 import dots3Icon from "../images/liveChatImages/dots3.png";
@@ -265,6 +265,9 @@ const LiveChat = () => {
           axios({method: 'post',url: `http://localhost:8080/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
           axios({method: 'post',url: `http://localhost:8080/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
           axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+          // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
+          // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
+          // axios(`http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
       });
 
   }).catch(err => console.log(`did not find convo ${err}`));
@@ -658,14 +661,14 @@ const LiveChat = () => {
               {metaData.description}
             </p>
             <Participants/>
-            <div className={styles["dropDownRow"]}>
+            {/* <div className={styles["dropDownRow"]}>
               <span className={styles["chatDropDownName"]}>Shared Media</span>
               <img
                 src={arrowDownIcon}
                 alt="dropDownImg"
                 className={styles["dropDownImg"]}
               />
-            </div>
+            </div> */}
             <div className={styles["dropDownRow"]}>
               <span className={styles["chatDropDownName"]}>
                 Privacy & Support

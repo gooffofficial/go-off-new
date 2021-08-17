@@ -183,6 +183,7 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
             var i = 0
             console.log(convos)
             for (const convo of convos[0]){
+
                 let c = await db.Convo.findOne({
                     where: {
                         id: convo.ConvoId
@@ -205,26 +206,31 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                 let prof = await db.Profile.findOne({
                     
                     where: {
-                        id: c.host
+                        UserId: c.host
                     }
                 })
                 // console.log(prof)
                 // console.log(c.host)
                 // console.log(user)
                 // if(c.host != user.id){
-                    convs.push({
-                        'articleURL': c.article,
-                        'articleImg': art.img,
-                        'time': c.time,
-                        'hostName': user.name,
-                        'hostNum': user.phonenumber,
-                        'roomId': c.roomId,
-                        'convTitle': c.title,
-                        'desc': c.description,
-                        'hostID': user.id,
-                        'hostpfp': prof.ppic,
-                    })
-                // }
+
+                    // if(new Date() > new Date(c.time)){
+                        console.log("test")
+                        convs.push({
+                            'articleURL': c.article,
+                            'articleImg': art.img,
+                            'time': c.time,
+                            'hostName': user.name,
+                            'hostNum': user.phonenumber,
+                            'roomId': c.roomId,
+                            'convTitle': c.title,
+                            'desc': c.description,
+                            'hostID': user.id,
+                            'hostpfp': prof.ppic,
+                        })
+                    // }
+                    // }
+                    
                 
 
                 // if(!user){
@@ -293,7 +299,7 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
             //     }
             // }
             return res.json(convs)
-    })
+        })
 })
 
 //get upcoming conversations for a user
