@@ -15,8 +15,8 @@ import firebase from '../firebase.js';
 
 
 const Conversation = (props,{ userid }) => {
-  let convoId = 'Test'
-  let dummyId = 54
+  let convoId = props.roomId
+  let dummyId = props.userid
   const db = firebase.firestore();
     const rsvpbuttonhandler = (e) => {
         e.preventDefault();
