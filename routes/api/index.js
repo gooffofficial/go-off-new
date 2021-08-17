@@ -214,13 +214,12 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                 // console.log(c.host)
                 // console.log(user)
                 // if(c.host != user.id){
-<<<<<<< HEAD
 
                     // if(new Date() > new Date(c.time)){
                         console.log("test")
                         convs.push({
                             'articleURL': c.article,
-                            'articleImg': art.img,
+                            'articleImg': art.img || placeholderImg,
                             'time': c.time,
                             'hostName': user.name,
                             'hostNum': user.phonenumber,
@@ -233,21 +232,6 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                     // }
                     // }
                     
-=======
-                    convs.push({
-                        'articleURL': c.article,
-                        'articleImg': art.img || placeholderImg,
-                        'time': c.time,
-                        'hostName': user.name,
-                        'hostNum': user.phonenumber,
-                        'roomId': c.roomId,
-                        'convTitle': c.title,
-                        'desc': c.description,
-                        'hostID': user.id,
-                        'hostpfp': prof.ppic,
-                    })
-                // }
->>>>>>> d6a5e04da3b82fe0b67820a0313995231ba9a5ec
                 
 
                 // if(!user){

@@ -27,6 +27,7 @@ const Conversation = (props,{ userid }) => {
               let data = doc.data();
               let rsvp = data.rsvp;
               console.log(rsvp, rsvp.length)
+              console.log(data)
               if(data.hostId==userid){
                 return console.log('is already host')
               }

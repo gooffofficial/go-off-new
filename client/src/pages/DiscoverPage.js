@@ -146,7 +146,7 @@ const DiscoverPage = () => {
 										articleImg={prop1.articleImg}
 										time={prop1.time}
 										convTitle={prop1.convTitle}
-										hostName={currentUserFull.name}
+										hostName={prop1.hostName}
 										roomId={prop1.roomId}
 										desc={prop1.desc}
 										userid={currentUser.id}
