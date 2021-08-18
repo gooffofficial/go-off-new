@@ -201,8 +201,13 @@
   } */
   
   .di-convRow {
+    /* display: flex;
+    margin-bottom: 10px; */
+    width: 92%;
     display: flex;
-    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
   }
 
   .HappeningNowCard, .TrendingCard {

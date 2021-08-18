@@ -2,10 +2,17 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/ProfilePage/Profile.module.scss';
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile
+} from "react-device-detect";
 
 // Components
+import ProfileMobile from './ProfileMobile';
 import NavBar from '../components/NavBar.js';
-import FeedCard, { ChatsFeed } from '../components/FeedCard.js';
+import { ChatsFeed } from '../components/FeedCard.js';
 import UpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
 
 const fillerUser = {
@@ -23,6 +30,15 @@ const Profile = (props) => {
 
 	const history = useHistory();
 
+  const goToHomePage = (evt) => {
+	let isHost = currentUserFull.host === "(Host)";
+	let isAdmin = currentUserFull.admin === "(Admin)";
+    if (isHost || isAdmin)
+      history.push('/hosthome')
+    else 
+      history.push('/home')
+  }
+
 	useEffect(() => {
 		axios
 			.get(`/api/users/current`, {
@@ -30,7 +46,7 @@ const Profile = (props) => {
 			})
 			.then((res) => {
 				setCurrentUser(res.data.user);
-
+				console.log("test")
 				axios
 					.get(`/api/users/profile/${res.data.user.username}`, {
 						withCredentials: true,
@@ -45,6 +61,8 @@ const Profile = (props) => {
 									...res2.data.user,
 									upcomingChats: res.data,
 								});
+
+								
 							});
 					});
 			})
@@ -53,9 +71,22 @@ const Profile = (props) => {
 			});
 	}, []);
 
+  if (isMobile)
+    return <ProfileMobile 
+      currentUser={currentUser}
+      setCurrentUser={setCurrentUser}
+      currentUserFull={currentUserFull}
+      setCurrentUserFull={setCurrentUserFull}
+      chatCategory={chatCategory}
+      setChatCategory={setChatCategory}
+      goToHomePage={goToHomePage}
+      history={history}
+    />
+
+console.log(currentUserFull)
 	return (
 		<div className={styles.profilePageContainer}>
-			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} />
+			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
 			<div className={styles.subContainer}>
 				<div className={styles.leftSideBar}>
 					<div className={styles.sideBarLinks}>
@@ -73,7 +104,7 @@ const Profile = (props) => {
 						</div>
 						<div
 							className={styles.sideBarHome}
-							onClick={() => history.push('/home')}
+							onClick={goToHomePage}
 						>
 							<svg
 								width="30"
@@ -155,7 +186,7 @@ const Profile = (props) => {
 							</div>
 
 							<div className={styles.profilePageInfo}>
-								<h1 className={styles.profilePageName}>{currentUser.name}</h1>
+								<h1 className={styles.profilePageName}>{currentUser.name}{currentUserFull.host}{currentUserFull.admin}</h1>
 								<p
 									className={styles.profilePageUsername}
 								>{`@${currentUser.username}`}</p>
@@ -179,9 +210,9 @@ const Profile = (props) => {
 								<p className={styles.profilePageTabText}>Past</p>
 							</div>
 
-							<div onClick={() => setChatCategory("Saved")} className={styles.profilePageTab}>
+							{/* <div onClick={() => setChatCategory("Saved")} className={styles.profilePageTab}>
 								<p className={styles.profilePageTabText}>Saved</p>
-							</div>
+							</div> */}
 						</div>
 					</div>
 

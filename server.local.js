@@ -38,8 +38,8 @@ app.set('view engine', 'ejs');
 
 app.use((req, res, next) => {
     console.log(req.hostname);
-    const allowedOrigins = ['http://0.0.0.0:8000', 'http://0.0.0.0:3000', 'http://0.0.0.0:8080', 'http://0.0.0.0:4050'];
-    // const allowedOrigins = ['http://localhost:8000', 'http://localhost:3000, http://localhost:8080'];
+    // const allowedOrigins = ['http://0.0.0.0:8000', 'http://0.0.0.0:3000', 'http://0.0.0.0:8080', 'http://0.0.0.0:4050'];
+    const allowedOrigins = ['http://localhost:8000', 'http://localhost:3000, http://localhost:8080'];
     const origin = req.headers.origin;
     if (allowedOrigins.includes(origin)) {
       res.setHeader('Access-Control-Allow-Origin', origin);
@@ -62,7 +62,6 @@ app.listen(8000, () => console.log('Server running on http://localhost:8000/'));
  db.once('open', function() {
      console.log('MongoDB connected...');
      //get admins from RDS
-     console.log("test")
      sqlModels.User.findAll({
          where: {
              admin: "(Admin)"

@@ -1,7 +1,7 @@
 {
     "AWSEBDockerrunVersion": "1",
     "Image": {
-      "Name": "gooffofficial/go-off-new"
+      "Name": "gooffofficial/go-off-react"
     },
     "authentication": {
         "bucket": "elasticbeanstalk-us-west-1-855995294489",
@@ -9,7 +9,8 @@
       },
     "Ports": [
       {
-        "ContainerPort": "8000"
+        "HostPort": "8000",
+        "ContainerPort": "3000"
       },
       {
           "HostPort": "4050",

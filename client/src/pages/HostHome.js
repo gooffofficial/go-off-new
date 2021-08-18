@@ -51,6 +51,15 @@ const HomePage = () => {
 
   const openCreateConvModal = () => setCreateConvModalVisible(true);
   const closeCreateConvModal = () => setCreateConvModalVisible(false);
+  
+  const goToHomePage = (evt) => {
+    let isHost = currentUserFull.host === "(Host)";
+    let isAdmin = currentUserFull.admin === "(Admin)";
+      if (isHost || isAdmin)
+        history.push('/hosthome')
+      else 
+        history.push('/home')
+  }
 
 	useEffect(() => {
 		axios
@@ -102,14 +111,14 @@ const HomePage = () => {
     ];
     
   return <div className={s.homePage}>
-   <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} />
+   <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
     <div className={s.mainContent}>
       <div className={s.leftColumn}>
         <div className={s.avatarBox}>
           <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
           <span className={s.avatarName}>{ currentUser.name }</span>
         </div>
-        <div className={s.homeBox} onClick = {() => history.push('/home')}>
+        <div className={s.homeBox} onClick = {goToHomePage}>
           <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
           <span className={s.homeText}>Home</span>
         </div>
@@ -149,6 +158,7 @@ const HomePage = () => {
                 id={currentUser.id}
               />
             </div>
+            <span className={s.convdesc} >It can be a......</span>
             <hr className={s.grayLine} />
             <div className={s.userIconsRow}>
               <div className={s.photoRow}>
@@ -192,7 +202,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className={s.rightColumn}>
-        <div className={s.trendingRow}>
+        {/* <div className={s.trendingRow}>
           <img src={trendingArrow} alt="" className={s.trendingIcon} />
           <span className={s.trendingTxt}>Trending</span>
         </div>
@@ -208,7 +218,7 @@ const HomePage = () => {
         <FriendActivityCard userAvatar={emilyIcon} username="Emily Patterson" friendName="Clarissa Peers" />
         <FriendActivityCard userAvatar={emilyIcon} username="Emily Patterson" friendName="Clarissa Peers" />
         <FriendActivityCard userAvatar={emilyIcon} username="Emily Patterson" friendName="Clarissa Peers" />
-        <FriendActivityCard userAvatar={emilyIcon} username="Emily Patterson" friendName="Clarissa Peers" />
+        <FriendActivityCard userAvatar={emilyIcon} username="Emily Patterson" friendName="Clarissa Peers" /> */}
       </div>
     </div>
   </div>
@@ -236,6 +246,7 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id }) 
     const convCreationInfo = { articleURL: articleURLInput, time: dateInput, title: convTitleInput, description: articleURLInput }
     mutate(convCreationInfo)
     closeCreateConvModal();
+    window.alert("Conversation created! To find the conversation check your Profile page or the Home page!")
   }
 
   const rodalCustomStyles = {
@@ -361,14 +372,14 @@ const FriendActivityCard = ({ userAvatar, username, friendName }) => {
 //   </div>
 // }
 
-const ChatCard = ({ title, timeStart, chatImage }) => {
-  return <div className={s.chatCard}>
-    <img src={chatImage} alt="Chat Img" className={s.chatImage} />
-    <div className={s.chatBottomSide}>
-      <h2 className={s.timeStart}>{timeStart}</h2>
-      <h4 className={s.chatTitle}>{title}</h4>
-    </div>
-  </div>
-}
+// const ChatCard = ({ title, timeStart, chatImage }) => {
+//   return <div className={s.chatCard}>
+//     <img src={chatImage} alt="Chat Img" className={s.chatImage} />
+//     <div className={s.chatBottomSide}>
+//       <h2 className={s.timeStart}>{timeStart}</h2>
+//       <h4 className={s.chatTitle}>{title}</h4>
+//     </div>
+//   </div>
+// }
 
 export default HomePage;

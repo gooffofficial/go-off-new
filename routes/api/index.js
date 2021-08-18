@@ -18,6 +18,7 @@ const seq = new Sequelize('test_server1', process.env.RDS_USER, process.env.RDS_
     }
   })
 
+const placeholderImg = "https://besthqwallpapers.com/Uploads/10-6-2020/135848/thumb2-gray-abstract-background-gray-luxury-background-gray-lines-background-gray-geometric-background.jpg"
 
 router.use('/users', require('./users'));
 router.use('/chat', require('./chat'))
@@ -116,6 +117,54 @@ router.use('/convos', require('./convos'))
 //     })
 // })
 
+router.get('/gettopusers', auth.required, (req, res, next) => {
+    const {payload: {id}} = req
+
+    console.log("User Grabbing \n\n\n")
+    //grab top 10 users with the most followers and if we follow them or not 
+    //and their profile picture
+
+    seq.query("SELECT id FROM test_server1.Users U ORDER BY U.followercount DESC")
+    .then(async (users) => {
+        tusers = []
+        console.log("test")
+        console.log(users)
+        for (const user of users[0]){
+            let f = await db.Followers.findOne({
+                follower: req.id,
+                followed: users.id
+            })
+            let prof = await db.Profile.findOne({  
+                where: {
+                    id: users.id
+                }
+            })
+
+            if(req.id == users.id){
+                i++
+                break
+            }
+            if(f){
+                tusers.push({
+                    'hostName': users.username,
+                    'hostpfp': prof.ppic,
+                    'followercount': users.followercount,
+                    'isFollowing': true,
+                })
+            }else{
+                tusers.push({
+                    'hostName': users.username,
+                    'hostpfp': prof.ppic,
+                    'followercount': users.followercount,
+                    'isFollowing': false,
+                })
+            }
+            i++
+        }
+        console.log(tusers)
+        return res.json(tusers)
+    })
+})
 router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => {
     const {payload: {id}} = req
     var offset = req.query["o"]
@@ -133,7 +182,9 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
         .then(async (convos) => {
             var convs = []
             var i = 0
+            console.log(convos)
             for (const convo of convos[0]){
+
                 let c = await db.Convo.findOne({
                     where: {
                         id: convo.ConvoId
@@ -145,7 +196,7 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                     where: {
                         url: c.article
                     }
-                })
+                }) || {}
                 let user = await db.User.findOne({
                     where: {
                         id: c.host
@@ -156,16 +207,36 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                 let prof = await db.Profile.findOne({
                     
                     where: {
-                        id: c.host
+                        UserId: c.host
                     }
-                })
+                }) || {}
                 // console.log(prof)
                 // console.log(c.host)
                 // console.log(user)
                 // if(c.host != user.id){
+<<<<<<< HEAD
+
+                    // if(new Date() > new Date(c.time)){
+                        console.log("test")
+                        convs.push({
+                            'articleURL': c.article,
+                            'articleImg': art.img,
+                            'time': c.time,
+                            'hostName': user.name,
+                            'hostNum': user.phonenumber,
+                            'roomId': c.roomId,
+                            'convTitle': c.title,
+                            'desc': c.description,
+                            'hostID': user.id,
+                            'hostpfp': prof.ppic,
+                        })
+                    // }
+                    // }
+                    
+=======
                     convs.push({
                         'articleURL': c.article,
-                        'articleImg': art.img,
+                        'articleImg': art.img || placeholderImg,
                         'time': c.time,
                         'hostName': user.name,
                         'hostNum': user.phonenumber,
@@ -176,6 +247,7 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                         'hostpfp': prof.ppic,
                     })
                 // }
+>>>>>>> d6a5e04da3b82fe0b67820a0313995231ba9a5ec
                 
 
                 // if(!user){
@@ -244,7 +316,7 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
             //     }
             // }
             return res.json(convs)
-    })
+        })
 })
 
 //get upcoming conversations for a user
@@ -301,12 +373,12 @@ router.get('/upcoming', auth.required, async (req, res, next) => {
           })
           // Check the date of the convo to see if it is within 30 minutes of current
           if (Date.now() - conv.time < 30*(60*1000)) {
-            let article = await db.Article.findOne({ where: { url: conv.article } })
+            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
             let user = await db.User.findOne({ where: { id: conv.host } })
             let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
             convos.push({
               'articleURL': conv.article,
-              'articleImg': article.img,
+              'articleImg': article.img || placeholderImg,
               'time': conv.time,
               'hostUsername': user.name,
               'roomId': conv.roomId,
@@ -338,12 +410,12 @@ router.get('/upcoming', auth.required, async (req, res, next) => {
           })
           // Check the date of the convo to see if it is within 30 minutes of current
           if (Date.now() - conv.time < 30*(60*1000)) {
-            let article = await db.Article.findOne({ where: { url: conv.article } })
+            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
             let user = await db.User.findOne({ where: { id: conv.host } })
             let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
             convos.push({
               'articleURL': conv.article,
-              'articleImg': article.img,
+              'articleImg': article.img || placeholderImg,
               'time': conv.time,
               'hostUsername': user.name,
               'roomId': conv.roomId,
@@ -377,12 +449,12 @@ router.get('/upcoming/:username', auth.required, async (req, res, next) => {
           })
           // Check the date of the convo to see if it is within 30 minutes of current
           if (Date.now() - conv.time < 30*(60*1000)) {
-            let article = await db.Article.findOne({ where: { url: conv.article } })
+            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
             let user = await db.User.findOne({ where: { id: conv.host } })
             let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
             convos.push({
               'articleURL': conv.article,
-              'articleImg': article.img,
+              'articleImg': article.img || placeholderImg,
               'time': conv.time,
               'hostUsername': user.name,
               'roomId': conv.roomId,
@@ -415,12 +487,12 @@ router.get('/pastconv/:username', auth.required, async (req, res, next) => {
               }
           })
           if (Date.now() > conv.time){
-            let article = await db.Article.findOne({ where: { url: conv.article } })
+            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
             let user = await db.User.findOne({ where: { id: conv.host } })
             let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
             convos.push({
               'articleURL': conv.article,
-              'articleImg': article.img,
+              'articleImg': article.img || placeholderImg,
               'time': conv.time,
               'hostUsername': user.username,
               'roomId': conv.roomId,
@@ -451,12 +523,12 @@ router.get('/pastconv', auth.required, async (req, res, next) => {
               }
           })
           if (Date.now() > conv.time){
-            let article = await db.Article.findOne({ where: { url: conv.article } })
+            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
             let user = await db.User.findOne({ where: { id: conv.host } })
             let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
             convos.push({
               'articleURL': conv.article,
-              'articleImg': article.img,
+              'articleImg': article.img || placeholderImg,
               'time': conv.time,
               'hostUsername': user.username,
               'roomId': conv.roomId,
@@ -489,7 +561,7 @@ router.get('/pastconv', auth.required, async (req, res, next) => {
     // }).then((articles) => {
     //     return res.json(articles)
     // })
-})
+// })
 /*
 router.get('/update_article', auth.optional, (req,res, next) => {
     db.Profile.update({

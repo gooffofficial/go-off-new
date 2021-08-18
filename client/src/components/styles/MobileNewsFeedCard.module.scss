@@ -1,0 +1,134 @@
+.mobileNewFeedCard {
+  font-family: Poppins;
+  font-style: normal;
+  background-color: white;
+  padding: 12px 15px;
+  width: 100%;
+}
+
+.articleHeadingRow {
+  display: flex;
+  margin-top: 8px;
+}
+
+.headingLeft {
+  display: flex;
+  flex-direction: column;
+  background: rgba(86, 103, 255, 0.15);
+  border-radius: 10px;
+  width: 45px;
+  height: 63px;
+}
+
+.convMonth {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 33px;
+  text-align: center;
+  color: #5667ff;
+}
+
+.convDayNum {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 12px;
+  text-align: center;
+  color: #5667ff;
+}
+
+.articleTitle {
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 21px;
+  color: #3F3F46;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.convDateStart {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 25px;
+  color: #828282;
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 4px;
+}
+
+.convDescription {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
+  color: #000000;
+  opacity: 0.55;
+}
+
+.grayLine {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid #E5E5E5;
+  margin-top: 9px;
+}
+
+.hostRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-top: 9px;
+}
+
+.leftHostRow {
+  display: flex;
+}
+
+.hostAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.rightHostInfo {
+  margin-left: 10px;
+  border-radius: 50%;
+}
+
+.hostTag {
+  background: linear-gradient(180deg, #3A86FF 0%, #5667FF 100%);
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  letter-spacing: 0.7px;
+  line-height: 20px;
+  text-align: center;
+  padding: 0px 4px;
+  display: inline-block;
+}
+
+.hostName {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 25px;
+  color: #3F3F46;
+  display: block;
+}
+
+.RSVPBtn {
+  color: white;
+  background: linear-gradient(180deg, #3A86FF 0%, #5667FF 100%);
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  letter-spacing: 2px;
+  padding: 9px 14px;
+}
+
+.bottomGrayArea {
+  background: #F4F4F4;
+  height: 25px;
+}

@@ -30,9 +30,19 @@ const DiscoverPage = () => {
   const [currentUser, setCurrentUser] = useState(fillerUser);
   const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
   const [allUserFull, setAllUserFull] = useState(fillerUser);
+  const [otherUser, setOtherUsers] = useState(fillerUser);
 
 	const history = useHistory();
 	// const history = useHistory();
+
+  const goToHomePage = (evt) => {
+    let isHost = currentUserFull.host === "(Host)";
+    let isAdmin = currentUserFull.admin === "(Admin)";
+      if (isHost || isAdmin)
+        history.push('/hosthome')
+      else 
+        history.push('/home')
+  }
 
 	useEffect(() => {
 		axios
@@ -61,8 +71,18 @@ const DiscoverPage = () => {
 									.then((res3) => {
 										setAllUserFull({
 											allupcomingChats: res3.data,
-										});
-									});
+                    });
+                    console.log(res3.data)
+                  });
+                  // axios
+                  //   .get('/api/gettopusers', { withCredentials: true})
+                  //   .then((res4) => {
+                  //     setOtherUsers({
+                  //       ...res4.data.user,
+                  //       topUser: res.data,
+                  //     })
+                  //     console.log(res4.data)
+                  //   })
 							});
 					});
 			})
@@ -70,7 +90,8 @@ const DiscoverPage = () => {
 				console.log(err);
 			});
 	}, []);
-
+  
+  // console.log(otherUser)
 	let trendingImageSources = [
 		'/images/trend-stock1.png',
 		'/images/trend-stock2.png',
@@ -79,14 +100,14 @@ const DiscoverPage = () => {
     ];
 
   return <div className={styles["discoverPage"]}>
-    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic}/>
+    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
     <div className={styles["di-mainContent"]}>
       <div className={styles["di-leftColumn"]}>
         <div className={styles["di-avatarBox"]}>
           <img src={currentUserFull.propic} alt="avatar" className={styles["di-prekshaIcon"]} />
           <span className={styles["di-avatarName"]}>{currentUser.name}</span>
         </div>
-        <div className={styles["di-homeBox"]} onClick={() => history.push('/home')}>
+        <div className={styles["di-homeBox"]} onClick={goToHomePage}>
           <img src={homeIcon} alt="homeImage" className={styles["di-homeIcon"]} />
           <span className={styles["di-homeText"]}>Home</span>
         </div>
@@ -146,7 +167,7 @@ const DiscoverPage = () => {
           <img src={FacesConv} alt="" className={styles["di-convImg"]} />
           <img src={EyeConv} alt="" className={styles["di-convImg"]} /> */}
         </div>
-        <h2 className={styles["trendingTxt"]}>Trending</h2>
+        {/* <h2 className={styles["trendingTxt"]}>Trending</h2> */}
         {/* <div className={styles["di-convRow"]}>
           <TrendingCard convImg={BrushConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
           <TrendingCard convImg={FacesConv} convTitle='Zero Waste Toothbrush: How does it really make a difference?' />
@@ -163,12 +184,27 @@ const DiscoverPage = () => {
           <div className={`${styles['di-browseBox']} ${styles['di-SustainabilityBox']}`}>Sustainability</div>
         </div> */}
       </div>
-      <div className={styles["rightColumn"]}>
+      {/* <div className={styles["rightColumn"]}>
         <div className={styles["featuredTxtRow"]}>
           <img src={peopleIcon} alt="" className={styles["peopleIcon"]} />
           <h2 className={styles["featuredTxt"]}>Featured Hosts</h2>
-        </div>
-        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
+        </div> */}
+        {/* {otherUser.topUser ? (
+                  otherUser.topUser.map((prop2) => {
+                    // console.log(prop2)
+                    return (
+                      <FeaturedHost
+                        hostImg={prop2.hostpfp}
+                        hostName={prop2.hostName}
+                        followersAmt={prop2.followercount}
+                        isFollowing={prop2.isFollowing}
+                      />
+                    );
+                  })
+                ) : (
+                  <FeaturedHost />
+                )} */}
+        {/* <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={true} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
@@ -177,13 +213,14 @@ const DiscoverPage = () => {
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={true} />
         <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
-        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} />
-      </div>
+        <FeaturedHost hostImg={prekshaIcon} hostName="Preksha Munot" followersAmt={100} isFollowing={false} /> */}
+      {/* </div> */}
     </div>
   </div>
 }
 
 const FeaturedHost = ({ hostImg, hostName, followersAmt, isFollowing = false }) => {
+  // console.log(hostImg, hostName, followersAmt, isFollowing )
   return <div className={styles['FeaturedHostRow']}>
     <div className={styles['leftSideFeatured']}>
       <img src={hostImg} alt="" className={styles['hostAvatar']} />

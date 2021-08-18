@@ -15,12 +15,12 @@ import firebase from '../firebase.js';
 
 
 const Conversation = (props,{ userid }) => {
-  let convoId = 'Test'
-  let dummyId = 54
+  let convoId = props.roomId
+  let dummyId = props.userid
   const db = firebase.firestore();
     const rsvpbuttonhandler = (e) => {
         e.preventDefault();
-
+        console.log("test")
         db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
@@ -32,6 +32,7 @@ const Conversation = (props,{ userid }) => {
               }
               if(rsvp.length<10){
               rsvp.push(dummyId)
+              window.alert("Succesfully RSVP'd!")
               db.collection('Conversations').doc(doc.id).update({ rsvp:rsvp }).then(res => console.log('successfully rsvpd')).catch(err => console.log(err))
             }else{
               console.log('limit reached')
@@ -48,7 +49,7 @@ const Conversation = (props,{ userid }) => {
       };
   
       const { articleImg, articleURL, time, hostName, roomId, convTitle, desc, userpfp, hostNum} = props;
-      console.log(time)
+      // console.log(time)
     //   const month = new Date(time)
     //   const date = new Date(time)
     //   const month1 = Date(time)
@@ -56,11 +57,11 @@ const Conversation = (props,{ userid }) => {
     //   console.log(month, date)
     //   console.log(month1, date1)
     let UTCTime = parseInt(time);
-	let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
-	let convoCalendarDay = moment(UTCTime).format('D');
-	let convoDay = moment(UTCTime).format('dddd').toUpperCase();
-	let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
-	let convoDate = `${convoDay} ${convoHoursMinutes}`;
+    let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
+    let convoCalendarDay = moment(UTCTime).format('D');
+    let convoDay = moment(UTCTime).format('dddd').toUpperCase();
+    let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
+    let convoDate = `${convoDay} ${convoHoursMinutes}`;
     return <div className={s.conversationRow}>
       <div className={s.convImageBox}>
         <img src={articleImg ? articleImg : '/images/Rectangle328.png'} alt="" className={s.convImg} />

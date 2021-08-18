@@ -62,7 +62,7 @@ const Home = (props) => {
 			});
 	}, []);
 
-	console.log(currentUserFull.upcomingChats)
+	console.log(currentUserFull)
 	console.log(allUserFull.allupcomingChats)
 	let trendingImageSources = [
 		'/images/trend-stock1.png',
@@ -73,7 +73,7 @@ const Home = (props) => {
 
 	return (
 		<div className={styles.homePageContainer}>
-			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} />
+			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
 			<div className={styles.subContainer}>
 				<div className={styles.leftSideBar}>
 					<div className={styles.sideBarLinks}>
@@ -175,7 +175,7 @@ const Home = (props) => {
 								allUserFull.allupcomingChats.map((prop1) => {
 									return (
 										<Conversation
-										articleURL={prop1.articleURL}
+											articleURL={prop1.articleURL}
 											articleImg={prop1.articleImg}
 											time={prop1.time}
 											convTitle={prop1.convTitle}
@@ -197,7 +197,7 @@ const Home = (props) => {
 							<FeedCard /> */}
 					</div>
 				</div>
-				<div className={styles.rightSideBar}>
+				{/* <div className={styles.rightSideBar}>
 					<div className={styles.trendingContainer}>
 						<div className={styles.trendingTitleContainer}>
 							<div className={styles.trendingIconContainer}>
@@ -288,7 +288,7 @@ const Home = (props) => {
 							/>
 						</div>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);
