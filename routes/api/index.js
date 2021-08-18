@@ -169,6 +169,7 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
     const {payload: {id}} = req
     var offset = req.query["o"]
     console.log("AFGG\n\n\n")
+    console.log(req.payload.id)
     // Same as above except with convos from people the user is following
     // seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
     
@@ -197,15 +198,20 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                         url: c.article
                     }
                 }) || {}
-                let user = await db.User.findOne({
+                let host = await db.User.findOne({
                     where: {
                         id: c.host
                     }
                 })
+
+                // let user = await db.User.findOne({
+                //     where: {
+                //         id: 
+                //     }
+                // })
                 // console.log(c.host)
                 // console.log(c.id)
                 let prof = await db.Profile.findOne({
-                    
                     where: {
                         UserId: c.host
                     }
@@ -221,13 +227,14 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
                             'articleURL': c.article,
                             'articleImg': art.img || placeholderImg,
                             'time': c.time,
-                            'hostName': user.name,
-                            'hostNum': user.phonenumber,
+                            'hostName': host.name,
+                            'hostNum': host.phonenumber,
                             'roomId': c.roomId,
                             'convTitle': c.title,
                             'desc': c.description,
-                            'hostID': user.id,
+                            'hostID': host.id,
                             'hostpfp': prof.ppic,
+                            'userID': req.payload.id,
                         })
                     // }
                     // }

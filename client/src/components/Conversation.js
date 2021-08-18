@@ -75,7 +75,7 @@ const Conversation = (props,{ userid }) => {
             <div className={s.dayText}>{convoCalendarDay}</div>
           </div>
           <div className={s.middleHeading}>
-            <img src={NYTLogo} alt="NYT Logo" className={s.NYTLogo} />
+            {/* <img src={NYTLogo} alt="NYT Logo" className={s.NYTLogo} /> */}
             <span className={s.articleTitle}>{convTitle}</span>
           </div>
           <div className={s.rightHeading}>

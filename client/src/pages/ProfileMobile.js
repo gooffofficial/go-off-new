@@ -15,6 +15,14 @@ const ProfileMobile = ({ currentUser, setCurrentUser, currentUserFull, setCurren
 
   let profileAvatar = currentUserFull ? currentUserFull.propic : '/images/stock-face.jpg';
   let profileBio = currentUserFull.bio ? currentUserFull.bio : 'No bio yet!'
+  const goToHomePage = (evt) => {
+    let isHost = currentUserFull.host === "(Host)";
+    let isAdmin = currentUserFull.admin === "(Admin)";
+      if (isHost || isAdmin)
+        history.push('/hosthome')
+      else 
+        history.push('/home')
+  }
 
   return <div className={s.ProfileMobile}>
     <ProfileMobileNavBar goToHomePage={goToHomePage} />

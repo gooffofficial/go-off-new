@@ -44,6 +44,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
         }
         //console.log("IDDDDD "+room._id)
         // Create conversation in database
+        console.log(req.body)
         db.Convo.create({
             article: req.body.article,
             host: id,

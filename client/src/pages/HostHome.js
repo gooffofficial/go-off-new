@@ -187,9 +187,10 @@ const HomePage = () => {
                         hostName={prop1.hostName}
                         roomId={prop1.roomId}
                         desc={prop1.desc}
-                        userid={prop1.hostID}
+                        hostid={prop1.hostID}
                         userpfp={prop1.hostpfp}
                         hostNum={prop1.hostNum}
+                        userid={prop1.userID}
                       />
                     );
                   })
@@ -243,7 +244,7 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id }) 
     else if (!convDescInput) alert("There's something wrong with the Conv Description Input")
     else if (!articleURLInput) alert("There's something wrong with the Ariticle URL Input")
 
-    const convCreationInfo = { articleURL: articleURLInput, time: dateInput, title: convTitleInput, description: articleURLInput }
+    const convCreationInfo = { articleURL: articleURLInput, time: dateInput, title: convTitleInput, description: convDescInput }
     mutate(convCreationInfo)
     closeCreateConvModal();
     window.alert("Conversation created! To find the conversation check your Profile page or the Home page!")
