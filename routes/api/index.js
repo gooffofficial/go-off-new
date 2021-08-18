@@ -1,28 +1,34 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const auth = require('../auth');
-const crawler = require('../../apify/crawler')
-const { body, query } = require('express-validator');
-const db = require('../../models')
-const Sequelize = require('sequelize')
+const auth = require("../auth");
+const crawler = require("../../apify/crawler");
+const { body, query } = require("express-validator");
+const db = require("../../models");
+const Sequelize = require("sequelize");
 
-const seq = new Sequelize('test_server1', process.env.RDS_USER, process.env.RDS_PASSWORD, {
+const seq = new Sequelize(
+  "test_server1",
+  process.env.RDS_USER,
+  process.env.RDS_PASSWORD,
+  {
     port: process.env.RDS_PORT,
     host: process.env.RDS_HOSTNAME,
-    dialect: 'mysql',
+    dialect: "mysql",
     pool: {
       max: 10,
       min: 0,
       acquire: 30000,
-      idle: 10000
-    }
-  })
+      idle: 10000,
+    },
+  }
+);
 
-const placeholderImg = "https://besthqwallpapers.com/Uploads/10-6-2020/135848/thumb2-gray-abstract-background-gray-luxury-background-gray-lines-background-gray-geometric-background.jpg"
+const placeholderImg =
+  "https://besthqwallpapers.com/Uploads/10-6-2020/135848/thumb2-gray-abstract-background-gray-luxury-background-gray-lines-background-gray-geometric-background.jpg";
 
-router.use('/users', require('./users'));
-router.use('/chat', require('./chat'))
-router.use('/convos', require('./convos'))
+router.use("/users", require("./users"));
+router.use("/chat", require("./chat"));
+router.use("/convos", require("./convos"));
 
 // router.get('/folders', auth.required, (req, res, next) => {
 //     const {payload: {id}} = req;
@@ -40,15 +46,15 @@ router.use('/convos', require('./convos'))
 //     var offset = req.query["o"]
 //     // Query for next 4 articles from people the user is following based on the offset in the GET parameters
 //     // seq.query("SELECT article FROM test_server1.SavedArticles S, test_server1.Followers Fol WHERE (Fol.follower = "+id+" AND Fol.followed=S.userId) ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
-    
+
 //     //Query for next 4 articles from the available pool
 //     seq.query("SELECT article FROM test_server1.SavedArticles S ORDER BY S.createdAt DESC LIMIT 4 OFFSET "+ offset)
-//     .then(async (articles) => { 
+//     .then(async (articles) => {
 //         console.log("LENGTH\n\n\n\n" + articles[0].length)
 //         var arts = []
 //         for(var i=0; i<articles[0].length; i++){
 //             arts.push(articles[0][i].article)
-//         } 
+//         }
 //         console.log(arts)
 //         var arts2 = []
 //         // For every article found, we add the image title and link
@@ -79,7 +85,7 @@ router.use('/convos', require('./convos'))
 //             let a = {
 //                 img: '',
 //                 title: '',
-//                 link: '' 
+//                 link: ''
 //             }
 //             arts2.push(a);
 //             arts2.push(a);
@@ -117,207 +123,197 @@ router.use('/convos', require('./convos'))
 //     })
 // })
 
-router.get('/gettopusers', auth.required, (req, res, next) => {
-    const {payload: {id}} = req
+router.get("/gettopusers", auth.required, (req, res, next) => {
+  const {
+    payload: { id },
+  } = req;
 
-    console.log("User Grabbing \n\n\n")
-    //grab top 10 users with the most followers and if we follow them or not 
-    //and their profile picture
+  console.log("User Grabbing \n\n\n");
+  //grab top 10 users with the most followers and if we follow them or not
+  //and their profile picture
 
-    seq.query("SELECT id FROM test_server1.Users U ORDER BY U.followercount DESC")
+  seq
+    .query("SELECT id FROM test_server1.Users U ORDER BY U.followercount DESC")
     .then(async (users) => {
-        tusers = []
-        console.log("test")
-        console.log(users)
-        for (const user of users[0]){
-            let f = await db.Followers.findOne({
-                follower: req.id,
-                followed: users.id
-            })
-            let prof = await db.Profile.findOne({  
-                where: {
-                    id: users.id
-                }
-            })
+      tusers = [];
+      console.log("test");
+      console.log(users);
+      for (const user of users[0]) {
+        let f = await db.Followers.findOne({
+          follower: req.id,
+          followed: users.id,
+        });
+        let prof = await db.Profile.findOne({
+          where: {
+            id: users.id,
+          },
+        });
 
-            if(req.id == users.id){
-                i++
-                break
-            }
-            if(f){
-                tusers.push({
-                    'hostName': users.username,
-                    'hostpfp': prof.ppic,
-                    'followercount': users.followercount,
-                    'isFollowing': true,
-                })
-            }else{
-                tusers.push({
-                    'hostName': users.username,
-                    'hostpfp': prof.ppic,
-                    'followercount': users.followercount,
-                    'isFollowing': false,
-                })
-            }
-            i++
+        if (req.id == users.id) {
+          i++;
+          break;
         }
-        console.log(tusers)
-        return res.json(tusers)
-    })
-})
-router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => {
-    const {payload: {id}} = req
-    var offset = req.query["o"]
-    console.log("AFGG\n\n\n")
+        if (f) {
+          tusers.push({
+            hostName: users.username,
+            hostpfp: prof.ppic,
+            followercount: users.followercount,
+            isFollowing: true,
+          });
+        } else {
+          tusers.push({
+            hostName: users.username,
+            hostpfp: prof.ppic,
+            followercount: users.followercount,
+            isFollowing: false,
+          });
+        }
+        i++;
+      }
+      console.log(tusers);
+      return res.json(tusers);
+    });
+});
+router.get(
+  "/getconvos",
+  auth.required,
+  [query("o").escape()],
+  (req, res, next) => {
+    const {
+      payload: { id },
+    } = req;
+    var offset = req.query["o"];
+    console.log("AFGG\n\n\n");
     // Same as above except with convos from people the user is following
     // seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
-    
+
     // Same as above except for all convos
-    seq.query("SELECT ConvoId FROM test_server1.Convo_members C ORDER BY C.createdAt ")
-        /*db.Convo_members.findAll({
+    seq
+      .query(
+        "SELECT ConvoId FROM test_server1.Convo_members C ORDER BY C.createdAt "
+      )
+      /*db.Convo_members.findAll({
             where: {
                 UserId: id
             }
         })*/
-        .then(async (convos) => {
-            var convs = []
-            var i = 0
-            console.log(convos)
-            for (const convo of convos[0]){
+      .then(async (convos) => {
+        var convs = [];
+        var i = 0;
+        console.log(convos);
+        for (const convo of convos[0]) {
+          let c = await db.Convo.findOne({
+            where: {
+              id: convo.ConvoId,
+            },
+          });
+          // console.log(c)
+          // convs.push(c);
+          let art =
+            (await db.Article.findOne({
+              where: {
+                url: c.article,
+              },
+            })) || {};
+          let user = await db.User.findOne({
+            where: {
+              id: c.host,
+            },
+          });
+          // console.log(c.host)
+          // console.log(c.id)
+          let prof =
+            (await db.Profile.findOne({
+              where: {
+                UserId: c.host,
+              },
+            })) || {};
+          // console.log(prof)
+          // console.log(c.host)
+          // console.log(user)
+          // if(c.host != user.id){
+          convs.push({
+            articleURL: c.article,
+            articleImg: art.img || placeholderImg,
+            time: c.time,
+            hostName: user.name,
+            hostNum: user.phonenumber,
+            roomId: c.roomId,
+            convTitle: c.title,
+            desc: c.description,
+            hostID: user.id,
+            hostpfp: prof.ppic,
+          });
+          // }
 
-                let c = await db.Convo.findOne({
-                    where: {
-                        id: convo.ConvoId
-                    }
-                })
-                // console.log(c)
-                // convs.push(c);
-                let art = await db.Article.findOne({
-                    where: {
-                        url: c.article
-                    }
-                }) || {}
-                let user = await db.User.findOne({
-                    where: {
-                        id: c.host
-                    }
-                })
-                // console.log(c.host)
-                // console.log(c.id)
-                let prof = await db.Profile.findOne({
-                    
-                    where: {
-                        UserId: c.host
-                    }
-                }) || {}
-                // console.log(prof)
-                // console.log(c.host)
-                // console.log(user)
-                // if(c.host != user.id){
-<<<<<<< HEAD
+          // if(!user){
+          //     convs[i]['host'] = " "
 
-                    // if(new Date() > new Date(c.time)){
-                        console.log("test")
-                        convs.push({
-                            'articleURL': c.article,
-                            'articleImg': art.img,
-                            'time': c.time,
-                            'hostName': user.name,
-                            'hostNum': user.phonenumber,
-                            'roomId': c.roomId,
-                            'convTitle': c.title,
-                            'desc': c.description,
-                            'hostID': user.id,
-                            'hostpfp': prof.ppic,
-                        })
-                    // }
-                    // }
-                    
-=======
-                    convs.push({
-                        'articleURL': c.article,
-                        'articleImg': art.img || placeholderImg,
-                        'time': c.time,
-                        'hostName': user.name,
-                        'hostNum': user.phonenumber,
-                        'roomId': c.roomId,
-                        'convTitle': c.title,
-                        'desc': c.description,
-                        'hostID': user.id,
-                        'hostpfp': prof.ppic,
-                    })
-                // }
->>>>>>> d6a5e04da3b82fe0b67820a0313995231ba9a5ec
-                
+          // }else{
+          //     convs[i]['host'] = user.username
+          // }
 
-                // if(!user){
-                //     convs[i]['host'] = " "
-
-                // }else{
-                //     convs[i]['host'] = user.username
-                // }
-                
-                
-                // convs[i]['img'] = art.img
-                // console.log(convs[i]['img'])
-                // convs[i]['title'] = c.title
-                // console.log(c.title)
-                // console.log(convs)
-                i++
-                // console.log("CONVOSSSSSSSSSSSS", convs)
-            }
-            convs=convs.reverse();
-            // if(convs.length == 0) {
-            //     convs[0] = {
-            //         article: "",
-            //         id: -1
-            //     }
-            //     convs[1] = {
-            //         article: "",
-            //         id: -1
-            //     }
-            //     convs[2] = {
-            //         article: "",
-            //         id: -1
-            //     }
-            //     convs[3] = {
-            //         article: "",
-            //         id: -1
-            //     }
-            // }
-            // else if(convs.length == 1){
-            //     convs[1] = {
-            //         article: "",
-            //         id: -1
-            //     }
-            //     convs[2] = {
-            //         article: "",
-            //         id: -1
-            //     }
-            //     convs[3] = {
-            //         article: "",
-            //         id: -1
-            //     }
-            // }
-            // else if(convs.length == 2){
-            //     convs[2] = {
-            //         article: "",
-            //         id: -1
-            //     }
-            //     convs[3] = {
-            //         article: "",
-            //         id: -1
-            //     }
-            // }
-            // else if(convs.length == 3){
-            //     convs[3] = {
-            //         article: "",
-            //         id: -1
-            //     }
-            // }
-            return res.json(convs)
-        })
-})
+          // convs[i]['img'] = art.img
+          // console.log(convs[i]['img'])
+          // convs[i]['title'] = c.title
+          // console.log(c.title)
+          // console.log(convs)
+          i++;
+          // console.log("CONVOSSSSSSSSSSSS", convs)
+        }
+        convs = convs.reverse();
+        // if(convs.length == 0) {
+        //     convs[0] = {
+        //         article: "",
+        //         id: -1
+        //     }
+        //     convs[1] = {
+        //         article: "",
+        //         id: -1
+        //     }
+        //     convs[2] = {
+        //         article: "",
+        //         id: -1
+        //     }
+        //     convs[3] = {
+        //         article: "",
+        //         id: -1
+        //     }
+        // }
+        // else if(convs.length == 1){
+        //     convs[1] = {
+        //         article: "",
+        //         id: -1
+        //     }
+        //     convs[2] = {
+        //         article: "",
+        //         id: -1
+        //     }
+        //     convs[3] = {
+        //         article: "",
+        //         id: -1
+        //     }
+        // }
+        // else if(convs.length == 2){
+        //     convs[2] = {
+        //         article: "",
+        //         id: -1
+        //     }
+        //     convs[3] = {
+        //         article: "",
+        //         id: -1
+        //     }
+        // }
+        // else if(convs.length == 3){
+        //     convs[3] = {
+        //         article: "",
+        //         id: -1
+        //     }
+        // }
+        return res.json(convs);
+      });
+  }
+);
 
 //get upcoming conversations for a user
 // router.get('/upcoming', auth.required, async (req, res, next) => {
@@ -350,217 +346,244 @@ router.get('/getconvos', auth.required,[query('o').escape()], (req,res,next) => 
 //                 })
 //             }
 //         }
-//         return res.status(200).json(convos)       
+//         return res.status(200).json(convos)
 //     })
 // })
 
 //get upcoming conversations for a user
-router.get('/upcoming', auth.required, async (req, res, next) => {
-  const {payload: {id}} = req;
-  console.log("AHH\n\n\n\n\n\n\n\n")
+router.get("/upcoming", auth.required, async (req, res, next) => {
+  const {
+    payload: { id },
+  } = req;
+  console.log("AHH\n\n\n\n\n\n\n\n");
   db.Convo_members.findAll({
-      where: {
-          UserId: id
-      }
+    where: {
+      UserId: id,
+    },
   }).then(async (convoIds) => {
-      let convos = []
-      let convsObjects = []
-      for (let i=0; i<convoIds.length; i++) {
-          var conv = await db.Convo.findOne({
-              where: {
-                  id: convoIds[i].ConvoId
-              }
-          })
-          // Check the date of the convo to see if it is within 30 minutes of current
-          if (Date.now() - conv.time < 30*(60*1000)) {
-            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
-            let user = await db.User.findOne({ where: { id: conv.host } })
-            let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
-            convos.push({
-              'articleURL': conv.article,
-              'articleImg': article.img || placeholderImg,
-              'time': conv.time,
-              'hostUsername': user.name,
-              'roomId': conv.roomId,
-              'convTitle': conv.title,
-              'hostAvatar': profile.ppic,
-              'convDesc': conv.description
-            })
-          }
+    let convos = [];
+    let convsObjects = [];
+    for (let i = 0; i < convoIds.length; i++) {
+      var conv = await db.Convo.findOne({
+        where: {
+          id: convoIds[i].ConvoId,
+        },
+      });
+      // Check the date of the convo to see if it is within 30 minutes of current
+      if (Date.now() - conv.time < 30 * (60 * 1000)) {
+        let article =
+          (await db.Article.findOne({ where: { url: conv.article } })) || {};
+        let user = await db.User.findOne({ where: { id: conv.host } });
+        let profile = await db.Profile.findOne({
+          where: { UserId: conv.host },
+        });
+        convos.push({
+          articleURL: conv.article,
+          articleImg: article.img || placeholderImg,
+          time: conv.time,
+          hostUsername: user.name,
+          roomId: conv.roomId,
+          convTitle: conv.title,
+          hostAvatar: profile.ppic,
+          convDesc: conv.description,
+        });
       }
-      return res.status(200).json(convos)       
-  })
-})
+    }
+    return res.status(200).json(convos);
+  });
+});
 
-router.get('/upcoming', auth.required, async (req, res, next) => {
-  const {payload: {id}} = req;
-  console.log("AHH\n\n\n\n\n\n\n\n")
+router.get("/upcoming", auth.required, async (req, res, next) => {
+  const {
+    payload: { id },
+  } = req;
+  console.log("AHH\n\n\n\n\n\n\n\n");
   db.Convo_members.findAll({
-      where: {
-          UserId: id
-      }
+    where: {
+      UserId: id,
+    },
   }).then(async (convoIds) => {
-      let convos = []
-      let convsObjects = []
-      for (let i=0; i<convoIds.length; i++) {
-          var conv = await db.Convo.findOne({
-              where: {
-                  id: convoIds[i].ConvoId
-              }
-          })
-          // Check the date of the convo to see if it is within 30 minutes of current
-          if (Date.now() - conv.time < 30*(60*1000)) {
-            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
-            let user = await db.User.findOne({ where: { id: conv.host } })
-            let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
-            convos.push({
-              'articleURL': conv.article,
-              'articleImg': article.img || placeholderImg,
-              'time': conv.time,
-              'hostUsername': user.name,
-              'roomId': conv.roomId,
-              'convTitle': conv.title,
-              'hostAvatar': profile.ppic,
-              'convDesc': conv.description
-            })
-          }
+    let convos = [];
+    let convsObjects = [];
+    for (let i = 0; i < convoIds.length; i++) {
+      var conv = await db.Convo.findOne({
+        where: {
+          id: convoIds[i].ConvoId,
+        },
+      });
+      // Check the date of the convo to see if it is within 30 minutes of current
+      if (Date.now() - conv.time < 30 * (60 * 1000)) {
+        let article =
+          (await db.Article.findOne({ where: { url: conv.article } })) || {};
+        let user = await db.User.findOne({ where: { id: conv.host } });
+        let profile = await db.Profile.findOne({
+          where: { UserId: conv.host },
+        });
+        convos.push({
+          articleURL: conv.article,
+          articleImg: article.img || placeholderImg,
+          time: conv.time,
+          hostUsername: user.name,
+          roomId: conv.roomId,
+          convTitle: conv.title,
+          hostAvatar: profile.ppic,
+          convDesc: conv.description,
+        });
       }
-      return res.status(200).json(convos)       
-  })
-})
+    }
+    return res.status(200).json(convos);
+  });
+});
 
-router.get('/upcoming/:username', auth.required, async (req, res, next) => {
-  const {payload: {id}} = req;
-  const viewUsername = req.params.username
-  let viewUser = await db.User.findOne({ where: { username: viewUsername } })
-  if (!viewUser) return res.status(406).json({ error: "Username does not exist! "})
+router.get("/upcoming/:username", auth.required, async (req, res, next) => {
+  const {
+    payload: { id },
+  } = req;
+  const viewUsername = req.params.username;
+  let viewUser = await db.User.findOne({ where: { username: viewUsername } });
+  if (!viewUser)
+    return res.status(406).json({ error: "Username does not exist! " });
   db.Convo_members.findAll({
-      where: {
-          UserId: viewUser.id
-      }
+    where: {
+      UserId: viewUser.id,
+    },
   }).then(async (convoIds) => {
-      let convos = []
-      let convsObjects = []
-      for (let i=0; i<convoIds.length; i++) {
-          var conv = await db.Convo.findOne({
-              where: {
-                  id: convoIds[i].ConvoId
-              }
-          })
-          // Check the date of the convo to see if it is within 30 minutes of current
-          if (Date.now() - conv.time < 30*(60*1000)) {
-            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
-            let user = await db.User.findOne({ where: { id: conv.host } })
-            let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
-            convos.push({
-              'articleURL': conv.article,
-              'articleImg': article.img || placeholderImg,
-              'time': conv.time,
-              'hostUsername': user.name,
-              'roomId': conv.roomId,
-              'convTitle': conv.title,
-              'hostAvatar': profile.ppic,
-              'convDesc': conv.description
-            })
-          }
+    let convos = [];
+    let convsObjects = [];
+    for (let i = 0; i < convoIds.length; i++) {
+      var conv = await db.Convo.findOne({
+        where: {
+          id: convoIds[i].ConvoId,
+        },
+      });
+      // Check the date of the convo to see if it is within 30 minutes of current
+      if (Date.now() - conv.time < 30 * (60 * 1000)) {
+        let article =
+          (await db.Article.findOne({ where: { url: conv.article } })) || {};
+        let user = await db.User.findOne({ where: { id: conv.host } });
+        let profile = await db.Profile.findOne({
+          where: { UserId: conv.host },
+        });
+        convos.push({
+          articleURL: conv.article,
+          articleImg: article.img || placeholderImg,
+          time: conv.time,
+          hostUsername: user.name,
+          roomId: conv.roomId,
+          convTitle: conv.title,
+          hostAvatar: profile.ppic,
+          convDesc: conv.description,
+        });
       }
-      return res.status(200).json(convos)       
-  })
-})
+    }
+    return res.status(200).json(convos);
+  });
+});
 
-router.get('/pastconv/:username', auth.required, async (req, res, next) => {
-  const {payload: {id}} = req;
-  const viewUsername = req.params.username
-  let viewUser = await db.User.findOne({ where: { username: viewUsername } })
-  if (!viewUser) return res.status(406).json({ error: "Username does not exist!" })
+router.get("/pastconv/:username", auth.required, async (req, res, next) => {
+  const {
+    payload: { id },
+  } = req;
+  const viewUsername = req.params.username;
+  let viewUser = await db.User.findOne({ where: { username: viewUsername } });
+  if (!viewUser)
+    return res.status(406).json({ error: "Username does not exist!" });
   db.Convo_members.findAll({
-      where: {
-          UserId: viewUser.id
-      }
+    where: {
+      UserId: viewUser.id,
+    },
   }).then(async (convoIds) => {
-      let convos = []
-      let convsObjects = []
-      for (let i=0; i<convoIds.length; i++) {
-          var conv = await db.Convo.findOne({
-              where: {
-                  id: convoIds[i].ConvoId
-              }
-          })
-          if (Date.now() > conv.time){
-            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
-            let user = await db.User.findOne({ where: { id: conv.host } })
-            let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
-            convos.push({
-              'articleURL': conv.article,
-              'articleImg': article.img || placeholderImg,
-              'time': conv.time,
-              'hostUsername': user.username,
-              'roomId': conv.roomId,
-              'convTitle': conv.title,
-              'hostAvatar': profile.ppic,
-              'convDesc': conv.description
-            })
-          }
+    let convos = [];
+    let convsObjects = [];
+    for (let i = 0; i < convoIds.length; i++) {
+      var conv = await db.Convo.findOne({
+        where: {
+          id: convoIds[i].ConvoId,
+        },
+      });
+      if (Date.now() > conv.time) {
+        let article =
+          (await db.Article.findOne({ where: { url: conv.article } })) || {};
+        let user = await db.User.findOne({ where: { id: conv.host } });
+        let profile = await db.Profile.findOne({
+          where: { UserId: conv.host },
+        });
+        convos.push({
+          articleURL: conv.article,
+          articleImg: article.img || placeholderImg,
+          time: conv.time,
+          hostUsername: user.username,
+          roomId: conv.roomId,
+          convTitle: conv.title,
+          hostAvatar: profile.ppic,
+          convDesc: conv.description,
+        });
       }
-      convos.sort((conv1, conv2) => conv2.time - conv1.time) // Sort convos from latest posted
-      return res.status(200).json(convos)       
-  })
-})
+    }
+    convos.sort((conv1, conv2) => conv2.time - conv1.time); // Sort convos from latest posted
+    return res.status(200).json(convos);
+  });
+});
 
-router.get('/pastconv', auth.required, async (req, res, next) => {
-  const {payload: {id}} = req; 
+router.get("/pastconv", auth.required, async (req, res, next) => {
+  const {
+    payload: { id },
+  } = req;
   db.Convo_members.findAll({
-      where: {
-          UserId: id
-      }
+    where: {
+      UserId: id,
+    },
   }).then(async (convoIds) => {
-      let convos = []
-      let convsObjects = []
-      for (let i=0; i<convoIds.length; i++) {
-          var conv = await db.Convo.findOne({
-              where: {
-                  id: convoIds[i].ConvoId
-              }
-          })
-          if (Date.now() > conv.time){
-            let article = await db.Article.findOne({ where: { url: conv.article } }) || {}
-            let user = await db.User.findOne({ where: { id: conv.host } })
-            let profile = await db.Profile.findOne({ where: { UserId: conv.host } })
-            convos.push({
-              'articleURL': conv.article,
-              'articleImg': article.img || placeholderImg,
-              'time': conv.time,
-              'hostUsername': user.username,
-              'roomId': conv.roomId,
-              'convTitle': conv.title,
-              'hostAvatar': profile.ppic,
-              'convDesc': conv.description
-            })
-          }
+    let convos = [];
+    let convsObjects = [];
+    for (let i = 0; i < convoIds.length; i++) {
+      var conv = await db.Convo.findOne({
+        where: {
+          id: convoIds[i].ConvoId,
+        },
+      });
+      if (Date.now() > conv.time) {
+        let article =
+          (await db.Article.findOne({ where: { url: conv.article } })) || {};
+        let user = await db.User.findOne({ where: { id: conv.host } });
+        let profile = await db.Profile.findOne({
+          where: { UserId: conv.host },
+        });
+        convos.push({
+          articleURL: conv.article,
+          articleImg: article.img || placeholderImg,
+          time: conv.time,
+          hostUsername: user.username,
+          roomId: conv.roomId,
+          convTitle: conv.title,
+          hostAvatar: profile.ppic,
+          convDesc: conv.description,
+        });
       }
-      convos.sort((conv1, conv2) => conv2.time - conv1.time) // Sort convos from latest posted
-      return res.status(200).json(convos)       
-  })
-})
+    }
+    convos.sort((conv1, conv2) => conv2.time - conv1.time); // Sort convos from latest posted
+    return res.status(200).json(convos);
+  });
+});
 
 // router.get('/savedarts', auth.required, (req, res, next) => {
-//     const {payload: {id}} = req; 
+//     const {payload: {id}} = req;
 //     var foldname = req.query.namez;
 //     console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHH", foldname, id);
 //     db.Folder.findOne({
 //         where: {
-//             foldername: foldname, 
+//             foldername: foldname,
 //             UserId: id
 //         }
 //     }).then((folder) => {return res.json({id: folder.id})})
-    // db.Folder.findAll({
-    //     where:{
-    //         UserId: id,
-    //         foldername: foldname
-    //     }
-    // }).then((articles) => {
-    //     return res.json(articles)
-    // })
+// db.Folder.findAll({
+//     where:{
+//         UserId: id,
+//         foldername: foldname
+//     }
+// }).then((articles) => {
+//     return res.json(articles)
+// })
 // })
 /*
 router.get('/update_article', auth.optional, (req,res, next) => {

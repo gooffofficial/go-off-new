@@ -38,9 +38,6 @@ import {
 } from "react-device-detect";
 import MobileLiveChat from "./LiveChatMobile";
 
-const fastapi = axios.create({baseURL: "https://localhost:8080", timeout: 10000});
-// const fastapi = axios.create({baseURL: "http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/", timeout: 10000});
-// const fastapi = axios.create({baseURL: "go-off.co", timeout: 10000});
 
 const LiveChat = () => {
   const db = firebase.firestore()
@@ -229,7 +226,7 @@ const LiveChat = () => {
   //handles leave/end button
   const handleButton = () => {
 	pubnub.unsubscribe({channels: channels});
-	pubnub.signal({channel:code,message:{action:'DM',uuid:pubnub.getUUID()}});
+	pubnub.signal({channel:code,message:{action:'DM',name:currentUser.name}});
 	isHost ? endConversation() : goToHomePage()
   }
 
@@ -335,6 +332,9 @@ const LiveChat = () => {
             const publishTime = p.timestamp; // Publish timetoken
             const timetoken = p.timetoken; // Current timetoken
             const uuid = p.uuid; // UUIDs of users who are subscribed to the channel
+            if(action=='leave'){
+            pubnub.signal({channel:code,message:{action:'DM',name:currentUser.name}});
+            }
           },
         signal: function(s) {
             // handle signal
@@ -350,7 +350,7 @@ const LiveChat = () => {
         }else if(msg.action=='UT'){
           //sends message if use is typing
           setUserTyping(`${msg.name} is typing`);
-          setTimeout(()=>{setUserTyping('')},5000)
+          setTimeout(()=>{setUserTyping('')},8500)
         }
         },
           status: (event) => {
