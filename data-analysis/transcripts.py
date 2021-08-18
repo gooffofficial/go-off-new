@@ -1,39 +1,4 @@
 
-
-
-Search Go Off!
-
-
-
-
-Go Off!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Saketh
-
-
-
-Saketh
-This is the very beginning of your direct message history with @Saketh
-
-Joyce Lee  9:24 AM
-joined Slack
-New
-
-Saketh  7:49 PM
 import pandas as pd
 import mysql.connector
 import boto3
@@ -58,18 +23,3 @@ def create_transcript(room_id: str):
     csv_buffer = StringIO()
     df.to_csv(csv_buffer)
     bucket.put_object(Body=csv_buffer.getvalue(), ContentType='text/csv', Key='transcripts/'+room_id+'.csv')
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
