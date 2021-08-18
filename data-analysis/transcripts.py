@@ -1,53 +1,75 @@
-#from pymongo import MongoClient
-import csv
-import sys
-from bson.objectid import ObjectId
-
-#client: MongoClient = MongoClient("mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true")
-db = client.test
-rooms = db.rooms
-chats = db.chats
-
-def run():
-    global db
-    global rooms
-    global chats
-    if len(sys.argv) != 2:
-        raise Exception("Supply 1 url as a parameter")
 
 
-    id: str = sys.argv[1]
-    cur_room = rooms.find_one({"_id":ObjectId(id)})
 
-    message_ids = cur_room["messages"]
-    messages: [] = []
-    for message in message_ids:
-        messages.append(chats.find_one({"_id":message}))
+Search Go Off!
 
-    with open(("transcripts/"+str(cur_room["_id"])+"_chat.csv"), 'w+') as csvfile:
-        chat_writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        chat_writer.writerow(["messageId", "userId", "username", "message", "timestamp"])
-        for message in messages:
-            chat_writer.writerow([message["_id"], message["user"], message["name"], message["message"], message["createdAt"]])
 
+
+
+Go Off!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Saketh
+
+
+
+Saketh
+This is the very beginning of your direct message history with @Saketh
+
+Joyce Lee  9:24 AM
+joined Slack
+New
+
+Saketh  7:49 PM
+import pandas as pd
+import mysql.connector
+import boto3
+from io import StringIO
 def create_transcript(room_id: str):
-    global db
-    global rooms
-    global chats
-    cur_room = rooms.find_one({"_id":ObjectId(room_id)})
+    s3 = boto3.resource('s3')
+    bucket = s3.Bucket('gooff')
+    config = {
+        'user': 'admin', 
+        'password':'password1',
+        'host':  'new-db.cga2dg8jzozg.us-west-1.rds.amazonaws.com' ,
+        'database': 'test_server1',
+        'raise_on_warnings': True,
+        }
+    cnx = mysql.connector.connect(**config)    
+    cur_room = "SELECT mongoid, message, user_id, usernames, createdat FROM chatsdata;"
+    cursor = cnx.cursor()
+    x = cursor.execute(cur_room,  params=None, multi=True)
+    rows =  cursor.fetchall()
+    df = pd.DataFrame(data=rows)
+    df = df[df['room_id']==room_id]  # TODO fix room_id in SQL to get this working
+    csv_buffer = StringIO()
+    df.to_csv(csv_buffer)
+    bucket.put_object(Body=csv_buffer.getvalue(), ContentType='text/csv', Key='transcripts/'+room_id+'.csv')
 
-    message_ids = cur_room["messages"]
-    messages: [] = []
-    for message in message_ids:
-        messages.append(chats.find_one({"_id":message}))
-    
-    #TODO: upload csvs to amazon s3 instead of saving locally or just do everything from vanity.py
-    with open(("transcripts/"+str(cur_room["_id"])+"_chat.csv"), 'w+') as csvfile:
-        chat_writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        chat_writer.writerow(["messageId", "userId", "username", "message", "timestamp"])
-        for message in messages:
-            chat_writer.writerow([message["_id"], message["user"], message["name"], message["message"], message["createdAt"]])
-    return 'transcripts/'+str(cur_room["_id"])+"_chat.csv"
 
-if __name__ == '__main__':
-    run()
+ 
+
+
+
+
+
+
+
+
+
+
+
+
