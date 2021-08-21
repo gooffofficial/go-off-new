@@ -8,7 +8,7 @@ import bellIcon from '../images/liveChatImages/bell.png'
 import s from '../styles/ProfilePage/ProfileMobile.module.scss'; // s = styles
 import { ChatsFeed } from '../components/FeedCard'
 
-const ProfileMobile = ({ currentUser, setCurrentUser, currentUserFull, setCurrentUserFull, chatCategory, setChatCategory, goToHomePage, history }) => {
+const ProfileMobile = ({ currentUser, setCurrentUser, currentUserFull, setCurrentUserFull, chatCategory, setChatCategory, history }) => {
   let isUpcomingCategory = chatCategory === "Upcoming"
   let isPastCategory = chatCategory === "Past"
   let isSavedCategory = chatCategory === "Saved"
