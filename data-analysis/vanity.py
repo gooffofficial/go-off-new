@@ -137,10 +137,10 @@ def vanity(room_id: str):
     num_male = 0
     num_female = 0
     for index, gender in enumerate(user_genders):
-        if gender.casefold() == "M".casefold() or gender.casefold() == "Male".casefold():
+        if gender.casefold() == "HeHim".casefold() or gender.casefold() == "HeHim".casefold():
             user_genders[index] = "Male"
             num_male += 1
-        elif gender.casefold() == "F".casefold() or gender.casefold() == "Female".casefold():
+        elif gender.casefold() == "SheHer".casefold() or gender.casefold() == "SheHer".casefold():
             user_genders[index] = "Female"
             num_female += 1
         else:
