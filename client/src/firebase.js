@@ -4,7 +4,7 @@ import 'firebase/storage';
 
 const configuration = {
     apiKey: config.apiKey,
-    authDomain: config.au,
+    authDomain: config.authDomain,
     projectId: config.projectId,
     storageBucket: config.storageBucket,
     messagingSenderId: config.messagingSenderId,

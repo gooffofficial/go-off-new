@@ -1,11 +1,8 @@
-
 import pandas as pd
 import mysql.connector
 import boto3
 from io import StringIO
 def create_transcript(room_id: str):
-    s3 = boto3.resource('s3')
-    bucket = s3.Bucket('gooff')
     config = {
         'user': 'admin', 
         'password':'password1',
@@ -14,12 +11,21 @@ def create_transcript(room_id: str):
         'raise_on_warnings': True,
         }
     cnx = mysql.connector.connect(**config)    
-    cur_room = "SELECT mongoid, message, user_id, usernames, createdat FROM chatsdata;"
     cursor = cnx.cursor()
-    x = cursor.execute(cur_room,  params=None, multi=True)
+    cursor.execute("SELECT mongoid, message, user_id, usernames, createdat,roomid FROM chatsdata")
     rows =  cursor.fetchall()
+    a=(cursor.description)
+    col=[]
+    for i in range(len(a)):
+        col.append(a[i][0])
     df = pd.DataFrame(data=rows)
-    df = df[df['room_id']==room_id]  # TODO fix room_id in SQL to get this working
+    df.columns=col
+    
+    df1=(df.loc[lambda df: df['roomid'] == room_id])
     csv_buffer = StringIO()
-    df.to_csv(csv_buffer)
-    bucket.put_object(Body=csv_buffer.getvalue(), ContentType='text/csv', Key='transcripts/'+room_id+'.csv')
+    df1.to_csv(csv_buffer)
+    s3 = boto3.resource('s3')
+    object = s3.Object('gooff','transcripts/'+room_id+'.csv')
+    object.put(Body=csv_buffer.getvalue())
+    cursor.close()
+    cnx.close()
