@@ -14,10 +14,20 @@ from collections import Counter
 import io
 import boto3
 import sys
+import botocore
 
-s3 = boto3.resource('s3')
+
+
+
+#https://www.gormanalysis.com/blog/connecting-to-aws-s3-with-python/
+s3 = boto3.resource(
+    service_name='s3',
+    aws_access_key_id='AKIA4OTKLUMMRQ3KBRB4',
+    aws_secret_access_key='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'
+)
 
 bucket = s3.Bucket('gooff')
+
 color = sns.color_palette()
 
 #client: MongoClient = MongoClient("mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true")
@@ -37,7 +47,7 @@ def vanity(room_id: str):
     cursor_u = cnx.cursor()
     cursor_r = cnx.cursor()
     
-    room = cursor_r.execute('SELECT * FROM chatsdata WHERE roomid = '+room)
+    room = cursor_r.execute('SELECT * FROM chatsdata WHERE roomid = '+room_id)
     r_rows = cursor_r.fetchall()
     
     a=(cursor_r.description)
@@ -126,10 +136,10 @@ def vanity(room_id: str):
     circle = plt.Circle(xy=(0,0), radius=0.75, facecolor='white')
     plt.gca().add_artist(circle)
     label = plt.gca().annotate("Average Age: "+str(round(mean(user_ages),1)), xy=(0,0), fontsize="10", ha="center")
-    img_data = io.BytesIO()
-    plt.savefig(img_data, format="svg")
-    img_data.seek(0)
-    bucket.put_object(Body=img_data, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_ageDonut.svg")
+    age_donut_chart = io.BytesIO()
+    plt.savefig(age_donut_chart, format="svg")
+    age_donut_chart.seek(0)
+    bucket.put_object(Body=age_donut_chart, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_ageDonut.svg")
     plt.clf()
 
     #gender donut chart
@@ -160,17 +170,22 @@ def vanity(room_id: str):
 
     circle = plt.Circle(xy=(0,0), radius=0.75, facecolor='white')
     plt.gca().add_artist(circle)
-    img_data = io.BytesIO()
-    plt.savefig(img_data, format="svg")
-    img_data.seek(0)
-    bucket.put_object(Body=img_data, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_genderDonut.svg")
+    gender_donut_chart = io.BytesIO()
+    plt.savefig(gender_donut_chart, format="svg")
+    gender_donut_chart.seek(0)
+    bucket.put_object(Body=gender_donut_chart, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_genderDonut.svg")
     plt.clf()
-    #message vanity metrics
-    if os.path.exists('transcripts/'+room_id+'_chat.csv') == False:
-        #print("AHHHHHHH")
-        create_transcript(room_id)
-    df = pd.read_csv('transcripts/'+room_id+'_chat.csv')
-    for usern in df.username:
+    #message vanity metrics  
+    try:
+        s3.Object('gooff', 'transcripts/'+room_id+'_chat.csv').load()
+    except botocore.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == "404":
+            # The object does not exist. 
+            create_transcript(room_id) 
+    print(room_id)
+    df = pd.read_csv('https://gooff.s3.us-east-2.amazonaws.com/transcripts/'+room_id+'_chat.csv') 
+    
+    for usern in df.usernames:
         user_part[str(usern)] += 1
     
     labels = ["User " + str(i+1) for i in range(len(user_part))]
@@ -179,11 +194,12 @@ def vanity(room_id: str):
     plt.axis('equal')
     circle = plt.Circle(xy=(0,0), radius=0.75, facecolor='white')
     plt.gca().add_artist(circle)
-    img_data = io.BytesIO()
-    plt.savefig(img_data, format="svg")
-    img_data.seek(0)
-    bucket.put_object(Body=img_data, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_partDonut.svg")
+    part_donut_chart = io.BytesIO()
+    plt.savefig(part_donut_chart, format="svg")
+    part_donut_chart.seek(0)
+    bucket.put_object(Body=part_donut_chart, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_partDonut.svg")
     plt.clf()
+
 
     #Time and date analysis
     timestamps = df.timestamp[1:]
