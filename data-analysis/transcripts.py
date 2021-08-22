@@ -32,7 +32,7 @@ def create_transcript(room_id: str):
         aws_secret_access_key='Zy5cL/r9eYJMw2yOte3Dfh/VEfxmCT0R7kJ9MuYl'
     )
 
-    object = s3.Object('gooff', f'transcripts/{room_id}.csv')
+    object = s3.Object('gooff', f'transcripts/{room_id}_chat.csv')
     object.put(Body=csv_buffer.getvalue())
     cursor.close()
     cnx.close()
