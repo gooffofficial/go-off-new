@@ -15,9 +15,16 @@ import io
 import boto3
 import sys
 
-s3 = boto3.resource('s3')
+
+#https://www.gormanalysis.com/blog/connecting-to-aws-s3-with-python/
+s3 = boto3.resource(
+    service_name='s3',
+    aws_access_key_id='AKIA4OTKLUMMRQ3KBRB4',
+    aws_secret_access_key='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'
+)
 
 bucket = s3.Bucket('gooff')
+
 color = sns.color_palette()
 
 #client: MongoClient = MongoClient("mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true")
