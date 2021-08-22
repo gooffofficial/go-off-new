@@ -37,7 +37,7 @@ def vanity(room_id: str):
     cursor_u = cnx.cursor()
     cursor_r = cnx.cursor()
     
-    room = cursor_r.execute('SELECT * FROM chatsdata WHERE roomid = '+room)
+    room = cursor_r.execute('SELECT * FROM chatsdata WHERE roomid = '+room_id)
     r_rows = cursor_r.fetchall()
     
     a=(cursor_r.description)
