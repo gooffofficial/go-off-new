@@ -34,16 +34,35 @@
 	right: 2%;
 	cursor: pointer;
 }
-.dots:hover path {
+.dots:hover .dropdown-content{
 	fill: #5667ff;
+	display: block;
+}
+.dropDownRow {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+.dropdowncontent {
+	display: none;
+	position: absolute;
+	background-color: #F9F9F9;
+	min-width: 360px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	padding: 12px 16px;
+	z-index: 1;
+}
+.dropDownRow:hover .dropdowncontent {
+	display: block;
 }
 .feedCardContentContainer {
 	flex-grow: 1;
 	margin-left: 2%;
 	width: calc(98% - 280px);
 }
-.feedCardContent {
-}
+// .feedCardContent {
+// }
 .contentTop {
 	display: flex;
 	width: 95%;

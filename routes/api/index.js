@@ -184,6 +184,7 @@ router.get(
     } = req;
     var offset = req.query["o"];
     console.log("AFGG\n\n\n");
+    console.log(req.payload)
     // Same as above except with convos from people the user is following
     // seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
 
@@ -252,6 +253,9 @@ router.get(
                             'hostID': host.id,
                             'hostpfp': prof.ppic,
                             'userID': req.payload.id,
+                            'username': host.username,
+                            // 'userPnum': req.payload,
+                            // 'useremail': req.payload.email,
                         })
                     // }
                     // }

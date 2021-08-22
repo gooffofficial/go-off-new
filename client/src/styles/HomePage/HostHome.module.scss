@@ -174,7 +174,7 @@
   }
   
   .convdesc {
-    margin-left: 43%;
+    margin-left: 37%;
     font-family: Poppins;
     font-style: normal;
     font-weight: 500;
@@ -239,9 +239,25 @@
   }
   
   .rightHeading {
-  
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    display: inline-block;
   }
   
+  .dropdowncontent {
+    display: none;
+    position: absolute;
+    background-color: #F9F9F9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+  .rightHeading:hover .dropdowncontent {
+    display: block;
+  }
+
   .NYTLogo {
     object-fit: contain;
     align-self: flex-start;
@@ -711,7 +727,7 @@
     font-weight: 750;
   }
   
-  .homeBox:hover, .discoverBox:hover {
+  .homeBox:hover, .discoverBox:hover, .avatarBox:hover {
     background: rgba(58, 134, 255, 0.15);
     cursor: pointer;
   }

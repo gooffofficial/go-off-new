@@ -40,6 +40,7 @@
 	align-items: center;
 	font-weight: 400;
 }
+.sideBarProfile,
 .sideBarHome,
 .sideBarDiscover {
 	padding: 4% 6%;
@@ -47,6 +48,7 @@
 	font-size: 1.25rem;
 }
 
+.sideBarProfile:hover,
 .sideBarHome:hover,
 .sideBarDiscover:hover {
 	background: rgba(58, 134, 255, 0.15);

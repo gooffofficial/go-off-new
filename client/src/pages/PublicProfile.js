@@ -85,7 +85,8 @@ const PublicProfile = (props) => {
 				console.log(err);
 			});
 	};
-
+	let isUser = currentUserFull.username == viewUser.username
+	console.log(isUser)
 	return (
 		<div className={styles.profilePageContainer}>
 			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
@@ -149,7 +150,7 @@ const PublicProfile = (props) => {
 
 					<div className={styles.sideBarCards}>
 						<div>
-							<h3 className={styles.sideBarCardTitle}>Upcoming Chats</h3>
+							<h3 className={styles.sideBarCardTitle}>Your Upcoming Convos</h3>
 						</div>
 
 						<div className={styles.upcomingChatsCards}>
@@ -240,7 +241,7 @@ const PublicProfile = (props) => {
 					</div>
 
 					<div className={styles.profCenterFeed}>
-						<ChatsFeed chatCategory={chatCategory} username={viewUser.username} />
+						<ChatsFeed chatCategory={chatCategory} userId={currentUserFull.id} isUser={isUser} username={viewUser.username}/>
 					</div>
 				</div>
 			</div>

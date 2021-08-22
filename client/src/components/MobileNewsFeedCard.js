@@ -34,7 +34,7 @@ const MobileNewsFeedCard = ({ articleImg, articleURL, convTitle, convDesc, time,
           </div>
         </div>
         <div className={s.rightHostRow}>
-          <button onClick={() => history.push(`/chat/${roomId}`)} className={s.RSVPBtn}>RSVP NOW</button>
+          <button onClick={() => history.push(`/chat/${roomId}`)} className={s.RSVPBtn}>RSVP</button>
         </div>
       </div>
     </div>

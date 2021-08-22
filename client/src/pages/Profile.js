@@ -84,6 +84,7 @@ const Profile = (props) => {
     />
 
 console.log(currentUserFull)
+console.log("test")
 	return (
 		<div className={styles.profilePageContainer}>
 			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
@@ -146,7 +147,7 @@ console.log(currentUserFull)
 
 					<div className={styles.sideBarCards}>
 						<div>
-							<h3 className={styles.sideBarCardTitle}>Upcoming Chats</h3>
+							<h3 className={styles.sideBarCardTitle}>Your Upcoming Convos</h3>
 						</div>
 
 						<div className={styles.upcomingChatsCards}>
