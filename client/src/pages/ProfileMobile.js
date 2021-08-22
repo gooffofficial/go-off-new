@@ -8,13 +8,21 @@ import bellIcon from '../images/liveChatImages/bell.png'
 import s from '../styles/ProfilePage/ProfileMobile.module.scss'; // s = styles
 import { ChatsFeed } from '../components/FeedCard'
 
-const ProfileMobile = ({ currentUser, setCurrentUser, currentUserFull, setCurrentUserFull, chatCategory, setChatCategory, goToHomePage, history }) => {
+const ProfileMobile = ({ currentUser, setCurrentUser, currentUserFull, setCurrentUserFull, chatCategory, setChatCategory, history }) => {
   let isUpcomingCategory = chatCategory === "Upcoming"
   let isPastCategory = chatCategory === "Past"
   let isSavedCategory = chatCategory === "Saved"
 
   let profileAvatar = currentUserFull ? currentUserFull.propic : '/images/stock-face.jpg';
   let profileBio = currentUserFull.bio ? currentUserFull.bio : 'No bio yet!'
+  const goToHomePage = (evt) => {
+    let isHost = currentUserFull.host === "(Host)";
+    let isAdmin = currentUserFull.admin === "(Admin)";
+      if (isHost || isAdmin)
+        history.push('/hosthome')
+      else 
+        history.push('/home')
+  }
 
   return <div className={s.ProfileMobile}>
     <ProfileMobileNavBar goToHomePage={goToHomePage} />

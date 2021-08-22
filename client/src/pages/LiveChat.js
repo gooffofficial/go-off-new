@@ -110,6 +110,8 @@ const LiveChat = () => {
 
   const [reload, setReload] = useState(false)
 
+  const [host, setHost] = useState(fillerUser)
+
   const [ConvoData] = []
 
   //this is a ref that will give scroll to bottom functionality
@@ -249,7 +251,6 @@ const LiveChat = () => {
     return newList
   }
 
-  //*!need to fix posting messages to fastapi
   const endConversation = () => {
     pubnub.signal({ channel: code, message: { action: 'END' } })
 
@@ -609,7 +610,6 @@ const LiveChat = () => {
                 />
                 <input style={{ display: "none" }} type='file' ref={hiddenFileInput} onChange={onChangeFile} />
                 <input
-                  style={{ height: "40vw", width: "0vw", marginRight: "0px" }}
                   type="text"
                   className={styles["inputText"]}
                   onKeyPress={handlePress}
@@ -703,7 +703,7 @@ const LiveChat = () => {
               />
               <div className={styles["ProfileNames"]}>
                 <span className={styles["hostText"]}>HOST</span>
-                <div className={styles["profileName"]}>Emily Patterson</div>
+                <div className={styles["profileName"]}>{host.name}</div>
               </div>
             </div>
             <div className={styles["profileRightSide"]}>

@@ -175,16 +175,17 @@ const Home = (props) => {
 								allUserFull.allupcomingChats.map((prop1) => {
 									return (
 										<Conversation
-											articleURL={prop1.articleURL}
-											articleImg={prop1.articleImg}
-											time={prop1.time}
-											convTitle={prop1.convTitle}
-											hostName={prop1.hostName}
-											roomId={prop1.roomId}
-											desc={prop1.desc}
-											userid={prop1.hostID}
-											userpfp={prop1.hostpfp}
-											hostNum={prop1.hostNum}
+										articleURL={prop1.articleURL}
+										articleImg={prop1.articleImg}
+										time={prop1.time}
+										convTitle={prop1.convTitle}
+										hostName={prop1.hostName}
+										roomId={prop1.roomId}
+										desc={prop1.desc}
+										hostid={prop1.hostID}
+										userpfp={prop1.hostpfp}
+										hostNum={prop1.hostNum}
+										userid={prop1.userID}
 										/>
 										
 									);

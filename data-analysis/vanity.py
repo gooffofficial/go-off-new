@@ -15,52 +15,67 @@ import io
 import boto3
 import sys
 
-s3 = boto3.resource('s3')
+
+#https://www.gormanalysis.com/blog/connecting-to-aws-s3-with-python/
+s3 = boto3.resource(
+    service_name='s3',
+    aws_access_key_id='AKIA4OTKLUMMRQ3KBRB4',
+    aws_secret_access_key='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'
+)
 
 bucket = s3.Bucket('gooff')
+
 color = sns.color_palette()
 
 #client: MongoClient = MongoClient("mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true")
 
-mydb = mysql.connector.connect(
-  host="new-db.cga2dg8jzozg.us-west-1.rds.amazonaws.com",
-  user="admin",
-  password="password1"
-)
+config = {
+        'user': 'admin', 
+        'password':'password1',
+        'host':  'new-db.cga2dg8jzozg.us-west-1.rds.amazonaws.com' ,
+        'database': 'test_server1',
+        'raise_on_warnings': True,
+        }
 
-user = '1'
-mycursor = mydb.cursor()
-mycursor.execute("SELECT username FROM test_server1.Users U WHERE U.id="+user)
-
-"""db = client.test
-rooms = db.rooms
-chats = db.chats
 
 #get metrics
 def vanity(room_id: str):
-    cur_room = rooms.find_one({"_id":ObjectId(room_id)})
-    users = cur_room['users']
+    cnx = mysql.connector.connect(**config)    
+    cursor_u = cnx.cursor()
+    cursor_r = cnx.cursor()
+    
+    room = cursor_r.execute('SELECT * FROM chatsdata WHERE roomid = '+room_id)
+    r_rows = cursor_r.fetchall()
+    
+    a=(cursor_r.description)
+    col=[]
+    for i in range(len(a)):
+        col.append(a[i][0]) 
+    df = pd.DataFrame(data=r_rows)
+    df.columns=col
+   
+    
+    users = df['user_id']
     usernames = []
     user_ages = []
     user_genders = []
     user_part = {}
-    user_loc = []
-    mycursor = mydb.cursor()
-    for user in users:
-        mycursor.execute("SELECT username FROM test_server1.Users U WHERE U.id="+user)
-        myresult = mycursor.fetchone()
+    user_loc = [] 
+    for u in users:
+        cursor_u.execute("SELECT username FROM test_server1.Users U WHERE U.id="+u)
+        myresult = cursor_u.fetchone()
         usernames.append(myresult[0])
         user_part[str(myresult[0])] = 0
-        mycursor.execute("SELECT age FROM test_server1.Users as U WHERE U.id=" + user)
-        a = mycursor.fetchone()
+        cursor_u.execute("SELECT age FROM test_server1.Users as U WHERE U.id=" + u)
+        a = cursor_u.fetchone()
         if a != None:
             user_ages.append(int(a[0]))
-        mycursor.execute("SELECT gender FROM test_server1.Users as U WHERE U.id=" + user)
-        g = mycursor.fetchone()
+        cursor_u.execute("SELECT gender FROM test_server1.Users as U WHERE U.id=" + u)
+        g = cursor_u.fetchone()
         if g != None and str(g[0]) != "N/A":
             user_genders.append(str(g[0]))
-        mycursor.execute("SELECT location FROM test_server1.Users AS U WHERE U.id=" + user)
-        l = mycursor.fetchone()
+        cursor_u.execute("SELECT location FROM test_server1.Users AS U WHERE U.id=" + u)
+        l = cursor_u.fetchone()
         if l != None:
             user_loc.append(str(l[0]))
         for index, location in enumerate(user_loc):
@@ -72,7 +87,7 @@ def vanity(room_id: str):
                 user_loc[index] = "USA"
         location_counts = Counter(user_loc)
         location_list = sorted(location_counts, key = location_counts.get, reverse=True)
-    
+        
     #age donut chart
     num_13_18 = 0
     num_19_21 = 0
@@ -129,10 +144,10 @@ def vanity(room_id: str):
     num_male = 0
     num_female = 0
     for index, gender in enumerate(user_genders):
-        if gender.casefold() == "M".casefold() or gender.casefold() == "Male".casefold():
+        if gender.casefold() == "HeHim".casefold():
             user_genders[index] = "Male"
             num_male += 1
-        elif gender.casefold() == "F".casefold() or gender.casefold() == "Female".casefold():
+        elif gender.casefold() == "SheHer".casefold():
             user_genders[index] = "Female"
             num_female += 1
         else:

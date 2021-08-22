@@ -197,57 +197,66 @@ router.get(
                 UserId: id
             }
         })*/
-      .then(async (convos) => {
-        var convs = [];
-        var i = 0;
-        console.log(convos);
-        for (const convo of convos[0]) {
-          let c = await db.Convo.findOne({
-            where: {
-              id: convo.ConvoId,
-            },
-          });
-          // console.log(c)
-          // convs.push(c);
-          let art =
-            (await db.Article.findOne({
-              where: {
-                url: c.article,
-              },
-            })) || {};
-          let user = await db.User.findOne({
-            where: {
-              id: c.host,
-            },
-          });
-          // console.log(c.host)
-          // console.log(c.id)
-          let prof =
-            (await db.Profile.findOne({
-              where: {
-                UserId: c.host,
-              },
-            })) || {};
-          // console.log(prof)
-          // console.log(c.host)
-          // console.log(user)
-          // if(c.host != user.id){
-          convs.push({
-            articleURL: c.article,
-            articleImg: art.img || placeholderImg,
-            time: c.time,
-            hostName: user.name,
-            hostNum: user.phonenumber,
-            roomId: c.roomId,
-            convTitle: c.title,
-            desc: c.description,
-            hostID: user.id,
-            hostpfp: prof.ppic,
-          });
-          // }
+        .then(async (convos) => {
+            var convs = []
+            var i = 0
+            console.log(convos)
+            for (const convo of convos[0]){
 
-          // if(!user){
-          //     convs[i]['host'] = " "
+                let c = await db.Convo.findOne({
+                    where: {
+                        id: convo.ConvoId
+                    }
+                })
+                // console.log(c)
+                // convs.push(c);
+                let art = await db.Article.findOne({
+                    where: {
+                        url: c.article
+                    }
+                }) || {}
+                let host = await db.User.findOne({
+                    where: {
+                        id: c.host
+                    }
+                })
+
+                // let user = await db.User.findOne({
+                //     where: {
+                //         id: 
+                //     }
+                // })
+                // console.log(c.host)
+                // console.log(c.id)
+                let prof = await db.Profile.findOne({
+                    where: {
+                        UserId: c.host
+                    }
+                }) || {}
+                // console.log(prof)
+                // console.log(c.host)
+                // console.log(user)
+                // if(c.host != user.id){
+
+                    // if(new Date() > new Date(c.time)){
+                        console.log("test")
+                        convs.push({
+                            'articleURL': c.article,
+                            'articleImg': art.img || placeholderImg,
+                            'time': c.time,
+                            'hostName': host.name,
+                            'hostNum': host.phonenumber,
+                            'roomId': c.roomId,
+                            'convTitle': c.title,
+                            'desc': c.description,
+                            'hostID': host.id,
+                            'hostpfp': prof.ppic,
+                            'userID': req.payload.id,
+                        })
+                    // }
+                    // }
+                    
+                
 
           // }else{
           //     convs[i]['host'] = user.username
