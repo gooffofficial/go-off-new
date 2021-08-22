@@ -27,14 +27,12 @@ def create_transcript(room_id: str):
     df.to_csv(csv_buffer)
 
     s3 = boto3.resource(
-        's3',
-        aws_access_key_id=ACCESS_ID,
-        aws_secret_access_key=ACCESS_KEY
+        service_name='s3',
+        aws_access_key_id='AKIA4OTKLUMMRQ3KBRB4',
+        aws_secret_access_key='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'
     )
+
     object = s3.Object('gooff', f'transcripts/{room_id}.csv')
     object.put(Body=csv_buffer.getvalue())
     cursor.close()
     cnx.close()
-
-
-create_transcript('123')
