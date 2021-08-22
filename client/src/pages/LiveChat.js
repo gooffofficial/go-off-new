@@ -38,7 +38,7 @@ import {
 } from "react-device-detect";
 import MobileLiveChat from "./LiveChatMobile";
 
-const fastapi = axios.create({baseURL: "https://localhost:8080", timeout: 10000});
+const fastapi = axios.create({ baseURL: "https://localhost:8080", timeout: 10000 });
 // const fastapi = axios.create({baseURL: "http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/", timeout: 10000});
 // const fastapi = axios.create({baseURL: "go-off.co", timeout: 10000});
 
@@ -57,13 +57,13 @@ const LiveChat = () => {
     followercount: 0,
     followingcount: 0,
   };
-  const fillerMetaData={
-    convoId:0,
-    title:'Example',
+  const fillerMetaData = {
+    convoId: 0,
+    title: 'Example',
     descrition: 'Example',
     hostId: 0,
-    isOpen:false,
-    rsvp:[]
+    isOpen: false,
+    rsvp: []
   }
 
   const { code } = useParams();
@@ -71,12 +71,12 @@ const LiveChat = () => {
   //importing pubnub into this component
   const pubnub = usePubNub();
 
-  
+
   //chat metadata from firebase
-  const [metaData, setMetaData] = useState({title: 'Title', description: 'Description', time: '10:00 pm'});
+  const [metaData, setMetaData] = useState({ title: 'Title', description: 'Description', time: '10:00 pm' });
 
   //host data
-  const [hostData, setHostData] = useState({name: 'Host Name', pfpic: '/images/stock-face.jpg'})
+  const [hostData, setHostData] = useState({ name: 'Host Name', pfpic: '/images/stock-face.jpg' })
 
   //typing indicator
   const [userTyping, setUserTyping] = useState('');
@@ -123,7 +123,7 @@ const LiveChat = () => {
     const hour = today.getHours();
     const minute = today.getMinutes();
     const second = today.getSeconds();
-    return `${year}-${month<10?'0'+month:month}-${day<10?'0'+day:day} ${hour<10?'0'+hour:hour}:${minute<10?'0'+minute:minute}:${second<10?'0'+second:second}`
+    return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day} ${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}:${second < 10 ? '0' + second : second}`
   }
 
   //this will handle incoming messages
@@ -144,15 +144,15 @@ const LiveChat = () => {
   const goToHomePage = (evt) => {
     let isHost = currentUserFull.host === "(Host)";
     let isAdmin = currentUserFull.admin === "(Admin)";
-      if (isHost || isAdmin)
-        history.push('/hosthome')
-      else 
-        history.push('/home')
+    if (isHost || isAdmin)
+      history.push('/hosthome')
+    else
+      history.push('/home')
   }
 
-  const uploadFile = async (fileRef) =>{
-    if(!file){
-      return 
+  const uploadFile = async (fileRef) => {
+    if (!file) {
+      return
     }
     //uploads the file
     await fileRef.put(file)
@@ -165,125 +165,127 @@ const LiveChat = () => {
     setFile(file)
   }
 
-  const virtualClick = event =>{
+  const virtualClick = event => {
     hiddenFileInput.current.click();
   };
 
   //this on submit function is publishing the message to the channel
   const onSubmit = async (message, e) => {
-    if(message.message=='' && !file){
+    if (message.message == '' && !file) {
       return
     }
     const storageRef = firebase.storage().ref();
-    if(file.name){
-    const fileRef = storageRef.child(file.name);
-    uploadFile(fileRef).then(res => {
-      fileRef.getDownloadURL().then(fileURL=>{
-        pubnub.publish(
-          {
-            channel: channels[0],
-            message: {
-              user: currentUser.name,
-              isHost: isHost,
-              text: message.message,
-              uuid: currentUser.id,
-              attachment: fileURL,
-              id:uuid_v4()
+    if (file.name) {
+      const fileRef = storageRef.child(file.name);
+      uploadFile(fileRef).then(res => {
+        fileRef.getDownloadURL().then(fileURL => {
+          pubnub.publish(
+            {
+              channel: channels[0],
+              message: {
+                user: currentUser.name,
+                isHost: isHost,
+                text: message.message,
+                uuid: currentUser.id,
+                attachment: fileURL,
+                id: uuid_v4()
+              },
             },
-          },
-          function (status) {
-            //this will print a status error in console
-            if (status.error) {
-              console.log(status);
+            function (status) {
+              //this will print a status error in console
+              if (status.error) {
+                console.log(status);
+              }
             }
-          }
-        );
-        e.target.reset(); // resets the input fields
-        scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
-      }
-      ).catch()
-  }).catch(error =>console.log(error))
-}else{
-    pubnub.publish(
-      {
-        channel: channels[0],
-        message: {
-          user: currentUser.name,
-          isHost: isHost,
-          text: message.message,
-          uuid: currentUser.id,
-          id:uuid_v4()
-        },
-      },
-      function (status) {
-        //this will print a status error in console
-        if (status.error) {
-          console.log(status);
+          );
+          e.target.reset(); // resets the input fields
+          scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
         }
-      }
-    );
-    e.target.reset(); // resets the input fields
-    scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
-  }
-    };
+        ).catch()
+      }).catch(error => console.log(error))
+    } else {
+      pubnub.publish(
+        {
+          channel: channels[0],
+          message: {
+            user: currentUser.name,
+            isHost: isHost,
+            text: message.message,
+            uuid: currentUser.id,
+            id: uuid_v4()
+          },
+        },
+        function (status) {
+          //this will print a status error in console
+          if (status.error) {
+            console.log(status);
+          }
+        }
+      );
+      e.target.reset(); // resets the input fields
+      scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
+    }
+  };
   //handles leave/end button
   const handleButton = () => {
-	pubnub.unsubscribe({channels: channels});
-	pubnub.signal({channel:code,message:{action:'DM',uuid:pubnub.getUUID()}});
-	isHost ? endConversation() : goToHomePage()
+    pubnub.unsubscribe({ channels: channels });
+    pubnub.signal({ channel: code, message: { action: 'DM', uuid: pubnub.getUUID() } });
+    isHost ? endConversation() : goToHomePage()
   }
 
   const processMessages = (messages) => {
-    let newList = [ ]
-    messages.forEach((message) =>{newList.push({
-      mongoid:String(message.id),
-      message:String(message.text),
-      user_id: String(message.uuid),
-      username: String(message.user),
-      createdat: String(getCurrentDate()),
-      updatedat: String(getCurrentDate()),
-      roomid:String(code)
-    })})
+    let newList = []
+    messages.forEach((message) => {
+      newList.push({
+        mongoid: String(message.id),
+        message: String(message.text),
+        user_id: String(message.uuid),
+        username: String(message.user),
+        createdat: String(getCurrentDate()),
+        updatedat: String(getCurrentDate()),
+        roomid: String(code)
+      })
+    })
     return newList
   }
 
   //*!need to fix posting messages to fastapi
   const endConversation = () => {
-    pubnub.signal({channel:code,message:{action:'END'}})
+    pubnub.signal({ channel: code, message: { action: 'END' } })
 
-    db.collection('Conversations').where('convoId','==', code).get().then((querySnapshot) => {
+    db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-          const metadata = doc.data()
-          // doc.data() is never undefined for query doc snapshots
-          db.collection('Conversations').doc(doc.id).update({ ended: true}).then(res => console.log('successfully ended')).catch(err => console.log(`Could not end ${err}`))
-          console.log(doc.id, " => ", metadata);
-          const convoData = {
-            article:metadata.articleURL,
-            time:metadata.time,
-            host:metadata.hostId,
-            roomid:metadata.convoId,
-            title:metadata.title,
-            description:metadata.description,
-            createdAt:metadata.createdAt,
-            updatedAt:metadata.updatedAt,
-            tz:metadata.tz
-          }
-          const  messageList = messages?processMessages(messages):''
-          axios({method: 'post',url: `http://localhost:8080/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
-          axios({method: 'post',url: `http://localhost:8080/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
-          axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
-          // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
-          // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
-          // axios(`http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+        const metadata = doc.data()
+        // doc.data() is never undefined for query doc snapshots
+        db.collection('Conversations').doc(doc.id).update({ ended: true }).then(res => console.log('successfully ended')).catch(err => console.log(`Could not end ${err}`))
+        console.log(doc.id, " => ", metadata);
+        const convoData = {
+          article: metadata.articleURL,
+          time: metadata.time,
+          host: metadata.hostId,
+          roomid: metadata.convoId,
+          title: metadata.title,
+          description: metadata.description,
+          createdAt: metadata.createdAt,
+          updatedAt: metadata.updatedAt,
+          tz: metadata.tz
+        }
+        const messageList = messages ? processMessages(messages) : ''
+        axios({ method: 'post', url: `http://localhost:8080/commitmessages`, data: { messages: messageList } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+        axios({ method: 'post', url: `http://localhost:8080/commitconvo`, data: { convo: convoData } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+        axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+        // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
+        // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
+        // axios(`http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
       });
 
-  }).catch(err => console.log(`did not find convo ${err}`));
+    }).catch(err => console.log(`did not find convo ${err}`));
   }
 
   //handles typing indicator signaling
-  const handlePress=()=>{
-	  pubnub.signal({channel:code,message:{action:'UT',name:currentUser.name}});
-	}
+  const handlePress = () => {
+    pubnub.signal({ channel: code, message: { action: 'UT', name: currentUser.name } });
+  }
 
   //use this to look at the metadata
   const fetchMetaData = async () => {
@@ -292,74 +294,74 @@ const LiveChat = () => {
       snapshot.forEach(doc => console.log(doc.data()))
     })
      */
-    const doc= await db.collection('Conversations').where('convoId','==', code).get();
-    db.collection('Conversations').where('convoId','==', code).get().then((querySnapshot) => {
+    const doc = await db.collection('Conversations').where('convoId', '==', code).get();
+    db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
 
       querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          let metadata= doc.data()
-          console.log(metadata)
-          setMetaData(metadata);
-          fetchAllMessages();
-          checkUser(metadata);
-          //console.log(doc.id, " => ", doc.data());
+        // doc.data() is never undefined for query doc snapshots
+        let metadata = doc.data()
+        console.log(metadata)
+        setMetaData(metadata);
+        fetchAllMessages();
+        checkUser(metadata);
+        //console.log(doc.id, " => ", doc.data());
       });
-  }).catch((err) => console.log(err))
+    }).catch((err) => console.log(err))
 
-  if(!doc.docs[0]){
-    setContent(<div style={{textAlign: 'center'}}>Chat does not exist</div>)
+    if (!doc.docs[0]) {
+      setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>)
+    }
+
   }
 
-  }
-
-  const openConversation = () =>{
-    db.collection('Conversations').where('convoId','==', code).get().then((querySnapshot) => {
+  const openConversation = () => {
+    db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          db.collection('Conversations').doc(doc.id).update({isOpen:true}).then(res=>console.log('success')).catch(err => console.log(err))
-          console.log(doc.id, " => ", doc.data());
+        // doc.data() is never undefined for query doc snapshots
+        db.collection('Conversations').doc(doc.id).update({ isOpen: true }).then(res => console.log('success')).catch(err => console.log(err))
+        console.log(doc.id, " => ", doc.data());
       });
-  })
+    })
   }
 
-  const addListener = (user)=>{
-        //this listener sets up how to handle messages and gives status
-        pubnub.addListener({
-          message: handleMessage,
-          presence: function (p) {
-            const action = p.action; // Can be join, leave, state-change, or timeout
-            const channelName = p.channel; // Channel to which the message belongs
-            const occupancy = p.occupancy; // Number of users subscribed to the channel
-            const state = p.state; // User state
-            const channelGroup = p.subscription; //  Channel group or wildcard subscription match, if any
-            const publishTime = p.timestamp; // Publish timetoken
-            const timetoken = p.timetoken; // Current timetoken
-            const uuid = p.uuid; // UUIDs of users who are subscribed to the channel
-          },
-        signal: function(s) {
-            // handle signal
-            var channelName = s.channel; // The channel to which the signal was published
-            var channelGroup = s.subscription; // The channel group or wildcard subscription match (if exists)
-            var pubTT = s.timetoken; // Publish timetoken
-            var msg = s.message; // The Payload
-            var publisher = s.publisher; //The Publisher
+  const addListener = (user) => {
+    //this listener sets up how to handle messages and gives status
+    pubnub.addListener({
+      message: handleMessage,
+      presence: function (p) {
+        const action = p.action; // Can be join, leave, state-change, or timeout
+        const channelName = p.channel; // Channel to which the message belongs
+        const occupancy = p.occupancy; // Number of users subscribed to the channel
+        const state = p.state; // User state
+        const channelGroup = p.subscription; //  Channel group or wildcard subscription match, if any
+        const publishTime = p.timestamp; // Publish timetoken
+        const timetoken = p.timetoken; // Current timetoken
+        const uuid = p.uuid; // UUIDs of users who are subscribed to the channel
+      },
+      signal: function (s) {
+        // handle signal
+        var channelName = s.channel; // The channel to which the signal was published
+        var channelGroup = s.subscription; // The channel group or wildcard subscription match (if exists)
+        var pubTT = s.timetoken; // Publish timetoken
+        var msg = s.message; // The Payload
+        var publisher = s.publisher; //The Publisher
         //** use redux to see if the signals work better.
-        if (msg.action=='END'){
+        if (msg.action == 'END') {
           //** redirect everyone out
           goToHomePage();
-        }else if(msg.action=='UT'){
+        } else if (msg.action == 'UT') {
           //sends message if use is typing
           setUserTyping(`${msg.name} is typing`);
-          setTimeout(()=>{setUserTyping('')},5000)
+          setTimeout(() => { setUserTyping('') }, 5000)
         }
-        },
-          status: (event) => {
-            console.log("status: " + JSON.stringify(event));
-          },
-        });
+      },
+      status: (event) => {
+        console.log("status: " + JSON.stringify(event));
+      },
+    });
   }
   //checks the room and returns chat or other error based on rsvp and occupancy
-  const checkRoom = async (user, metadata) =>{
+  const checkRoom = async (user, metadata) => {
     pubnub.hereNow(
       {
         channels: channels,
@@ -367,105 +369,107 @@ const LiveChat = () => {
         includeState: true,
       },
       (status, response) => {
-        const occupancy = response?response.totalOccupancy:null;
-        const occupants = response?response.occupants:null;
-        if(metadata.ended){
-          return setContent(<div style={{textAlign: 'center'}}>Conversation has ended</div>)
+        const occupancy = response ? response.totalOccupancy : null;
+        const occupants = response ? response.occupants : null;
+        if (metadata.ended) {
+          return setContent(<div style={{ textAlign: 'center' }}>Conversation has ended</div>)
         }
-        if(occupancy<10){
+        if (occupancy < 10) {
           //room not full now check for rsvp
-          if(metadata.isOpen==false){
-            setContent(<div style={{textAlign: 'center'}}>Conversation not yet open</div>)
-          }else if((metadata.rsvp.includes(user.id)||user.id==metadata.hostId)&&metadata.isOpen==true){
+          if (metadata.isOpen == false) {
+            setContent(<div style={{ textAlign: 'center' }}>Conversation not yet open</div>)
+          } else if ((metadata.rsvp.includes(user.id) || user.id == metadata.hostId) && metadata.isOpen == true) {
             addListener(user);
             //the user rsvp'd or is host. and can now see chat
-            pubnub.signal({channel:code,message:{action:'AM',name:user.name}})
+            pubnub.signal({ channel: code, message: { action: 'AM', name: user.name } })
             setReload(true);
             scrollhook.current.scrollIntoView({ behavior: 'smooth' });
-          }else{
+          } else {
             //person not rsvp. redirect or respond?
-           setContent(<div style={{textAlign: 'center'}}>You did not rsvp for this conversation</div>)
+            setContent(<div style={{ textAlign: 'center' }}>You did not rsvp for this conversation</div>)
           }
-        }else{
+        } else {
           //too many people
-           setContent(<div style={{textAlign: 'center'}}>Chat is full</div>)
+          setContent(<div style={{ textAlign: 'center' }}>Chat is full</div>)
         }
       }
-    )}
+    )
+  }
 
-    //checks for and sets User
-    const checkUser = async (data) =>{
-      axios
+  //checks for and sets User
+  const checkUser = async (data) => {
+    axios
       .get(`/api/users/current`, {
         withCredentials: true,
       })
       .then((res) => {
         setCurrentUser(res.data.user);
         pubnub.setUUID(res.data.user.id);
-        let metadata = {...data}
-        if(data.hostId==res.data.user.id){
+        let metadata = { ...data }
+        if (data.hostId == res.data.user.id) {
           setIsHost(true);
-          if(data.isOpen==false){
-            metadata.isOpen=true;
+          if (data.isOpen == false) {
+            metadata.isOpen = true;
             openConversation();
           }
-        }        
+        }
         checkRoom(res.data.user, metadata)
-      }).catch(err =>{
-        setContent(<div style={{textAlign: 'center'}}>Please sign in</div>)
+      }).catch(err => {
+        setContent(<div style={{ textAlign: 'center' }}>Please sign in</div>)
         console.log(`could not make request: ${err}`
-      )})
-    }
-    //fetches all channel messages
-    const fetchAllMessages = async () => {
+        )
+      })
+  }
+  //fetches all channel messages
+  const fetchAllMessages = async () => {
 
-        pubnub.fetchMessages({ channels: [code], count: 100 })
-			.then((e) => {
-				//this will fetch all messages in Test chat then add them to the messages state.
-				e.channels[code].forEach((e) => {
-					if (e.message.message || e.message.text.message) {
-						return;
-					} // this is just done to filter out previous versions of the messages
-					if (e.message.user && (e.message.text || e.message.attachment)) {
-						addMessages((messages) => [
-							...messages,
-							{
-								user: e.message.user,
-								isHost: e.message.isHost,
-								text: e.message.text,
-								uuid: e.message.uuid,
+    pubnub.fetchMessages({ channels: [code], count: 100 })
+      .then((e) => {
+        //this will fetch all messages in Test chat then add them to the messages state.
+        e.channels[code].forEach((e) => {
+          if (e.message.message || e.message.text.message) {
+            return;
+          } // this is just done to filter out previous versions of the messages
+          if (e.message.user && (e.message.text || e.message.attachment)) {
+            addMessages((messages) => [
+              ...messages,
+              {
+                user: e.message.user,
+                isHost: e.message.isHost,
+                text: e.message.text,
+                uuid: e.message.uuid,
                 attachment: e.message.attachment,
-                id:e.message.id
-							},
-						]);
-					}
-				});
-			})
-			.catch((error) => console.log(error));
-    }
+                id: e.message.id
+              },
+            ]);
+          }
+        });
+      })
+      .catch((error) => console.log(error));
+  }
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   useEffect(() => {
 
     axios
-			.get(`/api/users/current`, {
-				withCredentials: true,
-			})
-			.then((res) => {
-				setCurrentUser(res.data.user);
+      .get(`/api/users/current`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setCurrentUser(res.data.user);
 
-				axios
-					.get(`/api/users/profile/${res.data.user.username}`, {
-						withCredentials: true,
-					})
-					.then((res2) => {
+        axios
+          .get(`/api/users/profile/${res.data.user.username}`, {
+            withCredentials: true,
+          })
+          .then((res2) => {
             setCurrentUserFull(res2.data.user);
-            
+
             axios
-							.get('/api/upcoming', { withCredentials: true })
-							.then((res) => {
-								setCurrentUserFull({
-									...res2.data.user,
-									upcomingChats: res.data,
+              .get('/api/upcoming', { withCredentials: true })
+              .then((res) => {
+                setCurrentUserFull({
+                  ...res2.data.user,
+                  upcomingChats: res.data,
                 });
               });
           });
@@ -476,9 +480,9 @@ const LiveChat = () => {
     //   .then((res) => {
 
     //   })
-    if(!code){
+    if (!code) {
       //!should set content
-      setContent(<div style={{textAlign: 'center'}}>Chat does not exist</div>)
+      setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>)
       setLoading(false);
       return
     }
@@ -489,7 +493,7 @@ const LiveChat = () => {
       withPresence: true,
     });
     setLoading(false);
-    return pubnub.removeListener(), unmount 
+    return pubnub.removeListener(), unmount
   }, []);
 
   if (isMobile)
@@ -497,7 +501,7 @@ const LiveChat = () => {
 
   console.log(currentUserFull)
   return (
-    
+
     <div className={styles["liveChat"]}>
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
       <div className={styles["mainContent"]}>
@@ -524,27 +528,27 @@ const LiveChat = () => {
               alt="discoverImage"
               className={styles["globeIcon"]}
             />
-            
+
             <span className={styles["globeText"]}>Discover</span>
           </div>
           <h1 className={styles["upcommingHeading"]}>Upcoming Chats</h1>
           <div className={styles["upcomingChats"]}>
             {currentUserFull.upcomingChats ? (
-                    currentUserFull.upcomingChats.map((prop) => {
-                      return (
-                        <UpcomingChatsCard
-                          articleURL={prop.articleURL}
-                          articleImg={prop.articleImg}
-                          time={prop.time}
-                          convTitle={prop.convTitle}
-                          hostName={prop.hostname}
-                          roomId={prop.roomId}
-                        />
-                      );
-                    })
-                  ) : (
-                    <UpcomingChatsCard />
-                  )}
+              currentUserFull.upcomingChats.map((prop) => {
+                return (
+                  <UpcomingChatsCard
+                    articleURL={prop.articleURL}
+                    articleImg={prop.articleImg}
+                    time={prop.time}
+                    convTitle={prop.convTitle}
+                    hostName={prop.hostname}
+                    roomId={prop.roomId}
+                  />
+                );
+              })
+            ) : (
+              <UpcomingChatsCard />
+            )}
             {/* <ChatCard
               title="Zero Waste Toothbrush: How does it really make a difference?"
               timeStart="HAPPENING NOW"
@@ -556,7 +560,7 @@ const LiveChat = () => {
               chatImage={article1}
             /> */}
           </div>
-		  <button onClick={handleButton}>{isHost?'End Conversation':'Leave Conversation'}</button>
+          <button onClick={handleButton}>{isHost ? 'End Conversation' : 'Leave Conversation'}</button>
         </div>
         <div className={styles["middleColumn"]}>
           <div className={styles["innerMiddleBox"]}>
@@ -575,7 +579,7 @@ const LiveChat = () => {
               </div>
               <div className={styles["secondRowHeading"]}>
                 <span className={styles["mid-col-articleTitle"]}>
-                {metaData.title}
+                  {metaData.title}
                 </span>
                 <span className={styles["liveBox"]}>LIVE</span>
               </div>
@@ -583,32 +587,32 @@ const LiveChat = () => {
             <div className={styles["liveChatBox"]}>
               <span className={styles["chatTime"]}></span>
               {loading ? (
-                
+
                 <div style={{ textAlign: "center" }}>Loading...</div>
               ) : (
                 content
-              )} 
-              {reload?<Chat
+              )}
+              {reload ? <Chat
                 messages={messages}
                 user={currentUser}
-              />:''}
+              /> : ''}
               <div ref={scrollhook}></div>
             </div>
-			{<div >{userTyping}</div>}
+            {<div >{userTyping}</div>}
             <div className={styles["chatInputBox"]}>
               <form className="form-demo" onSubmit={handleSubmit(onSubmit)}>
-              <img
-                src={inputAddIcon}
-                alt="Add Icon"
-                className={styles["inputAddIcon"]}
-                onClick={virtualClick}
-              />
-                <input style={{display: "none"}} type='file' ref={hiddenFileInput} onChange={onChangeFile}/>
+                <img
+                  src={inputAddIcon}
+                  alt="Add Icon"
+                  className={styles["inputAddIcon"]}
+                  onClick={virtualClick}
+                />
+                <input style={{ display: "none" }} type='file' ref={hiddenFileInput} onChange={onChangeFile} />
                 <input
-                  style={{ width: "33vw", marginRight: "0px" }}
+                  style={{ height: "40vw", width: "0vw", marginRight: "0px" }}
                   type="text"
-                  className="inputText"
-				  onKeyPress={handlePress}
+                  className={styles["inputText"]}
+                  onKeyPress={handlePress}
                   placeholder="Type your message"
                   {...register("message")}
                 />{" "}
@@ -621,7 +625,7 @@ const LiveChat = () => {
                 src={inputSendIcon}
                 alt="Send Input"
                 className={styles["inputSendIcon"]}
-                onClick={()=>onSubmit}
+                onClick={() => onSubmit}
               />
             </div>
           </div>
@@ -636,15 +640,15 @@ const LiveChat = () => {
             <div className={styles["chatHeading"]}>
               <div className={styles["leftHeading"]}>
                 <span className={styles["monthText"]}>{Date(metaData.time).toLocaleString()
-								.split(' ')
-								.splice(1, 1)
-								.join(' ')
-								.toUpperCase()}</span>
+                  .split(' ')
+                  .splice(1, 1)
+                  .join(' ')
+                  .toUpperCase()}</span>
                 <div className={styles["dayText"]}>{Date(metaData.time).toLocaleString()
-								.split(' ')
-								.splice(2, 1)
-								.join(' ')
-								.toUpperCase()}</div>
+                  .split(' ')
+                  .splice(2, 1)
+                  .join(' ')
+                  .toUpperCase()}</div>
               </div>
               <div className={styles["rightHeading"]}>
                 {/* <img
@@ -658,10 +662,10 @@ const LiveChat = () => {
               </div>
             </div>
             <span className={styles["startTime"]}>{Date(metaData.time).toLocaleString()
-								.split(' ')
-								.splice(0, 6)
-								.join(' ')
-								.toUpperCase()}</span>
+              .split(' ')
+              .splice(0, 6)
+              .join(' ')
+              .toUpperCase()}</span>
             {/* <div className={styles["chatTags"]}>
               <div className={styles["chatTag"]}>Eco-Friendly</div>
               <div className={styles["chatTag"]}>Sustainability</div>
@@ -670,7 +674,7 @@ const LiveChat = () => {
             <p className={styles["chatDescription"]}>
               {metaData.description}
             </p>
-            <Participants/>
+            <Participants />
             {/* <div className={styles["dropDownRow"]}>
               <span className={styles["chatDropDownName"]}>Shared Media</span>
               <img
