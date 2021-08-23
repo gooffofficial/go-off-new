@@ -2,6 +2,7 @@ import styles from './styles/FeedCard.module.scss';
 import Tag from '../components/Tag';
 import axios from 'axios';
 import moment from 'moment';
+import { useEffect, useState } from 'react';
 import {
   BrowserView,
   MobileView,
@@ -20,12 +21,21 @@ import MobileNewsFeedCard from './MobileNewsFeedCard';
 import firebase from '../firebase.js';
 const schedule = require('node-schedule');
 
+
+const fillerUser = {
+	name: 'Username',
+	propic: '/images/stock-face.jpg',
+	username: 'username',
+	followercount: 0,
+	followingcount: 0,
+};
 // NEED TO IMPLEMENT DYNAMIC FUNCTIONALITY FOR:
 // FEED IMAGE - CALENDAR - COMPANY LOGO - HEADING - DATE - TAGS - DESCRIPTION - HOST NAME / HOST AVATAR
 
 export const ChatsFeed = ({ chatCategory, username, isUser, userId}) => {
 	// "Upcoming", "Past", "Saved"
-	console.log(username)
+	// console.log(username)
+	// console.log("isUser: ", isUser)
 	switch (chatCategory) {
 		case 'Upcoming':
 			return <UpComingChatsFeed username={username} userId={userId} isUser={isUser} isOnMobile={isMobile} />;
@@ -50,8 +60,9 @@ const UpComingChatsFeed = ({ username, isOnMobile = false, isUser, userId }) => 
 	if (error) return <p className={styles.largerText}>Unable to load upcoming chats...</p>;
 	if (!upcomingChats || upcomingChats.length === 0)
 		return <p className={styles.largerText}>No upcoming conversations.. RSVP and join in on the action.</p>;
-	console.log(upcomingChats)
-	console.log(username)
+	// console.log(upcomingChats)
+	// console.log(username)
+	// console.log("isUser: ", isUser)
 	return (
 		<div>
 			{upcomingChats.map(
@@ -65,6 +76,7 @@ const UpComingChatsFeed = ({ username, isOnMobile = false, isUser, userId }) => 
 					hostAvatar,
 					convDesc,
 					hostUsername,
+					isUser,
 				}) => (
 					<NewsFeedCard
 						articleURL={articleURL}
@@ -86,7 +98,7 @@ const UpComingChatsFeed = ({ username, isOnMobile = false, isUser, userId }) => 
 	);
 };
 
-const PastChatsFeed = ({ username, isOnMobile = false }) => {
+const PastChatsFeed = ({ username, isUser, isOnMobile = false }) => {
 	const {
 		data: pastChats,
 		isLoading,
@@ -96,7 +108,8 @@ const PastChatsFeed = ({ username, isOnMobile = false }) => {
 	if (error) return <p className={styles.largerText}>Unable loading upcoming chats...</p>;
 	if (!pastChats || pastChats.length === 0)
 		return <p className={styles.largerText}>No joined past conversation chats...</p>;
-	return (
+	// console.log(username, hostUsername)
+		return (
 		<div>
 			{pastChats.map(
 				({
@@ -131,34 +144,56 @@ const SavedChatsFeed = () => {
 };
 
 const NewsFeedCard = (props) => {
-	const { articleImg, articleURL, convTitle, convDesc, time, hostName, roomId, hostAvatar, isOnMobile, isUser, userId, hostUsername } = props;
-  	const history = useHistory();
+	const { articleImg, articleURL, convTitle, convDesc, time, hostName, roomId, hostAvatar, isOnMobile, userId, hostUsername } = props;
+	const history = useHistory();
+	const [currentUser, setCurrentUser] = useState(fillerUser);
+	
 
-  if (isOnMobile)
-    return <MobileNewsFeedCard
-      articleImg={articleImg} 
-      articleURL={articleURL} 
-      convTitle={convTitle} 
-      convDesc={convDesc} 
-      time={time} 
-      hostUsername={hostUsername} 
-      roomId={roomId} 
-      hostAvatar={hostAvatar} 
-      isOnMobile={isOnMobile}
-	  history={history}
-	  isUser={isUser}
-	  userId={userId}
-	  hostUsername={hostUsername}
-    />
-  
+	useEffect(() => {
+		axios
+			.get(`/api/users/current`, {
+				withCredentials: true,
+			}).then((res) => {
+				setCurrentUser(res.data.user);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+			
+	}, []);
+
+	
+
+	
+
+  	if (isOnMobile){
+		return <MobileNewsFeedCard
+		articleImg={articleImg} 
+		articleURL={articleURL} 
+		convTitle={convTitle} 
+		convDesc={convDesc} 
+		time={time} 
+		hostUsername={hostUsername} 
+		roomId={roomId} 
+		hostAvatar={hostAvatar} 
+		isOnMobile={isOnMobile}
+		history={history}
+		isUser={isUser}
+		userId={userId}
+		hostUsername={hostUsername}
+		/>
+	}
+	
+	
   	let UTCTime = parseInt(time);
 	let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
 	let convoCalendarDay = moment(UTCTime).format('D');
 	let convoDay = moment(UTCTime).format('dddd').toUpperCase();
 	let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
 	let convoDate = `${convoDay} ${convoHoursMinutes}`;
-	console.log(hostUsername)
-	console.log(props)
+	let isUser = true;
+	// console.log(hostUsername)
+	// console.log(props)
 	// const {
 	//  feedImage,
 	//  calendar,
@@ -176,23 +211,24 @@ const NewsFeedCard = (props) => {
 	// 	document.getElementById("myBtn").textContent = "RSVP"
 	// }
 
+	
 
 	const db = firebase.firestore();
 
-	console.log(hostUsername)
+	// console.log(hostUsername)
 	const rsvpbuttonhandler = (e) => {
 		let convoId = roomId
   		let dummyId = userId
         e.preventDefault();
-        console.log("test")
-        console.log(props)
+        // console.log("test")
+        // console.log(props)
         db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
               let data = doc.data();
               let rsvp = data.rsvp;
-              console.log(rsvp, rsvp.length)
-              console.log(data)
+            //   console.log(rsvp, rsvp.length)
+            //   console.log(data)
               if(data.hostId==userId){
                 return console.log('is already host')
               }
@@ -202,7 +238,7 @@ const NewsFeedCard = (props) => {
               
                 
               //notifications
-			  console.log("notif test")
+			//   console.log("notif test")
 			  //needs tweaking
 			  axios.post(`/api/convos/joinnotifs/${convoId}`, props)
               db.collection('Conversations').doc(doc.id).update({ rsvp:rsvp }).then(res => console.log('successfully rsvpd')).catch(err => console.log(err))
@@ -218,8 +254,13 @@ const NewsFeedCard = (props) => {
       //   from: process.env.TWILIO_PHONE_NUMBER, 
       //   body: 'Hello ' + hostName + ', A user just RSVPd to your conversation: ' + convTitle + '.'
       // })
-      };
-  console.log(isUser)
+	  };
+
+	  const gobuttonhandler = (e) => {
+		history.push(`/chat/${roomId}`)
+	  }
+	  
+	
 	return (
 		<div className={styles.FeedCardContainer}>
 			<div className={styles.feedCardImageContainer}>
@@ -310,7 +351,7 @@ const NewsFeedCard = (props) => {
 
 							<div className={styles.rsvpButtonContainer}>
 								{isUser 
-									? <div className={styles.convoButton} onClick={history.push(`/chat/${roomId}`)}>
+									? <div className={styles.convoButton} onClick={gobuttonhandler}>
 										<p className={styles.buttonText}>GO TO CONVO</p>
 									  </div>
 									: <div className={styles.convoButton} onClick={rsvpbuttonhandler}>

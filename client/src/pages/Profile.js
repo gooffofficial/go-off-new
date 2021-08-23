@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/ProfilePage/Profile.module.scss';
+import { useMutation } from 'react-query'
+import Rodal from "rodal";
+import "rodal/lib/rodal.css";
+import { sendEditProf } from "../styles/AuthPage/api.js"
 import {
   BrowserView,
   MobileView,
@@ -14,6 +18,7 @@ import ProfileMobile from './ProfileMobile';
 import NavBar from '../components/NavBar.js';
 import { ChatsFeed } from '../components/FeedCard.js';
 import UpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
+import PencilIcon from '../images/Unionpencil.png'
 
 const fillerUser = {
 	name: 'Username',
@@ -26,9 +31,12 @@ const fillerUser = {
 const Profile = (props) => {
 	const [currentUser, setCurrentUser] = useState(fillerUser);
 	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
-  const [chatCategory, setChatCategory] = useState("Upcoming") // "Upcoming", "Past", "Saved"
-
-	const history = useHistory();
+  	const [chatCategory, setChatCategory] = useState("Upcoming") // "Upcoming", "Past", "Saved"
+	const [isEditProfModalVisible, setEditProfModalVisible] = useState(false)
+	
+  	const history = useHistory();
+	const openEditProfModal = () => setEditProfModalVisible(true);
+  	const closeEditProfModal = () => setEditProfModalVisible(false);
 
   const goToHomePage = (evt) => {
 	let isHost = currentUserFull.host === "(Host)";
@@ -184,6 +192,14 @@ console.log("test")
 									}
 									alt="avatar"
 								/>
+								<button onclick={openEditProfModal} className={styles.EditImgContainer}>
+									<img className={styles.EditImg} src={PencilIcon}></img>
+									<EditProfModal
+										closeEditProfModal={closeEditProfModal}
+										isEditProfModalVisible={isEditProfModalVisible} 
+										id={currentUser.id}
+									/>
+								</button>
 							</div>
 
 							<div className={styles.profilePageInfo}>
@@ -218,7 +234,7 @@ console.log("test")
 					</div>
 
 					<div className={styles.profCenterFeed}>
-						<ChatsFeed chatCategory={chatCategory} />
+						<ChatsFeed chatCategory={chatCategory} isUser={currentUserFull.is_user}/>
 					</div>
 				</div>
 			</div>
@@ -226,4 +242,60 @@ console.log("test")
 	);
 };
 
+const EditProfModal = ({ closeEditProfModal, isEditProfModalVisible,id }) => {
+	console.log("pencil clicked")
+	const [bioInput, setBioInput] = useState("");
+	const [firstNameInput, setFirstNameInput] = useState("");
+	const [lastNameInput, setLastNameInput] = useState("");
+	// const [articleURLInput, setArticleURLInput] = useState("");
+	const { mutate } = useMutation((editProfInfo) => sendEditProf(editProfInfo,id))
+  
+	const handleBioInputChange = (evt) => setBioInput(evt.target.value)
+	const handleFirstNameInputChange = (evt) => setFirstNameInput(evt.target.value)
+	const handleLastNameInputChange = (evt) => setLastNameInput(evt.target.value)
+	// const handleArticleURLInputChange = (evt) => setArticleURLInput(evt.target.value)
+  
+	const handleEditProf = (evt) => {
+	  // Check if values are empty, For now we'll just do an alert, in the future put some red lower text
+	  if (!bioInput) alert("There's something wrong with the Bio Input")
+	  else if (!firstNameInput) alert("There's something wrong with the First Name Input")
+	  else if (!lastNameInput) alert("There's something wrong with the Last Name Input")
+  
+	  const editProfInfo = { bio: bioInput, firstName: firstNameInput, lastName: lastNameInput}
+	  mutate(editProfInfo)
+	  closeEditProfModal();
+	//   window.alert("Conversation created! To find the conversation check your Profile page or the Home page!")
+	}
+  
+	const rodalCustomStyles = {
+	  padding: '0px'
+	}
+  
+	return <Rodal
+	  width="283"
+	  height="391"
+	  visible={isEditProfModalVisible}
+	  showMask={true}
+	  showCloseButton={true}
+	  enterAnimation="slideUp"
+	  leaveAnimation="door"
+	  onClose={closeEditProfModal}
+	  customStyles={rodalCustomStyles}
+	>
+	  <div className={styles.convoModal}>
+		<div className={styles.convModalHeading}>
+		  <h1 className={styles.convoModalHeader}>Convo</h1>
+		</div>
+		<div className={styles.convModalContent}>
+		  <h3 className={styles.convTimeTxt}>Bio</h3>
+		  <input className={styles.convTimeInput} type="text" onChange={handleBioInputChange} value={bioInput} />
+		  <h3 className={styles.convTitleTxt}>First Name</h3>
+		  <input className={styles.convTitleInput} type="text" onChange={handleFirstNameInputChange} value={firstNameInput} />
+		  <h3 className={styles.convDescTxt}>Last Name</h3>
+		  <input className={styles.convTitleInput} type="text" onChange={handleLastNameInputChange} value={lastNameInput} />
+		  <button className={styles.createConvBtn} onClick={handleEditProf}>Create Conversation</button>
+		</div>
+	  </div>
+	</Rodal>
+  }
 export default Profile;

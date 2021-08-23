@@ -281,6 +281,7 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id }) 
         <input className={s.convTitleInput} type="text" onChange={handleConvDescInputChange} value={convDescInput} />
         <h3 className={s.articleURLTxt}>Article URL</h3>
         <input className={s.convTitleInput} type="text" onChange={handleArticleURLInputChange} value={articleURLInput} />
+        <p className={s.helpbuttonTxt}>Need some Inspiration? Click <a target="_blank" href="https://www.notion.so/8610e9fcf7ee41abb1cd82eef3475691?v=8e268e6f3b064516beef074b67473dd2">here!</a></p>
         <button className={s.createConvBtn} onClick={handleCreateConv}>Create Conversation</button>
       </div>
     </div>
