@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 # import os.path
-from transcripts import create_transcript
+#from transcripts import create_transcript
 # from bson.objectid import ObjectId
 from datetime import datetime
 from statistics import mean
@@ -16,9 +16,11 @@ import boto3
 # import sys
 import botocore
 
-# https://www.gormanalysis.com/blog/connecting-to-aws-s3-with-python/
+#https://www.gormanalysis.com/blog/connecting-to-aws-s3-with-python/
 s3 = boto3.resource(
-    service_name='s3'
+    service_name='s3',
+    aws_access_key_id='AKIA4OTKLUMMRQ3KBRB4',
+    aws_secret_access_key='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'
 )
 
 bucket = s3.Bucket('gooff')
@@ -41,7 +43,7 @@ def vanity(room_id: str):
     cnx = mysql.connector.connect(**config)
     mycursor = cnx.cursor()
 
-    mycursor.execute('SELECT * FROM chatsdata WHERE roomid = ' + room_id)
+    mycursor.execute('SELECT * FROM convodata WHERE roomid = ' + room_id)
     r_rows = mycursor.fetchall()
 
     a = (mycursor.description)
@@ -51,7 +53,7 @@ def vanity(room_id: str):
     df = pd.DataFrame(data=r_rows)
     df.columns = col
 
-    users = df['user_id']
+    users = df['userid']
     usernames = []
     user_ages = []
     user_genders = []
@@ -180,8 +182,8 @@ def vanity(room_id: str):
             create_transcript(room_id)
 
     df = pd.read_csv('https://gooff.s3.us-east-2.amazonaws.com/transcripts/' + room_id + '_chat.csv')
-
-    for usern in df.usernames:
+ 
+    for usern in df.username:
         user_part[str(usern)] += 1
 
     labels = ["User " + str(i + 1) for i in range(len(user_part))]
@@ -201,8 +203,8 @@ def vanity(room_id: str):
     df = df.sort_values('createdat', ascending=True)
     timestamps = df.createdat
 
-    tlast = datetime.strptime(timestamps[len(timestamps) - 1], '%Y-%m-%dT%H:%M:%S.%fZ')
-    tfirst = datetime.strptime(timestamps[0], '%Y-%m-%dT%H:%M:%S.%fZ')
+    tlast = datetime.strptime(timestamps[len(timestamps) - 1], '%Y-%m-%d %H:%M:%S')
+    tfirst = datetime.strptime(timestamps[0], '%Y-%m-%d %H:%M:%S')
 
     t_delta = (tlast - tfirst).total_seconds() / 60  # convo time in mins.
     convo_date = tfirst.date()
@@ -226,7 +228,7 @@ def vanity(room_id: str):
     # create message over time graph
     times = []
     for time in df.createdat:
-        times.append(datetime.strptime(time, '%Y-%m-%dT%H:%M:%S.%fZ'))
+        times.append(datetime.strptime(time, '%Y-%m-%d %H:%M:%S'))
     df.insert(0, "count", 1)
     df.insert(0, "time", pd.to_datetime(times))
     df['min'] = df.time.dt.minute
@@ -271,4 +273,4 @@ def vanity(room_id: str):
 
 
 if __name__ == '__main__':
-    vanity('123')
+    vanity('1234')
