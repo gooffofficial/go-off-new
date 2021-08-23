@@ -712,7 +712,7 @@ const LiveChat = () => {
            <div className={styles["profileBox"]}>
             <div className={styles["profileLeftSide"]}>
               <img
-                src={emilyIcon}//*! {host.ppic} - using host image is too big please fix with css
+                src={host.ppic}//*! {host.ppic} - using host image is too big please fix with css
                 alt="Profile Icon"
                 className={styles["emilyIcon"]}
               />
