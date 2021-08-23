@@ -16,7 +16,7 @@ def create_transcript(room_id: str):
 
     cnx = mysql.connector.connect(**config)
     cursor = cnx.cursor()
-    cursor.execute(f"SELECT * FROM chatsdata WHERE roomid={room_id}")
+    cursor.execute(f"SELECT * FROM convodata WHERE roomid={room_id}")
 
     rows = cursor.fetchall()
     columns = [i[0] for i in cursor.description]
