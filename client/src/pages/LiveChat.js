@@ -511,7 +511,7 @@ const LiveChat = () => {
   if (isMobile)
     return <MobileLiveChat />
 
-  console.log(currentUserFull)
+  console.log(host)
   return (
 
     <div className={styles["liveChat"]}>
@@ -713,7 +713,7 @@ const LiveChat = () => {
            <div className={styles["profileBox"]}>
             <div className={styles["profileLeftSide"]}>
               <img
-                src={emilyIcon}//*! {host.ppic} - using host image is too big please fix with css
+                src={host.ppic}//*! {host.ppic} - using host image is too big please fix with css
                 alt="Profile Icon"
                 className={styles["emilyIcon"]}
               />
@@ -722,14 +722,14 @@ const LiveChat = () => {
                 <div className={styles["profileName"]}>{host.name}</div>
               </div>
             </div>
-            <div className={styles["profileRightSide"]}>
+            {/* <div className={styles["profileRightSide"]}>
               <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
               <img
                 src={dots3Icon}
                 alt="3 Things Setting"
                 className={styles["dots3Icon"]}
               />
-            </div>
+            </div> */}
           </div> 
         </div>
       </div>
