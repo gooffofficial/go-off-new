@@ -117,6 +117,17 @@ const LiveChat = () => {
   //this is a ref that will give scroll to bottom functionality
   const scrollhook = useRef();
 
+  const currentHost = (id) => {
+    axios
+      .get(`http://localhost:8080/getHost/${id}`).then(res =>{
+        const host= res.data.user[id]
+        console.log(host)
+        if (host){
+          setHost({name:host.name,ppic:host.ppic})
+        }
+      }).catch(err => console.log(err))
+  }
+
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -252,7 +263,7 @@ const LiveChat = () => {
   }
 
   const endConversation = () => {
-    pubnub.signal({ channel: code, message: { action: 'END' } })
+    //pubnub.signal({ channel: code, message: { action: 'END' } })
 
     db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -301,7 +312,7 @@ const LiveChat = () => {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         let metadata = doc.data()
-        console.log(metadata)
+        currentHost(metadata.hostId);
         setMetaData(metadata);
         fetchAllMessages();
         checkUser(metadata);
@@ -698,10 +709,10 @@ const LiveChat = () => {
               </div>
             </div>
           </div>
-          {/* <div className={styles["profileBox"]}>
+           <div className={styles["profileBox"]}>
             <div className={styles["profileLeftSide"]}>
               <img
-                src={emilyIcon}
+                src={emilyIcon}//*! {host.ppic} - using host image is too big please fix with css
                 alt="Profile Icon"
                 className={styles["emilyIcon"]}
               />
@@ -718,7 +729,7 @@ const LiveChat = () => {
                 className={styles["dots3Icon"]}
               />
             </div>
-          </div> */}
+          </div> 
         </div>
       </div>
     </div>

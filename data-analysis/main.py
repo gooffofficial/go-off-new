@@ -39,10 +39,21 @@ def commitMessage():
     data = request.get_json(force=True)
     mydb = createDBConnection()
     cursor = mydb.cursor()
+
     messages = data["messages"]
     if not data["messages"]:
         return {"message":"no messages"}
     
+    try:
+        roomid = messages[0]['roomid']
+        sqlCheck = f'SELECT * FROM convodata WHERE roomid={roomid}'
+        cursor.execute(sqlCheck)
+        result = cursor.fetchone()
+        if result:
+            return {"message":"messages have already been commited"}
+    except:
+        pass
+
     for message in messages:
         print(message)
         if message['message']=='':
@@ -54,7 +65,7 @@ def commitMessage():
         createdat = message['createdat']
         updatedat = message['updatedat']
         roomid = message['roomid']
-        sql ='INSERT INTO chatsdata (mongoid, message, user_id, usernames, createdat, updatedat, roomid) VALUES(%s,%s,%s,%s,%s,%s,%s)'
+        sql ='INSERT INTO convodata (messageid, message, userid, username, createdat, updatedat, roomid) VALUES(%s,%s,%s,%s,%s,%s,%s)'
         values = (messageid,text,user_id,username,createdat,updatedat,roomid)
         cursor.execute(sql,values)
         print('executed')
@@ -95,6 +106,30 @@ def commitConvo():
     mydb.close()
     print('committed conversation')
     return {"message":"committed conversation data to db"}
+
+@app.route("/getHost/<id>", methods=["GET"])
+def getHost(id):
+    mydb=createDBConnection()
+    cursor = mydb.cursor()
+    dictionary = {}
+    sql = f'SELECT * FROM Profiles WHERE UserId={id}'
+    sql2 = f'SELECT * FROM Users WHERE id={id}'
+    cursor.execute(sql)
+    user = cursor.fetchone()
+    try:
+        dictionary.update({id:{"ppic":user[2]}})
+        print(dictionary)
+    except :
+        print(user)
+        return {"user":user}   
+    cursor.execute(sql2)
+    user = cursor.fetchone()
+    try:
+        dictionary[id].update({"name":user[3]})
+    except:
+        return {"user":user}  
+    return {"user":dictionary}
+    
     
 @app.route("/execanalytics/<id>", methods=["GET"])
 def executeAnalytics(id):
