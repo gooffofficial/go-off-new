@@ -201,7 +201,7 @@ router.get(
         .then(async (convos) => {
             var convs = []
             var i = 0
-            console.log(convos)
+            // console.log(convos)
             for (const convo of convos[0]){
 
                 let c = await db.Convo.findOne({
@@ -240,7 +240,8 @@ router.get(
                 // if(c.host != user.id){
 
                     // if(new Date() > new Date(c.time)){
-                        console.log("test")
+                        console.log("var test")
+                        // console.log(req.payload.phonenumber, req.payload.email)
                         convs.push({
                             'articleURL': c.article,
                             'articleImg': art.img || placeholderImg,
@@ -254,8 +255,8 @@ router.get(
                             'hostpfp': prof.ppic,
                             'userID': req.payload.id,
                             'username': host.username,
-                            // 'userPnum': req.payload,
-                            // 'useremail': req.payload.email,
+                            'userPnum': req.payload.phonenumber,
+                            'useremail': req.payload.email,
                         })
                     // }
                     // }

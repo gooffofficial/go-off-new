@@ -92,7 +92,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                 twilioClient.messages.create({
                   to: u.phonenumber,
                   from: process.env.TWILIO_PHONE_NUMBER, 
-                  body: 'Your convo is scheduled on ' + new Date(dateConvoTime) + '! Drop this link to your friends, fans, (and enemies and invite them to join: https://go-off.co/profile/'+ u.username 
+                  body: 'Your convo is scheduled on ' + new Date(dateConvoTime) + '! Tell your friends to check out your profile page to RSVP.' 
                 })
 
                 // 30 min SMS reminder
@@ -151,58 +151,61 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (re
     // Add user to convo member list
 
     // You probably should add checking if the person is already in the conversion to add him again
-        var u = db.User.findOne({
-            where: {
-                id: req.body.userid
-            }
-        })
-        var convo = db.Convo.findOne({
-            where: {
-                id: req.body.convoId
-            }
-        })
-        let dateConvoTime = new Date(Number(convo.time)) 
+        console.log("Notif Testing!")
+        console.log(req.body)
+        // let u = db.User.findOne({
+        //     where: {
+        //         id: req.body.userid
+        //     }
+        // })
+        // let convo = db.Convo.findOne({
+        //     where: {
+        //         roomId: req.body.roomId
+        //     }
+        // })
+        let dateConvoTime = new Date(Number(req.body.time)) 
         let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
+
 
         // SMS about joining conversation
         twilioClient.messages.create({
-        to: u.phonenum,
-        from: process.env.TWILIO_PHONE_NUMBER, 
-        body: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + convo.title + '!'
+            to: req.body.userPnum,
+            from: process.env.TWILIO_PHONE_NUMBER, 
+            body: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + req.body.convTitle + '!'
         })
 
         // 30 min SMS reminder
         schedule.scheduleJob(dateConvoTime30minsBefore, () => {
         twilioClient.messages.create({
-            to: u.phonenum,
+            to: req.body.userPnum,
             from: process.env.TWILIO_PHONE_NUMBER, 
-            body: convo.title + ' starts in 30 minutes! Be there or be square, the convo waits for no one!'
+            body: req.body.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one!'
         })
         });
 
         //set up, schedule and send 30 min reminder email
         const msg = {
-            to: u.email,
+            to: req.body.useremail,
             from: 'go.offmedia@gmail.com',
             subject: "Reminder: You're in a convo soon!",
-            text: u.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one!',
+            text: req.body.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one!',
             send_at: Math.floor(dateConvoTime30minsBefore.getTime() / 1000)
         }
 
         // Email about joining conversation
         sgMail.send(msg).then(() => {
-            console.log('Email scheduled to send to ' + u.username)
+            // console.log('Email scheduled to send to ' + u.username)
             const msg2 = {
-                to: u.email,
+                to: req.body.useremail,
                 from: 'go.offmedia@gmail.com',
                 subject: "You just signed up for a convo!",
-                text: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + convo.title + '!'
+                text: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + req.body.convTitle + '!'
             }
             sgMail.send(msg2).then(() => {
                 console.log("error sending email")
             })
         }).catch((error) => {
-            console.log(error.response.body.errors)
+            console.log(error)
             console.log("Something went wrong setting up your reminder email.")
             })
 })

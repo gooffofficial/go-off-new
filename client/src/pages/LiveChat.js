@@ -704,8 +704,9 @@ const LiveChat = () => {
                 className={styles["dropDownImg"]}
               />
               <div className={styles["dropdown-content"]}>
-                <span>Have a question for us or facing a tech problem on our website? Drop us a line at go.offmedia@gmail.com or text 415-747-1897 to let us know so we can improve your experience! 
-                For more information regarding our data collecting practices, please read our <a href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy.</a></span>
+                <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897, 
+                  or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about 
+                  our data collecting practices, please read our <a target="_blank" href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy.</a></span>
               </div>
             </div>
           </div>

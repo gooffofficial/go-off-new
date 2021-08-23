@@ -2,6 +2,8 @@ import mysql.connector
 from flask import Flask, request
 from flask_cors import CORS
 from waitress import serve
+from nlp_testclean import run_sentiment_analysis
+from vanity import vanity
 
 app= Flask(__name__)#FastAPI()
 CORS(app)
@@ -133,8 +135,9 @@ def getHost(id):
     
 @app.route("/execanalytics/<id>", methods=["GET"])
 def executeAnalytics(id):
-    return {"message":f"Analytics executed for {id}"}
+    vanity(id)
+    run_sentiment_analysis(id)
+    return {"message": f"Analytics executed for {id}"}
 
 if __name__=="__main__":
     serve(app,port='8080', host='localhost') 
-    
