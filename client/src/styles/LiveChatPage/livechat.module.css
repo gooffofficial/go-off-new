@@ -107,7 +107,7 @@
   font-weight: 400;
 }
 
-.homeBox:hover, .discoverBox:hover {
+.avatarBox:hover, .homeBox:hover, .discoverBox:hover {
   background: rgba(58, 134, 255, 0.15);
   cursor: pointer;
   transition: background 0.5s;
@@ -483,6 +483,7 @@ button:hover{
 
 .inputSendIcon {
   max-height: 50px;
+  cursor: pointer;
 }
 
 .inputText:focus, .inputText:focus, .inputText:focus,

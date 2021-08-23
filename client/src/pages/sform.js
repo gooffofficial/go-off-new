@@ -76,7 +76,7 @@ const Sform =  props => {
                             <span className={styles["pdot3"]}></span>
                             {/* signup header */}
                             <p className={styles["head-text"]}>SIGN UP</p>
-                            <p className={styles["desc-text"]}>Create a new account</p>
+                            <p className={styles["desc-text"]}>Create an account and start having real conversations.</p>
 
                             <form className={styles["field-container"]}>
                                 {/* form for user creation */}

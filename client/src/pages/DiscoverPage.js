@@ -115,7 +115,7 @@ const DiscoverPage = () => {
           <img src={globeIcon} alt="discoverImage" className={styles["di-globeIcon"]} />
           <span className={styles["di-globeText"]}>Discover</span>
         </div>
-        <h1 className={styles["di-upcommingHeading"]}>Upcoming Chats</h1>
+        <h1 className={styles["di-upcommingHeading"]}>Your Upcoming Convos</h1>
         <div className={styles["di-upcomingChats"]}>
           {currentUserFull.upcomingChats ? (
                   currentUserFull.upcomingChats.map((prop) => {

@@ -77,10 +77,12 @@ const Home = (props) => {
 			<div className={styles.subContainer}>
 				<div className={styles.leftSideBar}>
 					<div className={styles.sideBarLinks}>
-						<div className={styles.sideBarProfile}>
+						<div className={styles.sideBarProfile} onClick={() => history.push('/profile')}>
 							<img
 								className={styles.sideBarProfileImage}
-								src={currentUserFull.propic}
+								src={currentUserFull
+									? currentUserFull.propic
+									: '/images/stock-face.jpg'}
 								alt="profile portrait"
 							/>
 							<p className={styles.sideBarUserLinkText}>{currentUser.name}</p>
@@ -127,7 +129,7 @@ const Home = (props) => {
 
 					<div className={styles.sideBarCards}>
 						<div>
-							<h3 className={styles.sideBarCardTitle}>Upcoming Chats</h3>
+							<h3 className={styles.sideBarCardTitle}>Your Upcoming Convos</h3>
 						</div>
 
 						<div className={styles.upcomingChatsCards}>
@@ -186,6 +188,8 @@ const Home = (props) => {
 										userpfp={prop1.hostpfp}
 										hostNum={prop1.hostNum}
 										userid={prop1.userID}
+										useremail={prop1.useremail}
+                        				userPnum={prop1.userPnum}
 										/>
 										
 									);

@@ -135,7 +135,7 @@ const NavBar = (props) => {
 				</div>
 
 				<input
-					placeholder="Search"
+					placeholder="Search Go Off! Hosts"
 					type="text"
 					value={searchInput}
 					onChange={inputHandler}

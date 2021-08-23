@@ -41,7 +41,7 @@ const App = () => {
 		publishKey: config.pubKey,
 		subscribeKey: config.subKey,
 		//should not generate new one each time should create one for the user upon account creation and use that.
-		logVerbosity:true // logs HTTP request info
+		//logVerbosity:true // logs HTTP request info
 	});
 	// const token = localStorage.getItem
 

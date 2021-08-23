@@ -184,6 +184,7 @@ router.get(
     } = req;
     var offset = req.query["o"];
     console.log("AFGG\n\n\n");
+    console.log(req.payload)
     // Same as above except with convos from people the user is following
     // seq.query("SELECT ConvoId FROM test_server1.Convo_members C, test_server1.Followers Fol WHERE Fol.follower = "+id+" AND Fol.followed=C.UserId ORDER BY C.createdAt DESC LIMIT 4 OFFSET "+ offset)
 
@@ -200,7 +201,7 @@ router.get(
         .then(async (convos) => {
             var convs = []
             var i = 0
-            console.log(convos)
+            // console.log(convos)
             for (const convo of convos[0]){
 
                 let c = await db.Convo.findOne({
@@ -239,7 +240,8 @@ router.get(
                 // if(c.host != user.id){
 
                     // if(new Date() > new Date(c.time)){
-                        console.log("test")
+                        console.log("var test")
+                        // console.log(req.payload.phonenumber, req.payload.email)
                         convs.push({
                             'articleURL': c.article,
                             'articleImg': art.img || placeholderImg,
@@ -252,6 +254,9 @@ router.get(
                             'hostID': host.id,
                             'hostpfp': prof.ppic,
                             'userID': req.payload.id,
+                            'username': host.username,
+                            'userPnum': req.payload.phonenumber,
+                            'useremail': req.payload.email,
                         })
                     // }
                     // }

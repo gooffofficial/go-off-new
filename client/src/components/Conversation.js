@@ -7,20 +7,27 @@ import emilyIcon from '../images/liveChatImages/emily-profile-icon.png'
 import dots3Icon from '../images/liveChatImages/dots3.png'
 import bookmarkIcon from '../images/bookmark.svg'
 import firebase from '../firebase.js';
+// const schedule = require('node-schedule');
 
 // const twilio = require('twilio')
 // const sgMail = require('@sendgrid/mail')
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-// var twilioClient = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
+// console.log(process.env.SENDGRID_API_KEY)
+// const accountSid = process.env.TWILIO_ACCOUNT_SID
+// const authToken = process.env.TWILIO_AUTH_TOKEN
+// console.log(accountSid, authToken)
+// var twilioClient = require('twilio')(accountSid, authToken);
 
 
 const Conversation = (props,{ userid }) => {
   let convoId = props.roomId
   let dummyId = props.userid
+  // console.log(props)
   const db = firebase.firestore();
     const rsvpbuttonhandler = (e) => {
         e.preventDefault();
         console.log("test")
+        console.log(props)
         db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
@@ -33,7 +40,57 @@ const Conversation = (props,{ userid }) => {
               }
               if(rsvp.length<10){
               rsvp.push(dummyId)
-              window.alert("Succesfully RSVP'd!")
+              window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
+              
+                
+              //notifications
+              console.log("notif test")
+              console.log(props)
+              axios.post(`/api/convos/joinnotifs/${convoId}`, props)
+              // let dateConvoTime = new Date(Number(props.time)) 
+              // let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
+
+              // // SMS about joining conversation
+              // twilioClient.messages.create({
+              //   to: props.phonenum,
+              //   from: process.env.TWILIO_PHONE_NUMBER, 
+              //   body: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + props.convTitle + '!'
+              // })
+
+              // // 30 min SMS reminder
+              // schedule.scheduleJob(dateConvoTime30minsBefore, () => {
+              //   twilioClient.messages.create({
+              //     to: props.phonenum,
+              //     from: process.env.TWILIO_PHONE_NUMBER, 
+              //     body: props.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one!'
+              //   })
+              // });
+
+              // //set up, schedule and send 30 min reminder email
+              // const msg = {
+              //     to: props.email,
+              //     from: 'go.offmedia@gmail.com',
+              //     subject: "Reminder: You're in a convo soon!",
+              //     text: props.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one!',
+              //     send_at: Math.floor(dateConvoTime30minsBefore.getTime() / 1000)
+              // }
+
+              // // Email about joining conversation
+              // sgMail.send(msg).then(() => {
+              //     console.log('Email scheduled to send to ' + props.username)
+              //     const msg2 = {
+              //         to: props.email,
+              //         from: 'go.offmedia@gmail.com',
+              //         subject: "You just signed up for a convo!",
+              //         text: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + props.convTitle + '!'
+              //     }
+              //     sgMail.send(msg2).then(() => {
+              //         console.log("error sending email")
+              //     })
+              // }).catch((error) => {
+              //     console.log(error.response.body.errors)
+              //     console.log("Something went wrong setting up your reminder email.")
+              //     })
               db.collection('Conversations').doc(doc.id).update({ rsvp:rsvp }).then(res => console.log('successfully rsvpd')).catch(err => console.log(err))
             }else{
               console.log('limit reached')
@@ -49,7 +106,7 @@ const Conversation = (props,{ userid }) => {
       // })
       };
   
-      const { articleImg, articleURL, time, hostName, roomId, convTitle, desc, userpfp, hostNum} = props;
+      const { articleImg, articleURL, time, hostName, roomId, convTitle, desc, userpfp, hostUName} = props;
       // console.log(time)
     //   const month = new Date(time)
     //   const date = new Date(time)
@@ -80,6 +137,9 @@ const Conversation = (props,{ userid }) => {
           </div>
           <div className={s.rightHeading}>
             <img src={dots3Icon} alt="" className={s.threeDotsIcon} />
+            <div className={s.dropdowncontent}>
+              <span>Send this link to your friends so they can find your content: https:go-off.co/profile/{hostUName} </span>
+            </div>
           </div>
         </div>
         <span className={s.startTime}>{convoDate}</span>
@@ -103,7 +163,7 @@ const Conversation = (props,{ userid }) => {
               <div className={s.profileName}>{hostName}</div> 
             </div>
           </div>
-          <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>RSVP NOW</button>
+          <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>RSVP</button>
         </div>
       </div>
     </div>

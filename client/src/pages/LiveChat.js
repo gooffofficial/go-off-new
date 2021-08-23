@@ -117,6 +117,17 @@ const LiveChat = () => {
   //this is a ref that will give scroll to bottom functionality
   const scrollhook = useRef();
 
+  const currentHost = (id) => {
+    axios
+      .get(`http://localhost:8080/getHost/${id}`).then(res =>{
+        const host= res.data.user[id]
+        console.log(host)
+        if (host){
+          setHost({name:host.name,ppic:host.ppic})
+        }
+      }).catch(err => console.log(err))
+  }
+
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -252,7 +263,7 @@ const LiveChat = () => {
   }
 
   const endConversation = () => {
-    pubnub.signal({ channel: code, message: { action: 'END' } })
+    //pubnub.signal({ channel: code, message: { action: 'END' } })
 
     db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -301,7 +312,7 @@ const LiveChat = () => {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         let metadata = doc.data()
-        console.log(metadata)
+        currentHost(metadata.hostId);
         setMetaData(metadata);
         fetchAllMessages();
         checkUser(metadata);
@@ -507,7 +518,7 @@ const LiveChat = () => {
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
       <div className={styles["mainContent"]}>
         <div className={styles["leftColumn"]}>
-          <div className={styles["avatarBox"]}>
+          <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>
             <img
               src={currentUserFull.propic}
               alt="avatar"
@@ -532,7 +543,7 @@ const LiveChat = () => {
 
             <span className={styles["globeText"]}>Discover</span>
           </div>
-          <h1 className={styles["upcommingHeading"]}>Upcoming Chats</h1>
+          <h1 className={styles["upcommingHeading"]}>Your Upcoming Convos</h1>
           <div className={styles["upcomingChats"]}>
             {currentUserFull.upcomingChats ? (
               currentUserFull.upcomingChats.map((prop) => {
@@ -602,12 +613,12 @@ const LiveChat = () => {
             {<div >{userTyping}</div>}
             <div className={styles["chatInputBox"]}>
               <form className="form-demo" onSubmit={handleSubmit(onSubmit)}>
-                <img
+                {/* <img
                   src={inputAddIcon}
                   alt="Add Icon"
                   className={styles["inputAddIcon"]}
                   onClick={virtualClick}
-                />
+                /> */}
                 <input style={{ display: "none" }} type='file' ref={hiddenFileInput} onChange={onChangeFile} />
                 <input
                   type="text"
@@ -621,12 +632,12 @@ const LiveChat = () => {
                   <p className="error">{errors.message.message}</p>
                 )}
               </form>
-              <img
+              {/* <img
                 src={inputSendIcon}
                 alt="Send Input"
                 className={styles["inputSendIcon"]}
                 onClick={() => onSubmit}
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -692,12 +703,16 @@ const LiveChat = () => {
                 alt="dropDownImg"
                 className={styles["dropDownImg"]}
               />
+              <div className={styles["dropdown-content"]}>
+                <span>Have a question for us or facing a tech problem on our website? Drop us a line at go.offmedia@gmail.com or text 415-747-1897 to let us know so we can improve your experience! 
+                For more information regarding our data collecting practices, please read our <a href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy.</a></span>
+              </div>
             </div>
           </div>
-          <div className={styles["profileBox"]}>
+           <div className={styles["profileBox"]}>
             <div className={styles["profileLeftSide"]}>
               <img
-                src={emilyIcon}
+                src={emilyIcon}//*! {host.ppic} - using host image is too big please fix with css
                 alt="Profile Icon"
                 className={styles["emilyIcon"]}
               />
@@ -714,7 +729,7 @@ const LiveChat = () => {
                 className={styles["dots3Icon"]}
               />
             </div>
-          </div>
+          </div> 
         </div>
       </div>
     </div>

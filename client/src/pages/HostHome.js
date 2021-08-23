@@ -114,7 +114,7 @@ const HomePage = () => {
    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
     <div className={s.mainContent}>
       <div className={s.leftColumn}>
-        <div className={s.avatarBox}>
+        <div className={s.avatarBox} onClick={() => history.push('/profile')}>
           <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
           <span className={s.avatarName}>{ currentUser.name }</span>
         </div>
@@ -126,7 +126,7 @@ const HomePage = () => {
           <img src={globeIcon} alt="discoverImage" className={s.globeIcon} />
           <span className={s.globeText}>Explore</span>
         </div>
-        <h1 className={s.upcommingHeading}>Upcoming Chats</h1>
+        <h1 className={s.upcommingHeading}>Your Upcoming Convos</h1>
         <div className={s.upcomingChatsCards}>
 							{currentUserFull.upcomingChats ? (
 								currentUserFull.upcomingChats.map((prop) => {
@@ -158,7 +158,7 @@ const HomePage = () => {
                 id={currentUser.id}
               />
             </div>
-            <span className={s.convdesc} >It can be a......</span>
+            <span className={s.convdesc} >Host a convo about a......</span>
             <hr className={s.grayLine} />
             <div className={s.userIconsRow}>
               <div className={s.photoRow}>
@@ -191,6 +191,9 @@ const HomePage = () => {
                         userpfp={prop1.hostpfp}
                         hostNum={prop1.hostNum}
                         userid={prop1.userID}
+                        hostUName={prop1.username}
+                        useremail={prop1.useremail}
+                        userPnum={prop1.userPnum}
                       />
                     );
                   })

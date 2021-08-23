@@ -1,5 +1,6 @@
 import styles from './styles/FeedCard.module.scss';
 import Tag from '../components/Tag';
+import axios from 'axios';
 import moment from 'moment';
 import {
   BrowserView,
@@ -16,19 +17,22 @@ import {
 import { useQuery } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import MobileNewsFeedCard from './MobileNewsFeedCard';
+import firebase from '../firebase.js';
+const schedule = require('node-schedule');
 
 // NEED TO IMPLEMENT DYNAMIC FUNCTIONALITY FOR:
 // FEED IMAGE - CALENDAR - COMPANY LOGO - HEADING - DATE - TAGS - DESCRIPTION - HOST NAME / HOST AVATAR
 
-export const ChatsFeed = ({ chatCategory, username = "" }) => {
+export const ChatsFeed = ({ chatCategory, username, isUser, userId}) => {
 	// "Upcoming", "Past", "Saved"
+	console.log(username)
 	switch (chatCategory) {
 		case 'Upcoming':
-			return <UpComingChatsFeed username={username} isOnMobile={isMobile} />;
+			return <UpComingChatsFeed username={username} userId={userId} isUser={isUser} isOnMobile={isMobile} />;
 		case 'Past':
-			return <PastChatsFeed username={username} isOnMobile={isMobile} />;
+			return <PastChatsFeed username={username} userId={userId} isUser={isUser} isOnMobile={isMobile} />;
 		case 'Saved':
-			return <SavedChatsFeed username={username} isOnMobile={isMobile} />;
+			return <SavedChatsFeed username={username} userId={userId} isUser={isUser} isOnMobile={isMobile} />;
 		default:
 			return;
 	}
@@ -36,17 +40,18 @@ export const ChatsFeed = ({ chatCategory, username = "" }) => {
 
 
 
-const UpComingChatsFeed = ({ username, isOnMobile = false }) => {
+const UpComingChatsFeed = ({ username, isOnMobile = false, isUser, userId }) => {
 	const {
 		data: upcomingChats,
 		isLoading,
 		error,
 	} = useQuery(`upcomingChat${username}`, () => getUpcomingChats(username));
 	if (isLoading) return <p className={styles.largerText}>Loading...</p>;
-	if (error) return <p className={styles.largerText}>Unable loading upcoming chats...</p>;
+	if (error) return <p className={styles.largerText}>Unable to load upcoming chats...</p>;
 	if (!upcomingChats || upcomingChats.length === 0)
-		return <p className={styles.largerText}>No joined upcoming conversation chats...</p>;
-
+		return <p className={styles.largerText}>No upcoming conversations.. RSVP and join in on the action.</p>;
+	console.log(upcomingChats)
+	console.log(username)
 	return (
 		<div>
 			{upcomingChats.map(
@@ -54,22 +59,26 @@ const UpComingChatsFeed = ({ username, isOnMobile = false }) => {
 					articleURL,
 					articleImg,
 					time,
-					hostUsername,
+					hostName,
 					roomId,
 					convTitle,
 					hostAvatar,
 					convDesc,
+					hostUsername,
 				}) => (
 					<NewsFeedCard
 						articleURL={articleURL}
 						articleImg={articleImg}
 						time={time}
-						hostUsername={hostUsername}
+						hostName={hostUsername}
 						convTitle={convTitle}
 						hostAvatar={hostAvatar}
 						convDesc={convDesc}
 						roomId={roomId}
-            isOnMobile={isOnMobile}
+						isOnMobile={isOnMobile}
+						isUser={isUser}
+						userId={userId}
+						hostUsername={username}
 					/>
 				)
 			)}
@@ -109,7 +118,7 @@ const PastChatsFeed = ({ username, isOnMobile = false }) => {
 						hostAvatar={hostAvatar}
 						convDesc={convDesc}
 						roomId={roomId}
-            isOnMobile={isOnMobile}
+						isOnMobile={isOnMobile}
 					/>
 				)
 			)}
@@ -122,8 +131,8 @@ const SavedChatsFeed = () => {
 };
 
 const NewsFeedCard = (props) => {
-	const { articleImg, articleURL, convTitle, convDesc, time, hostUsername, roomId, hostAvatar, isOnMobile } = props;
-  const history = useHistory();
+	const { articleImg, articleURL, convTitle, convDesc, time, hostName, roomId, hostAvatar, isOnMobile, isUser, userId, hostUsername } = props;
+  	const history = useHistory();
 
   if (isOnMobile)
     return <MobileNewsFeedCard
@@ -136,16 +145,20 @@ const NewsFeedCard = (props) => {
       roomId={roomId} 
       hostAvatar={hostAvatar} 
       isOnMobile={isOnMobile}
-      history={history}
+	  history={history}
+	  isUser={isUser}
+	  userId={userId}
+	  hostUsername={hostUsername}
     />
   
-  let UTCTime = parseInt(time);
+  	let UTCTime = parseInt(time);
 	let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
 	let convoCalendarDay = moment(UTCTime).format('D');
 	let convoDay = moment(UTCTime).format('dddd').toUpperCase();
 	let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
 	let convoDate = `${convoDay} ${convoHoursMinutes}`;
-
+	console.log(hostUsername)
+	console.log(props)
 	// const {
 	//  feedImage,
 	//  calendar,
@@ -157,7 +170,56 @@ const NewsFeedCard = (props) => {
 	//  hostName,
 	//  hostAvatar,
 	// } = props;
+	// console.log(document.getElementById("buttonText").textContent)
 
+	// if(isUser == false){
+	// 	document.getElementById("myBtn").textContent = "RSVP"
+	// }
+
+
+	const db = firebase.firestore();
+
+	console.log(hostUsername)
+	const rsvpbuttonhandler = (e) => {
+		let convoId = roomId
+  		let dummyId = userId
+        e.preventDefault();
+        console.log("test")
+        console.log(props)
+        db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              let data = doc.data();
+              let rsvp = data.rsvp;
+              console.log(rsvp, rsvp.length)
+              console.log(data)
+              if(data.hostId==userId){
+                return console.log('is already host')
+              }
+              if(rsvp.length<10){
+              rsvp.push(dummyId)
+              window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
+              
+                
+              //notifications
+			  console.log("notif test")
+			  //needs tweaking
+			  axios.post(`/api/convos/joinnotifs/${convoId}`, props)
+              db.collection('Conversations').doc(doc.id).update({ rsvp:rsvp }).then(res => console.log('successfully rsvpd')).catch(err => console.log(err))
+            }else{
+              console.log('limit reached')
+            }
+              console.log(doc.id, " => ", doc.data());
+          });
+
+      }).catch(err => console.log(err));
+      // twilioClient.messages.create({
+      //   to: hostNum,
+      //   from: process.env.TWILIO_PHONE_NUMBER, 
+      //   body: 'Hello ' + hostName + ', A user just RSVPd to your conversation: ' + convTitle + '.'
+      // })
+      };
+  console.log(isUser)
 	return (
 		<div className={styles.FeedCardContainer}>
 			<div className={styles.feedCardImageContainer}>
@@ -243,39 +305,48 @@ const NewsFeedCard = (props) => {
 										<p className={styles.badgeText}>HOST</p>
 									</div>
 								</div>
-								<p className={styles.hostName}>{hostUsername}</p>
+								<p className={styles.hostName}>{hostName}</p>
 							</div>
 
 							<div className={styles.rsvpButtonContainer}>
-								<div className={styles.convoButton} onClick={() => {
-									history.push(`/chat/${roomId}`)
-									}}>
-									<p className={styles.buttonText}>GO TO CONVO</p>
-								</div>
+								{isUser 
+									? <div className={styles.convoButton} onClick={history.push(`/chat/${roomId}`)}>
+										<p className={styles.buttonText}>GO TO CONVO</p>
+									  </div>
+									: <div className={styles.convoButton} onClick={rsvpbuttonhandler}>
+										<p className={styles.buttonText}>RSVP</p>
+									 </div>}
+								
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<svg
-				className={styles.dots}
-				width="24"
-				height="24"
-				viewBox="0 0 24 24"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<g id=" Outline / more-horizontal">
-					<path
-						id="Union"
-						fillRule="evenodd"
-						clipRule="evenodd"
-						d="M3 12C3 10.896 3.896 10 5 10C6.104 10 7 10.896 7 12C7 13.104 6.104 14 5 14C3.896 14 3 13.104 3 12ZM12 10C10.896 10 10 10.896 10 12C10 13.104 10.896 14 12 14C13.104 14 14 13.104 14 12C14 10.896 13.104 10 12 10ZM19 10C17.896 10 17 10.896 17 12C17 13.104 17.896 14 19 14C20.104 14 21 13.104 21 12C21 10.896 20.104 10 19 10Z"
-						fill="#757D8A"
-					/>
-				</g>
-			</svg>
+			<div className={styles.dropDownRow}>
+				<svg
+					className={styles.dots}
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<g id=" Outline / more-horizontal">
+						<path
+							id="Union"
+							fillRule="evenodd"
+							clipRule="evenodd"
+							d="M3 12C3 10.896 3.896 10 5 10C6.104 10 7 10.896 7 12C7 13.104 6.104 14 5 14C3.896 14 3 13.104 3 12ZM12 10C10.896 10 10 10.896 10 12C10 13.104 10.896 14 12 14C13.104 14 14 13.104 14 12C14 10.896 13.104 10 12 10ZM19 10C17.896 10 17 10.896 17 12C17 13.104 17.896 14 19 14C20.104 14 21 13.104 21 12C21 10.896 20.104 10 19 10Z"
+							fill="#757D8A"
+						/>
+					</g>
+				</svg>
+				{/* <div className={styles.dropdowncontent}>
+					<span>Send this link to your friends so they can find your content: https://go-off.co/profile/{hostUsername} </span>
+				</div> */}
+			</div>
+			
 		</div>
 	);
 };

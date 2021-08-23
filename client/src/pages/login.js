@@ -52,8 +52,8 @@ const Login = (props) => {
 		<div>
 			<div className={styles['left-side1']}>
 				<div className={styles['left-container1']}>
-					<p className={styles['main-text1']}>Adventure starts here.</p>
-					<p className={styles['sub-text']}>Log in to join the community</p>
+					<p className={styles['main-text1']}>Authentic conversations starts here.</p>
+					<p className={styles['sub-text']}>Log in. Be heard.</p>
 				</div>
 			</div>
 
