@@ -3,11 +3,11 @@ tutorial used:
 https://www.digitalocean.com/community/tutorials/how-to-perform-sentiment-analysis-in-python-3-using-the-natural-language-toolkit-nltk
 """
 import nltk
-# nltk.download('vader_lexicon')
-# nltk.download('twitter_samples')
-# nltk.download('stopwords')
-# nltk.download('averaged_perceptron_tagger')
-# nltk.download('wordnet')
+nltk.download('vader_lexicon')
+nltk.download('twitter_samples')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
 nltk.download('punkt')
 
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -66,8 +66,7 @@ def get_tweets_for_model(cleaned_tokens_list):
     for tweet_tokens in cleaned_tokens_list:
         yield dict([token, True] for token in tweet_tokens)
 
-if __name__ == "__main__":
-    roomid = "123"
+def run_sentiment_analysis(roomid):
     #grabbing the tweets
     positive_tweets = twitter_samples.strings('positive_tweets.json')
     negative_tweets = twitter_samples.strings('negative_tweets.json')
@@ -244,3 +243,6 @@ if __name__ == "__main__":
     #custom_tweet = "I ordered just once from TerribleCo, they screwed up, never used the app again."
     #custom_tokens = remove_noise(word_tokenize(custom_tweet))
     #print(custom_tweet, classifier.classify(dict([token, True] for token in custom_tokens)))"""
+
+if __name__ == '__main__':
+    run_sentiment_analysis("123")
