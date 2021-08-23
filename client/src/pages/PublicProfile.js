@@ -26,6 +26,15 @@ const PublicProfile = (props) => {
 	const history = useHistory();
 	const username = props.match.params.username;
 
+	const goToHomePage = (evt) => {
+		let isHost = currentUserFull.host === "(Host)";
+		let isAdmin = currentUserFull.admin === "(Admin)";
+		if (isHost || isAdmin)
+		  history.push('/hosthome')
+		else 
+		  history.push('/home')
+	  }
+
 	useEffect(() => {
 		axios
 			.get(`/api/users/current`, {
@@ -107,7 +116,7 @@ const PublicProfile = (props) => {
 						</div>
 						<div
 							className={styles.sideBarHome}
-							onClick={() => history.push('/home')}
+							onClick={goToHomePage}
 						>
 							<svg
 								width="30"

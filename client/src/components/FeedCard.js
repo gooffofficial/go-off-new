@@ -198,7 +198,7 @@ const NewsFeedCard = (props) => {
               }
               if(rsvp.length<10){
               rsvp.push(dummyId)
-              window.alert("Succesfully RSVP'd!")
+              window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
               
                 
               //notifications
@@ -219,7 +219,7 @@ const NewsFeedCard = (props) => {
       //   body: 'Hello ' + hostName + ', A user just RSVPd to your conversation: ' + convTitle + '.'
       // })
       };
-  
+  console.log(isUser)
 	return (
 		<div className={styles.FeedCardContainer}>
 			<div className={styles.feedCardImageContainer}>

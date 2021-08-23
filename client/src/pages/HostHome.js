@@ -192,6 +192,8 @@ const HomePage = () => {
                         hostNum={prop1.hostNum}
                         userid={prop1.userID}
                         hostUName={prop1.username}
+                        useremail={prop1.useremail}
+                        userPnum={prop1.userPnum}
                       />
                     );
                   })
