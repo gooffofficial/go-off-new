@@ -657,7 +657,7 @@ router.post(
 						httpOnly: true,
 						signed: true,
 					});
-					return res.redirect('/profiles/' + user.username);
+					// return res.redirect('/profiles/' + user.username);
 				});
 			});
 	}

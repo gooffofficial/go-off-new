@@ -262,3 +262,6 @@ cython_debug/
 .DS_Store
 views/.DS_Store
 # /client/src/config.js
+
+# pycharm support folder
+.idea/

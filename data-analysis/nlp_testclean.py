@@ -2,13 +2,21 @@
 tutorial used: 
 https://www.digitalocean.com/community/tutorials/how-to-perform-sentiment-analysis-in-python-3-using-the-natural-language-toolkit-nltk
 """
+import nltk
+nltk.download('vader_lexicon')
+nltk.download('twitter_samples')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
+nltk.download('punkt')
+
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import twitter_samples, stopwords
 from nltk.tag import pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk import FreqDist, classify, NaiveBayesClassifier
-
+import pandas as pd
 import re, string, random
 import matplotlib.pyplot as plt
 
@@ -17,7 +25,11 @@ import io
 import boto3
 import sys
 
-s3 = boto3.resource('s3')
+s3 = boto3.resource(
+    service_name='s3',
+    aws_access_key_id='AKIA4OTKLUMMRQ3KBRB4',
+    aws_secret_access_key='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'
+)
 
 bucket = s3.Bucket('gooff')
 sid = SentimentIntensityAnalyzer()
@@ -54,8 +66,7 @@ def get_tweets_for_model(cleaned_tokens_list):
     for tweet_tokens in cleaned_tokens_list:
         yield dict([token, True] for token in tweet_tokens)
 
-if __name__ == "__main__":
-    roomid = sys.argv[1]
+def run_sentiment_analysis(roomid):
     #grabbing the tweets
     positive_tweets = twitter_samples.strings('positive_tweets.json')
     negative_tweets = twitter_samples.strings('negative_tweets.json')
@@ -107,8 +118,11 @@ if __name__ == "__main__":
     from csv import DictReader
 
     # TODO test the below change
-    with open("https://gooff.s3.us-east-2.amazonaws.com/transcripts/"+roomid+"_chat.csv") as f:
-        a1 = [row["message"] for row in DictReader(f)]
+    df = pd.read_csv('https://gooff.s3.us-east-2.amazonaws.com/transcripts/' + roomid + '_chat.csv')
+    a1 = df.message.tolist()
+
+    # with open(r"https://gooff.s3.us-east-2.amazonaws.com/transcripts/"+roomid+"_chat.csv", 'r') as f:
+    #     a1 = [row["message"] for row in DictReader(f)]
 
     
     custom_chat_list = a1
@@ -229,3 +243,6 @@ if __name__ == "__main__":
     #custom_tweet = "I ordered just once from TerribleCo, they screwed up, never used the app again."
     #custom_tokens = remove_noise(word_tokenize(custom_tweet))
     #print(custom_tweet, classifier.classify(dict([token, True] for token in custom_tokens)))"""
+
+if __name__ == '__main__':
+    run_sentiment_analysis("123")

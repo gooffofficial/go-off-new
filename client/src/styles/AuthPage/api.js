@@ -109,6 +109,8 @@ export const charLimit = (text, charMaxLength) => {
   
 }
 
+export const sendEditProf = async (editProfInfo, id) => (await axios.get('/api/users/update')).data;
+
 export const sendCreateConv = async (convCreationInfo,userId) => {
   const { articleURL, time, title, description } = convCreationInfo; //*!description is the same as articleURL when
   const convTime = new Date(time)

@@ -40,11 +40,12 @@ const Conversation = (props,{ userid }) => {
               }
               if(rsvp.length<10){
               rsvp.push(dummyId)
-              window.alert("Succesfully RSVP'd!")
+              window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
               
                 
               //notifications
               console.log("notif test")
+              console.log(props)
               axios.post(`/api/convos/joinnotifs/${convoId}`, props)
               // let dateConvoTime = new Date(Number(props.time)) 
               // let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
