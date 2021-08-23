@@ -12,7 +12,7 @@ const { body } = require('express-validator');
 const _ = require('lodash')
 const sgMail = require('@sendgrid/mail')
 const twilio = require('twilio')
-const cronJob = require('cron')
+const schedule = require('node-schedule');
 const crawler = require('../../apify/crawler')
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
@@ -44,11 +44,12 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
         }
         //console.log("IDDDDD "+room._id)
         // Create conversation in database
+        console.log(req.body)
         db.Convo.create({
             article: req.body.article,
             host: id,
             time: req.body.convoTime,
-            roomId: ''+room._id,
+            roomId: ''+req.body.roomId,
             title: req.body.convoTitle,
             tz: req.body.tz,
             description: req.body.convoDesc
@@ -65,20 +66,43 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                 })
 
                 //set up, schedule, and send 30 min sms reminder in a cron job
-                var d = new Date(0)
+                // var d = new Date(0)
                 //d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
                 // Set trigger time to be 30 min before convo
-                d.setUTCMilliseconds((convo.time - (30*60000)))
-                if (Date.now() < convo.time - (30*60000)){
-                    console.log("HEEEEYYYY UR PHONE NUMBER IS "+ u.phonenumber+"\n"+process.env.TWILIO_PHONE_NUMBER)
-                    var textJob = new cronJob.CronJob(d, function() {
-                        console.log("TEEEEXXXTTTT\n\n\n\n")
-                        twilioClient.messages.create( {to: u.phonenumber,
-                            from: process.env.TWILIO_PHONE_NUMBER, 
-                            body: "Hi, it's Go Off! We are reminding you that you are hosting a conversation about this article: " + req.body.article + " in 30 minutes.\n\n\
-                            Join the conversation at https://go-off.co/chat/"+convo.roomId})
-                    }, null, true)
-                }
+                // d.setUTCMilliseconds((convo.time - (60*1000/*60000*/)))
+                // if (Date.now() < convo.time - (60*1000/*30*160000*/)){
+                    // console.log("HEEEEYYYY UR PHONE NUMBER IS "+ u.phonenumber+"\n"+process.env.TWILIO_PHONE_NUMBER)
+                //     var textJob = new cronJob.CronJob(d, function() {
+                //         console.log("TEEEEXXXTTTT\n\n\n\n")
+                //         twilioClient.messages.create({
+                //             to: u.phonenumber,
+                //             from: process.env.TWILIO_PHONE_NUMBER, 
+                //             body: "Hi, it's Go Off! We are reminding you that you are hosting a conversation about this article: " + req.body.article + " in 30 minutes.\n\n\
+                //             Join the conversation at https://go-off.co/chat/"+convo.roomId})
+                //         })
+                //     , null, true)
+                // }
+                console.log('TIME OF CHAT IS: ' + convo.time)
+                let dateConvoTime = (Number(convo.time))
+                console.log('UPDATED TIME OF CHAT IS: ', dateConvoTime)
+                let dateConvoTime30minsBefore = (dateConvoTime - 30 * 60*1000)
+                console.log('UPDATED TIME OF CHAT IS: ', dateConvoTime30minsBefore)
+
+                // SMS about joining conversation
+                twilioClient.messages.create({
+                  to: u.phonenumber,
+                  from: process.env.TWILIO_PHONE_NUMBER, 
+                  body: 'Your convo is scheduled on ' + new Date(dateConvoTime) + '! Drop this link to your friends, fans, (and enemies and invite them to join: https://go-off.co/profile/'+ u.username 
+                })
+
+                // 30 min SMS reminder
+                schedule.scheduleJob(dateConvoTime30minsBefore, () => {
+                  twilioClient.messages.create({
+                    to: u.phonenumber,
+                    from: process.env.TWILIO_PHONE_NUMBER, 
+                    body: 'The countdown has begun. Your convo ' + convo.title + ' will start in 30 minutes. We will see you in 25. Happy Chatting!'
+                  })
+                });
 
                 //set up, schedule, and send 30 min email reminder
                 //console.log("TIMEEEEEEE " + ((convo.time.getTime() - (30*60000))/1000))
@@ -87,10 +111,10 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                     from: 'go.offmedia@gmail.com',
                     subject: "Reminder: You're hosting a convo soon!",
                     text: 'Hello ' + u.firstname + ',\n\n We are reminding you that you\
-                    are hosting a convo about this article: ' + req.body.article + ' in 30 minutes (' + req.body.convoTime + ')!\n\
-                    Join the conversation at https://go-off.co/chat/'+convo.roomId,
+                    are hosting a convo about this article: ' + req.body.article + ' in 30 minutes (' + new Date(dateConvoTime) + ')!\n\
+                    Join the conversation at https://go-off.co/chat/ '+ convo.roomId,
                     //send_at: Math.floor((convo.time.getTime() - (30*60000))/1000)
-                    send_at: Math.floor((convo.time - (30*60000))/1000)
+                    send_at: Math.floor(dateConvoTime30minsBefore / 1000) // send_at requires unix time in seconds, so we / 1000 to seconds
                 }
                 sgMail.send(msg).then(() => {
                     //send confirmation email
@@ -100,92 +124,88 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                         from: 'go.offmedia@gmail.com',
                         subject: "You just signed up for a convo!",
                         text: 'Hello ' + u.firstname + ',\n\n You just signed up for a conversation\
-                        about this article: ' + req.body.article + ' at ' + convo.time
+                        about this article: ' + req.body.article + ' at ' + new Date(dateConvoTime)
                     }
                     sgMail.send(msg2).then(() => {
-                        return res.redirect('/conversation/?article='+req.body.article)
+                      // return res.redirect('/conversation/?article='+req.body.article)
+                      return res.json({ redirect: '/conversation/?article='+req.body.article })
+                    }).catch(err => {
+                      console.log("err: ", err)
+                      return res.status(422).json({ errors: { error: "Something went wrong setting up your reminder email." } })
                     })
                 }).catch((error) => {
-                    console.log(error)
+                    console.log("error: ", error)
                     return res.status(422).json({
                         errors: {
                             err: "Something went wrong setting up your reminder email."
                         }
                     })
-                })             
+                })          
             })
         })
     })
 })
 
-router.post('/join', auth.required, [body('convo').escape()], (req, res, next) => {
-    const {payload: {id, username}} = req;
+router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (req, res, next) => {
+    // const {payload: {id, username}} = req;
     // Add user to convo member list
-    db.Convo_members.create({
-        UserId: id,
-        ConvoId: req.body.convo
-    }).then(async (cm) => {
-        var u = await db.User.findOne({
-            where: {
-                id: id
-            }
-        })
-        var convo = await db.Convo.findOne({
-            where: {
-                id: req.body.convo
-            }
-        })
-        //set up, schedule, and send 30 min reminder sms using cron job
 
-        //TODO: Fix Date in the past Warning message after reminder text is sent to
-        // participant
-        var d = new Date(0)
-        // Set trigger time to 30 min before convo
-        //d.setUTCMilliseconds((convo.time.getTime() - (30*60000)))
-        d.setUTCMilliseconds((convo.time - (30*60000)))
-        if (Date.now() < (convo.time - (30*60000))){
-            var textJob = new cronJob.CronJob(d, function() {
-                console.log("TEEEEXXXTTTT\n\n\n\n")
-                twilioClient.messages.create( {to: u.phonenumber,
-                    from: process.env.TWILIO_PHONE_NUMBER, 
-                    body: "Hi, it's Go Off! We are reminding you that you have a conversation about this article: " + convo.article + " in 30 minutes.\n\n\
-                    Join the conversation at https://go-off.co/chat/"+convo.roomId})
-            }, null, true)
-        }
+    // You probably should add checking if the person is already in the conversion to add him again
+        var u = db.User.findOne({
+            where: {
+                id: req.body.userid
+            }
+        })
+        var convo = db.Convo.findOne({
+            where: {
+                id: req.body.convoId
+            }
+        })
+        let dateConvoTime = new Date(Number(convo.time)) 
+        let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
+
+        // SMS about joining conversation
+        twilioClient.messages.create({
+        to: u.phonenum,
+        from: process.env.TWILIO_PHONE_NUMBER, 
+        body: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + convo.title + '!'
+        })
+
+        // 30 min SMS reminder
+        schedule.scheduleJob(dateConvoTime30minsBefore, () => {
+        twilioClient.messages.create({
+            to: u.phonenum,
+            from: process.env.TWILIO_PHONE_NUMBER, 
+            body: convo.title + ' starts in 30 minutes! Be there or be square, the convo waits for no one!'
+        })
+        });
+
         //set up, schedule and send 30 min reminder email
         const msg = {
             to: u.email,
             from: 'go.offmedia@gmail.com',
             subject: "Reminder: You're in a convo soon!",
-            text: 'Hello ' + u.firstname + ',\n\n We are reminding you that you\
-            are signed up for a convo about this article: ' + convo.article + ' in 30 minutes (' + req.body.convo.time + ')!\n\
-            Join the conversation at https://go-off.co/chat/'+convo.roomId,
-            //send_at: Math.floor((convo.time.getTime() - (30*60000))/1000)
-            send_at: Math.floor((convo.time - (30*60000))/1000)
+            text: u.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one!',
+            send_at: Math.floor(dateConvoTime30minsBefore.getTime() / 1000)
         }
 
-        //send confirmation email
+        // Email about joining conversation
         sgMail.send(msg).then(() => {
-            console.log('Email scheduled to send to ' + username)
+            console.log('Email scheduled to send to ' + u.username)
             const msg2 = {
                 to: u.email,
                 from: 'go.offmedia@gmail.com',
                 subject: "You just signed up for a convo!",
-                text: 'Hello ' + u.firstname + ',\n\n You just signed up for a conversation\
-                about this article: ' + req.body.article + ' at ' + convo.time
+                text: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + convo.title + '!'
             }
             sgMail.send(msg2).then(() => {
-                return res.status(200)
+                console.log("error sending email")
             })
         }).catch((error) => {
             console.log(error.response.body.errors)
-            return res.status(422).json({
-                errors: {
-                    err: "Something went wrong setting up your reminder email."
-                }
+            console.log("Something went wrong setting up your reminder email.")
             })
-        }) 
-    })
 })
+
 
 module.exports = router;

@@ -1,53 +1,38 @@
-from pymongo import MongoClient
-import csv
-import sys
-from bson.objectid import ObjectId
+import pandas as pd
+import mysql.connector
+import boto3
+import os
+from io import StringIO
 
-client: MongoClient = MongoClient("mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true")
-db = client.test
-rooms = db.rooms
-chats = db.chats
-
-def run():
-    global db
-    global rooms
-    global chats
-    if len(sys.argv) != 2:
-        raise Exception("Supply 1 url as a parameter")
-
-
-    id: str = sys.argv[1]
-    cur_room = rooms.find_one({"_id":ObjectId(id)})
-
-    message_ids = cur_room["messages"]
-    messages: [] = []
-    for message in message_ids:
-        messages.append(chats.find_one({"_id":message}))
-
-    with open(("transcripts/"+str(cur_room["_id"])+"_chat.csv"), 'w+') as csvfile:
-        chat_writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        chat_writer.writerow(["messageId", "userId", "username", "message", "timestamp"])
-        for message in messages:
-            chat_writer.writerow([message["_id"], message["user"], message["name"], message["message"], message["createdAt"]])
 
 def create_transcript(room_id: str):
-    global db
-    global rooms
-    global chats
-    cur_room = rooms.find_one({"_id":ObjectId(room_id)})
+    config = {
+        'user': 'admin',
+        'password': 'password1',
+        'host': 'new-db.cga2dg8jzozg.us-west-1.rds.amazonaws.com',
+        'database': 'test_server1',
+        'raise_on_warnings': True,
+    }
 
-    message_ids = cur_room["messages"]
-    messages: [] = []
-    for message in message_ids:
-        messages.append(chats.find_one({"_id":message}))
-    
-    #TODO: upload csvs to amazon s3 instead of saving locally or just do everything from vanity.py
-    with open(("transcripts/"+str(cur_room["_id"])+"_chat.csv"), 'w+') as csvfile:
-        chat_writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        chat_writer.writerow(["messageId", "userId", "username", "message", "timestamp"])
-        for message in messages:
-            chat_writer.writerow([message["_id"], message["user"], message["name"], message["message"], message["createdAt"]])
-    return 'transcripts/'+str(cur_room["_id"])+"_chat.csv"
+    cnx = mysql.connector.connect(**config)
+    cursor = cnx.cursor()
+    cursor.execute(f"SELECT * FROM chatsdata WHERE roomid={room_id}")
 
-if __name__ == '__main__':
-    run()
+    rows = cursor.fetchall()
+    columns = [i[0] for i in cursor.description]
+
+    csv_buffer = StringIO()
+
+    df = pd.DataFrame(data=rows, columns=columns)
+    df.to_csv(csv_buffer)
+
+    s3 = boto3.resource(
+        service_name='s3',
+        aws_access_key_id='AKIA4OTKLUMMRQ3KBRB4',
+        aws_secret_access_key='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'
+    )
+
+    object = s3.Object('gooff', f'transcripts/{room_id}_chat.csv')
+    object.put(Body=csv_buffer.getvalue())
+    cursor.close()
+    cnx.close()

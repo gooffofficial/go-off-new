@@ -1,5 +1,4 @@
 #imports
-from pymongo import MongoClient
 import mysql.connector
 import pandas as pd
 from nltk.corpus import stopwords
@@ -7,7 +6,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os.path
-from transcripts import create_transcript
+#from transcripts import create_transcript
 from bson.objectid import ObjectId
 from datetime import datetime
 from statistics import mean
@@ -15,49 +14,71 @@ from collections import Counter
 import io
 import boto3
 import sys
+import botocore
 
-s3 = boto3.resource('s3')
 
-bucket = s3.Bucket('gooff')
-color = sns.color_palette()
 
-client: MongoClient = MongoClient("mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true")
 
-mydb = mysql.connector.connect(
-  host="new-db.cga2dg8jzozg.us-west-1.rds.amazonaws.com",
-  user="admin",
-  password="password1"
+#https://www.gormanalysis.com/blog/connecting-to-aws-s3-with-python/
+s3 = boto3.resource(
+    service_name='s3',
+    aws_access_key_id='AKIA4OTKLUMMRQ3KBRB4',
+    aws_secret_access_key='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'
 )
 
-db = client.test
-rooms = db.rooms
-chats = db.chats
+bucket = s3.Bucket('gooff')
+
+color = sns.color_palette()
+
+#client: MongoClient = MongoClient("mongodb+srv://steph:steph@cluster0-uymqk.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true")
+
+config = {
+        'user': 'admin', 
+        'password':'password1',
+        'host':  'new-db.cga2dg8jzozg.us-west-1.rds.amazonaws.com' ,
+        'database': 'test_server1',
+        'raise_on_warnings': True,
+        }
+
 
 #get metrics
 def vanity(room_id: str):
-    cur_room = rooms.find_one({"_id":ObjectId(room_id)})
-    users = cur_room['users']
+    cnx = mysql.connector.connect(**config)    
+    cursor_u = cnx.cursor()
+    cursor_r = cnx.cursor()
+    
+    room = cursor_r.execute('SELECT * FROM chatsdata WHERE roomid = '+room_id)
+    r_rows = cursor_r.fetchall()
+    
+    a=(cursor_r.description)
+    col=[]
+    for i in range(len(a)):
+        col.append(a[i][0]) 
+    df = pd.DataFrame(data=r_rows)
+    df.columns=col
+   
+    
+    users = df['user_id']
     usernames = []
     user_ages = []
     user_genders = []
     user_part = {}
-    user_loc = []
-    mycursor = mydb.cursor()
-    for user in users:
-        mycursor.execute("SELECT username FROM test_server1.Users U WHERE U.id="+user)
-        myresult = mycursor.fetchone()
+    user_loc = [] 
+    for u in users:
+        cursor_u.execute("SELECT username FROM test_server1.Users U WHERE U.id="+u)
+        myresult = cursor_u.fetchone()
         usernames.append(myresult[0])
         user_part[str(myresult[0])] = 0
-        mycursor.execute("SELECT age FROM test_server1.Users as U WHERE U.id=" + user)
-        a = mycursor.fetchone()
+        cursor_u.execute("SELECT age FROM test_server1.Users as U WHERE U.id=" + u)
+        a = cursor_u.fetchone()
         if a != None:
             user_ages.append(int(a[0]))
-        mycursor.execute("SELECT gender FROM test_server1.Users as U WHERE U.id=" + user)
-        g = mycursor.fetchone()
+        cursor_u.execute("SELECT gender FROM test_server1.Users as U WHERE U.id=" + u)
+        g = cursor_u.fetchone()
         if g != None and str(g[0]) != "N/A":
             user_genders.append(str(g[0]))
-        mycursor.execute("SELECT location FROM test_server1.Users AS U WHERE U.id=" + user)
-        l = mycursor.fetchone()
+        cursor_u.execute("SELECT location FROM test_server1.Users AS U WHERE U.id=" + u)
+        l = cursor_u.fetchone()
         if l != None:
             user_loc.append(str(l[0]))
         for index, location in enumerate(user_loc):
@@ -69,7 +90,7 @@ def vanity(room_id: str):
                 user_loc[index] = "USA"
         location_counts = Counter(user_loc)
         location_list = sorted(location_counts, key = location_counts.get, reverse=True)
-    
+        
     #age donut chart
     num_13_18 = 0
     num_19_21 = 0
@@ -115,10 +136,10 @@ def vanity(room_id: str):
     circle = plt.Circle(xy=(0,0), radius=0.75, facecolor='white')
     plt.gca().add_artist(circle)
     label = plt.gca().annotate("Average Age: "+str(round(mean(user_ages),1)), xy=(0,0), fontsize="10", ha="center")
-    img_data = io.BytesIO()
-    plt.savefig(img_data, format="svg")
-    img_data.seek(0)
-    bucket.put_object(Body=img_data, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_ageDonut.svg")
+    age_donut_chart = io.BytesIO()
+    plt.savefig(age_donut_chart, format="svg")
+    age_donut_chart.seek(0)
+    bucket.put_object(Body=age_donut_chart, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_ageDonut.svg")
     plt.clf()
 
     #gender donut chart
@@ -126,10 +147,10 @@ def vanity(room_id: str):
     num_male = 0
     num_female = 0
     for index, gender in enumerate(user_genders):
-        if gender.casefold() == "M".casefold() or gender.casefold() == "Male".casefold():
+        if gender.casefold() == "HeHim".casefold():
             user_genders[index] = "Male"
             num_male += 1
-        elif gender.casefold() == "F".casefold() or gender.casefold() == "Female".casefold():
+        elif gender.casefold() == "SheHer".casefold():
             user_genders[index] = "Female"
             num_female += 1
         else:
@@ -149,17 +170,22 @@ def vanity(room_id: str):
 
     circle = plt.Circle(xy=(0,0), radius=0.75, facecolor='white')
     plt.gca().add_artist(circle)
-    img_data = io.BytesIO()
-    plt.savefig(img_data, format="svg")
-    img_data.seek(0)
-    bucket.put_object(Body=img_data, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_genderDonut.svg")
+    gender_donut_chart = io.BytesIO()
+    plt.savefig(gender_donut_chart, format="svg")
+    gender_donut_chart.seek(0)
+    bucket.put_object(Body=gender_donut_chart, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_genderDonut.svg")
     plt.clf()
-    #message vanity metrics
-    if os.path.exists('transcripts/'+room_id+'_chat.csv') == False:
-        #print("AHHHHHHH")
-        create_transcript(room_id)
-    df = pd.read_csv('transcripts/'+room_id+'_chat.csv')
-    for usern in df.username:
+    #message vanity metrics  
+    try:
+        s3.Object('gooff', 'transcripts/'+room_id+'_chat.csv').load()
+    except botocore.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == "404":
+            # The object does not exist. 
+            create_transcript(room_id) 
+    print(room_id)
+    df = pd.read_csv('https://gooff.s3.us-east-2.amazonaws.com/transcripts/'+room_id+'_chat.csv') 
+    
+    for usern in df.usernames:
         user_part[str(usern)] += 1
     
     labels = ["User " + str(i+1) for i in range(len(user_part))]
@@ -168,11 +194,12 @@ def vanity(room_id: str):
     plt.axis('equal')
     circle = plt.Circle(xy=(0,0), radius=0.75, facecolor='white')
     plt.gca().add_artist(circle)
-    img_data = io.BytesIO()
-    plt.savefig(img_data, format="svg")
-    img_data.seek(0)
-    bucket.put_object(Body=img_data, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_partDonut.svg")
+    part_donut_chart = io.BytesIO()
+    plt.savefig(part_donut_chart, format="svg")
+    part_donut_chart.seek(0)
+    bucket.put_object(Body=part_donut_chart, ContentType='image/svg+xml', Key="images/graphs/"+room_id+"_partDonut.svg")
     plt.clf()
+
 
     #Time and date analysis
     timestamps = df.timestamp[1:]
@@ -241,4 +268,4 @@ def vanity(room_id: str):
     print(str({'total_chars':total_chars,'avg_chars':avg_chars,'total_words':total_words,'avg_words':avg_words, 'num_users':len(usernames)}))
 
 if __name__ == '__main__':
-    vanity(sys.argv[1])
+    vanity(sys.argv[1])"""

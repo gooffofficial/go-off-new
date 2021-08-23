@@ -1,0 +1,171 @@
+.mobileLiveChat {
+  font-family: Poppins;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.chatHeadingRow {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding-bottom: 10px;
+}
+
+.articleTitle {
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 21px;
+  color: #3F3F46;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.liveBox {
+  color: white;
+  background: #05E100;
+  font-size: 12px;
+  border-radius: 3px;
+  padding: 1px 5px;
+  display: inline;
+  margin-left: 8px;
+}
+
+.messagesContent {
+  flex-grow: 1;
+  overflow-x: auto;
+}
+
+.startDate {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 25px;
+  color: #C4C4C4;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.mobileUserChatMsg {
+  display: flex;
+}
+
+.nonMobileUserChatMsg {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.userAvatar {
+  justify-self: flex-start;
+  align-self: flex-end;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  margin-left: 3px;
+}
+
+.rightChatMsg {
+  justify-self: flex-end;
+  align-self: flex-start;
+}
+
+.nameAndHost {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 25px;
+  color: #C4C4C4;
+  margin-left: 18px;
+}
+
+.hostBox {
+  font-weight: bold;
+  font-size: 9px;
+  line-height: 9px;
+  text-align: center;
+  color: #FFFFFF;
+  background: #3A86FF;
+  font-weight: 500;
+  border-radius: 2px;
+  padding: 3px 3px;
+  display: inline-block;
+  margin-left: 6px;
+  letter-spacing: 0.8px;
+  margin-bottom: 4px;
+}
+
+.leftArrowIcon, .infoIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.hostMsgBox {
+  font-weight: normal;
+  font-size: 15.5px;
+  line-height: 22.5px;
+  color: #3A86FF;
+  background: rgba(58, 134, 255, 0.25);
+  border-radius: 20px;
+  padding: 7px 6px;
+  margin-bottom: 25px;
+  border-bottom-left-radius: 0px;
+  margin-right: 8px;
+}
+
+.nonHostBox {
+  display: none;
+}
+
+.nonHostMsgBox {
+  font-weight: normal;
+  font-size: 15.5px;
+  line-height: 22.5px;
+  color: #5667FF;
+  border-radius: 20px;
+  padding: 7px 6px;
+  margin-bottom: 25px;
+  border-bottom-right-radius: 0px;
+  background: rgba(86, 103, 255, 0.25);
+  margin-left: 8px;
+}
+
+.messageInputBox {
+  display: flex;
+  background: linear-gradient(180deg, rgba(58, 134, 255, 0.075) 0%, rgba(86, 103, 255, 0.075) 100%);
+  border-radius: 10px;
+  height: 48px;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.inputAddIcon, .inputSendIcon {
+  align-self: center;
+  width: 38px;
+  height: 38px;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+.inputAddIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.inputMessage {
+  flex-grow: 1;
+  outline: none;
+  border: none;
+  background: rgba(54, 54, 56, 0);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #757D8A;
+}

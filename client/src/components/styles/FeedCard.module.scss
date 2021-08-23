@@ -1,0 +1,217 @@
+.FeedCardContainer {
+	width: 100%;
+	padding: 2%;
+	border-radius: 15px;
+	background: #fff;
+	position: relative;
+	display: flex;
+	font-weight: 500;
+  margin-bottom: 25px;
+}
+.feedCardImageContainer {
+  align-self: center;
+	position: relative;
+  height: 100%;
+}
+.feedCardImage,
+.feedCardImageContainer {
+	width: 18.125rem;
+	// height: 18.125rem;
+}
+.bookmarkIcon {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+.bookmarkIcon:hover path {
+	fill: #3a86ff;
+	transition: fill 0.2s;
+}
+.dots {
+	position: absolute;
+	top: 4%;
+	right: 2%;
+	cursor: pointer;
+}
+.dots:hover .dropdown-content{
+	fill: #5667ff;
+	display: block;
+}
+.dropDownRow {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+.dropdowncontent {
+	display: none;
+	position: absolute;
+	background-color: #F9F9F9;
+	min-width: 360px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	padding: 12px 16px;
+	z-index: 1;
+}
+.dropDownRow:hover .dropdowncontent {
+	display: block;
+}
+.feedCardContentContainer {
+	flex-grow: 1;
+	margin-left: 2%;
+	width: calc(98% - 280px);
+}
+// .feedCardContent {
+// }
+.contentTop {
+	display: flex;
+	width: 95%;
+}
+.calendar {
+	background: rgba(86, 103, 255, 0.15);
+	width: 50px;
+	height: 65px;
+	color: #5667ff;
+	text-align: center;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.calendarMonth,
+.calendarDay {
+	background: linear-gradient(180deg, #3a86ff 0%, #5667ff 100%);
+	color: transparent;
+	background-clip: text;
+}
+.calendarMonth {
+	font-size: 1rem;
+}
+.calendarDay {
+	font-size: 1.9rem;
+	line-height: 1.75rem;
+}
+.titleColumn {
+	display: flex;
+	flex-direction: column;
+	width: 85%;
+	margin-left: 2.5%;
+}
+.companyLogoContainer {
+	position: relative;
+	height: 20px;
+}
+.companyLogo {
+	position: absolute;
+	bottom: 0;
+	left: 5px;
+	height: 15px;
+}
+.feedCardHeadingContainer {
+}
+.feedCardHeading {
+	font-weight: 500;
+	line-height: 1.375rem;
+	font-size: 1.3rem;
+	color: #3f3f46;
+}
+.dateContainer {
+	// margin: 2% 0;
+}
+.date {
+  color: #828282;
+  font-weight: 400;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+.cardTagContainer {
+	display: flex;
+}
+.cardTagContainer > *:not(:last-child):not(:first-child) {
+	margin: 0 2%;
+}
+.feedCardDescriptionContainer {
+	padding-top: 2px;
+  padding-bottom: 5px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.feedCardDescription {
+	color: #000000;
+	opacity: 0.4;
+	font-weight: 400;
+	font-size: 1rem;
+	line-height: 1.125rem;
+}
+.hostContentDetailsContainer {
+	margin-top: 3%;
+}
+.hostContentDetails {
+	display: flex;
+}
+.hostImageContainer {
+	position: relative;
+	width: fit-content;
+}
+.hostImage {
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 100%;
+}
+.hostStatus {
+	width: 12px;
+	height: 12px;
+	background: #5667ff;
+	border-radius: 100%;
+	border: 2px solid white;
+	position: absolute;
+	bottom: 5px;
+	right: 2px;
+}
+.rsvpButtonContainer {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+.convoButton {
+	background: linear-gradient(180deg, #3a86ff 0%, #5667ff 100%);
+	border-radius: 5px;
+	padding: 7px 17px;
+}
+.convoButton:hover {
+	background: linear-gradient(360deg, #3a86ff 0%, #5667ff 100%);
+}
+.buttonText {
+	color: #fff;
+	font-size: 0.8rem;
+	text-align: center;
+}
+.hostDetails {
+	margin-left: 1%;
+	font-weight: 500;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.hostName {
+	font-size: 0.9rem;
+	color: #3f3f46;
+}
+.badgeContainer {
+	color: #fff;
+}
+.hostBadge {
+	background: linear-gradient(180deg, #3a86ff 0%, #5667ff 100%);
+	width: fit-content;
+  border-radius: 3px;
+  padding: 0.8px 3.2px;
+}
+.badgeText {
+	font-size: 0.7rem;
+}
+
+.largerText {
+  font-size: 18px;
+  margin-left: 7px;
+}

@@ -106,7 +106,8 @@ if __name__ == "__main__":
     #go OFF messages
     from csv import DictReader
 
-    with open("transcripts/"+roomid+"_chat.csv") as f:
+    # TODO test the below change
+    with open("https://gooff.s3.us-east-2.amazonaws.com/transcripts/"+roomid+"_chat.csv") as f:
         a1 = [row["message"] for row in DictReader(f)]
 
     
