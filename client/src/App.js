@@ -59,12 +59,12 @@ const App = () => {
 				console.log(err);
 			});
 	}, []);
-	
+
 	return (
 		// Routes
 		<PubNubProvider client={pubnub}>
 			<Switch>
-				
+
 				<Route path="/hosthome" component={HostHome} />
 				<Route path="/home" component={Home} />
 				{/* <HostRoute path="/home" component={HostHome} /> */}
@@ -72,8 +72,8 @@ const App = () => {
 				<Route path="/profile" component={Profile} />
 				<Route path="/accountsettings" component={AccountSettingsPage} />
 				<Route path="/editprofile" component={EditProfilePage} />
-				<Route path="/discover" component={DiscoverPage} />
-				<Route path="/chat/:code?" component={LiveChat}/>
+				{/* <Route path="/discover" component={DiscoverPage} /> */}
+				<Route path="/chat/:code?" component={LiveChat} />
 				<Route path="/signup/eauth" component={Eauth} />
 				<Route path="/signup/smsauth" component={SMSauth} />
 				<Route path="/signup/ver" component={Ver} />
