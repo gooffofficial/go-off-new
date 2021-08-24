@@ -384,7 +384,8 @@ router.get("/upcoming", auth.required, async (req, res, next) => {
         },
       });
       // Check the date of the convo to see if it is within 30 minutes of current
-      if (Date.now() - conv.time < 30 * (60 * 1000)) {
+
+      if (Date.now() - conv.time < 0) {
         let article =
           (await db.Article.findOne({ where: { url: conv.article } })) || {};
         let user = await db.User.findOne({ where: { id: conv.host } });
@@ -407,47 +408,47 @@ router.get("/upcoming", auth.required, async (req, res, next) => {
   });
 });
 
-router.get("/upcoming", auth.required, async (req, res, next) => {
-  const {
-    payload: { id },
-  } = req;
-  console.log("AHH\n\n\n\n\n\n\n\n");
-  db.Convo_members.findAll({
-    where: {
-      UserId: id,
-    },
-  }).then(async (convoIds) => {
-    let convos = [];
-    let convsObjects = [];
-    for (let i = 0; i < convoIds.length; i++) {
-      var conv = await db.Convo.findOne({
-        where: {
-          id: convoIds[i].ConvoId,
-        },
-      });
-      // Check the date of the convo to see if it is within 30 minutes of current
-      if (Date.now() - conv.time < 30 * (60 * 1000)) {
-        let article =
-          (await db.Article.findOne({ where: { url: conv.article } })) || {};
-        let user = await db.User.findOne({ where: { id: conv.host } });
-        let profile = await db.Profile.findOne({
-          where: { UserId: conv.host },
-        });
-        convos.push({
-          articleURL: conv.article,
-          articleImg: article.img || placeholderImg,
-          time: conv.time,
-          hostUsername: user.name,
-          roomId: conv.roomId,
-          convTitle: conv.title,
-          hostAvatar: profile.ppic,
-          convDesc: conv.description,
-        });
-      }
-    }
-    return res.status(200).json(convos);
-  });
-});
+// router.get("/upcoming", auth.required, async (req, res, next) => {
+//   const {
+//     payload: { id },
+//   } = req;
+//   console.log("AHH\n\n\n\n\n\n\n\n");
+//   db.Convo_members.findAll({
+//     where: {
+//       UserId: id,
+//     },
+//   }).then(async (convoIds) => {
+//     let convos = [];
+//     let convsObjects = [];
+//     for (let i = 0; i < convoIds.length; i++) {
+//       var conv = await db.Convo.findOne({
+//         where: {
+//           id: convoIds[i].ConvoId,
+//         },
+//       });
+//       // Check the date of the convo to see if it is within 30 minutes of current
+//       if (Date.now() - conv.time < 30 * (60 * 1000)) {
+//         let article =
+//           (await db.Article.findOne({ where: { url: conv.article } })) || {};
+//         let user = await db.User.findOne({ where: { id: conv.host } });
+//         let profile = await db.Profile.findOne({
+//           where: { UserId: conv.host },
+//         });
+//         convos.push({
+//           articleURL: conv.article,
+//           articleImg: article.img || placeholderImg,
+//           time: conv.time,
+//           hostUsername: user.name,
+//           roomId: conv.roomId,
+//           convTitle: conv.title,
+//           hostAvatar: profile.ppic,
+//           convDesc: conv.description,
+//         });
+//       }
+//     }
+//     return res.status(200).json(convos);
+//   });
+// });
 
 router.get("/upcoming/:username", auth.required, async (req, res, next) => {
   const {
@@ -471,7 +472,7 @@ router.get("/upcoming/:username", auth.required, async (req, res, next) => {
         },
       });
       // Check the date of the convo to see if it is within 30 minutes of current
-      if (Date.now() - conv.time < 30 * (60 * 1000)) {
+      if (Date.now() - conv.time < 0) {
         let article =
           (await db.Article.findOne({ where: { url: conv.article } })) || {};
         let user = await db.User.findOne({ where: { id: conv.host } });
