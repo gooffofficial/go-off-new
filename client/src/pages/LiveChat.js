@@ -71,6 +71,8 @@ const LiveChat = () => {
   //importing pubnub into this component
   const pubnub = usePubNub();
 
+  const [canType, setCanType]=useState(true);
+
 
   //chat metadata from firebase
   const [metaData, setMetaData] = useState({ title: 'Title', description: 'Description', time: '10:00 pm' });
@@ -398,11 +400,15 @@ const LiveChat = () => {
             scrollhook.current.scrollIntoView({ behavior: 'smooth' });
           } else {
             //person not rsvp. redirect or respond?
-            setContent(<div style={{ textAlign: 'center' }}>You did not rsvp for this conversation</div>)
+            //setContent(<div style={{ textAlign: 'center' }}>You did not rsvp for this conversation</div>)
+            setReload(true);
+            setCanType(false);
           }
         } else {
           //too many people
-          setContent(<div style={{ textAlign: 'center' }}>Chat is full</div>)
+          //setContent(<div style={{ textAlign: 'center' }}>Chat is full</div>)
+          setReload(true);
+          setCanType(false);
         }
       }
     )
@@ -611,7 +617,7 @@ const LiveChat = () => {
               <div ref={scrollhook}></div>
             </div>
             {<div >{userTyping}</div>}
-            <div className={styles["chatInputBox"]}>
+            <div className={canType?styles["chatInputBox"]:styles['d-none']}>
               <form className="form-demo" onSubmit={handleSubmit(onSubmit)}>
                 {/* <img
                   src={inputAddIcon}
@@ -619,7 +625,7 @@ const LiveChat = () => {
                   className={styles["inputAddIcon"]}
                   onClick={virtualClick}
                 /> */}
-                <input style={{ display: "none" }} type='file' ref={hiddenFileInput} onChange={onChangeFile} />
+                <input type='file' style={{"display":"none"}} ref={hiddenFileInput} onChange={onChangeFile} />
                 <input
                   type="text"
                   className={styles["inputText"]}

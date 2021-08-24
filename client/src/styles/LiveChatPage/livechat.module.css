@@ -5,6 +5,10 @@
   font-family: Poppins;
 }
 
+.d-none {
+  display: none;
+}
+
 .navbar {
   display: flex;
   height: 55px;
