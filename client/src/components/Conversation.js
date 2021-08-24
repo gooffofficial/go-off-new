@@ -115,11 +115,16 @@ const Conversation = (props,{ userid }) => {
     //   console.log(month, date)
     //   console.log(month1, date1)
     let UTCTime = parseInt(time);
+    // console.log(Date(time).split(' ')
+    // .splice(6, 2)
+    // .join(' ')
+    // .toUpperCase())
     let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
     let convoCalendarDay = moment(UTCTime).format('D');
     let convoDay = moment(UTCTime).format('dddd').toUpperCase();
     let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
     let convoDate = `${convoDay} ${convoHoursMinutes}`;
+    
     return <div className={s.conversationRow}>
       <div className={s.convImageBox}>
         <img src={articleImg ? articleImg : '/images/Rectangle328.png'} alt="" className={s.convImg} />
@@ -142,7 +147,7 @@ const Conversation = (props,{ userid }) => {
             </div>
           </div>
         </div>
-        <span className={s.startTime}>{convoDate}</span>
+        <span className={s.startTime}>{convoDate}(EST)</span>
         {/* <div className={s.chatTags}>
           <div className={s.chatTag}>Eco-Friendly</div>
           <div className={s.chatTag}>Sustainability</div>

@@ -674,9 +674,9 @@ const LiveChat = () => {
             </div>
             <span className={styles["startTime"]}>{Date(metaData.time).toLocaleString()
               .split(' ')
-              .splice(0, 6)
+              .splice(0, 5)
               .join(' ')
-              .toUpperCase()}</span>
+              .toUpperCase()} (EST)</span>
             {/* <div className={styles["chatTags"]}>
               <div className={styles["chatTag"]}>Eco-Friendly</div>
               <div className={styles["chatTag"]}>Sustainability</div>
