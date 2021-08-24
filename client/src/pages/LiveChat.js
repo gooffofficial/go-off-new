@@ -711,7 +711,7 @@ const LiveChat = () => {
             </div>
           </div>
            <div className={styles["profileBox"]}>
-            <div className={styles["profileLeftSide"]}>
+            {/* <div className={styles["profileLeftSide"]}>
               <img
                 src={host.ppic}//*! {host.ppic} - using host image is too big please fix with css
                 alt="Profile Icon"
@@ -721,7 +721,7 @@ const LiveChat = () => {
                 <span className={styles["hostText"]}>HOST</span>
                 <div className={styles["profileName"]}>{host.name}</div>
               </div>
-            </div>
+            </div> */}
             {/* <div className={styles["profileRightSide"]}>
               <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
               <img
