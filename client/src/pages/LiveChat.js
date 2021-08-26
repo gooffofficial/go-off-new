@@ -300,13 +300,15 @@ const LiveChat = () => {
 
   //handles typing indicator signaling//*!have a UTS and UTT UTS starts timer and UTS resets timer create timer function with use state and test if each UTT adds to timer
   const handlePress = () => {
-    if(canRequest){
+    /**
+     * if(canRequest){
       setCanRequest(false);
       pubnub.signal({ channel: code, message: { action: 'UT', name: currentUser.name } });
       setTimeout(() => {
         setCanRequest(true);
       }, THROTTLE);
     }
+     */
   }
 
   //use this to look at the metadata
