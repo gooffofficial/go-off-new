@@ -38,9 +38,6 @@ import {
 } from "react-device-detect";
 import MobileLiveChat from "./LiveChatMobile";
 
-const fastapi = axios.create({ baseURL: "https://localhost:8080", timeout: 10000 });
-// const fastapi = axios.create({baseURL: "http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/", timeout: 10000});
-// const fastapi = axios.create({baseURL: "go-off.co", timeout: 10000});
 
 const LiveChat = () => {
   const db = firebase.firestore()
@@ -113,6 +110,11 @@ const LiveChat = () => {
   const [reload, setReload] = useState(false)
 
   const [host, setHost] = useState(fillerUser)
+
+  const [canRequest, setCanRequest] = useState(true);
+  const [isTyping, setIsTyping] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const THROTTLE = 4000; //milliseconds
 
   const [ConvoData] = []
 
@@ -296,9 +298,17 @@ const LiveChat = () => {
     }).catch(err => console.log(`did not find convo ${err}`));
   }
 
-  //handles typing indicator signaling
+  //handles typing indicator signaling//*!have a UTS and UTT UTS starts timer and UTS resets timer create timer function with use state and test if each UTT adds to timer
   const handlePress = () => {
-    pubnub.signal({ channel: code, message: { action: 'UT', name: currentUser.name } });
+    /**
+     * if(canRequest){
+      setCanRequest(false);
+      pubnub.signal({ channel: code, message: { action: 'UT', name: currentUser.name } });
+      setTimeout(() => {
+        setCanRequest(true);
+      }, THROTTLE);
+    }
+     */
   }
 
   //use this to look at the metadata
@@ -365,8 +375,20 @@ const LiveChat = () => {
           goToHomePage();
         } else if (msg.action == 'UT') {
           //sends message if use is typing
+          setIsTyping(true)
           setUserTyping(`${msg.name} is typing`);
-          setTimeout(() => { setUserTyping('') }, 5000)
+
+          if(!busy){
+            setBusy(true);
+            setTimeout(()=>{
+              if(canRequest){
+                setUserTyping('')
+              }
+              setIsTyping(false)
+              setBusy(false);
+            },THROTTLE)
+          }
+
         }
       },
       status: (event) => {
@@ -467,7 +489,7 @@ const LiveChat = () => {
   }
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   useEffect(() => {
-
+    
     axios
       .get(`/api/users/current`, {
         withCredentials: true,
@@ -717,7 +739,11 @@ const LiveChat = () => {
             </div>
           </div>
            <div className={styles["profileBox"]}>
+<<<<<<< HEAD
             {/* <div className={styles["profileLeftSide"]}>
+=======
+            {/**<div className={styles["profileLeftSide"]}>
+>>>>>>> 9f3aa4611d15ddf1d85cb85efa0de5b4aa820953
               <img
                 src={host.ppic}//*! {host.ppic} - using host image is too big please fix with css
                 alt="Profile Icon"
