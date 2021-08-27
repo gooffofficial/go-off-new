@@ -1,4 +1,4 @@
-# go-off
+# go-off-new
 
 Hey team, welcome to our codebase!
 
@@ -23,12 +23,13 @@ I set up a dockerhub repository which AWS will grab our image from. See details 
 
 To build and deploy first you want to install docker. After docker is installed, then run 'docker login' and login with the Go Off docker credentials.
 
-1. In the the root folder of the Go Off repository run docker build -t gooffofficial/gooff .
-2. After that build is complete run docker push gooffofficial/gooff
+1. In the client folder of the Go Off repository run yarn run build
+2. In the the root folder of the Go Off repository run docker build -t gooffofficial/gooff .
+3. After that build is complete run docker push gooffofficial/gooff
 
 Note: This is via the terminal. I don't know how docker desktop works, so if you do it through that I'm not sure the entire process.
 
-After the build is finished, go to AWS, and to our elastic beanstalk environment (GooffBetaDocker1-env). From there, click upload and deploy and upload to Dockerrun.aws.json file which you were provided. When it is done deploying, then you should be able to access the site and see the changes!
+After the build is finished, go to AWS, and to our elastic beanstalk environment (GooffBetaDocker1-env). From there, click upload and deploy and upload to Dockerrun.aws.back.json file which you were provided. When it is done deploying, then you should be able to access the site and see the changes!
 
 If something goes wrong in deployment, the logs are probably the first place you should go. You can find them on the left side of the elastic beanstalk page, and clicking on Logs. Usually getting the last 100 lines will be good enough, but if not, you also have the option to download the full logs.
 
