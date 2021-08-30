@@ -306,7 +306,12 @@
 }
 
 .emilyIcon {
+  align-self: flex-end;
   object-fit: contain;
+  margin-right: 9px;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
 }
 
 .hostText {
@@ -459,9 +464,14 @@
 .inputText {
   /* position: absolute; */
   border-radius: 20px;
-  max-height: 35px;
+  max-height: 45px;
+  height: 35px;
+  padding-left: 5px;
+  color: grey;
+  background: transparent;
   border: none;
-  background: white;
+  padding-bottom: 5px;
+  width: 750px;
   margin-left: 10px;
   margin-right: 10px;
   font-size: 15px;

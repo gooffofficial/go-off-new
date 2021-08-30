@@ -539,7 +539,7 @@ const LiveChat = () => {
   if (isMobile)
     return <MobileLiveChat />
 
-  console.log(currentUserFull)
+  console.log(host)
   return (
 
     <div className={styles["liveChat"]}>
@@ -702,9 +702,9 @@ const LiveChat = () => {
             </div>
             <span className={styles["startTime"]}>{Date(metaData.time).toLocaleString()
               .split(' ')
-              .splice(0, 6)
+              .splice(0, 5)
               .join(' ')
-              .toUpperCase()}</span>
+              .toUpperCase()} (EST)</span>
             {/* <div className={styles["chatTags"]}>
               <div className={styles["chatTag"]}>Eco-Friendly</div>
               <div className={styles["chatTag"]}>Sustainability</div>
@@ -739,7 +739,11 @@ const LiveChat = () => {
             </div>
           </div>
            <div className={styles["profileBox"]}>
+<<<<<<< HEAD
+            {/* <div className={styles["profileLeftSide"]}>
+=======
             {/**<div className={styles["profileLeftSide"]}>
+>>>>>>> 9f3aa4611d15ddf1d85cb85efa0de5b4aa820953
               <img
                 src={host.ppic}//*! {host.ppic} - using host image is too big please fix with css
                 alt="Profile Icon"
@@ -749,8 +753,8 @@ const LiveChat = () => {
                 <span className={styles["hostText"]}>HOST</span>
                 <div className={styles["profileName"]}>{host.name}</div>
               </div>
-            </div>
-            <div className={styles["profileRightSide"]}>
+            </div> */}
+            {/* <div className={styles["profileRightSide"]}>
               <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
               <img
                 src={dots3Icon}
