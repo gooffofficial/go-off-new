@@ -24,8 +24,8 @@ I set up a dockerhub repository which AWS will grab our image from. See details 
 To build and deploy first you want to install docker. After docker is installed, then run 'docker login' and login with the Go Off docker credentials.
 
 1. In the client folder of the Go Off repository run yarn run build
-2. In the the root folder of the Go Off repository run docker build -t gooffofficial/gooff .
-3. After that build is complete run docker push gooffofficial/gooff
+2. In the the root folder of the Go Off repository run "docker build -t gooffofficial/go-off-back ."
+3. After that build is complete run "docker push gooffofficial/go-off-back"
 
 Note: This is via the terminal. I don't know how docker desktop works, so if you do it through that I'm not sure the entire process.
 
