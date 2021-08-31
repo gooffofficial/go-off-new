@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/LoginPage/login.module.css';
 import Logo from '../images/GO_OFF_LOGO.svg';
 import Wave from '../images/wave_thin.svg';
+import { routeContext } from '../contexts/useReroute';
+
 
 const Login = (props) => {
+	const { currentLocation, setCurrentLocation} = useContext(routeContext)
+
 	const [loginFormValues, setLoginFormValues] = useState({
 		username: '',
 		password: '',
@@ -24,14 +28,22 @@ const Login = (props) => {
 			console.log('Username/Password Required');
 			return;
 		}
-
+				console.log(currentLocation)
+		if(currentLocation !== '/'){
+			history.push(currentLocation)
+		}
 		axios
 			.post('/api/users/login', {
 				username: loginFormValues.username,
 				password: loginFormValues.password,
 			})
 			.then((res) => {
-				history.push('/profile');
+				console.log(currentLocation)
+				if(currentLocation !== '/'){
+					history.push(currentLocation)
+				}else{
+					history.push('/profile');
+				}
 			})
 			.catch((err) => {
 				console.log(`LOGIN ERROR: ${err}`);

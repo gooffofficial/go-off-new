@@ -7,6 +7,7 @@ import emilyIcon from '../images/liveChatImages/emily-profile-icon.png'
 import dots3Icon from '../images/liveChatImages/dots3.png'
 import bookmarkIcon from '../images/bookmark.svg'
 import firebase from '../firebase.js';
+import { useHistory } from 'react-router-dom';
 // const schedule = require('node-schedule');
 
 // const twilio = require('twilio')
@@ -22,8 +23,13 @@ import firebase from '../firebase.js';
 const Conversation = (props,{ userid }) => {
   let convoId = props.roomId
   let dummyId = props.userid
+  let history = useHistory()
   // console.log(props)
+  const gtcbuttonhandler = (e) => {
+    history.push(`/chat/${convoId}`)
+  }
   const db = firebase.firestore();
+
     const rsvpbuttonhandler = (e) => {
         e.preventDefault();
         console.log("test")
@@ -115,6 +121,7 @@ const Conversation = (props,{ userid }) => {
     //   console.log(month, date)
     //   console.log(month1, date1)
     let UTCTime = parseInt(time);
+    let newTime = new Date().getTime()
     // console.log(Date(time).split(' ')
     // .splice(6, 2)
     // .join(' ')
@@ -168,7 +175,21 @@ const Conversation = (props,{ userid }) => {
               <div className={s.profileName}>{hostName}</div> 
             </div>
           </div>
-          <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>RSVP</button>
+              <div className="container-layer">
+              {
+                //*!this only shows before convo start. needs to be there until convo ends
+              newTime>time?'':(
+                <div className="layer">
+                <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>Save My Spot </button>
+                </div>
+)}
+          
+                <div className="layer">
+          <button className={s.RSVP_Btn} onClick={gtcbuttonhandler}>Go To Convo</button>
+
+                </div>
+              </div>
+          
         </div>
       </div>
     </div>
