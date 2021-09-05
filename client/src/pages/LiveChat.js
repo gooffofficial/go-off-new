@@ -300,13 +300,15 @@ const LiveChat = () => {
 
   //handles typing indicator signaling//*!have a UTS and UTT UTS starts timer and UTS resets timer create timer function with use state and test if each UTT adds to timer
   const handlePress = () => {
-    if(canRequest){
+    /**
+     * if(canRequest){
       setCanRequest(false);
       pubnub.signal({ channel: code, message: { action: 'UT', name: currentUser.name } });
       setTimeout(() => {
         setCanRequest(true);
       }, THROTTLE);
     }
+     */
   }
 
   //use this to look at the metadata
@@ -406,12 +408,16 @@ const LiveChat = () => {
         const occupancy = response ? response.totalOccupancy : null;
         const occupants = response ? response.occupants : null;
         if (metadata.ended) {
-          return setContent(<div style={{ textAlign: 'center' }}>Conversation has ended</div>)
+          return setContent(<div style={{ textAlign: 'center' }}>This chat has already ended.</div>)
         }
         if (occupancy < 10) {
           //room not full now check for rsvp
           if (metadata.isOpen == false) {
-            setContent(<div style={{ textAlign: 'center' }}>Conversation not yet open</div>)
+            setContent(<div className={styles['setContent']}>
+            <div className="lock"></div><h1>
+            <i class="bi bi-lock lock"/></h1>
+            <div>Currently closed! Waiting for host to open chat.</div>
+            </div>)
           } else if ((metadata.rsvp.includes(user.id) || user.id == metadata.hostId) && metadata.isOpen == true) {
             addListener(user);
             //the user rsvp'd or is host. and can now see chat
@@ -700,9 +706,9 @@ const LiveChat = () => {
             </div>
             <span className={styles["startTime"]}>{Date(metaData.time).toLocaleString()
               .split(' ')
-              .splice(0, 6)
+              .splice(0, 5)
               .join(' ')
-              .toUpperCase()}</span>
+              .toUpperCase()} (EST)</span>
             {/* <div className={styles["chatTags"]}>
               <div className={styles["chatTag"]}>Eco-Friendly</div>
               <div className={styles["chatTag"]}>Sustainability</div>
@@ -738,8 +744,8 @@ const LiveChat = () => {
           </div>
 <<<<<<< Updated upstream
            <div className={styles["profileBox"]}>
-<<<<<<< HEAD
             {/* <div className={styles["profileLeftSide"]}>
+<<<<<<< HEAD
 =======
             {/**<div className={styles["profileLeftSide"]}>
 >>>>>>> 9f3aa4611d15ddf1d85cb85efa0de5b4aa820953
@@ -747,6 +753,8 @@ const LiveChat = () => {
           <div className={styles["profileBox"]}>
             <div className={styles["profileLeftSide"]}>
 >>>>>>> Stashed changes
+=======
+>>>>>>> 4ee9004bfbc29b70df81af5c9dce8ebaa58c1ea0
               <img
                 src={host.ppic}//*! {host.ppic} - using host image is too big please fix with css
                 alt="Profile Icon"

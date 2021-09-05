@@ -191,7 +191,7 @@ const NewsFeedCard = (props) => {
 	let convoDay = moment(UTCTime).format('dddd').toUpperCase();
 	let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
 	let convoDate = `${convoDay} ${convoHoursMinutes}`;
-	let isUser = true;
+	let isUser = (currentUser.username == hostUsername);
 	// console.log(hostUsername)
 	// console.log(props)
 	// const {
@@ -260,7 +260,7 @@ const NewsFeedCard = (props) => {
 		history.push(`/chat/${roomId}`)
 	  }
 	  
-	
+
 	return (
 		<div className={styles.FeedCardContainer}>
 			<div className={styles.feedCardImageContainer}>
@@ -314,7 +314,7 @@ const NewsFeedCard = (props) => {
 					</div>
 
 					<div className={styles.dateContainer}>
-						<p className={styles.date}>{convoDate}</p>
+						<p className={styles.date}>{convoDate}(EST)</p>
 					</div>
 
 					{/* <div className={styles.cardTagContainer}>
@@ -350,13 +350,16 @@ const NewsFeedCard = (props) => {
 							</div>
 
 							<div className={styles.rsvpButtonContainer}>
-								{isUser 
+								{/* {isUser 
 									? <div className={styles.convoButton} onClick={gobuttonhandler}>
 										<p className={styles.buttonText}>GO TO CONVO</p>
 									  </div>
 									: <div className={styles.convoButton} onClick={rsvpbuttonhandler}>
 										<p className={styles.buttonText}>RSVP</p>
-									 </div>}
+									 </div>} */}
+									<div className={styles.convoButton} onClick={gobuttonhandler}>
+										<p className={styles.buttonText}>GO TO CONVO</p>
+									  </div>
 								
 							</div>
 						</div>
