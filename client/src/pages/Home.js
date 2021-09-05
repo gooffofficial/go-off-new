@@ -10,7 +10,7 @@ import TrendingCard from '../components/TrendingCard.js';
 import FriendActivityCard from '../components/FriendActivityCard.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 import AllUpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
-import Conversation from '../components/Conversation.js'; 
+import Conversation from '../components/Conversation.js';
 
 const fillerUser = {
 	name: 'Username',
@@ -48,7 +48,7 @@ const Home = (props) => {
 									upcomingChats: res.data,
 								});
 								axios
-									.get('/api/getconvos', { withCredentials: true})
+									.get('/api/getconvos', { withCredentials: true })
 									.then((res3) => {
 										setAllUserFull({
 											allupcomingChats: res3.data,
@@ -105,7 +105,7 @@ const Home = (props) => {
 
 							<p className={styles.sideBarLinkText}>Home</p>
 						</div>
-						<div
+						{/* <div
 							className={styles.sideBarDiscover}
 							onClick={() => history.push('/discover')}
 						>
@@ -124,7 +124,7 @@ const Home = (props) => {
 								/>
 							</svg>
 							<p className={styles.sideBarLinkText}>Discover</p>
-						</div>
+						</div> */}
 					</div>
 
 					<div className={styles.sideBarCards}>
@@ -135,7 +135,7 @@ const Home = (props) => {
 						<div className={styles.upcomingChatsCards}>
 							{currentUserFull.upcomingChats ? (
 								currentUserFull.upcomingChats.map((prop) => {
-									
+
 									return (
 										<UpcomingChatsCard
 											articleURL={prop.articleURL}
@@ -173,10 +173,10 @@ const Home = (props) => {
 						</div>
 					</div>
 					<div className={styles.centerFeed}>
-							{allUserFull.allupcomingChats ? (
-								allUserFull.allupcomingChats.map((prop1) => {
-									return (
-										<Conversation
+						{allUserFull.allupcomingChats ? (
+							allUserFull.allupcomingChats.map((prop1) => {
+								return (
+									<Conversation
 										articleURL={prop1.articleURL}
 										articleImg={prop1.articleImg}
 										time={prop1.time}
@@ -189,16 +189,16 @@ const Home = (props) => {
 										hostNum={prop1.hostNum}
 										userid={prop1.userID}
 										useremail={prop1.useremail}
-                        				userPnum={prop1.userPnum}
-										/>
-										
-									);
-									
-								})
-							) : (
-								<Conversation />
-							)}
-							{/* <FeedCard />
+										userPnum={prop1.userPnum}
+									/>
+
+								);
+
+							})
+						) : (
+							<Conversation />
+						)}
+						{/* <FeedCard />
 							<FeedCard /> */}
 					</div>
 				</div>

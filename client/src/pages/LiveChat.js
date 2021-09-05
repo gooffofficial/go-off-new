@@ -123,11 +123,11 @@ const LiveChat = () => {
 
   const currentHost = (id) => {
     axios
-      .get(`http://localhost:8080/getHost/${id}`).then(res =>{
-        const host= res.data.user[id]
+      .get(`http://localhost:8080/getHost/${id}`).then(res => {
+        const host = res.data.user[id]
         console.log(host)
-        if (host){
-          setHost({name:host.name,ppic:host.ppic})
+        if (host) {
+          setHost({ name: host.name, ppic: host.ppic })
         }
       }).catch(err => console.log(err))
   }
@@ -560,7 +560,7 @@ const LiveChat = () => {
             />
             <span className={styles["homeText"]}>Home</span>
           </div>
-          <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
+          {/* <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
             <img
               src={globeIcon}
               alt="discoverImage"
@@ -568,7 +568,7 @@ const LiveChat = () => {
             />
 
             <span className={styles["globeText"]}>Discover</span>
-          </div>
+          </div> */}
           <h1 className={styles["upcommingHeading"]}>Your Upcoming Convos</h1>
           <div className={styles["upcomingChats"]}>
             {currentUserFull.upcomingChats ? (
@@ -730,18 +730,23 @@ const LiveChat = () => {
                 className={styles["dropDownImg"]}
               />
               <div className={styles["dropdown-content"]}>
-                <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897, 
-                  or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about 
+                <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897,
+                  or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about
                   our data collecting practices, please read our <a target="_blank" href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy.</a></span>
               </div>
             </div>
           </div>
+<<<<<<< Updated upstream
            <div className={styles["profileBox"]}>
 <<<<<<< HEAD
             {/* <div className={styles["profileLeftSide"]}>
 =======
             {/**<div className={styles["profileLeftSide"]}>
 >>>>>>> 9f3aa4611d15ddf1d85cb85efa0de5b4aa820953
+=======
+          <div className={styles["profileBox"]}>
+            <div className={styles["profileLeftSide"]}>
+>>>>>>> Stashed changes
               <img
                 src={host.ppic}//*! {host.ppic} - using host image is too big please fix with css
                 alt="Profile Icon"
@@ -760,7 +765,7 @@ const LiveChat = () => {
                 className={styles["dots3Icon"]}
               />
             </div> */}
-          </div> 
+          </div>
         </div>
       </div>
     </div>
