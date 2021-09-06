@@ -432,6 +432,7 @@ router.post(
 );
 
 //POST for user login
+//*! not checking for user password or atleast is not returning error
 router.post('/login', auth.optional, async (req, res, next) => {
 	//const { body: { user } } = req.body;
 	const user = req.body;
@@ -492,6 +493,10 @@ router.post('/login', auth.optional, async (req, res, next) => {
 			//return res.redirect('/profiles/' + passportUser.username);
 			//let myRedirect = 'return res.redirect('/profiles/' + passportUser.username);'
 			// return res.redirect('/profiles/' + passportUser.username);
+		}
+		//*! did this before deploy because local host was not updating to this
+		if(!user.toAuthJSON().token || !user.token){
+			return res.sendStatus(400).info
 		}
 
 		return res.sendStatus(200).info;

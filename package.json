@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "-": "0.0.1",
+    "@auth0/auth0-react": "^1.6.0",
     "@reduxjs/toolkit": "^1.6.1",
     "@sendgrid/mail": "^7.4.2",
     "animate.css": "^4.1.0",

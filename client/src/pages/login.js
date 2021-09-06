@@ -42,12 +42,10 @@ const Login = (props) => {
 			.then((res) => {
 				console.log(res, '  ', currentLocation)
 				if(currentLocation == '/' || currentLocation=='/login'){
-					console.log('pushed to profile')
 					history.push('/profile');
 					refetchUser()
 				}else{
-					console.log('currentLocation')
-					//history.push(currentLocation)
+					history.push(currentLocation)
 				}
 			})
 			.catch((err) => {
@@ -65,10 +63,7 @@ const Login = (props) => {
 		});
 	};
 	useEffect(()=>{
-		console.log('back to login',currentUser)
-		if(currentUser.signedIn){
-			history.push('profile')
-		}
+
 	})
 
 	return (

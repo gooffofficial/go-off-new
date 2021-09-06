@@ -50,10 +50,7 @@ const Profile = (props) => {
 	}
 
 	useEffect(() => {
-		if(!currentUser.signedIn){
-			refetchUser()
-			history.push('/login')
-		}
+
 		}, []);
 
 	if (isMobile)
