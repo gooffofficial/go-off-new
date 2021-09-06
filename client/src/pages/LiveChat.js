@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, createRef } from "react";
+import React, { useEffect, useState, useRef, createRef, useContext } from "react";
 import { useParams } from "react-router";
 import goOffLogo from "../images/liveChatImages/go-off-logo.png";
 import searchIcon from "../images/liveChatImages/search-icon.png";
@@ -37,6 +37,8 @@ import {
   isMobile,
 } from "react-device-detect";
 import MobileLiveChat from "./LiveChatMobile";
+import { useAuth0 } from '@auth0/auth0-react'
+import { UserContext } from "../contexts/userContext";
 
 
 const LiveChat = () => {
@@ -62,6 +64,8 @@ const LiveChat = () => {
     isOpen: false,
     rsvp: []
   }
+
+  const { user } = useAuth0();
 
   const { code } = useParams();
 
@@ -98,7 +102,7 @@ const LiveChat = () => {
   const [messages, addMessages] = useState([]);
 
   //sets current user with dummy info
-  const [currentUser, setCurrentUser] = useState(fillerUser);
+  const {currentUser, setCurrentUser} = useContext(UserContext)
   const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
 
   const [loading, setLoading] = useState(true);
@@ -442,15 +446,22 @@ const LiveChat = () => {
 
   //checks for and sets User
   const checkUser = async (data) => {
-    axios
+    let res;
+    if(!currentUser.signedIn){
+    res = await axios
       .get(`/api/users/current`, {
         withCredentials: true,
       })
-      .then((res) => {
+      if(res.data.user){
         setCurrentUser(res.data.user);
-        pubnub.setUUID(res.data.user.id);
+      }else{
+        setContent(<div style={{ textAlign: 'center' }}>Please sign in</div>)
+        console.log(`could not make request:`
+        )
+      }
+      pubnub.setUUID( res.data.user.id);
         let metadata = { ...data }
-        if (data.hostId == res.data.user.id) {
+        if ( data.hostId == res.data.user.id) {
           setIsHost(true);
           if (data.isOpen == false) {
             metadata.isOpen = true;
@@ -458,11 +469,19 @@ const LiveChat = () => {
           }
         }
         checkRoom(res.data.user, metadata)
-      }).catch(err => {
-        setContent(<div style={{ textAlign: 'center' }}>Please sign in</div>)
-        console.log(`could not make request: ${err}`
-        )
-      })
+    }else{
+      pubnub.setUUID(currentUser.id);
+        let metadata = { ...data }
+        if (data.hostId == currentUser.id) {
+          setIsHost(true);
+          if (data.isOpen == false) {
+            metadata.isOpen = true;
+            openConversation();
+          }
+        }
+        checkRoom(currentUser, metadata)
+    }
+      
   }
   //fetches all channel messages
   const fetchAllMessages = async () => {

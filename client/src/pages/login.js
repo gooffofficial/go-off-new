@@ -5,9 +5,11 @@ import styles from '../styles/LoginPage/login.module.css';
 import Logo from '../images/GO_OFF_LOGO.svg';
 import Wave from '../images/wave_thin.svg';
 import { routeContext } from '../contexts/useReroute';
+import { UserContext } from '../contexts/userContext';
 
 
 const Login = (props) => {
+	const {refetchUser, getCookie, currentUser} = useContext(UserContext)
 	const { currentLocation, setCurrentLocation} = useContext(routeContext)
 
 	const [loginFormValues, setLoginFormValues] = useState({
@@ -38,11 +40,14 @@ const Login = (props) => {
 				password: loginFormValues.password,
 			})
 			.then((res) => {
-				console.log(currentLocation)
-				if(currentLocation !== '/'){
-					history.push(currentLocation)
-				}else{
+				console.log(res, '  ', currentLocation)
+				if(currentLocation == '/' || currentLocation=='/login'){
+					console.log('pushed to profile')
 					history.push('/profile');
+					refetchUser()
+				}else{
+					console.log('currentLocation')
+					//history.push(currentLocation)
 				}
 			})
 			.catch((err) => {
@@ -59,6 +64,12 @@ const Login = (props) => {
 			[name]: value,
 		});
 	};
+	useEffect(()=>{
+		console.log('back to login',currentUser)
+		if(currentUser.signedIn){
+			history.push('profile')
+		}
+	})
 
 	return (
 		<div>

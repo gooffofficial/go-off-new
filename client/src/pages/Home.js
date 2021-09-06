@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext} from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/HomePage/Home.module.scss';
+import { UserContext } from '../contexts/userContext';
 
 // Components
 import NavBar from '../components/NavBar.js';
@@ -18,15 +19,16 @@ const fillerUser = {
 };
 
 const Home = (props) => {
-	const [currentUser, setCurrentUser] = useState(fillerUser);
-	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
-	const [allUserFull, setAllUserFull] = useState(fillerUser);
+	const {currentUser, setCurrentUser, upcoming, convos} = useContext(UserContext)
+	const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats: upcoming});
+	const [allUserFull, setAllUserFull] = useState({allupcomingChats: convos});
 
 	const history = useHistory();
 	// const history = useHistory();
 
 	useEffect(() => {
-		axios
+		/* //*!try and use userContext for using data about user. chect userContext file for more details
+    axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
 			})
@@ -38,28 +40,29 @@ const Home = (props) => {
 						withCredentials: true,
 					})
 					.then((res2) => {
-						setCurrentUserFull(res2.data.user);
-
-						axios
-							.get('/api/upcoming', { withCredentials: true })
-							.then((res) => {
-								setCurrentUserFull({
-									...res2.data.user,
-									upcomingChats: res.data,
-								});
-								axios
+            setCurrentUserFull(res2.data.user);
+            
+            axios
+              .get('/api/upcoming', { withCredentials: true})
+              .then((res) => {
+                setCurrentUserFull({
+                  ...res2.data.user,
+                  upcomingChats: res.data,
+                })
+                axios
 									.get('/api/getconvos', { withCredentials: true})
 									.then((res3) => {
 										setAllUserFull({
 											allupcomingChats: res3.data,
 										});
 									});
-							});
+              })
 					});
 			})
 			.catch((err) => {
 				console.log(err);
 			});
+    */
 	}, []);
 
 	console.log(currentUserFull)

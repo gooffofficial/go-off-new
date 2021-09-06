@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
@@ -35,6 +35,7 @@ import NavBar from '../components/NavBar.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 import Conversation from '../components/Conversation.js'; 
 import firebase from '../firebase.js';
+import { UserContext } from '../contexts/userContext';
 const fillerUser = {
 	name: 'Username',
 	propic: '/images/stock-face.jpg',
@@ -44,9 +45,9 @@ const fillerUser = {
 
 const HomePage = () => {
   const history = useHistory();
-  const [currentUser, setCurrentUser] = useState(fillerUser);
-  const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
-  const [allUserFull, setAllUserFull] = useState(fillerUser);
+  const {currentUser, setCurrentUser, upcoming, convos} = useContext(UserContext)
+  const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats: upcoming});
+  const [allUserFull, setAllUserFull] = useState({allupcomingChats: convos});
   const [isCreateConvModalVisible, setCreateConvModalVisible] = useState(false)
 
   const openCreateConvModal = () => setCreateConvModalVisible(true);
@@ -62,7 +63,8 @@ const HomePage = () => {
   }
 
 	useEffect(() => {
-		axios
+		/* //*!try and use userContext for using data about user. chect userContext file for more details
+    axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
 			})
@@ -96,6 +98,7 @@ const HomePage = () => {
 			.catch((err) => {
 				console.log(err);
 			});
+    */
 	}, []);
 
   console.log(currentUserFull.upcomingChats)

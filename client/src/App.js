@@ -1,13 +1,13 @@
 // Module Imports
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import "./styles/index.scss";
 import PubNub from "pubnub";
 import { PubNubProvider } from "pubnub-react";
 import { v4 as uuid_v4 } from "uuid";
 import config from "./config";
-import { routeContext } from "./contexts/useReroute";
+
 
 // Component Imports
 import Home from "./pages/Home";
@@ -28,12 +28,14 @@ import Splash from "./pages/splash";
 import PublicProfile from "./pages/PublicProfile";
 import HostRoute from "./components/HostRoute";
 // import Log from '../../../apify/types/utils_log';
+import { useAuth0 } from '@auth0/auth0-react'
+import { UserContext } from "./contexts/userContext";
+import { routeContext } from "./contexts/useReroute";
 
-const fillerUser = {
-  host: " ",
-};
 
 const App = () => {
+  const {currentUser, isLoading}  = useContext(UserContext)
+  const {currentLocation, setCurrentLocation} = useContext(routeContext)
 	let history = useHistory();
   // This will create a unique pubnub client with sub and pub keys. These are test keys we will need to buy full feature ones.
   const pubnub = new PubNub({
@@ -44,31 +46,31 @@ const App = () => {
   });
   // const token = localStorage.getItem
 
-  const [currentUser, setCurrentUser] = useState(fillerUser);
-  const [ currentLocation, setCurrentLocation ] = useState('');
   let location = useLocation().pathname
+  useEffect(()=>{
+    if(!currentUser.signedIn && (location!=='/login' || location!=='/signup' || location!=='/' || location!=='/signup/'
+     || location!=='/signup/ver'|| location!=='/signup/smsauth'|| location!=='/signup/eauth'|| location!=='/signup/cform'
+     || location!=='/signup/sform'|| location!=='/404ERROR')){
+      setCurrentLocation(location)
+      history.push('/')
+    }
+  },[])
 
-  useEffect(() => {
-    axios
-      .get(`/api/users/current`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setCurrentUser(res.data.user);
-      })
-      .catch((err) => {
-        console.log({
-          err
-        });
-		setCurrentLocation(location)
-		history.push('/')
-      });
-  }, []);
+  if(isLoading){
+    return (
+      <>
+      <div style={{'height':'20vh'}}></div>
+      <div className='row d-flex justify-content-center'>
+      <div style={{"width": "5rem","height": "5rem"}} class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+    </div></>
+    )
+  }
 
-  return (
-    // Routes
-    <PubNubProvider client={pubnub}>
-      <routeContext.Provider value = { {currentLocation, setCurrentLocation} } >
+    return (
+      // Routes
+      <PubNubProvider client={pubnub}>
         <Switch>
           <Route path="/hosthome" component={HostHome} />
           <Route path="/home" component={Home} />
@@ -91,7 +93,6 @@ const App = () => {
             <div>Oops! Page Not Found</div>
           </Route>
         </Switch>
-      </routeContext.Provider>
     </PubNubProvider>
   );
 };
