@@ -472,7 +472,13 @@ router.post('/login', auth.optional, async (req, res, next) => {
 			});
 		}
 	}
-
+	if(!ver.validPassword(user.password)){
+		return res.status(400).json({
+			errors:{
+				verification:'password incorrect'
+			}
+		})
+	}
 	//CHECKKKK IF VERIFIED --> DUNNO ERROR MESSAGE
 	//user IS THE FOOOOOOOOOOORM
 	//redirect them to the check email for verification page
@@ -482,11 +488,11 @@ router.post('/login', auth.optional, async (req, res, next) => {
 		if (err) {
 			//return next(err);
 		}
-		// console.log(passportUser);
+		 console.log(passportUser);
 		if (passportUser) {
 			const user = passportUser;
 			user.token = passportUser.generateJWT();
-			res.cookie('authJWT', user.toAuthJSON().token, {
+			res.cookie('authJWT', user.token, {
 				httpOnly: true,
 				signed: true,
 			});
