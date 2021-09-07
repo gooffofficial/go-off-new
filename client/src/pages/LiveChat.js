@@ -68,7 +68,7 @@ const LiveChat = () => {
   //importing pubnub into this component
   const pubnub = usePubNub();
 
-  const [canType, setCanType]=useState(true);
+  const [canType, setCanType] = useState(true);
 
 
   //chat metadata from firebase
@@ -378,15 +378,15 @@ const LiveChat = () => {
           setIsTyping(true)
           setUserTyping(`${msg.name} is typing`);
 
-          if(!busy){
+          if (!busy) {
             setBusy(true);
-            setTimeout(()=>{
-              if(canRequest){
+            setTimeout(() => {
+              if (canRequest) {
                 setUserTyping('')
               }
               setIsTyping(false)
               setBusy(false);
-            },THROTTLE)
+            }, THROTTLE)
           }
 
         }
@@ -414,9 +414,9 @@ const LiveChat = () => {
           //room not full now check for rsvp
           if (metadata.isOpen == false) {
             setContent(<div className={styles['setContent']}>
-            <div className="lock"></div><h1>
-            <i class="bi bi-lock lock"/></h1>
-            <div>Currently closed! Waiting for host to open chat.</div>
+              <div className="lock"></div><h1>
+                <i class="bi bi-lock lock" /></h1>
+              <div>Currently closed! Waiting for host to open chat.</div>
             </div>)
           } else if ((metadata.rsvp.includes(user.id) || user.id == metadata.hostId) && metadata.isOpen == true) {
             addListener(user);
@@ -493,7 +493,7 @@ const LiveChat = () => {
   }
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   useEffect(() => {
-    
+
     axios
       .get(`/api/users/current`, {
         withCredentials: true,
@@ -643,7 +643,7 @@ const LiveChat = () => {
               <div ref={scrollhook}></div>
             </div>
             {<div >{userTyping}</div>}
-            <div className={canType?styles["chatInputBox"]:styles['d-none']}>
+            <div className={canType ? styles["chatInputBox"] : styles['d-none']}>
               <form className="form-demo" onSubmit={handleSubmit(onSubmit)}>
                 {/* <img
                   src={inputAddIcon}
@@ -651,7 +651,7 @@ const LiveChat = () => {
                   className={styles["inputAddIcon"]}
                   onClick={virtualClick}
                 /> */}
-                <input type='file' style={{"display":"none"}} ref={hiddenFileInput} onChange={onChangeFile} />
+                <input type='file' style={{ "display": "none" }} ref={hiddenFileInput} onChange={onChangeFile} />
                 <input
                   type="text"
                   className={styles["inputText"]}
@@ -742,9 +742,8 @@ const LiveChat = () => {
               </div>
             </div>
           </div>
-<<<<<<< Updated upstream
-           <div className={styles["profileBox"]}>
-            {/* <div className={styles["profileLeftSide"]}>
+          {/* <div className={styles["profileBox"]}> */}
+          {/* <div className={styles["profileLeftSide"]}>
 <<<<<<< HEAD
 =======
             {/**<div className={styles["profileLeftSide"]}>
@@ -765,7 +764,7 @@ const LiveChat = () => {
                 <div className={styles["profileName"]}>{host.name}</div>
               </div>
             </div> */}
-            {/* <div className={styles["profileRightSide"]}>
+          {/* <div className={styles["profileRightSide"]}>
               <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
               <img
                 src={dots3Icon}
@@ -773,10 +772,10 @@ const LiveChat = () => {
                 className={styles["dots3Icon"]}
               />
             </div> */}
-          </div>
         </div>
       </div>
     </div>
+    // </div >
   );
 };
 export default LiveChat
