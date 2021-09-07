@@ -65,7 +65,6 @@ const LiveChat = () => {
     rsvp: []
   }
 
-  const { user } = useAuth0();
 
   const { code } = useParams();
 

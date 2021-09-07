@@ -495,8 +495,8 @@ router.post('/login', auth.optional, async (req, res, next) => {
 			// return res.redirect('/profiles/' + passportUser.username);
 		}
 		//*! did this before deploy because local host was not updating to this
-		if(!user.toAuthJSON().token || !user.token){
-			return res.sendStatus(400).info
+		if(!user.token){
+			return {user:user,status:400}
 		}
 
 		return res.sendStatus(200).info;
