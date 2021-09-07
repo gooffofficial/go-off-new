@@ -30,12 +30,9 @@ const Login = (props) => {
 			console.log('Username/Password Required');
 			return;
 		}
-				console.log(currentLocation)
-		if(currentLocation !== '/'){
-			history.push(currentLocation)
-		}
+
 		axios
-			.post('/api/users/login', {
+			.post('http://localhost:3000/api/users/login', {
 				username: loginFormValues.username,
 				password: loginFormValues.password,
 			})
@@ -64,7 +61,7 @@ const Login = (props) => {
 	};
 	useEffect(()=>{
 
-	})
+	},[])
 
 	return (
 		<div>
