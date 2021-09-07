@@ -480,7 +480,7 @@ router.post('/login', auth.optional, async (req, res, next) => {
 
 	return passport.authenticate('local', (err, passportUser, info) => {
 		if (err) {
-			return next(err);
+			//return next(err);
 		}
 		// console.log(passportUser);
 		if (passportUser) {
@@ -494,12 +494,6 @@ router.post('/login', auth.optional, async (req, res, next) => {
 			//let myRedirect = 'return res.redirect('/profiles/' + passportUser.username);'
 			// return res.redirect('/profiles/' + passportUser.username);
 		}
-		//*! did this before deploy because local host was not updating to this
-		/*
-		if(!user.token){
-			return {user:user,status:400}
-		}
-		*/
 
 		return res.sendStatus(200).info;
 	})(req, res, next);
