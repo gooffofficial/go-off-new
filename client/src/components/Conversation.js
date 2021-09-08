@@ -122,6 +122,8 @@ const Conversation = (props,{ userid }) => {
     //   console.log(month1, date1)
     let UTCTime = parseInt(time);
     let newTime = new Date().getTime()
+    let oldTime = new Date(UTCTime)
+    //oldTime.setMinutes(oldTime.getMinutes()+30)
     // console.log(Date(time).split(' ')
     // .splice(6, 2)
     // .join(' ')
@@ -178,7 +180,7 @@ const Conversation = (props,{ userid }) => {
               <div className="container-layer">
               {
                 //*!this only shows before convo start. needs to be there until convo ends
-              newTime>time?'':(
+              newTime>oldTime.getTime()?'':(
                 <div className="layer">
                 <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>Save My Spot </button>
                 </div>

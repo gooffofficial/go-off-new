@@ -30,8 +30,8 @@ const fillerUser = {
 };
 
 const Profile = (props) => {
-	const {currentUser, setCurrentUser, getCookie, refetchUser} = useContext(UserContext)
-	const [currentUserFull, setCurrentUserFull] = useState(currentUser);
+	const {currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming } = useContext(UserContext)
+	const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats:upcoming});
 	const [chatCategory, setChatCategory] = useState("Upcoming") // "Upcoming", "Past", "Saved"
 	const [isEditProfModalVisible, setEditProfModalVisible] = useState(false)
 
@@ -50,7 +50,7 @@ const Profile = (props) => {
 	}
 
 	useEffect(() => {
-
+		console.log(currentUserFull)
 		}, []);
 
 	if (isMobile)

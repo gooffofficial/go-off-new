@@ -40,7 +40,7 @@ import MobileLiveChat from "./LiveChatMobile";
 import { useAuth0 } from '@auth0/auth0-react'
 import { UserContext } from "../contexts/userContext";
 
-
+//*! participants should be requested from pubnub upon joining and then updating when knew people join
 const LiveChat = () => {
   const db = firebase.firestore()
   //storage is
@@ -101,8 +101,8 @@ const LiveChat = () => {
   const [messages, addMessages] = useState([]);
 
   //sets current user with dummy info
-  const {currentUser, setCurrentUser} = useContext(UserContext)
-  const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+  const {currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming} = useContext(UserContext)
+  const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats:upcoming});
 
   const [loading, setLoading] = useState(true);
 
@@ -126,12 +126,9 @@ const LiveChat = () => {
 
   const currentHost = (id) => {
     axios
-      .get(`http://localhost:8080/getHost/${id}`).then(res =>{
-        const host= res.data.user[id]
-        console.log(host)
-        if (host){
-          setHost({name:host.name,ppic:host.ppic})
-        }
+      .get(`/getuser/${id}`).then(res =>{
+        const host= res.data
+        setHost({name:host.HostName,ppic:host.pfpic})
       }).catch(err => console.log(err))
   }
 
@@ -148,7 +145,7 @@ const LiveChat = () => {
 
   //this will handle incoming messages
   const handleMessage = (object) => {
-    console.log(object);
+    console.log(object,'handle message');
     const message = object.message;
     if (!message.user) {
       return;
@@ -191,6 +188,7 @@ const LiveChat = () => {
 
   //this on submit function is publishing the message to the channel
   const onSubmit = async (message, e) => {
+    console.log(message,e, currentUser, pubnub.getUUID())
     if (message.message == '' && !file) {
       return
     }
@@ -224,6 +222,7 @@ const LiveChat = () => {
         ).catch()
       }).catch(error => console.log(error))
     } else {
+      console.log('sending',channels)
       pubnub.publish(
         {
           channel: channels[0],
@@ -238,7 +237,7 @@ const LiveChat = () => {
         function (status) {
           //this will print a status error in console
           if (status.error) {
-            console.log(status);
+            console.log(status,'something went wrong');
           }
         }
       );
@@ -430,13 +429,15 @@ const LiveChat = () => {
           } else {
             //person not rsvp. redirect or respond?
             //setContent(<div style={{ textAlign: 'center' }}>You did not rsvp for this conversation</div>)
+            addListener(user);
             setReload(true);
-            setCanType(false);
+            //setCanType(false);
           }
         } else {
           //too many people
           //setContent(<div style={{ textAlign: 'center' }}>Chat is full</div>)
           setReload(true);
+          addListener(user);
           setCanType(false);
         }
       }
@@ -512,6 +513,7 @@ const LiveChat = () => {
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   useEffect(() => {
     
+   /* //! use userContext
     axios
       .get(`/api/users/current`, {
         withCredentials: true,
@@ -536,6 +538,7 @@ const LiveChat = () => {
               });
           });
       });
+   */
     console.log(currentUserFull.upcomingChats)
 
     // axios.get(`/api/users/getuser/${metadata.hostId}`)
