@@ -289,9 +289,9 @@ const LiveChat = () => {
           tz: metadata.tz
         }
         const messageList = messages ? processMessages(messages) : ''
-        axios({ method: 'post', url: `http://localhost:8080/commitmessages`, data: { messages: messageList } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
-        axios({ method: 'post', url: `http://localhost:8080/commitconvo`, data: { convo: convoData } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
-        axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+        //axios.post(`/commitmessages`, data: { messages: messageList } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+        //axios.post(`commitconvo`, data: { convo: convoData }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+        //axios.get(`/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
         // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
         // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
         // axios(`http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
