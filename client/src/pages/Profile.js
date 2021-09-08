@@ -206,7 +206,7 @@ const Profile = (props) => {
 					</div>
 
 					<div className={styles.profCenterFeed}>
-						<ChatsFeed chatCategory={chatCategory} isUser={currentUserFull.is_user} />
+						<ChatsFeed chatCategory={chatCategory} isUser={currentUserFull.is_user}/>
 					</div>
 				</div>
 			</div>

@@ -20,7 +20,7 @@ import {Link} from 'react-router-dom'
 // const authToken = process.env.TWILIO_AUTH_TOKEN
 // console.log(accountSid, authToken)
 // var twilioClient = require('twilio')(accountSid, authToken);
-
+//*! remove the 10 person limit to rsvp turn it into notification system
 
 const Conversation = (props,{ userid }) => {
 
@@ -51,7 +51,7 @@ const Conversation = (props,{ userid }) => {
               if(data.hostId==userid){
                 return console.log('is already host')
               }
-              if(rsvp.length<10){
+              if(!rsvp.includes(userid)){
               rsvp.push(dummyId)
               //window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
               setShow(true)
@@ -107,7 +107,7 @@ const Conversation = (props,{ userid }) => {
               //     })
               db.collection('Conversations').doc(doc.id).update({ rsvp:rsvp }).then(res => console.log('successfully rsvpd')).catch(err => console.log(err))
             }else{
-              console.log('limit reached')
+              console.log('already rsvpd')
             }
               console.log(doc.id, " => ", doc.data());
           });
