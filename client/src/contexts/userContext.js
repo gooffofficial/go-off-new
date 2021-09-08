@@ -111,7 +111,34 @@ export const UserProvider = ({ children }) => {
       console.log(err);
     }
   };
-  function getCookie(name: string) {
+
+  const fetchData = async () => {
+    setisLoading(true)
+    try{
+    const res = await axios.get(`/api/users/current`, {
+      withCredentials: true,
+    });
+    const res2 = await axios.get(
+      `/api/users/profile/${res.data.user.username}`,
+      {
+        withCredentials: true,
+      }
+    );
+    const res3 = await axios.get("/api/upcoming", { withCredentials: true });
+    const res4 = await axios.get("/api/getconvos", { withCredentials: true });
+    console.log(res);
+    if (res2.data.user) {
+      setCurrentUser({ ...res2.data.user, signedIn: true });
+      setUpComing(res3.data);
+      setConvos(res4.data);
+      console.log(res2, res3, res4);
+    }}catch(err){
+      console.log(`error: ${err}`)
+    }
+    setisLoading(false);
+  }
+
+  function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
     for(var i=0;i < ca.length;i++) {
@@ -127,30 +154,7 @@ export const UserProvider = ({ children }) => {
   //*! if setting needs to be done use or add one of the setters passed in the provider value below
 
   useEffect(async () => {
-    try {
-      const res = await axios.get(`/api/users/current`, {
-        withCredentials: true,
-      });
-      const res2 = await axios.get(
-        `/api/users/profile/${res.data.user.username}`,
-        {
-          withCredentials: true,
-        }
-      );
-      const res3 = await axios.get("/api/upcoming", { withCredentials: true });
-      const res4 = await axios.get("/api/getconvos", { withCredentials: true });
-      console.log(res);
-      if (res2.data.user) {
-        setCurrentUser({ ...res2.data.user, signedIn: true });
-        setUpComing(res3.data);
-        setConvos(res4.data);
-        console.log(res2, res3, res4);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-
-    setisLoading(false);
+    fetchData()
   }, []);
   return (
     <UserContext.Provider
@@ -165,7 +169,8 @@ export const UserProvider = ({ children }) => {
         refetchUser,
         refetchUpcoming,
         refetchConvos,
-        getCookie
+        getCookie,
+        fetchData
       }}
     >
       {children}

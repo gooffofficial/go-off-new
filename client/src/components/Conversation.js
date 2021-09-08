@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
@@ -8,6 +8,8 @@ import dots3Icon from '../images/liveChatImages/dots3.png'
 import bookmarkIcon from '../images/bookmark.svg'
 import firebase from '../firebase.js';
 import { useHistory } from 'react-router-dom';
+import {Link} from 'react-router-dom'
+
 // const schedule = require('node-schedule');
 
 // const twilio = require('twilio')
@@ -21,9 +23,14 @@ import { useHistory } from 'react-router-dom';
 
 
 const Conversation = (props,{ userid }) => {
+
   let convoId = props.roomId
   let dummyId = props.userid
   let history = useHistory()
+  let link = useRef();
+  const [copied, setCopied] = useState(false)
+  const [show, setShow] = useState(false)
+
   // console.log(props)
   const gtcbuttonhandler = (e) => {
     history.push(`/chat/${convoId}`)
@@ -46,8 +53,9 @@ const Conversation = (props,{ userid }) => {
               }
               if(rsvp.length<10){
               rsvp.push(dummyId)
-              window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
-              
+              //window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
+              setShow(true)
+              setTimeout(()=>setShow(false),10000)
                 
               //notifications
               console.log("notif test")
@@ -134,7 +142,18 @@ const Conversation = (props,{ userid }) => {
     let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
     let convoDate = `${convoDay} ${convoHoursMinutes}`;
     
-    return <div className={s.conversationRow}>
+    return (<>
+          {show?(<div class={`alert alert-success alert-dismissible fade show`} role="alert">
+        <strong>Succesfully RSVP'd! Copy and send this link to your friends so they can join the fun: <Link ref={link} to={`profile/${hostUName}`}>https://www.go-off.co/profile/{hostUName}</Link></strong>
+        <button onClick={()=>{
+          navigator.clipboard.writeText(`https://www.go-off.co/profile/${hostUName}`)
+          setCopied(true)
+          console.log('clicked')
+          setTimeout(()=>setCopied(false),3000)
+        }} uk-icon="link"></button>
+        {copied?<span>copied!</span>:''}
+      </div>):''}
+    <div className={s.conversationRow}>
       <div className={s.convImageBox}>
         <img src={articleImg ? articleImg : '/images/Rectangle328.png'} alt="" className={s.convImg} />
         <img src={bookmarkIcon} alt="" className={s.bookmarkIcon} />
@@ -195,6 +214,7 @@ const Conversation = (props,{ userid }) => {
         </div>
       </div>
     </div>
+    </>)
   }
 
 export default Conversation

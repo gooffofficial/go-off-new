@@ -9,7 +9,7 @@ import { UserContext } from '../contexts/userContext';
 
 
 const Login = (props) => {
-	const {refetchUser, getCookie, currentUser} = useContext(UserContext)
+	const {fetchData, getCookie, currentUser} = useContext(UserContext)
 	const { currentLocation, setCurrentLocation} = useContext(routeContext)
 
 	const [loginFormValues, setLoginFormValues] = useState({
@@ -40,7 +40,7 @@ const Login = (props) => {
 				console.log(res, '  ', currentLocation)
 				if(currentLocation == '/' || currentLocation=='/login'){
 					history.push('/profile');
-					refetchUser()
+					fetchData()
 				}else{
 					history.push(currentLocation)
 				}

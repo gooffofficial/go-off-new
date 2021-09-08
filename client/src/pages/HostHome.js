@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
@@ -36,6 +36,8 @@ import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 import Conversation from '../components/Conversation.js'; 
 import firebase from '../firebase.js';
 import { UserContext } from '../contexts/userContext';
+import {Link} from 'react-router-dom'
+
 const fillerUser = {
 	name: 'Username',
 	propic: '/images/stock-face.jpg',
@@ -52,6 +54,10 @@ const HomePage = () => {
 
   const openCreateConvModal = () => setCreateConvModalVisible(true);
   const closeCreateConvModal = () => setCreateConvModalVisible(false);
+
+  let link = useRef();
+  const [copied, setCopied] = useState(false)
+  const [show, setShow] = useState(false)
   
   const goToHomePage = (evt) => {
     let isHost = currentUserFull.host === "(Host)";
@@ -151,6 +157,16 @@ const HomePage = () => {
       </div>
       <div className={s.middleColumn}>
         <div className={s.insideMiddleColumn}>
+        {show?(<div class={`alert alert-success alert-dismissible fade show`} role="alert">
+        <strong>Succesfully created a conversation! Copy and send this link to your friends so they can join the fun: <Link ref={link} to={`profile/${currentUser.username}`}>https://www.go-off.co/profile/{currentUser.username}</Link></strong>
+        <button onClick={()=>{
+          navigator.clipboard.writeText(`https://www.go-off.co/profile/${currentUser.username}`)
+          setCopied(true)
+          console.log('clicked')
+          setTimeout(()=>setCopied(false),3000)
+        }} uk-icon="link"></button>
+        {copied?<span>copied!</span>:''}
+      </div>):''}
           <div className={s.userBox}>
             <div className={s.userConvRow}>
               <img src={currentUserFull.propic} alt="Avatar" className={s.avatarIcon} />
@@ -159,6 +175,7 @@ const HomePage = () => {
                 closeCreateConvModal={closeCreateConvModal}
                 isCreateConvModalVisible={isCreateConvModalVisible} 
                 id={currentUser.id}
+                setShow={setShow}
               />
             </div>
             <span className={s.convdesc} >Host a convo about a......</span>
@@ -231,7 +248,7 @@ const HomePage = () => {
   </div>
 }
 
-const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id }) => {
+const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, setShow }) => {
   const [dateInput, setDateInput] = useState("");
   const [convTitleInput, setConvTitleInput] = useState("");
   const [convDescInput, setConvDescInput] = useState("");
@@ -253,7 +270,9 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id }) 
     const convCreationInfo = { articleURL: articleURLInput, time: dateInput, title: convTitleInput, description: convDescInput }
     mutate(convCreationInfo)
     closeCreateConvModal();
-    window.alert("Conversation created! To find the conversation check your Profile page or the Home page!")
+    //window.alert("Conversation created! To find the conversation check your Profile page or the Home page!")
+    setShow(true)
+    setTimeout(()=>setShow(false),10000)
   }
 
   const rodalCustomStyles = {

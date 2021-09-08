@@ -26,7 +26,20 @@ const Home = (props) => {
 	const history = useHistory();
 	// const history = useHistory();
 
+	//when used in sort function it will return array of chats from newest to oldest
+	const compareDate = (date1, date2) => {
+		if(date1.time>date2.time){
+			return -1
+		}
+		if(date1.time<date2.time){
+			return 1
+		}
+		return 0
+	}
+
 	useEffect(() => {
+		const chronConvos = [...convos].sort(compareDate)
+		setAllUserFull({allupcomingChats: chronConvos})
 		/* //*!try and use userContext for using data about user. chect userContext file for more details
     axios
 			.get(`/api/users/current`, {
@@ -174,6 +187,7 @@ const Home = (props) => {
 										userid={prop1.userID}
 										useremail={prop1.useremail}
                         				userPnum={prop1.userPnum}
+										hostUName={prop1.username}
 										/>
 										
 									);
