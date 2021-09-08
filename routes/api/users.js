@@ -762,30 +762,34 @@ router.get('/all', auth.required, (req, res, next) => {
 	});
 });
 
-router.get('/getuser/:user', auth.optional, (req, res, next) => {
-	const {
-		payload: { id },
-	} = req;
+router.get('/getuser/:id', auth.optional, (req, res, next) => {
+	const id = req.params.id;
+	/* made small change to use param for id
 	const {
 		payload: { username },
 	} = req;
+	*/
 	var data = []
-	let u = db.User.findOne({
-		where: {
-			id: id
-		}
-	})
-	let p = db.Profile.findOne({
-		where: {
-			id: id
-		}
-	})
-
-	data.push({
-		'HostName': u.username,
-		'pfpic': p.ppic,
-	})
-	return res.json(data)
+	try{
+		let u = db.User.findOne({
+			where: {
+				id: id
+			}
+		})
+		let p = db.Profile.findOne({
+			where: {
+				id: id
+			}
+		})
+	
+		data.push({
+			'HostName': u.username,
+			'pfpic': p.ppic,
+		})
+		return res.json(data)
+	}catch(err){
+		return res.status(500).send({error:`Id not valid: ${err}`})
+	}
 
 });
 
