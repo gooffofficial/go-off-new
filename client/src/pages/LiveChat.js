@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, createRef } from "react";
+import React, { useEffect, useState, useRef, createRef, useContext } from "react";
 import { useParams } from "react-router";
 import goOffLogo from "../images/liveChatImages/go-off-logo.png";
 import searchIcon from "../images/liveChatImages/search-icon.png";
@@ -37,8 +37,10 @@ import {
   isMobile,
 } from "react-device-detect";
 import MobileLiveChat from "./LiveChatMobile";
+import { useAuth0 } from '@auth0/auth0-react'
+import { UserContext } from "../contexts/userContext";
 
-
+//*! participants should be requested from pubnub upon joining and then updating when knew people join
 const LiveChat = () => {
   const db = firebase.firestore()
   //storage is
@@ -62,6 +64,7 @@ const LiveChat = () => {
     isOpen: false,
     rsvp: []
   }
+
 
   const { code } = useParams();
 
@@ -98,8 +101,8 @@ const LiveChat = () => {
   const [messages, addMessages] = useState([]);
 
   //sets current user with dummy info
-  const [currentUser, setCurrentUser] = useState(fillerUser);
-  const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+  const {currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming} = useContext(UserContext)
+  const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats:upcoming});
 
   const [loading, setLoading] = useState(true);
 
@@ -123,12 +126,9 @@ const LiveChat = () => {
 
   const currentHost = (id) => {
     axios
-      .get(`http://localhost:8080/getHost/${id}`).then(res =>{
-        const host= res.data.user[id]
-        console.log(host)
-        if (host){
-          setHost({name:host.name,ppic:host.ppic})
-        }
+      .get(`/getuser/${id}`).then(res =>{
+        const host= res.data
+        setHost({name:host.HostName,ppic:host.pfpic})
       }).catch(err => console.log(err))
   }
 
@@ -145,7 +145,7 @@ const LiveChat = () => {
 
   //this will handle incoming messages
   const handleMessage = (object) => {
-    console.log(object);
+    console.log(object,'handle message');
     const message = object.message;
     if (!message.user) {
       return;
@@ -188,6 +188,7 @@ const LiveChat = () => {
 
   //this on submit function is publishing the message to the channel
   const onSubmit = async (message, e) => {
+    console.log(message,e, currentUser, pubnub.getUUID())
     if (message.message == '' && !file) {
       return
     }
@@ -221,6 +222,7 @@ const LiveChat = () => {
         ).catch()
       }).catch(error => console.log(error))
     } else {
+      console.log('sending',channels)
       pubnub.publish(
         {
           channel: channels[0],
@@ -235,7 +237,7 @@ const LiveChat = () => {
         function (status) {
           //this will print a status error in console
           if (status.error) {
-            console.log(status);
+            console.log(status,'something went wrong');
           }
         }
       );
@@ -287,9 +289,9 @@ const LiveChat = () => {
           tz: metadata.tz
         }
         const messageList = messages ? processMessages(messages) : ''
-        axios({ method: 'post', url: `http://localhost:8080/commitmessages`, data: { messages: messageList } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
-        axios({ method: 'post', url: `http://localhost:8080/commitconvo`, data: { convo: convoData } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
-        axios(`http://localhost:8080/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+        //axios.post(`/commitmessages`, data: { messages: messageList } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+        //axios.post(`commitconvo`, data: { convo: convoData }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+        //axios.get(`/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
         // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
         // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
         // axios(`http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
@@ -408,12 +410,16 @@ const LiveChat = () => {
         const occupancy = response ? response.totalOccupancy : null;
         const occupants = response ? response.occupants : null;
         if (metadata.ended) {
-          return setContent(<div style={{ textAlign: 'center' }}>Conversation has ended</div>)
+          return setContent(<div style={{ textAlign: 'center' }}>This chat has already ended.</div>)
         }
         if (occupancy < 10) {
           //room not full now check for rsvp
           if (metadata.isOpen == false) {
-            setContent(<div style={{ textAlign: 'center' }}>Conversation not yet open</div>)
+            setContent(<div className={styles['setContent']}>
+            <div className="lock"></div><h1>
+            <i class="bi bi-lock lock"/></h1>
+            <div>Currently closed! Waiting for host to open chat.</div>
+            </div>)
           } else if ((metadata.rsvp.includes(user.id) || user.id == metadata.hostId) && metadata.isOpen == true) {
             addListener(user);
             //the user rsvp'd or is host. and can now see chat
@@ -423,13 +429,15 @@ const LiveChat = () => {
           } else {
             //person not rsvp. redirect or respond?
             //setContent(<div style={{ textAlign: 'center' }}>You did not rsvp for this conversation</div>)
+            addListener(user);
             setReload(true);
-            setCanType(false);
+            //setCanType(false);
           }
         } else {
           //too many people
           //setContent(<div style={{ textAlign: 'center' }}>Chat is full</div>)
           setReload(true);
+          addListener(user);
           setCanType(false);
         }
       }
@@ -438,15 +446,22 @@ const LiveChat = () => {
 
   //checks for and sets User
   const checkUser = async (data) => {
-    axios
+    let res;
+    if(!currentUser.signedIn){
+    res = await axios
       .get(`/api/users/current`, {
         withCredentials: true,
       })
-      .then((res) => {
+      if(res.data.user){
         setCurrentUser(res.data.user);
-        pubnub.setUUID(res.data.user.id);
+      }else{
+        setContent(<div style={{ textAlign: 'center' }}>Please sign in</div>)
+        console.log(`could not make request:`
+        )
+      }
+      pubnub.setUUID( res.data.user.id);
         let metadata = { ...data }
-        if (data.hostId == res.data.user.id) {
+        if ( data.hostId == res.data.user.id) {
           setIsHost(true);
           if (data.isOpen == false) {
             metadata.isOpen = true;
@@ -454,11 +469,19 @@ const LiveChat = () => {
           }
         }
         checkRoom(res.data.user, metadata)
-      }).catch(err => {
-        setContent(<div style={{ textAlign: 'center' }}>Please sign in</div>)
-        console.log(`could not make request: ${err}`
-        )
-      })
+    }else{
+      pubnub.setUUID(currentUser.id);
+        let metadata = { ...data }
+        if (data.hostId == currentUser.id) {
+          setIsHost(true);
+          if (data.isOpen == false) {
+            metadata.isOpen = true;
+            openConversation();
+          }
+        }
+        checkRoom(currentUser, metadata)
+    }
+      
   }
   //fetches all channel messages
   const fetchAllMessages = async () => {
@@ -490,6 +513,7 @@ const LiveChat = () => {
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   useEffect(() => {
     
+   /* //! use userContext
     axios
       .get(`/api/users/current`, {
         withCredentials: true,
@@ -514,6 +538,7 @@ const LiveChat = () => {
               });
           });
       });
+   */
     console.log(currentUserFull.upcomingChats)
 
     // axios.get(`/api/users/getuser/${metadata.hostId}`)
@@ -702,9 +727,9 @@ const LiveChat = () => {
             </div>
             <span className={styles["startTime"]}>{Date(metaData.time).toLocaleString()
               .split(' ')
-              .splice(0, 6)
+              .splice(0, 5)
               .join(' ')
-              .toUpperCase()}</span>
+              .toUpperCase()} (EST)</span>
             {/* <div className={styles["chatTags"]}>
               <div className={styles["chatTag"]}>Eco-Friendly</div>
               <div className={styles["chatTag"]}>Sustainability</div>
@@ -739,11 +764,7 @@ const LiveChat = () => {
             </div>
           </div>
            <div className={styles["profileBox"]}>
-<<<<<<< HEAD
             {/* <div className={styles["profileLeftSide"]}>
-=======
-            {/**<div className={styles["profileLeftSide"]}>
->>>>>>> 9f3aa4611d15ddf1d85cb85efa0de5b4aa820953
               <img
                 src={host.ppic}//*! {host.ppic} - using host image is too big please fix with css
                 alt="Profile Icon"

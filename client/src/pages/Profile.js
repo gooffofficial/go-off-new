@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/ProfilePage/Profile.module.scss';
@@ -12,13 +12,14 @@ import {
 	isBrowser,
 	isMobile
 } from "react-device-detect";
-
 // Components
 import ProfileMobile from './ProfileMobile';
 import NavBar from '../components/NavBar.js';
 import { ChatsFeed } from '../components/FeedCard.js';
 import UpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
 import PencilIcon from '../images/Unionpencil.png'
+import { UserContext } from '../contexts/userContext';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const fillerUser = {
 	name: 'Username',
@@ -29,14 +30,15 @@ const fillerUser = {
 };
 
 const Profile = (props) => {
-	const [currentUser, setCurrentUser] = useState(fillerUser);
-	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
+	const {currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming } = useContext(UserContext)
+	const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats:upcoming});
 	const [chatCategory, setChatCategory] = useState("Upcoming") // "Upcoming", "Past", "Saved"
 	const [isEditProfModalVisible, setEditProfModalVisible] = useState(false)
 
 	const history = useHistory();
 	const openEditProfModal = () => setEditProfModalVisible(true);
 	const closeEditProfModal = () => setEditProfModalVisible(false);
+
 
 	const goToHomePage = (evt) => {
 		let isHost = currentUserFull.host === "(Host)";
@@ -48,36 +50,8 @@ const Profile = (props) => {
 	}
 
 	useEffect(() => {
-		axios
-			.get(`/api/users/current`, {
-				withCredentials: true,
-			})
-			.then((res) => {
-				setCurrentUser(res.data.user);
-				console.log("test")
-				axios
-					.get(`/api/users/profile/${res.data.user.username}`, {
-						withCredentials: true,
-					})
-					.then((res2) => {
-						setCurrentUserFull(res2.data.user);
-
-						axios
-							.get('/api/upcoming', { withCredentials: true })
-							.then((res) => {
-								setCurrentUserFull({
-									...res2.data.user,
-									upcomingChats: res.data,
-								});
-
-
-							});
-					});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
+		console.log(currentUserFull)
+		}, []);
 
 	if (isMobile)
 		return <ProfileMobile
@@ -232,7 +206,7 @@ const Profile = (props) => {
 					</div>
 
 					<div className={styles.profCenterFeed}>
-						<ChatsFeed chatCategory={chatCategory} isUser={currentUserFull.is_user} />
+						<ChatsFeed chatCategory={chatCategory} isUser={currentUserFull.is_user}/>
 					</div>
 				</div>
 			</div>

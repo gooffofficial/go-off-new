@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "-": "0.0.1",
+    "@auth0/auth0-react": "^1.6.0",
     "@reduxjs/toolkit": "^1.6.1",
     "@sendgrid/mail": "^7.4.2",
     "animate.css": "^4.1.0",
@@ -18,7 +19,7 @@
     "aws-sdk": "^2.810.0",
     "bcrypt": "^4.0.1",
     "bcryptjs": "^2.4.3",
-    "bootstrap": "^5.0.2",
+    "bootstrap": "^5.1.0",
     "chromedriver": "^89.0.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
@@ -56,6 +57,7 @@
     "pubnub": "^4.32.1",
     "pubnub-react": "^2.1.0",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.0.0-beta.6",
     "react-code-input": "^3.10.1",
     "react-dom": "^17.0.2",
     "react-step-builder": "^2.0.10",
@@ -66,6 +68,7 @@
     "socket.io": "^2.4.1",
     "socket.io-client": "^2.3.0",
     "twilio": "^3.58.0",
+    "uikit": "^3.7.2",
     "uuid": "^8.3.2",
     "xmlhttprequest": "^1.8.0",
     "yarn": "^1.22.10"

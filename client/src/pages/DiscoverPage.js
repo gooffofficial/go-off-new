@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
@@ -20,6 +20,7 @@ import styles from '../styles/DiscoverPage/discoverPage.module.css';
 import NavBar from '../components/NavBar.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 import Conversation from '../components/Conversation.js'; 
+import { UserContext } from '../contexts/userContext';
 
 const fillerUser = {
 	name: 'Username',
@@ -27,9 +28,9 @@ const fillerUser = {
 };
 
 const DiscoverPage = () => {
-  const [currentUser, setCurrentUser] = useState(fillerUser);
-  const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
-  const [allUserFull, setAllUserFull] = useState(fillerUser);
+	const {currentUser, setCurrentUser, upcoming, convos} = useContext(UserContext)
+	const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats: upcoming});
+	const [allUserFull, setAllUserFull] = useState({allupcomingChats: convos});
   const [otherUser, setOtherUsers] = useState(fillerUser);
 
 	const history = useHistory();
@@ -45,7 +46,8 @@ const DiscoverPage = () => {
   }
 
 	useEffect(() => {
-		axios
+		/* //*!try and use userContext for using data about user. chect userContext file for more details
+    axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
 			})
@@ -60,20 +62,26 @@ const DiscoverPage = () => {
             setCurrentUserFull(res2.data.user);
             
             axios
-							.get('/api/upcoming', { withCredentials: true })
-							.then((res) => {
-								setCurrentUserFull({
-									...res2.data.user,
-									upcomingChats: res.data,
-                });
+              .get('/api/upcoming', { withCredentials: true})
+              .then((res) => {
+                setCurrentUserFull({
+                  ...res2.data.user,
+                  upcomingChats: res.data,
+                })
                 axios
 									.get('/api/getconvos', { withCredentials: true})
 									.then((res3) => {
 										setAllUserFull({
 											allupcomingChats: res3.data,
-                    });
-                    console.log(res3.data)
-                  });
+										});
+									});
+              })
+					});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+    */
                   // axios
                   //   .get('/api/gettopusers', { withCredentials: true})
                   //   .then((res4) => {
@@ -83,12 +91,6 @@ const DiscoverPage = () => {
                   //     })
                   //     console.log(res4.data)
                   //   })
-							});
-					});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
 	}, []);
   
   // console.log(otherUser)

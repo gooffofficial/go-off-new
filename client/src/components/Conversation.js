@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
@@ -7,6 +7,9 @@ import emilyIcon from '../images/liveChatImages/emily-profile-icon.png'
 import dots3Icon from '../images/liveChatImages/dots3.png'
 import bookmarkIcon from '../images/bookmark.svg'
 import firebase from '../firebase.js';
+import { useHistory } from 'react-router-dom';
+import {Link} from 'react-router-dom'
+
 // const schedule = require('node-schedule');
 
 // const twilio = require('twilio')
@@ -17,13 +20,23 @@ import firebase from '../firebase.js';
 // const authToken = process.env.TWILIO_AUTH_TOKEN
 // console.log(accountSid, authToken)
 // var twilioClient = require('twilio')(accountSid, authToken);
-
+//*! remove the 10 person limit to rsvp turn it into notification system
 
 const Conversation = (props,{ userid }) => {
+
   let convoId = props.roomId
   let dummyId = props.userid
+  let history = useHistory()
+  let link = useRef();
+  const [copied, setCopied] = useState(false)
+  const [show, setShow] = useState(false)
+
   // console.log(props)
+  const gtcbuttonhandler = (e) => {
+    history.push(`/chat/${convoId}`)
+  }
   const db = firebase.firestore();
+
     const rsvpbuttonhandler = (e) => {
         e.preventDefault();
         console.log("test")
@@ -38,10 +51,11 @@ const Conversation = (props,{ userid }) => {
               if(data.hostId==userid){
                 return console.log('is already host')
               }
-              if(rsvp.length<10){
+              if(!rsvp.includes(userid)){
               rsvp.push(dummyId)
-              window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
-              
+              //window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
+              setShow(true)
+              setTimeout(()=>setShow(false),10000)
                 
               //notifications
               console.log("notif test")
@@ -93,7 +107,7 @@ const Conversation = (props,{ userid }) => {
               //     })
               db.collection('Conversations').doc(doc.id).update({ rsvp:rsvp }).then(res => console.log('successfully rsvpd')).catch(err => console.log(err))
             }else{
-              console.log('limit reached')
+              console.log('already rsvpd')
             }
               console.log(doc.id, " => ", doc.data());
           });
@@ -115,12 +129,31 @@ const Conversation = (props,{ userid }) => {
     //   console.log(month, date)
     //   console.log(month1, date1)
     let UTCTime = parseInt(time);
+    let newTime = new Date().getTime()
+    let oldTime = new Date(UTCTime)
+    //oldTime.setMinutes(oldTime.getMinutes()+30)
+    // console.log(Date(time).split(' ')
+    // .splice(6, 2)
+    // .join(' ')
+    // .toUpperCase())
     let convoMonth = moment(UTCTime).format('MMM').toUpperCase();
     let convoCalendarDay = moment(UTCTime).format('D');
     let convoDay = moment(UTCTime).format('dddd').toUpperCase();
     let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
     let convoDate = `${convoDay} ${convoHoursMinutes}`;
-    return <div className={s.conversationRow}>
+    
+    return (<>
+          {show?(<div class={`alert alert-success alert-dismissible fade show`} role="alert">
+        <strong>Succesfully RSVP'd! Copy and send this link to your friends so they can join the fun: <Link ref={link} to={`profile/${hostUName}`}>https://www.go-off.co/profile/{hostUName}</Link></strong>
+        <button onClick={()=>{
+          navigator.clipboard.writeText(`https://www.go-off.co/profile/${hostUName}`)
+          setCopied(true)
+          console.log('clicked')
+          setTimeout(()=>setCopied(false),3000)
+        }} uk-icon="link"></button>
+        {copied?<span>copied!</span>:''}
+      </div>):''}
+    <div className={s.conversationRow}>
       <div className={s.convImageBox}>
         <img src={articleImg ? articleImg : '/images/Rectangle328.png'} alt="" className={s.convImg} />
         <img src={bookmarkIcon} alt="" className={s.bookmarkIcon} />
@@ -142,7 +175,7 @@ const Conversation = (props,{ userid }) => {
             </div>
           </div>
         </div>
-        <span className={s.startTime}>{convoDate}</span>
+        <span className={s.startTime}>{convoDate}(EST)</span>
         {/* <div className={s.chatTags}>
           <div className={s.chatTag}>Eco-Friendly</div>
           <div className={s.chatTag}>Sustainability</div>
@@ -163,10 +196,25 @@ const Conversation = (props,{ userid }) => {
               <div className={s.profileName}>{hostName}</div> 
             </div>
           </div>
-          <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>RSVP</button>
+              <div className="container-layer">
+              {
+                //*!this only shows before convo start. needs to be there until convo ends
+              newTime>oldTime.getTime()?'':(
+                <div className="layer">
+                <button className={s.RSVP_Btn} onClick={rsvpbuttonhandler}>Save My Spot </button>
+                </div>
+)}
+          
+                <div className="layer">
+          <button className={s.RSVP_Btn} onClick={gtcbuttonhandler}>Go To Convo</button>
+
+                </div>
+              </div>
+          
         </div>
       </div>
     </div>
+    </>)
   }
 
 export default Conversation
