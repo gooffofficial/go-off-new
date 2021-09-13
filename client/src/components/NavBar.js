@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Select from 'react-select';
 import styles from './styles/NavBar.module.scss';
 import { useHistory } from 'react-router-dom';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import axios from 'axios';
+import { UserContext, fillerUser } from '../contexts/userContext';
 
 const NavBar = (props) => {
 	const { name, avatarSource, host, admin = "" } = props;
-
+	const {currentUser, setCurrentUser} = useContext(UserContext) 
 	const [searchInput, setSearchInput] = useState('');
 	const [isFetched, setIsFetched] = useState(false);
 	const [users, setUsers] = useState([]);
 	const [filteredUsers, setFilteredUsers] = useState([]);
 	const [suggestionsHider, setSuggestionsHider] = useState('');
 	const history = useHistory();
+
+	const logout = () => {
+		//*! delete cookie not working
+		document.cookie = 'authJWT=; Max-Age=-99999999;';
+		setCurrentUser(fillerUser)
+		history.push('/')
+	}
 
   const goToHomePage = (evt) => {
 	let isHost = host === "(Host)";
@@ -242,6 +250,7 @@ const NavBar = (props) => {
 				placeholderClassName={styles.navUserText}
 				arrowClassName={styles.navArrowContainer}
 			/> */}
+			
 			<div
 				className={styles.loginInfo}
 				onClick={() => history.push('/profile')}
@@ -269,7 +278,7 @@ const NavBar = (props) => {
 					alt="avatar"
 				/>
 				<p className={styles.navUserText}>{name ? name : '<pass in name>'}</p>
-
+				
 				<div className={styles.navArrowContainer}>
 					{/* <svg
 						width="24"
@@ -288,9 +297,11 @@ const NavBar = (props) => {
 							/>
 						</g>
 					</svg> */}
+					
 				</div>
 				{/* <Select options ={ options } /> */}
 			</div>
+				{/*<button onClick={logout} style={{'width':'5vw', 'padding':'10px'}}>sign out</button>*/}
 		</div>
 	);
 };

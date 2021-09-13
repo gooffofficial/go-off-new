@@ -385,7 +385,7 @@ router.get("/upcoming", auth.required, async (req, res, next) => {
       });
       // Check the date of the convo to see if it is within 30 minutes of current
 
-      if (Date.now() - conv.time < 0) {
+      if (Date.now() - conv.time <= 3600000) {
         let article =
           (await db.Article.findOne({ where: { url: conv.article } })) || {};
         let user = await db.User.findOne({ where: { id: conv.host } });

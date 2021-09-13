@@ -177,7 +177,7 @@ const Conversation = (props, { userid }) => {
             <div className={s.profileName}>{hostName}</div>
           </div>
         </div>
-        <div className="container-layer">
+        <div className="container-layer" id="container-layer">
           {
             //*!this only shows before convo start. needs to be there until convo ends
             newTime > time ? '' : (

@@ -432,6 +432,7 @@ router.post(
 );
 
 //POST for user login
+//*! not checking for user password or atleast is not returning error
 router.post('/login', auth.optional, async (req, res, next) => {
 	//const { body: { user } } = req.body;
 	const user = req.body;
@@ -471,7 +472,13 @@ router.post('/login', auth.optional, async (req, res, next) => {
 			});
 		}
 	}
-
+	if(!ver.validPassword(user.password)){
+		return res.status(400).json({
+			errors:{
+				verification:'password incorrect'
+			}
+		})
+	}
 	//CHECKKKK IF VERIFIED --> DUNNO ERROR MESSAGE
 	//user IS THE FOOOOOOOOOOORM
 	//redirect them to the check email for verification page
@@ -479,13 +486,13 @@ router.post('/login', auth.optional, async (req, res, next) => {
 
 	return passport.authenticate('local', (err, passportUser, info) => {
 		if (err) {
-			return next(err);
+			//return next(err);
 		}
-		// console.log(passportUser);
+		 console.log(passportUser);
 		if (passportUser) {
 			const user = passportUser;
 			user.token = passportUser.generateJWT();
-			res.cookie('authJWT', user.toAuthJSON().token, {
+			res.cookie('authJWT', user.token, {
 				httpOnly: true,
 				signed: true,
 			});
@@ -755,30 +762,34 @@ router.get('/all', auth.required, (req, res, next) => {
 	});
 });
 
-router.get('/getuser/:user', auth.optional, (req, res, next) => {
-	const {
-		payload: { id },
-	} = req;
+router.get('/getuser/:id', auth.optional, (req, res, next) => {
+	const id = req.params.id;
+	/* made small change to use param for id
 	const {
 		payload: { username },
 	} = req;
+	*/
 	var data = []
-	let u = db.User.findOne({
-		where: {
-			id: id
-		}
-	})
-	let p = db.Profile.findOne({
-		where: {
-			id: id
-		}
-	})
-
-	data.push({
-		'HostName': u.username,
-		'pfpic': p.ppic,
-	})
-	return res.json(data)
+	try{
+		let u = db.User.findOne({
+			where: {
+				id: id
+			}
+		})
+		let p = db.Profile.findOne({
+			where: {
+				id: id
+			}
+		})
+	
+		data.push({
+			'HostName': u.username,
+			'pfpic': p.ppic,
+		})
+		return res.json(data)
+	}catch(err){
+		return res.status(500).send({error:`Id not valid: ${err}`})
+	}
 
 });
 

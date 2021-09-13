@@ -22,7 +22,7 @@
       },
       {
         "HostPort":"2053",
-        "ContainerPort":2053
+        "ContainerPort":"2053"
       }
     ]
   }
