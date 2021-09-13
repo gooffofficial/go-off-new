@@ -34,7 +34,7 @@ const fillerUser = {
 };
 
 const App = () => {
-	let history = useHistory();
+  let history = useHistory();
   // This will create a unique pubnub client with sub and pub keys. These are test keys we will need to buy full feature ones.
   const pubnub = new PubNub({
     publishKey: config.pubKey,
@@ -45,7 +45,7 @@ const App = () => {
   // const token = localStorage.getItem
 
   const [currentUser, setCurrentUser] = useState(fillerUser);
-  const [ currentLocation, setCurrentLocation ] = useState('');
+  const [currentLocation, setCurrentLocation] = useState('');
   let location = useLocation().pathname
 
   useEffect(() => {
@@ -60,15 +60,15 @@ const App = () => {
         console.log({
           err
         });
-		setCurrentLocation(location)
-		history.push('/')
+        setCurrentLocation(location)
+        history.push('/')
       });
   }, []);
 
   return (
     // Routes
     <PubNubProvider client={pubnub}>
-      <routeContext.Provider value = { {currentLocation, setCurrentLocation} } >
+      <routeContext.Provider value={{ currentLocation, setCurrentLocation }} >
         <Switch>
           <Route path="/hosthome" component={HostHome} />
           <Route path="/home" component={Home} />
