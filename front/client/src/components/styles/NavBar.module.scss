@@ -1,0 +1,155 @@
+.NavBarContainer {
+	width: 100%;
+	height: 80px;
+	top: 0px;
+	display: flex;
+	// justify-content: space-around;
+	background: #ffffff;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	align-items: center;
+	padding: 0 1%;
+	z-index: 1000000;
+	position: sticky;
+}
+.settingModal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+​
+.logo {
+	display: flex;
+	align-items: center;
+	width: 4.063rem;
+	height: 3.625rem;
+	cursor: pointer;
+}
+.searchTab {
+	width: 57%;
+	background: rgba(58, 134, 255, 0.08);
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	padding: 0 0.5rem;
+	margin: 0 2%;
+	position: relative;
+
+	&:focus-within {
+		// border-radius: 10px 10px 0 0;
+
+		.suggestionsContainer {
+			display: initial;
+		}
+	}
+}
+.searchTab input {
+	width: 100%;
+	padding: 0 0.5rem;
+	border-radius: 10px;
+	font-size: 1rem;
+	color: #757d8a;
+	height: 41px;
+	outline: none;
+	border: none;
+	background: transparent;
+}
+
+.searchTab input:focus::placeholder {
+	color: transparent;
+}
+
+.menuIcons {
+	margin-left: 3%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 6%;
+}
+.iconContainer {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	width: 2.188rem;
+	height: 2.188rem;
+}
+.navOptionsIcon {
+	cursor: pointer;
+}
+
+.loginInfo {
+	white-space: nowrap;
+	margin-right: 2%;
+	margin-left: auto;
+	height: 41px;
+	display: flex;
+	align-items: center;
+	background: rgba(58, 134, 255, 0.08);
+	border-radius: 20px;
+}
+
+.loginInfo:hover {
+	cursor: pointer;
+	background: rgba(58, 133, 255, 0.116);
+}
+
+.navUserImage {
+	width: 37px;
+	height: 37px;
+	border-radius: 100%;
+	margin-left: 0.8%;
+}
+.navUserText {
+	// flex-grow: 1;
+	text-align: center;
+	color: #757d8a;
+	margin: 0 5px 0 7px;
+	font-size: 1.1rem;
+	font-weight: 400;
+	font-family: 'Poppins';
+}
+.navArrowContainer {
+	display: flex;
+	align-items: center;
+	margin-right: 7px;
+}
+.suggestionsContainer {
+	width: 100%;
+	z-index: 10000;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background: #fff;
+	border-radius: 10px;
+	border: 1px solid rgba(128, 128, 128, 0.15);
+	// display: none;
+	overflow: hidden;
+}
+.suggestionTab {
+	background: rgba(58, 133, 255, 0.027);
+	border-bottom: 1px solid rgb(226, 226, 226);
+	height: 30px;
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		background: rgba(58, 133, 255, 0.212);
+		cursor: pointer;
+	}
+
+	&:last-child {
+		border-radius: 0 0 10px 10px;
+		border: none;
+	}
+}
+.suggestionText {
+	padding: 0 2%;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+.hide {
+	display: none !important;
+}

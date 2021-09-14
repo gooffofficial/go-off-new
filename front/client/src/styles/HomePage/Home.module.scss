@@ -1,0 +1,211 @@
+.homePageContainer {
+	background: #f4f4f4;
+	height: 100%;
+	overflow: hidden;
+}
+.subContainer {
+	width: 100%;
+	height: calc(100vh - 80px);
+	display: flex;
+}
+.centerDash {
+	width: 62%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: scroll;
+}
+.leftSideBar,
+.rightSideBar {
+	// width: 20%; // for symetrical sidebars
+	background: rgba(58, 134, 255, 0.08);
+	padding: 2% 1% 0;
+	color: #757d8a;
+	display: flex;
+	flex-direction: column;
+}
+.rightSideBar {
+	width: 20%;
+}
+.leftSideBar {
+	width: 18%;
+	overflow: scroll;
+}
+.sideBarProfile,
+.sideBarHome,
+.sideBarDiscover {
+	padding: 4% 0;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	font-weight: 400;
+}
+.sideBarProfile,
+.sideBarHome,
+.sideBarDiscover {
+	padding: 4% 6%;
+	margin-top: 7%;
+	font-size: 1.25rem;
+}
+
+.sideBarProfile:hover,
+.sideBarHome:hover,
+.sideBarDiscover:hover {
+	background: rgba(58, 134, 255, 0.15);
+	cursor: pointer;
+	transition: background 0.5s;
+}
+.sideBarLinkText {
+	padding-top: 1.5%;
+	margin-left: 5%;
+}
+.sideBarProfile {
+	font-size: 1.1rem;
+}
+.sideBarProfileImage {
+	width: 37px;
+	height: 37px;
+	border-radius: 100%;
+	margin-right: 5%;
+}
+.sideBarCards {
+	flex-grow: 1;
+	margin-top: 18%;
+}
+.sideBarCardTitle {
+	font-weight: 500;
+	padding-left: 5%;
+	font-size: 1.2rem;
+}
+.centerImageContainer {
+	background: linear-gradient(180deg, #3a86ff -52.21%, #5667ff 100%);
+	border-radius: 10px;
+	position: relative;
+	margin-top: 4%;
+	width: 90%;
+}
+.centerImage {
+	width: 100%;
+	height: 100%;
+}
+.centerImageTextContainer {
+	position: absolute;
+	top: 25%;
+	left: 4%;
+	color: white;
+	font-weight: 600;
+}
+.centerImageTitleText {
+	font-size: 2.5rem;
+}
+.centerImgSecondaryContent {
+	width: 80%;
+}
+.centerImageDescText {
+	font-size: 1.12rem;
+	font-weight: 500;
+}
+.ctaButton {
+	border: 3px solid white;
+	width: 35%;
+	border-radius: 15px;
+	margin-top: 5%;
+}
+.ctaButton:hover {
+	background: white;
+	cursor: pointer;
+	color: #3a86ff;
+	transition: color 0.5s, background 0.2s;
+}
+.ctaText {
+	text-align: center;
+	font-weight: 400;
+	font-size: 1.125rem;
+}
+.centerFeed {
+	width: 90%;
+}
+.centerFeed > * {
+	margin: 3% 0;
+}
+.rightSideBar {
+	display: flex;
+	flex-direction: column;
+}
+// .trendingContainer {
+// }
+.trendingIconContainer,
+.friendActivityIconContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.trendingTitleContainer,
+.friendActivityTitleContainer {
+	display: flex;
+	padding: 2% 0;
+}
+// .trendingIcon {
+// }
+.trendingTitle,
+.friendActivityTitle {
+	font-weight: 400;
+	font-size: 1.25rem;
+	margin-left: 5%;
+}
+.trendingCards > * {
+	margin: 7% 0;
+}
+.friendActivityContainer {
+	margin-top: 5%;
+}
+.friendActivityCards {
+	margin-top: 4%;
+}
+.upcomingChatsCards {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 2% 0 15%;
+	flex-direction: column;
+}
+.upcomingChatsCards > * {
+	margin-top: 10%;
+}
+
+@media screen and (max-width: 1500px) {
+	html {
+		font-size: 15px;
+	}
+}
+@media screen and (max-width: 1366px) {
+	html {
+		font-size: 14px;
+	}
+}
+@media screen and (max-width: 1253px) {
+	html {
+		font-size: 13px;
+	}
+}
+@media screen and (max-width: 1196px) {
+	html {
+		font-size: 12px;
+	}
+}
+@media screen and (max-width: 1073px) {
+	html {
+		font-size: 11px;
+	}
+}
+@media screen and (max-width: 1022px) {
+	html {
+		font-size: 10px;
+	}
+}
+
+@media screen and (min-width: 1920px) {
+	html {
+		font-size: 18px;
+	}
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/test_login.css">
+        <title> Sign Up</title>
+    </head>
+    <body>
+        <div>
+            <img src="/GO_Off300.png" style="width:15%; height:auto;">
+        </div>
+        <div class="signup_form">
+            <form action="/api/users" method="post" class="form_signup">
+                <input type="text" id="username" name="username" placeholder="Username"><br><br>
+                <input type="text" id="email" name="email" placeholder="Email"><br><br>
+                <input type="text" id="firstname" name="firstname" placeholder="First Name"><br><br>
+                <input type="text" id="lastname" name="lastname" placeholder="Last Name"><br><br>
+                <input type="number" id="age" name="age" placeholder="Age"><br><br>
+                <input type="text" id="location" name="location" placeholder="Location"><br><br>
+                <input type="text" id="gender" name="gender" placeholder="Gender"><br><br>
+                <input type="password" id="password" name="password" placeholder="Password"><br><br>
+                <input type="submit" placeholder="Sign Up">
+            </form>
+        </div>
+    </body>
+</html>

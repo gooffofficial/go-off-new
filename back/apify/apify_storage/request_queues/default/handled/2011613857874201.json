@@ -1,0 +1,13 @@
+{
+    "id": "pLaZUmoHCNnqRlg",
+    "url": "https://apify.com/jancurn/extract-metadata/api",
+    "loadedUrl": "https://apify.com/jancurn/extract-metadata/api",
+    "uniqueKey": "https://apify.com/jancurn/extract-metadata/api",
+    "method": "GET",
+    "noRetry": false,
+    "retryCount": 0,
+    "errorMessages": [],
+    "headers": {},
+    "userData": {},
+    "handledAt": "2021-02-20T21:51:14.828Z"
+}

@@ -1,0 +1,411 @@
+.discoverPage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Poppins;
+  }
+  
+  .di-navbar {
+    display: flex;
+    padding: 10px 7px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  .di-goOffLogo {
+    margin-right: 0.8%;
+    max-width: 70px;
+  }
+  
+  .di-searchBar {
+    flex-grow: 0.9;
+    display: flex;
+    background: rgba(58, 134, 255, 0.08);
+    border-radius: 10px;
+    padding: 8px 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .di-leftSearchBarSide {
+    display: flex;
+  }
+  
+  .di-searchInput {
+    flex-grow: 1;
+    font-weight: 500;
+    font-size: 19px;
+    color: #757D8A;
+    border: none;
+    background: rgba(58, 134, 255, 0.00);
+  }
+  
+  .di-searchIcon {
+    margin-right: 10px;
+  }
+  
+  .di-addPersonIcon, .di-bellIcon, .di-shareIcon {
+    margin: 8px 0px 13px 1.6%;
+    max-width: 37px;
+  }
+  
+  .di-navProfileBox {
+    margin-left: 1.6%;
+    flex-grow: 0.1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .di-profile {
+    display: flex;
+    background: rgba(58, 134, 255, 0.08);
+    border-radius: 20px;
+    align-items: center;
+    padding: 4px;
+  }
+  
+  .di-profileText {
+    color: #757D8A;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 20px;
+  }
+  
+  .di-mainContent {
+    flex-grow: 1;
+    display: flex;
+  }
+  
+  .di-leftColumn {
+    background: rgba(58, 134, 255, 0.08);
+    padding-top: 20px;
+    padding-left: 14px;
+    padding-right: 14px;
+    min-width: 220px;
+  }
+  
+  .di-avatarBox, .di-homeBox, .di-discoverBox {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    margin: 20px 0px;
+    border-radius: 10px;
+  }
+  
+  .di-avatarBox {
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
+
+  .di-prekshaIcon, .di-profileIcon {
+    height: 41px;
+    width: 41px;
+    border-radius: 100%;
+  }
+  
+  .di-prekshaIcon, .di-globeIcon, .di-homeIcon {
+    margin-right: 10px;
+  }
+  
+  .di-avatarName, .di-globeText, .di-homeText  {
+    color: #757D8A;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  .di-upcommingHeading {
+   font-family: Poppins;
+   font-style: normal;
+   font-weight: 500;
+   font-size: 21px;
+   line-height: 30px;
+   color: #757D8A;
+   margin-top: 32px;
+   margin-bottom: 22px;
+  }
+  
+  .di-chatCard {
+    flex-grow: 0.3;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+    margin-bottom: 26px;
+    max-width: 270px;
+  }
+  
+  .di-chatImage {
+    flex-grow: 1;
+  }
+  
+  .di-timeStart {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #01CB01;
+    margin-bottom: 0px;
+    margin-top: 7px;
+  }
+  
+  .di-chatBottomSide {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .di-chatTitle {
+   margin-top: 0px;
+   font-family: Poppins;
+   font-style: normal;
+   font-weight: 500;
+   font-size: 17px;
+   line-height: 20px;
+   color: #3F3F46;
+   margin-bottom: 13px;
+  }
+  
+  .di-middleColumn {
+    flex-grow: 1;
+    padding-left: 20px;
+    background-color: rgb(196, 149, 87, 0.07);
+    overflow-x: auto;
+  }
+  
+  .di-inputText {
+    flex-grow: 1;
+    border-radius: 10px;
+    max-height: 47px;
+    border: none;
+    background: rgba(58, 134, 255, 0.00);
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 15px;
+  }
+  
+  .happeningNowTxt, .trendingTxt {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 29px;
+    line-height: 54px;
+    color: #757D8A;
+    margin-top: 11px;
+    margin-bottom: 7px;
+  }
+
+  /* .happeningNowTxt {
+    margin-top: 42px;
+  } */
+  
+  .di-convRow {
+    /* display: flex;
+    margin-bottom: 10px; */
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+  }
+
+  .HappeningNowCard, .TrendingCard {
+    display: flex;
+    flex-direction: column;
+    margin-right: 18px;
+    max-width: 320px;
+  }
+
+  .convDateStart {
+    color: #01CB01;
+    margin-top: 7px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .convDateStartTrending {
+    color: #828282;
+    margin-top: 7px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .convTitle {
+    font-family: Poppins;
+    font-style: normal;
+    color: #3F3F46;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  .di-convImg {
+    border-radius: 10px;
+    min-width: 320px;
+    min-height: 240px;
+    max-width: 239px;
+    max-height: 242px;
+  }
+  
+  .di-browseRow1, .di-browseRow2 {
+    display: flex;
+    margin-bottom: 15px;
+    min-height: 200px;
+    align-items: stretch;
+  }
+  
+  .di-browseBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    margin-right: 1.4%;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    min-height: 73px;
+    min-width: 106px;
+    max-height: 220px;
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+    word-break: break-all;
+  }
+  
+  .di-LGBTQ {
+    background: #FD2B3B;
+  }
+  
+  .di-Politics {
+    background: #FB5607;
+  }
+  
+  .di-Fasion {
+    background: #FFC933;
+  }
+  
+  .di-popCultureBox {
+    background: #3A86FF;
+  }
+  
+  .di-artBox {
+    background: #5667FF;
+  }
+  
+  .di-SustainabilityBox {
+    background: #01CB01;
+  }
+  
+  .di-searchInput:focus, .di-searchInput:focus, .di-searchInput:focus {
+    outline: none;
+  }
+  
+  .di-selected, .di-homeBox:hover, .di-discoverBox {
+    cursor: pointer;
+    background: rgba(58, 134, 255, 0.15);
+    color: rgba(0, 0, 0, 0.9) !important;
+    opacity: 1;
+  }
+  
+  .di-browseBox:hover, .di-convImg:hover, .di-chatImage {
+    cursor: pointer;
+    opacity: 0.9;
+    transition-duration: 0.3s;
+  }
+  
+  .leftSideFeatured, .followBtn:hover, .followingBtn:hover, .di-goOffLogo:hover, .di-searchIcon:hover, .di-optionsIcon:hover, .di-addPersonIcon:hover, .di-bellIcon:hover, .di-shareIcon:hover, .di-profileIcon:hover, .di-arrowDownIcon:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    transition-duration: 0.2s;
+  }
+
+  .rightColumn {
+    background: rgba(58, 134, 255, 0.08);
+    padding-top: 20px;
+    padding-left: 14px;
+    padding-right: 14px;
+    min-width: 310px;
+  }
+
+  .peopleIcon {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+  }
+
+  .featuredTxtRow {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .featuredTxt {
+    color: #757D8A;
+    font-weight: 600;
+  }
+
+  .FeaturedHostRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  }
+
+  .leftSideFeatured {
+    display: flex;
+  }
+
+  .hostAvatar {
+    margin-right: 9px;
+    height: 50px;
+    width: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .hostInfo {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hostName {
+    color: #3F3F46;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  .followersAmt {
+    color: #828282;
+    font-size: 15px;
+  }
+
+  .rightSideFeatured {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .followBtn {
+    background: linear-gradient(180deg, #3A86FF 0%, #5667FF 100%);
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    padding: 6px 13px;
+    border: none;
+  }
+
+  .followingBtn {
+    border-radius: 5px;
+    background-color: #dae1ffc0;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 6px 7px;
+    letter-spacing: 0.5px;
+    color: #4777FF;
+    border: none;
+  }
