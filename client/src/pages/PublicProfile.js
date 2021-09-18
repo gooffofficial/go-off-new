@@ -75,7 +75,7 @@ const PublicProfile = (props) => {
     */
 
 		axios
-			.get(`/api/users/profile/${username}`)
+			.get(`${process.env.REACT_APP_NODE_API}/api/users/profile/${username}`)
 			.then((res) => {
 				setViewUser(res.data.user);
 				setIsFollowingButton(res.data.user.is_following);
@@ -87,7 +87,7 @@ const PublicProfile = (props) => {
 
 	const followHandler = (e) => {
 		axios
-			.post(`/api/users/follower_update`, {
+			.post(`${process.env.REACT_APP_NODE_API}/api/users/follower_update`, {
 				username: viewUser.username,
 				id: currentUser.id,
 			})

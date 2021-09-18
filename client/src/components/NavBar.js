@@ -60,7 +60,7 @@ const toggleShow = () => {
   useEffect(() => {
     if (searchInput.length && isFetched === false) {
       axios
-        .get("/api/users/all")
+        .get(`${process.env.REACT_APP_NODE_API}/api/users/all`)
         .then((res) => {
           setIsFetched(true);
           setUsers(res.data);
@@ -105,7 +105,7 @@ const toggleShow = () => {
   const logoutHandler = async(e) => {
     e.preventDefault();
 	toggleShow()
-	const result = await axios.get("/api/users/logout")
+	const result = await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/logout`)
 	setCurrentUser('')
 	history.push('/')
   };

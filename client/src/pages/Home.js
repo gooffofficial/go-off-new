@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext} from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/HomePage/Home.module.scss';
 import { UserContext } from '../contexts/userContext';

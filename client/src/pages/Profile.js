@@ -50,7 +50,7 @@ const Profile = (props) => {
 
 	useEffect(() => {
 		console.log(currentUserFull)
-		axios.get('http://localhost:5000/', {withCredentials: true}).then(res=>console.log(res,'-------g')).catch(err=>console.log(err,'-------g'))
+		axios.get(`${process.env.REACT_APP_FLASK_API}/`, {withCredentials: true}).then(res=>console.log(res,'-------g')).catch(err=>console.log(err,'-------g'))
 		}, []);
 
 	if (isMobile)

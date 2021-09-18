@@ -60,7 +60,7 @@ const Conversation = (props,{ userid }) => {
               //notifications
               console.log("notif test")
               console.log(props)
-              axios.post(`/api/convos/joinnotifs/${convoId}`, props)
+              axios.post(`${process.env.REACT_APP_NODE_API}/api/convos/joinnotifs/${convoId}`, props)
               // let dateConvoTime = new Date(Number(props.time)) 
               // let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
 

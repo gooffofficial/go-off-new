@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
 import searchIcon from '../images/liveChatImages/search-icon.png'

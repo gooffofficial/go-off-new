@@ -71,11 +71,11 @@ export const UserProvider = ({ children }) => {
   const refetchUser = async () => {
     setisLoading(true)
     try {
-      const res = await axios.get(`/api/users/current`, {
+      const res = await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
         withCredentials: true,
       });
       const res2 = await axios.get(
-        `/api/users/profile/${res.data.user.username}`,
+        `${process.env.REACT_APP_NODE_API}/api/users/profile/${res.data.user.username}`,
         {
           withCredentials: true,
         }
@@ -93,7 +93,7 @@ export const UserProvider = ({ children }) => {
 
   const refetchUpcoming = async () => {
     try {
-      const res3 = await axios.get("/api/upcoming", { withCredentials: true });
+      const res3 = await axios.get(`${process.env.REACT_APP_NODE_API}/api/upcoming`, { withCredentials: true });
       if(res3.status==200){
         setUpComing(res3.data);
       }
@@ -104,7 +104,7 @@ export const UserProvider = ({ children }) => {
 
   const refetchConvos = async () => {
     try {
-      const res4 = await axios.get("/api/getconvos", { withCredentials: true });
+      const res4 = await axios.get(`${process.env.REACT_APP_NODE_API}/api/getconvos`, { withCredentials: true });
       if(res4.status==200){
         setConvos(res4.data);
       }
@@ -116,17 +116,17 @@ export const UserProvider = ({ children }) => {
   const fetchData = async () => {
     setisLoading(true)
     try{
-    const res = await axios.get(`/api/users/current`, {
+    const res = await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
       withCredentials: true,
     });
     const res2 = await axios.get(
-      `/api/users/profile/${res.data.user.username}`,
+      `${process.env.REACT_APP_NODE_API}/api/users/profile/${res.data.user.username}`,
       {
         withCredentials: true,
       }
     );
-    const res3 = await axios.get("/api/upcoming", { withCredentials: true });
-    const res4 = await axios.get("/api/getconvos", { withCredentials: true });
+    const res3 = await axios.get(`${process.env.REACT_APP_NODE_API}/api/upcoming`, { withCredentials: true });
+    const res4 = await axios.get(`${process.env.REACT_APP_NODE_API}/api/getconvos`, { withCredentials: true });
     console.log(res);
     if (res2.data.user) {
       setCurrentUser({ ...res2.data.user, signedIn: true });

@@ -33,7 +33,7 @@ const Login = (props) => {
 		}
 
 		axios
-			.post('/api/users/login', {
+			.post(`${process.env.REACT_APP_NODE_API}/api/users/login`, {
 				username: loginFormValues.username,
 				password: loginFormValues.password,
 			})
@@ -42,7 +42,7 @@ const Login = (props) => {
 				if(currentLocation == '/' || currentLocation=='/login'){
 					history.push('/profile');
 					fetchData()
-					axios.post(`${process.env.REACT_APP_FLASKAPI}/login`, {username:loginFormValues.username, password:loginFormValues.password},{withCredentials: true}).then(res=>console.log('successsss'))
+					axios.post(`${process.env.REACT_APP_FLASK_API}/login`, {username:loginFormValues.username, password:loginFormValues.password},{withCredentials: true}).then(res=>console.log('successsss')).catch(err=>console.log(err))
 				}else{
 					history.push(currentLocation)
 				}

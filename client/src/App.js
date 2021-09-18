@@ -1,7 +1,6 @@
 // Module Imports
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import axios from "axios";
 import "./styles/index.scss";
 import PubNub from "pubnub";
 import { PubNubProvider } from "pubnub-react";

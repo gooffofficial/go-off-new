@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { usePubNub } from 'pubnub-react';
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png';
 import styles from '../styles/LiveChatPage/livechat.module.css';
-import axios from 'axios';
 
 //!messages with attachment are missing attachments
 const Chat = ({	messages, user }) => {

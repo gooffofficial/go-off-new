@@ -125,7 +125,7 @@ const LiveChat = () => {
 
   const currentHost = (id) => {
     axios
-      .get(`/getuser/${id}`).then(res =>{
+      .get(`${process.env.REACT_APP_NODE_API}/getuser/${id}`).then(res =>{
         const host= res.data
         setHost({name:host.HostName,ppic:host.pfpic})
       }).catch(err => console.log(err))
@@ -446,7 +446,7 @@ const LiveChat = () => {
     let res;
     if(!currentUser.signedIn){
     res = await axios
-      .get(`/api/users/current`, {
+      .get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
         withCredentials: true,
       })
       if(res.data.user){

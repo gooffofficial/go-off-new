@@ -1,7 +1,0 @@
-FROM nginx:latest
-
-WORKDIR /etc/nginx/html
-
-COPY ./client/build ./build
-
-

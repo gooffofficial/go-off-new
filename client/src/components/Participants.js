@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "../styles/LiveChatPage/livechat.module.css";
 import arrowDownIcon from "../images/liveChatImages/arrow-ios-down.png";
 import { usePubNub } from "pubnub-react";
-import axios from "axios";
 import { UserContext } from "../contexts/userContext";
 
 const Participants = ({channel}) => {

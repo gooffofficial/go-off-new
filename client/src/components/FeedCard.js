@@ -205,7 +205,7 @@ const NewsFeedCard = (props) => {
   useEffect(() => {
     if (!currentUser.signedIn){
 		axios
-      .get(`/api/users/current`, {
+      .get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -261,7 +261,7 @@ const NewsFeedCard = (props) => {
     let dummyId = currentUser.id;
     e.preventDefault();
 
-    let result = await axios.post(`${process.env.REACT_APP_FLASKAPI}/setrsvp`,{username:currentUser.username,roomId:roomId,notification:'text',startTime:sqlTime},{withCredentials:true})
+    let result = await axios.post(`${process.env.REACT_APP_FLASK_API}/setrsvp`,{username:currentUser.username,roomId:roomId,notification:'text',startTime:sqlTime},{withCredentials:true})
     if(result.status==200){
       setShow(true);
       setTimeout(() => setShow(false), 10000);
