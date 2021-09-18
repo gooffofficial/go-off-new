@@ -27,7 +27,6 @@ import Splash from "./pages/splash";
 import PublicProfile from "./pages/PublicProfile";
 import HostRoute from "./components/HostRoute";
 // import Log from '../../../apify/types/utils_log';
-import { useAuth0 } from "@auth0/auth0-react";
 import { UserContext } from "./contexts/userContext";
 import { routeContext } from "./contexts/useReroute";
 import SettingModal from "./components/SettingModal";

@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import styles from '../styles/SplashPage/splash.module.css';
 import BigLogo from '../images/go-off-logo-big.svg'
 import SmallLogo from '../images/GO_OFF_LOGO.svg'
-import { useAuth0 } from '@auth0/auth0-react'
 import { UserContext } from "../contexts/userContext";
 import { routeContext } from "../contexts/useReroute";
 

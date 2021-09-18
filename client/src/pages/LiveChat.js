@@ -37,7 +37,6 @@ import {
   isMobile,
 } from "react-device-detect";
 import MobileLiveChat from "./LiveChatMobile";
-import { useAuth0 } from '@auth0/auth0-react'
 import { UserContext } from "../contexts/userContext";
 
 //*! participants should be requested from pubnub upon joining and then updating when knew people join

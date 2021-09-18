@@ -19,7 +19,6 @@ import { ChatsFeed } from '../components/FeedCard.js';
 import UpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
 import PencilIcon from '../images/Unionpencil.png'
 import { UserContext } from '../contexts/userContext';
-import { useAuth0 } from '@auth0/auth0-react';
 
 const fillerUser = {
 	name: 'Username',
