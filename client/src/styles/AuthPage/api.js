@@ -122,7 +122,7 @@ export const sendCreateConv = async (convCreationInfo,userId) => {
     convoTitle: title,
     convoDesc: description,
     tz: "",
-    roomId: Math.floor(1000000000 + Math.random() * 9000000000),
+    roomId: Math.floor(1000000000 + Math.random() * 9000000000), //this does not guarantee that we wont get the same id again
   }
   const result = await axios.post(`${process.env.REACT_APP_FLASK_API}/createConvo`,{
     convoId:infoSent.roomId,

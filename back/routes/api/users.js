@@ -432,7 +432,6 @@ router.post(
 );
 
 //POST for user login
-//*! not checking for user password or atleast is not returning error
 router.post('/login', auth.optional, async (req, res, next) => {
 	//const { body: { user } } = req.body;
 	const user = req.body;
@@ -483,6 +482,7 @@ router.post('/login', auth.optional, async (req, res, next) => {
 	//user IS THE FOOOOOOOOOOORM
 	//redirect them to the check email for verification page
 	//else{authenticate}
+	//!#
 
 	return passport.authenticate('local', (err, passportUser, info) => {
 		if (err) {
