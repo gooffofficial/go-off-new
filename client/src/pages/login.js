@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/LoginPage/login.module.css';
 import Logo from '../images/GO_OFF_LOGO.svg';
 import Wave from '../images/wave_thin.svg';
+import { routeContext } from '../contexts/useReroute';
+import { UserContext } from '../contexts/userContext';
+
 
 const Login = (props) => {
+	const {fetchData, getCookie, currentUser} = useContext(UserContext)
+	const { currentLocation, setCurrentLocation} = useContext(routeContext)
+
 	const [loginFormValues, setLoginFormValues] = useState({
 		username: '',
 		password: '',
@@ -31,7 +37,13 @@ const Login = (props) => {
 				password: loginFormValues.password,
 			})
 			.then((res) => {
-				history.push('/profile');
+				console.log(res, '  ', currentLocation)
+				if(currentLocation == '/' || currentLocation=='/login'){
+					history.push('/profile');
+					fetchData()
+				}else{
+					history.push(currentLocation)
+				}
 			})
 			.catch((err) => {
 				console.log(`LOGIN ERROR: ${err}`);
@@ -47,6 +59,9 @@ const Login = (props) => {
 			[name]: value,
 		});
 	};
+	useEffect(()=>{
+
+	},[])
 
 	return (
 		<div>

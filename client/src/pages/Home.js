@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/HomePage/Home.module.scss';
+import { UserContext } from '../contexts/userContext';
 
 // Components
 import NavBar from '../components/NavBar.js';
@@ -10,7 +11,7 @@ import TrendingCard from '../components/TrendingCard.js';
 import FriendActivityCard from '../components/FriendActivityCard.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 import AllUpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
-import Conversation from '../components/Conversation.js'; 
+import Conversation from '../components/Conversation.js';
 
 const fillerUser = {
 	name: 'Username',
@@ -18,15 +19,29 @@ const fillerUser = {
 };
 
 const Home = (props) => {
-	const [currentUser, setCurrentUser] = useState(fillerUser);
-	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
-	const [allUserFull, setAllUserFull] = useState(fillerUser);
+	const { currentUser, setCurrentUser, upcoming, convos } = useContext(UserContext)
+	const [currentUserFull, setCurrentUserFull] = useState({ ...currentUser, upcomingChats: upcoming });
+	const [allUserFull, setAllUserFull] = useState({ allupcomingChats: convos });
 
 	const history = useHistory();
 	// const history = useHistory();
 
+	//when used in sort function it will return array of chats from newest to oldest
+	const compareDate = (date1, date2) => {
+		if (date1.time > date2.time) {
+			return -1
+		}
+		if (date1.time < date2.time) {
+			return 1
+		}
+		return 0
+	}
+
 	useEffect(() => {
-		axios
+		const chronConvos = [...convos].sort(compareDate)
+		setAllUserFull({ allupcomingChats: chronConvos })
+		/* //*!try and use userContext for using data about user. chect userContext file for more details
+	axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
 			})
@@ -38,28 +53,29 @@ const Home = (props) => {
 						withCredentials: true,
 					})
 					.then((res2) => {
-						setCurrentUserFull(res2.data.user);
-
-						axios
-							.get('/api/upcoming', { withCredentials: true })
-							.then((res) => {
-								setCurrentUserFull({
-									...res2.data.user,
-									upcomingChats: res.data,
-								});
-								axios
+			setCurrentUserFull(res2.data.user);
+		    
+			axios
+			  .get('/api/upcoming', { withCredentials: true})
+			  .then((res) => {
+				setCurrentUserFull({
+				  ...res2.data.user,
+				  upcomingChats: res.data,
+				})
+				axios
 									.get('/api/getconvos', { withCredentials: true})
 									.then((res3) => {
 										setAllUserFull({
 											allupcomingChats: res3.data,
 										});
 									});
-							});
+			  })
 					});
 			})
 			.catch((err) => {
 				console.log(err);
 			});
+	*/
 	}, []);
 
 	console.log(currentUserFull)
@@ -105,26 +121,7 @@ const Home = (props) => {
 
 							<p className={styles.sideBarLinkText}>Home</p>
 						</div>
-						<div
-							className={styles.sideBarDiscover}
-							onClick={() => history.push('/discover')}
-						>
-							<svg
-								width="30"
-								height="30"
-								viewBox="0 0 30 30"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									fillRule="evenodd"
-									clipRule="evenodd"
-									d="M21.1109 22.898C20.8959 22.3567 20.5909 21.8842 20.3234 21.4805C20.1884 21.278 20.0496 21.0717 19.9284 20.8592C19.4421 20.0142 19.6096 19.6717 20.3984 18.3505L20.5259 18.1342C21.1646 17.058 21.1996 16.0255 21.2321 15.1155C21.2471 14.668 21.2621 14.2467 21.3484 13.8505C21.5496 12.9355 23.4834 12.6917 24.6821 12.548C24.8834 13.3342 24.9996 14.153 24.9996 15.0005C24.9996 18.2117 23.4721 21.0667 21.1109 22.898ZM6.20213 19.7492C6.99713 19.9517 7.85838 20.0917 8.73463 20.0917C10.0846 20.0917 11.4634 19.7617 12.6559 18.828C14.8009 17.1505 14.8009 15.0055 14.8009 13.2805C14.8009 12.1655 14.8009 11.2042 15.2659 10.3505C15.5159 9.89299 16.0484 9.57549 16.6646 9.20674C17.0421 8.98049 17.4334 8.74799 17.8084 8.45299C18.6121 7.82424 19.2096 7.01549 19.5796 6.12049C21.3296 7.02674 22.7796 8.43049 23.7371 10.1492C21.9521 10.3967 19.4184 10.9817 18.9071 13.3155C18.7721 13.933 18.7509 14.5142 18.7346 15.028C18.7084 15.7567 18.6884 16.333 18.3759 16.8605L18.2509 17.0705C17.4421 18.4242 16.5271 19.9592 17.7609 22.1055C17.9096 22.3655 18.0759 22.6155 18.2396 22.8642C18.6696 23.5092 18.8809 23.8655 18.8821 24.2155C17.6884 24.7205 16.3759 25.0005 14.9996 25.0005C11.2034 25.0005 7.89588 22.873 6.20213 19.7492ZM14.9996 5.00049C15.7696 5.00049 16.5134 5.09549 17.2334 5.26049C17.0221 5.72549 16.6959 6.14924 16.2659 6.48549C15.9934 6.70049 15.6871 6.87924 15.3834 7.06049C14.5696 7.54549 13.6484 8.09549 13.0709 9.15299C12.3009 10.5655 12.3009 12.008 12.3009 13.2805C12.3009 14.9742 12.2459 15.9755 11.1159 16.8592C9.40463 18.2005 6.78588 17.4517 5.16588 16.7705C5.06338 16.1942 4.99963 15.6042 4.99963 15.0005C4.99963 9.48674 9.48589 5.00049 14.9996 5.00049ZM14.9996 2.50049C8.10713 2.50049 2.49963 8.10799 2.49963 15.0005C2.49963 21.8917 8.10713 27.5005 14.9996 27.5005C21.8921 27.5005 27.4996 21.8917 27.4996 15.0005C27.4996 8.10799 21.8921 2.50049 14.9996 2.50049Z"
-									fill="#757D8A"
-								/>
-							</svg>
-							<p className={styles.sideBarLinkText}>Discover</p>
-						</div>
+
 					</div>
 
 					<div className={styles.sideBarCards}>
@@ -135,7 +132,7 @@ const Home = (props) => {
 						<div className={styles.upcomingChatsCards}>
 							{currentUserFull.upcomingChats ? (
 								currentUserFull.upcomingChats.map((prop) => {
-									
+
 									return (
 										<UpcomingChatsCard
 											articleURL={prop.articleURL}
@@ -173,10 +170,10 @@ const Home = (props) => {
 						</div>
 					</div>
 					<div className={styles.centerFeed}>
-							{allUserFull.allupcomingChats ? (
-								allUserFull.allupcomingChats.map((prop1) => {
-									return (
-										<Conversation
+						{allUserFull.allupcomingChats ? (
+							allUserFull.allupcomingChats.map((prop1) => {
+								return (
+									<Conversation
 										articleURL={prop1.articleURL}
 										articleImg={prop1.articleImg}
 										time={prop1.time}
@@ -189,16 +186,17 @@ const Home = (props) => {
 										hostNum={prop1.hostNum}
 										userid={prop1.userID}
 										useremail={prop1.useremail}
-                        				userPnum={prop1.userPnum}
-										/>
-										
-									);
-									
-								})
-							) : (
-								<Conversation />
-							)}
-							{/* <FeedCard />
+										userPnum={prop1.userPnum}
+										hostUName={prop1.username}
+									/>
+
+								);
+
+							})
+						) : (
+							<Conversation />
+						)}
+						{/* <FeedCard />
 							<FeedCard /> */}
 					</div>
 				</div>

@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/ProfilePage/Profile.module.scss';
+import { UserContext } from '../contexts/userContext';
 
 // Components
 import NavBar from '../components/NavBar.js';
@@ -17,9 +18,9 @@ const fillerUser = {
 };
 
 const PublicProfile = (props) => {
-	const [currentUser, setCurrentUser] = useState(fillerUser);
-	const [currentUserFull, setCurrentUserFull] = useState(fillerUser);
-	const [viewUser, setViewUser] = useState(fillerUser);
+	const {currentUser, setCurrentUser, upcoming, convos} = useContext(UserContext)
+	const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats: upcoming});
+	const [viewUser, setViewUser] = useState(currentUser);
 	const [chatCategory, setChatCategory] = useState('Upcoming'); // "Upcoming", "Past", "Saved"
 	const [isFollowingButton, setIsFollowingButton] = useState(false);
 
@@ -36,7 +37,8 @@ const PublicProfile = (props) => {
 	  }
 
 	useEffect(() => {
-		axios
+		/* //*!try and use userContext for using data about user. chect userContext file for more details
+    axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
 			})
@@ -48,21 +50,29 @@ const PublicProfile = (props) => {
 						withCredentials: true,
 					})
 					.then((res2) => {
-						setCurrentUserFull(res2.data.user);
-
-						axios
-							.get('/api/upcoming', { withCredentials: true })
-							.then((res) => {
-								setCurrentUserFull({
-									...res2.data.user,
-									upcomingChats: res.data,
-								});
-							});
+            setCurrentUserFull(res2.data.user);
+            
+            axios
+              .get('/api/upcoming', { withCredentials: true})
+              .then((res) => {
+                setCurrentUserFull({
+                  ...res2.data.user,
+                  upcomingChats: res.data,
+                })
+                axios
+									.get('/api/getconvos', { withCredentials: true})
+									.then((res3) => {
+										setAllUserFull({
+											allupcomingChats: res3.data,
+										});
+									});
+              })
 					});
 			})
 			.catch((err) => {
 				console.log(err);
 			});
+    */
 
 		axios
 			.get(`/api/users/profile/${username}`)
