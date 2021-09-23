@@ -763,17 +763,8 @@ const LiveChat = () => {
               </div>
             </div>
           </div>
-<<<<<<< HEAD
            <div className={styles["profileBox"]}>
             {/* <div className={styles["profileLeftSide"]}>
-=======
-          {/* <div className={styles["profileBox"]}> */}
-          {/* <div className={styles["profileLeftSide"]}>
-            {/**<div className={styles["profileLeftSide"]}>
-=======
-          <div className={styles["profileBox"]}>
-            <div className={styles["profileLeftSide"]}>
->>>>>>> Stashed changes
 =======
 >>>>>>> 4ee9004bfbc29b70df81af5c9dce8ebaa58c1ea0
 >>>>>>> d08cd0e96a6510ffd4972b0d73cb7b241c8194dc
