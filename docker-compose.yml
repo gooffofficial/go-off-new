@@ -15,12 +15,12 @@ services:
     ports: 
       - 80:80
 
-  server:
-    image: server
-    container_name: server
-    build: 
-      context: ./back/
-      dockerfile: ./Dockerfile
-    ports: 
-      - 8000:8000 #my machine : container
-    restart: on-failure
+  #server:
+  #  image: server
+  #  container_name: server
+  #  build: 
+  #    context: ./back/
+  #    dockerfile: ./Dockerfile
+  #  ports: 
+  #    - 8000:8000 #my machine : container
+  #  restart: on-failure
