@@ -482,7 +482,6 @@ router.post('/login', auth.optional, async (req, res, next) => {
 	//user IS THE FOOOOOOOOOOORM
 	//redirect them to the check email for verification page
 	//else{authenticate}
-	//!#
 
 	return passport.authenticate('local', (err, passportUser, info) => {
 		let token;
@@ -507,7 +506,6 @@ router.post('/login', auth.optional, async (req, res, next) => {
 			// return res.redirect('/profiles/' + passportUser.username);
 		}
 		
-		console.log(token) //!
 		return res.sendStatus(200).info
 	})(req, res, next);
 });
@@ -1107,14 +1105,15 @@ router.get('/failure', (req, res, next) => {
 	res.send('failure');
 });
 
-router.get('/logout', (req, res, next) => {
+router.get('/logout', (req, res, next) => { //!
 	req.logOut();
 	res.cookie('authJWT', '', {
 		httpOnly: true,
 		maxAge: 0,
 		signed: true,
 	});
-	return res.redirect('/');
+	console.log('here')
+	return res.sendStatus(200).info;
 });
 
 function isLoggedIn(req, res, next) {

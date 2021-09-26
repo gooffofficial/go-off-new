@@ -105,9 +105,12 @@ const toggleShow = () => {
   const logoutHandler = async(e) => {
     e.preventDefault();
 	toggleShow()
-	const result = await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/logout`)
-	setCurrentUser('')
-	history.push('/')
+	const result = await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/logout`, {withCredentials:true})
+  if (result.status==200)
+  {
+    setCurrentUser('')
+    history.push('/')
+  }
   };
 
   return (

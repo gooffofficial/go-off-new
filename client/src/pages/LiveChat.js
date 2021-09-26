@@ -511,7 +511,7 @@ const LiveChat = () => {
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   useEffect(() => {
     
-   /* //! use userContext
+   /*  use userContext
     axios
       .get(`/api/users/current`, {
         withCredentials: true,
@@ -542,7 +542,6 @@ const LiveChat = () => {
 
     //   })
     if (!code) {
-      //!should set content
       setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>)
       setLoading(false);
       return

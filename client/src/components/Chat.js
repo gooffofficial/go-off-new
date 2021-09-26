@@ -3,7 +3,6 @@ import { usePubNub } from 'pubnub-react';
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png';
 import styles from '../styles/LiveChatPage/livechat.module.css';
 
-//!messages with attachment are missing attachments
 const Chat = ({	messages, user }) => {
 
 	return (

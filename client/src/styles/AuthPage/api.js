@@ -93,14 +93,14 @@ export const sendVerifyCheck = async (email, verifyCode) => {
 // }
 
 export const getUpcomingChats = async (username = "") => { 
-  if (username === "") return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/upcoming`), { withCredentials: true }).data
-  else return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/upcoming/${username}`), { withCredentials: true }).data
+  if (username === "") return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/upcoming`, { withCredentials: true })).data
+  else return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/upcoming/${username}`, { withCredentials: true })).data
 }
-export const getAllUpcomingChats = async (username) => (await axios.get('/api/getconvos')).data;
+export const getAllUpcomingChats = async (username) => (await axios.get('/api/getconvos', { withCredentials: true })).data;
 
 export const getPastChats = async (username = "") => { 
-  if (username === "") return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/pastconv`)).data;
-  else return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/pastconv/${username}`)).data;
+  if (username === "") return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/pastconv`, { withCredentials: true })).data;
+  else return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/pastconv/${username}`, { withCredentials: true })).data;
 }
 
 export const charLimit = (text, charMaxLength) => {

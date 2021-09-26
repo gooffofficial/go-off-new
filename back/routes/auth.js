@@ -8,9 +8,8 @@ const getTokenFromHeaders = (req) => {
     }
     return null;
     */
-    console.log(req,'hey');
-    if(!req.signedCookies){
-        return null;
+   if(!req.signedCookies){
+       return null;
     }
     const userJWT = req.signedCookies.authJWT;
     if(!userJWT){

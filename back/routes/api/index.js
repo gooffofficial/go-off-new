@@ -175,7 +175,7 @@ router.get("/gettopusers", auth.required, (req, res, next) => {
     });
 });
 router.get(
-  "/getconvos", //!
+  "/getconvos",
   auth.required,
   [query("o").escape()],
   (req, res, next) => {
@@ -365,7 +365,7 @@ router.get(
 // })
 
 //get upcoming conversations for a user
-router.get("/upcoming", auth.required, async (req, res, next) => { //!
+router.get("/upcoming", auth.required, async (req, res, next) => { 
   const {
     payload: { id },
   } = req;
