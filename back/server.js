@@ -39,7 +39,7 @@ app.set('view engine', 'ejs');
 app.use((req, res, next) => {
     console.log(req.hostname);
     const allowedOrigins = ['http://0.0.0.0:8000', 'http://0.0.0.0:3000', 'http://0.0.0.0:8080', 'http://0.0.0.0:4050','http://localhost:3000',
-    'http://www.go-of.co','https://www.go-of.co','http://go-of.co','http://128.199.11.144:3000'];
+    'http://www.go-of.co','https://www.go-of.co','http://go-of.co','http://128.199.11.144:8080','http://localhost:8080'];
     // const allowedOrigins = ['http://localhost:8000', 'http://localhost:3000, http://localhost:8080'];
     const origin = req.headers.origin;
     if (allowedOrigins.includes(origin)) {
