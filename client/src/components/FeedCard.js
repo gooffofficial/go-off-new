@@ -35,6 +35,7 @@ const fillerUser = {
 // FEED IMAGE - CALENDAR - COMPANY LOGO - HEADING - DATE - TAGS - DESCRIPTION - HOST NAME / HOST AVATAR
 
 export const ChatsFeed = ({ chatCategory, username, isUser, userId }) => {
+  const {currentUser} = useContext(UserContext)
   // "Upcoming", "Past", "Saved"
   // console.log(username)
   // console.log("isUser: ", isUser)
