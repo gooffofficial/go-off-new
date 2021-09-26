@@ -485,23 +485,30 @@ router.post('/login', auth.optional, async (req, res, next) => {
 	//!#
 
 	return passport.authenticate('local', (err, passportUser, info) => {
+		let token;
 		if (err) {
 			//return next(err);
 		}
 		 console.log(passportUser);
-		if (passportUser) {
-			const user = passportUser;
-			user.token = passportUser.generateJWT();
-			res.cookie('authJWT', user.token, {
-				httpOnly: true,
-				signed: true,
-			});
+		try{
+			if (passportUser) {
+				const user = passportUser;
+				user.token = user.generateJWT();
+				res.cookie('authJWT', user.token, {
+					httpOnly: true,
+					signed: true,
+				})
+			}
+		}catch(err){
+			console.log(err)
+			return res.sendStatus(400)
 			//return res.redirect('/profiles/' + passportUser.username);
 			//let myRedirect = 'return res.redirect('/profiles/' + passportUser.username);'
 			// return res.redirect('/profiles/' + passportUser.username);
 		}
-
-		return res.sendStatus(200).info;
+		
+		console.log(token) //!
+		return res.sendStatus(200).info
 	})(req, res, next);
 });
 
