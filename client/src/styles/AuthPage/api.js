@@ -109,7 +109,7 @@ export const charLimit = (text, charMaxLength) => {
   
 }
 
-export const sendEditProf = async (editProfInfo, id) => (await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/update`)).data;
+export const sendEditProf = async (editProfInfo, id) => (await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/update`, {withCredentials:true})).data;
 
 export const sendCreateConv = async (convCreationInfo,userId) => {
   const { articleURL, time, title, description } = convCreationInfo; //*!description is the same as articleURL when
@@ -144,7 +144,7 @@ export const sendCreateConv = async (convCreationInfo,userId) => {
     console.log('error creating convo')
   }
   
-  return (await axios.post(`${process.env.REACT_APP_NODE_API}/api/convos/create`, infoSent)).data; //*!not working
+  return (await axios.post(`${process.env.REACT_APP_NODE_API}/api/convos/create`, infoSent, {withCredentials:true})).data; //*!not working
 }
 
 const isEmpty = (obj) => obj && Object.keys(obj).length === 0 && obj.constructor === Object

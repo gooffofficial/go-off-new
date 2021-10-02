@@ -60,7 +60,7 @@ const toggleShow = () => {
   useEffect(() => {
     if (searchInput.length && isFetched === false) {
       axios
-        .get(`${process.env.REACT_APP_NODE_API}/api/users/all`)
+        .get(`${process.env.REACT_APP_NODE_API}/api/users/all`, {withCredentials:true})
         .then((res) => {
           setIsFetched(true);
           setUsers(res.data);
