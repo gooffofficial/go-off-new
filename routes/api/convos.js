@@ -92,7 +92,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                 twilioClient.messages.create({
                   to: u.phonenumber,
                   from: process.env.TWILIO_PHONE_NUMBER, 
-                  body: 'Your convo is scheduled on ' + new Date(dateConvoTime) + '! Tell your friends to check out your profile page to RSVP.' 
+                  body: 'Your convo is scheduled for ' + new Date(dateConvoTime) + '! Drop this link to your friends, fans, (and enemies) to invite them to RSVP: https://go-off.co/profile/' + u.username
                 })
 
                 // 30 min SMS reminder
@@ -100,7 +100,7 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                   twilioClient.messages.create({
                     to: u.phonenumber,
                     from: process.env.TWILIO_PHONE_NUMBER, 
-                    body: 'The countdown has begun. Your convo ' + convo.title + ' will start in 30 minutes. We will see you in 25. Happy Chatting!'
+                    body: 'The countdown is starting now.... your convo will start in 30 minutes! We will see you in the convo room in 25!'
                   })
                 });
 
@@ -171,7 +171,7 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (re
         twilioClient.messages.create({
             to: req.body.userPnum,
             from: process.env.TWILIO_PHONE_NUMBER, 
-            body: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + req.body.convTitle + '!'
+            body: 'Ready to go off? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + req.body.convTitle + '!'
         })
 
         // 30 min SMS reminder
@@ -179,7 +179,7 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (re
         twilioClient.messages.create({
             to: req.body.userPnum,
             from: process.env.TWILIO_PHONE_NUMBER, 
-            body: req.body.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one!'
+            body: req.body.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one! '
         })
         });
 
