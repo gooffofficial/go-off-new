@@ -36,12 +36,12 @@ const Login = (props) => {
 			username: loginFormValues.username,
 			password: loginFormValues.password,
 		},{withCredentials: true}).then((res) => {
+			axios.post(`${process.env.REACT_APP_FLASK_API}/login`, {username:loginFormValues.username, password:loginFormValues.password},{withCredentials: true}).then(res=>console.log('successsss')).catch(err=>console.log(err))
 			console.log(res, '  ', currentLocation)
 			if(currentLocation == '/' || currentLocation=='/login'){
 				//!#
 				history.push('/profile');
 				fetchData()
-				axios.post(`${process.env.REACT_APP_FLASK_API}/login`, {username:loginFormValues.username, password:loginFormValues.password},{withCredentials: true}).then(res=>console.log('successsss')).catch(err=>console.log(err))
 			}else{
 				history.push(currentLocation)
 			}

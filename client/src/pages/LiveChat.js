@@ -39,11 +39,7 @@ import {
 import MobileLiveChat from "./LiveChatMobile";
 import { UserContext } from "../contexts/userContext";
 
-//*! participants should be requested from pubnub upon joining and then updating when knew people join
 const LiveChat = () => {
-  const db = firebase.firestore()
-  //storage is
-  // firebase.storage()
 
   const history = useHistory();
 
@@ -125,9 +121,9 @@ const LiveChat = () => {
 
   const currentHost = (id) => {
     axios
-      .get(`${process.env.REACT_APP_NODE_API}/getuser/${id}`).then(res =>{
+      .get(`${process.env.REACT_APP_FLASK_API}/getHost/${id}`, {withCredentials:true}).then(res =>{
         const host= res.data
-        setHost({name:host.HostName,ppic:host.pfpic})
+        setHost({name:host.user.name,ppic:host.user.ppic})
       }).catch(err => console.log(err))
   }
 
@@ -192,7 +188,7 @@ const LiveChat = () => {
     }
     const storageRef = firebase.storage().ref();
     if (file.name) {
-      const fileRef = storageRef.child(file.name);
+      const fileRef = storageRef.child(file.name);//!
       uploadFile(fileRef).then(res => {
         fileRef.getDownloadURL().then(fileURL => {
           pubnub.publish(
@@ -248,7 +244,7 @@ const LiveChat = () => {
   const handleButton = () => {
     pubnub.unsubscribe({ channels: channels });
     pubnub.signal({ channel: code, message: { action: 'DM', uuid: pubnub.getUUID() } });
-    isHost ? endConversation() : goToHomePage()
+    isHost ? endConversation(metaData.ID) : goToHomePage()
   }
 
   const processMessages = (messages) => {
@@ -267,11 +263,11 @@ const LiveChat = () => {
     return newList
   }
 
-  const endConversation = async() => { //*
-    //pubnub.signal({ channel: code, message: { action: 'END' } })
-
-    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${code}`,{"ended":true},{withCredentials:true})
+  const endConversation = async(ID) => { //*
+    
+    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`,{"ended":true},{withCredentials:true})
     if(result.status==200){
+      pubnub.signal({ channel: code, message: { action: 'END' } })
       const messageList = messages ? processMessages(messages) : ''
       //axios.post(`/commitmessages`, data: { messages: messageList } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
       //axios.post(`commitconvo`, data: { convo: convoData }).then(res => console.log(res.data.message)).catch(err => console.log(err))
@@ -295,22 +291,21 @@ const LiveChat = () => {
   }
 
   //use this to look at the metadata
-  const fetchMetaData = async () => {
-    let result = await axios.get(`${process.env.REACT_APP_FLASK_API}/getConvo/${code}`,{withCredentials:true})
-    if(result==200){
-      currentHost(result.data.hostId);
-      setMetaData(result.data);
+  const fetchMetaData = async() => {
+    let result = await axios.get(`${process.env.REACT_APP_FLASK_API}/getConvo/${code}`,{withCredentials:true}).catch(err=>setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>))
+    console.log('---metadata---',result)
+
+    if(result){
+      currentHost(result.data.convo.hostId);
+      setMetaData(result.data.convo);
       fetchAllMessages();
-      checkUser(result.data);
-    }else{
-      console.log('did not get')
-      setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>)
+      checkUser(result.data.convo);
     }
   }
 
-  const openConversation = async () => {
-    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${code}`,{"isOpen":true},{withCredentials:true})
-    if(result!=200){
+  const openConversation = async(ID) => {
+    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`,{"isOpen":true},{withCredentials:true})
+    if(result.status!=200){
       console.log('error opening conversation')
     }else{
       console.log('success opening')
@@ -376,18 +371,18 @@ const LiveChat = () => {
       (status, response) => {
         const occupancy = response ? response.totalOccupancy : null;
         const occupants = response ? response.occupants : null;
-        if (metadata.ended) {
+        if (metadata.ended==1) {
           return setContent(<div style={{ textAlign: 'center' }}>This chat has already ended.</div>)
         }
         if (occupancy < 10) {
           //room not full now check for rsvp
-          if (metadata.isOpen == false) {
+          if (metadata.isOpen == 0) {
             setContent(<div className={styles['setContent']}>
             <div className="lock"></div><h1>
             <i class="bi bi-lock lock"/></h1>
             <div>Currently closed! Waiting for host to open chat.</div>
             </div>)
-          } else if ((metadata.rsvp.includes(user.id) || user.id == metadata.hostId) && metadata.isOpen == true) {
+          } else if (user.id == metadata.hostId && metadata.isOpen == 1) {
             addListener(user);
             //the user rsvp'd or is host. and can now see chat
             pubnub.signal({ channel: code, message: { action: 'AM', name: user.name } })
@@ -430,9 +425,9 @@ const LiveChat = () => {
         let metadata = { ...data }
         if ( data.hostId == res.data.user.id) {
           setIsHost(true);
-          if (data.isOpen == false) {
-            metadata.isOpen = true;
-            openConversation();
+          if (data.isOpen == 0) {
+            metadata.isOpen = 1;
+            openConversation(metadata.ID);
           }
         }
         checkRoom(res.data.user, metadata)
@@ -441,9 +436,9 @@ const LiveChat = () => {
         let metadata = { ...data }
         if (data.hostId == currentUser.id) {
           setIsHost(true);
-          if (data.isOpen == false) {
-            metadata.isOpen = true;
-            openConversation();
+          if (data.isOpen == 0) {
+            metadata.isOpen = 1;
+            openConversation(metadata.ID);
           }
         }
         checkRoom(currentUser, metadata)
@@ -517,6 +512,7 @@ const LiveChat = () => {
       return
     }
     const unmount = fetchMetaData();
+    
     //this subscribes to a list of channels
     pubnub.subscribe({
       channels: channels,
@@ -729,7 +725,7 @@ const LiveChat = () => {
            <div className={styles["profileBox"]}>
             {/* <div className={styles["profileLeftSide"]}>
               <img
-                src={host.ppic}//*! {host.ppic} - using host image is too big please fix with css
+                src={host.ppic}
                 alt="Profile Icon"
                 className={styles["emilyIcon"]}
               />

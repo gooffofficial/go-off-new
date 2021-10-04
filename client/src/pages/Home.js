@@ -39,7 +39,7 @@ const Home = (props) => {
 	useEffect(() => {
 		const chronConvos = [...convos].sort(compareDate)
 		setAllUserFull({allupcomingChats: chronConvos})
-		/* //*!try and use userContext for using data about user. chect userContext file for more details
+		/*
     axios
 			.get(`/api/users/current`, {
 				withCredentials: true,

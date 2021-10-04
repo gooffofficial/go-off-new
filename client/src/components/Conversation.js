@@ -21,7 +21,6 @@ import { UserContext } from '../contexts/userContext';
 // const authToken = process.env.TWILIO_AUTH_TOKEN
 // console.log(accountSid, authToken)
 // var twilioClient = require('twilio')(accountSid, authToken);
-//*! remove the 10 person limit to rsvp turn it into notification system
 
 const Conversation = (props,{ userid }) => {
   const {currentUser} = useContext(UserContext)

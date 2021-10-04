@@ -106,7 +106,8 @@ const toggleShow = () => {
     e.preventDefault();
 	toggleShow()
 	const result = await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/logout`, {withCredentials:true})
-  if (result.status==200)
+  const result2 = await axios.get(`${process.env.REACT_APP_FLASK_API}/logout`, {withCredentials:true})
+  if (result.status==200 && result2.status==200)
   {
     setCurrentUser('')
     history.push('/')
