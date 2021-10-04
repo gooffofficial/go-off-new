@@ -11,7 +11,7 @@ services:
     #depends_on: 
     #  - server
     volumes: 
-      - ./client/build:/var/www/html/build
+      #- ./client/build:/var/www/html/build
       - ./client/nginx.conf:/etc/nginx/sites-available/default
     ports: 
       - 80:80

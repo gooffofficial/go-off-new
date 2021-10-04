@@ -2,6 +2,6 @@ FROM nginx:latest
 
 WORKDIR /etc/nginx/html
 
-COPY ./build ./build
+COPY ./build .
 
 EXPOSE 80
