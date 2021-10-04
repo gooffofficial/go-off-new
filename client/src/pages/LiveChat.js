@@ -267,35 +267,18 @@ const LiveChat = () => {
     return newList
   }
 
-  const endConversation = () => {
+  const endConversation = async() => { //*
     //pubnub.signal({ channel: code, message: { action: 'END' } })
 
-    db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const metadata = doc.data()
-        // doc.data() is never undefined for query doc snapshots
-        db.collection('Conversations').doc(doc.id).update({ ended: true }).then(res => console.log('successfully ended')).catch(err => console.log(`Could not end ${err}`))
-        const convoData = {
-          article: metadata.articleURL,
-          time: metadata.time,
-          host: metadata.hostId,
-          roomid: metadata.convoId,
-          title: metadata.title,
-          description: metadata.description,
-          createdAt: metadata.createdAt,
-          updatedAt: metadata.updatedAt,
-          tz: metadata.tz
-        }
-        const messageList = messages ? processMessages(messages) : ''
-        //axios.post(`/commitmessages`, data: { messages: messageList } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
-        //axios.post(`commitconvo`, data: { convo: convoData }).then(res => console.log(res.data.message)).catch(err => console.log(err))
-        //axios.get(`/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
-        // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
-        // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
-        // axios(`http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      });
+    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${code}`,{"ended":true},{withCredentials:true})
+    if(result.status==200){
+      const messageList = messages ? processMessages(messages) : ''
+      //axios.post(`/commitmessages`, data: { messages: messageList } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      //axios.post(`commitconvo`, data: { convo: convoData }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      //axios.get(`/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      console.log("ended Conversation")
+    }
 
-    }).catch(err => console.log(`did not find convo ${err}`));
   }
 
   //handles typing indicator signaling//*!have a UTS and UTT UTS starts timer and UTS resets timer create timer function with use state and test if each UTT adds to timer
@@ -313,38 +296,25 @@ const LiveChat = () => {
 
   //use this to look at the metadata
   const fetchMetaData = async () => {
-    /**
-    db.collection('Conversations').onSnapshot((snapshot)=>{
-      snapshot.forEach(doc => console.log(doc.data()))
-    })
-     */
-    const doc = await db.collection('Conversations').where('convoId', '==', code).get();
-    db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
-
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        let metadata = doc.data()
-        currentHost(metadata.hostId);
-        setMetaData(metadata);
-        fetchAllMessages();
-        checkUser(metadata);
-        //console.log(doc.id, " => ", doc.data());
-      });
-    }).catch((err) => console.log(err))
-
-    if (!doc.docs[0]) {
+    let result = await axios.get(`${process.env.REACT_APP_FLASK_API}/getConvo/${code}`,{withCredentials:true})
+    if(result==200){
+      currentHost(result.data.hostId);
+      setMetaData(result.data);
+      fetchAllMessages();
+      checkUser(result.data);
+    }else{
+      console.log('did not get')
       setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>)
     }
-
   }
 
-  const openConversation = () => {
-    db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        db.collection('Conversations').doc(doc.id).update({ isOpen: true }).then(res => console.log('success')).catch(err => console.log(err))
-      });
-    })
+  const openConversation = async () => {
+    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${code}`,{"isOpen":true},{withCredentials:true})
+    if(result!=200){
+      console.log('error opening conversation')
+    }else{
+      console.log('success opening')
+    }
   }
 
   const addListener = (user) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef,useContext } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
@@ -9,6 +9,7 @@ import bookmarkIcon from '../images/bookmark.svg'
 import firebase from '../firebase.js';
 import { useHistory } from 'react-router-dom';
 import {Link} from 'react-router-dom'
+import { UserContext } from '../contexts/userContext';
 
 // const schedule = require('node-schedule');
 
@@ -23,6 +24,10 @@ import {Link} from 'react-router-dom'
 //*! remove the 10 person limit to rsvp turn it into notification system
 
 const Conversation = (props,{ userid }) => {
+  const {currentUser} = useContext(UserContext)
+
+  let UTCTime = parseInt(props.time);
+  let sqlTime = moment(UTCTime).format('YYYY-MM-DD HH:mm:ss')
 
   let convoId = props.roomId
   let dummyId = props.userid
@@ -37,82 +42,14 @@ const Conversation = (props,{ userid }) => {
   }
   const db = firebase.firestore();
 
-    const rsvpbuttonhandler = (e) => {
+    const rsvpbuttonhandler = async (e) => {
         e.preventDefault();
-        console.log("test")
-        console.log(props)
-        db.collection('Conversations').where('convoId','==', convoId).get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-              let data = doc.data();
-              let rsvp = data.rsvp;
-              console.log(rsvp, rsvp.length)
-              console.log(data)
-              if(data.hostId==userid){
-                return console.log('is already host')
-              }
-              if(!rsvp.includes(userid)){
-              rsvp.push(dummyId)
-              //window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
-              setShow(true)
-              setTimeout(()=>setShow(false),10000)
-                
-              //notifications
-              console.log("notif test")
-              console.log(props)
-              axios.post(`${process.env.REACT_APP_NODE_API}/api/convos/joinnotifs/${convoId}`, props, {withCredentials:true})
-              // let dateConvoTime = new Date(Number(props.time)) 
-              // let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
-
-              // // SMS about joining conversation
-              // twilioClient.messages.create({
-              //   to: props.phonenum,
-              //   from: process.env.TWILIO_PHONE_NUMBER, 
-              //   body: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + props.convTitle + '!'
-              // })
-
-              // // 30 min SMS reminder
-              // schedule.scheduleJob(dateConvoTime30minsBefore, () => {
-              //   twilioClient.messages.create({
-              //     to: props.phonenum,
-              //     from: process.env.TWILIO_PHONE_NUMBER, 
-              //     body: props.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one!'
-              //   })
-              // });
-
-              // //set up, schedule and send 30 min reminder email
-              // const msg = {
-              //     to: props.email,
-              //     from: 'go.offmedia@gmail.com',
-              //     subject: "Reminder: You're in a convo soon!",
-              //     text: props.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one!',
-              //     send_at: Math.floor(dateConvoTime30minsBefore.getTime() / 1000)
-              // }
-
-              // // Email about joining conversation
-              // sgMail.send(msg).then(() => {
-              //     console.log('Email scheduled to send to ' + props.username)
-              //     const msg2 = {
-              //         to: props.email,
-              //         from: 'go.offmedia@gmail.com',
-              //         subject: "You just signed up for a convo!",
-              //         text: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + props.convTitle + '!'
-              //     }
-              //     sgMail.send(msg2).then(() => {
-              //         console.log("error sending email")
-              //     })
-              // }).catch((error) => {
-              //     console.log(error.response.body.errors)
-              //     console.log("Something went wrong setting up your reminder email.")
-              //     })
-              db.collection('Conversations').doc(doc.id).update({ rsvp:rsvp }).then(res => console.log('successfully rsvpd')).catch(err => console.log(err))
-            }else{
-              console.log('already rsvpd')
-            }
-              console.log(doc.id, " => ", doc.data());
-          });
-
-      }).catch(err => console.log(err));
+        let result = await axios.post(`${process.env.REACT_APP_FLASK_API}/setrsvp`,{username:currentUser.username,roomId:convoId,notification:'text',startTime:sqlTime},{withCredentials:true})
+        if(result.status==200){
+          setShow(true);
+          setTimeout(() => setShow(false), 10000);
+          axios.post(`${process.env.REACT_APP_NODE_API}/api/convos/joinnotifs/${convoId}`, props, {withCredentials:true})
+        }
       // twilioClient.messages.create({
       //   to: hostNum,
       //   from: process.env.TWILIO_PHONE_NUMBER, 
@@ -128,7 +65,6 @@ const Conversation = (props,{ userid }) => {
     //   const date1 = Date(time)
     //   console.log(month, date)
     //   console.log(month1, date1)
-    let UTCTime = parseInt(time);
     let newTime = new Date().getTime()
     let oldTime = new Date(UTCTime)
     //oldTime.setMinutes(oldTime.getMinutes()+30)
