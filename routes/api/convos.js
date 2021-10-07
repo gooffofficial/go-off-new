@@ -153,11 +153,11 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (re
     // You probably should add checking if the person is already in the conversion to add him again
         console.log("Notif Testing!")
         console.log(req.body)
-        // let u = db.User.findOne({
-        //     where: {
-        //         id: req.body.userid
-        //     }
-        // })
+        let host = db.User.findOne({
+            where: {
+                id: req.body.hostID
+            }
+        })
         // let convo = db.Convo.findOne({
         //     where: {
         //         roomId: req.body.roomId
@@ -166,6 +166,11 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (re
         let dateConvoTime = new Date(Number(req.body.time)) 
         let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
 
+        twilioClient.messages.create({
+            to: host.phonenumber,
+            from: process.env.TWILIO_PHONE_NUMBER, 
+            body: req.body.username + 'has saved a spot in your convo, "' + req.body.convTitle + '!"'
+        })
 
         // SMS about joining conversation
         twilioClient.messages.create({
