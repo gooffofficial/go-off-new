@@ -1,0 +1,91 @@
+.base {
+    height: 100vh;
+    width: 100vw;
+}
+
+.iconTab{
+    height:5vh;
+    width:100vw;
+	bottom: 0px;
+	display: flex;
+	background: #ffffff;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	align-items: center;
+	padding: 0 1%;
+	z-index: 2000000;
+	position: sticky;
+}
+.hostTab{
+    height:9vh;
+    width:100vw;
+	top: 80px;
+	background: #ffffff;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	align-items: center;
+	z-index: 2000000;
+	position: fixed;
+    margin-top:0px;
+    padding-top:0px;
+}
+.card {
+    margin-top:1vh;
+    margin-bottom:1vh;
+    border-radius: 10px;
+}
+.card > img{
+    height:25vh;
+    border-radius: 10px 10px 0px 0px;
+}
+.leftHeading {
+    background: rgba(86, 103, 255, 0.15);
+    border-radius: 10px;
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    max-height: 75px;
+  }
+.monthText {
+    height: 100%;
+    color: #3a86ff;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+    font-size: 14px;
+  }
+.dayText {
+    height: 100%;
+    color: #3a86ff;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+    line-height: 20px;
+    font-size: 25px;
+  }
+.startTime {
+    display: block;
+    font-style: normal;
+    font-weight: normal;
+    color: #828282;
+    margin-bottom: 2px;
+  }
+.emilyIcon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    border-radius: 18.5px;
+    margin:1vw;
+  }
+input.start {
+    height:30px;
+    border: 0px solid;
+    background-color: rgb(223, 237, 245);
+    border-radius:10px;
+}
+
+img.bigger {
+    height:40px;
+    width: 40px;
+    object-fit: contain;
+    border-radius: 18.5px;
+    margin:1vw;
+}

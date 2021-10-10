@@ -11,6 +11,7 @@ import FriendActivityCard from '../components/FriendActivityCard.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 import AllUpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
 import Conversation from '../components/Conversation.js'; 
+import MobileHome from './mobile/MobileHome';
 
 const fillerUser = {
 	name: 'Username',
@@ -86,10 +87,13 @@ const Home = (props) => {
 		'/images/trend-stock4.png',
 	];
 
+
 	return (
 		<div className={styles.homePageContainer}>
 			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
-			<div className={styles.subContainer}>
+			{
+				window.innerWidth <= 800?<MobileHome/>:<>
+				<div className={styles.subContainer}>
 				<div className={styles.leftSideBar}>
 					<div className={styles.sideBarLinks}>
 						<div className={styles.sideBarProfile} onClick={() => history.push('/profile')}>
@@ -292,6 +296,8 @@ const Home = (props) => {
 					</div>
 				</div> */}
 			</div>
+				</>
+			}
 		</div>
 	);
 };

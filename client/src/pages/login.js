@@ -6,6 +6,7 @@ import Logo from '../images/GO_OFF_LOGO.svg';
 import Wave from '../images/wave_thin.svg';
 import { routeContext } from '../contexts/useReroute';
 import { UserContext } from '../contexts/userContext';
+import MobileLogin from './mobile/MobileLogin';
 require('dotenv').config()
 
 
@@ -63,6 +64,11 @@ const Login = (props) => {
 	useEffect(()=>{
 		console.log(process.env.REACT_APP_FLASKAPI,'hello')
 	},[])
+
+	if( window.innerWidth <= 800 ){
+        console.log(window.innerWidth)
+        return <MobileLogin/>
+    }
 
 	return (
 		<div>

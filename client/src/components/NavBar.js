@@ -193,7 +193,7 @@ const toggleShow = () => {
         onClick={() => toggleShow()}
       >
 
-        <div class="dropdown">
+        <div className="dropdown">
 		<img
           className={styles.navUserImage}
           src={avatarSource ? avatarSource : "/images/stock-face.jpg"}
@@ -201,9 +201,9 @@ const toggleShow = () => {
           height="24px"
           alt="avatar"
         />
-	          <ul class={`dropdown-menu ${show}`} aria-labelledby="dropdownMenuButton1">
+	          <ul className={`dropdown-menu ${show}`} aria-labelledby="dropdownMenuButton1">
             <li>
-              <a class="dropdown-item" href="#" onClick={() => {
+              <a className="dropdown-item" href="#" onClick={() => {
 				  toggleShow()
 				  history.push('/profile')
 			  }}>
@@ -222,9 +222,10 @@ const toggleShow = () => {
             </li>
           </ul>
         </div>
-		<p className={styles.navUserText}>{name ? name : "<pass in name>"}</p>
+        {window.innerWidth>800?<><p className={styles.navUserText}>{name ? name : "<pass in name>"}</p>
         <div className={styles.navArrowContainer}>
         </div>
+        </>:''}
       </div>
     </div>
 	</>
