@@ -13,7 +13,7 @@
 }
 .settingModal{
     position: fixed;
-    top: 50%;
+    top: 56%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -153,3 +153,54 @@
 .hide {
 	display: none !important;
 }
+
+
+
+.marginMaker{
+	padding-left: 50rem;
+}
+.footer-email-link {
+    margin-left: 55rem; /* 4px */
+}
+.slime{
+	background-color:rgba(58, 134, 255, 0.15) !important; 
+}
+/*
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #8064A2 !important;
+}
+*/
+
+.slimer {
+    color: #1fa11a !important;
+    background-color: rgb(20, 77, 77) !important;
+    border-color: #5bc2c2 !important;
+}
+
+.cambutton {
+	background-color: #20ec27; /* Green */
+	border: none;
+	color: rgb(172, 17, 94);
+	padding: 5px 12px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+  }
+
+.acctSettingsText{
+	text-align: left;
+	color: #757d8a;
+	margin: 0px;
+	font-size: 0.7rem;
+	font-weight: 400;
+	font-family: 'Poppins';
+}
+.transparent-input{
+	background-color:rgba(0,0,0,0) !important;
+	border:none !important;
+ }
+
+ .invisible {
+	visibility: hidden;
+  }

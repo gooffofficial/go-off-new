@@ -45,6 +45,7 @@ const App = () => {
   });
 
   let location = useLocation().pathname;
+  /*
   useEffect(() => {
     if (
       !currentUser.signedIn &&
@@ -63,7 +64,7 @@ const App = () => {
       history.push("/");
     }
   }, []);
-
+  */
   if (isLoading) {
     return (
       <>
