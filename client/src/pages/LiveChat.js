@@ -269,9 +269,9 @@ const LiveChat = () => {
     if(result.status==200){
       pubnub.signal({ channel: code, message: { action: 'END' } })
       const messageList = messages ? processMessages(messages) : ''
-      //axios.post(`/commitmessages`, data: { messages: messageList } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      //axios.post(`commitconvo`, data: { convo: convoData }).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      //axios.get(`/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.post(`/commitmessages`, { messages: messageList },{withCredentials:true} ).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.post(`commitconvo`, { convo: convoData },{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.get(`/execanalytics/${code}`,{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
       console.log("ended Conversation")
     }
 
