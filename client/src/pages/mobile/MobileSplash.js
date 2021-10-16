@@ -3,6 +3,7 @@ import styles from '../../styles/SplashPage/splash.module.css';
 import BigLogo from '../../images/go-off-logo-big.svg'
 import SmallLogo from '../../images/GO_OFF_LOGO.svg'
 import { useHistory } from "react-router-dom";
+
 const MobileSplash = () => {
     let history = useHistory()
 

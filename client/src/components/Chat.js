@@ -3,10 +3,11 @@ import { usePubNub } from 'pubnub-react';
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png';
 import styles from '../styles/LiveChatPage/livechat.module.css';
 
-const Chat = ({	messages, user }) => {
+const Chat = ({	messages, user, scrollhook }) => {
 
 	return (
 		<div>
+			<div style={{'height':'4vh'}}></div>
 			{messages.map((message, index) => {
 				//console.log(message)//renders a lot 
 				if (message.uuid == user.id) {
@@ -73,6 +74,7 @@ const Chat = ({	messages, user }) => {
 					}
 				}
 			})}
+			<div ref={scrollhook}></div>
 		</div>
 	);
 };
@@ -157,3 +159,22 @@ const Attachment = ({isHost, user, src, me=true, propic}) => {
 }
 
 export default Chat;
+
+/*test data
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+*/

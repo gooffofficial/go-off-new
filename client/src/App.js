@@ -47,7 +47,7 @@ const App = () => {
   let location = useLocation().pathname;
   useEffect(() => {
     if (
-      !currentUser.signedIn &&
+      currentUser.signedIn && //! need to make !currentUser.signedIn dont forget
       (location !== "/login" ||
         location !== "/signup" ||
         location !== "/" ||

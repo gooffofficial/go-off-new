@@ -1,15 +1,44 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import SmallLogo from "../../images/GO_OFF_LOGO.svg";
 import "../../styles/mobile/login.css";
 import { useHistory } from "react-router-dom";
-
+import axios from 'axios'
+import { routeContext } from "../../contexts/useReroute";
+import { UserContext } from "../../contexts/userContext";
 
 const PartA = ({setPart}) => {
-    const onSubmit = (e) => {
+    const { currentLocation, setCurrentLocation} = useContext(routeContext)
+    const {fetchData} = useContext(UserContext)
+    const history = useHistory()
+    const onSubmit = async(e) => {
         e.preventDefault();
-        setPart(<PartB setPart={setPart}/>)
+        try{
+            const result = await axios.post(`${process.env.REACT_APP_NODE_API}/api/users/login`, 
+            {
+                username: userName,
+                password: password,
+            },{withCredentials: true})  
+
+            const result2 = await axios.post(`${process.env.REACT_APP_FLASK_API}/login`,
+            {username:userName, password:password},{withCredentials: true})   
+    
+            //setPart(<PartB setPart={setPart}/>) //! for now just push to login
+            if(currentLocation == '/' || currentLocation=='/login'){
+                history.push('/profile');
+                fetchData()
+            }else{
+                history.push(currentLocation)
+            } 
+        }catch(e){
+            console.log("error logging in: ",e)
+        }
     }
     const [check, setChecked] = useState(false)
+    const [userName, setUserName] = useState("")
+    const [password, setPassword] = useState("")
+    const userNameInput = useRef()
+    const passwordInput = useRef()
+
   return <>
     <div className="h1">
         <b>Log In</b>
@@ -17,13 +46,13 @@ const PartA = ({setPart}) => {
     <div>Log in to your account</div>
     <form onSubmit={onSubmit} className="mt-5 mb-5">
         <div className="input">
-        Username: <input type="text" />
+        Username: <input ref={userNameInput} type="text" onChange={(e) => setUserName(e.target.value)}/>
         </div>
         <div className="input">
-        Password: <input type="password" />
+        Password: <input ref={passwordInput} type="password" onChange={(e) => setPassword(e.target.value)}/>
         </div>
         <div className='mt-5'>
-            <input type="checkbox" /> <b>Remember me</b>
+            <input type="checkbox" onClick={()=>setChecked(!check)} checked={check} /> <b>Remember me</b>
         </div>
         <div className='mt-1'>
             <button type='submit' className="btn btn-primary col-12"> Login</button>
@@ -35,6 +64,8 @@ const PartA = ({setPart}) => {
   </>;
 }
 const PartB = ({setPart}) => {
+    const { currentLocation, setCurrentLocation} = useContext(routeContext)
+    const {fetchData} = useContext(UserContext)
     let history = useHistory()
     let count = 1
     const input1 = useRef()
@@ -77,7 +108,13 @@ const PartB = ({setPart}) => {
     const onSubmit = (e)=>{
         e.preventDefault()
         console.log(e.target[0].value,e.target[1].value,e.target[2].value,e.target[3].value,e.target[4].value,e.target[5].value)
-        history.push('/home')
+        //history.push('/home') //! need to set this properly
+        if(currentLocation == '/' || currentLocation=='/login'){
+            history.push('/profile');
+            fetchData()
+        }else{
+            history.push(currentLocation)
+        } 
 
     }
     useEffect(()=>{

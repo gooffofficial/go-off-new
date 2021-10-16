@@ -1,8 +1,12 @@
 import React from 'react'
 import moment from 'moment';
+import { useLocation} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const Conversation = () => {
-    const time = "1633484700000"
+const Conversation = (prop) => {
+    let history = useHistory()
+    const location = useLocation().pathname;
+    const time = prop.time
     let UTCTime = parseInt(time);
     let newTime = new Date().getTime()
     let oldTime = new Date(UTCTime)
@@ -14,27 +18,29 @@ const Conversation = () => {
     let convoDate = `${convoDay} ${convoHoursMinutes}`;
     return<>
     <div className="card">
-        <img src="https://besthqwallpapers.com/Uploads/10-6-2020/135848/thumb2-gray-abstract-background-gray-luxury-background-gray-lines-background-gray-geometric-background.jpg" class="card-img-top" alt="..."/>
+        <img src={prop.articleImg} class="card-img-top" alt="..."/>
         <div className="card-body">
             <div className="card-title h5 row">
                 <div className='leftHeading col-3'>
-                    <span className='monthText'>OCT</span>
-                    <div className='dayText'>7</div>
+                    <span className='monthText'>{convoMonth}</span>
+                    <div className='dayText'>{convoCalendarDay}</div>
                 </div>
                 <div className="col-9">
-                The most prolific lie of our generation: I'll start eating healthy tomorrow.
+                {prop.convTitle}
                 </div>
             </div>
             <p className="startTime">
                 {convoDate}EST
             </p>
-            <p className="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, facilis quod! Quod labore sed consequuntur rem ad dignissimos? Voluptatem excepturi maiores dolorem rem minima doloribus totam quos similique dolor ducimus, animi pariatur doloremque, suscipit itaque, dolores consequuntur eveniet. Vero molestias harum deleniti facere distinctio eum iusto obcaecati, recusandae accusantium iure.</p>
+            <p className="card-text">{prop.desc}</p>
         </div>
         <div className="card-footer">
             <div className="row">
-                <div className='col-4'><img className='emilyIcon' src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"/>Emily Patterson</div>
-                <button className="btn btn-primary col">Save my spot</button>
-                <button className="btn btn-primary col">Go to convo</button>
+                <div className='col'><img className='emilyIcon' src={prop.userpfp}/>{prop.hostName}</div>
+                {location.includes("/chat")?"":<>
+                <button className="btn btn-primary col-4">Save my spot</button>
+                <button className="btn btn-primary col-4" onClick={()=>history.push(`/chat/${prop.roomId}`)}>Go to convo</button>
+                </>}
             </div>
         </div>
     </div>

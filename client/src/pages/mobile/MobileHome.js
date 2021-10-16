@@ -1,10 +1,27 @@
-import React from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import '../../styles/mobile/home.css'
 import s from '../../styles/HomePage/HostHome.module.scss';
 import moment from 'moment';
-import Conversation from './components/Conversation'
+import Conversation from './components/Conversation';
+import HomeTab from './components/HomeTab';
+import { UserContext } from '../../contexts/userContext';
 
 const MobileHome = () => {
+    const {currentUser, setCurrentUser, upcoming, convos} = useContext(UserContext)
+    const [chronConvo, setChronConvo] = useState([]);
+    const compareDate = (date1, date2) => {
+		if(date1.time>date2.time){
+			return -1
+		}
+		if(date1.time<date2.time){
+			return 1
+		}
+		return 0
+	}
+    useEffect(()=>{
+        setChronConvo([...convos].sort(compareDate))
+        return
+    },[])
     return (
         <div className='base'>
             <div className="row hostTab text-center shadow-lg m-0 d-flex p-1">
@@ -17,22 +34,31 @@ const MobileHome = () => {
             <div style={{'height':'20vh'}}></div>
             <div className='container'>
                 <div className="col">
-                    <Conversation/>
-                    <Conversation/>
-                    <Conversation/>
-                    <Conversation/>
-                    <Conversation/>
-                    <Conversation/>
+                    {
+                        chronConvo?(chronConvo.map((prop)=>{
+                            return <Conversation
+                            articleURL={prop.articleURL}
+                            articleImg={prop.articleImg}
+                            time={prop.time}
+                            convTitle={prop.convTitle}
+                            hostName={prop.hostName}
+                            roomId={prop.roomId}
+                            desc={prop.desc}
+                            hostid={prop.hostID}
+                            userpfp={prop.hostpfp}
+                            hostNum={prop.hostNum}
+                            userid={prop.userID}
+                            useremail={prop.useremail}
+                            userPnum={prop.userPnum}
+                            hostUName={prop.username}
+                            />
+                        })):<Conversation/>
+                    }
+
                 </div>
                 <br />
             </div>
-            <div className='iconTab row text-center m-0 d-flex align-items-center'>
-                <div className="col"><span uk-icon="home"></span></div>
-                <div className="col"><span uk-icon="world"></span></div>
-                <div className="col"><span uk-icon="user"></span>+</div>
-                <div className="col"><span uk-icon="bell"/></div>
-                <div className="col"><span uk-icon='comments'/></div>
-            </div>
+            <HomeTab/>
         </div>
     )
 }

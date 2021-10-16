@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from "../contexts/userContext";
-import styles from "./styles/NavBar.module.scss";
 import AWS from 'aws-sdk'
+import MobileSetting from "../pages/mobile/MobileSetting";
 
 const SettingModal = () => {
   
@@ -63,7 +63,16 @@ const SettingModal = () => {
   return (
     <>
       {modal ? (
-        <div className={styles.settingModal}>
+        window.innerWidth <= 800?<MobileSetting/>:<MobileSetting/>
+      ) : (
+        <></>
+      )}
+    </>
+  );
+};
+
+export default SettingModal;
+/*<div className={styles.settingModal}>
           <div className="card shadow-lg">
             <div className="card-body">
               <h5 className="card-title">Settings</h5>
@@ -125,12 +134,4 @@ const SettingModal = () => {
               </form>
             </div>
           </div>
-        </div>
-      ) : (
-        <></>
-      )}
-    </>
-  );
-};
-
-export default SettingModal;
+        </div>*/

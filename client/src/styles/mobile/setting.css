@@ -1,0 +1,30 @@
+.settingModal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index:300000;
+}
+.card-setting{
+    height:75vh;
+    width:80vw;
+}
+.setting-option{
+    background: 
+        linear-gradient(#000, #000) center bottom 5px /calc(100% - 10px) 1px no-repeat;
+}
+.pic{
+    height:22vh;
+    width:50vw;
+    border-radius: 90px;
+    margin:1vh;
+}
+@media screen and (min-width:800px) {
+    .pic{
+        height:25vh;
+        width:22vw;
+        border-radius: 200px;
+        margin:1vh; 
+    }
+}

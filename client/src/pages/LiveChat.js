@@ -19,7 +19,7 @@ import dots3Icon from "../images/liveChatImages/dots3.png";
 import inputAddIcon from "../images/liveChatImages/addIcon.png";
 import inputSendIcon from "../images/liveChatImages/chatSend.png";
 import styles from "../styles/LiveChatPage/livechat.module.css";
-import { PubNubConsumer, usePubNub } from "pubnub-react";
+import { usePubNub } from "pubnub-react";
 import { useForm } from "react-hook-form";
 import Chat from "../components/Chat.js";
 import Participants from '../components/Participants.js';
@@ -38,6 +38,7 @@ import {
 } from "react-device-detect";
 import MobileLiveChat from "./LiveChatMobile";
 import { UserContext } from "../contexts/userContext";
+import MobileChat from "./mobile/MobileChat";
 
 const LiveChat = () => {
 
@@ -270,7 +271,7 @@ const LiveChat = () => {
       pubnub.signal({ channel: code, message: { action: 'END' } })
       const messageList = messages ? processMessages(messages) : ''
       axios.post(`/commitmessages`, { messages: messageList },{withCredentials:true} ).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      axios.post(`commitconvo`, { convo: convoData },{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.post(`commitconvo`, { convo: ConvoData },{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
       axios.get(`/execanalytics/${code}`,{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
       console.log("ended Conversation")
     }
@@ -511,7 +512,7 @@ const LiveChat = () => {
       setLoading(false);
       return
     }
-    const unmount = fetchMetaData();
+    fetchMetaData();
     
     //this subscribes to a list of channels
     pubnub.subscribe({
@@ -519,16 +520,15 @@ const LiveChat = () => {
       withPresence: true,
     });
     setLoading(false);
-    return pubnub.removeListener(), unmount
+    return pubnub.removeListener()
   }, []);
-
-  if (isMobile)
-    return <MobileLiveChat />
   return (
-
     <div className={styles["liveChat"]}>
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
-      <div className={styles["mainContent"]}>
+      {
+        window.innerWidth<=800?<MobileChat messages={messages} loading={loading}
+        reload={reload} content={content}/>:<>
+        <div className={styles["mainContent"]}>
         <div className={styles["leftColumn"]}>
           <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>
             <img
@@ -617,10 +617,10 @@ const LiveChat = () => {
                 content
               )}
               {reload ? <Chat
+                scrollhook={scrollhook}
                 messages={messages}
                 user={currentUser}
               /> : ''}
-              <div ref={scrollhook}></div>
             </div>
             {<div >{userTyping}</div>}
             <div className={canType?styles["chatInputBox"]:styles['d-none']}>
@@ -744,7 +744,8 @@ const LiveChat = () => {
             </div> */}
           </div> 
         </div>
-      </div>
+      </div></>
+      }
     </div>
   );
 };
