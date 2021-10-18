@@ -66,7 +66,7 @@ const LiveChat = () => {
   //importing pubnub into this component
   const pubnub = usePubNub();
 
-  const [canType, setCanType]=useState(true);
+  const [canType, setCanType] = useState(true);
 
 
   //chat metadata from firebase
@@ -96,8 +96,8 @@ const LiveChat = () => {
   const [messages, addMessages] = useState([]);
 
   //sets current user with dummy info
-  const {currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming} = useContext(UserContext)
-  const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats:upcoming});
+  const { currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming } = useContext(UserContext)
+  const [currentUserFull, setCurrentUserFull] = useState({ ...currentUser, upcomingChats: upcoming });
 
   const [loading, setLoading] = useState(true);
 
@@ -121,9 +121,9 @@ const LiveChat = () => {
 
   const currentHost = (id) => {
     axios
-      .get(`${process.env.REACT_APP_FLASK_API}/getHost/${id}`, {withCredentials:true}).then(res =>{
-        const host= res.data
-        setHost({name:host.user.name,ppic:host.user.ppic})
+      .get(`/getuser/${id}`).then(res => {
+        const host = res.data
+        setHost({ name: host.HostName, ppic: host.pfpic })
       }).catch(err => console.log(err))
   }
 
@@ -140,7 +140,7 @@ const LiveChat = () => {
 
   //this will handle incoming messages
   const handleMessage = (object) => {
-    console.log(object,'handle message');
+    console.log(object, 'handle message');
     const message = object.message;
     if (!message.user) {
       return;
@@ -183,6 +183,7 @@ const LiveChat = () => {
 
   //this on submit function is publishing the message to the channel
   const onSubmit = async (message, e) => {
+    console.log(message, e, currentUser, pubnub.getUUID())
     if (message.message == '' && !file) {
       return
     }
@@ -216,7 +217,7 @@ const LiveChat = () => {
         ).catch()
       }).catch(error => console.log(error))
     } else {
-      console.log('sending',channels)
+      console.log('sending', channels)
       pubnub.publish(
         {
           channel: channels[0],
@@ -232,7 +233,7 @@ const LiveChat = () => {
         function (status) {
           //this will print a status error in console
           if (status.error) {
-            console.log(status,'something went wrong');
+            console.log(status, 'something went wrong');
           }
         }
       );
@@ -342,15 +343,15 @@ const LiveChat = () => {
           setIsTyping(true)
           setUserTyping(`${msg.name} is typing`);
 
-          if(!busy){
+          if (!busy) {
             setBusy(true);
-            setTimeout(()=>{
-              if(canRequest){
+            setTimeout(() => {
+              if (canRequest) {
                 setUserTyping('')
               }
               setIsTyping(false)
               setBusy(false);
-            },THROTTLE)
+            }, THROTTLE)
           }
 
         }
@@ -378,9 +379,9 @@ const LiveChat = () => {
           //room not full now check for rsvp
           if (metadata.isOpen == 0) {
             setContent(<div className={styles['setContent']}>
-            <div className="lock"></div><h1>
-            <i class="bi bi-lock lock"/></h1>
-            <div>Currently closed! Waiting for host to open chat.</div>
+              <div className="lock"></div><h1>
+                <i class="bi bi-lock lock" /></h1>
+              <div>Currently closed! Waiting for host to open chat.</div>
             </div>)
           } else if (user.id == metadata.hostId && metadata.isOpen == 1) {
             addListener(user);
@@ -409,41 +410,41 @@ const LiveChat = () => {
   //checks for and sets User
   const checkUser = async (data) => {
     let res;
-    if(!currentUser.signedIn){
-    res = await axios
-      .get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
-        withCredentials: true,
-      })
-      if(res.data.user){
+    if (!currentUser.signedIn) {
+      res = await axios
+        .get(`/api/users/current`, {
+          withCredentials: true,
+        })
+      if (res.data.user) {
         setCurrentUser(res.data.user);
-      }else{
+      } else {
         setContent(<div style={{ textAlign: 'center' }}>Please sign in</div>)
         console.log(`could not make request:`
         )
       }
-      pubnub.setUUID( res.data.user.id);
-        let metadata = { ...data }
-        if ( data.hostId == res.data.user.id) {
-          setIsHost(true);
-          if (data.isOpen == 0) {
-            metadata.isOpen = 1;
-            openConversation(metadata.ID);
-          }
+      pubnub.setUUID(res.data.user.id);
+      let metadata = { ...data }
+      if (data.hostId == res.data.user.id) {
+        setIsHost(true);
+        if (data.isOpen == false) {
+          metadata.isOpen = true;
+          openConversation();
         }
-        checkRoom(res.data.user, metadata)
-    }else{
+      }
+      checkRoom(res.data.user, metadata)
+    } else {
       pubnub.setUUID(currentUser.id);
-        let metadata = { ...data }
-        if (data.hostId == currentUser.id) {
-          setIsHost(true);
-          if (data.isOpen == 0) {
-            metadata.isOpen = 1;
-            openConversation(metadata.ID);
-          }
+      let metadata = { ...data }
+      if (data.hostId == currentUser.id) {
+        setIsHost(true);
+        if (data.isOpen == false) {
+          metadata.isOpen = true;
+          openConversation();
         }
-        checkRoom(currentUser, metadata)
+      }
+      checkRoom(currentUser, metadata)
     }
-      
+
   }
   //fetches all channel messages
   const fetchAllMessages = async () => {
@@ -475,33 +476,35 @@ const LiveChat = () => {
   }
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   useEffect(() => {
-    
-   /*  use userContext
-    axios
-      .get(`/api/users/current`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setCurrentUser(res.data.user);
 
-        axios
-          .get(`/api/users/profile/${res.data.user.username}`, {
-            withCredentials: true,
-          })
-          .then((res2) => {
-            setCurrentUserFull(res2.data.user);
+    /* //! use userContext
+     axios
+       .get(`/api/users/current`, {
+         withCredentials: true,
+       })
+       .then((res) => {
+         setCurrentUser(res.data.user);
+ 
+         axios
+           .get(`/api/users/profile/${res.data.user.username}`, {
+             withCredentials: true,
+           })
+           .then((res2) => {
+             setCurrentUserFull(res2.data.user);
+ 
+             axios
+               .get('/api/upcoming', { withCredentials: true })
+               .then((res) => {
+                 setCurrentUserFull({
+                   ...res2.data.user,
+                   upcomingChats: res.data,
+                 });
+               });
+           });
+       });
+    */
+    console.log(currentUserFull.upcomingChats)
 
-            axios
-              .get('/api/upcoming', { withCredentials: true })
-              .then((res) => {
-                setCurrentUserFull({
-                  ...res2.data.user,
-                  upcomingChats: res.data,
-                });
-              });
-          });
-      });
-   */
     // axios.get(`/api/users/getuser/${metadata.hostId}`)
     //   .then((res) => {
 
@@ -546,7 +549,7 @@ const LiveChat = () => {
             />
             <span className={styles["homeText"]}>Home</span>
           </div>
-          <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
+          {/* <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
             <img
               src={globeIcon}
               alt="discoverImage"
@@ -554,7 +557,7 @@ const LiveChat = () => {
             />
 
             <span className={styles["globeText"]}>Discover</span>
-          </div>
+          </div> */}
           <h1 className={styles["upcommingHeading"]}>Your Upcoming Convos</h1>
           <div className={styles["upcomingChats"]}>
             {currentUserFull.upcomingChats ? (
@@ -623,7 +626,7 @@ const LiveChat = () => {
               <div ref={scrollhook}></div>
             </div>
             {<div >{userTyping}</div>}
-            <div className={canType?styles["chatInputBox"]:styles['d-none']}>
+            <div className={canType ? styles["chatInputBox"] : styles['d-none']}>
               <form className="form-demo" onSubmit={handleSubmit(onSubmit)}>
                 {/* <img
                   src={inputAddIcon}
@@ -631,7 +634,7 @@ const LiveChat = () => {
                   className={styles["inputAddIcon"]}
                   onClick={virtualClick}
                 /> */}
-                <input type='file' style={{"display":"none"}} ref={hiddenFileInput} onChange={onChangeFile} />
+                <input type='file' style={{ "display": "none" }} ref={hiddenFileInput} onChange={onChangeFile} />
                 <input
                   type="text"
                   className={styles["inputText"]}
@@ -716,14 +719,17 @@ const LiveChat = () => {
                 className={styles["dropDownImg"]}
               />
               <div className={styles["dropdown-content"]}>
-                <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897, 
-                  or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about 
+                <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897,
+                  or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about
                   our data collecting practices, please read our <a target="_blank" href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy.</a></span>
               </div>
             </div>
           </div>
            <div className={styles["profileBox"]}>
             {/* <div className={styles["profileLeftSide"]}>
+=======
+>>>>>>> 4ee9004bfbc29b70df81af5c9dce8ebaa58c1ea0
+>>>>>>> d08cd0e96a6510ffd4972b0d73cb7b241c8194dc
               <img
                 src={host.ppic}
                 alt="Profile Icon"
@@ -734,7 +740,7 @@ const LiveChat = () => {
                 <div className={styles["profileName"]}>{host.name}</div>
               </div>
             </div> */}
-            {/* <div className={styles["profileRightSide"]}>
+          {/* <div className={styles["profileRightSide"]}>
               <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
               <img
                 src={dots3Icon}
@@ -742,10 +748,10 @@ const LiveChat = () => {
                 className={styles["dots3Icon"]}
               />
             </div> */}
-          </div> 
         </div>
       </div>
     </div>
+    // </div >
   );
 };
 export default LiveChat

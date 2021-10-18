@@ -31,7 +31,7 @@ import { routeContext } from "./contexts/useReroute";
 import SettingModal from "./components/SettingModal";
 
 const App = () => {
-  const { currentUser, isLoading, modal } = useContext(UserContext);
+  const { currentUser, isLoading, modal} = useContext(UserContext);
   const { currentLocation, setCurrentLocation } = useContext(routeContext);
   let history = useHistory();
 
@@ -44,41 +44,26 @@ const App = () => {
     //logVerbosity:true // logs HTTP request info
   });
 
-  let location = useLocation().pathname;
-  /*
+  let location = useLocation().pathname
   useEffect(() => {
-    if (
-      !currentUser.signedIn &&
-      (location !== "/login" ||
-        location !== "/signup" ||
-        location !== "/" ||
-        location !== "/signup/" ||
-        location !== "/signup/ver" ||
-        location !== "/signup/smsauth" ||
-        location !== "/signup/eauth" ||
-        location !== "/signup/cform" ||
-        location !== "/signup/sform" ||
-        location !== "/404ERROR")
-    ) {
-      setCurrentLocation(location);
-      history.push("/");
+    if (!currentUser.signedIn && (location !== '/login' || location !== '/signup' || location !== '/' || location !== '/signup/'
+      || location !== '/signup/ver' || location !== '/signup/smsauth' || location !== '/signup/eauth' || location !== '/signup/cform'
+      || location !== '/signup/sform' || location !== '/404ERROR')) {
+      setCurrentLocation(location)
+      history.push('/')
     }
-  }, []);
-  */
+  }, [])
+
   if (isLoading) {
     return (
       <>
-        <div style={{ height: "20vh" }}></div>
-        <div className="row d-flex justify-content-center">
-          <div
-            style={{ width: "5rem", height: "5rem" }}
-            class="spinner-border text-primary"
-            role="status"
-          >
+        <div style={{ 'height': '20vh' }}></div>
+        <div className='row d-flex justify-content-center'>
+          <div style={{ "width": "5rem", "height": "5rem" }} class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
           </div>
-        </div>
-      </>
-    );
+        </div></>
+    )
   }
 
   return (

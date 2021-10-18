@@ -386,13 +386,14 @@
 }
 
 .hostText {
+
   font-weight: 550;
   font-size: 12px;
   letter-spacing: 0.3px;
   text-align: center;
   color: #ffffff;
   padding: 1.5px 4px;
-  background: linear-gradient(180deg, #3a86ff 0%, #5667ff 100%);
+  background-color: #616ee7 ;
   border-radius: 5px;
   margin-bottom: 2px;
 }
@@ -413,10 +414,11 @@
 }
 
 .RSVP_Btn {
+  height: 40px;
   color: white;
-  background: linear-gradient(180deg, #3a86ff 0%, #5667ff 100%);
+  background-color: #616ee7 ;
   border-radius: 10px;
-  padding: 1px 2.5%;
+  padding: 2px 2.5%;
   border: none;
   outline: none;
   margin-top: 3px;
@@ -424,6 +426,13 @@
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.8px;
+  border: none;
+}
+
+.RSVP_Btn:hover{
+  color: rgb(230, 230, 230);
+  background-color: linear-gradient(180deg, #3a86ff 0%, #5667ff 100%);
+  
 }
 
 .dots3Icon {
