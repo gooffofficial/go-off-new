@@ -9,9 +9,33 @@ For example, if I were working on a user page the branch I would working on is "
 
 Once you have your feature working, submit a pull request so that we can merge the code!
 
-# running the backend server
+# running the servers
 
-Install node dependencies with 'yarn add package', then run the server with 'node server.js'.
+To run the flask, node and react servers concurrently follow the below instructions
+
+# Node Server
+
+Clone this repo: https://github.com/sakethgangam/gooff-flask.git
+
+Enter "cd node-app"
+
+Install node dependencies with "npm install", then run the server with "node server.js"
+
+# Flask Server
+
+In above repository follow the steps below
+
+Enter "cd flask-app"
+
+Install node dependencies with "pip install -r requirements.txt", then run the server with "python main.py"
+
+# React Server
+
+In this repository (go-off-new) follow the steps below
+
+Enter "cd client"
+
+Install node dependencies with 'npm install', then run the server with 'npm start'.
 
 Make sure to download the .env folder with all the sensitive AWS folder if you haven't already. 
 
