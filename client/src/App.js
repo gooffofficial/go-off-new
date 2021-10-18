@@ -44,15 +44,15 @@ const App = () => {
     //logVerbosity:true // logs HTTP request info
   });
 
-  let location = useLocation().pathname
-  useEffect(() => {
-    if (!currentUser.signedIn && (location !== '/login' || location !== '/signup' || location !== '/' || location !== '/signup/'
-      || location !== '/signup/ver' || location !== '/signup/smsauth' || location !== '/signup/eauth' || location !== '/signup/cform'
-      || location !== '/signup/sform' || location !== '/404ERROR')) {
-      setCurrentLocation(location)
-      history.push('/')
-    }
-  }, [])
+  // let location = useLocation().pathname
+  // useEffect(() => {
+  //   if (!currentUser.signedIn && (location !== '/login' || location !== '/signup' || location !== '/' || location !== '/signup/'
+  //     || location !== '/signup/ver' || location !== '/signup/smsauth' || location !== '/signup/eauth' || location !== '/signup/cform'
+  //     || location !== '/signup/sform' || location !== '/404ERROR')) {
+  //     setCurrentLocation(location)
+  //     history.push('/')
+  //   }
+  // }, [])
 
   if (isLoading) {
     return (
