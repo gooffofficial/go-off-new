@@ -66,10 +66,10 @@ const SettingModal = () => {
         <div className={styles.settingModal}>
           <div className="card shadow-lg container">
             <div className="card-body">
-              <h5 className="card-title text-muted">&nbsp;Account Settings</h5>
+              <h4 className="card-title text-muted">Account Settings</h4>
               <br />
               <h6 className="card-subtitle mb-2">
-              &nbsp;Users on Go Off will be able to see the information provided below
+              Users on Go Off will be able see the information provided below
               </h6>
               <br />
               <form onSubmit={onSubmit}>
@@ -99,11 +99,12 @@ const SettingModal = () => {
                   </label>
                 </div>
                 <div className="row">
-                  
-                  <input className="col-3 p-1" name="name" type="text" placeholder='YourName Here' />
-                  
+                  <input className="col-3 p-1" name="name" type="text" placeholder='John Smith'/>
                 </div>
-
+                <div className="row">
+                  <div className="line23"/>
+                </div>
+                
                 <br />
 
                 <div className="row">
@@ -112,20 +113,12 @@ const SettingModal = () => {
                   </label>
                 </div>
                 <div className="row">
-                  <input className="col-3 p-1" name="password" type="password" placeholder='Something good' />
-                    
-
-                    <button type="submit" className="btn btn-primary black bg-yellow col-4 p-1"> 
-                    {/* 
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    <div className={styles.cambutton}>
+                    <input className="col-3 p-1" name="password" type="password" placeholder='Password123!'/>
+                  <div className="col-6">
+                    <button type="submit" className={styles.acctSettingsButtonPass}> 
                     Change Password
-                    </div> */}
-                    Change Password
-                    
                     </button>
+                  </div>
                 </div>
                 
                 <br />
@@ -136,7 +129,7 @@ const SettingModal = () => {
                   </label>
                 </div>
                 <div className="row">
-                  <input className="col-3 p-1" name="email" type="email" placeholder='Emily@email.com' />
+                  <input className="col-3 p-1" name="email" type="email" placeholder='jSmith@gmail.com' />
                 </div>
 
                 <br />
@@ -147,7 +140,7 @@ const SettingModal = () => {
                   </label>
                 </div>
                 <div className="row">
-                  <input className="col-3 p-1" name="phone" type="text" placeholder='+1123-456-7890' />
+                  <input className="col-3 p-1" name="phone" type="text" placeholder='+123-456-7890' />
                 </div>
 
                 <br />
@@ -156,22 +149,24 @@ const SettingModal = () => {
                 <p className="card-text">
                   Delete Account
                 </p>
-                <button type="button" className="btn btn-primary">
+                <button type="button" className={styles.acctSettingsButton}>
                   Delete
                 </button>
                 <br />
                 <br />
                 <br />
 
-                <button type="submit" className="btn btn-primary">
-                  Save
+                <button type="submit" className={styles.acctSettingsButton}>
+                  Cancel
                 </button>
                 
+                &nbsp;
+
                 <span className="w-25"> </span>
-                <button /* should this be button type="reset"? */
-                  className="btn btn-danger"
+                <button
+                  className={styles.acctSettingsButtonSave}
                   onClick={() => setModal((p) => !p)}>
-                  Cancel
+                  Save
                 </button>
               </form>
             </div>

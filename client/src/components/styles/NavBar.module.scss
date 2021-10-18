@@ -14,9 +14,9 @@
 .settingModal{
     position: fixed;
     top: 56%;
-    left: 50%;
+	left: 50%;
     -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);	
 }
 ​
 .logo {
@@ -156,43 +156,64 @@
 
 
 
-.marginMaker{
-	padding-left: 50rem;
-}
-.footer-email-link {
-    margin-left: 55rem; /* 4px */
-}
-.slime{
-	background-color:rgba(58, 134, 255, 0.15) !important; 
-}
-/*
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    background-color: #8064A2 !important;
-}
-*/
 
-.slimer {
-    color: #1fa11a !important;
-    background-color: rgb(20, 77, 77) !important;
-    border-color: #5bc2c2 !important;
+
+
+
+
+
+.acctSettingsButton, .acctSettingsButton:hover, .acctSettingsButton:active, .acctSettingsButton:visited
+.acctSettingsButtonPass, .acctSettingsButtonPass:hover, .acctSettingsButtonPass:active, .acctSettingsButtonPass:visited {
+    background-color: rgba(18, 44, 145, 0.15);
+	color: rgb(0, 0, 0);
 }
 
-.cambutton {
-	background-color: #20ec27; /* Green */
+.acctSettingsButtonSave, .acctSettingsButtonSave:hover, .acctSettingsButtonSave:active, .acctSettingsButtonSave:visited{
+	background: linear-gradient(180deg, #1e74ff 0%, #1a31ff 100%);
+	color: rgb(255, 255, 255);
+}
+
+.acctSettingsButton {
+	background-color: rgba(58, 134, 255, 0.3); 
 	border: none;
-	color: rgb(172, 17, 94);
+	color: rgb(0, 0, 0);
 	padding: 5px 12px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 1rem;
+	border-radius: 5px;
+}
+
+.acctSettingsButtonPass {
+	background-color: rgba(58, 134, 255, 0.15); 
+	border: none;
+	color: rgb(0, 0, 0);
+	padding: 5px 12px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 1rem;
+	border-radius: 5px;
+  }
+
+.acctSettingsButtonSave {
+	background: linear-gradient(180deg, #3A86FF 0%, #5667FF 100%);
+	border: none;
+	color: rgb(255, 255, 255);
+	padding: 5px 12px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 1rem;
+	border-radius: 5px;
   }
 
 .acctSettingsText{
 	text-align: left;
-	color: #757d8a;
+	color: #000000;
 	margin: 0px;
-	font-size: 0.7rem;
+	font-size: 0.8rem;
 	font-weight: 400;
 	font-family: 'Poppins';
 }
@@ -203,4 +224,57 @@
 
  .invisible {
 	visibility: hidden;
+}
+
+input[type=text][name=name] {
+	width: 40%;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   }
+
+input[type=password][name=password] {
+	width: 40%;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  }
+  
+input[type=email][name=email] {
+	width: 80%;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  }
+
+input[type=text][name=phone] {
+	width: 40%;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  }
+
+.btn-primary{
+	background-color: #1fa11a;
+	color: rgb(20, 77, 77);
+}
+
+
+.btn-default{ 
+	background-color: #57a550;
+	color:rgb(224, 20, 20);
+	border-color: #2F3E48;
+}
+ 
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+	background-color: #12669e;
+ 	color:rgb(228, 180, 22);
+ 	border-color: #31347B;
+}
+
+
+
+
+
+
+
