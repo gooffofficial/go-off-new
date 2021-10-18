@@ -23,12 +23,13 @@ const PartA = ({setPart}) => {
             {username:userName, password:password},{withCredentials: true})   
     
             //setPart(<PartB setPart={setPart}/>) //! for now just push to login
-            if(currentLocation == '/' || currentLocation=='/login'){
+            /*if(currentLocation == '/' || currentLocation=='/login'){
                 history.push('/profile');
                 fetchData()
             }else{
                 history.push(currentLocation)
-            } 
+            } */
+            history.push('/home');
         }catch(e){
             console.log("error logging in: ",e)
         }

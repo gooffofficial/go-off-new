@@ -388,7 +388,7 @@ const LiveChat = () => {
             //the user rsvp'd or is host. and can now see chat
             pubnub.signal({ channel: code, message: { action: 'AM', name: user.name } })
             setReload(true);
-            scrollhook.current.scrollIntoView({ behavior: 'smooth' });
+            //scrollhook.current.scrollIntoView({ behavior: 'smooth' });
           } else {
             //person not rsvp. redirect or respond?
             //setContent(<div style={{ textAlign: 'center' }}>You did not rsvp for this conversation</div>)
@@ -526,8 +526,8 @@ const LiveChat = () => {
     <div className={styles["liveChat"]}>
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
       {
-        window.innerWidth<=800?<MobileChat messages={messages} loading={loading}
-        reload={reload} content={content}/>:<>
+        window.innerWidth<=800?<MobileChat isHost={isHost} messages={messages} 
+        handleMessage={handleMessage} code={code}/>:<>
         <div className={styles["mainContent"]}>
         <div className={styles["leftColumn"]}>
           <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>

@@ -5,6 +5,13 @@ import styles from '../styles/LiveChatPage/livechat.module.css';
 
 const Chat = ({	messages, user, scrollhook }) => {
 
+	useEffect(()=>{
+		scrollhook.current.scrollIntoView({ behavior: 'smooth' });
+		return
+	},[])
+	if(!scrollhook){
+		return <> Loading... </>
+	}
 	return (
 		<div>
 			<div style={{'height':'4vh'}}></div>
