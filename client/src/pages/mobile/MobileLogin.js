@@ -30,6 +30,7 @@ const PartA = ({setPart}) => {
                 history.push(currentLocation)
             } */
             history.push('/home');
+            fetchData()
         }catch(e){
             console.log("error logging in: ",e)
         }

@@ -154,7 +154,7 @@ const InputTab = ({scrollhook, code, isHost, handleMessage}) => {
               message: {
                 user: currentUser.name,
                 isHost: isHost,
-                text: message.message,
+                text: message,
                 uuid: currentUser.id,
                 attachment: '',
                 id: uuid_v4()
@@ -171,7 +171,7 @@ const InputTab = ({scrollhook, code, isHost, handleMessage}) => {
         setMessage("")
     }
     useEffect(()=>{
-        pubnub.addListener({
+        /*pubnub.addListener({
             message: handleMessage,
             presence: function (p) {
               const action = p.action; // Can be join, leave, state-change, or timeout
@@ -206,8 +206,8 @@ const InputTab = ({scrollhook, code, isHost, handleMessage}) => {
         pubnub.subscribe({
             channels: [code],
             withPresence: true,
-          });
-          return pubnub.removeListener()
+          });*/
+          return //pubnub.removeListener()
     },[])
     return <> 
     <form onSubmit={onSubmit}>
