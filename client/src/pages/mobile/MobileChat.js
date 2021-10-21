@@ -369,7 +369,7 @@ const MobileChat = () => {
             /> : ''}
         */}
         <div className="chatBox">
-        <div style={{ height: "5vh" }}></div>
+        <div style={{ height: "8vh" }}></div>
           {loading?<>loading...</>:(lockedContent?lockedContent:helper(option))}
           <div style={{ height: "2vh" }}></div>
         </div>

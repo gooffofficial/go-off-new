@@ -1,7 +1,5 @@
 //!
 
-//! need to make !currentUser.signedIn dont forget
-
 //!#
 
 //*!

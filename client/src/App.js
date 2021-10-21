@@ -65,7 +65,7 @@ const App = () => {
   useEffect(() => {
     signedIn()
     if (
-      !currentUser.signedIn && //! need to make !currentUser.signedIn dont forget
+      !currentUser.signedIn && 
       (location !== "/login" ||
         location !== "/signup" ||
         location !== "/" ||
