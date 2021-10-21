@@ -9,6 +9,13 @@ import { UserContext } from '../../contexts/userContext';
 const MobileHome = () => {
     const {currentUser, setCurrentUser, upcoming, convos} = useContext(UserContext)
     const [chronConvo, setChronConvo] = useState([]);
+    const [isCreateConvModalVisible, setCreateConvModalVisible] = useState(false)
+
+    const openCreateConvModal = () => setCreateConvModalVisible(true);
+    const closeCreateConvModal = () => setCreateConvModalVisible(false);
+
+
+    const [show, setShow] = useState(false)
     const compareDate = (date1, date2) => {
 		if(date1.time>date2.time){
 			return -1
@@ -25,7 +32,7 @@ const MobileHome = () => {
     return (
         <div className='base'>
             <div className="row hostTab text-center shadow-lg m-0 d-flex p-1">
-                <div className="col-3"><img className='bigger' src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"/></div>
+                <div className="col-3"><img className='bigger' src={currentUser.propic}/></div>
                 <input className='col-9 start' type="text" placeholder='Start a Conversation'/>
                 <div className="col-4"><span uk-icon="image"/>Photo</div>
                 <div className="col-4"><span uk-icon="video-camera"/>Video</div>

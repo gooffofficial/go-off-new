@@ -201,6 +201,7 @@ const LiveChat = () => {
                 text: message.message,
                 uuid: currentUser.id,
                 attachment: fileURL,
+                propic: currentUser.propic,
                 id: uuid_v4()
               },
             },
@@ -270,9 +271,10 @@ const LiveChat = () => {
     if(result.status==200){
       pubnub.signal({ channel: code, message: { action: 'END' } })
       const messageList = messages ? processMessages(messages) : ''
-      axios.post(`/commitmessages`, { messages: messageList },{withCredentials:true} ).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      axios.post(`commitconvo`, { convo: ConvoData },{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      axios.get(`/execanalytics/${code}`,{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.post(`${process.env.REACT_APP_FLASK_API}/commitmessages`, { messages: messageList },{withCredentials:true} ).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.post(`${process.env.REACT_APP_FLASK_API}/commitconvo`, { convo: {article:metaData.articleURL, time:metaData.time,host:metaData.hostId,roomid:metaData.convoId, title:metaData.title,description:metaData.description,
+        createdAt:metaData.createdAt,updatedAt:metaData.updatedAt, tz:metaData.tz}},{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.get(`${process.env.REACT_APP_FLASK_API}/execanalytics/${code}`,{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
       console.log("ended Conversation")
     }
 
@@ -451,21 +453,20 @@ const LiveChat = () => {
 
     pubnub.fetchMessages({ channels: [code], count: 100 })
       .then((e) => {
+        console.log(e.channels[code])
         //this will fetch all messages in Test chat then add them to the messages state.
         e.channels[code].forEach((e) => {
-          if (e.message.message || e.message.text.message) {
-            return;
-          } // this is just done to filter out previous versions of the messages
-          if (e.message.user && (e.message.text || e.message.attachment)) {
+          console.log(e)
+          if (e.message.text || e.message.attachment) {
             addMessages((messages) => [
               ...messages,
               {
                 user: e.message.user,
                 isHost: e.message.isHost,
-                text: e.message.text,
+                text: e.message.text?e.message.text:'',
                 uuid: e.message.uuid,
-                attachment: e.message.attachment,
-                propic:e.message.propic,
+                attachment: e.message.attachment?e.message.attachment:'',
+                propic:e.message.propic?e.message.propic:'https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg',
                 id: e.message.id
               },
             ]);
@@ -474,43 +475,14 @@ const LiveChat = () => {
       })
       .catch((error) => console.log(error));
   }
-  //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
+
   useEffect(() => {
-    
-   /*  use userContext
-    axios
-      .get(`/api/users/current`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setCurrentUser(res.data.user);
-
-        axios
-          .get(`/api/users/profile/${res.data.user.username}`, {
-            withCredentials: true,
-          })
-          .then((res2) => {
-            setCurrentUserFull(res2.data.user);
-
-            axios
-              .get('/api/upcoming', { withCredentials: true })
-              .then((res) => {
-                setCurrentUserFull({
-                  ...res2.data.user,
-                  upcomingChats: res.data,
-                });
-              });
-          });
-      });
-   */
-    // axios.get(`/api/users/getuser/${metadata.hostId}`)
-    //   .then((res) => {
-
-    //   })
+    if(window.innerWidth<=800){
+      return
+    }
     if (!code) {
       setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>)
       setLoading(false);
-      return
     }
     fetchMetaData();
     
@@ -522,12 +494,15 @@ const LiveChat = () => {
     setLoading(false);
     return pubnub.removeListener()
   }, []);
+
+  if(window.innerWidth<=800){
+    return <MobileChat/>
+  }
+  //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   return (
     <div className={styles["liveChat"]}>
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
-      {
-        window.innerWidth<=800?<MobileChat isHost={isHost} messages={messages} 
-        handleMessage={handleMessage} code={code}/>:<>
+        <>
         <div className={styles["mainContent"]}>
         <div className={styles["leftColumn"]}>
           <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>
@@ -745,7 +720,6 @@ const LiveChat = () => {
           </div> 
         </div>
       </div></>
-      }
     </div>
   );
 };

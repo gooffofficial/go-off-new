@@ -61,9 +61,6 @@ const Login = (props) => {
 			[name]: value,
 		});
 	};
-	useEffect(()=>{
-		console.log(process.env.REACT_APP_FLASKAPI,'hello')
-	},[])
 
 	if( window.innerWidth <= 800 ){
         console.log(window.innerWidth)

@@ -17,10 +17,10 @@
 	align-items: center;
 	padding: 0 1%;
 	z-index: 2000000;
-	position: sticky;
+	position: fixed;
 }
 .chatBox{
-    height:80vh;
+    height:83.5%;
     overflow-y:scroll;
     overflow-x: hidden;
 }
@@ -33,4 +33,22 @@
 }
 .detail{
     bottom:20px;
+}
+.liveChat {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Poppins;
+  }
+.hostModal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index:300000;
+}  
+.leaveCard{
+    height:20vh;
+    width:40vw;
 }

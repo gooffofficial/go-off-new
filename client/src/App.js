@@ -29,9 +29,10 @@ import HostRoute from "./components/HostRoute";
 import { UserContext } from "./contexts/userContext";
 import { routeContext } from "./contexts/useReroute";
 import SettingModal from "./components/SettingModal";
+import axios from "axios";
 
 const App = () => {
-  const { currentUser, isLoading, modal } = useContext(UserContext);
+  const { currentUser, isLoading, modal, refetchUser, setCurrentUser } = useContext(UserContext);
   const { currentLocation, setCurrentLocation } = useContext(routeContext);
   let history = useHistory();
 
@@ -44,10 +45,27 @@ const App = () => {
     //logVerbosity:true // logs HTTP request info
   });
 
+
+  //checks to see if user is logged in
+  const signedIn = async () => {
+    let result
+    try{
+      result = await axios.get(`${process.env.REACT_APP_FLASK_API}/`, {withCredentials:true})
+    }catch(err){
+      await axios.get(`${process.env.REACT_APP_FLASK_API}/logout`, {withCredentials:true})
+      await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/logout`, {withCredentials:true}).then(res=>{
+        console.log('Not logged In')
+        setCurrentUser({signedIn:false})
+        history.push('/')
+      })
+    }
+  }
+
   let location = useLocation().pathname;
   useEffect(() => {
+    signedIn()
     if (
-      currentUser.signedIn && //! need to make !currentUser.signedIn dont forget
+      !currentUser.signedIn && //! need to make !currentUser.signedIn dont forget
       (location !== "/login" ||
         location !== "/signup" ||
         location !== "/" ||

@@ -14,7 +14,6 @@ const Chat = ({	messages, user, scrollhook }) => {
 	}
 	return (
 		<div>
-			<div style={{'height':'4vh'}}></div>
 			{messages.map((message, index) => {
 				//console.log(message)//renders a lot 
 				if (message.uuid == user.id) {
