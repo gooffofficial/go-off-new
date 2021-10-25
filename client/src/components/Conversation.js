@@ -21,7 +21,6 @@ import '../components/styles/Conversation.module.scss'
 // console.log(accountSid, authToken)
 // var twilioClient = require('twilio')(accountSid, authToken);
 
-
 const Conversation = (props, { userid }) => {
   let convoId = props.roomId
   let dummyId = props.userid
@@ -29,6 +28,9 @@ const Conversation = (props, { userid }) => {
   // console.log(props)
   const gtcbuttonhandler = (e) => {
     history.push(`/chat/${convoId}`)
+  }
+  const toEditProfilePage = (evt) => {
+    history.push("/editprofile")
   }
   const db = firebase.firestore();
 
@@ -152,7 +154,12 @@ const Conversation = (props, { userid }) => {
         <div className={s.rightHeading}>
           <img src={dots3Icon} alt="" className={s.threeDotsIcon} />
           <div className={s.dropdowncontent}>
-            <span>Send this link to your friends so they can find your content: https:go-off.co/profile/{hostUName} </span>
+            {/* <span>Send this link to your friends so they can find your content: https:go-off.co/profile/{hostUName} </span> */}
+            <div className={s.buttondropdown} >
+              <button className={s.dropdownbutton} onClick={toEditProfilePage}>Edit Convo</button>
+              <button className={s.dropdownbutton} onClick={() => console.log("Share pressed")}>Share Convo</button>
+            </div>
+        
           </div>
         </div>
       </div>
