@@ -146,18 +146,25 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
     })
 })
 
-router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (req, res, next) => {
+router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], async (req, res, next) => {
     // const {payload: {id, username}} = req;
     // Add user to convo member list
 
     // You probably should add checking if the person is already in the conversion to add him again
         console.log("Notif Testing!")
         console.log(req.body)
-        let host = db.User.findOne({
+        let host = await db.User.findOne({
             where: {
-                id: req.body.hostID
+                id: req.body.hostid
             }
         })
+        let user = await db.User.findOne({
+            where: {
+                id: req.body.userid
+            }
+        })
+        console.log("user data : " , user)
+
         // let convo = db.Convo.findOne({
         //     where: {
         //         roomId: req.body.roomId
@@ -165,11 +172,11 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (re
         // })
         let dateConvoTime = new Date(Number(req.body.time)) 
         let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
-
+       
         twilioClient.messages.create({
             to: host.phonenumber,
             from: process.env.TWILIO_PHONE_NUMBER, 
-            body: req.body.username + 'has saved a spot in your convo, "' + req.body.convTitle + '!"'
+            body: user.username + ' has saved a spot in your convo, "' + req.body.convTitle + '!"'
         })
 
         // SMS about joining conversation
@@ -207,7 +214,7 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (re
                 text: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + req.body.convTitle + '!'
             }
             sgMail.send(msg2).then(() => {
-                console.log("error sending email")
+                console.log("email sended")
             })
         }).catch((error) => {
             console.log(error)
