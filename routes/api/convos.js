@@ -104,6 +104,15 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                   })
                 });
 
+                // a-min SMS reminder
+                schedule.scheduleJob(dateConvoTime, () => {
+                twilioClient.messages.create({
+                    to: u.phonenumber,
+                    from: process.env.TWILIO_PHONE_NUMBER, 
+                    body: 'People are in your waiting room! Go ahead and start the chat!'
+                })
+                });
+
                 //set up, schedule, and send 30 min email reminder
                 //console.log("TIMEEEEEEE " + ((convo.time.getTime() - (30*60000))/1000))
                 const msg = {
@@ -172,7 +181,7 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], asy
         // })
         let dateConvoTime = new Date(Number(req.body.time)) 
         let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
-       
+        let dateconvoatime = new Date(dateConvoTime.getTime())
         twilioClient.messages.create({
             to: host.phonenumber,
             from: process.env.TWILIO_PHONE_NUMBER, 
@@ -192,6 +201,15 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], asy
             to: req.body.userPnum,
             from: process.env.TWILIO_PHONE_NUMBER, 
             body: req.body.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one! '
+        })
+        });
+
+        // a-min SMS reminder
+        schedule.scheduleJob(dateconvoatime, () => {
+        twilioClient.messages.create({
+            to: req.body.userPnum,
+            from: process.env.TWILIO_PHONE_NUMBER, 
+            body: req.body.convTitle + ' has started. Make your way to the convo now! Happy chatting! '
         })
         });
 
