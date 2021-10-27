@@ -275,6 +275,11 @@
   border-radius: 10%;
   flex-direction: column;
 }
+.buttonbox {
+  display: flex;
+  margin-top: 30px;
+  flex-direction: row;
+}
 .sharedropdown {
   padding: 0px 20px,
 }
@@ -833,6 +838,7 @@
 .createConvBtn {
   display: block;
   margin-top: 10px;
+  margin-right: 10px;
   outline: none;
   border: none;
   color: white;
@@ -840,6 +846,21 @@
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+}
+
+.createConvBtn2 {
+  display: block;
+  margin-top: 10px;
+  margin-right: 20px;
+  outline: none;
+  border: none;
+  color: #757d8a;
+  background: rgba(58, 134, 255, 0.08);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.8px;
 }

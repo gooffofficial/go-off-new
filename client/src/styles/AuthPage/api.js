@@ -142,4 +142,18 @@ export const sendCreateConv = async (convCreationInfo,userId) => {
   return (await axios.post(`/api/convos/create`, infoSent)).data; //*!not working
 }
 
+export const sendEditConv = async (convCreationInfo,roomId) => {
+  const { articleURL, time, title, description } = convCreationInfo; //*!description is the same as articleURL when
+  const convTime = new Date(time)
+  const currentDate= getCurrentDate()
+  const infoSent = { 
+    article: articleURL, 
+    time: convTime.getTime() + "", 
+    title: title,
+    desc: description,
+    roomId:roomId,
+  }
+   return (await axios.post(`/api/updateconvo`, infoSent)).data; //*!not working
+}
+
 const isEmpty = (obj) => obj && Object.keys(obj).length === 0 && obj.constructor === Object
