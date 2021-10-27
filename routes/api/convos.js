@@ -104,6 +104,15 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
                   })
                 });
 
+                // a-min SMS reminder
+                schedule.scheduleJob(dateConvoTime, () => {
+                twilioClient.messages.create({
+                    to: u.phonenumber,
+                    from: process.env.TWILIO_PHONE_NUMBER, 
+                    body: 'People are in your waiting room! Go ahead and start the chat!'
+                })
+                });
+
                 //set up, schedule, and send 30 min email reminder
                 //console.log("TIMEEEEEEE " + ((convo.time.getTime() - (30*60000))/1000))
                 const msg = {
@@ -146,30 +155,47 @@ router.post('/create', auth.required, [body('convoTime').escape()], (req, res, n
     })
 })
 
-router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (req, res, next) => {
+router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], async (req, res, next) => {
     // const {payload: {id, username}} = req;
     // Add user to convo member list
 
     // You probably should add checking if the person is already in the conversion to add him again
         console.log("Notif Testing!")
         console.log(req.body)
-        let host = db.User.findOne({
+
+        let convo = db.Convo.findOne({
             where: {
-                id: req.body.hostID
+                roomId: req.body.roomId
             }
         })
-        // let convo = db.Convo.findOne({
-        //     where: {
-        //         roomId: req.body.roomId
-        //     }
-        // })
+        console.log("convo details : ",convo)
+        db.Convo_members.create({
+            UserId: req.body.userid,
+            ConvoId: convo.id
+        }).then(async () => {
+            console.log("success")
+        })
+
+        let host = await db.User.findOne({
+            where: {
+                id: req.body.hostid
+            }
+        })
+        let user = await db.User.findOne({
+            where: {
+                id: req.body.userid
+            }
+        })
+        console.log("user data : " , user)
+
+        
         let dateConvoTime = new Date(Number(req.body.time)) 
         let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
-
+        let dateconvoatime = new Date(dateConvoTime.getTime())
         twilioClient.messages.create({
             to: host.phonenumber,
             from: process.env.TWILIO_PHONE_NUMBER, 
-            body: req.body.username + 'has saved a spot in your convo, "' + req.body.convTitle + '!"'
+            body: user.username + ' has saved a spot in your convo, "' + req.body.convTitle + '!"'
         })
 
         // SMS about joining conversation
@@ -185,6 +211,15 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (re
             to: req.body.userPnum,
             from: process.env.TWILIO_PHONE_NUMBER, 
             body: req.body.convTitle + ' starts in 30 minutes! Be there or be square, the convo waits for no one! '
+        })
+        });
+
+        // a-min SMS reminder
+        schedule.scheduleJob(dateconvoatime, () => {
+        twilioClient.messages.create({
+            to: req.body.userPnum,
+            from: process.env.TWILIO_PHONE_NUMBER, 
+            body: req.body.convTitle + ' has started. Make your way to the convo now! Happy chatting! '
         })
         });
 
@@ -207,7 +242,7 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (re
                 text: 'Ready to chat? See you on Go Off! at '+ dateConvoTime.toString() + ' for ' + req.body.convTitle + '!'
             }
             sgMail.send(msg2).then(() => {
-                console.log("error sending email")
+                console.log("email sended")
             })
         }).catch((error) => {
             console.log(error)
