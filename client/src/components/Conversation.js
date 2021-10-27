@@ -45,7 +45,7 @@ const Conversation = (props, { userid }) => {
         let rsvp = data.rsvp;
         console.log(rsvp, rsvp.length)
         console.log(data)
-        if (data.hostId == userid) {
+        if (data.hostId == dummyId) {
           return console.log('is already host')
         }
         if (rsvp.length < 10) {
@@ -154,12 +154,16 @@ const Conversation = (props, { userid }) => {
         <div className={s.rightHeading}>
           <img src={dots3Icon} alt="" className={s.threeDotsIcon} />
           <div className={s.dropdowncontent}>
-            {/* <span>Send this link to your friends so they can find your content: https:go-off.co/profile/{hostUName} </span> */}
+            { props.hostid !== dummyId ?
+            <div className={s.sharedropdown} >
+            <span>Send this link to your friends so they can find your content: https:go-off.co/profile/{hostUName} </span>
+            </div>
+            :
             <div className={s.buttondropdown} >
-              <button className={s.dropdownbutton} onClick={toEditProfilePage}>Edit Convo</button>
+              <button className={s.dropdownbutton} onClick={() => console.log("edit pressed")}>Edit Convo</button>
               <button className={s.dropdownbutton} onClick={() => console.log("Share pressed")}>Share Convo</button>
             </div>
-        
+            }
           </div>
         </div>
       </div>
