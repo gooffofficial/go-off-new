@@ -153,16 +153,33 @@ router.post('/joinnotifs/:convoId', auth.required, [body('convo').escape()], (re
     // You probably should add checking if the person is already in the conversion to add him again
         console.log("Notif Testing!")
         console.log(req.body)
-        let host = db.User.findOne({
+
+        let convo = db.Convo.findOne({
+            where: {
+                roomId: req.body.roomId
+            }
+        })
+        console.log("convo details : ",convo)
+        db.Convo_members.create({
+            UserId: req.body.userid,
+            ConvoId: convo.id
+        }).then(async () => {
+            console.log("success")
+        })
+
+        let host = await db.User.findOne({
+            where: {
+                id: req.body.hostid
+            }
+        })
+        let user = await db.User.findOne({
             where: {
                 id: req.body.hostID
             }
         })
-        // let convo = db.Convo.findOne({
-        //     where: {
-        //         roomId: req.body.roomId
-        //     }
-        // })
+        console.log("user data : " , user)
+
+        
         let dateConvoTime = new Date(Number(req.body.time)) 
         let dateConvoTime30minsBefore = new Date(dateConvoTime.getTime() - 30 * 60*1000)
 
