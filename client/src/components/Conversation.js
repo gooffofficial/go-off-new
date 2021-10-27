@@ -10,6 +10,10 @@ import bookmarkIcon from '../images/bookmark.svg'
 import firebase from '../firebase.js';
 import { useHistory } from 'react-router-dom';
 import '../components/styles/Conversation.module.scss'
+import { sendEditConv } from "../styles/AuthPage/api.js"
+import { useMutation } from 'react-query'
+import Rodal from "rodal";
+import "rodal/lib/rodal.css";
 // const schedule = require('node-schedule');
 
 // const twilio = require('twilio')
@@ -30,7 +34,13 @@ const Conversation = (props, { userid }) => {
   const gtcbuttonhandler = (e) => {
     history.push(`/chat/${convoId}`)
   }
+  const toEditProfilePage = (evt) => {
+    history.push("/editprofile")
+  }
   const db = firebase.firestore();
+  const [isCreateConvModalVisible, setCreateConvModalVisible] = useState(false)
+  const openCreateConvModal = () => setCreateConvModalVisible(true);
+  const closeCreateConvModal = () => setCreateConvModalVisible(false);
 
   const rsvpbuttonhandler = (e) => {
     e.preventDefault();
@@ -43,7 +53,7 @@ const Conversation = (props, { userid }) => {
         let rsvp = data.rsvp;
         console.log(rsvp, rsvp.length)
         console.log(data)
-        if (data.hostId == userid) {
+        if (data.hostId == dummyId) {
           return console.log('is already host')
         }
         if (rsvp.length < 10) {
@@ -152,7 +162,22 @@ const Conversation = (props, { userid }) => {
         <div className={s.rightHeading}>
           <img src={dots3Icon} alt="" className={s.threeDotsIcon} />
           <div className={s.dropdowncontent}>
+            { props.hostid !== dummyId ?
+            <div className={s.sharedropdown} >
             <span>Send this link to your friends so they can find your content: https:go-off.co/profile/{hostUName} </span>
+            </div>
+            :
+            <div className={s.buttondropdown} >
+              <button className={s.dropdownbutton} onClick={openCreateConvModal}>Edit Convo</button>
+              <button className={s.dropdownbutton} onClick={() => console.log("Share pressed")}>Share Convo</button>
+            </div>
+            }
+              <CreateConvModal 
+                closeCreateConvModal={closeCreateConvModal}
+                isCreateConvModalVisible={isCreateConvModalVisible} 
+                id={convoId}
+                data={props}
+              />
           </div>
         </div>
       </div>
@@ -194,6 +219,76 @@ const Conversation = (props, { userid }) => {
       </div>
     </div>
   </div>
+}
+
+const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id,data}) => {
+  let UTCTime = parseInt(data.time) 
+  let date = moment(UTCTime).format("YYYY-MM-DD[T]HH:mm:ss")
+  
+  const [dateInput, setDateInput] = useState(date);
+  const [convTitleInput, setConvTitleInput] = useState(data.convTitle);
+  const [convDescInput, setConvDescInput] = useState(data.desc);
+  const [articleURLInput, setArticleURLInput] = useState(data.articleURL);
+  const { mutate } = useMutation((convCreationInfo) => sendEditConv(convCreationInfo,id))
+
+  const handleDateInputChange = (evt) => setDateInput(evt.target.value)
+  const handleConvTitleInputInput = (evt) => setConvTitleInput(evt.target.value)
+  const handleConvDescInputChange = (evt) => setConvDescInput(evt.target.value)
+  const handleArticleURLInputChange = (evt) => setArticleURLInput(evt.target.value)
+
+  const handleCreateConv = (evt) => {
+    // Check if values are empty, For now we'll just do an alert, in the future put some red lower text
+    if (!dateInput) alert("There's something wrong with the Conversation Time Input")
+    else if (!convTitleInput) alert("There's something wrong with the Convo Title Input")
+    else if (!convDescInput) alert("There's something wrong with the Conv Description Input")
+    else if (!articleURLInput) alert("There's something wrong with the Ariticle URL Input")
+
+    const convCreationInfo = { articleURL: articleURLInput, time: dateInput, title: convTitleInput, description: convDescInput }
+    mutate(convCreationInfo)
+    closeCreateConvModal();
+    //window.alert("Conversation created! To find the conversation check your Profile page or the Home page!")
+  }
+
+  const rodalCustomStyles = {
+    padding: '0px'
+  }
+
+
+  return <Rodal
+    width="300"
+    height="420"
+    visible={isCreateConvModalVisible}
+    showMask={true}
+    showCloseButton={true}
+    enterAnimation="slideUp"
+    leaveAnimation="door"
+    onClose={closeCreateConvModal}
+    customStyles={rodalCustomStyles}
+  >
+    {console.log(dateInput, " convo date ")}
+    <div className={s.convoModal}>
+      <div className={s.convModalHeading}>
+        <h1 className={s.convoModalHeader}>Edit Convo</h1>
+      </div>
+      <div className={s.convModalContent}>
+        <h3 className={s.convTimeTxt}>Conversation Time</h3>
+        <input className={s.convTimeInput} type="datetime-local" defaultValue={dateInput} onChange={handleDateInputChange} value={dateInput} />
+        <h3 className={s.convTitleTxt}>Convo Title</h3>
+        <input className={s.convTitleInput} type="text" onChange={handleConvTitleInputInput} value={convTitleInput} />
+        <h3 className={s.convDescTxt}>Convo Description</h3>
+        <input className={s.convTitleInput} type="text" onChange={handleConvDescInputChange} value={convDescInput} />
+        <h3 className={s.articleURLTxt}>Article URL</h3>
+        <input className={s.convTitleInput} type="text" onChange={handleArticleURLInputChange} value={articleURLInput} />
+        {/* <p className={s.helpbuttonTxt}>Need some Inspiration? Click <a target="_blank" href="https://feather-pump-5e2.notion.site/8610e9fcf7ee41abb1cd82eef3475691?v=8e268e6f3b064516beef074b67473dd2">here!</a></p> */}
+        <div className={s.buttonbox}>
+        <button className={s.createConvBtn2} onClick={() => console.log("delete pressed")}>Delete</button>
+        <button className={s.createConvBtn2} onClick={closeCreateConvModal}>Cancel</button>
+        <button className={s.createConvBtn} onClick={handleCreateConv}>Save</button>
+        
+        </div>
+      </div>
+    </div>
+  </Rodal>
 }
 
 export default Conversation

@@ -328,6 +328,43 @@ router.get(
       });
   }
 );
+router.post(
+	'/updateconvo',
+	auth.required,
+	[
+		body('article'),
+		body('time').escape(),
+		body('title').escape(),
+		body('desc').escape(),
+		body('roomId').escape(),
+	],
+	(req, res, next) => {
+		const {
+			payload: { id },
+		} = req;
+    console.log("article url : ",req.body.article)
+		let request = {
+			article: req.body.article,
+			time: req.body.time,
+			title: req.body.title,
+			description: req.body.desc,
+		};
+    
+		// requestfin = _.pickBy(request, _.identity); // <--- Will remove empty | null | undefined
+		//logging updates
+
+		return db.Convo.update(request, {
+			where: {
+				roomId: req.body.roomId,
+			},
+			individualHooks: true,
+		})
+		.then(() => {
+			console.log("convo details updated successfully")
+		});
+	}
+);
+
 
 //get upcoming conversations for a user
 // router.get('/upcoming', auth.required, async (req, res, next) => {
