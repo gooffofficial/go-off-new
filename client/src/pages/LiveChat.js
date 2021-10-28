@@ -666,12 +666,12 @@ const LiveChat = () => {
             {<div >{userTyping}</div>}
             <div className={canType ? styles["chatInputBox"] : styles['d-none']}>
               <form className="form-demo" onSubmit={handleSubmit(onSubmit)}>
-                {/* <img
+                <img
                   src={inputAddIcon}
                   alt="Add Icon"
                   className={styles["inputAddIcon"]}
                   onClick={virtualClick}
-                /> */}
+                />
                 <input type='file' style={{ "display": "none" }} ref={hiddenFileInput} onChange={onChangeFile} />
                 <input
                   type="text"

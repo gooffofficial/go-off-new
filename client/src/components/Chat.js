@@ -13,6 +13,7 @@ const Chat = ({	messages, user }) => {
 				//console.log(message)//renders a lot 
 				if (message.uuid == user.id) {
 					if(!message.attachment){
+						console.log("message >> ",message.text)
 						return (
 							<MeMessage
 								key={index}
@@ -23,11 +24,13 @@ const Chat = ({	messages, user }) => {
 							/>
 						);
 					}else if(!message.text){
+						console.log("message 1 >> ",message.attachment)
 						return(
 							<Attachment key={`A-${index}`} isHost={message.isHost} user={message.user} src={message.attachment}/>
 						)
 					}else{
-						return(
+						console.log("message text >> ",message.text)
+						return( 
 							<div key={index}>
 							<Attachment key={`A-${index}`} isHost={message.isHost} user={message.user} src={message.attachment}/>
 							<MeMessage
@@ -114,6 +117,7 @@ const OtherMessage = ({ isHost, user, text }) => {
 };
 
 const Attachment = ({isHost, user, src, me=true}) => {
+	const [image,setimage]= useState(true)
 	if(me){
 	return (
 		<>
@@ -126,9 +130,15 @@ const Attachment = ({isHost, user, src, me=true}) => {
 			<div className={styles['rightMessageBox']}>
 				<span className={styles['messageUserName']}>{user}</span>
 				{isHost && <span className={styles['hostText']}>HOSTs</span>}
-				<div className={styles['chatMessageBox']}>
-					<img style={{widht:'50px',height:'50px'}} src={src}/>
+				{image ?
+				<div>
+					<img onError={()=>setimage(false)} style={{marginTop:'10px',widht:'150px',height:'150px',marginBottom:'10px',borderRadius:"10%"}} src={src}/>
 				</div>
+				:
+				<div className={styles['chatMessageBox']}>
+				<span className={styles['messageText']}>{src}</span>
+				</div>
+				}
 			</div>
 		</div>
 		</>
