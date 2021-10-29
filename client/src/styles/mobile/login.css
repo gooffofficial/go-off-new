@@ -1,0 +1,35 @@
+.base {
+    height: 90vh;
+    width: 100vw;
+}
+.small-logo {
+    height:7vh;
+}
+.input {
+    font-size:15px;
+    height: 7vh;
+    background: 
+        linear-gradient(#000, #000) center bottom 5px /calc(100% - 10px) 1px no-repeat;
+    background-color: #fcfcfc;
+    border: 0px;
+    padding: 10px;
+}
+
+div.input input{
+    height:3vh;
+    border: 0px;
+    background: white;
+    width: 60vw;
+}
+
+div.row.justify-content-center input {
+    font-size:15px;
+    height:5vh;
+    border: 0px;
+    background: white;
+    border-radius: 20px;
+}
+
+.btn{
+    border-radius: 15px;
+}

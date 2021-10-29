@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
 import searchIcon from '../images/liveChatImages/search-icon.png'
@@ -68,8 +67,18 @@ const HomePage = () => {
         history.push('/home')
   }
 
+  const compareDate = (date1, date2) => {
+		if(date1.time>date2.time){
+			return -1
+		}
+		if(date1.time<date2.time){
+			return 1
+		}
+		return 0
+	}
+
 	useEffect(() => {
-		/* //*!try and use userContext for using data about user. chect userContext file for more details
+		/*
     axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
@@ -105,6 +114,8 @@ const HomePage = () => {
 				console.log(err);
 			});
     */
+    const chronConvos = [...convos].sort(compareDate)
+    setAllUserFull({allupcomingChats: chronConvos})
 	}, []);
 
   console.log(currentUserFull.upcomingChats)

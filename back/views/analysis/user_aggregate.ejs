@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" class="pf-m-redhat-font">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--<link rel="stylesheet" href="/css/fonts.css" />-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Include latest PatternFly CSS via CDN -->
+  <link 
+    rel="stylesheet" 
+    href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
+    crossorigin="anonymous"
+  >
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Analytics User Dashboard</title>
+</head>
+<style>
+  body {
+      font-family: 'Poppins', sans-serif;
+      }
+  .zoom {
+    transition: transform .2s; /* Animation */
+  }
+  .zoom:hover {
+    transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+</style>
+<body>
+  <div class="pf-c-page" id="primary-detail-card-view-expanded-example">
+  <a class="pf-c-skip-to-content pf-c-button pf-m-primary" href="#main-content-primary-detail-card-view-expanded-example">Skip to content</a>
+  <header class="pf-c-page__header">
+    <div class="pf-c-page__header-brand">
+      <div class="pf-c-page__header-brand-toggle">
+        <button class="pf-c-button pf-m-plain" type="button" id="primary-detail-card-view-expanded-example-nav-toggle" aria-label="Global navigation" aria-expanded="true" aria-controls="primary-detail-card-view-expanded-example-primary-nav">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+      </div>
+      <a href="#" class="pf-c-page__header-brand-link">
+        <img class="pf-c-brand" src="/logo.png" alt="Go Off logo" /> <!--GO OFF LOGO-->
+      </a>
+    </div>
+    <!-- SEARCH BAR-->
+    <div class="pf-c-search-input">
+      <span class="pf-c-search-input__text">
+        <span class="pf-c-search-input__icon">
+          <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+        </span>
+        <input class="pf-c-search-input__text-input" type="text" placeholder="Search" aria-label="Search" />
+      </span>
+    </div>
+    <div class="pf-c-page__header-tools">
+      <div class="pf-c-page__header-tools-group">
+        <div class="pf-c-page__header-tools-item pf-m-hidden pf-m-visible-on-lg">
+          <button class="pf-c-button pf-m-plain" type="button" aria-label="Add">
+            <i class="pf-icon pf-icon-add-circle-o" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="pf-c-page__header-tools-item pf-m-hidden pf-m-visible-on-lg ">
+          <button class="pf-c-button pf-m-plain" type="button" aria-label="Home">
+            <i class="fas fa-home" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="pf-c-page__header-tools-item pf-m-hidden pf-m-visible-on-lg ">
+          <button class="pf-c-button pf-m-plain" type="button" aria-label="Messages">
+            <i class="fas fa-comments" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="pf-c-page__header-tools-item pf-m-hidden pf-m-visible-on-lg">
+          <button class="pf-c-button pf-m-plain" type="button" aria-label="Notification">
+            <i class="fas fa-bell" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="pf-c-page__header-tools-group">
+        <!--INSERT PROFILE PIC OF COMPANY BELOW-->
+        <img class="pf-c-avatar" src="/assets/images/img_avatar.svg" alt="Avatar image" id="profile-pic"/>
+        
+        <div class="pf-c-page__header-tools-item pf-m-hidden pf-m-visible-on-md">
+          <div class="pf-c-dropdown">
+            <button class="pf-c-dropdown__toggle pf-m-plain" type="button" id="primary-detail-card-view-expanded-example-dropdown-button" aria-expanded="false">
+              <!--INSERT NAME OF COMPANY BELOW-->
+              <span class="pf-c-dropdown__toggle-text" id="user-name">John Smith</span>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="pf-c-page__sidebar pf-m-light"  id = "side" style="width: 200px; ">
+    <div class="pf-c-page__sidebar-body">
+      <nav class="pf-c-nav" aria-label="Global">
+        <ul class="pf-c-nav__list">
+          <li class="pf-c-nav__item">
+            <a href="/analytics" class="pf-c-nav__link">Dashboard</a>
+          </li>
+          <li class="pf-c-nav__item pf-m-expandable pf-m-expanded">
+            <button class="pf-c-nav__link" id="nav-mixed-link2" aria-expanded="false" onclick="location.href='/analytics/convos'">All Convos
+              <button class="pf-c-nav__toggle" id = "arrowdown" style="border: none; padding: none; outline: none;">
+                <span class="pf-c-nav__toggle-icon">
+                  <i class="fas fa-angle-right" aria-hidden="true"></i>
+                </span>
+              </button>
+            </button>
+            <!--INSERT MOST RECENT CONVERSATIONS HERE-->
+            <section class="pf-c-nav__subnav" id = "convs" aria-labelledby="nav-mixed-link2">
+              <ul class="pf-c-nav__list" id="subnav">
+              </ul>
+            </section>
+          </li>
+        </ul>
+      </nav>
+     <!-- <nav class="pf-c-nav" id="primary-detail-card-view-expanded-example-primary-nav" aria-label="Global">
+        <ul class="pf-c-nav__list">
+          <li class="pf-c-nav__item">
+            <a href="#" class="pf-c-nav__link pf-m-current" aria-current="page">Dashboard</a>
+          </li>
+          <li class="pf-c-nav__item">
+            <a href="#" class="pf-c-nav__link">Convos</a>
+          </li>
+        </ul>
+      </nav>-->
+    </div>
+  </div>
+  <main class="pf-c-page__main" tabindex="-1">
+    <section class="pf-c-page__main-breadcrumb pf-m-limit-width">
+      <div class="pf-c-page__main-body">
+         
+      </div>
+    </section>
+    <section class="pf-c-page__main-section pf-m-light">
+      <div class="pf-c-content">
+        
+        <nav class="pf-c-jump-links pf-m-center" aria-label="Local">
+          <h1>All Convos</h1>
+          <ul class="pf-c-jump-links__list" style = "list-style-type: none;">
+            <li class="pf-c-jump-links__item">
+              <a class="pf-c-jump-links__link" href="/analytics">
+                <span class="pf-c-jump-links__link-text">Convo Breakdown</span>
+              </a>
+            </li>
+            <li class="pf-c-jump-links__item pf-m-current">
+              <a class="pf-c-jump-links__link" href="#">
+                <span class="pf-c-jump-links__link-text ">User Data</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <p>Data aggregated from all convos on your account.</p>
+      </div>
+      
+    </section>
+    <section class="pf-c-page__main-section pf-m-no-padding" style="background-color: white;">
+      <!-- Drawer -->
+      <div class="pf-c-drawer pf-m-expanded pf-m-inline-on-2xl">
+        <div class="pf-c-drawer__section">
+          <div class="pf-c-divider" role="separator"></div>
+        </div>
+        <div class="pf-c-drawer__main">
+          <!-- INSERT ANALYSIS DATA BELOW (Content cards)-->
+          <div class="pf-c-drawer__content pf-m-no-background">
+            <div class="pf-c-drawer__body pf-m-padding">
+              <div class="pf-l-gallery pf-m-gutter">
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example1">
+                  <div class="pf-c-card__title">Top Locations</div>
+                  <div class="pf-c-card__body">
+                    <ul class="pf-c-list">
+                      <li>Boston, MA</li>
+                      <li>USA</li>
+                      <li>Massachusetts</li>
+                      <li>Allston</li>
+                      <li>New York</li>
+                      <li>IL</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example2">
+                  <div class="pf-c-card__title">User Activity</div>
+                  <div class="pf-c-card__body">
+                    <img class="zoom" src="/agg_activity.svg">
+                  </div>
+                </div>
+
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example3">
+                  <div class="pf-c-card__title">Age</div>
+                  <div class="pf-c-card__body">
+                    <img class="zoom" src="/age_chart.svg">
+                  </div>
+                </div>
+
+               
+
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example5">
+                  <div class="pf-c-card__title">Gender</div>
+                  <div class="pf-c-card__body">
+                    <img class="zoom" src="/gender_plot.svg">
+                  </div>
+                </div>
+
+                <div class="pf-c-card pf-m-compact" id="card-no-footer-example6">
+                  <div class="pf-c-card__title">User Participation</div>
+                  <div class="pf-c-card__body">
+                    <img class="zoom" src="/participationDonut.svg">
+                  </div>
+                </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
+
+<script>
+  var recData = <%-JSON.stringify(data)%>
+  var recArticles = <%-JSON.stringify(article)%>
+
+  for(var i=0; i<recData.length; i++){
+    var article = document.createElement('li');
+    article.setAttribute('class', 'pf-c-nav__item')
+    var title = document.createElement('a')
+    title.setAttribute('class', 'pf-c-nav__link')
+    title.setAttribute('href', "/analytics/"+recData[i].id)
+    var titleText = document.createTextNode(recArticles[i].title)
+    title.appendChild(titleText)
+    article.appendChild(title);
+    document.getElementById("subnav").appendChild(article)
+  }
+  var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText)
+                    var myArr = JSON.parse(this.responseText);
+                    document.getElementById("user-name").innerHTML = "@" + myArr.user.username;
+                    document.getElementById("profile-pic").src = myArr.user.propic;
+                }
+            };
+            xhr.open("GET", '/api/users/profile/<%=user%>', true);
+            xhr.withCredentials = true;
+            xhr.send();
+
+//NAV BAR
+const sideNavArrow = document.getElementById('arrowdown');
+const arts = document.getElementById('nav-mixed-link2');
+const con = document.getElementById("convs");
+con.style.display = "none";
+sideNavArrow.addEventListener('click', () => {
+  arts.ariaExpanded = !JSON.parse(arts.ariaExpanded);
+  console.log(arts.ariaExpanded);
+  if (arts.ariaExpanded=='false'){
+    con.style.display = "none";  
+  }else{
+    con.style.display = "";
+  }
+})
+
+const hamburger = document.getElementById("primary-detail-card-view-expanded-example-nav-toggle");
+const sideNav = document.getElementById("side");
+hamburger.addEventListener('click', () => {
+  hamburger.ariaExpanded = !JSON.parse(hamburger.ariaExpanded);
+  if (hamburger.ariaExpanded=='false'){
+    sideNav.style.display = "none";  
+  }else{
+    sideNav.style.display = "";
+  }
+});
+</script>

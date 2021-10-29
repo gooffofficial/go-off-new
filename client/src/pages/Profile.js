@@ -19,7 +19,7 @@ import { ChatsFeed } from '../components/FeedCard.js';
 import UpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
 import PencilIcon from '../images/Unionpencil.png'
 import { UserContext } from '../contexts/userContext';
-import { useAuth0 } from '@auth0/auth0-react';
+import MobileProfile from './mobile/MobileProfile';
 
 const fillerUser = {
 	name: 'Username',
@@ -51,8 +51,10 @@ const Profile = (props) => {
 
 	useEffect(() => {
 		console.log(currentUserFull)
+		axios.get(`${process.env.REACT_APP_FLASK_API}/`, {withCredentials: true}).then(res=>console.log(res,'-------g')).catch(err=>console.log(err,'-------g'))
 		}, []);
 
+/*
 	if (isMobile)
 		return <ProfileMobile
 			currentUser={currentUser}
@@ -64,13 +66,14 @@ const Profile = (props) => {
 			goToHomePage={goToHomePage}
 			history={history}
 		/>
-
-	console.log(currentUserFull)
-	console.log("test")
+		*/
+	
 	return (
 		<div className={styles.profilePageContainer}>
 			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
-			<div className={styles.subContainer}>
+			{
+				window.innerWidth<=800?<MobileProfile/>:<>
+				<div className={styles.subContainer}>
 				<div className={styles.leftSideBar}>
 					<div className={styles.sideBarLinks}>
 						<div className={styles.sideBarProfile}>
@@ -209,7 +212,8 @@ const Profile = (props) => {
 						<ChatsFeed chatCategory={chatCategory} isUser={currentUserFull.is_user}/>
 					</div>
 				</div>
-			</div>
+			</div></>
+			}
 		</div>
 	);
 };

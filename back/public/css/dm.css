@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+	--sideMargins: 30px;
+	--pageSideMargins: 160px;
+	--primaryConvo: 360px;
+	--pageWidth: 1600px;
+	--rowHeight: 350px;
+	--goOffBlue: #3A86FF;
+	--goOffGrey: rgb(223, 223, 223);
+}
+
+.pageContainer {
+	/* background-color: #000; */
+	position: relative;
+	width: var(--pageWidth);
+	margin: 0 auto;
+	top: 75px;
+	height: calc(100vh - 75px);
+}
+
+.dm-topbar {
+	border-bottom: 1px solid var(--goOffGrey);
+	padding: 15px 0px;
+	position: absolute;
+	top: -18px;
+	left: 240px;
+	right: 0;
+	border-right: 1px solid var(--goOffGrey);
+	padding-right: 28px;
+}
+
+.dm-sidebar {
+	position: absolute;
+	top: -18px;
+	left: 0;
+	width: 240px;
+	bottom: 0;
+	border: 1px solid var(--goOffGrey);
+	border-bottom: 0;
+}
+
+.dm-sidebar-top {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 75px;
+	border-bottom: 1px solid var(--goOffGrey);
+}
+
+#messages-text {
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
+	font-size: 20px;
+	vertical-align: middle;
+	line-height: 75px;
+	margin-left: 23px;
+}
+
+.dm-main {
+	position: absolute;
+	top: 58px;
+	bottom: 0;
+	right: 0;
+	left: 240px;
+	border-right: 1px solid var(--goOffGrey);
+}
+
+#dm-user-pfp {
+	height: 45px;
+	width: 45px;
+	border-radius: 50%;
+	margin-left: 33px;
+}
+
+.card {
+	height: calc(100vh - 190px);
+	border: 0;
+}
+
+#leave, #end {
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+	border: 0;
+	outline: 0;
+	font-weight: bold;
+	display: inline;
+	float: right;
+	margin-top: -34px;
+	background-color: rgba(0, 0, 0, 0) !important;
+	color: rgba(0, 0, 0, 0.4);
+}
+
+#leave:hover, #end:hover {
+	cursor: pointer;
+	color: rgba(0, 0, 0, 1);
+}
+
+#leave {
+	margin-right: 120px;
+}
+
+#dm-user-name {
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
+	font-size: 20px;
+	vertical-align: middle;
+	margin-left: 8px;
+}
+
+#dm-list {
+	/* padding: 18px; */
+	box-sizing: content-box;
+}
+
+.dm-list-item {
+	height: 70px;
+}
+
+.dm-list-item h3 {
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	position: relative;
+	left: 70px;
+	top: -43px;
+}
+
+.dm-list-item p {
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+	position: relative;
+	left: 70px;
+	top: -43px;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.dm-list-item img {
+	height: 45px;
+	width: 45px;
+	border-radius: 50%;
+	margin-top: 11px;
+	margin-left: 12px;
+}
+
+#chat-container {
+	margin-top: 75px;
+}
+
+#textarea {
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+	width: calc(100% - 118px);
+	display: inline;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 200px;
+	border: 0;
+	outline: 0;	
+	margin-top: 8;
+	margin-left: 20px;
+	padding: 10px 20px;
+}
+
+#textarea:focus {
+	border: 0 !important;
+	outline: none !important;
+}
+
+#send {
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	border: 0;
+	outline: 0;
+	display: inline;
+	background-color: var(--goOffBlue);
+	padding: 9px 20px;
+	border-radius: 50px;
+	margin-top: 0;
+}
+
+#send:hover {
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+.chat-message {
+	margin-top: 22px;
+	margin-left: 60px;
+	margin-bottom: 28px;
+	display: block;
+	width: calc(100% - 100px);
+}
+
+#messages {
+	margin-left: 10px;
+}
+
+#add-box {
+	height: 29px;
+	margin-left: 10px;
+	margin-top: -1px;
+}
+
+#add-box:hover {
+	cursor: pointer;
+}
+
+.chat-message img {
+	height: 38px !important;
+	width: 38px !important;
+	position: absolute;
+	left: 35px;
+	margin-top: -5px;
+}
+
+.chat-message p {
+	font-family: 'Poppins', sans-serif;
+	font-weight: 500;
+	font-size: 14px;
+	color: rgba(0, 0, 0, 0.4);
+	display: inline;
+	margin-left: 6px;
+}
+
+.chat-message span {
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	margin-left: 8px;
+	color: rgba(0, 0, 0, 1);
+}

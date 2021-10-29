@@ -30,7 +30,7 @@ const getCurrentDate = () => {
 export const sendEmailRegister = async (userInfo) => {
   let errorResponse = {}
   try {
-    let axiosResponse = await axios.post(`/api/users/ecreate`, userInfo)
+    let axiosResponse = await axios.post(`${process.env.REACT_APP_NODE_API}/api/users/ecreate`, userInfo)
     let serverResponse = axiosResponse.data 
 
     if (serverResponse.error) {
@@ -49,7 +49,7 @@ export const sendEmailRegister = async (userInfo) => {
 export const sendSMSRegister = async (userInfo) => {
   let errorResponse = {}
   try {
-    let axiosResponse = await axios.post(`/api/users/screate`, userInfo)
+    let axiosResponse = await axios.post(`${process.env.REACT_APP_NODE_API}/api/users/screate`, userInfo)
     let serverResponse = axiosResponse.data 
 
     if (serverResponse.error) {
@@ -68,7 +68,7 @@ export const sendSMSRegister = async (userInfo) => {
 export const sendVerifyCheck = async (email, verifyCode) => {
   let errorResponse = {}
   try {
-    let axiosResponse = await axios.get(`/api/users/verification?email=${email}&smscode=${verifyCode}`)
+    let axiosResponse = await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/verification?email=${email}&smscode=${verifyCode}`)
     let serverResponse = axiosResponse.data 
 
     if (serverResponse.error) {
@@ -93,14 +93,14 @@ export const sendVerifyCheck = async (email, verifyCode) => {
 // }
 
 export const getUpcomingChats = async (username = "") => { 
-  if (username === "") return (await axios.get(`/api/upcoming`)).data
-  else return (await axios.get(`/api/upcoming/${username}`)).data
+  if (username === "") return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/upcoming`, { withCredentials: true })).data
+  else return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/upcoming/${username}`, { withCredentials: true })).data
 }
-export const getAllUpcomingChats = async (username) => (await axios.get('/api/getconvos')).data;
+export const getAllUpcomingChats = async (username) => (await axios.get('/api/getconvos', { withCredentials: true })).data;
 
 export const getPastChats = async (username = "") => { 
-  if (username === "") return (await axios.get(`/api/pastconv`)).data;
-  else return (await axios.get(`/api/pastconv/${username}`)).data;
+  if (username === "") return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/pastconv`, { withCredentials: true })).data;
+  else return (await axios.get(`${process.env.REACT_APP_NODE_API}/api/pastconv/${username}`, { withCredentials: true })).data;
 }
 
 export const charLimit = (text, charMaxLength) => {
@@ -109,10 +109,10 @@ export const charLimit = (text, charMaxLength) => {
   
 }
 
-export const sendEditProf = async (editProfInfo, id) => (await axios.get('/api/users/update')).data;
+export const sendEditProf = async (editProfInfo, id) => (await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/update`, {withCredentials:true})).data;
 
 export const sendCreateConv = async (convCreationInfo,userId) => {
-  const { articleURL, time, title, description } = convCreationInfo; //*!description is the same as articleURL when
+  const { articleURL, time, title, description } = convCreationInfo;
   const convTime = new Date(time)
   const currentDate= getCurrentDate()
   const infoSent = { 
@@ -122,38 +122,31 @@ export const sendCreateConv = async (convCreationInfo,userId) => {
     convoTitle: title,
     convoDesc: description,
     tz: "",
-    roomId: Math.floor(1000000000 + Math.random() * 9000000000),
+    roomId: Math.floor(1000000000 + Math.random() * 9000000000), //this does not guarantee that we wont get the same id again
   }
-  db.collection('Conversations').add({
-    convoId:String(infoSent.roomId),
+  console.log(infoSent.roomId,'=====id')
+  //*!
+  const result = await axios.post(`${process.env.REACT_APP_FLASK_API}/createConvo`,{
+    convoId:infoSent.roomId,
     title:title,
     description:description,
     articleURL:articleURL,
     hostId:userId,
     isOpen:false,
     time:convTime.getTime() + "",
-    rsvp:[],
     ended:false,
     createdAt:currentDate,
     updatedAt:currentDate,
     tz:0
-  }).then(doc =>console.log(`conversation ${title} added`)).catch(err => console.log(err));
-  
-  return (await axios.post(`/api/convos/create`, infoSent)).data; //*!not working
-}
+  }, {withCredentials:true})
 
-export const sendEditConv = async (convCreationInfo,roomId) => {
-  const { articleURL, time, title, description } = convCreationInfo; //*!description is the same as articleURL when
-  const convTime = new Date(time)
-  const currentDate= getCurrentDate()
-  const infoSent = { 
-    article: articleURL, 
-    time: convTime.getTime() + "", 
-    title: title,
-    desc: description,
-    roomId:roomId,
+  if(result.status==200){
+    console.log('created convo!')
+  }else{
+    console.log('error creating convo')
   }
-   return (await axios.post(`/api/updateconvo`, infoSent)).data; //*!not working
+  
+  return (await axios.post(`${process.env.REACT_APP_NODE_API}/api/convos/create`, infoSent, {withCredentials:true})).data; //*!
 }
 
 const isEmpty = (obj) => obj && Object.keys(obj).length === 0 && obj.constructor === Object

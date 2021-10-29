@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="pf-m-redhat-font">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--<link rel="stylesheet" href="/css/fonts.css" />-->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+	<!-- Include latest PatternFly CSS via CDN -->
+    <link rel="stylesheet" href="/css/styleflip.css" />
+    <link rel="stylesheet" href="/css/signupresponsive.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<title>Verify Account</title>
+</head>
+
+<body onload="datafill()">
+    <div class="whole-container">
+        <div class="left-side">
+            <div class="left-container">
+                <img src="/GO_Off300.png" id="left-logo">
+                <span class="dot" id="pdot1" style="background: #3A86FF;"></span>
+                <span class="bar" id="pbar1" style="background: #3A86FF;"></span>
+                <span class="dot" id="pdot2" style="background: #3A86FF;"></span>
+                <span class="bar" id="pbar2" style="background: #3A86FF;"></span>
+                <span class="dot" id="pdot3" style="background: #3A86FF;"></span>
+                <p id="head-text">Verify your account</p>
+                <p id="desc-text">Choose your account verification method</p>
+                
+                
+
+                <form novalidate action="/api/users/ecreate" style="height: 15%;" method="post" class="field-container">
+                  <input type="hidden" name="firstname" id="firstname">
+                  <input type="hidden" name="lastname" id="lastname">
+                  <input type="hidden" name="email" id="email">
+                  <input type="hidden" name="username" id="username">
+                  <input type="hidden" name="password" id="password">
+                  <input type="hidden" name="birthdate" id="birthdate">
+                  <input type="hidden" name="countrycode" id="cc">
+                  <input type="hidden" name="location" id="location">
+                  <input type="hidden" name="gender" id="gender">
+                  <input type="hidden" name="phonenumber" id="phonenumber">
+                  
+                  <a href="" class="verbutton" onclick="this.closest('form').submit();return false;">
+                    <img src="/mail.svg" id="mailbutton">
+                    <p id="evertext">VERIFY WITH EMAIL</p>
+                    <p id="evertext2">Email</p>
+                    <img src="/Arrow.svg" id="rightarrow">
+                  </a>
+                  <!-- <button type="submit" class="verbutton">
+                      <img src="/mail.svg" id="mailbutton">
+                        <p id="evertext">VERIFY WITH EMAIL</p> 
+                        <p id="evertext2">Email</p>
+                      
+                      <img src="/Arrow.svg" id="rightarrow">
+                  </button> -->
+                </form>
+
+                <form novalidate action="/api/users/screate" style="height: 15%;" method="post" class="field-container">
+                  <input type="hidden" name="firstname" id="firstname1">
+                  <input type="hidden" name="lastname" id="lastname1">
+                  <input type="hidden" name="email" id="email1">
+                  <input type="hidden" name="username" id="username1">
+                  <input type="hidden" name="password" id="password1">
+                  <input type="hidden" name="birthdate" id="birthdate1">
+                  <input type="hidden" name="countrycode" id="cc1">
+                  <input type="hidden" name="location" id="location1">
+                  <input type="hidden" name="gender" id="gender1">
+                  <input type="hidden" name="phonenumber" id="phonenumber1">
+                  
+                  <a href="" class="verbutton" onclick="this.closest('form').submit();return false;">
+                    <img src="/Phone.svg" id="phonebutton">
+                    <p id="svertext">VERIFY WITH SMS</p>
+                    <p id="svertext2">Phone #</p>
+                    <img src="/Arrow.svg" id="rightarrow">
+                  </a>
+                </form>
+
+                <!-- <a href="" class="verbutton">
+                  <img src="/Phone.svg" id="phonebutton">
+                  <p id="svertext">VERIFY WITH SMS</p>
+                  <p id="svertext2">Phone #</p>
+                  <img src="/Arrow.svg" id="rightarrow">
+                </a> -->
+            </div>
+            <div class="wave-container">
+                <img src="/wave_thin.svg" id="wave">
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="right-container">
+
+                <p id="main-text">Welcome to Go Off!</p>
+                <p id="sub-text">A community made for you!</p>
+                <!-- <img src="/GO_OFF_LOGO.svg" id="logo"> -->
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+  function submithandle(){
+    const phoneNumber = phoneInput.getNumber();
+    //grab hidden input field id then set the value equal to the country code and then send it to the backend and concatenate it there
+    
+    ccInputField = document.querySelector("#cc");
+    ccInputField.value = phoneNumber;
+  }
+
+  function datafill(){
+    //fills in both forms w necessary pulled data from url so that the account information is sent
+    inputs = window.location.search.split("&")
+    console.log(inputs)
+    console.log(inputs[6].replace('%2b', '+').split("=")[1])
+    document.getElementById("firstname").value = inputs[0].split("+")[0].split("=")[1]
+    document.getElementById("lastname").value = inputs[1].split("=")[1]
+    document.getElementById("email").value = inputs[2].replace('%40', '@').split("=")[1]
+    document.getElementById("username").value = inputs[3].split("=")[1]
+    document.getElementById("password").value = decodeURIComponent(inputs[4].split("=")[1])
+    document.getElementById("birthdate").value = inputs[5].split("=")[1]
+    document.getElementById("cc").value = inputs[6].replace('%2B', '+').split("=")[1]
+    document.getElementById("phonenumber").value = inputs[6].replace('%2B', '+').split("=")[1]
+    document.getElementById("location").value = inputs[8].split("=")[1]
+    document.getElementById("gender").value = inputs[9].split("=")[1]
+    document.getElementById("evertext2").innerHTML = inputs[2].replace('%40', '@').split("=")[1]
+    
+    document.getElementById("firstname1").value = inputs[0].split("+")[0].split("=")[1]
+    document.getElementById("lastname1").value = inputs[1].split("=")[1]
+    document.getElementById("email1").value = inputs[2].replace('%40', '@').split("=")[1]
+    document.getElementById("username1").value = inputs[3].split("=")[1]
+    document.getElementById("password1").value = decodeURIComponent(inputs[4].split("=")[1])
+    document.getElementById("birthdate1").value = inputs[5].split("=")[1]
+    document.getElementById("cc1").value = inputs[6].replace('%2B', '+').split("=")[1]
+    document.getElementById("phonenumber1").value = inputs[6].replace('%2B', '+').split("=")[1]
+    document.getElementById("location1").value = inputs[8].split("=")[1]
+    document.getElementById("gender1").value = inputs[9].split("=")[1]
+    document.getElementById("svertext2").innerHTML = decodeURIComponent(inputs[6].replace('%2b', '+').split("=")[1])
+  } 
+</script>
+
+</html>
+
+
+
+

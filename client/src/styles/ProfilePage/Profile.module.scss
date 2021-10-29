@@ -1,11 +1,13 @@
 @import '../HomePage/Home.module.scss';
 
-.profilePageContainer {
-	background: #f4f4f4;
-	height: 100%;
-	overflow: hidden;
-}
 
+@media screen and (min-width:800) {
+	.profilePageContainer {
+		background: #f4f4f4;
+		height: 100%;
+		overflow: hidden;
+	}
+}
 .profCenterDash {
 	width: 82%;
 	align-items: baseline;

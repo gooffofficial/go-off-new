@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState, useContext} from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from '../styles/HomePage/Home.module.scss';
 import { UserContext } from '../contexts/userContext';
@@ -11,7 +10,8 @@ import TrendingCard from '../components/TrendingCard.js';
 import FriendActivityCard from '../components/FriendActivityCard.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
 import AllUpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
-import Conversation from '../components/Conversation.js';
+import Conversation from '../components/Conversation.js'; 
+import MobileHome from './mobile/MobileHome';
 
 const fillerUser = {
 	name: 'Username',
@@ -19,19 +19,19 @@ const fillerUser = {
 };
 
 const Home = (props) => {
-	const { currentUser, setCurrentUser, upcoming, convos } = useContext(UserContext)
-	const [currentUserFull, setCurrentUserFull] = useState({ ...currentUser, upcomingChats: upcoming });
-	const [allUserFull, setAllUserFull] = useState({ allupcomingChats: convos });
+	const {currentUser, setCurrentUser, upcoming, convos} = useContext(UserContext)
+	const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats: upcoming});
+	const [allUserFull, setAllUserFull] = useState({allupcomingChats: convos});
 
 	const history = useHistory();
 	// const history = useHistory();
 
 	//when used in sort function it will return array of chats from newest to oldest
 	const compareDate = (date1, date2) => {
-		if (date1.time > date2.time) {
+		if(date1.time>date2.time){
 			return -1
 		}
-		if (date1.time < date2.time) {
+		if(date1.time<date2.time){
 			return 1
 		}
 		return 0
@@ -39,9 +39,9 @@ const Home = (props) => {
 
 	useEffect(() => {
 		const chronConvos = [...convos].sort(compareDate)
-		setAllUserFull({ allupcomingChats: chronConvos })
-		/* //*!try and use userContext for using data about user. chect userContext file for more details
-	axios
+		setAllUserFull({allupcomingChats: chronConvos})
+		/*
+    axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
 			})
@@ -53,29 +53,29 @@ const Home = (props) => {
 						withCredentials: true,
 					})
 					.then((res2) => {
-			setCurrentUserFull(res2.data.user);
-		    
-			axios
-			  .get('/api/upcoming', { withCredentials: true})
-			  .then((res) => {
-				setCurrentUserFull({
-				  ...res2.data.user,
-				  upcomingChats: res.data,
-				})
-				axios
+            setCurrentUserFull(res2.data.user);
+            
+            axios
+              .get('/api/upcoming', { withCredentials: true})
+              .then((res) => {
+                setCurrentUserFull({
+                  ...res2.data.user,
+                  upcomingChats: res.data,
+                })
+                axios
 									.get('/api/getconvos', { withCredentials: true})
 									.then((res3) => {
 										setAllUserFull({
 											allupcomingChats: res3.data,
 										});
 									});
-			  })
+              })
 					});
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-	*/
+    */
 	}, []);
 
 	console.log(currentUserFull)
@@ -87,10 +87,13 @@ const Home = (props) => {
 		'/images/trend-stock4.png',
 	];
 
+
 	return (
 		<div className={styles.homePageContainer}>
 			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
-			<div className={styles.subContainer}>
+			{
+				window.innerWidth <= 800?<MobileHome/>:<>
+				<div className={styles.subContainer}>
 				<div className={styles.leftSideBar}>
 					<div className={styles.sideBarLinks}>
 						<div className={styles.sideBarProfile} onClick={() => history.push('/profile')}>
@@ -121,7 +124,7 @@ const Home = (props) => {
 
 							<p className={styles.sideBarLinkText}>Home</p>
 						</div>
-
+						
 					</div>
 
 					<div className={styles.sideBarCards}>
@@ -132,7 +135,7 @@ const Home = (props) => {
 						<div className={styles.upcomingChatsCards}>
 							{currentUserFull.upcomingChats ? (
 								currentUserFull.upcomingChats.map((prop) => {
-
+									
 									return (
 										<UpcomingChatsCard
 											articleURL={prop.articleURL}
@@ -170,10 +173,10 @@ const Home = (props) => {
 						</div>
 					</div>
 					<div className={styles.centerFeed}>
-						{allUserFull.allupcomingChats ? (
-							allUserFull.allupcomingChats.map((prop1) => {
-								return (
-									<Conversation
+							{allUserFull.allupcomingChats ? (
+								allUserFull.allupcomingChats.map((prop1) => {
+									return (
+										<Conversation
 										articleURL={prop1.articleURL}
 										articleImg={prop1.articleImg}
 										time={prop1.time}
@@ -186,17 +189,17 @@ const Home = (props) => {
 										hostNum={prop1.hostNum}
 										userid={prop1.userID}
 										useremail={prop1.useremail}
-										userPnum={prop1.userPnum}
+                        				userPnum={prop1.userPnum}
 										hostUName={prop1.username}
-									/>
-
-								);
-
-							})
-						) : (
-							<Conversation />
-						)}
-						{/* <FeedCard />
+										/>
+										
+									);
+									
+								})
+							) : (
+								<Conversation />
+							)}
+							{/* <FeedCard />
 							<FeedCard /> */}
 					</div>
 				</div>
@@ -293,6 +296,8 @@ const Home = (props) => {
 					</div>
 				</div> */}
 			</div>
+				</>
+			}
 		</div>
 	);
 };

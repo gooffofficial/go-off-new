@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { usePubNub } from 'pubnub-react';
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png';
 import styles from '../styles/LiveChatPage/livechat.module.css';
-import axios from 'axios';
 
-//!messages with attachment are missing attachments
-const Chat = ({	messages, user }) => {
+const Chat = ({	messages, user, scrollhook }) => {
 
+	useEffect(()=>{
+		scrollhook.current.scrollIntoView({ behavior: 'smooth' });
+		return
+	},[])
+	if(!scrollhook){
+		return <> Loading... </>
+	}
 	return (
 		<div>
 			{messages.map((message, index) => {
@@ -19,6 +24,7 @@ const Chat = ({	messages, user }) => {
 								isHost={message.isHost}
 								user={message.user}
 								text={message.text}
+								propic={message.propic}
 								attachment={message.attachment}
 							/>
 						);
@@ -35,6 +41,7 @@ const Chat = ({	messages, user }) => {
 								isHost={message.isHost}
 								user={message.user}
 								text={message.text}
+								propic={message.propic}
 								attachment={message.attachment}
 							/>
 							</div>
@@ -48,6 +55,7 @@ const Chat = ({	messages, user }) => {
 								isHost={message.isHost}
 								user={message.user}
 								text={message.text}
+								propic={message.propic}
 								attachment={message.attachment}
 							/>
 						);
@@ -64,6 +72,7 @@ const Chat = ({	messages, user }) => {
 								isHost={message.isHost}
 								user={message.user}
 								text={message.text}
+								propic={message.propic}
 								attachment={message.attachment}
 							/>
 							</div>
@@ -71,15 +80,16 @@ const Chat = ({	messages, user }) => {
 					}
 				}
 			})}
+			<div ref={scrollhook}></div>
 		</div>
 	);
 };
 
-const MeMessage = ({ isHost, user, text}) => {
+const MeMessage = ({ isHost, user, text, propic}) => {
 	return (
 		<div className={styles['meMessageBox']}>
 			<img
-				src={'/images/stock-face.jpg'}
+				src={propic}
 				alt="Message Icon"
 				className={styles['messageAvatar']}
 			/>
@@ -94,7 +104,7 @@ const MeMessage = ({ isHost, user, text}) => {
 	);
 };
 
-const OtherMessage = ({ isHost, user, text }) => {
+const OtherMessage = ({ isHost, user, text, propic }) => {
 	return (
 		<div className={styles['otherMessageBox']}>
 			<div className={styles['leftMessageBox']}>
@@ -105,7 +115,7 @@ const OtherMessage = ({ isHost, user, text }) => {
 				</div>
 			</div>
 			<img
-				src={emilyIcon}
+				src={propic}
 				alt="Message Icon"
 				className={styles['messageAvatar']}
 			/>
@@ -113,13 +123,13 @@ const OtherMessage = ({ isHost, user, text }) => {
 	);
 };
 
-const Attachment = ({isHost, user, src, me=true}) => {
+const Attachment = ({isHost, user, src, me=true, propic}) => {
 	if(me){
 	return (
 		<>
 		<div className={styles['meMessageBox']}>
 			<img
-				src={emilyIcon}
+				src={propic}
 				alt="Message Icon"
 				className={styles['messageAvatar']}
 			/>
@@ -144,7 +154,7 @@ const Attachment = ({isHost, user, src, me=true}) => {
 				</div>
 			</div>
 			<img
-				src={emilyIcon}
+				src={propic}
 				alt="Message Icon"
 				className={styles['messageAvatar']}
 			/>
@@ -155,3 +165,22 @@ const Attachment = ({isHost, user, src, me=true}) => {
 }
 
 export default Chat;
+
+/*test data
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+			<MeMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test gotta make this hella so that we can test this better"} propic={""} attachment={null}/>
+			<OtherMessage key={0} isHost={true} user={"Christian Nava"} text={"this is a test"} propic={""} attachment={null}/>
+*/

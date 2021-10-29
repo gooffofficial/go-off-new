@@ -1,13 +1,11 @@
 // Module Imports
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import axios from "axios";
 import "./styles/index.scss";
 import PubNub from "pubnub";
 import { PubNubProvider } from "pubnub-react";
 import { v4 as uuid_v4 } from "uuid";
 import config from "./config";
-
 
 // Component Imports
 import Home from "./pages/Home";
@@ -28,16 +26,17 @@ import Splash from "./pages/splash";
 import PublicProfile from "./pages/PublicProfile";
 import HostRoute from "./components/HostRoute";
 // import Log from '../../../apify/types/utils_log';
-import { useAuth0 } from '@auth0/auth0-react'
 import { UserContext } from "./contexts/userContext";
 import { routeContext } from "./contexts/useReroute";
-
-
+import SettingModal from "./components/SettingModal";
+import axios from "axios";
 
 const App = () => {
-  const { currentUser, isLoading } = useContext(UserContext)
-  const { currentLocation, setCurrentLocation } = useContext(routeContext)
+  const { currentUser, isLoading, modal, refetchUser, setCurrentUser } = useContext(UserContext);
+  const { currentLocation, setCurrentLocation } = useContext(routeContext);
   let history = useHistory();
+
+
   // This will create a unique pubnub client with sub and pub keys. These are test keys we will need to buy full feature ones.
   const pubnub = new PubNub({
     publishKey: config.pubKey,
@@ -45,28 +44,58 @@ const App = () => {
     //should not generate new one each time should create one for the user upon account creation and use that.
     //logVerbosity:true // logs HTTP request info
   });
-  // const token = localStorage.getItem
 
-  let location = useLocation().pathname
-  useEffect(() => {
-    if (!currentUser.signedIn && (location !== '/login' || location !== '/signup' || location !== '/' || location !== '/signup/'
-      || location !== '/signup/ver' || location !== '/signup/smsauth' || location !== '/signup/eauth' || location !== '/signup/cform'
-      || location !== '/signup/sform' || location !== '/404ERROR')) {
-      setCurrentLocation(location)
-      history.push('/')
+
+  //checks to see if user is logged in
+  const signedIn = async () => {
+    let result
+    try{
+      result = await axios.get(`${process.env.REACT_APP_FLASK_API}/`, {withCredentials:true})
+    }catch(err){
+      await axios.get(`${process.env.REACT_APP_FLASK_API}/logout`, {withCredentials:true})
+      await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/logout`, {withCredentials:true}).then(res=>{
+        console.log('Not logged In')
+        setCurrentUser({signedIn:false})
+        history.push('/')
+      })
     }
-  }, [])
+  }
+
+  let location = useLocation().pathname;
+  useEffect(() => {
+    signedIn()
+    if (
+      !currentUser.signedIn && 
+      (location !== "/login" ||
+        location !== "/signup" ||
+        location !== "/" ||
+        location !== "/signup/" ||
+        location !== "/signup/ver" ||
+        location !== "/signup/smsauth" ||
+        location !== "/signup/eauth" ||
+        location !== "/signup/cform" ||
+        location !== "/signup/sform" ||
+        location !== "/404ERROR")
+    ) {
+      setCurrentLocation(location);
+      history.push("/");
+    }
+  }, []);
 
   if (isLoading) {
     return (
       <>
-        <div style={{ 'height': '20vh' }}></div>
-        <div className='row d-flex justify-content-center'>
-          <div style={{ "width": "5rem", "height": "5rem" }} class="spinner-border text-primary" role="status">
-            <span class="sr-only">Loading...</span>
+        <div style={{ height: "20vh" }}></div>
+        <div className="row d-flex justify-content-center">
+          <div
+            style={{ width: "5rem", height: "5rem" }}
+            class="spinner-border text-primary"
+            role="status"
+          >
           </div>
-        </div></>
-    )
+        </div>
+      </>
+    );
   }
 
   return (
@@ -94,6 +123,7 @@ const App = () => {
           <div>Oops! Page Not Found</div>
         </Route>
       </Switch>
+      <SettingModal show={modal} />
     </PubNubProvider>
   );
 };

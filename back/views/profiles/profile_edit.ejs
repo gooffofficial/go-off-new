@@ -1,0 +1,359 @@
+<html>
+
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-180244749-2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'UA-180244749-2');
+		</script>
+		<link id="pro-style" rel="stylesheet" href="/css/profile_edit.css">
+		<link rel="stylesheet" href="/css/navigationBar.css">
+	
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+			integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+		</script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+		</script>
+		<script src="/convoCreate.js"></script>
+		<!-- <script type="text/javascript" src="profile.js"></script> -->
+		<title>Profile Edit</title>
+	</head>
+
+<body>
+	<nav class="navigationBar d-flex">
+		<div class="navigationContainer d-flex">
+			<a href="/feed"><img src="/GO_OFF_LOGO.svg" class="navigationLogo align-self-center" style="margin-top: 10px"></a>
+
+			<div class="navigationIcons align-self-center">
+				<!--<a href=""><img src="/plus.svg" class="navIcon"></a>-->
+				<div class="droparrow align-self-center">
+					<div id="plusdrop" class="dropdown-arrowcontent" style="position: absolute; top: 25px;">
+						<a data-target="#add-media" data-toggle="modal" class="MainNavText" id="media-adder"
+							style="display: inline-block;" href="#add-media">Media</a>
+						<!--<a href="/following" target="_blank" id="following-count" style="display: inline-block;"></a>-->
+						<!-- Modal -->
+						<div class="modal fade" id="add-media" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Media</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="/api/users/add_article" method="post">
+											<label class="url-label" for="userArticle">URL</label><br>
+											<input type="text" id="userArticle" name="userArticle">
+											<input type="submit" value="Submit" class="submit-btn">
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- <a href="/profile_edit">Folder</a> -->
+						<br>
+						<!-- <a href="/profile_edit">Folder</a> -->
+						<a data-target="#add-convo" data-toggle="modal" class="MainNavText" id="convobtn"
+							style="display: inline-block; visibility: hidden;" href="#add-convo">Convo</a>
+						<div class="modal fade" id="add-convo" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabelConv" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabelConv">Convo</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body" style="width: min-content;">
+										<form action="/api/convos/create" method="post" id="createConvoBar">
+											<label for="convoTime">Conversation Time</label>
+											<input type="datetime-local" id="convoTime">
+											<input tye="hidden" id="datetime-bar" name="convoTime" value=""> 
+											<input type="hidden" id="timezone" name="tz" value="">
+											<label for="convoTitle">Convo Title</label>
+											<input type="text" id="convoTitle" name="convoTitle">
+											<label for="convoDesc">Convo Description</label>
+											<input type="text" id="convoDesc" name="convoDesc">
+											<!-- Sus security here -->
+											<label for="article">Article URL</label>
+											<input type="text" id="article" name="article">
+											<button onclick="submitConvoBar()">Create</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<a href="/feed"><img src="/home.svg" class="navIcon"></a>
+				<!-- <a href=""><img src="/mail.svg" class="navIcon"></a> -->
+				<a href="#" id="notif" onclick="dropclick1('notif-dropdown')"><img src="/notification.svg" class="navIcon"></a>
+				<div id="notif-dropdown" class="dropdown-arrowcontent" style="position: absolute; top: 25px;">
+					
+				</div>
+				<!-- <a href=""><img src="/chart.svg" class="navIcon"></a> -->
+				<img onclick="dropclick1('plusdrop')" src="/plus.svg" class="navIcon">
+			</div>
+
+			<div class="searchContainer align-self-center d-flex">
+				<!-- <form id="bar_form"> SEARCH BAR NEEDS TO BE CONNECTED -->
+				<img src="/search_icon.svg" class="search-icon align-self-center">
+				<input type="text" id="search" placeholder="Search" autocomplete="off" onkeyup="plsWork(this.value)">
+				<!-- </form> -->
+				<!--<p>Suggestions: <span id="txtHint"></span></p>-->
+			</div>
+
+			<div id="search-input-results" style="visibility: hidden">
+				<a id="search-1"></a>
+				<a id="search-2"></a>
+				<a id="search-3"></a>
+				<a id="search-4"></a>
+				<a id="search-5"></a>
+			</div>
+
+			<div class="navigationProfile d-flex">
+				<div class="align-self-center">
+					<a href="/profiles/<%=user%>">
+						<img id="fprofpic" src="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg"
+							class="navigationProfilePic">
+						<p class="navigationProfileName"></p>
+
+						<span id="pname"></span>
+					</a>
+				</div>
+
+				<div class="droparrow align-self-center">
+					<img onclick="dropclick1('arrowdrop')" src="/chevron_down.svg" id="arrows" />
+					<div id="arrowdrop" class="dropdown-arrowcontent">
+						<a id="profbutton" href="/profiles/<%=user%>">Profile</a>
+						<a href="/profile_edit">Settings</a>
+						<a href="https://www.go-off.co/">Log Out</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	
+	<!-- form to collect data to change -->
+	<form action="/api/users/update" method="post" class="editProf" enctype="multipart/form-data">
+
+		<h1 id="edit-profile-text">Edit Profile</h1>
+
+		<div id="doneCancel-container">
+			<input type="submit" value="Done" id="submitBtn">
+			<input type="reset" value="Cancel" id="cancelBtn">
+		</div>
+
+		<p id="desc">Users will be able to view the information provided.</p>
+
+		<div class="profile-pic-container">
+			<label for="profile-pic" id="profile-image-text">Profile Image</label>
+			<img id="profile-pic" />
+			<input type="file" id="profpicBtn" name="file">	
+		</div>
+
+		<div id="inputContainer">
+			<div class="row">
+				<div class="col-6">
+					<label for="firstname">First Name</label>
+					<input type="text" id="firstname" name="firstname" autocomplete="off">
+				</div>
+
+				<div class="col-6">
+					<label for="lastname">Last Name</label>
+					<input type="text" id="lastname" name="lastname" autocomplete="off"><br>
+				</div>
+			</div>
+
+			<div id="bio-container">
+				<label for="bio">BIO</label>
+				<textarea id="bio" name="bio" autocomplete="off"></textarea>
+			</div>
+
+			<!-- <label for="zipcode">Zip Code</label>  Removing ZIP code for now, should we use location instead?
+			<input type="text" id="zipdcode" name="zipcode"> -->
+		</div>
+
+		<div class="leftButtons">
+			<a href="/profiles/<%=user%>" class="side-button">
+				<img src="/short_left.svg" class="edit-profile-icon">
+				BACK
+			</a>
+	
+			<br><br><br>
+		
+			<a href="profile_edit" class="side-button selectedTab">
+				<img src="/pencil.svg" class="edit-profile-icon">
+				EDIT PROFILE
+			</a>
+
+			<a href="account_settings" class="side-button">
+				<img src="/user_circle.svg" class="edit-profile-icon">
+				ACCOUNT SETTINGS
+			</a>
+		</div>
+	</form>
+
+	<!-- buttons on the side-->
+	<!-- <a href="/profiles/<%=user%>">
+		<button type="submit" id="back_button" class="d-flex">
+			<img src="/short_left.svg" id="back-icon align-self-center">
+		</button>
+	</a> -->
+
+	<script>
+		// new search function, this needs to be redone
+		// document.getElementById("bar_form").style.visibility = "hidden";
+
+		// function searchBar() {
+		// 	// alert("function called");
+		// 	document.getElementById("Submit").style.visibility = "hidden";
+		// 	document.getElementById("Plus").style.visibility = "hidden";
+		// 	document.getElementById("Cancel").style.visibility = "visible";
+		// 	document.getElementsByClassName('fprofpic')[0].style.visibility = "hidden";
+		// 	document.getElementsByClassName('pname')[0].style.visibility = "hidden";
+		// 	document.getElementById("bar_form").style.visibility = "visible";
+		// }
+
+		// function searchBar1() {
+		// 	document.getElementById("Submit").style.visibility = "visible";
+		// 	document.getElementById("Plus").style.visibility = "visible";
+		// 	document.getElementById("Cancel").style.visibility = "hidden";
+		// 	document.getElementsByClassName('fprofpic')[0].style.visibility = "visible";
+		// 	document.getElementsByClassName('pname')[0].style.visibility = "visible";
+		// 	document.getElementById("bar_form").style.visibility = "hidden";
+		// }
+
+		
+		if(<%=host%> == true || <%=admin%> == true){
+			document.getElementById("convobtn").style.visibility = "visible";
+		}
+		function dropclick1(id) {
+			var x = document.getElementById(id);
+			if (x.style.display === "block") {
+				x.style.display = "none";
+			} else {
+				x.style.display = "block";
+			}
+		}
+
+		(function () {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					var myArr = JSON.parse(this.responseText);
+					console.log(myArr);
+
+					if(myArr.user.admin == "(Admin)" || myArr.user.host == "(Host)"){
+						document.getElementById("create-convo-btn").style.visibility = "visible";
+						document.getElementById("convobtn").style.visibility = "visible";
+						console.log("test")
+					}
+
+					document.getElementById("pname").innerHTML = myArr.user.firstname + " " + myArr.user.lastname;
+					//document.getElementById("lpname").innerHTML = myArr.user.lastname;
+					document.getElementById("profile-pic").src = myArr.user.propic;
+					document.getElementById("fprofpic").src = myArr.user.propic;
+					//document.getElementById("profbutton").setAttribute("src", "/profiles/<%=user%>");
+				}
+			}
+			xhr.open("GET", '/api/users/profile/<%=user%>', true);
+			xhr.withCredentials = true;
+			xhr.send();
+		})();
+
+
+		var xhrNotif = new XMLHttpRequest();
+		xhrNotif.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				var convArr = JSON.parse(this.responseText);
+				//console.log("HELLO\n\n"+convArr+"\n\n")
+				console.log(document.getElementById("notif"))
+				document.getElementById("notif").innerText = convArr.length
+				for	(var i=0; i<convArr.length; i++){
+					var notifDiv = document.createElement('div')
+					notifDiv.setAttribute('class', 'notification')
+					var notifText = document.createElement('p')
+					notifText.setAttribute('font-size', 'small')
+					notifText.setAttribute('id', 'notiftext')
+					var notifTextNode = document.createTextNode('You have a convo "' + convArr[i].title +'" coming up soon!\n Find it on your converations tab.')
+					notifText.appendChild(notifTextNode)
+					
+					notifDiv.appendChild(notifText)
+					var linkText = document.createElement('a')
+					linkText.setAttribute('href', "/chat/"+convArr[i].roomId)
+					notifDiv.appendChild(linkText)
+					document.getElementById('notif-dropdown').appendChild(notifDiv)
+				}
+			}
+		}				
+		xhrNotif.open("GET", '/api/upcoming', true);
+		xhrNotif.withCredentials = true
+		xhrNotif.send();
+
+		var d = new Date();
+		document.getElementById('timezone').setAttribute('value', d.getTimezoneOffset()/60)
+		
+		function plsWork(str) {
+			str.toLowerCase();
+			var stringz = ""
+			var count = 1
+			if (str.length < 2) {
+				document.getElementById('search-input-results').style.visibility = 'hidden';
+				document.getElementById("search-1").innerText = "";
+				document.getElementById("search-2").innerText = "";
+				document.getElementById("search-3").innerText = "";
+				document.getElementById("search-4").innerText = "";
+				document.getElementById("search-5").innerText = "";
+				return;
+			} else {
+				document.getElementById('search-input-results').style.visibility = 'visible';
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						var names = JSON.parse(this.responseText);
+						console.log(this.responseText);
+						for (var i = 0; i < names.length; i++) {
+							var obj = names[i].username;
+							var na = names[i].name;
+							var l_obj = obj.toLowerCase();
+							var l_na = na.toLowerCase();
+							if (count < 6 && (l_obj.includes(str) || l_na.includes(str))) {
+								var search_id = "search-" + count.toString();
+								document.getElementById(search_id).setAttribute("href", "/profiles/" + obj);
+								document.getElementById(search_id).innerText = na;
+								count = count + 1;
+							}
+						}
+					}
+				};
+				xmlhttp.open("GET", "/api/users/all", true);
+				xmlhttp.send();
+			}
+		}
+		/*
+		var name = "Sabeer Narula";
+		var ppic = "https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png";
+
+		document.getElementById("pname").innerHTML = name;
+		document.getElementById("profile-pic").src = ppic;
+		document.getElementById("fprofpic").src = ppic;
+		*/
+	</script>
+</body>
+
+</html>
