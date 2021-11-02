@@ -12,12 +12,12 @@ Once you have your feature working, submit a pull request so that we can merge t
 # running the servers
 To run the website on localhost correctly you need to run the Node, React and Flask servers concurrently
 
-React
+React  
 "Cd client"  
 To install dependencies on first run through run "npm install"  
 To run server run "npm start"  
 
-Flask
+Flask  
 Clone the gooff-flask repo  
 "Cd flask-app"  
 To install dependencies on first run through run "pip install -r requirements.txt"  
@@ -35,7 +35,7 @@ Inside requirements.txt change “psycopg==2.9.1” to “psycopg2-binary” and
 “pip3 uninstall mysql-connector”  
 “pip install -r requirements.txt”  
 
-Node
+Node  
 This will also be in the gooff-flask repo  
 "Cd node-app"  
 To install dependencies on first run through run "npm install"  
