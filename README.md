@@ -13,7 +13,7 @@ Once you have your feature working, submit a pull request so that we can merge t
 To run the website on localhost correctly you need to run the Node, React and Flask servers concurrently
 
 React
-"Cd client"
+"Cd client".
 To install dependencies on first run through run "npm install"
 To run server run "npm start"
 
