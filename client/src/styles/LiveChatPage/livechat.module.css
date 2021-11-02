@@ -462,7 +462,12 @@
   padding: 8px 12px;
   -ms-flex-align: top;
   max-height: 45px;
+  width: 100%;
   border-radius: 12px;
+}
+
+.formbox {
+  flex-grow: 10;
 }
 
 .inputText {
@@ -475,7 +480,7 @@
   background: transparent;
   border: none;
   padding-bottom: 5px;
-  width: 750px;
+  width: 100%;
   margin-left: 10px;
   margin-right: 10px;
   font-size: 15px;
