@@ -13,11 +13,14 @@ import globeIcon from "../images/liveChatImages/globe-icon.png";
 import article1 from "../images/liveChatImages/article-1.png";
 import article2 from "../images/liveChatImages/article-2.png";
 // import NYTLogo from "../images/liveChatImages/NYT-Logo.png";
+import { Popover } from 'react-tiny-popover'
+import Picker from 'emoji-picker-react';
 import emilyIcon from "../images/liveChatImages/emily-profile-icon.png";
 import sendIcon from "../images/liveChatImages/send.png";
 import dots3Icon from "../images/liveChatImages/dots3.png";
 import inputAddIcon from "../images/liveChatImages/addIcon.png";
 import inputSendIcon from "../images/liveChatImages/chatSend.png";
+import emojiIcon from "../images/liveChatImages/emoji.png";
 import styles from "../styles/LiveChatPage/livechat.module.css";
 import { usePubNub } from "pubnub-react";
 import { useForm } from "react-hook-form";
@@ -67,7 +70,13 @@ const LiveChat = () => {
   //importing pubnub into this component
   const pubnub = usePubNub();
 
-  const [canType, setCanType]=useState(true);
+  const target = useRef(null);
+
+  const inpuref = createRef()
+
+  const [canType, setCanType] = useState(true);
+
+  const [emojibox, setemojibox] = useState(false);
 
 
   //chat metadata from firebase
@@ -78,6 +87,8 @@ const LiveChat = () => {
 
   //typing indicator
   const [userTyping, setUserTyping] = useState('');
+
+  const [message, setmessage] = useState('');
 
   //file url used to be sent as attachment with messages.
   const [file, setFile] = useState('');
@@ -177,14 +188,25 @@ const LiveChat = () => {
     //console.log(file)
     setFile(file)
   }
-
+  const pickemoji = (e , {emoji}) => {
+    console.log("emoji >> ",emoji)
+    const ref = inpuref.current;
+    ref.focus();
+    const start = message.substring(0,ref.selectionStart);
+    const end = message.substring(ref.selectionStart);
+    const msg = start + emoji + " " + end
+    setmessage(msg)
+  }
   const virtualClick = event => {
     hiddenFileInput.current.click();
   };
-
+  const handletextchange = e =>{
+    setmessage(e.target.value)
+  }
   //this on submit function is publishing the message to the channel
-  const onSubmit = async (message, e) => {
-    if (message.message == '' && !file) {
+  const onSubmit = async () => {
+    console.log(message, currentUser, pubnub.getUUID())
+    if (message == '' && !file) {
       return
     }
     const storageRef = firebase.storage().ref();
@@ -198,7 +220,7 @@ const LiveChat = () => {
               message: {
                 user: currentUser.name,
                 isHost: isHost,
-                text: message.message,
+                text: message,
                 uuid: currentUser.id,
                 attachment: fileURL,
                 propic: currentUser.propic,
@@ -212,7 +234,7 @@ const LiveChat = () => {
               }
             }
           );
-          e.target.reset(); // resets the input fields
+          setmessage("") // resets the input fields
           scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
         }
         ).catch()
@@ -225,7 +247,7 @@ const LiveChat = () => {
           message: {
             user: currentUser.name,
             isHost: isHost,
-            text: message.message,
+            text: message,
             uuid: currentUser.id,
             propic: currentUser.propic,
             id: uuid_v4()
@@ -238,7 +260,7 @@ const LiveChat = () => {
           }
         }
       );
-      e.target.reset(); // resets the input fields
+      setmessage("") // resets the input fields
       scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
     }
   };
@@ -597,9 +619,10 @@ const LiveChat = () => {
                 user={currentUser}
               /> : ''}
             </div>
+           
             {<div >{userTyping}</div>}
-            <div className={canType?styles["chatInputBox"]:styles['d-none']}>
-              <form className="form-demo" onSubmit={handleSubmit(onSubmit)}>
+            <div className={canType ? styles["chatInputBox"] : styles['d-none']}>
+              <form className={styles["formbox"]} onSubmit={handleSubmit(onSubmit)}>
                 {/* <img
                   src={inputAddIcon}
                   alt="Add Icon"
@@ -611,20 +634,44 @@ const LiveChat = () => {
                   type="text"
                   className={styles["inputText"]}
                   onKeyPress={handlePress}
+                  ref={inpuref}
+                  value={message}
+                  onChange={handletextchange}
                   placeholder="Type your message"
-                  {...register("message")}
+                  // {...register("message")}
                 />{" "}
                 {/*this is for sending message, onSubmit here*/}
                 {errors.message && (
                   <p className="error">{errors.message.message}</p>
                 )}
               </form>
-              {/* <img
+              <Popover
+                isOpen={emojibox}
+                positions={['top']} // preferred positions by priority     
+                content={
+                <div style={{marginBottom:20}}>
+                <Picker  onEmojiClick={pickemoji} />
+                </div>
+              }
+              >
+              <div style={{width:60,textAlign:"right"}}>
+              <img
+                ref={target}
+                src={emojiIcon}
+                alt="emoji icon"
+                style={{width:30,height:30}}
+                onClick={() => setemojibox(!emojibox)}
+              />
+              </div>
+              </Popover>
+              <div style={{width:40,textAlign:"right"}}>
+              <img
                 src={inputSendIcon}
-                alt="Send Input"
-                className={styles["inputSendIcon"]}
-                onClick={() => onSubmit}
-              /> */}
+                alt="send icon"
+                style={{width:30,height:30}}
+                onClick={onSubmit}
+              />
+              </div>
             </div>
           </div>
         </div>
