@@ -18,7 +18,7 @@ To install dependencies on first run through run "npm install"
 To run server run "npm start"  
 
 Flask  
-Clone the gooff-flask repo  
+Clone the gooff-flask repo and work in the Docker branch: https://github.com/sakethgangam/gooff-flask 
 "Cd flask-app"  
 To install dependencies on first run through run "pip install -r requirements.txt"  
 to run server run "Python main.py"  
