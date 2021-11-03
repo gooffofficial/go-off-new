@@ -73,9 +73,10 @@ const toggleShow = () => {
 
   useEffect(() => {
     setFilteredUsers(
-      searchInput === ""
+      searchInput.toLowerCase() === ""
         ? []
-        : users.filter((user) => user.username.startsWith(searchInput))
+        : users.filter((user) => (user.username.toLowerCase().startsWith(searchInput.toLowerCase())) ||
+          user.name.toLowerCase().startsWith(searchInput.toLowerCase()))
     );
   }, [searchInput, users]);
 
@@ -101,6 +102,16 @@ const toggleShow = () => {
     setSearchInput("");
     history.push(`/profile/${username}`);
   };
+
+  const nameClickHandler = (e) => {
+    // e.preventDefault();
+
+    const name = e.target.innerHTML;
+    setSuggestionsHider(`${styles.hide}`);
+    setSearchInput("");
+    history.push(`/profile/${name}`);
+  };
+
 
   const logoutHandler = async(e) => {
     e.preventDefault();
