@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef,useContext } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import 'moment-timezone';
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
 import NYTLogo from '../images/liveChatImages/NYT-Logo.png'
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png'
@@ -76,7 +77,10 @@ const Conversation = (props,{ userid }) => {
     let convoDay = moment(UTCTime).format('dddd').toUpperCase();
     let convoHoursMinutes = moment(UTCTime).format('h:mm a').toUpperCase();
     let convoDate = `${convoDay} ${convoHoursMinutes}`;
-    
+    let zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    let abbr = moment.tz(zone).format("z");
+    console.log(abbr);
+
     return (<>
           {show?(<div class={`alert alert-success alert-dismissible fade show`} role="alert">
         <strong>Succesfully RSVP'd! Copy and send this link to your friends so they can join the fun: <Link ref={link} to={`profile/${hostUName}`}>https://www.go-off.co/profile/{hostUName}</Link></strong>
@@ -110,7 +114,7 @@ const Conversation = (props,{ userid }) => {
             </div>
           </div>
         </div>
-        <span className={s.startTime}>{convoDate}(EST)</span>
+        <span className={s.startTime}>{convoDate}({abbr})</span>
         {/* <div className={s.chatTags}>
           <div className={s.chatTag}>Eco-Friendly</div>
           <div className={s.chatTag}>Sustainability</div>

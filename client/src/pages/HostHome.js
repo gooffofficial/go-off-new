@@ -142,10 +142,10 @@ const HomePage = () => {
           <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
           <span className={s.homeText}>Home</span>
         </div>
-        <div className={s.discoverBox} onClick = {() => history.push('/discover')}>
+        {/* <div className={s.discoverBox} onClick = {() => history.push('/discover')}>
           <img src={globeIcon} alt="discoverImage" className={s.globeIcon} />
           <span className={s.globeText}>Explore</span>
-        </div>
+        </div> */}
         <h1 className={s.upcommingHeading}>Your Upcoming Convos</h1>
         <div className={s.upcomingChatsCards}>
 							{currentUserFull.upcomingChats ? (

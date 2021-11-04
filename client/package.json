@@ -13,6 +13,7 @@
 		"emoji-picker-react": "^3.4.8",
 		"firebase": "^8.9.0",
 		"moment": "^2.29.1",
+		"moment-timezone": "^0.5.33",
 		"nmap": "^1.1.0",
 		"node-schedule": "^2.0.0",
 		"pubnub": "^4.32.1",
