@@ -245,7 +245,7 @@ const LiveChat = () => {
         {
           channel: channels[0],
           message: {
-            user: currentUser.name,
+            user: currentUser.username,
             isHost: isHost,
             text: message,
             uuid: currentUser.id,
