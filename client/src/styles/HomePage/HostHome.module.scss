@@ -267,8 +267,30 @@
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 12px 16px;
+  padding: 12px 0px;
   z-index: 1;
+  }
+.buttondropdown {
+  display: flex;
+  border-radius: 10%;
+  flex-direction: column;
+}
+.buttonbox {
+  display: flex;
+  margin-top: 30px;
+  flex-direction: row;
+}
+.sharedropdown {
+  padding: 0px 20px,
+}
+.dropdownbutton {
+  min-width: 160px;
+  background-color: transparent;
+}
+.dropdownbutton:hover{
+  color: rgb(230, 230, 230);
+  background-color: linear-gradient(180deg, #3a86ff 0%, #5667ff 100%);
+  
 }
 .rightHeading:hover .dropdowncontent {
   display: block;
@@ -807,6 +829,7 @@
 .createConvBtn {
   display: block;
   margin-top: 10px;
+  margin-right: 10px;
   outline: none;
   border: none;
   color: white;
@@ -817,6 +840,22 @@
   font-weight: 500;
   letter-spacing: 0.8px;
 }
+
+.createConvBtn2 {
+  display: block;
+  margin-top: 10px;
+  margin-right: 20px;
+  outline: none;
+  border: none;
+  color: #757d8a;
+  background: rgba(58, 134, 255, 0.08);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+}
+
 
 .prekshaIcon:hover,
 .photoRow:hover,
@@ -838,6 +877,7 @@
 .RSVP_Btn:hover,
 .chatImage:hover,
 .threeDotsIcon:hover,
+.dropdownbutton:hover,
 .createConvBtn:hover {
   cursor: pointer;
 }
