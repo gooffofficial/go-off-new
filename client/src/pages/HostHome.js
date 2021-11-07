@@ -178,34 +178,37 @@ const HomePage = () => {
         }} uk-icon="link"></button>
         {copied?<span>copied!</span>:''}
       </div>):''}
-          <div className={s.userBox}>
-            <div className={s.userConvRow}>
-              <img src={currentUserFull.propic} alt="Avatar" className={s.avatarIcon} />
-              <input onClick={openCreateConvModal} type="text" className={s.startAConvInput} placeholder="Start a conversation"/>
-              <CreateConvModal 
-                closeCreateConvModal={closeCreateConvModal}
-                isCreateConvModalVisible={isCreateConvModalVisible} 
-                id={currentUser.id}
-                setShow={setShow}
-              />
+         
+            <div className={s.userBox}>
+              <div className={s.userConvRow}>
+                <img src={currentUserFull.propic} alt="Avatar" className={s.avatarIcon} />
+                <input onClick={openCreateConvModal} type="text" className={s.startAConvInput} placeholder="Start a conversation"/>
+                <CreateConvModal 
+                  closeCreateConvModal={closeCreateConvModal}
+                  isCreateConvModalVisible={isCreateConvModalVisible} 
+                  id={currentUser.id}
+                  setShow={setShow}
+                />
+              </div>
+              <span className={s.convdesc} >Host a convo about a......</span>
+
+              <hr className={s.grayLine} />
+              <div className={s.userIconsRow}>
+                <div className={s.photoRow}>
+                  <img src={photoIcon} alt="" className={s.photoIcon} />
+                  <span className={s.photoTxt}>Photo</span>
+                </div>
+                <div className={s.ytRow}>
+                  <img src={ytIcon} alt="" className={s.videoIcon} />
+                  <span className={s.videoTxt}>Video</span>
+                </div>
+                <div className={s.articleRow}>
+                  <img src={articleIcon} alt="" className={s.articleIcon} />
+                  <span className={s.articleTxt}>Article</span>
+                </div>
+              </div>
             </div>
-            <span className={s.convdesc} >Host a convo about a......</span>
-            <hr className={s.grayLine} />
-            <div className={s.userIconsRow}>
-              <div className={s.photoRow}>
-                <img src={photoIcon} alt="" className={s.photoIcon} />
-                <span className={s.photoTxt}>Photo</span>
-              </div>
-              <div className={s.ytRow}>
-                <img src={ytIcon} alt="" className={s.videoIcon} />
-                <span className={s.videoTxt}>Video</span>
-              </div>
-              <div className={s.articleRow}>
-                <img src={articleIcon} alt="" className={s.articleIcon} />
-                <span className={s.articleTxt}>Article</span>
-              </div>
-            </div>
-          </div>
+     
           <div className={s.centerFeed}>
             {allUserFull.allupcomingChats ? (
                   allUserFull.allupcomingChats.map((prop1) => {

@@ -62,25 +62,25 @@ const App = () => {
   }
 
   let location = useLocation().pathname;
-  useEffect(() => {
-    signedIn()
-    if (
-      !currentUser.signedIn && 
-      (location !== "/login" ||
-        location !== "/signup" ||
-        location !== "/" ||
-        location !== "/signup/" ||
-        location !== "/signup/ver" ||
-        location !== "/signup/smsauth" ||
-        location !== "/signup/eauth" ||
-        location !== "/signup/cform" ||
-        location !== "/signup/sform" ||
-        location !== "/404ERROR")
-    ) {
-      setCurrentLocation(location);
-      history.push("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   signedIn()
+  //   if (
+  //     !currentUser.signedIn && 
+  //     (location !== "/login" ||
+  //       location !== "/signup" ||
+  //       location !== "/" ||
+  //       location !== "/signup/" ||
+  //       location !== "/signup/ver" ||
+  //       location !== "/signup/smsauth" ||
+  //       location !== "/signup/eauth" ||
+  //       location !== "/signup/cform" ||
+  //       location !== "/signup/sform" ||
+  //       location !== "/404ERROR")
+  //   ) {
+  //     setCurrentLocation(location);
+  //     history.push("/");
+  //   }
+  // }, []);
 
   if (isLoading) {
     return (
