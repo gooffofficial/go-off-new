@@ -69,6 +69,7 @@ export const UserProvider = ({ children }) => {
   const [isLoading, setisLoading] = useState(true);
   const history = useHistory()
   const [modal, setModal] = useState(false)
+  const [smodal, setSModal] = useState(false)
 
   const refetchUser = async () => {
     setisLoading(true)
@@ -207,7 +208,9 @@ export const UserProvider = ({ children }) => {
         getCookie,
         fetchData,
         modal, 
-        setModal
+        setModal,
+        smodal,
+        setSModal
       }}
     >
       {children}
