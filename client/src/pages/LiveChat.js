@@ -39,6 +39,7 @@ import {
 import MobileLiveChat from "./LiveChatMobile";
 import { UserContext } from "../contexts/userContext";
 import MobileChat from "./mobile/MobileChat";
+import Conversation from '../components/Conversation.js'; 
 
 const LiveChat = () => {
 
@@ -97,8 +98,9 @@ const LiveChat = () => {
   const [messages, addMessages] = useState([]);
 
   //sets current user with dummy info
-  const {currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming} = useContext(UserContext)
+  const {currentUser, setCurrentUser, upcoming, convos, setUpcoming, refetchUser, refetchUpcoming} = useContext(UserContext)
   const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats:upcoming});
+  const [allUserFull, setAllUserFull] = useState({allupcomingChats: convos});
 
   const [loading, setLoading] = useState(true);
 
@@ -116,6 +118,19 @@ const LiveChat = () => {
   const THROTTLE = 4000; //milliseconds
 
   const [ConvoData] = []
+
+  const getCurrentConvo = (id) =>{
+    let convo;
+    for (let i = 0; i < allUserFull.allupcomingChats.length; i++) {
+      if(allUserFull.allupcomingChats[i].roomId == id){
+        convo = allUserFull.allupcomingChats[i];
+        break;
+      }
+    }
+
+    return convo;
+
+  }
 
   //this is a ref that will give scroll to bottom functionality
   const scrollhook = useRef();
@@ -631,7 +646,7 @@ const LiveChat = () => {
         <div className={styles["rightColumn"]}>
           <div className={styles["everythingButProfile"]}>
             <img
-              src={article2}
+              src={getCurrentConvo(code).articleImg}
               alt="articleImage"
               className={styles["article2"]}
             />
@@ -782,5 +797,6 @@ export default LiveChat
 //     </div>
 //   );
 // };
+
 
 
