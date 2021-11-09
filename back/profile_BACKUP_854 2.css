@@ -1,0 +1,437 @@
+.logo img {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    left: 20%;
+}
+.profpic img{
+    position: absolute;
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    margin-top: 100px;
+}
+hr{
+    position: absolute;
+    border: 1px solid #808080;
+    width: 100%;
+    margin-top: 55px;
+    color: #808080;
+}
+#search{
+    position: absolute;
+    margin-top: 10px;
+    left: 25%;
+    background-image: url(http://www.levenmetwater.nl/static/global/images/icon-search.png);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    border: 1px solid #ccc;
+    
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    
+    padding: 10px 5px;
+    text-indent: 20px;
+    
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 2s;
+    transition: all 0.2s;
+    
+    width: 490px;
+    float: right;
+    /* left: -200px; */
+}
+
+#search:focus {
+    /* Picked a random icon from Google */
+    background-position: -20px center;
+    text-indent: 0;
+}
+
+.fprofpic img{
+    border-radius: 50%;
+    top: 8px;
+    height: 40px;
+    width: 40px;
+    float: right;
+    border: none;
+    margin-right: 10px;
+}
+.pname{
+    top: 8px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+button{
+    border: 0;
+    padding: 1em;
+    position: relative;
+    cursor: pointer;
+    background: none;
+}
+button:after {
+    content: " ";
+    transition: background-color .3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+button:hover:after { background-color: rgba(0, 0, 0, 0.3); border-radius: 15px;}
+
+#top-profile{
+/*<<<<<<< HEAD
+    position: absolute;
+    left: 22%;
+    top: 11%;
+    right: 660px;
+    height: 300px;
+=======
+    position: fixed;
+    float: center;
+    left: 20%;
+    top: 8%;
+    width: 50%;
+    height: 30%;*/
+    position: absolute;
+    left: 25%;
+    top: 8%;
+    right: 25%;
+    height: 30%;
+/*>>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c*/
+/*    border: 1px solid;*/
+
+}
+
+#profile-pic{
+/*<<<<<<< HEAD
+    position: absolute;
+    float: left;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    left: 60px;
+    top: 100px;
+=======*/
+    position: absolute;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    left: 0px;
+    top: 20px;
+/*>>>>>>> ec7242d902aa2e4e164a546d47e8653b5bb0ee6c*/
+
+}
+
+#profile-name {
+    position: absolute;
+    top: 10%;
+    left: 25%;
+}
+
+#follower-count {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+}
+
+#following-count {
+    position: absolute;
+    top: 25%;
+    left: 40%;
+}
+
+#post-count {
+    position: absolute;
+    top: 25%;
+    left: 55%;
+}
+
+#location-logo{
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    top: 32%;
+    left: 65%;
+}
+
+#location{
+    position: absolute;
+    top: 25%;
+    left: 67%;
+}
+
+#bio {
+    position: absolute;
+    top: 40%;
+    left: 25%;
+}
+
+#articles{
+    position: absolute;
+    top: 35%;
+    left: 25%;
+}
+
+#article-1{
+    position: absolute;
+    left: 25%;
+    top: 45%;
+    width: 355.5px;
+    height: 350px;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+#article-1-image{
+    position: absolute;
+    height: 200px;
+    width: 255.5px;
+    top: 0%;
+    left: 0%;
+}
+
+#article-1-title{
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top: 60%;
+}
+
+#article-1-author{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 78%;
+}
+
+#article-1-read-time{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 85%;
+
+}
+
+#article-2{
+    position: absolute;
+    left: 45%;
+    top: 45%;
+    width: 300.1px;
+    height: 350px;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+#article-2-image{
+    position: absolute;
+    height: 200px;
+    width: 300.1px;
+    top: 0%;
+    left: 0%;
+}
+
+#article-2-title{
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top: 60%;
+}
+
+#article-2-author{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 78%;
+}
+
+#article-2-read-time{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 85%;
+}
+
+#article-2{
+    position: absolute;
+    left: 45%;
+    top: 45%;
+    width: 255.5px;
+    height: 300px;
+/*    border: 1px solid;*/
+}
+
+#article-2-image{
+    position: absolute;
+    height: 200px;
+    width: 255.5px;
+    top: 0%;
+    left: 0%;
+}
+
+#article-2-title{
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top: 70%;
+}
+
+#article-2-author{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 83%;
+}
+
+#article-2-read-time{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 90%;
+
+}
+
+#article-3{
+    position: absolute;
+    left: 65%;
+    top: 45%;
+    width: 255.5px;
+    height: 300px;
+/*    border: 1px solid;*/
+}
+
+#article-3-image{
+    position: absolute;
+    height: 200px;
+    width: 255.5px;
+    top: 0%;
+    left: 0%;
+}
+
+#article-3-title{
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top: 70%;
+}
+
+#article-3-author{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 83%;
+}
+
+#article-3-read-time{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+    top: 90%;
+
+}
+#Submit{
+    float: right;
+    top: -10px;
+    left: 10px;
+    border-radius: 50%;
+    /* background-size: cover;
+    top: 8px;
+    height: 40px;
+    width: 40px;
+    float: right;
+    border: none;
+    cursor: pointer;
+    color: transparent;
+    margin-right: 10px; */
+}
+#Plus{
+    float: right;
+    top: -10px;
+    border-radius: 50%;
+    /* background-image: url("https://weare1910.com/wp/wp-content/uploads/2016/05/snow_icon_large07-1.jpg");
+    background-size: cover;
+    top: 8px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    cursor: pointer;
+    color: transparent;
+    border-radius: 50%;
+    margin-right: 10px; */
+}
+#Cancel{
+    position: absolute;
+    margin-top: 10px;
+    float: right;
+    visibility: hidden;
+    left: 61%;
+    background-color: lightskyblue;
+}
+#Home{
+    margin-top: 220px;
+    font-size: 20px;
+}
+
+#Profile{
+    font-size: 20px;
+}
+
+#Notification{
+    font-size: 20px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    float: right;
+    margin-right: 240px;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}

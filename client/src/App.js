@@ -32,7 +32,7 @@ import SettingModal from "./components/SettingModal";
 import axios from "axios";
 
 const App = () => {
-  const { currentUser, isLoading, modal, refetchUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, isLoading, modal, refetchUser, setCurrentUser, smodal, setSModal } = useContext(UserContext);
   const { currentLocation, setCurrentLocation } = useContext(routeContext);
   let history = useHistory();
 
