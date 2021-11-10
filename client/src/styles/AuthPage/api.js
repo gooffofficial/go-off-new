@@ -1,6 +1,8 @@
 
 import axios from 'axios'
 import firebase from '../../firebase.js'
+import { UserContext } from '../../contexts/userContext'
+import {useContext} from 'react';
 
 const db = firebase.firestore();
 const getCurrentDate = () => {
@@ -111,6 +113,8 @@ export const charLimit = (text, charMaxLength) => {
 
 export const sendEditProf = async (editProfInfo, id) => (await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/update`, {withCredentials:true})).data;
 
+const {refetchUpcoming, refetchConvos, refetchMyUpcoming} = useContext(UserContext)
+
 export const sendCreateConv = async (convCreationInfo,userId) => {
   const { articleURL, time, title, description } = convCreationInfo;
   const convTime = new Date(time)
@@ -125,7 +129,8 @@ export const sendCreateConv = async (convCreationInfo,userId) => {
     roomId: Math.floor(1000000000 + Math.random() * 9000000000), //this does not guarantee that we wont get the same id again
   }
   console.log(infoSent.roomId,'=====id')
-  //*!
+  try{
+    
   const result = await axios.post(`${process.env.REACT_APP_FLASK_API}/createConvo`,{
     convoId:infoSent.roomId,
     title:title,
@@ -140,13 +145,17 @@ export const sendCreateConv = async (convCreationInfo,userId) => {
     tz:0
   }, {withCredentials:true})
 
-  if(result.status==200){
-    console.log('created convo!')
-  }else{
-    console.log('error creating convo')
+  const result2 = await axios.post(`${process.env.REACT_APP_NODE_API}/api/convos/create`, infoSent, {withCredentials:true})
+
+  console.log('created convo!')
+  refetchUpcoming()
+  refetchMyUpcoming()
+  refetchConvos()
+}catch (err) {
+  console.log('error creating convo ',err)
   }
   
-  return (await axios.post(`${process.env.REACT_APP_NODE_API}/api/convos/create`, infoSent, {withCredentials:true})).data; //*!
+  return result2.data;
 }
 export const sendEditConv = async (convCreationInfo,roomId) => {
   const { articleURL, time, title, description } = convCreationInfo; //*!description is the same as articleURL when
