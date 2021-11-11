@@ -20,7 +20,7 @@ import sendIcon from "../images/liveChatImages/send.png";
 import dots3Icon from "../images/liveChatImages/dots3.png";
 import inputAddIcon from "../images/liveChatImages/addIcon.png";
 import inputSendIcon from "../images/liveChatImages/chatSend.png";
-import emojiIcon from "../images/liveChatImages/emoji.png";
+import emojiIcon from "../images/liveChatImages/chatemoji.png";
 import styles from "../styles/LiveChatPage/livechat.module.css";
 import { usePubNub } from "pubnub-react";
 import { useForm } from "react-hook-form";

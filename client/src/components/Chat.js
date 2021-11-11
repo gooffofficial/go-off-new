@@ -2,7 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { usePubNub } from 'pubnub-react';
 import emilyIcon from '../images/liveChatImages/emily-profile-icon.png';
 import styles from '../styles/LiveChatPage/livechat.module.css';
+import emojiIcon from "../images/liveChatImages/msgemoji.png";
+import shareIcon from "../images/liveChatImages/msgshare.png";
+import { ReactionBarSelector , FacebookSelector} from '@charkour/react-reactions';
 
+const remoji = [
+	{label: "ha", node: <div>😀</div>},
+	{label: "haha", node: <div>🤣</div>},
+	{label: "heart", node: <div>❤️</div>},
+	{label: "like", node: <div>👍</div>},
+	{label: "dislike", node: <div>👎</div>}
+]
 const Chat = ({	messages, user, scrollhook }) => {
 
 	useEffect(()=>{
@@ -86,30 +96,89 @@ const Chat = ({	messages, user, scrollhook }) => {
 };
 
 const MeMessage = ({ isHost, user, text, propic}) => {
+	const [showreaction, setshowreaction] = useState(false)
 	return (
 		<div className={styles['meMessageBox']}>
+
 			<img
 				src={propic}
 				alt="Message Icon"
 				className={styles['messageAvatar']}
 			/>
+			
 			<div className={styles['rightMessageBox']}>
 				<span className={styles['messageUserName']}>{user}</span>
 				{isHost && <span className={styles['hostText']}>HOST</span>}
+				
 				<div className={styles['chatMessageBox']}>
 						<span className={styles['messageText']}>{text}</span>
 				</div>
+				
+				
+			</div>
+			<div className={styles['msghovercontent']}>
+			{/* <div className={styles['msgiconselected']} > */}
+			{showreaction &&		
+				<ReactionBarSelector 
+				iconSize={15}
+				reactions={remoji} 
+				onSelect={(item)=>console.log("selected "+item)} 
+				/>
+				}
+			<img
+				src={shareIcon}
+				alt="share Icon"
+				className={styles['hovericon']}
+				onClick={()=>console.log("share icon pressed")}
+			/>
+			{/* </div>
+			<div className={styles['msgiconselected']} > */}
+			<img
+				src={emojiIcon}
+				alt="emoji Icon"
+				className={styles['hovericon']}
+				onClick={()=> setshowreaction(!showreaction)}
+			/>
+			{/* </div> */}
 			</div>
 		</div>
 	);
 };
 
 const OtherMessage = ({ isHost, user, text, propic }) => {
+  const [showreaction, setshowreaction] = useState(false)
 	return (
 		<div className={styles['otherMessageBox']}>
+			<div className={styles['msghovercontent']}>
+			{/* <div className={styles['msgiconselected']} > */}
+			{showreaction &&
+				<ReactionBarSelector 
+				iconSize={15}
+				reactions={remoji} 
+				onSelect={(item)=>console.log("selected "+item)} 
+				/>
+				}
+			<img
+				src={shareIcon}
+				alt="share Icon"
+				className={styles['hovericon']}
+				onClick={()=>console.log("share icon pressed")}
+			/>
+			{/* </div>
+			<div className={styles['msgiconselected']} > */}
+			<img
+				src={emojiIcon}
+				alt="emoji Icon"
+				className={styles['hovericon']}
+				onClick={()=> setshowreaction(!showreaction)}
+			/>
+			{/* </div> */}
+			</div>
 			<div className={styles['leftMessageBox']}>
+			  
 				<span className={styles['messageUserName']}>{user}</span>
-				{isHost && <span className={styles['hostText']}>HOST</span>}
+				{<span className={styles['hostText']}>HOST</span>}
+			
 				<div className={styles['chatMessageBox']}>
 					<span className={styles['messageText']}>{text}</span>
 				</div>
@@ -124,7 +193,10 @@ const OtherMessage = ({ isHost, user, text, propic }) => {
 };
 
 const Attachment = ({isHost, user, src, me=true, propic}) => {
+	const [showreaction, setshowreaction] = useState(false)
+
 	if(me){
+
 	return (
 		<>
 		<div className={styles['meMessageBox']}>
@@ -140,12 +212,64 @@ const Attachment = ({isHost, user, src, me=true, propic}) => {
 					<img style={{widht:'50px',height:'50px'}} src={src}/>
 				</div>
 			</div>
+			<div className={styles['msghovercontent']}>
+			{/* <div className={styles['msgiconselected']} > */}
+			{showreaction &&
+				<ReactionBarSelector 
+				iconSize={15}
+				reactions={remoji}
+				onSelect={(item)=>console.log("selected "+item)} 
+				/>
+				}
+			<img
+				src={shareIcon}
+				alt="share Icon"
+				className={styles['hovericon']}
+				onClick={()=>console.log("share icon pressed")}
+			/>
+			{/* </div>
+			<div className={styles['msgiconselected']} > */}
+			<img
+				src={emojiIcon}
+				alt="emoji Icon"
+				className={styles['hovericon']}
+				onClick={()=> setshowreaction(!showreaction)}
+			/>
+			{/* </div> */}
+			</div>
 		</div>
 		</>
 	)}else{
+	
 		return(
 			<>
 		<div className={styles['otherMessageBox']}>
+		<div className={styles['msghovercontent']}>
+			{/* <div className={styles['msgiconselected']} > */}
+			{showreaction &&
+				<ReactionBarSelector 
+				iconSize={15}
+				reactions={remoji} 
+				onSelect={(item)=>console.log("selected "+item)} 
+				/>
+				}
+			<img
+				src={shareIcon}
+				alt="share Icon"
+				className={styles['hovericon']}
+				onClick={()=>console.log("share icon pressed")}
+			/>
+			{/* </div>
+			<div className={styles['msgiconselected']} > */}
+			<img
+				src={emojiIcon}
+				alt="emoji Icon"
+				className={styles['hovericon']}
+				onClick={()=> setshowreaction(!showreaction)}
+			/>
+			{/* </div> */}
+			</div>
+		
 			<div className={styles['leftMessageBox']}>
 				<span className={styles['messageUserName']}>{user}</span>
 				{isHost && <span className={styles['hostText']}>HOSTs</span>}
