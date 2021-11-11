@@ -8,6 +8,17 @@ const Participants = ({channel}) => {
   const pubnub = usePubNub();
   const {currentUser} = useContext(UserContext)
   const [participants, setParticipants] = useState([0]);
+  const getusers = async() =>{
+    const data =  await pubnub.objects.getChannelMembers({channel:channel})
+    console.log("members")
+    const userdata = data.data
+    let users = []
+    userdata.forEach((item)=>{
+      console.log(item.uuid.id)
+      users.push(item.uuid.id)
+    })
+    setParticipants(users)
+  }
   const fetchMeta = async() => {
     const result = await pubnub.objects.getChannelMetadata({channel:channel})
     if(result.status!=200){
@@ -22,9 +33,9 @@ const Participants = ({channel}) => {
   }
   useEffect(() => {
     fetchMeta()
+    getusers()
     if(currentUser.signedIn){
     const user = currentUser;
-    setParticipants([user.name]);
     pubnub.addListener({
       presence: function (p) {
         const action = p.action; // Can be join, leave, state-change, or timeout
@@ -46,17 +57,7 @@ const Participants = ({channel}) => {
         var pubTT = s.timetoken; // Publish timetoken
         var msg = s.message; // The Payload
         var publisher = s.publisher; //The Publisher
-        if (msg.action == "AM") {
-          if (msg.name !== user.name) {
-            if(!participants.includes(user.name)){
-              setParticipants((state) => [...state, msg.name]);
-            }
-          } else {
-          }
-        } else if (msg.action == "DM") {
-          let newList = participants.filter((x) => x !== msg.name);
-          setParticipants(newList);
-        }
+        getusers()
       },
     });
   }
