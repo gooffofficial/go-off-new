@@ -1,8 +1,7 @@
 
 import axios from 'axios'
 import firebase from '../../firebase.js'
-import { UserContext } from '../../contexts/userContext'
-import {useContext} from 'react';
+
 
 const db = firebase.firestore();
 const getCurrentDate = () => {
@@ -113,7 +112,7 @@ export const charLimit = (text, charMaxLength) => {
 
 export const sendEditProf = async (editProfInfo, id) => (await axios.get(`${process.env.REACT_APP_NODE_API}/api/users/update`, {withCredentials:true})).data;
 
-const {refetchUpcoming, refetchConvos, refetchMyUpcoming} = useContext(UserContext)
+
 
 export const sendCreateConv = async (convCreationInfo,userId) => {
   const { articleURL, time, title, description } = convCreationInfo;
@@ -145,17 +144,12 @@ export const sendCreateConv = async (convCreationInfo,userId) => {
     tz:0
   }, {withCredentials:true})
 
-  const result2 = await axios.post(`${process.env.REACT_APP_NODE_API}/api/convos/create`, infoSent, {withCredentials:true})
-
   console.log('created convo!')
-  refetchUpcoming()
-  refetchMyUpcoming()
-  refetchConvos()
 }catch (err) {
   console.log('error creating convo ',err)
   }
   
-  return result2.data;
+  return await axios.post(`${process.env.REACT_APP_NODE_API}/api/convos/create`, infoSent, {withCredentials:true})
 }
 export const sendEditConv = async (convCreationInfo,roomId) => {
   const { articleURL, time, title, description } = convCreationInfo; //*!description is the same as articleURL when
