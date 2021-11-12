@@ -265,9 +265,9 @@ const LiveChat = () => {
     }
   };
   //handles leave/end button
-  const handleButton = () => {
+  const handleButton = async () => {
     pubnub.unsubscribe({ channels: channels });
-    pubnub.objects.removeChannelMembers({
+    await pubnub.objects.removeChannelMembers({
       channel: channels,
       uuids: [currentUser.username],
     });
