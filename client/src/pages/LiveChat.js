@@ -206,6 +206,8 @@ const LiveChat = () => {
                 text: message.message,
                 uuid: currentUser.id,
                 attachment: fileURL,
+                filename:file.name,
+                filesize:file.size,
                 id: uuid_v4()
               },
             },
@@ -501,6 +503,8 @@ const LiveChat = () => {
                 isHost: e.message.isHost,
                 text: e.message.text,
                 uuid: e.message.uuid,
+                filename: e.message.filename,
+                filesize: e.message.filesize,
                 attachment: e.message.attachment,
                 id: e.message.id
               },

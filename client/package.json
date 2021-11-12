@@ -2,9 +2,10 @@
 	"name": "go-off-frontend",
 	"version": "0.1.0",
 	"private": true,
-	"proxy": "http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/",
+	"proxy": "http://localhost:8000/",
 	"dependencies": {
 		"@auth0/auth0-react": "^1.6.0",
+		"@charkour/react-reactions": "^0.6.1",
 		"@testing-library/jest-dom": "^5.14.1",
 		"@testing-library/react": "^11.2.7",
 		"@testing-library/user-event": "^12.8.3",
