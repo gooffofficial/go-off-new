@@ -13,13 +13,16 @@ import globeIcon from "../images/liveChatImages/globe-icon.png";
 import article1 from "../images/liveChatImages/article-1.png";
 import article2 from "../images/liveChatImages/article-2.png";
 // import NYTLogo from "../images/liveChatImages/NYT-Logo.png";
+import { Popover } from 'react-tiny-popover'
+import Picker from 'emoji-picker-react';
 import emilyIcon from "../images/liveChatImages/emily-profile-icon.png";
 import sendIcon from "../images/liveChatImages/send.png";
 import dots3Icon from "../images/liveChatImages/dots3.png";
 import inputAddIcon from "../images/liveChatImages/addIcon.png";
 import inputSendIcon from "../images/liveChatImages/chatSend.png";
+import emojiIcon from "../images/liveChatImages/emoji.png";
 import styles from "../styles/LiveChatPage/livechat.module.css";
-import { PubNubConsumer, usePubNub } from "pubnub-react";
+import { usePubNub } from "pubnub-react";
 import { useForm } from "react-hook-form";
 import Chat from "../components/Chat.js";
 import Participants from '../components/Participants.js';
@@ -37,14 +40,10 @@ import {
   isMobile,
 } from "react-device-detect";
 import MobileLiveChat from "./LiveChatMobile";
-import { useAuth0 } from '@auth0/auth0-react'
 import { UserContext } from "../contexts/userContext";
+import MobileChat from "./mobile/MobileChat";
 
-//*! participants should be requested from pubnub upon joining and then updating when knew people join
 const LiveChat = () => {
-  const db = firebase.firestore()
-  //storage is
-  // firebase.storage()
 
   const history = useHistory();
 
@@ -71,7 +70,13 @@ const LiveChat = () => {
   //importing pubnub into this component
   const pubnub = usePubNub();
 
+  const target = useRef(null);
+
+  const inpuref = createRef()
+
   const [canType, setCanType] = useState(true);
+
+  const [emojibox, setemojibox] = useState(false);
 
 
   //chat metadata from firebase
@@ -82,6 +87,8 @@ const LiveChat = () => {
 
   //typing indicator
   const [userTyping, setUserTyping] = useState('');
+
+  const [message, setmessage] = useState('');
 
   //file url used to be sent as attachment with messages.
   const [file, setFile] = useState('');
@@ -94,15 +101,15 @@ const LiveChat = () => {
     formState: { errors }, //this keeps track of the errors that can be easily retrieved
   } = useForm({ criteriaMode: "all" });
 
-  //this will hold channel(s) for now default is test. will need to add way to join via a unique identifier to set as channel
+  //this will hold channel(s). 
   const [channels, setChannels] = useState([code]);
 
   //this state will hold all messages; Note every message will be structured as such {text:'string', user:'string', isHost:'boolean'}
   const [messages, addMessages] = useState([]);
 
   //sets current user with dummy info
-  const { currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming } = useContext(UserContext)
-  const [currentUserFull, setCurrentUserFull] = useState({ ...currentUser, upcomingChats: upcoming });
+  const {currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming} = useContext(UserContext)
+  const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats:upcoming});
 
   const [loading, setLoading] = useState(true);
 
@@ -126,9 +133,9 @@ const LiveChat = () => {
 
   const currentHost = (id) => {
     axios
-      .get(`/getuser/${id}`).then(res => {
-        const host = res.data
-        setHost({ name: host.HostName, ppic: host.pfpic })
+      .get(`${process.env.REACT_APP_FLASK_API}/getHost/${id}`, {withCredentials:true}).then(res =>{
+        const host= res.data
+        setHost({name:host.user.name,ppic:host.user.ppic})
       }).catch(err => console.log(err))
   }
 
@@ -145,7 +152,7 @@ const LiveChat = () => {
 
   //this will handle incoming messages
   const handleMessage = (object) => {
-    console.log(object, 'handle message');
+    console.log(object,'handle message');
     const message = object.message;
     if (!message.user) {
       return;
@@ -181,20 +188,30 @@ const LiveChat = () => {
     //console.log(file)
     setFile(file)
   }
-
+  const pickemoji = (e , {emoji}) => {
+    console.log("emoji >> ",emoji)
+    const ref = inpuref.current;
+    ref.focus();
+    const start = message.substring(0,ref.selectionStart);
+    const end = message.substring(ref.selectionStart);
+    const msg = start + emoji + " " + end
+    setmessage(msg)
+  }
   const virtualClick = event => {
     hiddenFileInput.current.click();
   };
-
+  const handletextchange = e =>{
+    setmessage(e.target.value)
+  }
   //this on submit function is publishing the message to the channel
-  const onSubmit = async (message, e) => {
-    console.log(message, e, currentUser, pubnub.getUUID())
-    if (message.message == '' && !file) {
+  const onSubmit = async () => {
+    console.log(message, currentUser, pubnub.getUUID())
+    if (message == '' && !file) {
       return
     }
     const storageRef = firebase.storage().ref();
     if (file.name) {
-      const fileRef = storageRef.child(file.name);
+      const fileRef = storageRef.child(file.name);//!
       uploadFile(fileRef).then(res => {
         fileRef.getDownloadURL().then(fileURL => {
           pubnub.publish(
@@ -203,7 +220,7 @@ const LiveChat = () => {
               message: {
                 user: currentUser.name,
                 isHost: isHost,
-                text: message.message,
+                text: message,
                 uuid: currentUser.id,
                 attachment: fileURL,
                 filename:file.name,
@@ -218,32 +235,33 @@ const LiveChat = () => {
               }
             }
           );
-          e.target.reset(); // resets the input fields
+          setmessage("") // resets the input fields
           scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
         }
         ).catch()
       }).catch(error => console.log(error))
     } else {
-      console.log('sending', channels)
+      console.log('sending',channels)
       pubnub.publish(
         {
           channel: channels[0],
           message: {
-            user: currentUser.name,
+            user: currentUser.username,
             isHost: isHost,
-            text: message.message,
+            text: message,
             uuid: currentUser.id,
+            propic: currentUser.propic,
             id: uuid_v4()
           },
         },
         function (status) {
           //this will print a status error in console
           if (status.error) {
-            console.log(status, 'something went wrong');
+            console.log(status,'something went wrong');
           }
         }
       );
-      e.target.reset(); // resets the input fields
+      setmessage("") // resets the input fields
       scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
     }
   };
@@ -251,7 +269,7 @@ const LiveChat = () => {
   const handleButton = () => {
     pubnub.unsubscribe({ channels: channels });
     pubnub.signal({ channel: code, message: { action: 'DM', uuid: pubnub.getUUID() } });
-    isHost ? endConversation() : goToHomePage()
+    isHost ? endConversation(metaData.ID) : goToHomePage()
   }
 
   const processMessages = (messages) => {
@@ -270,36 +288,19 @@ const LiveChat = () => {
     return newList
   }
 
-  const endConversation = () => {
-    //pubnub.signal({ channel: code, message: { action: 'END' } })
+  const endConversation = async(ID) => { //*
+    
+    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`,{"ended":true},{withCredentials:true})
+    if(result.status==200){
+      pubnub.signal({ channel: code, message: { action: 'END' } })
+      const messageList = messages ? processMessages(messages) : ''
+      axios.post(`${process.env.REACT_APP_FLASK_API}/commitmessages`, { messages: messageList },{withCredentials:true} ).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.post(`${process.env.REACT_APP_FLASK_API}/commitconvo`, { convo: {article:metaData.articleURL, time:metaData.time,host:metaData.hostId,roomid:metaData.convoId, title:metaData.title,description:metaData.description,
+        createdAt:metaData.createdAt,updatedAt:metaData.updatedAt, tz:metaData.tz}},{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.get(`${process.env.REACT_APP_FLASK_API}/execanalytics/${code}`,{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      console.log("ended Conversation")
+    }
 
-    db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const metadata = doc.data()
-        // doc.data() is never undefined for query doc snapshots
-        db.collection('Conversations').doc(doc.id).update({ ended: true }).then(res => console.log('successfully ended')).catch(err => console.log(`Could not end ${err}`))
-        console.log(doc.id, " => ", metadata);
-        const convoData = {
-          article: metadata.articleURL,
-          time: metadata.time,
-          host: metadata.hostId,
-          roomid: metadata.convoId,
-          title: metadata.title,
-          description: metadata.description,
-          createdAt: metadata.createdAt,
-          updatedAt: metadata.updatedAt,
-          tz: metadata.tz
-        }
-        const messageList = messages ? processMessages(messages) : ''
-        //axios.post(`/commitmessages`, data: { messages: messageList } }).then(res => console.log(res.data.message)).catch(err => console.log(err))
-        //axios.post(`commitconvo`, data: { convo: convoData }).then(res => console.log(res.data.message)).catch(err => console.log(err))
-        //axios.get(`/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
-        // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitmessages`, data:{messages:messageList} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
-        // axios({method: 'post',url: `http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/commitconvo`, data:{convo:convoData} }).then(res => console.log(res.data.message)).catch(err=>console.log(err))
-        // axios(`http://gooffbetadocker1-env.eba-tnmaygqs.us-west-1.elasticbeanstalk.com/execanalytics/${code}`).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      });
-
-    }).catch(err => console.log(`did not find convo ${err}`));
   }
 
   //handles typing indicator signaling//*!have a UTS and UTT UTS starts timer and UTS resets timer create timer function with use state and test if each UTT adds to timer
@@ -316,40 +317,25 @@ const LiveChat = () => {
   }
 
   //use this to look at the metadata
-  const fetchMetaData = async () => {
-    /**
-    db.collection('Conversations').onSnapshot((snapshot)=>{
-      snapshot.forEach(doc => console.log(doc.data()))
-    })
-     */
-    const doc = await db.collection('Conversations').where('convoId', '==', code).get();
-    db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
+  const fetchMetaData = async() => {
+    let result = await axios.get(`${process.env.REACT_APP_FLASK_API}/getConvo/${code}`,{withCredentials:true}).catch(err=>setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>))
+    console.log('---metadata---',result)
 
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        let metadata = doc.data()
-        currentHost(metadata.hostId);
-        setMetaData(metadata);
-        fetchAllMessages();
-        checkUser(metadata);
-        //console.log(doc.id, " => ", doc.data());
-      });
-    }).catch((err) => console.log(err))
-
-    if (!doc.docs[0]) {
-      setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>)
+    if(result){
+      currentHost(result.data.convo.hostId);
+      setMetaData(result.data.convo);
+      fetchAllMessages();
+      checkUser(result.data.convo);
     }
-
   }
 
-  const openConversation = () => {
-    db.collection('Conversations').where('convoId', '==', code).get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        db.collection('Conversations').doc(doc.id).update({ isOpen: true }).then(res => console.log('success')).catch(err => console.log(err))
-        console.log(doc.id, " => ", doc.data());
-      });
-    })
+  const openConversation = async(ID) => {
+    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`,{"isOpen":true},{withCredentials:true})
+    if(result.status!=200){
+      console.log('error opening conversation')
+    }else{
+      console.log('success opening')
+    }
   }
 
   const addListener = (user) => {
@@ -382,15 +368,15 @@ const LiveChat = () => {
           setIsTyping(true)
           setUserTyping(`${msg.name} is typing`);
 
-          if (!busy) {
+          if(!busy){
             setBusy(true);
-            setTimeout(() => {
-              if (canRequest) {
+            setTimeout(()=>{
+              if(canRequest){
                 setUserTyping('')
               }
               setIsTyping(false)
               setBusy(false);
-            }, THROTTLE)
+            },THROTTLE)
           }
 
         }
@@ -411,23 +397,23 @@ const LiveChat = () => {
       (status, response) => {
         const occupancy = response ? response.totalOccupancy : null;
         const occupants = response ? response.occupants : null;
-        if (metadata.ended) {
+        if (metadata.ended==1) {
           return setContent(<div style={{ textAlign: 'center' }}>This chat has already ended.</div>)
         }
         if (occupancy < 10) {
           //room not full now check for rsvp
-          if (metadata.isOpen == false) {
+          if (metadata.isOpen == 0) {
             setContent(<div className={styles['setContent']}>
-              <div className="lock"></div><h1>
-                <i class="bi bi-lock lock" /></h1>
-              <div>Currently closed! Waiting for host to open chat.</div>
+            <div className="lock"></div><h1>
+            <i class="bi bi-lock lock"/></h1>
+            <div>Currently closed! Waiting for host to open chat.</div>
             </div>)
-          } else if ((metadata.rsvp.includes(user.id) || user.id == metadata.hostId) && metadata.isOpen == true) {
+          } else if (user.id == metadata.hostId && metadata.isOpen == 1) {
             addListener(user);
             //the user rsvp'd or is host. and can now see chat
             pubnub.signal({ channel: code, message: { action: 'AM', name: user.name } })
             setReload(true);
-            scrollhook.current.scrollIntoView({ behavior: 'smooth' });
+            //scrollhook.current.scrollIntoView({ behavior: 'smooth' });
           } else {
             //person not rsvp. redirect or respond?
             //setContent(<div style={{ textAlign: 'center' }}>You did not rsvp for this conversation</div>)
@@ -449,59 +435,58 @@ const LiveChat = () => {
   //checks for and sets User
   const checkUser = async (data) => {
     let res;
-    if (!currentUser.signedIn) {
-      res = await axios
-        .get(`/api/users/current`, {
-          withCredentials: true,
-        })
-      if (res.data.user) {
+    if(!currentUser.signedIn){
+    res = await axios
+      .get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
+        withCredentials: true,
+      })
+      if(res.data.user){
         setCurrentUser(res.data.user);
-      } else {
+      }else{
         setContent(<div style={{ textAlign: 'center' }}>Please sign in</div>)
         console.log(`could not make request:`
         )
       }
-      pubnub.setUUID(res.data.user.id);
-      let metadata = { ...data }
-      if (data.hostId == res.data.user.id) {
-        setIsHost(true);
-        if (data.isOpen == false) {
-          metadata.isOpen = true;
-          openConversation();
+      pubnub.setUUID( res.data.user.id);
+        let metadata = { ...data }
+        if ( data.hostId == res.data.user.id) {
+          setIsHost(true);
+          if (data.isOpen == 0) {
+            metadata.isOpen = 1;
+            openConversation(metadata.ID);
+          }
         }
-      }
-      checkRoom(res.data.user, metadata)
-    } else {
+        checkRoom(res.data.user, metadata)
+    }else{
       pubnub.setUUID(currentUser.id);
-      let metadata = { ...data }
-      if (data.hostId == currentUser.id) {
-        setIsHost(true);
-        if (data.isOpen == false) {
-          metadata.isOpen = true;
-          openConversation();
+        let metadata = { ...data }
+        if (data.hostId == currentUser.id) {
+          setIsHost(true);
+          if (data.isOpen == 0) {
+            metadata.isOpen = 1;
+            openConversation(metadata.ID);
+          }
         }
-      }
-      checkRoom(currentUser, metadata)
+        checkRoom(currentUser, metadata)
     }
-
+      
   }
   //fetches all channel messages
   const fetchAllMessages = async () => {
 
     pubnub.fetchMessages({ channels: [code], count: 100 })
       .then((e) => {
+        console.log(e.channels[code])
         //this will fetch all messages in Test chat then add them to the messages state.
         e.channels[code].forEach((e) => {
-          if (e.message.message || e.message.text.message) {
-            return;
-          } // this is just done to filter out previous versions of the messages
-          if (e.message.user && (e.message.text || e.message.attachment)) {
+          console.log(e)
+          if (e.message.text || e.message.attachment) {
             addMessages((messages) => [
               ...messages,
               {
                 user: e.message.user,
                 isHost: e.message.isHost,
-                text: e.message.text,
+                text: e.message.text?e.message.text:'',
                 uuid: e.message.uuid,
                 filename: e.message.filename,
                 filesize: e.message.filesize,
@@ -514,66 +499,35 @@ const LiveChat = () => {
       })
       .catch((error) => console.log(error));
   }
-  //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
+
   useEffect(() => {
-
-    /* //! use userContext
-     axios
-       .get(`/api/users/current`, {
-         withCredentials: true,
-       })
-       .then((res) => {
-         setCurrentUser(res.data.user);
- 
-         axios
-           .get(`/api/users/profile/${res.data.user.username}`, {
-             withCredentials: true,
-           })
-           .then((res2) => {
-             setCurrentUserFull(res2.data.user);
- 
-             axios
-               .get('/api/upcoming', { withCredentials: true })
-               .then((res) => {
-                 setCurrentUserFull({
-                   ...res2.data.user,
-                   upcomingChats: res.data,
-                 });
-               });
-           });
-       });
-    */
-    console.log(currentUserFull.upcomingChats)
-
-    // axios.get(`/api/users/getuser/${metadata.hostId}`)
-    //   .then((res) => {
-
-    //   })
-    if (!code) {
-      //!should set content
-      setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>)
-      setLoading(false);
+    if(window.innerWidth<=800){
       return
     }
-    const unmount = fetchMetaData();
+    if (!code) {
+      setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>)
+      setLoading(false);
+    }
+    fetchMetaData();
+    
     //this subscribes to a list of channels
     pubnub.subscribe({
       channels: channels,
       withPresence: true,
     });
     setLoading(false);
-    return pubnub.removeListener(), unmount
+    return pubnub.removeListener()
   }, []);
 
-  if (isMobile)
-    return <MobileLiveChat />
-
-  console.log(host)
+  if(window.innerWidth<=800){
+    return <MobileChat/>
+  }
+  //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   return (
-
     <div className={styles["liveChat"]}>
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
-      <div className={styles["mainContent"]}>
+        <>
+        <div className={styles["mainContent"]}>
         <div className={styles["leftColumn"]}>
           <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>
             <img
@@ -591,7 +545,7 @@ const LiveChat = () => {
             />
             <span className={styles["homeText"]}>Home</span>
           </div>
-          {/* <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
+          <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
             <img
               src={globeIcon}
               alt="discoverImage"
@@ -599,7 +553,7 @@ const LiveChat = () => {
             />
 
             <span className={styles["globeText"]}>Discover</span>
-          </div> */}
+          </div>
           <h1 className={styles["upcommingHeading"]}>Your Upcoming Convos</h1>
           <div className={styles["upcomingChats"]}>
             {currentUserFull.upcomingChats ? (
@@ -662,11 +616,12 @@ const LiveChat = () => {
                 content
               )}
               {reload ? <Chat
+                scrollhook={scrollhook}
                 messages={messages}
                 user={currentUser}
               /> : ''}
-              <div ref={scrollhook}></div>
             </div>
+           
             {<div >{userTyping}</div>}
             <div className={canType ? styles["chatInputBox"] : styles['d-none']}>
               <form className="form-demo" onSubmit={handleSubmit(onSubmit)}>
@@ -681,20 +636,44 @@ const LiveChat = () => {
                   type="text"
                   className={styles["inputText"]}
                   onKeyPress={handlePress}
+                  ref={inpuref}
+                  value={message}
+                  onChange={handletextchange}
                   placeholder="Type your message"
-                  {...register("message")}
+                  // {...register("message")}
                 />{" "}
                 {/*this is for sending message, onSubmit here*/}
                 {errors.message && (
                   <p className="error">{errors.message.message}</p>
                 )}
               </form>
-              {/* <img
+              <Popover
+                isOpen={emojibox}
+                positions={['top']} // preferred positions by priority     
+                content={
+                <div style={{marginBottom:20}}>
+                <Picker  onEmojiClick={pickemoji} />
+                </div>
+              }
+              >
+              <div style={{width:60,textAlign:"right"}}>
+              <img
+                ref={target}
+                src={emojiIcon}
+                alt="emoji icon"
+                style={{width:30,height:30}}
+                onClick={() => setemojibox(!emojibox)}
+              />
+              </div>
+              </Popover>
+              <div style={{width:40,textAlign:"right"}}>
+              <img
                 src={inputSendIcon}
-                alt="Send Input"
-                className={styles["inputSendIcon"]}
-                onClick={() => onSubmit}
-              /> */}
+                alt="send icon"
+                style={{width:30,height:30}}
+                onClick={onSubmit}
+              />
+              </div>
             </div>
           </div>
         </div>
@@ -742,7 +721,7 @@ const LiveChat = () => {
             <p className={styles["chatDescription"]}>
               {metaData.description}
             </p>
-            <Participants />
+            <Participants channel={channels[0]} />
             {/* <div className={styles["dropDownRow"]}>
               <span className={styles["chatDropDownName"]}>Shared Media</span>
               <img
@@ -761,19 +740,16 @@ const LiveChat = () => {
                 className={styles["dropDownImg"]}
               />
               <div className={styles["dropdown-content"]}>
-                <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897,
-                  or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about
+                <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897, 
+                  or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about 
                   our data collecting practices, please read our <a target="_blank" href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy.</a></span>
               </div>
             </div>
           </div>
            <div className={styles["profileBox"]}>
             {/* <div className={styles["profileLeftSide"]}>
-=======
->>>>>>> 4ee9004bfbc29b70df81af5c9dce8ebaa58c1ea0
->>>>>>> d08cd0e96a6510ffd4972b0d73cb7b241c8194dc
               <img
-                src={host.ppic}//*! {host.ppic} - using host image is too big please fix with css
+                src={host.ppic}
                 alt="Profile Icon"
                 className={styles["emilyIcon"]}
               />
@@ -782,7 +758,7 @@ const LiveChat = () => {
                 <div className={styles["profileName"]}>{host.name}</div>
               </div>
             </div> */}
-          {/* <div className={styles["profileRightSide"]}>
+            {/* <div className={styles["profileRightSide"]}>
               <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
               <img
                 src={dots3Icon}
@@ -790,10 +766,10 @@ const LiveChat = () => {
                 className={styles["dots3Icon"]}
               />
             </div> */}
+          </div> 
         </div>
-      </div>
+      </div></>
     </div>
-    // </div >
   );
 };
 export default LiveChat

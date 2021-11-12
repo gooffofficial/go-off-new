@@ -15,7 +15,7 @@ const HostRoute = ({ component: Component, ...rest }) => {
 
 	useEffect(() => {
 		axios
-			.get(`/api/users/current`, {
+			.get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
 				withCredentials: true,
 			})
 			.then((res) => {

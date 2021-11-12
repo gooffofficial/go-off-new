@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom";
 import styles from '../styles/SplashPage/splash.module.css';
 import BigLogo from '../images/go-off-logo-big.svg'
 import SmallLogo from '../images/GO_OFF_LOGO.svg'
-import { useAuth0 } from '@auth0/auth0-react'
 import { UserContext } from "../contexts/userContext";
 import { routeContext } from "../contexts/useReroute";
+import MobileSplash from "./mobile/MobileSplash";
 
 const Splash = props => {
     const {currentUser} = useContext(UserContext);
@@ -21,8 +21,8 @@ const Splash = props => {
         events.preventDefault();
         history.push("/login")
     }
+    
     useEffect(()=>{
-        console.log(currentUser, currentLocation)
         if(currentUser.signedIn){
             if(currentLocation=='' || currentLocation=='/'){
                 history.push('/profile')
@@ -31,6 +31,11 @@ const Splash = props => {
             }
         }
     },[])
+
+    if( window.innerWidth <= 800 ){
+        console.log(window.innerWidth)
+        return <MobileSplash/>
+    }
 
     return (
         <div>

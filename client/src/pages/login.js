@@ -6,6 +6,8 @@ import Logo from '../images/GO_OFF_LOGO.svg';
 import Wave from '../images/wave_thin.svg';
 import { routeContext } from '../contexts/useReroute';
 import { UserContext } from '../contexts/userContext';
+import MobileLogin from './mobile/MobileLogin';
+require('dotenv').config()
 
 
 const Login = (props) => {
@@ -30,24 +32,24 @@ const Login = (props) => {
 			console.log('Username/Password Required');
 			return;
 		}
-
 		axios
-			.post('/api/users/login', {
-				username: loginFormValues.username,
-				password: loginFormValues.password,
-			})
-			.then((res) => {
-				console.log(res, '  ', currentLocation)
-				if(currentLocation == '/' || currentLocation=='/login'){
-					history.push('/profile');
-					fetchData()
-				}else{
-					history.push(currentLocation)
-				}
-			})
-			.catch((err) => {
-				console.log(`LOGIN ERROR: ${err}`);
-			});
+		.post(`${process.env.REACT_APP_NODE_API}/api/users/login`, {
+			username: loginFormValues.username,
+			password: loginFormValues.password,
+		},{withCredentials: true}).then((res) => {
+			axios.post(`${process.env.REACT_APP_FLASK_API}/login`, {username:loginFormValues.username, password:loginFormValues.password},{withCredentials: true}).then(res=>console.log('successsss')).catch(err=>console.log(err))
+			console.log(res, '  ', currentLocation)
+			if(currentLocation == '/' || currentLocation=='/login'){
+				//!#
+				history.push('/profile');
+				fetchData()
+			}else{
+				history.push(currentLocation)
+			}
+		})
+		.catch((err) => {
+			console.log(`LOGIN ERROR: ${err}`);
+		});
 	};
 
 	const inputHandler = (e) => {
@@ -59,9 +61,11 @@ const Login = (props) => {
 			[name]: value,
 		});
 	};
-	useEffect(()=>{
 
-	},[])
+	if( window.innerWidth <= 800 ){
+        console.log(window.innerWidth)
+        return <MobileLogin/>
+    }
 
 	return (
 		<div>

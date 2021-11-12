@@ -37,7 +37,7 @@ const PublicProfile = (props) => {
 	  }
 
 	useEffect(() => {
-		/* //*!try and use userContext for using data about user. chect userContext file for more details
+		/* 
     axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
@@ -75,7 +75,7 @@ const PublicProfile = (props) => {
     */
 
 		axios
-			.get(`/api/users/profile/${username}`)
+			.get(`${process.env.REACT_APP_NODE_API}/api/users/profile/${username}`, {withCredentials:true})
 			.then((res) => {
 				setViewUser(res.data.user);
 				setIsFollowingButton(res.data.user.is_following);
@@ -87,10 +87,10 @@ const PublicProfile = (props) => {
 
 	const followHandler = (e) => {
 		axios
-			.post(`/api/users/follower_update`, {
+			.post(`${process.env.REACT_APP_NODE_API}/api/users/follower_update`, {
 				username: viewUser.username,
 				id: currentUser.id,
-			})
+			}, {withCredentials:true})
 			.then((res) => {
 				setIsFollowingButton(res.data.followingStatus);
 				setViewUser({

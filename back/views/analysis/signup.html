@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" class="pf-m-redhat-font">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--<link rel="stylesheet" href="/css/fonts.css" />-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Include latest PatternFly CSS via CDN -->
+    <link 
+      rel="stylesheet" 
+      href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
+      crossorigin="anonymous"
+    >
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Signup</title>
+  </head>
+  <style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        }
+  </style>
+<body style = "background-color: white;">
+  <div class="pf-c-page" id="primary-detail-card-view-expanded-example" style="background-color: white;">
+    <a class="pf-c-skip-to-content pf-c-button pf-m-primary" href="#main-content-primary-detail-card-view-expanded-example">Skip to content</a>
+  <header class="pf-c-page__header" style = "background-color: white;">
+    <div class="pf-c-page__header-brand">
+      
+      <a href="#" class="pf-c-page__header-brand-link">
+        <img class="pf-c-brand" src="/logo.png" alt="Go Off logo"/> <!--GO OFF LOGO-->
+      </a>
+    </div>
+
+  </header>
+ 
+  <div class="pf-c-login" style = "background-color: white;">
+    <div class="pf-c-login__container" style = "background-color: white;">
+      
+      <main class="pf-c-login__main">
+        <header class="pf-c-login__main-header">
+          <h1 class="pf-c-title pf-m-4xl pf-u-font-weight-bold">Sign Up</h1>
+          
+        </header>
+        <div class="pf-c-login__main-body" style = "background-color: white;">
+          <form novalidate class="pf-c-form">
+            <p class="pf-c-form__helper-text pf-m-error pf-m-hidden">
+              <span class="pf-c-form__helper-text-icon">
+                <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+              </span>Invalid login credentials.</p>
+            <div class="pf-c-form__group">
+              <label class="pf-c-form__label" for="login-demo-form-username">
+                <span class="pf-c-form__label-text">Name</span>
+                <span class="pf-c-form__label-required" aria-hidden="true">&#42;</span>
+              </label>
+              <input class="pf-c-form-control" required input="true" type="text" id="login-demo-form-username" name="login-demo-form-username" />
+            </div>
+            <div class="pf-c-form__group">
+              <label class="pf-c-form__label" for="login-demo-form-username">
+                <span class="pf-c-form__label-text">Last Name</span>
+                <span class="pf-c-form__label-required" aria-hidden="true">&#42;</span>
+              </label>
+              <input class="pf-c-form-control" required input="true" type="text" id="login-demo-form-username" name="login-demo-form-username" />
+            </div>
+            <div class="pf-c-date-picker">
+              <div class="pf-c-date-picker__input">
+                <span class="pf-c-form__label-text">Date of Birth</span>
+                <input class="pf-c-form-control pf-m-icon pf-m-calendar" type="text" value="03/05/2020" id="basic-input" name="basic-input" aria-label="Basic date picker example" />
+              </div>
+            </div>
+            <div class="pf-c-form__group">
+              <label class="pf-c-form__label" for="login-demo-form-username">
+                <span class="pf-c-form__label-text">Username</span>
+                <span class="pf-c-form__label-required" aria-hidden="true">&#42;</span>
+              </label>
+              <input class="pf-c-form-control" required input="true" type="text" id="login-demo-form-username" name="login-demo-form-username" />
+            </div>
+            <div class="pf-c-form__group">
+              <label class="pf-c-form__label" for="login-demo-form-password">
+                <span class="pf-c-form__label-text">Password</span>
+                <span class="pf-c-form__label-required" aria-hidden="true">&#42;</span>
+              </label>
+              <input class="pf-c-form-control" required input="true" type="password" id="login-demo-form-password" name="login-demo-form-password" />
+            </div>
+            <div class="pf-c-form__group">
+              <div class="pf-c-check">
+                <input class="pf-c-check__input" type="checkbox" type="checkbox" id="login-demo-checkbox" name="login-demo-checkbox" />
+                <label class="pf-c-check__label" for="login-demo-checkbox">Agree to Terms of Service</label>
+              </div>
+            </div>
+            <div class="pf-c-form__group">
+              <div class="pf-c-check">
+                <input class="pf-c-check__input" type="checkbox" type="checkbox" id="login-demo-checkbox" name="login-demo-checkbox" />
+                <label class="pf-c-check__label" for="login-demo-checkbox">Agree to Privacy Policy</label>
+              </div>
+            </div>
+            <div class="pf-c-form__group pf-m-action">
+              <button class="pf-c-button pf-m-primary pf-m-block" type="submit">Sign Up</button>
+            </div>
+          </form>
+        </div>
+     
+      </main>
+    </div>
+  </div>
+
+
+</body>
+</html>

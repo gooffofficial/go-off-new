@@ -1,4 +1,4 @@
-# go-off-new
+# go-off
 
 Hey team, welcome to our codebase!
 
@@ -10,68 +10,33 @@ For example, if I were working on a user page the branch I would working on is "
 Once you have your feature working, submit a pull request so that we can merge the code!
 
 # running the servers
+To run the website on localhost correctly you need to run the Node, React and Flask servers concurrently
 
-To run the flask, node and react servers concurrently follow the below instructions
+React  
+"Cd client"  
+To install dependencies on first run through run "npm install"  
+To run server run "npm start"  
 
-# Node Server
+Flask  
+Clone the gooff-flask repo and work in the Docker branch: https://github.com/sakethgangam/gooff-flask 
+"Cd flask-app"  
+To install dependencies on first run through run "pip install -r requirements.txt"  
+to run server run "Python main.py"  
 
-Clone this repo: https://github.com/sakethgangam/gooff-flask.git
+If you are on mac this server may give you issues with the dependency installation step if this is the case follow the instructions below:   
+Install the most recent conda package in this link: https://whiteboxml.com/blog/the-definitive-guide-to-python-virtual-environments-with-conda  
+Then follow these steps in order:   
+“Conda create —name py38 python=3.8”  
+“Conda activate py38”  
+"brew doctor"  
+"brew cleanup"  
+"Brew install mysql"  
+Inside requirements.txt change “psycopg==2.9.1” to “psycopg2-binary” and save  
+“pip3 uninstall mysql-connector”  
+“pip install -r requirements.txt”  
 
-Enter "cd node-app"
-
-Install node dependencies with "npm install", then run the server with "node server.js"
-
-# Flask Server
-
-In above repository follow the steps below
-
-Enter "cd flask-app"
-
-Install node dependencies with "pip install -r requirements.txt", then run the server with "python main.py"
-
-# React Server
-
-In this repository (go-off-new) follow the steps below
-
-Enter "cd client"
-
-Install node dependencies with 'npm install', then run the server with 'npm start'.
-
-Make sure to download the .env folder with all the sensitive AWS folder if you haven't already. 
-
-# Docker and deployment
-
-We are deploying our application via docker images so that we can easily control our environment and ensure that we have all the dependencies that we need installed for multiple programming languages at one (i.e. JS and Python).
-
-I set up a dockerhub repository which AWS will grab our image from. See details at hub.docker.com and login in with our Go Off! account info.
-
-To build and deploy first you want to install docker. After docker is installed, then run 'docker login' and login with the Go Off docker credentials.
-
-1. In the client folder of the Go Off repository run yarn run build
-2. In the the root folder of the Go Off repository run "docker build -t gooffofficial/go-off-back ."
-3. After that build is complete run "docker push gooffofficial/go-off-back"
-
-Note: This is via the terminal. I don't know how docker desktop works, so if you do it through that I'm not sure the entire process.
-
-After the build is finished, go to AWS, and to our elastic beanstalk environment (GooffBetaDocker1-env). From there, click upload and deploy and upload to Dockerrun.aws.back.json file which you were provided. When it is done deploying, then you should be able to access the site and see the changes!
-
-If something goes wrong in deployment, the logs are probably the first place you should go. You can find them on the left side of the elastic beanstalk page, and clicking on Logs. Usually getting the last 100 lines will be good enough, but if not, you also have the option to download the full logs.
-
-# user account stuff
-
-To register a new user: send a post request to localhost:8000/api/users with a form containing the following info:
-```
-username
-firstName
-lastName
-age
-location
-email
-password
-```
-
-Logging in only requires username and password (also in a form) posted to localhost:8000/api/users/login
-
-# authorization
-
-After logging in, there should be a cookie stored in your browser called AuthJWT, this token is sent along with every request to the server to verify that you are logged in properly and gives access to routes that require you to be authenticated in. As of right now this only includes localhost:8000/api/users/current which will just return a json of the user info. I made simple html files for reigstering and logging in if you want to test it out.
+Node  
+This will also be in the gooff-flask repo  
+"Cd node-app"  
+To install dependencies on first run through run "npm install"  
+to run server run "node server.js"  

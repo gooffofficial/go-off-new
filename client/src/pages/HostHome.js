@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import goOffLogo from '../images/liveChatImages/go-off-logo.png'
 import searchIcon from '../images/liveChatImages/search-icon.png'
@@ -37,6 +36,7 @@ import Conversation from '../components/Conversation.js';
 import firebase from '../firebase.js';
 import { UserContext } from '../contexts/userContext';
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 const fillerUser = {
 	name: 'Username',
@@ -47,7 +47,7 @@ const fillerUser = {
 
 const HomePage = () => {
   const history = useHistory();
-  const {currentUser, setCurrentUser, upcoming, convos} = useContext(UserContext)
+  const {currentUser, setCurrentUser, upcoming, convos, setConvos, refetchConvos, fetchData} = useContext(UserContext)
   const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats: upcoming});
   const [allUserFull, setAllUserFull] = useState({allupcomingChats: convos});
   const [isCreateConvModalVisible, setCreateConvModalVisible] = useState(false)
@@ -68,8 +68,18 @@ const HomePage = () => {
         history.push('/home')
   }
 
+  const compareDate = (date1, date2) => {
+		if(date1.time>date2.time){
+			return -1
+		}
+		if(date1.time<date2.time){
+			return 1
+		}
+		return 0
+	}
+
 	useEffect(() => {
-		/* //*!try and use userContext for using data about user. chect userContext file for more details
+		/*
     axios
 			.get(`/api/users/current`, {
 				withCredentials: true,
@@ -105,7 +115,9 @@ const HomePage = () => {
 				console.log(err);
 			});
     */
-	}, []);
+    const chronConvos = [...convos].sort(compareDate)
+    setAllUserFull({allupcomingChats: chronConvos})
+	}, [convos]);
 
   console.log(currentUserFull.upcomingChats)
   console.log(allUserFull.allupcomingChats)
@@ -118,23 +130,23 @@ const HomePage = () => {
 		'/images/trend-stock3.png',
 		'/images/trend-stock4.png',
     ];
-    
+
   return <div className={s.homePage}>
    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
     <div className={s.mainContent}>
       <div className={s.leftColumn}>
         <div className={s.avatarBox} onClick={() => history.push('/profile')}>
-          <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
+          <img  src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
           <span className={s.avatarName}>{ currentUser.name }</span>
         </div>
         <div className={s.homeBox} onClick = {goToHomePage}>
           <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
           <span className={s.homeText}>Home</span>
         </div>
-        <div className={s.discoverBox} onClick = {() => history.push('/discover')}>
+        {/* <div className={s.discoverBox} onClick = {() => history.push('/discover')}>
           <img src={globeIcon} alt="discoverImage" className={s.globeIcon} />
           <span className={s.globeText}>Explore</span>
-        </div>
+        </div> */}
         <h1 className={s.upcommingHeading}>Your Upcoming Convos</h1>
         <div className={s.upcomingChatsCards}>
 							{currentUserFull.upcomingChats ? (
@@ -157,6 +169,7 @@ const HomePage = () => {
       </div>
       <div className={s.middleColumn}>
         <div className={s.insideMiddleColumn}>
+            <div className={s.userBox}>
         {show?(<div class={`alert alert-success alert-dismissible fade show`} role="alert">
         <strong>Succesfully created a conversation! Copy and send this link to your friends so they can join the fun: <Link ref={link} to={`profile/${currentUser.username}`}>https://www.go-off.co/profile/{currentUser.username}</Link></strong>
         <button onClick={()=>{
@@ -167,34 +180,36 @@ const HomePage = () => {
         }} uk-icon="link"></button>
         {copied?<span>copied!</span>:''}
       </div>):''}
-          <div className={s.userBox}>
-            <div className={s.userConvRow}>
-              <img src={currentUserFull.propic} alt="Avatar" className={s.avatarIcon} />
-              <input onClick={openCreateConvModal} type="text" className={s.startAConvInput} placeholder="Start a conversation"/>
-              <CreateConvModal 
-                closeCreateConvModal={closeCreateConvModal}
-                isCreateConvModalVisible={isCreateConvModalVisible} 
-                id={currentUser.id}
-                setShow={setShow}
-              />
+              <div className={s.userConvRow}>
+                <img src={currentUserFull.propic} alt="Avatar" className={s.avatarIcon} />
+                <input onClick={openCreateConvModal} type="text" className={s.startAConvInput} placeholder="Start a conversation"/>
+                <CreateConvModal 
+                  closeCreateConvModal={closeCreateConvModal}
+                  isCreateConvModalVisible={isCreateConvModalVisible} 
+                  id={currentUser.id}
+                  setShow={setShow}
+                  setConvos={refetchConvos}
+                />
+              </div>
+              <span className={s.convdesc} >Host a convo about a......</span>
+
+              <hr className={s.grayLine} />
+              <div className={s.userIconsRow}>
+                <div  className={s.photoRow}>
+                  <img src={photoIcon} alt="" className={s.photoIcon} />
+                  <span className={s.photoTxt}>Photo</span>
+                </div>
+                <div className={s.ytRow}>
+                  <img src={ytIcon} alt="" className={s.videoIcon} />
+                  <span className={s.videoTxt}>Video</span>
+                </div>
+                <div className={s.articleRow}>
+                  <img src={articleIcon} alt="" className={s.articleIcon} />
+                  <span className={s.articleTxt}>Article</span>
+                </div>
+              </div>
             </div>
-            <span className={s.convdesc} >Host a convo about a......</span>
-            <hr className={s.grayLine} />
-            <div className={s.userIconsRow}>
-              <div className={s.photoRow}>
-                <img src={photoIcon} alt="" className={s.photoIcon} />
-                <span className={s.photoTxt}>Photo</span>
-              </div>
-              <div className={s.ytRow}>
-                <img src={ytIcon} alt="" className={s.videoIcon} />
-                <span className={s.videoTxt}>Video</span>
-              </div>
-              <div className={s.articleRow}>
-                <img src={articleIcon} alt="" className={s.articleIcon} />
-                <span className={s.articleTxt}>Article</span>
-              </div>
-            </div>
-          </div>
+     
           <div className={s.centerFeed}>
             {allUserFull.allupcomingChats ? (
                   allUserFull.allupcomingChats.map((prop1) => {
@@ -248,7 +263,7 @@ const HomePage = () => {
   </div>
 }
 
-const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, setShow }) => {
+const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, setShow, setConvos}) => {
   const [dateInput, setDateInput] = useState("");
   const [convTitleInput, setConvTitleInput] = useState("");
   const [convDescInput, setConvDescInput] = useState("");
@@ -260,7 +275,7 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, se
   const handleConvDescInputChange = (evt) => setConvDescInput(evt.target.value)
   const handleArticleURLInputChange = (evt) => setArticleURLInput(evt.target.value)
 
-  const handleCreateConv = (evt) => {
+  const handleCreateConv = () => {
     // Check if values are empty, For now we'll just do an alert, in the future put some red lower text
     if (!dateInput) alert("There's something wrong with the Conversation Time Input")
     else if (!convTitleInput) alert("There's something wrong with the Convo Title Input")
@@ -272,7 +287,12 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, se
     closeCreateConvModal();
     //window.alert("Conversation created! To find the conversation check your Profile page or the Home page!")
     setShow(true)
+    setTimeout(()=>setConvos(),5000)
     setTimeout(()=>setShow(false),10000)
+    setDateInput('')
+    setConvTitleInput('')
+    setConvDescInput('')
+    setArticleURLInput('')
   }
 
   const rodalCustomStyles = {

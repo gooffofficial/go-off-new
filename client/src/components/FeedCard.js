@@ -35,6 +35,7 @@ const fillerUser = {
 // FEED IMAGE - CALENDAR - COMPANY LOGO - HEADING - DATE - TAGS - DESCRIPTION - HOST NAME / HOST AVATAR
 
 export const ChatsFeed = ({ chatCategory, username, isUser, userId }) => {
+  const {currentUser} = useContext(UserContext)
   // "Upcoming", "Past", "Saved"
   // console.log(username)
   // console.log("isUser: ", isUser)
@@ -205,7 +206,7 @@ const NewsFeedCard = (props) => {
   useEffect(() => {
     if (!currentUser.signedIn){
 		axios
-      .get(`/api/users/current`, {
+      .get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -232,6 +233,8 @@ const NewsFeedCard = (props) => {
   let link = useRef();
   const [copied, setCopied] = useState(false);
   const [show, setShow] = useState(false);
+  let sqlTime = moment(UTCTime).format('YYYY-MM-DD HH:mm:ss')
+  console.log(sqlTime,'sql-------')
   // console.log(hostUsername)
   // console.log(props)
   // const {
@@ -254,53 +257,17 @@ const NewsFeedCard = (props) => {
   const db = firebase.firestore();
 
   // console.log(hostUsername)
-  const rsvpbuttonhandler = (e) => {
+  const rsvpbuttonhandler = async(e) => {
     let convoId = roomId;
     let dummyId = currentUser.id;
     e.preventDefault();
 
-    // console.log("test")
-    // console.log(props)
-    db.collection("Conversations")
-      .where("convoId", "==", convoId)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          let data = doc.data();
-          let rsvp = data.rsvp;
-          //   console.log(rsvp, rsvp.length)
-          //   console.log(data)
-          if (data.hostId == dummyId) {
-            return console.log("is already host");
-          }
-          if (!rsvp.includes(dummyId)) {
-            rsvp.push(dummyId);
-            //window.alert("Succesfully RSVP'd! Tell your friends to check out your profile page to RSVP.")
-            setShow(true);
-            setTimeout(() => setShow(false), 10000);
-
-            //notifications
-            //   console.log("notif test")
-            //needs tweaking
-            axios.post(`/api/convos/joinnotifs/${convoId}`, props);
-            db.collection("Conversations")
-              .doc(doc.id)
-              .update({ rsvp: rsvp })
-              .then((res) => console.log("successfully rsvpd"))
-              .catch((err) => console.log(err));
-          } else {
-            console.log("already rsvpd");
-          }
-          console.log(doc.id, " => ", doc.data());
-        });
-      })
-      .catch((err) => console.log(err));
-    // twilioClient.messages.create({
-    //   to: hostNum,
-    //   from: process.env.TWILIO_PHONE_NUMBER,
-    //   body: 'Hello ' + hostName + ', A user just RSVPd to your conversation: ' + convTitle + '.'
-    // })
+    let result = await axios.post(`${process.env.REACT_APP_FLASK_API}/setrsvp`,{username:currentUser.username,roomId:roomId,notification:'text',startTime:sqlTime},{withCredentials:true})
+    if(result.status==200){
+      setShow(true);
+      setTimeout(() => setShow(false), 10000);
+    }
+    console.log(result)
   };
 
   const gobuttonhandler = (e) => {

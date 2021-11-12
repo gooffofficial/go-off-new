@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="test_login.css">
+    </head>
+    <body>
+        <div class="logo">
+            <img src="GO_Off.png"/>
+        </div>
+        <form action="http://localhost:8000/api/users/login" method="post" class="login">
+            <!-- <label for="username">Username:</label><br> -->
+            <br>
+            <input type="text" id="username" name="username" placeholder="Username"><br><br>
+            <!-- <label for="password">Password:</label><br> -->
+            <br>
+            <input type="password" id="password" name="password" placeholder="Password"><br><br>
+            <br>
+            <input type="submit" placeholder="Log In">
+        </form>
+    </body>
+</html>
