@@ -13,6 +13,9 @@ import AllUpcomingChatsCard from '../components/AllUpcomingChatsCard.js';
 import Conversation from '../components/Conversation.js'; 
 import MobileHome from './mobile/MobileHome';
 
+import s from '../styles/HomePage/HostHome.module.scss';
+import homeIcon from '../images/liveChatImages/home-icon.png'
+
 const fillerUser = {
 	name: 'Username',
 	propic: '/images/stock-face.jpg',
@@ -92,50 +95,93 @@ const Home = (props) => {
 		<div className={styles.homePageContainer}>
 			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
 			{
-				window.innerWidth <= 800?<MobileHome/>:<>
-				<div className={styles.subContainer}>
-				<div className={styles.leftSideBar}>
-					<div className={styles.sideBarLinks}>
-						<div className={styles.sideBarProfile} onClick={() => history.push('/profile')}>
-							<img
-								className={styles.sideBarProfileImage}
-								src={currentUserFull
-									? currentUserFull.propic
-									: '/images/stock-face.jpg'}
-								alt="profile portrait"
-							/>
-							<p className={styles.sideBarUserLinkText}>{currentUser.name}</p>
-						</div>
-						<div className={styles.sideBarHome}>
-							<svg
-								width="30"
-								height="30"
-								viewBox="0 0 30 30"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									fillRule="evenodd"
-									clipRule="evenodd"
-									d="M23.7377 24.9999H20.0002V16.2499C20.0002 15.5587 19.4402 14.9999 18.7502 14.9999H11.2502C10.559 14.9999 10.0002 15.5587 10.0002 16.2499V24.9999H6.25024L6.25774 14.4787L14.9977 5.53995L23.7502 14.5299L23.7377 24.9999ZM12.5002 24.9999H17.5002V17.4999H12.5002V24.9999ZM25.5302 12.7312L15.894 2.8762C15.4227 2.39495 14.5777 2.39495 14.1065 2.8762L4.46899 12.7324C4.01274 13.2012 3.75024 13.8562 3.75024 14.5299V24.9999C3.75024 26.3787 4.80899 27.4999 6.11024 27.4999H11.2502H18.7502H23.889C25.1902 27.4999 26.2502 26.3787 26.2502 24.9999V14.5299C26.2502 13.8562 25.9877 13.2012 25.5302 12.7312Z"
-									fill="#757D8A"
-								/>
-							</svg>
+			
+			
+				
+				// window.innerWidth <= 800?<MobileHome/>:<>
+				
+				// <div className={styles.subContainer}>
+				// <div className={styles.leftSideBar}>
+				// 	<div className={styles.sideBarLinks}>
+				// 		<div className={styles.sideBarProfile} onClick={() => history.push('/profile')}>
+				// 			<img
+				// 				className={styles.sideBarProfileImage}
+				// 				src={currentUserFull
+				// 					? currentUserFull.propic
+				// 					: '/images/stock-face.jpg'}
+				// 				alt="profile portrait"
+				// 			/>
+				// 			<p className={styles.sideBarUserLinkText}>{currentUser.name}</p>
+				// 		</div>
+				// 		<div className={styles.sideBarHome}>
+				// 			<svg
+				// 				width="30"
+				// 				height="30"
+				// 				viewBox="0 0 30 30"
+				// 				fill="none"
+				// 				xmlns="http://www.w3.org/2000/svg"
+				// 			>
+				// 				<path
+				// 					fillRule="evenodd"
+				// 					clipRule="evenodd"
+				// 					d="M23.7377 24.9999H20.0002V16.2499C20.0002 15.5587 19.4402 14.9999 18.7502 14.9999H11.2502C10.559 14.9999 10.0002 15.5587 10.0002 16.2499V24.9999H6.25024L6.25774 14.4787L14.9977 5.53995L23.7502 14.5299L23.7377 24.9999ZM12.5002 24.9999H17.5002V17.4999H12.5002V24.9999ZM25.5302 12.7312L15.894 2.8762C15.4227 2.39495 14.5777 2.39495 14.1065 2.8762L4.46899 12.7324C4.01274 13.2012 3.75024 13.8562 3.75024 14.5299V24.9999C3.75024 26.3787 4.80899 27.4999 6.11024 27.4999H11.2502H18.7502H23.889C25.1902 27.4999 26.2502 26.3787 26.2502 24.9999V14.5299C26.2502 13.8562 25.9877 13.2012 25.5302 12.7312Z"
+				// 					fill="#757D8A"
+				// 				/>
+				// 			</svg>
 
-							<p className={styles.sideBarLinkText}>Home</p>
+				// 			<p className={styles.sideBarLinkText}>Home</p>
+				// 		</div>
+						
+				// 	</div>
+
+				// 	<div className={styles.sideBarCards}>
+				// 		<div>
+				// 			<h3 className={styles.sideBarCardTitle}>Your Upcoming Convos</h3>
+				// 		</div>
+
+				// 		<div className={styles.upcomingChatsCards}>
+				// 			{currentUserFull.upcomingChats ? (
+				// 				currentUserFull.upcomingChats.map((prop) => {
+									
+				// 					return (
+				// 						<UpcomingChatsCard
+				// 							articleURL={prop.articleURL}
+				// 							articleImg={prop.articleImg}
+				// 							time={prop.time}
+				// 							convTitle={prop.convTitle}
+				// 							hostName={prop.hostname}
+				// 							roomId={prop.roomId}
+				// 						/>
+				// 					);
+				// 				})
+				// 			) : (
+				// 				<UpcomingChatsCard />
+				// 			)}
+				// 		</div>
+				// 	</div>
+				// </div>
+				<div className={styles.subContainer}>
+					<div className={s.mainContent}>
+					<div className={s.leftColumn}>
+						<div className={s.avatarBox} onClick={() => history.push('/profile')}>
+							<img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
+							<span className={s.avatarName}>{ currentUser.name }</span>
 						</div>
 						
-					</div>
-
-					<div className={styles.sideBarCards}>
-						<div>
-							<h3 className={styles.sideBarCardTitle}>Your Upcoming Convos</h3>
+						<div className={s.homeBox} onClick = {Home}>
+							<img src={homeIcon} alt="homeImage" className={s.homeIcon} />
+							<span className={s.homeProfText}>Home</span>
 						</div>
-
-						<div className={styles.upcomingChatsCards}>
+						{/* <div className={s.discoverBox} onClick = {() => history.push('/discover')}>
+							<img src={globeIcon} alt="discoverImage" className={s.globeIcon} />
+							<span className={s.globeText}>Explore</span>
+						</div> */}
+        				<br></br>
+        				<br></br>
+        				<h1 className={s.upcomingHeading}>Upcoming Chats</h1>
+        				<div className={s.upcomingChatsCards}>
 							{currentUserFull.upcomingChats ? (
 								currentUserFull.upcomingChats.map((prop) => {
-									
 									return (
 										<UpcomingChatsCard
 											articleURL={prop.articleURL}
@@ -151,8 +197,10 @@ const Home = (props) => {
 								<UpcomingChatsCard />
 							)}
 						</div>
-					</div>
-				</div>
+    				</div>
+
+
+
 				<div className={styles.centerDash}>
 					<div className={styles.centerImageContainer}>
 						<img
@@ -296,7 +344,7 @@ const Home = (props) => {
 					</div>
 				</div> */}
 			</div>
-				</>
+				</div>
 			}
 		</div>
 	);

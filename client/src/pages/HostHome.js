@@ -138,6 +138,7 @@ const HomePage = () => {
           <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
           <span className={s.avatarName}>{ currentUser.name }</span>
         </div>
+      
         <div className={s.homeBox} onClick = {goToHomePage}>
           <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
           <span className={s.homeText}>Home</span>
@@ -146,7 +147,9 @@ const HomePage = () => {
           <img src={globeIcon} alt="discoverImage" className={s.globeIcon} />
           <span className={s.globeText}>Explore</span>
         </div> */}
-        <h1 className={s.upcommingHeading}>Your Upcoming Convos</h1>
+        <br></br>
+        <br></br>
+        <h1 className={s.upcomingHeading}>Upcoming Chats</h1>
         <div className={s.upcomingChatsCards}>
 							{currentUserFull.upcomingChats ? (
 								currentUserFull.upcomingChats.map((prop) => {

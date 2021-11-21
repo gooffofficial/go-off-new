@@ -17,6 +17,7 @@
 	flex-direction: column;
 	align-items: center;
 	overflow: scroll;
+	background-color: rgb(247, 247, 247); 
 }
 .leftSideBar,
 .rightSideBar {
@@ -37,11 +38,16 @@
 .sideBarProfile,
 .sideBarHome,
 .sideBarDiscover {
-	padding: 4% 0;
-	border-radius: 10px;
 	display: flex;
 	align-items: center;
-	font-weight: 400;
+	border-radius: 10px;
+	padding: 10px 15px;
+	margin-bottom: 10px;
+	// padding: 4% 0;
+	// border-radius: 10px;
+	// display: flex;
+	// align-items: flex-start;
+	// font-weight: 400;
 }
 .sideBarProfile,
 .sideBarHome,
@@ -66,10 +72,21 @@
 	font-size: 1.1rem;
 }
 .sideBarProfileImage {
-	width: 37px;
-	height: 37px;
-	border-radius: 100%;
-	margin-right: 5%;
+	display: flex;
+	align-items: center;
+	border-radius: 10px;
+	padding: 10px 15px;
+	margin-bottom: 10px;
+	// width: 37px;
+	// height: 37px;
+	// left: 26px;
+	// top: 124px;
+	// border-radius: 18.5px;
+	// // width: 37px;
+	// // height: 37px;
+	// // border-radius: 100%;
+	// // // margin-right: 5%;
+	// // margin-left: -5%;
 }
 .sideBarCards {
 	flex-grow: 1;
@@ -78,7 +95,8 @@
 .sideBarCardTitle {
 	font-weight: 500;
 	padding-left: 5%;
-	font-size: 1.2rem;
+	font-size: 1.3rem;
+	color: #757d8a;
 }
 .centerImageContainer {
 	background: linear-gradient(180deg, #3a86ff -52.21%, #5667ff 100%);
@@ -211,4 +229,15 @@
 	html {
 		font-size: 18px;
 	}
+}
+
+
+.sideBarUserLinkText{
+	color: #757d8a;
+	font-weight: 500;
+	font-size: 17px;
+	// color: #757d8a;
+	// padding-top: 1.5%;
+	// margin-left: 5%;
+	// font-size: 1.25rem;
 }

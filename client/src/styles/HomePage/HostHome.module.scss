@@ -1,8 +1,11 @@
 .homePage {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: Poppins;
+  // background: #f4f4f4;
+  // height: 100%;
+  // overflow: hidden;
+  // height: 100vh;
+  // display: flex;
+  // flex-direction: column;
+  // font-family: Poppins;
 }
 
 .container-row{
@@ -85,16 +88,50 @@
 }
 
 .mainContent {
-  flex-grow: 1;
-  display: flex;
+	width: 100%;
+	height: calc(100vh - 80px);
+	display: flex;
+  // background-color: #01cb01; 
+}
+
+// .mainContent {
+//   flex-grow: 1;
+//   display: flex;
+// }
+
+
+.centerFeed {
+  // background-color: #01cb01;
 }
 
 .leftColumn {
-  background: rgba(58, 134, 255, 0.08);
-  padding: 23px;
-  padding-bottom: 0px;
-  min-width: 310px;
-  // overflow: scroll;
+  // background: rgba(58, 134, 255, 0.08);
+  // padding: 23px;
+  // padding-bottom: 0px;
+  // min-width: 310px;
+  // // overflow: scroll;
+  background-color: rgba(58, 134, 255, 0.08);
+	padding: 2% 1% 0;
+	color: #757d8a;
+	display: flex;
+	flex-direction: column;
+  width: 18%;
+	overflow: scroll;
+}
+
+.leftColumnHostHome {
+  // background: rgba(58, 134, 255, 0.08);
+  // padding: 23px;
+  // padding-bottom: 0px;
+  // min-width: 310px;
+  // // overflow: scroll;
+  background-color: rgba(58, 134, 255, 0.08);
+	padding: 2% 1% 0;
+	color: #757d8a;
+	display: flex;
+	flex-direction: column;
+  width: 18%;
+	overflow: scroll;
 }
 
 .avatarBox,
@@ -108,7 +145,7 @@
 }
 
 .homeBox {
-  background: rgba(58, 134, 255, 0.15);
+  // background: rgba(255, 114, 58, 0.15);
 }
 
 .prekshaIcon {
@@ -130,11 +167,17 @@
 .globeText,
 .homeText {
   color: #757d8a;
-  font-weight: 500;
+  // font-weight: 500;
   font-size: 17px;
 }
 
-.upcommingHeading {
+.homeProfText {
+  color: #757d8a;
+  // font-weight: 500;
+  font-size: 17px;
+}
+
+.upcomingHeading {
   font-family: Poppins;
   font-style: normal;
   font-weight: 500;
@@ -142,6 +185,7 @@
   line-height: 30px;
   color: #757d8a;
   margin-bottom: 20px;
+  margin-left: 18px;
 }
 
 .chatCard {
@@ -454,7 +498,9 @@
 
 .middleColumn {
   padding: 15px;
-  background-color: rgb(196, 149, 87, 0.07);
+  background-color: rgb(247, 247, 247); 
+  // 86, 103, 255, 0.15
+  // figma says #E5E5E5 but that looks too dark
 }
 
 .insideMiddleColumn {
@@ -467,7 +513,7 @@
   padding: 20px 18px 13px 18px;
   border-radius: 10px;
   margin-bottom: 20px;
-  margin-top: 80px;
+  margin-top: 20px;
 }
 
 .userConvRow {

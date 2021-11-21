@@ -43,6 +43,10 @@ import MobileLiveChat from "./LiveChatMobile";
 import { UserContext } from "../contexts/userContext";
 import MobileChat from "./mobile/MobileChat";
 
+
+import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
+
+
 const LiveChat = () => {
 
   const history = useHistory();
@@ -525,8 +529,44 @@ const LiveChat = () => {
     <div className={styles["liveChat"]}>
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
         <>
-        <div className={styles["mainContent"]}>
-        <div className={styles["leftColumn"]}>
+      <div className={styles["mainContent"]}>
+        <div className={s.leftColumn}>
+        <div className={s.avatarBox} onClick={() => history.push('/profile')}>
+          <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
+          <span className={s.avatarName}>{ currentUser.name }</span>
+        </div>
+      
+        <div className={s.homeBox} onClick = {goToHomePage}>
+          <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
+          <span className={s.homeText}>Home</span>
+        </div>
+        {/* <div className={s.discoverBox} onClick = {() => history.push('/discover')}>
+          <img src={globeIcon} alt="discoverImage" className={s.globeIcon} />
+          <span className={s.globeText}>Explore</span>
+        </div> */}
+        <br></br>
+        <br></br>
+        <h1 className={s.upcomingHeading}>Live Chat Timeline</h1>
+        <div className={s.upcomingChatsCards}>
+							{currentUserFull.upcomingChats ? (
+								currentUserFull.upcomingChats.map((prop) => {
+									return (
+										<UpcomingChatsCard
+											articleURL={prop.articleURL}
+											articleImg={prop.articleImg}
+											time={prop.time}
+											convTitle={prop.convTitle}
+											hostName={prop.hostname}
+											roomId={prop.roomId}
+										/>
+									);
+								})
+							) : (
+								<UpcomingChatsCard />
+							)}
+						</div>
+      </div>
+        {/* <div className={styles["leftColumn"]}>
           <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>
             <img
               src={currentUserFull.propic}
@@ -569,7 +609,7 @@ const LiveChat = () => {
               })
             ) : (
               <UpcomingChatsCard />
-            )}
+            )} */}
             {/* <ChatCard
               title="Zero Waste Toothbrush: How does it really make a difference?"
               timeStart="HAPPENING NOW"
@@ -580,9 +620,11 @@ const LiveChat = () => {
               timeStart="HAPPENING NOW"
               chatImage={article1}
             /> */}
-          </div>
+          {/* </div>
           <button onClick={handleButton}>{isHost ? 'End Conversation' : 'Leave Conversation'}</button>
-        </div>
+        </div> */}
+
+        
         <div className={styles["middleColumn"]}>
           <div className={styles["innerMiddleBox"]}>
             <div className={styles["articleHeading"]}>
@@ -675,6 +717,9 @@ const LiveChat = () => {
             </div>
           </div>
         </div>
+
+
+
         <div className={styles["rightColumn"]}>
           <div className={styles["everythingButProfile"]}>
             <img
