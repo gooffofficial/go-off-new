@@ -5,7 +5,7 @@ import styles from "./styles/NavBar.module.scss";
 
 
 const SettingModal = () => {
-
+  
   
   const { modal, setModal, currentUser } = useContext(UserContext);
   let file=useRef()
@@ -25,6 +25,10 @@ const SettingModal = () => {
     console.log(form, selectedFile)
   };
 
+  const handleFileInput = (e) => {
+    console.log(e.target.files)
+    setSelectedFile(e.target.files[0]);
+}
 
   useEffect(() => {
     return () => {};
@@ -150,7 +154,6 @@ const SettingModal = () => {
 
 export default SettingModal;
 /*<div className={styles.settingModal}>
-//!window.innerWidth <= 800?<MobileSetting/>:<MobileSetting/>
           <div className="card shadow-lg">
             <div className="card-body">
               <h5 className="card-title">Settings</h5>

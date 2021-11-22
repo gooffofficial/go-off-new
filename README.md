@@ -21,7 +21,7 @@ Flask
 Clone the gooff-flask repo and work in the Docker branch: https://github.com/sakethgangam/gooff-flask 
 "Cd flask-app"  
 To install dependencies on first run through run "pip install -r requirements.txt"  
-to run server run "Python main.py"  
+to run server activate your conda environment with "conda activate py38" then run the server with "Python main.py"  
 
 If you are on mac this server may give you issues with the dependency installation step if this is the case follow the instructions below:   
 Install the most recent conda package in this link: https://whiteboxml.com/blog/the-definitive-guide-to-python-virtual-environments-with-conda  

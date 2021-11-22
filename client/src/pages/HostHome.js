@@ -36,6 +36,7 @@ import Conversation from '../components/Conversation.js';
 import firebase from '../firebase.js';
 import { UserContext } from '../contexts/userContext';
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 const fillerUser = {
 	name: 'Username',
@@ -46,7 +47,7 @@ const fillerUser = {
 
 const HomePage = () => {
   const history = useHistory();
-  const {currentUser, setCurrentUser, upcoming, convos} = useContext(UserContext)
+  const {currentUser, setCurrentUser, upcoming, convos, setConvos, refetchConvos, fetchData} = useContext(UserContext)
   const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats: upcoming});
   const [allUserFull, setAllUserFull] = useState({allupcomingChats: convos});
   const [isCreateConvModalVisible, setCreateConvModalVisible] = useState(false)
@@ -116,7 +117,7 @@ const HomePage = () => {
     */
     const chronConvos = [...convos].sort(compareDate)
     setAllUserFull({allupcomingChats: chronConvos})
-	}, []);
+	}, [convos]);
 
   console.log(currentUserFull.upcomingChats)
   console.log(allUserFull.allupcomingChats)
@@ -129,13 +130,13 @@ const HomePage = () => {
 		'/images/trend-stock3.png',
 		'/images/trend-stock4.png',
     ];
-    
+
   return <div className={s.homePage}>
    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
     <div className={s.mainContent}>
       <div className={s.leftColumn}>
         <div className={s.avatarBox} onClick={() => history.push('/profile')}>
-          <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
+          <img  src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
           <span className={s.avatarName}>{ currentUser.name }</span>
         </div>
       
@@ -171,6 +172,7 @@ const HomePage = () => {
       </div>
       <div className={s.middleColumn}>
         <div className={s.insideMiddleColumn}>
+            <div className={s.userBox}>
         {show?(<div class={`alert alert-success alert-dismissible fade show`} role="alert">
         <strong>Succesfully created a conversation! Copy and send this link to your friends so they can join the fun: <Link ref={link} to={`profile/${currentUser.username}`}>https://www.go-off.co/profile/{currentUser.username}</Link></strong>
         <button onClick={()=>{
@@ -181,8 +183,6 @@ const HomePage = () => {
         }} uk-icon="link"></button>
         {copied?<span>copied!</span>:''}
       </div>):''}
-         
-            <div className={s.userBox}>
               <div className={s.userConvRow}>
                 <img src={currentUserFull.propic} alt="Avatar" className={s.avatarIcon} />
                 <input onClick={openCreateConvModal} type="text" className={s.startAConvInput} placeholder="Start a conversation"/>
@@ -191,13 +191,14 @@ const HomePage = () => {
                   isCreateConvModalVisible={isCreateConvModalVisible} 
                   id={currentUser.id}
                   setShow={setShow}
+                  setConvos={refetchConvos}
                 />
               </div>
               <span className={s.convdesc} >Host a convo about a......</span>
 
               <hr className={s.grayLine} />
               <div className={s.userIconsRow}>
-                <div className={s.photoRow}>
+                <div  className={s.photoRow}>
                   <img src={photoIcon} alt="" className={s.photoIcon} />
                   <span className={s.photoTxt}>Photo</span>
                 </div>
@@ -265,7 +266,7 @@ const HomePage = () => {
   </div>
 }
 
-const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, setShow }) => {
+const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, setShow, setConvos}) => {
   const [dateInput, setDateInput] = useState("");
   const [convTitleInput, setConvTitleInput] = useState("");
   const [convDescInput, setConvDescInput] = useState("");
@@ -277,7 +278,7 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, se
   const handleConvDescInputChange = (evt) => setConvDescInput(evt.target.value)
   const handleArticleURLInputChange = (evt) => setArticleURLInput(evt.target.value)
 
-  const handleCreateConv = (evt) => {
+  const handleCreateConv = () => {
     // Check if values are empty, For now we'll just do an alert, in the future put some red lower text
     if (!dateInput) alert("There's something wrong with the Conversation Time Input")
     else if (!convTitleInput) alert("There's something wrong with the Convo Title Input")
@@ -289,7 +290,12 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, se
     closeCreateConvModal();
     //window.alert("Conversation created! To find the conversation check your Profile page or the Home page!")
     setShow(true)
+    setTimeout(()=>setConvos(),5000)
     setTimeout(()=>setShow(false),10000)
+    setDateInput('')
+    setConvTitleInput('')
+    setConvDescInput('')
+    setArticleURLInput('')
   }
 
   const rodalCustomStyles = {

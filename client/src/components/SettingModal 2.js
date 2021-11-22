@@ -1,23 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from "../contexts/userContext";
 import styles from "./styles/NavBar.module.scss";
-import AWS from 'aws-sdk'
 
 const SettingModal = () => {
-  
-  const S3_BUCKET ='go-off.co';
-  const REGION ='us-west-1';
-  
-  
-  AWS.config.update({
-    accessKeyId: 'AKIA4OTKLUMM5GNJVS6F',
-    secretAccessKey: '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'
-  })
-  
-  const myBucket = new AWS.S3({
-    params: { Bucket: S3_BUCKET},
-    region: REGION,
-  })
   
   const { modal, setModal, currentUser } = useContext(UserContext);
   let file=useRef()
@@ -42,20 +27,6 @@ const SettingModal = () => {
     setSelectedFile(e.target.files[0]);
 }
 
-  const uploadFile = (file) => {
-
-    const params = {
-        ACL: 'public-read',
-        Body: file,
-        Bucket: S3_BUCKET,
-        Key: file.name
-    };
-
-    myBucket.putObject(params)
-        .send((err) => {
-            if (err) console.log(err)
-        })
-}
 
   useEffect(() => {
     return () => {};
