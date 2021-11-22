@@ -543,7 +543,7 @@ const LiveChat = () => {
             />
             <span className={styles["homeText"]}>Home</span>
           </div>
-          <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
+          {/* <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
             <img
               src={globeIcon}
               alt="discoverImage"
@@ -551,7 +551,7 @@ const LiveChat = () => {
             />
 
             <span className={styles["globeText"]}>Discover</span>
-          </div>
+          </div> */}
           <h1 className={styles["upcommingHeading"]}>Your Upcoming Convos</h1>
           <div className={styles["upcomingChats"]}>
             {currentUserFull.upcomingChats ? (
