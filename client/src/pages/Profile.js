@@ -72,7 +72,11 @@ const Profile = (props) => {
 		*/
 	
 	return (
-		<div className={styles.profilePageContainer}>
+		<div className={styles.profilePageContainer}> {/* WHY IS THIS HERE? 
+			the property it's referencing is empty
+			but trying to comment this code out causes it to crash */}
+
+			
 			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
 			{
 				// window.innerWidth<=800?<MobileProfile/>:<>

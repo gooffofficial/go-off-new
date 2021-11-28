@@ -526,10 +526,13 @@ const LiveChat = () => {
   }
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   return (
-    <div className={styles["liveChat"]}>
+    <div className={styles["liveChat"]}> {/* WHY IS THIS HERE? 
+      the property it's referencing is empty
+      but trying to comment this code out causes it to crash */}
+      
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
 
-      <div className={styles["mainContent"]}>
+      <div className={s.mainContent}>
         <div className={s.leftColumn}>
           <div className={s.avatarBox} onClick={() => history.push('/profile')}>
             <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />

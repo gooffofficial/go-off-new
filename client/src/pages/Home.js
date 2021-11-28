@@ -92,74 +92,77 @@ const Home = (props) => {
 
 
 	return (
-		<div className={styles.homePageContainer}>
+		<div className={styles.homePageContainer}> {/* WHY IS THIS HERE? 
+			the property it's referencing is empty
+			but trying to comment this code out causes it to crash */}
+
+			
 			<NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
-			{
 			
-			
-				
-				// window.innerWidth <= 800?<MobileHome/>:<>
-				
-				// <div className={styles.subContainer}>
-				// <div className={styles.leftSideBar}>
-				// 	<div className={styles.sideBarLinks}>
-				// 		<div className={styles.sideBarProfile} onClick={() => history.push('/profile')}>
-				// 			<img
-				// 				className={styles.sideBarProfileImage}
-				// 				src={currentUserFull
-				// 					? currentUserFull.propic
-				// 					: '/images/stock-face.jpg'}
-				// 				alt="profile portrait"
-				// 			/>
-				// 			<p className={styles.sideBarUserLinkText}>{currentUser.name}</p>
-				// 		</div>
-				// 		<div className={styles.sideBarHome}>
-				// 			<svg
-				// 				width="30"
-				// 				height="30"
-				// 				viewBox="0 0 30 30"
-				// 				fill="none"
-				// 				xmlns="http://www.w3.org/2000/svg"
-				// 			>
-				// 				<path
-				// 					fillRule="evenodd"
-				// 					clipRule="evenodd"
-				// 					d="M23.7377 24.9999H20.0002V16.2499C20.0002 15.5587 19.4402 14.9999 18.7502 14.9999H11.2502C10.559 14.9999 10.0002 15.5587 10.0002 16.2499V24.9999H6.25024L6.25774 14.4787L14.9977 5.53995L23.7502 14.5299L23.7377 24.9999ZM12.5002 24.9999H17.5002V17.4999H12.5002V24.9999ZM25.5302 12.7312L15.894 2.8762C15.4227 2.39495 14.5777 2.39495 14.1065 2.8762L4.46899 12.7324C4.01274 13.2012 3.75024 13.8562 3.75024 14.5299V24.9999C3.75024 26.3787 4.80899 27.4999 6.11024 27.4999H11.2502H18.7502H23.889C25.1902 27.4999 26.2502 26.3787 26.2502 24.9999V14.5299C26.2502 13.8562 25.9877 13.2012 25.5302 12.7312Z"
-				// 					fill="#757D8A"
-				// 				/>
-				// 			</svg>
 
-				// 			<p className={styles.sideBarLinkText}>Home</p>
-				// 		</div>
+				{/* window.innerWidth <= 800?<MobileHome/>:<> */}
+				
+				{/* <div className={styles.subContainer}>
+				 <div className={styles.leftSideBar}>
+				 	<div className={styles.sideBarLinks}>
+				 		<div className={styles.sideBarProfile} onClick={() => history.push('/profile')}>
+							<img
+								className={styles.sideBarProfileImage}
+								src={currentUserFull
+									? currentUserFull.propic
+									: '/images/stock-face.jpg'}
+								alt="profile portrait"
+							/>
+							<p className={styles.sideBarUserLinkText}>{currentUser.name}</p>
+						</div>
+						<div className={styles.sideBarHome}>
+							<svg
+								width="30"
+								height="30"
+								viewBox="0 0 30 30"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									fillRule="evenodd"
+									clipRule="evenodd"
+									d="M23.7377 24.9999H20.0002V16.2499C20.0002 15.5587 19.4402 14.9999 18.7502 14.9999H11.2502C10.559 14.9999 10.0002 15.5587 10.0002 16.2499V24.9999H6.25024L6.25774 14.4787L14.9977 5.53995L23.7502 14.5299L23.7377 24.9999ZM12.5002 24.9999H17.5002V17.4999H12.5002V24.9999ZM25.5302 12.7312L15.894 2.8762C15.4227 2.39495 14.5777 2.39495 14.1065 2.8762L4.46899 12.7324C4.01274 13.2012 3.75024 13.8562 3.75024 14.5299V24.9999C3.75024 26.3787 4.80899 27.4999 6.11024 27.4999H11.2502H18.7502H23.889C25.1902 27.4999 26.2502 26.3787 26.2502 24.9999V14.5299C26.2502 13.8562 25.9877 13.2012 25.5302 12.7312Z"
+									fill="#757D8A"
+								/>
+							</svg>
+
+							<p className={styles.sideBarLinkText}>Home</p>
+						</div>
 						
-				// 	</div>
+					</div>
 
-				// 	<div className={styles.sideBarCards}>
-				// 		<div>
-				// 			<h3 className={styles.sideBarCardTitle}>Your Upcoming Convos</h3>
-				// 		</div>
+					<div className={styles.sideBarCards}>
+						<div>
+							<h3 className={styles.sideBarCardTitle}>Your Upcoming Convos</h3>
+						</div>
 
-				// 		<div className={styles.upcomingChatsCards}>
-				// 			{currentUserFull.upcomingChats ? (
-				// 				currentUserFull.upcomingChats.map((prop) => {
+						<div className={styles.upcomingChatsCards}>
+							{currentUserFull.upcomingChats ? (
+								currentUserFull.upcomingChats.map((prop) => {
 									
-				// 					return (
-				// 						<UpcomingChatsCard
-				// 							articleURL={prop.articleURL}
-				// 							articleImg={prop.articleImg}
-				// 							time={prop.time}
-				// 							convTitle={prop.convTitle}
-				// 							hostName={prop.hostname}
-				// 							roomId={prop.roomId}
-				// 						/>
-				// 					);
-				// 				})
-				// 			) : (
-				// 				<UpcomingChatsCard />
-				// 			)}
-				// 		</div>
-				// 	</div>
-				// </div>
+									return (
+										<UpcomingChatsCard
+											articleURL={prop.articleURL}
+											articleImg={prop.articleImg}
+											time={prop.time}
+											convTitle={prop.convTitle}
+											hostName={prop.hostname}
+											roomId={prop.roomId}
+										/>
+									);
+								})
+							) : (
+								<UpcomingChatsCard />
+							)}
+						</div>
+					</div>
+				</div> */}
+
 				<div className={styles.subContainer}>
 					<div className={s.mainContent}>
 					<div className={s.leftColumn}>
@@ -345,7 +348,7 @@ const Home = (props) => {
 				</div> */}
 			</div>
 				</div>
-			}
+			
 		</div>
 	);
 };
