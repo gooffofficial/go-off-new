@@ -162,6 +162,6 @@ export const sendEditConv = async (convCreationInfo,roomId) => {
     desc: description,
     roomId:roomId,
   }
-   return (await axios.post(`/api/updateconvo`, infoSent)).data; //*!not working
+   return (await axios.post(`${process.env.REACT_APP_NODE_API}/api/index/updateconvo`, infoSent, {withCredentials:true})); //*!not working
 }
 const isEmpty = (obj) => obj && Object.keys(obj).length === 0 && obj.constructor === Object

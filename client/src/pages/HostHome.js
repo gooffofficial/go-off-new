@@ -32,24 +32,24 @@ import "rodal/lib/rodal.css";
 import s from '../styles/HomePage/HostHome.module.scss'; // s = styles
 import NavBar from '../components/NavBar.js';
 import UpcomingChatsCard from '../components/UpcomingChatsCard.js';
-import Conversation from '../components/Conversation.js'; 
+import Conversation from '../components/Conversation.js';
 import firebase from '../firebase.js';
 import { UserContext } from '../contexts/userContext';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const fillerUser = {
-	name: 'Username',
-	propic: '/images/stock-face.jpg',
-  id:0
+  name: 'Username',
+  propic: '/images/stock-face.jpg',
+  id: 0
 };
 
 
 const HomePage = () => {
   const history = useHistory();
-  const {currentUser, setCurrentUser, upcoming, convos, setConvos, refetchConvos, fetchData} = useContext(UserContext)
-  const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats: upcoming});
-  const [allUserFull, setAllUserFull] = useState({allupcomingChats: convos});
+  const { currentUser, setCurrentUser, upcoming, convos, setConvos, refetchConvos, fetchData } = useContext(UserContext)
+  const [currentUserFull, setCurrentUserFull] = useState({ ...currentUser, upcomingChats: upcoming });
+  const [allUserFull, setAllUserFull] = useState({ allupcomingChats: convos });
   const [isCreateConvModalVisible, setCreateConvModalVisible] = useState(false)
 
   const openCreateConvModal = () => setCreateConvModalVisible(true);
@@ -58,40 +58,40 @@ const HomePage = () => {
   let link = useRef();
   const [copied, setCopied] = useState(false)
   const [show, setShow] = useState(false)
-  
+
   const goToHomePage = (evt) => {
     let isHost = currentUserFull.host === "(Host)";
     let isAdmin = currentUserFull.admin === "(Admin)";
-      if (isHost || isAdmin)
-        history.push('/hosthome')
-      else 
-        history.push('/home')
+    if (isHost || isAdmin)
+      history.push('/hosthome')
+    else
+      history.push('/home')
   }
 
   const compareDate = (date1, date2) => {
-		if(date1.time>date2.time){
-			return -1
-		}
-		if(date1.time<date2.time){
-			return 1
-		}
-		return 0
-	}
+    if (date1.time > date2.time) {
+      return -1
+    }
+    if (date1.time < date2.time) {
+      return 1
+    }
+    return 0
+  }
 
-	useEffect(() => {
-		/*
+  useEffect(() => {
+    /*
     axios
-			.get(`/api/users/current`, {
-				withCredentials: true,
-			})
-			.then((res) => {
-				setCurrentUser(res.data.user);
+      .get(`/api/users/current`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setCurrentUser(res.data.user);
 
-				axios
-					.get(`/api/users/profile/${res.data.user.username}`, {
-						withCredentials: true,
-					})
-					.then((res2) => {
+        axios
+          .get(`/api/users/profile/${res.data.user.username}`, {
+            withCredentials: true,
+          })
+          .then((res2) => {
             setCurrentUserFull(res2.data.user);
             
             axios
@@ -102,45 +102,44 @@ const HomePage = () => {
                   upcomingChats: res.data,
                 })
                 axios
-									.get('/api/getconvos', { withCredentials: true})
-									.then((res3) => {
-										setAllUserFull({
-											allupcomingChats: res3.data,
-										});
-									});
+                  .get('/api/getconvos', { withCredentials: true})
+                  .then((res3) => {
+                    setAllUserFull({
+                      allupcomingChats: res3.data,
+                    });
+                  });
               })
-					});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     */
     const chronConvos = [...convos].sort(compareDate)
-    setAllUserFull({allupcomingChats: chronConvos})
-	}, [convos]);
+    setAllUserFull({ allupcomingChats: chronConvos })
+  }, [convos]);
 
   console.log(currentUserFull.upcomingChats)
   console.log(allUserFull.allupcomingChats)
   console.log(currentUserFull)
   console.log(allUserFull)
   // console.log(currentUser.id)
-	let trendingImageSources = [
-		'/images/trend-stock1.png',
-		'/images/trend-stock2.png',
-		'/images/trend-stock3.png',
-		'/images/trend-stock4.png',
-    ];
+  let trendingImageSources = [
+    '/images/trend-stock1.png',
+    '/images/trend-stock2.png',
+    '/images/trend-stock3.png',
+    '/images/trend-stock4.png',
+  ];
 
   return <div className={s.homePage}>
-   <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
+    <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
     <div className={s.mainContent}>
       <div className={s.leftColumn}>
         <div className={s.avatarBox} onClick={() => history.push('/profile')}>
-          <img  src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
-          <span className={s.avatarName}>{ currentUser.name }</span>
+          <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
+          <span className={s.avatarName}>{currentUser.name}</span>
         </div>
-      
-        <div className={s.homeBox} onClick = {goToHomePage}>
+        <div className={s.homeBox} onClick={goToHomePage}>
           <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
           <span className={s.homeText}>Home</span>
         </div>
@@ -152,93 +151,94 @@ const HomePage = () => {
         <br></br>
         <h1 className={s.upcomingHeading}>Upcoming Chats</h1>
         <div className={s.upcomingChatsCards}>
-							{currentUserFull.upcomingChats ? (
-								currentUserFull.upcomingChats.map((prop) => {
-									return (
-										<UpcomingChatsCard
-											articleURL={prop.articleURL}
-											articleImg={prop.articleImg}
-											time={prop.time}
-											convTitle={prop.convTitle}
-											hostName={prop.hostname}
-											roomId={prop.roomId}
-										/>
-									);
-								})
-							) : (
-								<UpcomingChatsCard />
-							)}
-						</div>
+          {currentUserFull.upcomingChats ? (
+            currentUserFull.upcomingChats.map((prop) => {
+              return (
+                <UpcomingChatsCard
+                  articleURL={prop.articleURL}
+                  articleImg={prop.articleImg}
+                  time={prop.time}
+                  convTitle={prop.convTitle}
+                  hostName={prop.hostname}
+                  roomId={prop.roomId}
+                />
+              );
+            })
+          ) : (
+            <UpcomingChatsCard />
+          )}
+        </div>
       </div>
       <div className={s.middleColumn}>
         <div className={s.insideMiddleColumn}>
-            <div className={s.userBox}>
-        {show?(<div class={`alert alert-success alert-dismissible fade show`} role="alert">
-        <strong>Succesfully created a conversation! Copy and send this link to your friends so they can join the fun: <Link ref={link} to={`profile/${currentUser.username}`}>https://www.go-off.co/profile/{currentUser.username}</Link></strong>
-        <button onClick={()=>{
-          navigator.clipboard.writeText(`https://www.go-off.co/profile/${currentUser.username}`)
-          setCopied(true)
-          console.log('clicked')
-          setTimeout(()=>setCopied(false),3000)
-        }} uk-icon="link"></button>
-        {copied?<span>copied!</span>:''}
-      </div>):''}
-              <div className={s.userConvRow}>
-                <img src={currentUserFull.propic} alt="Avatar" className={s.avatarIcon} />
-                <input onClick={openCreateConvModal} type="text" className={s.startAConvInput} placeholder="Start a conversation"/>
-                <CreateConvModal 
-                  closeCreateConvModal={closeCreateConvModal}
-                  isCreateConvModalVisible={isCreateConvModalVisible} 
-                  id={currentUser.id}
-                  setShow={setShow}
-                  setConvos={refetchConvos}
-                />
-              </div>
-              <span className={s.convdesc} >Host a convo about a......</span>
+          <div className={s.userBox}>
+            {show ? (<div class={`alert alert-success alert-dismissible fade show`} role="alert">
+              <strong>Succesfully created a conversation! Copy and send this link to your friends so they can join the fun: <Link ref={link} to={`profile/${currentUser.username}`}>https://www.go-off.co/profile/{currentUser.username}</Link></strong>
+              <button onClick={() => {
+                navigator.clipboard.writeText(`https://www.go-off.co/profile/${currentUser.username}`)
+                setCopied(true)
+                console.log('clicked')
+                setTimeout(() => setCopied(false), 3000)
+              }} uk-icon="link"></button>
+              {copied ? <span>copied!</span> : ''}
+            </div>) : ''}
+            <div className={s.userConvRow}>
+              <img src={currentUserFull.propic} alt="Avatar" className={s.avatarIcon} />
+              <input onClick={openCreateConvModal} type="text" className={s.startAConvInput} placeholder="Start a conversation" />
+              <CreateConvModal
+                closeCreateConvModal={closeCreateConvModal}
+                isCreateConvModalVisible={isCreateConvModalVisible}
+                id={currentUser.id}
+                setShow={setShow}
+                setConvos={refetchConvos}
+              />
+            </div>
+            <span className={s.convdesc} >Host a convo about a......</span>
 
-              <hr className={s.grayLine} />
-              <div className={s.userIconsRow}>
-                <div  className={s.photoRow}>
-                  <img src={photoIcon} alt="" className={s.photoIcon} />
-                  <span className={s.photoTxt}>Photo</span>
-                </div>
-                <div className={s.ytRow}>
-                  <img src={ytIcon} alt="" className={s.videoIcon} />
-                  <span className={s.videoTxt}>Video</span>
-                </div>
-                <div className={s.articleRow}>
-                  <img src={articleIcon} alt="" className={s.articleIcon} />
-                  <span className={s.articleTxt}>Article</span>
-                </div>
+            <hr className={s.grayLine} />
+            <div className={s.userIconsRow}>
+              <div className={s.photoRow}>
+                <img src={photoIcon} alt="" className={s.photoIcon} />
+                <span className={s.photoTxt}>Photo</span>
+              </div>
+              <div className={s.ytRow}>
+                <img src={ytIcon} alt="" className={s.videoIcon} />
+                <span className={s.videoTxt}>Video</span>
+              </div>
+              <div className={s.articleRow}>
+                <img src={articleIcon} alt="" className={s.articleIcon} />
+                <span className={s.articleTxt}>Article</span>
               </div>
             </div>
-     
+          </div>
+
           <div className={s.centerFeed}>
             {allUserFull.allupcomingChats ? (
-                  allUserFull.allupcomingChats.map((prop1) => {
-                    return (
-                      <Conversation
-                        articleURL={prop1.articleURL}
-                        articleImg={prop1.articleImg}
-                        time={prop1.time}
-                        convTitle={prop1.convTitle}
-                        hostName={prop1.hostName}
-                        roomId={prop1.roomId}
-                        desc={prop1.desc}
-                        hostid={prop1.hostID}
-                        userpfp={prop1.hostpfp}
-                        hostNum={prop1.hostNum}
-                        userid={prop1.userID}
-                        hostUName={prop1.username}
-                        useremail={prop1.useremail}
-                        userPnum={prop1.userPnum}
-                      />
-                    );
-                  })
-                ) : (
-                  <Conversation user={currentUser.id}/>
-                )}
-            </div>
+              allUserFull.allupcomingChats.map((prop1) => {
+                return (
+                  <Conversation
+                    articleURL={prop1.articleURL}
+                    articleImg={prop1.articleImg}
+                    time={prop1.time}
+                    convTitle={prop1.convTitle}
+                    hostName={prop1.hostName}
+                    roomId={prop1.roomId}
+                    desc={prop1.desc}
+                    hostid={prop1.hostID}
+                    getconvo={refetchConvos}
+                    userpfp={prop1.hostpfp}
+                    hostNum={prop1.hostNum}
+                    userid={prop1.userID}
+                    hostUName={prop1.username}
+                    useremail={prop1.useremail}
+                    userPnum={prop1.userPnum}
+                  />
+                );
+              })
+            ) : (
+              <Conversation user={currentUser.id} />
+            )}
+          </div>
           {/* <Conversation convImg={article2} userid={currentUser.id} />
           <Conversation convImg={article2} userid={currentUser.id} /> */}
         </div>
@@ -266,12 +266,12 @@ const HomePage = () => {
   </div>
 }
 
-const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, setShow, setConvos}) => {
+const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible, id, setShow, setConvos }) => {
   const [dateInput, setDateInput] = useState("");
   const [convTitleInput, setConvTitleInput] = useState("");
   const [convDescInput, setConvDescInput] = useState("");
   const [articleURLInput, setArticleURLInput] = useState("");
-  const { mutate } = useMutation((convCreationInfo) => sendCreateConv(convCreationInfo,id))
+  const { mutate } = useMutation((convCreationInfo) => sendCreateConv(convCreationInfo, id))
 
   const handleDateInputChange = (evt) => setDateInput(evt.target.value)
   const handleConvTitleInputInput = (evt) => setConvTitleInput(evt.target.value)
@@ -290,8 +290,8 @@ const CreateConvModal = ({ closeCreateConvModal, isCreateConvModalVisible,id, se
     closeCreateConvModal();
     //window.alert("Conversation created! To find the conversation check your Profile page or the Home page!")
     setShow(true)
-    setTimeout(()=>setConvos(),5000)
-    setTimeout(()=>setShow(false),10000)
+    setTimeout(() => setConvos(), 5000)
+    setTimeout(() => setShow(false), 10000)
     setDateInput('')
     setConvTitleInput('')
     setConvDescInput('')
@@ -367,7 +367,7 @@ const FriendActivityCard = ({ userAvatar, username, friendName }) => {
   return <div className={s.friendActivityCardRow}>
     <img src={userAvatar} alt="User Avatar" className={s.userAvatar} />
     <span className={s.activityTxt}>
-      <span className={s.username}>{username}</span> 
+      <span className={s.username}>{username}</span>
       &nbsp;saved a conversation hosted by&nbsp;
       <span className={s.friendName}>{friendName}</span>
     </span>

@@ -528,44 +528,44 @@ const LiveChat = () => {
   return (
     <div className={styles["liveChat"]}>
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
-        <>
+
       <div className={styles["mainContent"]}>
         <div className={s.leftColumn}>
-        <div className={s.avatarBox} onClick={() => history.push('/profile')}>
-          <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
-          <span className={s.avatarName}>{ currentUser.name }</span>
-        </div>
+          <div className={s.avatarBox} onClick={() => history.push('/profile')}>
+            <img src={currentUserFull.propic} alt="avatar" className={s.prekshaIcon} />
+            <span className={s.avatarName}>{ currentUser.name }</span>
+          </div>
       
-        <div className={s.homeBox} onClick = {goToHomePage}>
-          <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
-          <span className={s.homeText}>Home</span>
+          <div className={s.homeBox} onClick = {goToHomePage}>
+            <img src={homeIcon} alt="homeImage" className={s.homeIcon} />
+            <span className={s.homeText}>Home</span>
+          </div>
+          {/* <div className={s.discoverBox} onClick = {() => history.push('/discover')}>
+            <img src={globeIcon} alt="discoverImage" className={s.globeIcon} />
+            <span className={s.globeText}>Explore</span>
+          </div> */}
+          <br></br>
+          <br></br>
+          <h1 className={s.upcomingHeading}>Live Chat Timeline</h1>
+            <div className={s.upcomingChatsCards}>
+              {currentUserFull.upcomingChats ? (
+                currentUserFull.upcomingChats.map((prop) => {
+                  return (
+                    <UpcomingChatsCard
+                      articleURL={prop.articleURL}
+                      articleImg={prop.articleImg}
+                      time={prop.time}
+                      convTitle={prop.convTitle}
+                      hostName={prop.hostname}
+                      roomId={prop.roomId}
+                    />
+                  );
+                })
+              ) : (
+                <UpcomingChatsCard />
+              )}
+            </div>
         </div>
-        {/* <div className={s.discoverBox} onClick = {() => history.push('/discover')}>
-          <img src={globeIcon} alt="discoverImage" className={s.globeIcon} />
-          <span className={s.globeText}>Explore</span>
-        </div> */}
-        <br></br>
-        <br></br>
-        <h1 className={s.upcomingHeading}>Live Chat Timeline</h1>
-        <div className={s.upcomingChatsCards}>
-							{currentUserFull.upcomingChats ? (
-								currentUserFull.upcomingChats.map((prop) => {
-									return (
-										<UpcomingChatsCard
-											articleURL={prop.articleURL}
-											articleImg={prop.articleImg}
-											time={prop.time}
-											convTitle={prop.convTitle}
-											hostName={prop.hostname}
-											roomId={prop.roomId}
-										/>
-									);
-								})
-							) : (
-								<UpcomingChatsCard />
-							)}
-						</div>
-      </div>
         {/* <div className={styles["leftColumn"]}>
           <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>
             <img
@@ -583,7 +583,7 @@ const LiveChat = () => {
             />
             <span className={styles["homeText"]}>Home</span>
           </div>
-          <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
+          {/* <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
             <img
               src={globeIcon}
               alt="discoverImage"
@@ -591,9 +591,9 @@ const LiveChat = () => {
             />
 
             <span className={styles["globeText"]}>Discover</span>
-          </div>
-          <h1 className={styles["upcommingHeading"]}>Your Upcoming Convos</h1>
-          <div className={styles["upcomingChats"]}>
+          </div> */}
+          {/* <h1 className={styles["upcommingHeading"]}>Your Upcoming Convos</h1> */}
+          {/* <div className={styles["upcomingChats"]}>
             {currentUserFull.upcomingChats ? (
               currentUserFull.upcomingChats.map((prop) => {
                 return (
@@ -609,7 +609,8 @@ const LiveChat = () => {
               })
             ) : (
               <UpcomingChatsCard />
-            )} */}
+            )}
+          </div>  */}
             {/* <ChatCard
               title="Zero Waste Toothbrush: How does it really make a difference?"
               timeStart="HAPPENING NOW"
@@ -718,8 +719,6 @@ const LiveChat = () => {
           </div>
         </div>
 
-
-
         <div className={styles["rightColumn"]}>
           <div className={styles["everythingButProfile"]}>
             <img
@@ -789,90 +788,88 @@ const LiveChat = () => {
               </div>
             </div>
           </div>
-           <div className={styles["profileBox"]}>
-            {/* <div className={styles["profileLeftSide"]}>
-              <img
-                src={host.ppic}
-                alt="Profile Icon"
-                className={styles["emilyIcon"]}
-              />
-              <div className={styles["ProfileNames"]}>
-                <span className={styles["hostText"]}>HOST</span>
-                <div className={styles["profileName"]}>{host.name}</div>
-              </div>
-            </div> */}
-            {/* <div className={styles["profileRightSide"]}>
-              <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
-              <img
-                src={dots3Icon}
-                alt="3 Things Setting"
-                className={styles["dots3Icon"]}
-              />
-            </div> */}
-          </div> 
+                {/* <div className={styles["profileBox"]}>
+                <div className={styles["profileLeftSide"]}>
+                  <img
+                    src={host.ppic}
+                    alt="Profile Icon"
+                    className={styles["emilyIcon"]}
+                  />
+                  <div className={styles["ProfileNames"]}>
+                    <span className={styles["hostText"]}>HOST</span>
+                    <div className={styles["profileName"]}>{host.name}</div>
+                  </div>
+                </div> */}
+                {/* <div className={styles["profileRightSide"]}>
+                  <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
+                  <img
+                    src={dots3Icon}
+                    alt="3 Things Setting"
+                    className={styles["dots3Icon"]}
+                  />
+                </div> */}
         </div>
-      </div></>
+      </div>
     </div>
   );
-};
+}
+
 export default LiveChat
-// const NavBar = ({}) => {
-//   return (
-//     <div className={styles["navbar"]}>
-//       <img src={goOffLogo} alt="Go Off! Logo" className={styles["goOffLogo"]} />
-//       <div className={styles["searchBar"]}>
-//         <img
-//           src={searchIcon}
-//           alt="Search Icon"
-//           className={styles["searchIcon"]}
-//         />
-//         <input
-//           type="search"
-//           className={styles["searchInput"]}
-//           placeholder="Search"
-//         />
-//         <img
-//           src={optionsIcon}
-//           alt="Settings"
-//           className={styles["optionsIcon"]}
-//         />
-//       </div>
-//       <img
-//         src={addPersonIcon}
-//         alt="Add person"
-//         className={styles["addPersonIcon"]}
-//       />
-//       <img src={bellIcon} alt="Notifications" className={styles["bellIcon"]} />
-//       <img src={shareIcon} alt="Share" className={styles["shareIcon"]} />
-//       <div className={styles["navProfileBox"]}>
-//         <div className={styles["profile"]}>
-//           <img
-//             src={prekshaIcon}
-//             alt="avatar"
-//             className={styles["profileIcon"]}
-//           />
-//           <span className={styles["profileText"]}>Preksha Munot</span>
-//           <img
-//             src={arrowDownIcon}
-//             alt="dropDown"
-//             className={styles["arrowDownIcon"]}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+{/* const NavBar = ({}) => {
+  return (
+    <div className={styles["navbar"]}>
+      <img src={goOffLogo} alt="Go Off! Logo" className={styles["goOffLogo"]} />
+      <div className={styles["searchBar"]}>
+        <img
+          src={searchIcon}
+          alt="Search Icon"
+          className={styles["searchIcon"]}
+        />
+        <input
+          type="search"
+          className={styles["searchInput"]}
+          placeholder="Search"
+        />
+        <img
+          src={optionsIcon}
+          alt="Settings"
+          className={styles["optionsIcon"]}
+        />
+      </div>
+      <img
+        src={addPersonIcon}
+        alt="Add person"
+        className={styles["addPersonIcon"]}
+      />
+      <img src={bellIcon} alt="Notifications" className={styles["bellIcon"]} />
+      <img src={shareIcon} alt="Share" className={styles["shareIcon"]} />
+      <div className={styles["navProfileBox"]}>
+        <div className={styles["profile"]}>
+          <img
+            src={prekshaIcon}
+            alt="avatar"
+            className={styles["profileIcon"]}
+          />
+          <span className={styles["profileText"]}>Preksha Munot</span>
+          <img
+            src={arrowDownIcon}
+            alt="dropDown"
+            className={styles["arrowDownIcon"]}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}; */}
 
-// const ChatCard = ({ title, timeStart, chatImage }) => {
-//   return (
-//     <div className={styles["chatCard"]}>
-//       <img src={chatImage} alt="chatImage" className={styles["chatImage"]} />
-//       <div className={styles["chatBottomSide"]}>
-//         <h2 className={styles["timeStart"]}>{timeStart}</h2>
-//         <h4 className={styles["chatTitle"]}>{title}</h4>
-//       </div>
-//     </div>
-//   );
-// };
-
-
+{/* const ChatCard = ({ title, timeStart, chatImage }) => {
+  return (
+    <div className={styles["chatCard"]}>
+      <img src={chatImage} alt="chatImage" className={styles["chatImage"]} />
+      <div className={styles["chatBottomSide"]}>
+        <h2 className={styles["timeStart"]}>{timeStart}</h2>
+        <h4 className={styles["chatTitle"]}>{title}</h4>
+      </div>
+    </div>
+  );
+}; */}
