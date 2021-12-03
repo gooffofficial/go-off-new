@@ -108,8 +108,8 @@ const LiveChat = () => {
   const [messages, addMessages] = useState([]);
 
   //sets current user with dummy info
-  const {currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming} = useContext(UserContext)
-  const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats:upcoming});
+  const { currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming } = useContext(UserContext)
+  const [currentUserFull, setCurrentUserFull] = useState({ ...currentUser, upcomingChats: upcoming });
 
   const [loading, setLoading] = useState(true);
 
@@ -133,9 +133,9 @@ const LiveChat = () => {
 
   const currentHost = (id) => {
     axios
-      .get(`${process.env.REACT_APP_FLASK_API}/getHost/${id}`, {withCredentials:true}).then(res =>{
-        const host= res.data
-        setHost({name:host.user.name,ppic:host.user.ppic})
+      .get(`${process.env.REACT_APP_FLASK_API}/getHost/${id}`, { withCredentials: true }).then(res => {
+        const host = res.data
+        setHost({ name: host.user.name, ppic: host.user.ppic })
       }).catch(err => console.log(err))
   }
 
@@ -152,7 +152,7 @@ const LiveChat = () => {
 
   //this will handle incoming messages
   const handleMessage = (object) => {
-    console.log(object,'handle message');
+    console.log(object, 'handle message');
     const message = object.message;
     if (!message.user) {
       return;
@@ -188,11 +188,11 @@ const LiveChat = () => {
     //console.log(file)
     setFile(file)
   }
-  const pickemoji = (e , {emoji}) => {
-    console.log("emoji >> ",emoji)
+  const pickemoji = (e, { emoji }) => {
+    console.log("emoji >> ", emoji)
     const ref = inpuref.current;
     ref.focus();
-    const start = message.substring(0,ref.selectionStart);
+    const start = message.substring(0, ref.selectionStart);
     const end = message.substring(ref.selectionStart);
     const msg = start + emoji + " " + end
     setmessage(msg)
@@ -200,11 +200,28 @@ const LiveChat = () => {
   const virtualClick = event => {
     hiddenFileInput.current.click();
   };
-  const handletextchange = e =>{
+  const handletextchange = e => {
     setmessage(e.target.value)
+  }
+  const detectUrls = (message) => {
+    var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+    return message.match(urlRegex)
   }
   //this on submit function is publishing the message to the channel
   const onSubmit = async () => {
+    var url = await detectUrls(message)
+    var urlimg = null;
+    var urltitle = null;
+    if (url !== null) {
+      console.log("url data")
+      await axios.post(`${process.env.REACT_APP_NODE_API}/api/chat/geturldata`, { url: url[0] }, { withCredentials: true })
+        .then(res => {
+          console.log(res.data)
+          urlimg = res.data.og.image
+          urltitle = res.data.og.title
+        })
+        .catch(err => console.log(err))
+    }
     console.log(message, currentUser, pubnub.getUUID())
     if (message == '' && !file) {
       return
@@ -222,8 +239,12 @@ const LiveChat = () => {
                 isHost: isHost,
                 text: message,
                 uuid: currentUser.id,
+                url: url,
+                urlimg: urlimg,
+                urltitle: urltitle,
                 attachment: fileURL,
-                propic: currentUser.propic,
+                filename: file.name,
+                filesize: file.size,
                 id: uuid_v4()
               },
             },
@@ -240,7 +261,7 @@ const LiveChat = () => {
         ).catch()
       }).catch(error => console.log(error))
     } else {
-      console.log('sending',channels)
+      console.log('sending', channels)
       pubnub.publish(
         {
           channel: channels[0],
@@ -248,6 +269,9 @@ const LiveChat = () => {
             user: currentUser.username,
             isHost: isHost,
             text: message,
+            url: url,
+            urlimg: urlimg,
+            urltitle: urltitle,
             uuid: currentUser.id,
             propic: currentUser.propic,
             id: uuid_v4()
@@ -256,7 +280,7 @@ const LiveChat = () => {
         function (status) {
           //this will print a status error in console
           if (status.error) {
-            console.log(status,'something went wrong');
+            console.log(status, 'something went wrong');
           }
         }
       );
@@ -287,16 +311,20 @@ const LiveChat = () => {
     return newList
   }
 
-  const endConversation = async(ID) => { //*
-    
-    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`,{"ended":true},{withCredentials:true})
-    if(result.status==200){
+  const endConversation = async (ID) => { //*
+
+    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`, { "ended": true }, { withCredentials: true })
+    if (result.status == 200) {
       pubnub.signal({ channel: code, message: { action: 'END' } })
       const messageList = messages ? processMessages(messages) : ''
-      axios.post(`${process.env.REACT_APP_FLASK_API}/commitmessages`, { messages: messageList },{withCredentials:true} ).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      axios.post(`${process.env.REACT_APP_FLASK_API}/commitconvo`, { convo: {article:metaData.articleURL, time:metaData.time,host:metaData.hostId,roomid:metaData.convoId, title:metaData.title,description:metaData.description,
-        createdAt:metaData.createdAt,updatedAt:metaData.updatedAt, tz:metaData.tz}},{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      axios.get(`${process.env.REACT_APP_FLASK_API}/execanalytics/${code}`,{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.post(`${process.env.REACT_APP_FLASK_API}/commitmessages`, { messages: messageList }, { withCredentials: true }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.post(`${process.env.REACT_APP_FLASK_API}/commitconvo`, {
+        convo: {
+          article: metaData.articleURL, time: metaData.time, host: metaData.hostId, roomid: metaData.convoId, title: metaData.title, description: metaData.description,
+          createdAt: metaData.createdAt, updatedAt: metaData.updatedAt, tz: metaData.tz
+        }
+      }, { withCredentials: true }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.get(`${process.env.REACT_APP_FLASK_API}/execanalytics/${code}`, { withCredentials: true }).then(res => console.log(res.data.message)).catch(err => console.log(err))
       console.log("ended Conversation")
     }
 
@@ -316,11 +344,11 @@ const LiveChat = () => {
   }
 
   //use this to look at the metadata
-  const fetchMetaData = async() => {
-    let result = await axios.get(`${process.env.REACT_APP_FLASK_API}/getConvo/${code}`,{withCredentials:true}).catch(err=>setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>))
-    console.log('---metadata---',result)
+  const fetchMetaData = async () => {
+    let result = await axios.get(`${process.env.REACT_APP_FLASK_API}/getConvo/${code}`, { withCredentials: true }).catch(err => setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>))
+    console.log('---metadata---', result)
 
-    if(result){
+    if (result) {
       currentHost(result.data.convo.hostId);
       setMetaData(result.data.convo);
       fetchAllMessages();
@@ -328,11 +356,11 @@ const LiveChat = () => {
     }
   }
 
-  const openConversation = async(ID) => {
-    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`,{"isOpen":true},{withCredentials:true})
-    if(result.status!=200){
+  const openConversation = async (ID) => {
+    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`, { "isOpen": true }, { withCredentials: true })
+    if (result.status != 200) {
       console.log('error opening conversation')
-    }else{
+    } else {
       console.log('success opening')
     }
   }
@@ -367,15 +395,15 @@ const LiveChat = () => {
           setIsTyping(true)
           setUserTyping(`${msg.name} is typing`);
 
-          if(!busy){
+          if (!busy) {
             setBusy(true);
-            setTimeout(()=>{
-              if(canRequest){
+            setTimeout(() => {
+              if (canRequest) {
                 setUserTyping('')
               }
               setIsTyping(false)
               setBusy(false);
-            },THROTTLE)
+            }, THROTTLE)
           }
 
         }
@@ -396,16 +424,16 @@ const LiveChat = () => {
       (status, response) => {
         const occupancy = response ? response.totalOccupancy : null;
         const occupants = response ? response.occupants : null;
-        if (metadata.ended==1) {
+        if (metadata.ended == 1) {
           return setContent(<div style={{ textAlign: 'center' }}>This chat has already ended.</div>)
         }
         if (occupancy < 10) {
           //room not full now check for rsvp
           if (metadata.isOpen == 0) {
             setContent(<div className={styles['setContent']}>
-            <div className="lock"></div><h1>
-            <i class="bi bi-lock lock"/></h1>
-            <div>Currently closed! Waiting for host to open chat.</div>
+              <div className="lock"></div><h1>
+                <i class="bi bi-lock lock" /></h1>
+              <div>Currently closed! Waiting for host to open chat.</div>
             </div>)
           } else if (user.id == metadata.hostId && metadata.isOpen == 1) {
             addListener(user);
@@ -434,41 +462,41 @@ const LiveChat = () => {
   //checks for and sets User
   const checkUser = async (data) => {
     let res;
-    if(!currentUser.signedIn){
-    res = await axios
-      .get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
-        withCredentials: true,
-      })
-      if(res.data.user){
+    if (!currentUser.signedIn) {
+      res = await axios
+        .get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
+          withCredentials: true,
+        })
+      if (res.data.user) {
         setCurrentUser(res.data.user);
-      }else{
+      } else {
         setContent(<div style={{ textAlign: 'center' }}>Please sign in</div>)
         console.log(`could not make request:`
         )
       }
-      pubnub.setUUID( res.data.user.id);
-        let metadata = { ...data }
-        if ( data.hostId == res.data.user.id) {
-          setIsHost(true);
-          if (data.isOpen == 0) {
-            metadata.isOpen = 1;
-            openConversation(metadata.ID);
-          }
+      pubnub.setUUID(res.data.user.id);
+      let metadata = { ...data }
+      if (data.hostId == res.data.user.id) {
+        setIsHost(true);
+        if (data.isOpen == 0) {
+          metadata.isOpen = 1;
+          openConversation(metadata.ID);
         }
-        checkRoom(res.data.user, metadata)
-    }else{
+      }
+      checkRoom(res.data.user, metadata)
+    } else {
       pubnub.setUUID(currentUser.id);
-        let metadata = { ...data }
-        if (data.hostId == currentUser.id) {
-          setIsHost(true);
-          if (data.isOpen == 0) {
-            metadata.isOpen = 1;
-            openConversation(metadata.ID);
-          }
+      let metadata = { ...data }
+      if (data.hostId == currentUser.id) {
+        setIsHost(true);
+        if (data.isOpen == 0) {
+          metadata.isOpen = 1;
+          openConversation(metadata.ID);
         }
-        checkRoom(currentUser, metadata)
+      }
+      checkRoom(currentUser, metadata)
     }
-      
+
   }
   //fetches all channel messages
   const fetchAllMessages = async () => {
@@ -485,10 +513,14 @@ const LiveChat = () => {
               {
                 user: e.message.user,
                 isHost: e.message.isHost,
-                text: e.message.text?e.message.text:'',
+                text: e.message.text ? e.message.text : '',
                 uuid: e.message.uuid,
-                attachment: e.message.attachment?e.message.attachment:'',
-                propic:e.message.propic?e.message.propic:'https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg',
+                url: e.message.url,
+                urlimg: e.message.urlimg,
+                urltitle: e.message.urltitle,
+                filename: e.message.filename,
+                filesize: e.message.filesize,
+                attachment: e.message.attachment,
                 id: e.message.id
               },
             ]);
@@ -499,7 +531,7 @@ const LiveChat = () => {
   }
 
   useEffect(() => {
-    if(window.innerWidth<=800){
+    if (window.innerWidth <= 800) {
       return
     }
     if (!code) {
@@ -507,7 +539,7 @@ const LiveChat = () => {
       setLoading(false);
     }
     fetchMetaData();
-    
+
     //this subscribes to a list of channels
     pubnub.subscribe({
       channels: channels,
@@ -517,14 +549,14 @@ const LiveChat = () => {
     return pubnub.removeListener()
   }, []);
 
-  if(window.innerWidth<=800){
-    return <MobileChat/>
+  if (window.innerWidth <= 800) {
+    return <MobileChat />
   }
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   return (
     <div className={styles["liveChat"]}>
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
-        <>
+      <>
         <div className={styles["mainContent"]}>
         <div className={styles["leftColumn"]}>
           <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>
@@ -580,14 +612,14 @@ const LiveChat = () => {
               timeStart="HAPPENING NOW"
               chatImage={article1}
             /> */}
+            </div>
+            <button onClick={handleButton}>{isHost ? 'End Conversation' : 'Leave Conversation'}</button>
           </div>
-          <button onClick={handleButton}>{isHost ? 'End Conversation' : 'Leave Conversation'}</button>
-        </div>
-        <div className={styles["middleColumn"]}>
-          <div className={styles["innerMiddleBox"]}>
-            <div className={styles["articleHeading"]}>
-              <div className={styles["firstRowHeading"]}>
-                {/* <img
+          <div className={styles["middleColumn"]}>
+            <div className={styles["innerMiddleBox"]}>
+              <div className={styles["articleHeading"]}>
+                <div className={styles["firstRowHeading"]}>
+                  {/* <img
                   src={NYTLogo}
                   alt="NYT Logo"
                   className={styles["NYTLogo"]}
@@ -597,130 +629,130 @@ const LiveChat = () => {
                   alt="Search Icon"
                   className={styles["searchForIcon"]}
                 /> */}
-              </div>
-              <div className={styles["secondRowHeading"]}>
-                <span className={styles["mid-col-articleTitle"]}>
-                  {metaData.title}
-                </span>
-                <span className={styles["liveBox"]}>LIVE</span>
-              </div>
-            </div>
-            <div className={styles["liveChatBox"]}>
-              <span className={styles["chatTime"]}></span>
-              {loading ? (
-
-                <div style={{ textAlign: "center" }}>Loading...</div>
-              ) : (
-                content
-              )}
-              {reload ? <Chat
-                scrollhook={scrollhook}
-                messages={messages}
-                user={currentUser}
-              /> : ''}
-            </div>
-           
-            {<div >{userTyping}</div>}
-            <div className={canType ? styles["chatInputBox"] : styles['d-none']}>
-              <form className={styles["formbox"]} onSubmit={handleSubmit(onSubmit)}>
-                {/* <img
-                  src={inputAddIcon}
-                  alt="Add Icon"
-                  className={styles["inputAddIcon"]}
-                  onClick={virtualClick}
-                /> */}
-                <input type='file' style={{"display":"none"}} ref={hiddenFileInput} onChange={onChangeFile} />
-                <input
-                  type="text"
-                  className={styles["inputText"]}
-                  onKeyPress={handlePress}
-                  ref={inpuref}
-                  value={message}
-                  onChange={handletextchange}
-                  placeholder="Type your message"
-                  // {...register("message")}
-                />{" "}
-                {/*this is for sending message, onSubmit here*/}
-                {errors.message && (
-                  <p className="error">{errors.message.message}</p>
-                )}
-              </form>
-              <Popover
-                isOpen={emojibox}
-                positions={['top']} // preferred positions by priority     
-                content={
-                <div style={{marginBottom:20}}>
-                <Picker  onEmojiClick={pickemoji} />
                 </div>
-              }
-              >
-              <div style={{width:60,textAlign:"right"}}>
-              <img
-                ref={target}
-                src={emojiIcon}
-                alt="emoji icon"
-                style={{width:30,height:30}}
-                onClick={() => setemojibox(!emojibox)}
-              />
+                <div className={styles["secondRowHeading"]}>
+                  <span className={styles["mid-col-articleTitle"]}>
+                    {metaData.title}
+                  </span>
+                  <span className={styles["liveBox"]}>LIVE</span>
+                </div>
               </div>
-              </Popover>
-              <div style={{width:40,textAlign:"right"}}>
-              <img
-                src={inputSendIcon}
-                alt="send icon"
-                style={{width:30,height:30}}
-                onClick={onSubmit}
-              />
+              <div className={styles["liveChatBox"]}>
+                <span className={styles["chatTime"]}></span>
+                {loading ? (
+
+                  <div style={{ textAlign: "center" }}>Loading...</div>
+                ) : (
+                  content
+                )}
+                {reload ? <Chat
+                  scrollhook={scrollhook}
+                  messages={messages}
+                  user={currentUser}
+                /> : ''}
+              </div>
+
+              {<div >{userTyping}</div>}
+              <div className={canType ? styles["chatInputBox"] : styles['d-none']}>
+                <form className="form-demo" style={{ display: "flex", flexGrow: 10 }} onSubmit={handleSubmit(onSubmit)}>
+                  <img
+                    src={inputAddIcon}
+                    alt="Add Icon"
+                    className={styles["inputAddIcon"]}
+                    onClick={virtualClick}
+                  />
+                  <input type='file' style={{ "display": "none" }} ref={hiddenFileInput} onChange={onChangeFile} />
+                  <input
+                    type="text"
+                    className={styles["inputText"]}
+                    onKeyPress={handlePress}
+                    ref={inpuref}
+                    value={message}
+                    onChange={handletextchange}
+                    placeholder="Type your message"
+                  // {...register("message")}
+                  />{" "}
+                  {/*this is for sending message, onSubmit here*/}
+                  {errors.message && (
+                    <p className="error">{errors.message.message}</p>
+                  )}
+                </form>
+                <Popover
+                  isOpen={emojibox}
+                  positions={['top']} // preferred positions by priority     
+                  content={
+                    <div style={{ marginBottom: 20 }}>
+                      <Picker onEmojiClick={pickemoji} />
+                    </div>
+                  }
+                >
+                  <div style={{ width: 60, textAlign: "right" }}>
+                    <img
+                      ref={target}
+                      src={emojiIcon}
+                      alt="emoji icon"
+                      style={{ width: 30, height: 30 }}
+                      onClick={() => setemojibox(!emojibox)}
+                    />
+                  </div>
+                </Popover>
+                <div style={{ width: 40, textAlign: "right" }}>
+                  <img
+                    src={inputSendIcon}
+                    alt="send icon"
+                    style={{ width: 30, height: 30 }}
+                    onClick={onSubmit}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={styles["rightColumn"]}>
-          <div className={styles["everythingButProfile"]}>
-            <img
-              src={article2}
-              alt="articleImage"
-              className={styles["article2"]}
-            />
-            <div className={styles["chatHeading"]}>
-              <div className={styles["leftHeading"]}>
-                <span className={styles["monthText"]}>{Date(metaData.time).toLocaleString()
-                  .split(' ')
-                  .splice(1, 1)
-                  .join(' ')
-                  .toUpperCase()}</span>
-                <div className={styles["dayText"]}>{Date(metaData.time).toLocaleString()
-                  .split(' ')
-                  .splice(2, 1)
-                  .join(' ')
-                  .toUpperCase()}</div>
-              </div>
-              <div className={styles["rightHeading"]}>
-                {/* <img
+          <div className={styles["rightColumn"]}>
+            <div className={styles["everythingButProfile"]}>
+              <img
+                src={article2}
+                alt="articleImage"
+                className={styles["article2"]}
+              />
+              <div className={styles["chatHeading"]}>
+                <div className={styles["leftHeading"]}>
+                  <span className={styles["monthText"]}>{Date(metaData.time).toLocaleString()
+                    .split(' ')
+                    .splice(1, 1)
+                    .join(' ')
+                    .toUpperCase()}</span>
+                  <div className={styles["dayText"]}>{Date(metaData.time).toLocaleString()
+                    .split(' ')
+                    .splice(2, 1)
+                    .join(' ')
+                    .toUpperCase()}</div>
+                </div>
+                <div className={styles["rightHeading"]}>
+                  {/* <img
                   src={NYTLogo}
                   alt="NYT Logo"
                   className={styles["NYTLogo"]}
                 /> */}
-                <span className={styles["articleTitle"]}>
-                  {metaData.title}
-                </span>
+                  <span className={styles["articleTitle"]}>
+                    {metaData.title}
+                  </span>
+                </div>
               </div>
-            </div>
-            <span className={styles["startTime"]}>{Date(metaData.time).toLocaleString()
-              .split(' ')
-              .splice(0, 5)
-              .join(' ')
-              .toUpperCase()} (EST)</span>
-            {/* <div className={styles["chatTags"]}>
+              <span className={styles["startTime"]}>{Date(metaData.time).toLocaleString()
+                .split(' ')
+                .splice(0, 5)
+                .join(' ')
+                .toUpperCase()} (EST)</span>
+              {/* <div className={styles["chatTags"]}>
               <div className={styles["chatTag"]}>Eco-Friendly</div>
               <div className={styles["chatTag"]}>Sustainability</div>
               <div className={styles["chatTag"]}>Zero Waste</div>
             </div> */}
-            <p className={styles["chatDescription"]}>
-              {metaData.description}
-            </p>
-            <Participants channel={channels[0]} />
-            {/* <div className={styles["dropDownRow"]}>
+              <p className={styles["chatDescription"]}>
+                {metaData.description}
+              </p>
+              <Participants channel={channels[0]} />
+              {/* <div className={styles["dropDownRow"]}>
               <span className={styles["chatDropDownName"]}>Shared Media</span>
               <img
                 src={arrowDownIcon}
@@ -728,24 +760,24 @@ const LiveChat = () => {
                 className={styles["dropDownImg"]}
               />
             </div> */}
-            <div className={styles["dropDownRow"]}>
-              <span className={styles["chatDropDownName"]}>
-                Privacy & Support
-              </span>
-              <img
-                src={arrowDownIcon}
-                alt="dropDownImg"
-                className={styles["dropDownImg"]}
-              />
-              <div className={styles["dropdown-content"]}>
-                <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897, 
-                  or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about 
-                  our data collecting practices, please read our <a target="_blank" href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy.</a></span>
+              <div className={styles["dropDownRow"]}>
+                <span className={styles["chatDropDownName"]}>
+                  Privacy & Support
+                </span>
+                <img
+                  src={arrowDownIcon}
+                  alt="dropDownImg"
+                  className={styles["dropDownImg"]}
+                />
+                <div className={styles["dropdown-content"]}>
+                  <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897,
+                    or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about
+                    our data collecting practices, please read our <a target="_blank" href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy.</a></span>
+                </div>
               </div>
             </div>
-          </div>
-           <div className={styles["profileBox"]}>
-            {/* <div className={styles["profileLeftSide"]}>
+            <div className={styles["profileBox"]}>
+              {/* <div className={styles["profileLeftSide"]}>
               <img
                 src={host.ppic}
                 alt="Profile Icon"
@@ -756,7 +788,7 @@ const LiveChat = () => {
                 <div className={styles["profileName"]}>{host.name}</div>
               </div>
             </div> */}
-            {/* <div className={styles["profileRightSide"]}>
+              {/* <div className={styles["profileRightSide"]}>
               <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
               <img
                 src={dots3Icon}
@@ -764,9 +796,9 @@ const LiveChat = () => {
                 className={styles["dots3Icon"]}
               />
             </div> */}
-          </div> 
-        </div>
-      </div></>
+            </div>
+          </div>
+        </div></>
     </div>
   );
 };
