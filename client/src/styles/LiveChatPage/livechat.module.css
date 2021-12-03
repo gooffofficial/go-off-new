@@ -439,6 +439,26 @@
   margin-top: 2px;
   color: #3A86FF;
 }
+.replyMessageBox {
+  background: rgba(58, 134, 255, 0.25);
+  border-radius: 10px;
+  padding: 4px 12px;
+  margin-top: 2px;
+  display: flex;
+  flex-direction: row;
+  color: #3A86FF;
+}
+.replyMessage {
+  background: rgba(58, 134, 255, 0.25);
+  border-radius: 20px;
+  max-width: 500px;
+  padding: 7px 16px;
+  margin-bottom: -7px;
+  margin-top: 2px;
+  color: #3A86FF;
+  display: flex;
+  flex-direction: row;
+}
 
 .messageUserName {
   margin-left: 10px;
@@ -473,6 +493,25 @@
   max-height: 45px;
   width: 100%;
   border-radius: 12px;
+}
+.replyBox {
+  background: linear-gradient(180deg, rgba(58, 134, 255, 0.075) 0%, rgba(86, 103, 255, 0.075) 100%);
+  display: flex;
+  padding: 8px 12px;
+  -ms-flex-align: top;
+  width: 100%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.replyInputBox{
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background: linear-gradient(180deg, rgba(58, 134, 255, 0.075) 0%, rgba(86, 103, 255, 0.075) 100%);
+  display: flex;
+  padding: 8px 12px;
+  -ms-flex-align: top;
+  max-height: 45px;
+  width: 100%;
 }
 
 .formbox {
