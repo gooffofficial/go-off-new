@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext,useState, useEffect} from "react";
 import { useHistory } from "react-router-dom";
 import styles from '../styles/SplashPage/splash.module.css';
 import BigLogo from '../images/go-off-logo-big.svg'
@@ -6,8 +6,10 @@ import SmallLogo from '../images/GO_OFF_LOGO.svg'
 import { UserContext } from "../contexts/userContext";
 import { routeContext } from "../contexts/useReroute";
 import MobileSplash from "./mobile/MobileSplash";
+import { useLayoutEffect } from "react";
 
 const Splash = props => {
+    const [size, setSize] = useState([0, 0]);
     const {currentUser} = useContext(UserContext);
     const {currentLocation} = useContext(routeContext);
     let history = useHistory();
@@ -31,12 +33,19 @@ const Splash = props => {
             }
         }
     },[])
-
-    if( window.innerWidth <= 800 ){
+   
+    useLayoutEffect(() => {
+        function updateSize() {
+          setSize([window.innerWidth, window.innerHeight]);
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+      }, []);
+      if( size[0] <= 800 ){
         console.log(window.innerWidth)
         return <MobileSplash/>
     }
-
     return (
         <div>
             <div className={styles["left-side2"]}>
@@ -47,19 +56,19 @@ const Splash = props => {
                 <div className={styles["center-container"]}>
                     <img src={SmallLogo} className={styles["right-logo"]} draggable="false"/>
 
-                    <p className={styles["main-text2"]}>Join the conversation.</p>
-                    <p className={styles["sub-text2"]}>Literally.</p>
+                    <p className={styles["main-text2"]}>Join the conversation, literally.</p>
+                    <p className={styles["sub-text2"]}>Login or sign up to join Go Off!</p>
 
                     <div className={styles["button-container"]}>
-                        <button onClick={signupbuttonhandler} className={styles["form-button"]}>Sign Up</button>
-                        <button onClick={loginbuttonhandler} className={styles["form-button"]}>Log In</button>
+                        <button onClick={loginbuttonhandler} className={styles["form-button"]}>LOGIN</button>
+                        <button onClick={signupbuttonhandler} className={styles["form-button"]}>SIGN UP</button>
                     </div>
                 </div>
 
                 <div className={styles["bottom-links"]}>
                     <ul> 
-                        {/* <li><a href="">Contact</a></li>
-                        <li><a href="">Beta Sign Up</a></li> */}
+                        <li><a href="">Contact</a></li>
+                        <li><a href="">Beta Sign Up</a></li>
                         <li><a href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy</a></li>
                         <li><a href="https://docs.google.com/document/u/1/d/e/2PACX-1vRLCSRa52WgXF_hCBByjGv6TIKcuXgirR4QB2Z5s_4r1p8ub_cOKvdCgZNNN80vsw/pub">Terms & Conditions</a></li>
                     </ul>

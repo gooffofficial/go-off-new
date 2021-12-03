@@ -42,22 +42,22 @@ html {
 }
 
 .main-text2 {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Poppins';
 	font-weight: bold;
-	font-size: 45px;
+	font-size: 38px;
 	color: #000;
 	line-height: 1;
-	letter-spacing: -2px;
-	margin-bottom: 0;
+	letter-spacing: -1px;
+	margin-bottom: 20px;
 	margin-top: 80px;
 	width: 500px;
 }
 
 .sub-text2 {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 500;
-	font-size: 18px;
-	color: rgba(0, 0, 0, 0.25);;
+	font-family: 'Poppins';
+	font-size: 16px;
+	opacity: 40%;
+	color: "#000";
 }
 
 .button-container {
@@ -65,7 +65,7 @@ html {
 }
 
 .form-button {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Poppins';
 	font-weight: bold;
 	color: #fff;
 	background: linear-gradient(171.72deg, #3A86FF 24.63%, #3A71FF 93.65%);
@@ -73,7 +73,8 @@ html {
 	border: 0;
 	outline: 0;
 	width: 100%;
-	padding: 11px 20px;
+	font-size: 14px;
+	padding: 14px 20px;
 	border-radius: 100px;
 	margin-top: 14px;
 }
