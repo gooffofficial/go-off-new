@@ -265,8 +265,13 @@ const LiveChat = () => {
     }
   };
   //handles leave/end button
-  const handleButton = () => {
+  const handleButton = async () => {
     pubnub.unsubscribe({ channels: channels });
+    await pubnub.objects.removeChannelMembers({
+      channel: channels,
+      uuids: [currentUser.username],
+    });
+    console.log("channel data "+ channels)
     pubnub.signal({ channel: code, message: { action: 'DM', uuid: pubnub.getUUID() } });
     isHost ? endConversation(metaData.ID) : goToHomePage()
   }
@@ -513,6 +518,12 @@ const LiveChat = () => {
       channels: channels,
       withPresence: true,
     });
+    pubnub.objects.setChannelMembers({
+      channel: channels,
+      uuids: [currentUser.username],
+    });
+    console.log("channel data "+ channels)
+
     setLoading(false);
     return pubnub.removeListener()
   }, []);
