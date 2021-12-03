@@ -558,51 +558,51 @@ const LiveChat = () => {
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
       <>
         <div className={styles["mainContent"]}>
-          <div className={styles["leftColumn"]}>
-            <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>
-              <img
-                src={currentUserFull.propic}
-                alt="avatar"
-                className={styles["prekshaIcon"]}
-              />
-              <span className={styles["avatarName"]} >{currentUser.name}</span>
-            </div>
-            <div className={styles["homeBox"]} onClick={goToHomePage}>
-              <img
-                src={homeIcon}
-                alt="homeImage"
-                className={styles["homeIcon"]}
-              />
-              <span className={styles["homeText"]}>Home</span>
-            </div>
-            <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
-              <img
-                src={globeIcon}
-                alt="discoverImage"
-                className={styles["globeIcon"]}
-              />
+        <div className={styles["leftColumn"]}>
+          <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>
+            <img
+              src={currentUserFull.propic}
+              alt="avatar"
+              className={styles["prekshaIcon"]}
+            />
+            <span className={styles["avatarName"]} >{currentUser.name}</span>
+          </div>
+          <div className={styles["homeBox"]} onClick={goToHomePage}>
+            <img
+              src={homeIcon}
+              alt="homeImage"
+              className={styles["homeIcon"]}
+            />
+            <span className={styles["homeText"]}>Home</span>
+          </div>
+          {/* <div className={styles["discoverBox"]} onClick={() => history.push('/discover')} >
+            <img
+              src={globeIcon}
+              alt="discoverImage"
+              className={styles["globeIcon"]}
+            />
 
-              <span className={styles["globeText"]}>Discover</span>
-            </div>
-            <h1 className={styles["upcommingHeading"]}>Your Upcoming Convos</h1>
-            <div className={styles["upcomingChats"]}>
-              {currentUserFull.upcomingChats ? (
-                currentUserFull.upcomingChats.map((prop) => {
-                  return (
-                    <UpcomingChatsCard
-                      articleURL={prop.articleURL}
-                      articleImg={prop.articleImg}
-                      time={prop.time}
-                      convTitle={prop.convTitle}
-                      hostName={prop.hostname}
-                      roomId={prop.roomId}
-                    />
-                  );
-                })
-              ) : (
-                <UpcomingChatsCard />
-              )}
-              {/* <ChatCard
+            <span className={styles["globeText"]}>Discover</span>
+          </div> */}
+          <h1 className={styles["upcommingHeading"]}>Your Upcoming Convos</h1>
+          <div className={styles["upcomingChats"]}>
+            {currentUserFull.upcomingChats ? (
+              currentUserFull.upcomingChats.map((prop) => {
+                return (
+                  <UpcomingChatsCard
+                    articleURL={prop.articleURL}
+                    articleImg={prop.articleImg}
+                    time={prop.time}
+                    convTitle={prop.convTitle}
+                    hostName={prop.hostname}
+                    roomId={prop.roomId}
+                  />
+                );
+              })
+            ) : (
+              <UpcomingChatsCard />
+            )}
+            {/* <ChatCard
               title="Zero Waste Toothbrush: How does it really make a difference?"
               timeStart="HAPPENING NOW"
               chatImage={article1}
