@@ -21,6 +21,7 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+
 .goOffLogo {
   margin-right: 0.8%;
   max-width: 70px;
@@ -420,6 +421,13 @@
   height: 2.5rem;
   border-radius: 100%;
 }
+.hovericon {
+  object-fit: contain;
+  margin-right: 9px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+}
 
 .chatMessageBox {
   background: rgba(58, 134, 255, 0.25);
@@ -430,6 +438,26 @@
   margin-bottom: 11px;
   margin-top: 2px;
   color: #3A86FF;
+}
+.replyMessageBox {
+  background: rgba(58, 134, 255, 0.25);
+  border-radius: 10px;
+  padding: 4px 12px;
+  margin-top: 2px;
+  display: flex;
+  flex-direction: row;
+  color: #3A86FF;
+}
+.replyMessage {
+  background: rgba(58, 134, 255, 0.25);
+  border-radius: 20px;
+  max-width: 500px;
+  padding: 7px 16px;
+  margin-bottom: -7px;
+  margin-top: 2px;
+  color: #3A86FF;
+  display: flex;
+  flex-direction: row;
 }
 
 .messageUserName {
@@ -443,6 +471,7 @@
   display: flex;
   justify-content: flex-end;
 }
+
 
 .otherMessageBox .messageAvatar {
   margin-right: 0px;
@@ -464,6 +493,25 @@
   max-height: 45px;
   width: 100%;
   border-radius: 12px;
+}
+.replyBox {
+  background: linear-gradient(180deg, rgba(58, 134, 255, 0.075) 0%, rgba(86, 103, 255, 0.075) 100%);
+  display: flex;
+  padding: 8px 12px;
+  -ms-flex-align: top;
+  width: 100%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.replyInputBox{
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background: linear-gradient(180deg, rgba(58, 134, 255, 0.075) 0%, rgba(86, 103, 255, 0.075) 100%);
+  display: flex;
+  padding: 8px 12px;
+  -ms-flex-align: top;
+  max-height: 45px;
+  width: 100%;
 }
 
 .formbox {
@@ -495,6 +543,19 @@ button{
   display: inline-block;
   font-size: 16px;
 }
+.otherMessageBox:hover .msghovercontent {
+  display: block;
+}
+.meMessageBox:hover .msghovercontent{
+  display: block;
+}
+.msghovercontent {
+  display: none;
+  min-width: 60px;
+  padding-top: 25px;
+  padding-left: 10px;
+  z-index: 1;
+}
 
 button:hover{
   color:  grey;
@@ -522,6 +583,14 @@ button:hover{
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 12px 16px;
   z-index: 1;
+}
+.msgiconselected {
+  width: 26px;
+  height: 26px;
+  padding: 3px;
+  background-color: transparent;
+  border-radius: 100%;
+  box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.2);
 }
 .dropDownRow:hover .dropdown-content {
   display: block;

@@ -20,7 +20,10 @@ import sendIcon from "../images/liveChatImages/send.png";
 import dots3Icon from "../images/liveChatImages/dots3.png";
 import inputAddIcon from "../images/liveChatImages/addIcon.png";
 import inputSendIcon from "../images/liveChatImages/chatSend.png";
-import emojiIcon from "../images/liveChatImages/emoji.png";
+import emojiIcon from "../images/liveChatImages/chatemoji.png";
+import replyIcon from "../images/liveChatImages/reply.png";
+import cancelIcon from "../images/liveChatImages/cancel.png";
+import fileIcon from "../images/liveChatImages/fileicon.png";
 import styles from "../styles/LiveChatPage/livechat.module.css";
 import { usePubNub } from "pubnub-react";
 import { useForm } from "react-hook-form";
@@ -72,6 +75,8 @@ const LiveChat = () => {
 
   const target = useRef(null);
 
+ 
+
   const inpuref = createRef()
 
   const [canType, setCanType] = useState(true);
@@ -105,15 +110,26 @@ const LiveChat = () => {
   const [channels, setChannels] = useState([code]);
 
   //this state will hold all messages; Note every message will be structured as such {text:'string', user:'string', isHost:'boolean'}
-  const [messages, addMessages] = useState([]);
+  const [messages, _addMessages] = useState([]);
+
+  const messagesRef = useRef(messages);
+
+  const addMessages = (msg) => {
+    messagesRef.current = msg
+    _addMessages(msg)
+  }
 
   //sets current user with dummy info
-  const {currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming} = useContext(UserContext)
-  const [currentUserFull, setCurrentUserFull] = useState({...currentUser,upcomingChats:upcoming});
+  const { currentUser, setCurrentUser, upcoming, setUpcoming, refetchUser, refetchUpcoming } = useContext(UserContext)
+  const [currentUserFull, setCurrentUserFull] = useState({ ...currentUser, upcomingChats: upcoming });
 
   const [loading, setLoading] = useState(true);
 
   const [isHost, setIsHost] = useState(false);
+
+  const [replyonmsg,setreplyonmsg] = useState("");
+
+  const [replyimage, setreplyimage] = useState(false)
 
   const [content, setContent] = useState();
 
@@ -133,9 +149,9 @@ const LiveChat = () => {
 
   const currentHost = (id) => {
     axios
-      .get(`${process.env.REACT_APP_FLASK_API}/getHost/${id}`, {withCredentials:true}).then(res =>{
-        const host= res.data
-        setHost({name:host.user.name,ppic:host.user.ppic})
+      .get(`${process.env.REACT_APP_FLASK_API}/getHost/${id}`, { withCredentials: true }).then(res => {
+        const host = res.data
+        setHost({ name: host.user.name, ppic: host.user.ppic })
       }).catch(err => console.log(err))
   }
 
@@ -149,17 +165,102 @@ const LiveChat = () => {
     const second = today.getSeconds();
     return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day} ${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}:${second < 10 ? '0' + second : second}`
   }
+ // handle incoming actions
+  const handleAction = async (object) => {
+    if(messagesRef.current.length > 0){
+      if(object.data.type == 'reaction')
+      {
+        var msgdata = messagesRef.current
+        for(var i = 0 ; i < msgdata.length ; i++){
+          if(msgdata[i] && msgdata[i].timetoken == object.data.messageTimetoken)
+          {
+            console.log(i)
+            var key = i
+            var reactions = msgdata[i].userreaction
+            console.log("reaction befor >> ",reactions)
+            let data = object.data.value
+            let user = object.data.uuid
+            if(data == 'ha'){
+              reactions.push({label: "ha", node: <div>😀</div>,by : user})
+            }else if(data == 'haha'){
+              reactions.push({label: "haha", node: <div>🤣</div>,by : user})
+            }else if(data == 'heart'){
+              reactions.push({label: "heart", node: <div>❤️</div>,by : user})
+            }else if(data == 'like'){
+              reactions.push({label: "like", node: <div>👍</div>,by : user})
+            }else if(data == 'dislike'){
+              reactions.push({label: "dislike", node: <div>👎</div>,by : user})
+            }
+            console.log("reaction >> ",reactions)
+            msgdata[key].userreaction = reactions 
+            console.log(msgdata)
+            addMessages(msgdata)
+            setHostData([]) // for refresh only
+          }
+        }
+      }
+    }
+  }
+
 
   //this will handle incoming messages
   const handleMessage = (object) => {
-    console.log(object,'handle message');
+    console.log(object, 'handle message');
     const message = object.message;
     if (!message.user) {
       return;
     }
     const text = message.text;
     if (typeof text === "string") {
-      addMessages((messages) => [...messages, message]);
+        let e = object
+        let reactions = []
+        let data = e.actions ? e.actions.reaction : []
+        let ha = data.ha ? data.ha : []
+        for(let i = 0 ; i < ha.length ; i++){
+          reactions.push({label: "ha", node: <div>😀</div>,by : ha[i].uuid})
+        }
+        let haha = data.haha ? data.haha : []
+        for(let i = 0 ; i < haha.length ; i++){
+          reactions.push({label: "haha", node: <div>🤣</div>,by : haha[i].uuid})
+        }
+        let heart = data.heart ? data.heart : []
+        for(let i = 0 ; i < heart.length ; i++){
+          reactions.push({label: "heart", node: <div>❤️</div>,by : heart[i].uuid})
+        }
+        let like = data.like ? data.like : []
+        for(let i = 0 ; i < like.length ; i++){
+          reactions.push({label: "like", node: <div>👍</div>,by : like[i].uuid})
+        }
+        let dislike = data.dislike ? data.dislike : []
+        for(let i = 0 ; i < dislike.length ; i++){
+          reactions.push({label: "dislike", node: <div>👎</div>,by : dislike[i].uuid})
+        }
+        
+        console.log("reaction >> ",reactions)
+        if (e.message.text || e.message.attachment) {
+          addMessages((messages) => [
+            ...messages,
+            {
+              user: e.message.user,
+              isHost: e.message.isHost,
+              text: e.message.text ? e.message.text : '',
+              uuid: e.message.uuid,
+              url: e.message.url,
+              replyedmsg : e.message.replyedmsg,
+              timetoken:e.timetoken,
+              userreaction:reactions,
+              urlimg: e.message.urlimg,
+              urltitle: e.message.urltitle,
+              filename: e.message.filename,
+              filesize: e.message.filesize,
+              propic:e.message.propic,
+              attachment: e.message.attachment,
+              id: e.message.id
+            },
+          ]);
+        }
+
+      // addMessages((messages) => [...messages, message]);
     }
     scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is recieved
   };
@@ -188,11 +289,11 @@ const LiveChat = () => {
     //console.log(file)
     setFile(file)
   }
-  const pickemoji = (e , {emoji}) => {
-    console.log("emoji >> ",emoji)
+  const pickemoji = (e, { emoji }) => {
+    console.log("emoji >> ", emoji)
     const ref = inpuref.current;
     ref.focus();
-    const start = message.substring(0,ref.selectionStart);
+    const start = message.substring(0, ref.selectionStart);
     const end = message.substring(ref.selectionStart);
     const msg = start + emoji + " " + end
     setmessage(msg)
@@ -200,11 +301,28 @@ const LiveChat = () => {
   const virtualClick = event => {
     hiddenFileInput.current.click();
   };
-  const handletextchange = e =>{
+  const handletextchange = e => {
     setmessage(e.target.value)
+  }
+  const detectUrls = (message) => {
+    var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+    return message.match(urlRegex)
   }
   //this on submit function is publishing the message to the channel
   const onSubmit = async () => {
+    var url = await detectUrls(message)
+    var urlimg = null;
+    var urltitle = null;
+    if (url !== null) {
+      console.log("url data")
+      await axios.post(`${process.env.REACT_APP_NODE_API}/api/chat/geturldata`, { url: url[0] }, { withCredentials: true })
+        .then(res => {
+          console.log(res.data)
+          urlimg = res.data.og.image
+          urltitle = res.data.og.title
+        })
+        .catch(err => console.log(err))
+    }
     console.log(message, currentUser, pubnub.getUUID())
     if (message == '' && !file) {
       return
@@ -218,11 +336,17 @@ const LiveChat = () => {
             {
               channel: channels[0],
               message: {
-                user: currentUser.name,
+                user: currentUser.username,
                 isHost: isHost,
                 text: message,
                 uuid: currentUser.id,
+                url: url,
+                urlimg: urlimg,
+                urltitle: urltitle,
+                replyedmsg : replyonmsg,
                 attachment: fileURL,
+                filename: file.name,
+                filesize: file.size,
                 propic: currentUser.propic,
                 id: uuid_v4()
               },
@@ -235,12 +359,14 @@ const LiveChat = () => {
             }
           );
           setmessage("") // resets the input fields
+          setreplyonmsg('')
+          setreplyimage(false)
           scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
         }
         ).catch()
       }).catch(error => console.log(error))
     } else {
-      console.log('sending',channels)
+      console.log('sending', channels)
       pubnub.publish(
         {
           channel: channels[0],
@@ -248,6 +374,10 @@ const LiveChat = () => {
             user: currentUser.username,
             isHost: isHost,
             text: message,
+            url: url,
+            urlimg: urlimg,
+            urltitle: urltitle,
+            replyedmsg : replyonmsg,
             uuid: currentUser.id,
             propic: currentUser.propic,
             id: uuid_v4()
@@ -256,10 +386,12 @@ const LiveChat = () => {
         function (status) {
           //this will print a status error in console
           if (status.error) {
-            console.log(status,'something went wrong');
+            console.log(status, 'something went wrong');
           }
         }
       );
+      setreplyonmsg('')
+      setreplyimage(false)
       setmessage("") // resets the input fields
       scrollhook.current.scrollIntoView({ behavior: "smooth" }); // scrolls to bottom when message is sent
     }
@@ -287,16 +419,20 @@ const LiveChat = () => {
     return newList
   }
 
-  const endConversation = async(ID) => { //*
-    
-    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`,{"ended":true},{withCredentials:true})
-    if(result.status==200){
+  const endConversation = async (ID) => { //*
+
+    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`, { "ended": true }, { withCredentials: true })
+    if (result.status == 200) {
       pubnub.signal({ channel: code, message: { action: 'END' } })
       const messageList = messages ? processMessages(messages) : ''
-      axios.post(`${process.env.REACT_APP_FLASK_API}/commitmessages`, { messages: messageList },{withCredentials:true} ).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      axios.post(`${process.env.REACT_APP_FLASK_API}/commitconvo`, { convo: {article:metaData.articleURL, time:metaData.time,host:metaData.hostId,roomid:metaData.convoId, title:metaData.title,description:metaData.description,
-        createdAt:metaData.createdAt,updatedAt:metaData.updatedAt, tz:metaData.tz}},{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
-      axios.get(`${process.env.REACT_APP_FLASK_API}/execanalytics/${code}`,{withCredentials:true}).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.post(`${process.env.REACT_APP_FLASK_API}/commitmessages`, { messages: messageList }, { withCredentials: true }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.post(`${process.env.REACT_APP_FLASK_API}/commitconvo`, {
+        convo: {
+          article: metaData.articleURL, time: metaData.time, host: metaData.hostId, roomid: metaData.convoId, title: metaData.title, description: metaData.description,
+          createdAt: metaData.createdAt, updatedAt: metaData.updatedAt, tz: metaData.tz
+        }
+      }, { withCredentials: true }).then(res => console.log(res.data.message)).catch(err => console.log(err))
+      axios.get(`${process.env.REACT_APP_FLASK_API}/execanalytics/${code}`, { withCredentials: true }).then(res => console.log(res.data.message)).catch(err => console.log(err))
       console.log("ended Conversation")
     }
 
@@ -316,11 +452,11 @@ const LiveChat = () => {
   }
 
   //use this to look at the metadata
-  const fetchMetaData = async() => {
-    let result = await axios.get(`${process.env.REACT_APP_FLASK_API}/getConvo/${code}`,{withCredentials:true}).catch(err=>setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>))
-    console.log('---metadata---',result)
+  const fetchMetaData = async () => {
+    let result = await axios.get(`${process.env.REACT_APP_FLASK_API}/getConvo/${code}`, { withCredentials: true }).catch(err => setContent(<div style={{ textAlign: 'center' }}>Chat does not exist</div>))
+    console.log('---metadata---', result)
 
-    if(result){
+    if (result) {
       currentHost(result.data.convo.hostId);
       setMetaData(result.data.convo);
       fetchAllMessages();
@@ -328,11 +464,11 @@ const LiveChat = () => {
     }
   }
 
-  const openConversation = async(ID) => {
-    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`,{"isOpen":true},{withCredentials:true})
-    if(result.status!=200){
+  const openConversation = async (ID) => {
+    let result = await axios.put(`${process.env.REACT_APP_FLASK_API}/Convo/${ID}`, { "isOpen": true }, { withCredentials: true })
+    if (result.status != 200) {
       console.log('error opening conversation')
-    }else{
+    } else {
       console.log('success opening')
     }
   }
@@ -341,6 +477,7 @@ const LiveChat = () => {
     //this listener sets up how to handle messages and gives status
     pubnub.addListener({
       message: handleMessage,
+      messageAction:handleAction,
       presence: function (p) {
         const action = p.action; // Can be join, leave, state-change, or timeout
         const channelName = p.channel; // Channel to which the message belongs
@@ -367,15 +504,15 @@ const LiveChat = () => {
           setIsTyping(true)
           setUserTyping(`${msg.name} is typing`);
 
-          if(!busy){
+          if (!busy) {
             setBusy(true);
-            setTimeout(()=>{
-              if(canRequest){
+            setTimeout(() => {
+              if (canRequest) {
                 setUserTyping('')
               }
               setIsTyping(false)
               setBusy(false);
-            },THROTTLE)
+            }, THROTTLE)
           }
 
         }
@@ -396,16 +533,16 @@ const LiveChat = () => {
       (status, response) => {
         const occupancy = response ? response.totalOccupancy : null;
         const occupants = response ? response.occupants : null;
-        if (metadata.ended==1) {
+        if (metadata.ended == 1) {
           return setContent(<div style={{ textAlign: 'center' }}>This chat has already ended.</div>)
         }
         if (occupancy < 10) {
           //room not full now check for rsvp
           if (metadata.isOpen == 0) {
             setContent(<div className={styles['setContent']}>
-            <div className="lock"></div><h1>
-            <i class="bi bi-lock lock"/></h1>
-            <div>Currently closed! Waiting for host to open chat.</div>
+              <div className="lock"></div><h1>
+                <i class="bi bi-lock lock" /></h1>
+              <div>Currently closed! Waiting for host to open chat.</div>
             </div>)
           } else if (user.id == metadata.hostId && metadata.isOpen == 1) {
             addListener(user);
@@ -434,72 +571,125 @@ const LiveChat = () => {
   //checks for and sets User
   const checkUser = async (data) => {
     let res;
-    if(!currentUser.signedIn){
-    res = await axios
-      .get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
-        withCredentials: true,
-      })
-      if(res.data.user){
+    if (!currentUser.signedIn) {
+      res = await axios
+        .get(`${process.env.REACT_APP_NODE_API}/api/users/current`, {
+          withCredentials: true,
+        })
+      if (res.data.user) {
         setCurrentUser(res.data.user);
-      }else{
+      } else {
         setContent(<div style={{ textAlign: 'center' }}>Please sign in</div>)
         console.log(`could not make request:`
         )
       }
-      pubnub.setUUID( res.data.user.id);
-        let metadata = { ...data }
-        if ( data.hostId == res.data.user.id) {
-          setIsHost(true);
-          if (data.isOpen == 0) {
-            metadata.isOpen = 1;
-            openConversation(metadata.ID);
-          }
+      pubnub.setUUID(res.data.user.id);
+      let metadata = { ...data }
+      if (data.hostId == res.data.user.id) {
+        setIsHost(true);
+        if (data.isOpen == 0) {
+          metadata.isOpen = 1;
+          openConversation(metadata.ID);
         }
-        checkRoom(res.data.user, metadata)
-    }else{
+      }
+      checkRoom(res.data.user, metadata)
+    } else {
       pubnub.setUUID(currentUser.id);
-        let metadata = { ...data }
-        if (data.hostId == currentUser.id) {
-          setIsHost(true);
-          if (data.isOpen == 0) {
-            metadata.isOpen = 1;
-            openConversation(metadata.ID);
-          }
+      let metadata = { ...data }
+      if (data.hostId == currentUser.id) {
+        setIsHost(true);
+        if (data.isOpen == 0) {
+          metadata.isOpen = 1;
+          openConversation(metadata.ID);
         }
-        checkRoom(currentUser, metadata)
+      }
+      checkRoom(currentUser, metadata)
     }
-      
+
+  }
+  const setreaction = (emoji,msg) => {
+    console.log(emoji,msg)
+    pubnub.addMessageAction(
+      {
+          channel: code,
+          messageTimetoken: msg,
+          action: {
+              type: 'reaction',
+              value: emoji,
+          },
+      },
+      function(status, response) {
+         console.log(response)
+         console.log(status)
+      }
+  );
   }
   //fetches all channel messages
   const fetchAllMessages = async () => {
 
-    pubnub.fetchMessages({ channels: [code], count: 100 })
+    pubnub.fetchMessages({ channels: [code], count: 100 ,includeMessageActions:true})
       .then((e) => {
-        console.log(e.channels[code])
+        // console.log(e.channels[code])
         //this will fetch all messages in Test chat then add them to the messages state.
+       let localmessages = []
         e.channels[code].forEach((e) => {
           console.log(e)
+          let reactions = []
+          let data = e.actions ? e.actions.reaction : []
+       
+          let ha = data.ha ? data.ha : []
+          for(let i = 0 ; i < ha.length ; i++){
+            reactions.push({label: "ha", node: <div>😀</div>,by : ha[i].uuid})
+          }
+          let haha = data.haha ? data.haha : []
+          for(let i = 0 ; i < haha.length ; i++){
+            reactions.push({label: "haha", node: <div>🤣</div>,by : haha[i].uuid})
+          }
+          let heart = data.heart ? data.heart : []
+          for(let i = 0 ; i < heart.length ; i++){
+            reactions.push({label: "heart", node: <div>❤️</div>,by : heart[i].uuid})
+          }
+          let like = data.like ? data.like : []
+          for(let i = 0 ; i < like.length ; i++){
+            reactions.push({label: "like", node: <div>👍</div>,by : like[i].uuid})
+          }
+          let dislike = data.dislike ? data.dislike : []
+          for(let i = 0 ; i < dislike.length ; i++){
+            reactions.push({label: "dislike", node: <div>👎</div>,by : dislike[i].uuid})
+          }
+          
+          console.log("reaction >> ",reactions)
+
           if (e.message.text || e.message.attachment) {
-            addMessages((messages) => [
-              ...messages,
+            localmessages =  [
+              ...localmessages,
               {
                 user: e.message.user,
                 isHost: e.message.isHost,
-                text: e.message.text?e.message.text:'',
+                text: e.message.text ? e.message.text : '',
                 uuid: e.message.uuid,
-                attachment: e.message.attachment?e.message.attachment:'',
-                propic:e.message.propic?e.message.propic:'https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg',
+                url: e.message.url,
+                replyedmsg : e.message.replyedmsg,
+                timetoken:e.timetoken,
+                userreaction:reactions,
+                urlimg: e.message.urlimg,
+                urltitle: e.message.urltitle,
+                filename: e.message.filename,
+                filesize: e.message.filesize,
+                propic:e.message.propic,
+                attachment: e.message.attachment,
                 id: e.message.id
               },
-            ]);
+            ]
           }
         });
+        addMessages(localmessages)
       })
       .catch((error) => console.log(error));
   }
 
   useEffect(() => {
-    if(window.innerWidth<=800){
+    if (window.innerWidth <= 800) {
       return
     }
     if (!code) {
@@ -507,7 +697,7 @@ const LiveChat = () => {
       setLoading(false);
     }
     fetchMetaData();
-    
+
     //this subscribes to a list of channels
     pubnub.subscribe({
       channels: channels,
@@ -517,14 +707,14 @@ const LiveChat = () => {
     return pubnub.removeListener()
   }, []);
 
-  if(window.innerWidth<=800){
-    return <MobileChat/>
+  if (window.innerWidth <= 800) {
+    return <MobileChat />
   }
   //useEffect will add listeners and will subscribe to channel. will refresh if currentUser changes
   return (
     <div className={styles["liveChat"]}>
       <NavBar name={currentUser.name} avatarSource={currentUserFull.propic} host={currentUserFull.host} />
-        <>
+      <>
         <div className={styles["mainContent"]}>
         <div className={styles["leftColumn"]}>
           <div className={styles["avatarBox"]} onClick={() => history.push('/profile')}>
@@ -580,14 +770,14 @@ const LiveChat = () => {
               timeStart="HAPPENING NOW"
               chatImage={article1}
             /> */}
+            </div>
+            <button onClick={handleButton}>{isHost ? 'End Conversation' : 'Leave Conversation'}</button>
           </div>
-          <button onClick={handleButton}>{isHost ? 'End Conversation' : 'Leave Conversation'}</button>
-        </div>
-        <div className={styles["middleColumn"]}>
-          <div className={styles["innerMiddleBox"]}>
-            <div className={styles["articleHeading"]}>
-              <div className={styles["firstRowHeading"]}>
-                {/* <img
+          <div className={styles["middleColumn"]}>
+            <div className={styles["innerMiddleBox"]}>
+              <div className={styles["articleHeading"]}>
+                <div className={styles["firstRowHeading"]}>
+                  {/* <img
                   src={NYTLogo}
                   alt="NYT Logo"
                   className={styles["NYTLogo"]}
@@ -597,130 +787,175 @@ const LiveChat = () => {
                   alt="Search Icon"
                   className={styles["searchForIcon"]}
                 /> */}
-              </div>
-              <div className={styles["secondRowHeading"]}>
-                <span className={styles["mid-col-articleTitle"]}>
-                  {metaData.title}
-                </span>
-                <span className={styles["liveBox"]}>LIVE</span>
-              </div>
-            </div>
-            <div className={styles["liveChatBox"]}>
-              <span className={styles["chatTime"]}></span>
-              {loading ? (
-
-                <div style={{ textAlign: "center" }}>Loading...</div>
-              ) : (
-                content
-              )}
-              {reload ? <Chat
-                scrollhook={scrollhook}
-                messages={messages}
-                user={currentUser}
-              /> : ''}
-            </div>
-           
-            {<div >{userTyping}</div>}
-            <div className={canType ? styles["chatInputBox"] : styles['d-none']}>
-              <form className={styles["formbox"]} onSubmit={handleSubmit(onSubmit)}>
-                {/* <img
-                  src={inputAddIcon}
-                  alt="Add Icon"
-                  className={styles["inputAddIcon"]}
-                  onClick={virtualClick}
-                /> */}
-                <input type='file' style={{"display":"none"}} ref={hiddenFileInput} onChange={onChangeFile} />
-                <input
-                  type="text"
-                  className={styles["inputText"]}
-                  onKeyPress={handlePress}
-                  ref={inpuref}
-                  value={message}
-                  onChange={handletextchange}
-                  placeholder="Type your message"
-                  // {...register("message")}
-                />{" "}
-                {/*this is for sending message, onSubmit here*/}
-                {errors.message && (
-                  <p className="error">{errors.message.message}</p>
-                )}
-              </form>
-              <Popover
-                isOpen={emojibox}
-                positions={['top']} // preferred positions by priority     
-                content={
-                <div style={{marginBottom:20}}>
-                <Picker  onEmojiClick={pickemoji} />
                 </div>
-              }
-              >
-              <div style={{width:60,textAlign:"right"}}>
-              <img
-                ref={target}
-                src={emojiIcon}
-                alt="emoji icon"
-                style={{width:30,height:30}}
-                onClick={() => setemojibox(!emojibox)}
-              />
+                <div className={styles["secondRowHeading"]}>
+                  <span className={styles["mid-col-articleTitle"]}>
+                    {metaData.title}
+                  </span>
+                  <span className={styles["liveBox"]}>LIVE</span>
+                </div>
               </div>
-              </Popover>
-              <div style={{width:40,textAlign:"right"}}>
+              <div className={styles["liveChatBox"]}>
+                <span className={styles["chatTime"]}></span>
+                {loading ? (
+
+                  <div style={{ textAlign: "center" }}>Loading...</div>
+                ) : (
+                  content
+                )}
+                {reload ? <Chat
+                  scrollhook={scrollhook}
+                  messages={messages}
+                  setmsg={(msg)=>setreplyonmsg(msg)}
+                  setreaction={(emoji,msg)=>setreaction(emoji,msg)}
+                  user={currentUser}
+                /> : ''}
+              </div>
+
+              {<div >{userTyping}</div>}
+              {replyonmsg == '' ? 
+  
+              null :
+              <div className={styles["replyBox"]} >
+              <div style={{width:"100%"}} className={styles['replyMessageBox']}>
+                <div style={{flexGrow:1}}>
               <img
-                src={inputSendIcon}
-                alt="send icon"
-                style={{width:30,height:30}}
-                onClick={onSubmit}
-              />
+                      ref={target}
+                      src={replyIcon}
+                      alt="reply icon"
+                      style={{ width: 15, height: 15 }}
+                    />
+                <span style={{color:"black",fontSize:12}}>{"  Replying to "+replyonmsg.user}</span>
+              
+                <div>
+                <span className={styles['messageText']}>{replyonmsg.attachment ? replyonmsg.filename : replyonmsg.text}</span>
+                </div>
+                </div>
+                {replyonmsg.attachment &&
+                <div>
+                <img
+                      ref={target}
+                      src={replyimage ? fileIcon : replyonmsg.attachment}
+                      alt="cancle icon"
+                      style={{ height:40,borderRadius:5 ,marginRight:5}}
+          
+                      onError={()=>setreplyimage(true)}
+                    />
+                    </div>
+                }
+                <div style={{backgroundColor:"#3A86FF4D",height:20,width:20,borderRadius:100}}>
+                <img
+                      ref={target}
+                      src={cancelIcon}
+                      alt="cancle icon"
+                      style={{width: 20, height: 20,marginBottom:5 }}
+                      onClick={() => { setreplyonmsg('') 
+                                   setreplyimage(false) } }
+                    />
+                    </div>
+              </div>
+              </div>
+              }
+              <div className={canType ? replyonmsg == '' ? styles["chatInputBox"] : styles["replyInputBox"] : styles['d-none']}>
+                <form className="form-demo" style={{ display: "flex", flexGrow: 10 }} onSubmit={handleSubmit(onSubmit)}>
+                  <img
+                    src={inputAddIcon}
+                    alt="Add Icon"
+                    className={styles["inputAddIcon"]}
+                    onClick={virtualClick}
+                  />
+                  <input type='file' style={{ "display": "none" }} ref={hiddenFileInput} onChange={onChangeFile} />
+                  <input
+                    type="text"
+                    className={styles["inputText"]}
+                    onKeyPress={handlePress}
+                    ref={inpuref}
+                    value={message}
+                    onChange={handletextchange}
+                    placeholder="Type your message"
+                  // {...register("message")}
+                  />{" "}
+                  {/*this is for sending message, onSubmit here*/}
+                  {errors.message && (
+                    <p className="error">{errors.message.message}</p>
+                  )}
+                </form>
+                <Popover
+                  isOpen={emojibox}
+                  positions={['top']} // preferred positions by priority     
+                  content={
+                    <div style={{ marginBottom: 20 }}>
+                      <Picker onEmojiClick={pickemoji} />
+                    </div>
+                  }
+                >
+                  <div style={{ width: 60, textAlign: "right" }}>
+                    <img
+                      ref={target}
+                      src={emojiIcon}
+                      alt="emoji icon"
+                      style={{ width: 30, height: 30 }}
+                      onClick={() => setemojibox(!emojibox)}
+                    />
+                  </div>
+                </Popover>
+                <div style={{ width: 40, textAlign: "right" }}>
+                  <img
+                    src={inputSendIcon}
+                    alt="send icon"
+                    style={{ width: 30, height: 30 }}
+                    onClick={onSubmit}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={styles["rightColumn"]}>
-          <div className={styles["everythingButProfile"]}>
-            <img
-              src={article2}
-              alt="articleImage"
-              className={styles["article2"]}
-            />
-            <div className={styles["chatHeading"]}>
-              <div className={styles["leftHeading"]}>
-                <span className={styles["monthText"]}>{Date(metaData.time).toLocaleString()
-                  .split(' ')
-                  .splice(1, 1)
-                  .join(' ')
-                  .toUpperCase()}</span>
-                <div className={styles["dayText"]}>{Date(metaData.time).toLocaleString()
-                  .split(' ')
-                  .splice(2, 1)
-                  .join(' ')
-                  .toUpperCase()}</div>
-              </div>
-              <div className={styles["rightHeading"]}>
-                {/* <img
+          <div className={styles["rightColumn"]}>
+            <div className={styles["everythingButProfile"]}>
+              <img
+                src={article2}
+                alt="articleImage"
+                className={styles["article2"]}
+              />
+              <div className={styles["chatHeading"]}>
+                <div className={styles["leftHeading"]}>
+                  <span className={styles["monthText"]}>{Date(metaData.time).toLocaleString()
+                    .split(' ')
+                    .splice(1, 1)
+                    .join(' ')
+                    .toUpperCase()}</span>
+                  <div className={styles["dayText"]}>{Date(metaData.time).toLocaleString()
+                    .split(' ')
+                    .splice(2, 1)
+                    .join(' ')
+                    .toUpperCase()}</div>
+                </div>
+                <div className={styles["rightHeading"]}>
+                  {/* <img
                   src={NYTLogo}
                   alt="NYT Logo"
                   className={styles["NYTLogo"]}
                 /> */}
-                <span className={styles["articleTitle"]}>
-                  {metaData.title}
-                </span>
+                  <span className={styles["articleTitle"]}>
+                    {metaData.title}
+                  </span>
+                </div>
               </div>
-            </div>
-            <span className={styles["startTime"]}>{Date(metaData.time).toLocaleString()
-              .split(' ')
-              .splice(0, 5)
-              .join(' ')
-              .toUpperCase()} (EST)</span>
-            {/* <div className={styles["chatTags"]}>
+              <span className={styles["startTime"]}>{Date(metaData.time).toLocaleString()
+                .split(' ')
+                .splice(0, 5)
+                .join(' ')
+                .toUpperCase()} (EST)</span>
+              {/* <div className={styles["chatTags"]}>
               <div className={styles["chatTag"]}>Eco-Friendly</div>
               <div className={styles["chatTag"]}>Sustainability</div>
               <div className={styles["chatTag"]}>Zero Waste</div>
             </div> */}
-            <p className={styles["chatDescription"]}>
-              {metaData.description}
-            </p>
-            <Participants channel={channels[0]} />
-            {/* <div className={styles["dropDownRow"]}>
+              <p className={styles["chatDescription"]}>
+                {metaData.description}
+              </p>
+              <Participants channel={channels[0]} />
+              {/* <div className={styles["dropDownRow"]}>
               <span className={styles["chatDropDownName"]}>Shared Media</span>
               <img
                 src={arrowDownIcon}
@@ -728,24 +963,24 @@ const LiveChat = () => {
                 className={styles["dropDownImg"]}
               />
             </div> */}
-            <div className={styles["dropDownRow"]}>
-              <span className={styles["chatDropDownName"]}>
-                Privacy & Support
-              </span>
-              <img
-                src={arrowDownIcon}
-                alt="dropDownImg"
-                className={styles["dropDownImg"]}
-              />
-              <div className={styles["dropdown-content"]}>
-                <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897, 
-                  or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about 
-                  our data collecting practices, please read our <a target="_blank" href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy.</a></span>
+              <div className={styles["dropDownRow"]}>
+                <span className={styles["chatDropDownName"]}>
+                  Privacy & Support
+                </span>
+                <img
+                  src={arrowDownIcon}
+                  alt="dropDownImg"
+                  className={styles["dropDownImg"]}
+                />
+                <div className={styles["dropdown-content"]}>
+                  <span>Have a question or facing a tech problem? Shoot us an email or text at go.offmedia@gmail.com or 415-747-1897,
+                    or fill out our <a href="https://bostonu.qualtrics.com/jfe/form/SV_8AJGnTNbDWeV6ES" target="_blank">Support Survey!</a> For more info about
+                    our data collecting practices, please read our <a target="_blank" href="https://docs.google.com/document/d/1MAgAfsF2ZJ-wRCFWAkA6m4hxll0tCrXb/edit?usp=sharing&ouid=118257569730053365648&rtpof=true&sd=true">Privacy Policy.</a></span>
+                </div>
               </div>
             </div>
-          </div>
-           <div className={styles["profileBox"]}>
-            {/* <div className={styles["profileLeftSide"]}>
+            <div className={styles["profileBox"]}>
+              {/* <div className={styles["profileLeftSide"]}>
               <img
                 src={host.ppic}
                 alt="Profile Icon"
@@ -756,7 +991,7 @@ const LiveChat = () => {
                 <div className={styles["profileName"]}>{host.name}</div>
               </div>
             </div> */}
-            {/* <div className={styles["profileRightSide"]}>
+              {/* <div className={styles["profileRightSide"]}>
               <img src={sendIcon} alt="Share" className={styles["sendIcon"]} />
               <img
                 src={dots3Icon}
@@ -764,9 +999,9 @@ const LiveChat = () => {
                 className={styles["dots3Icon"]}
               />
             </div> */}
-          </div> 
-        </div>
-      </div></>
+            </div>
+          </div>
+        </div></>
     </div>
   );
 };
